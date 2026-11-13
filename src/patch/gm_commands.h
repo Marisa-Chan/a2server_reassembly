@@ -17,6 +17,12 @@ namespace tangar_gm {
 // "{teachSpell=...}", material/shape prefixes, etc.) via GameDataRes::FindItemTemplate.
 Item* ConstructItem(const std::string& definition);
 
+// Put item into player's main unit inventory and update carried weight (zxmgr::GiveItemTo).
+void GiveItemTo(Item* item, Player* player);
+
+// Execute #create <args> (gold or item definition with optional count and {effect=...}).
+void ExecuteCreateCommand(Player* player, const std::string& raw_args);
+
 // Read/replace the unit's learned spell bitmask (bits 1..29).
 uint32_t GetSpells(Unit* unit);
 void SetSpells(Unit* unit, uint32_t spells);

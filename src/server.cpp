@@ -3424,6 +3424,53 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
                 return;
             }
         }
+        if (has_gm(GMF_CMD_SUMMON)) {
+            if (cmd_token == "#summon") {
+                if (player == nullptr) {
+                    Printf("This command may not be used from the console.");
+                    return;
+                }
+                if (player->main_unit != nullptr) {
+                    std::string command = Trim((const char*)cmd_rest);
+                    if (command.empty()) {
+                        return;
+                    }
+                    uint32_t count = 1;
+                    size_t fsp = command.find_first_of(' ');
+                    if (fsp != std::string::npos) {
+                        std::string intstr = command.substr(0, fsp);
+                        if (CheckInt(intstr)) {
+                            command = TrimLeft(command.substr(fsp + 1));
+                            count = StrToUInt(intstr);
+                            if (count == 0) {
+                                count = 1;
+                            }
+                        }
+                    }
+                    if (command.empty()) {
+                        return;
+                    }
+                    CString unit_name(command.c_str());
+                    for (uint32_t i = 0; i < count; i++) {
+                        Unit* unit = this->SummonUnit(&unit_name, player->main_unit, 0);
+                        if (unit != nullptr) {
+                            g_NetStru1_main.SendUnitUpdate(unit, nullptr, 0xFFFFFFFFu, 0xFFB, 0, 0);
+                        }
+                    }
+                }
+                return;
+            }
+        }
+        if (has_gm(GMF_CMD_CREATE)) {
+            if (cmd_token == "#create") {
+                if (player == nullptr) {
+                    Printf("This command may not be used from the console.");
+                    return;
+                }
+                tangar_gm::ExecuteCreateCommand(player, (const char*)cmd_rest);
+                return;
+            }
+        }
         if (has_gm(GMF_CMD_KICK)) {
             if (lowered == "#kickme") {
                 if (player != nullptr) {

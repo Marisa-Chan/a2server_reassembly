@@ -4,6 +4,7 @@
 
 #include "config_new.h"
 #include "flags.h"
+#include "tangar_utils.h"
 
 #include "../game_app.h"
 #include "../inventory.h"
@@ -80,6 +81,85 @@ Item* ConstructItem(const std::string& definition) {
     }
     CString cdef(definition.c_str());
     return g_GameDataRes.FindItemTemplate(&cdef);
+}
+
+void GiveItemTo(Item* item, Player* player) {
+    if (item == nullptr) {
+        return;
+    }
+    if (player == nullptr || player->main_unit == nullptr || player->main_unit->inventory == nullptr) {
+        delete item;
+        return;
+    }
+    player->main_unit->inventory->PutItemIntoBagAtDefault(item);
+    player->main_unit->AddCarriedWeight(0);
+}
+
+void ExecuteCreateCommand(Player* player, const std::string& raw_args) {
+    if (player == nullptr || player->main_unit == nullptr) {
+        return;
+    }
+
+    std::string command = Trim(raw_args);
+    if (command.empty()) {
+        return;
+    }
+
+    uint32_t count = 1;
+    size_t fsp = command.find_first_of(' ');
+    if (fsp != std::string::npos) {
+        std::string intstr = command.substr(0, fsp);
+        if (CheckInt(intstr)) {
+            command = TrimLeft(command.substr(fsp + 1));
+            count = StrToUInt(intstr);
+            if (count == 0) {
+                count = 1;
+            }
+        }
+    }
+
+    if (command.empty()) {
+        return;
+    }
+
+    if (ToLower(command) == "gold") {
+        player->AddMoney(static_cast<int32_t>(count), 1);
+    } else if (command.find('{') != std::string::npos) {
+        for (uint32_t i = 0; i < count; i++) {
+            Item* t_item = ConstructItem(command);
+            if (t_item == nullptr) {
+                return;
+            }
+
+            uint8_t item_slot = 0;
+            if (t_item->IsKindOf(RUNTIME_CLASS(Weapon))) {
+                item_slot = 1;
+            } else if (t_item->IsKindOf(RUNTIME_CLASS(Shield))) {
+                item_slot = 2;
+            } else if (t_item->IsKindOf(RUNTIME_CLASS(Armor))) {
+                item_slot = static_cast<Armor*>(t_item)->slot;
+            }
+
+            // Special case for scrolls/potions (stackable 1-weight slot-0 items).
+            if (item_slot == 0 && t_item->shape_id == 0 && t_item->material_id == 0 && t_item->weight == 1) {
+                t_item->count = static_cast<uint16_t>(count);
+                GiveItemTo(t_item, player);
+                break;
+            }
+
+            t_item->count = 1;
+            GiveItemTo(t_item, player);
+        }
+    } else {
+        Item* t_item = ConstructItem(command);
+        if (t_item == nullptr) {
+            return;
+        }
+        t_item->count = static_cast<uint16_t>(count);
+        GiveItemTo(t_item, player);
+    }
+
+    g_NetStru1_main.SendUnitUpdate(player->main_unit, player, 0xFFFFFFFFu, 0xFFB, 0, 0);
 }
 
 uint32_t GetSpells(Unit* unit) {
