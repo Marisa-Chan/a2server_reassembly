@@ -2263,6 +2263,8 @@ void VisShopDruid::VMethod31() {
     ReloadSfx(&this->snd_inshop, "SFX\\Town_Druid\\Inn\\Dforest2.wav");
     ReloadSfx(&this->snd_out, "SFX\\Out.wav");
     ReloadSfx(&this->snd_undo, "SFX\\Undo.wav");
+#ifndef A2CLIENT_PATCH
+    // dem_shop.xck (4c664a): return before loading bird/tool ambient SFX
     ReloadSfx(&this->snd_bird[0], "SFX\\Town_druid\\Inn\\Dbird4.wav");
     ReloadSfx(&this->snd_bird[1], "SFX\\Town_druid\\Inn\\Dbird41.wav");
     ReloadSfx(&this->snd_bird[2], "SFX\\Town_druid\\Inn\\Dbird42.wav");
@@ -2270,6 +2272,7 @@ void VisShopDruid::VMethod31() {
     ReloadSfx(&this->snd_tool[1], "SFX\\Town_druid\\shop\\Dtools2.wav");
     ReloadSfx(&this->snd_tool[2], "SFX\\Town_druid\\shop\\Dtools3.wav");
     ReloadSfx(&this->snd_tool[3], "SFX\\Town_druid\\shop\\Dtools4.wav");
+#endif
 }
 
 
@@ -2292,6 +2295,8 @@ void VisShopDruid::VMethod30() {
     }
     if (now - this->bird_tick > (uint32_t)this->next_bird) {
         int32_t bird = GetRandS16(3) + 1;
+#ifndef A2CLIENT_PATCH
+        // dem_shop.xck (4c6416..4c6469): skip bird ambient SFX Play() calls
         if (bird == 1) {
             this->snd_bird[0]->Play();
         } else if (bird == 2) {
@@ -2299,11 +2304,16 @@ void VisShopDruid::VMethod30() {
         } else if (bird == 3) {
             this->snd_bird[2]->Play();
         }
+#else
+        (void)bird;
+#endif
         this->next_bird = GetRandS16(2000) + 2000;
         this->bird_tick = timeGetTime();
     }
     if (now - this->tool_tick > (uint32_t)this->next_tool) {
         int32_t tool = GetRandS16(4) + 1;
+#ifndef A2CLIENT_PATCH
+        // dem_shop.xck (4c64a8..4c64fe): skip tool ambient SFX Play() calls
         switch (tool) {
         case 1:
             this->snd_tool[0]->Play();
@@ -2318,6 +2328,9 @@ void VisShopDruid::VMethod30() {
             this->snd_tool[3]->Play();
             break;
         }
+#else
+        (void)tool;
+#endif
         this->next_tool = GetRandS16(2000) + 2000;
         this->tool_tick = timeGetTime();
     }
@@ -2435,6 +2448,8 @@ void VisShopDruid::VMethod32() {
     FreeSfxSample(&this->snd_inshop);
     FreeSfxSample(&this->snd_out);
     FreeSfxSample(&this->snd_undo);
+#ifndef A2CLIENT_PATCH
+    // dem_shop.xck (4c679f..4c6809): skip freeing unloaded bird/tool ambient SFX
     FreeSfxSample(&this->snd_bird[0]);
     FreeSfxSample(&this->snd_bird[1]);
     FreeSfxSample(&this->snd_bird[2]);
@@ -2442,6 +2457,7 @@ void VisShopDruid::VMethod32() {
     FreeSfxSample(&this->snd_tool[1]);
     FreeSfxSample(&this->snd_tool[2]);
     FreeSfxSample(&this->snd_tool[3]);
+#endif
 }
 
 
