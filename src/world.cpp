@@ -239,22 +239,29 @@ void World::SplitTargetLists(Unit* unit, UnitList* pList) {
 
         // If u has has invisibility and is not allied with `unit`, verify that at least one
         // unit in `unit`'s group can see it before including it.
-        if ((u->enchantments & (1 << spell::invisibility)) != 0 && this->diplomacy.diplomacy[unit->pOwner->player_id][u->pOwner->player_id] != DIPLO_ALLIANCE) {
-            bool can_see = false;
-            for (POSITION gn = unit->group->unit_list.GetHeadPosition(); gn != nullptr;) {
-                Unit* gu = unit->group->unit_list.GetNext(gn);
-                int32_t range = this->map_stuff->GetRangeTo(u, gu);
-                if ((range & 0xFF) <= gu->eye2->seeInvisible) {
-                    can_see = true;
-                }
+        if ((u->enchantments & (1 << spell::invisibility)) != 0) {
+#ifdef A2SERVER_PATCH
+            if (u->pOwner == nullptr) {
+                return;
             }
-            if (!can_see) {
-                continue;
+#endif
+            if (this->diplomacy.diplomacy[unit->pOwner->player_id][u->pOwner->player_id] != DIPLO_ALLIANCE) {
+                bool can_see = false;
+                for (POSITION gn = unit->group->unit_list.GetHeadPosition(); gn != nullptr;) {
+                    Unit* gu = unit->group->unit_list.GetNext(gn);
+                    int32_t range = this->map_stuff->GetRangeTo(u, gu);
+                    if ((range & 0xFF) <= gu->eye2->seeInvisible) {
+                        can_see = true;
+                    }
+                }
+                if (!can_see) {
+                    continue;
+                }
             }
         }
 
         // Classify: enemy -> attack list; others -> non-attack list.
-        if ((this->diplomacy.diplomacy[unit->pOwner->player_id][u->pOwner->player_id] & DIPLO_WAR) != 0) {
+        if (this->AreAtWar(unit, u)) {
             this->targets.unit_list.AddTail(u);
         } else {
             this->non_targets.unit_list.AddTail(u);
