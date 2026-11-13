@@ -565,11 +565,21 @@ void Effect::ModifyVision(Unit* unit) {
 // 541c87
 int32_t Effect::CalcScrollPrice() {
     if (this->effect_id == modifier::castspell) {
+#ifdef A2CLIENT_PATCH
+        // p10st2.xck (52916f..529195): reject spell_id == 0 or > 0x1D (spell::max_spell_id)
+        uint8_t spell_id = this->damage_min;
+        if (spell_id == 0 || spell_id > spell::max_spell_id) {
+            this->_exp = 0;
+            return this->_exp;
+        }
+        int32_t scroll_cost = g_GameDataRes.spells[spell_id].Values()[0].scroll_cost;
+#else
         if (this->spell_or_damage > spell::max_spell_id) {
             this->spell_or_damage = spell::drain_life;
         }
 
         int32_t scroll_cost = g_GameDataRes.spells[this->spell_or_damage].Values()[0].scroll_cost;
+#endif
         double level = (double)this->spell_value / 30.0 + 1.0;
         this->_exp = (int32_t)(std::pow(2.0, std::log(level) / std::log(1.2)) * (scroll_cost * 10));
     } else {

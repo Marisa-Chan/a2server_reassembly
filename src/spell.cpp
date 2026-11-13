@@ -99,7 +99,12 @@ Spell::~Spell() //5392fe
 {}
 
 void Spell::Init() { //5391ab
+#ifdef A2CLIENT_PATCH
+    // p10st2.xck (522f14 -> 6e20f9): also reject spell_id > 0x1D (spell::max_spell_id)
+    if (this->spell_id == 0 || this->spell_id > spell::max_spell_id) {
+#else
     if (this->spell_id == 0) {
+#endif
         CString msg;
         msg.Format("Invalid spell #%d - no such ID", this->spell_id);
         LogMessage(msg);
