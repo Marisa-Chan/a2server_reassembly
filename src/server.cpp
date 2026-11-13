@@ -5867,10 +5867,23 @@ int Server::LoadGame(CString map_name) {
 // 4FBB79
 void Server::ServerTic() {
 #ifdef A2SERVER_TANGAR_HAT
-    // imp_ServerTic callback (4FBB79): pump the HAT control connection and
-    // yield the tick (the rest of OnServerTic - unit return checks - lives
-    // with its own subsystems)
+    // imp_ServerTic callback (4FBB79): pump the HAT control connection,
+    // retry failed main-unit map returns every 5s, step scanrange, and yield.
     tangar_hat::NetRegularProc();
+    for (int i = 0; i < 32; i++) {
+        if (!g_PlayerInfo[i].Exists || g_PlayerInfo[i].Class == nullptr) {
+            continue;
+        }
+        if (g_PlayerInfo[i].Class->is_ai || g_PlayerInfo[i].Class->main_unit == nullptr) {
+            continue;
+        }
+        if (g_PlayerInfo[i].ShouldReturn && GetTickCount() - g_PlayerInfo[i].LastReturn > 5000) {
+            if ((g_PlayerInfo[i].Class->main_unit->unit_attrs & 0x08) == 0 ||
+                g_PlayerInfo[i].Class->main_unit->ReturnToMap() != 0) {
+                g_PlayerInfo[i].ShouldReturn = false;
+            }
+        }
+    }
     tangar_scanrange::SR_Step();
     Sleep(1);
 #endif

@@ -24,6 +24,7 @@
 #include "patch/flags.h"
 #include "patch/circle.h"
 #include "patch/damage_filter.h"
+#include "patch/player_info.h"
 #endif
 #include "shop.h"
 #include "shop_assortment.h"
@@ -1325,6 +1326,13 @@ void Unit::InitDefaultStats() {
 
 // 52C409
 int32_t Unit::ReturnToMap() {
+#ifdef A2SERVER_TANGAR_HAT
+    // add_player_to_map hook (52C409): skip if already on the map ((unit_attrs & 8) == 0)
+    // to prevent duplicate g_ServerUnits insertions (speed-hack exploit).
+    if ((this->unit_attrs & 0x08) == 0) {
+        return 0;
+    }
+#endif
     // First try to place unit at the exact position.
     uint8_t y = this->position->GetY();
     uint8_t x = this->position->GetX();
@@ -1333,10 +1341,29 @@ int32_t Unit::ReturnToMap() {
         y = this->position->GetY();
         x = this->position->GetX();
         if (!this->PlaceOnMap(x, y, 3)) {
+#ifdef A2SERVER_TANGAR_HAT
+            // imp_ReturnFail hook (52C45E): schedule forced-return retry for main unit.
+            if (this->pOwner != nullptr && this == this->pOwner->main_unit) {
+                if (PlayerInfo* pi = PI_Get(this->pOwner)) {
+                    pi->ShouldReturn = true;
+                    pi->LastReturn = GetTickCount();
+                    Printf("Warning: unit of player %s couldn't return to map.", (const char*)this->pOwner->name);
+                }
+            }
+            return 0;
+#else
             LogMessage(CString("Unit can't return to map - no free place"));
             return 0;
+#endif
         }
     }
+#ifdef A2SERVER_TANGAR_HAT
+    if (this->pOwner != nullptr && this == this->pOwner->main_unit) {
+        if (PlayerInfo* pi = PI_Get(this->pOwner)) {
+            pi->ShouldReturn = false;
+        }
+    }
+#endif
     g_ServerUnits->AddTail(this);
     this->unit_attrs &= ~0x08;
     g_NetStru1_main.BroadcastUnitState(this);
