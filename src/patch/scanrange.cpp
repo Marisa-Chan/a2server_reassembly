@@ -78,8 +78,8 @@ static void SR_UpdateUnit(Unit* unit) {
 
 		if (g_PlayerInfo[i].Class == unit_player ||
 		    (g_World->diplomacy.diplomacy[unit_player->player_id][g_PlayerInfo[i].Class->player_id] & DIPLO_VISION_SHARE) != 0) {
-			uint8_t unit_x = unit->token_pos->x;
-			uint8_t unit_y = unit->token_pos->y;
+			uint8_t unit_x = unit->position->x;
+			uint8_t unit_y = unit->position->y;
 			uint16_t unit_vision = unit->scan_range;
 
 			if (!dCalc) {

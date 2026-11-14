@@ -11,6 +11,7 @@
 
 #include "config_new.h"
 #include "flags.h"
+#include "netlog.h"
 #include "player_info.h"
 #include "screenshots.h"
 #include "tangar_log.h"
@@ -59,7 +60,11 @@ bool NetCmdShutdown() {
     Packet pack;
     pack.WriteUInt8(0x11);
 
-    return SOCK_SendPacket(Socket, pack, Config::ProtocolVersion) == 0;
+    if (SOCK_SendPacket(Socket, pack, Config::ProtocolVersion) != 0) {
+        Connected = false;
+        return false;
+    }
+    return true;
 }
 
 bool NetCmdUpdateInfo() {
@@ -131,9 +136,8 @@ bool NetCmdUpdateInfo() {
 
                 logins.push_back(login);
             }
+            FindClose(h);
         }
-
-        FindClose(h);
 
         pack.WriteUInt32((uint32_t)logins.size());
         for (const std::string& login : logins) {
@@ -218,6 +222,8 @@ bool NetHatInit() {
     Connected = true;
     Receiver.Connect(Socket);
     LastUpdate = GetTickCount();
+    netlog::logf("EVT", "hat control layer connected (socket=%llx)",
+                 (unsigned long long)Socket);
 
     if (!NetCmdHatAuth()) {
         NetHatShutdown();
@@ -226,6 +232,13 @@ bool NetHatInit() {
     }
 
     Printf("Control connection to hat established.");
+
+    if (HaveInfo) {
+        if (!NetCmdUpdateInfo()) {
+            Connected = false;
+        }
+        LastUpdate = GetTickCount();
+    }
 
     return true;
 }
@@ -338,6 +351,8 @@ void NetHatShutdown() {
         return;
     }
     if (Socket != 0) {
+        netlog::logf("EVT", "hat control layer closed (socket=%llx)",
+                     (unsigned long long)Socket);
         SOCK_Destroy(Socket);
     }
     Socket = 0;
@@ -438,6 +453,8 @@ int RecvServerFramed(SOCKET s, char* buf, int len, int flags) {
             A2NetSock* conn = g_CLlDriver.connection_sockets + i;
             if (conn->socket == s) {
                 if (conn->manager == nullptr) {
+                    netlog::logf("EVT", "recv: socket=%llx has NULL network structure",
+                                 (unsigned long long)s);
                     Printf("Warning: received packet from player with NULL network structure!\n");
                     memset(buf, 0, static_cast<size_t>(len));
                     return -1;
@@ -449,6 +466,8 @@ int RecvServerFramed(SOCKET s, char* buf, int len, int flags) {
     }
 
     if (p_id == -1 && s != hat_socket) {
+        netlog::logf("EVT", "recv: packet from unknown player socket=%llx",
+                     (unsigned long long)s);
         Printf("Warning: received packet from unknown player!\n");
         memset(buf, 0, static_cast<size_t>(len));
         return -1;
@@ -485,6 +504,9 @@ int RecvServerFramed(SOCKET s, char* buf, int len, int flags) {
             pack.WriteUInt8(rd[static_cast<size_t>(i)]);
         }
         pack.Seek(0);
+
+        netlog::hex("CLI->SRV", &rd[0], (size_t)pkt_size, "EXT player=%d id=0x%02X", p_id,
+                    pkt_size > 0 ? rd[0] : 0);
 
         if (!ProcessClientExtendedPacket(p_id, pack)) {
             return -1;
@@ -559,7 +581,9 @@ SOCKET AcceptServerSocket(SOCKET s, sockaddr* addr, int* addrlen) {
                       sin->sin_addr.S_un.S_un_b.s_b2,
                       sin->sin_addr.S_un.S_un_b.s_b3,
                       sin->sin_addr.S_un.S_un_b.s_b4);
+        netlog::conn("ACCEPT", (uint64_t)r, ip_buf, ntohs(sin->sin_port));
         if (IsPeerIpBanned(ip_buf)) {
+            netlog::logf("EVT", "banned IP %s rejected", ip_buf);
             Printf("Connection from banned IP %s rejected", ip_buf);
             closesocket(r);
             WSASetLastError(WSAECONNRESET);
@@ -583,6 +607,7 @@ SOCKET AcceptServerSocket(SOCKET s, sockaddr* addr, int* addrlen) {
 
 // Ported from my-srvmgr/srvmgr.cpp:2517 (closesocket0 @ 5BB6A8).
 int CloseServerSocket(SOCKET s) {
+    netlog::conn("CLOSE", (uint64_t)s, nullptr, 0);
 #ifdef SRV_LOG
     {
         std::lock_guard<std::mutex> lock(g_ClientLogMutex);

@@ -137,7 +137,7 @@ namespace Config
 {
     uint32_t ExceptionCount = 0;
 
-    std::string ChrBase = "chr";
+    std::string ChrBase = "chr\\";
 
     uint32_t LogMode = SVL_ALL;
     std::string LogFile = "server.log";

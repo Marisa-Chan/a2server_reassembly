@@ -261,6 +261,10 @@ void InitCpuAndDistTables() {
 		}
 	}
 
+#ifdef A2CLIENT_PATCH
+	// LANG_fix_codepage hook (client 479D7A): force DOS codepage flag instead of reading main\id.
+	g_isDosCP = 1;
+#else
 	// Read the codepage flag from the end of "main\id"
 	char idbuf[80];
 	memset(idbuf, 0, 80);
@@ -271,6 +275,7 @@ void InitCpuAndDistTables() {
 		file.Close();
 	}
 	g_isDosCP = idbuf[strlen(idbuf) - 1] - '0';
+#endif
 
 	g_DistortMap = new DistortMap(0x14, 0x10);
 
@@ -620,6 +625,13 @@ BOOL GameApp::InitInstance() {
 		}
 	}
 	tangar_cfg::ParseConfig();
+	tangar_locale::DecideLanguage();
+	if (GetFileAttributesA("maps") == INVALID_FILE_ATTRIBUTES) {
+		CreateDirectoryA("maps", nullptr);
+	}
+	if (tangar_cfg::z_screendir && GetFileAttributesA("screenshots") == INVALID_FILE_ATTRIBUTES) {
+		CreateDirectoryA("screenshots", nullptr);
+	}
 #endif
 
 	HKEY regkey;
@@ -716,10 +728,31 @@ BOOL GameApp::InitInstance() {
 #ifdef A2CLIENT
 	Resources::StaticAddResFile("world.res");
 #else
-	Resources::StaticAddResFile("world_srv.res");
+	try {
+		Resources::StaticAddResFile("world_srv.res");
+	} catch (CException* e) {
+		e->Delete();
+		Resources::StaticAddResFile("world.res");
+	}
 #endif
-	Resources::StaticAddResFile("music.res");
-	Resources::StaticAddResFile("video.res");
+	try {
+		Resources::StaticAddResFile("music.res");
+	} catch (CException* e) {
+		e->Delete();
+	}
+#ifdef A2CLIENT_PATCH
+	// RES_loadDirectories CheckMusic (client 4867E6): disable music if data\music directory is absent.
+	uint32_t music_attrib = GetFileAttributesA("data\\music");
+	if (music_attrib == INVALID_FILE_ATTRIBUTES || (music_attrib & FILE_ATTRIBUTE_DIRECTORY) == 0) {
+		g_SoundSettings.music_allowed = 0;
+	}
+#else
+	try {
+		Resources::StaticAddResFile("video.res");
+	} catch (CException* e) {
+		e->Delete();
+	}
+#endif
 
 	if (strstr(m_lpCmdLine, "-nomusic")) {
 		g_SoundSettings.music_allowed = 0;
@@ -734,7 +767,11 @@ BOOL GameApp::InitInstance() {
 	Resources::StaticAddResFile("sfx.res");
 	Resources::StaticAddResFile("movies.res");
 	Resources::StaticAddResFile("scenario.res");
-	Resources::StaticAddResFile("speech.res");
+	try {
+		Resources::StaticAddResFile("speech.res");
+	} catch (CException* e) {
+		e->Delete();
+	}
 
 	Resources::MarkSubstitutedFiles("update.lst");
 
@@ -826,8 +863,7 @@ BOOL GameApp::InitInstance() {
 	}
 
 #ifdef A2CLIENT_PATCH
-	// LANG_change hooks: decide locale before loading text tables
-	tangar_locale::DecideLanguage();
+	// LANG_change_48626D (client 486C39): load text tables from the locale selected in DecideLanguage().
 	ReadFileToString(tangar_locale::help, &g_HelpStr);
 
 	txt_main.LoadChunkFile(tangar_locale::main_txt);
@@ -1271,6 +1307,7 @@ void LogWarning(const CString& msg) { //59b753
 // popups on the server and log them via Tangar Printf instead.
 int GameApp::DoMessageBox(LPCTSTR lpszPrompt, UINT /*nType*/, UINT /*nIDPrompt*/) {
 	Printf("Error: %s", lpszPrompt != nullptr ? lpszPrompt : "");
+	tangar_crash::WriteDiagnostic(lpszPrompt != nullptr ? lpszPrompt : "MFC error box");
 	return IDOK;
 }
 #endif

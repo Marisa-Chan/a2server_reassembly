@@ -4,6 +4,8 @@
 
 #include "hat_packet.h"
 
+#include "netlog.h"
+
 #include <cstdlib>
 #include <cstring>
 #include <fstream>
@@ -190,6 +192,12 @@ int SOCK_SendPacket(SOCKET socket, Packet& packet, uint32_t protover, bool exten
             data[i] = tbuf[i];
         }
 
+#ifdef A2CLIENT
+        netlog::hex("C->HATc", data, size, "msg id=0x%02X", data[0]);
+#else
+        netlog::hex("SRV->HATc", data, size, "msg id=0x%02X", data[0]);
+#endif
+
         int ret_code = SOCK_SendMsg(socket, (int)protover, data, size, 1);
         delete[] data;
         if (ret_code == -2) {
@@ -208,6 +216,8 @@ int SOCK_SendPacket(SOCKET socket, Packet& packet, uint32_t protover, bool exten
         for (uint32_t i = 0; i < size; i++) {
             data[i + 8] = tbuf[i];
         }
+
+        netlog::hex("EXT-OUT", data, size + 8, "msg id=0x%02X", size > 8 ? data[8] : 0);
 
         int ret_code = send(socket, (const char*)data, size + 8, 0);
         delete[] data;
@@ -264,6 +274,15 @@ int SOCK_ReceivePacket(SOCKET socket, Packet& packet, uint32_t protover) {
         delete[] data;
     }
     packet.Seek(0);
+    if (packet.GetLength() > 0) {
+#ifdef A2CLIENT
+        netlog::hex("HATc->C", &packet.GetBuffer()[0], packet.GetLength(), "msg id=0x%02X",
+                    packet.GetBuffer()[0]);
+#else
+        netlog::hex("HATc->SRV", &packet.GetBuffer()[0], packet.GetLength(), "msg id=0x%02X",
+                    packet.GetBuffer()[0]);
+#endif
+    }
     return 0;
 }
 

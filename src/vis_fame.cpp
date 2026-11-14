@@ -610,7 +610,7 @@ void Fame2::LoadDocument() { //4ac0af
         sprintf(buffer, "graphics\\interface\\Docs\\%d.bmp", this->doc_id);
         this->picture = new CBmp64(buffer);
     } else {
-        sprintf(buffer, "main\\text\\Docs\\%d.txt", this->doc_id);
+        sprintf(buffer, A2CLIENT_PATCH_ENABLED ? tangar_locale::docs_fmt : "main\\text\\Docs\\%d.txt", this->doc_id);
         ReadFileToString(buffer, &this->str);
         this->str_arr.Copy(g_font4->StringArrayForRect(this->rect, this->str));
     }

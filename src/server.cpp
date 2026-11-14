@@ -41,6 +41,7 @@
 #include "patch/scanrange.h"
 #ifdef A2SERVER_PATCH
 #include "patch/kick_char.h"
+#include "patch/netlog.h"
 #endif
 #ifdef A2SERVER_TANGAR_HAT
 #include "patch/tangar_log.h"
@@ -1119,9 +1120,13 @@ void Srv1::LoadTriggers(MapAlm* alm, int flag) {
     int action_idx = 0;
     while (instance_iter != nullptr) {
         MapLogicData* action_data = alm->logic_instances.GetNext(instance_iter);
-        TriggerAction& action = g_World->trigger_actions->ElementAt(action_idx);
 
         if (action_data->type_id < 0x10002) {
+            // The retail release build indexed the array for every instance
+            // (including type_id >= 0x10002) and silently read out of bounds
+            // once all slots were consumed; take the reference only for the
+            // instances that actually use it.
+            TriggerAction& action = g_World->trigger_actions->ElementAt(action_idx);
             int has_unit = 0;
             int has_group = 0;
             int has_player = 0;
@@ -3795,11 +3800,11 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
                 if (unit == nullptr) {
                     return;
                 }
-                if (unit->token_pos == nullptr) {
+                if (unit->position == nullptr) {
                     return;
                 }
-                uint32_t p_x = unit->token_pos->x;
-                uint32_t p_y = unit->token_pos->y;
+                uint32_t p_x = unit->position->x;
+                uint32_t p_y = unit->position->y;
                 int32_t p_mapwidth = MapStuff_Instance->map_width;
                 int32_t p_mapheight = MapStuff_Instance->map_height;
 
@@ -4226,6 +4231,10 @@ void Server::ProcessClientPacket(Packet* pkt) {
 #if defined(A2SERVER_TANGAR_HAT) && !defined(A2CLIENT)
     // remember_a2server hook (504A99)
     RememberA2Server(this);
+    if (pkt != nullptr) {
+        netlog::logf("CLI-DISP", "player=%d id=0x%02X %s", pkt->from_player_id, pkt->id,
+                     netlog::pkt_name(pkt->id));
+    }
 #endif
 #if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
     // packet_recvd hook (504ABC): validate client->server opcode and ENTER_GAME color slot.
@@ -5921,6 +5930,11 @@ Player* Server::Allods2_CreatePlayer(CString name) {
 
 // 4f0bef
 int32_t Server::ConnectToHat() {
+#ifdef A2SERVER_TANGAR_HAT
+    // imp_NetLayer_FirstConnect (4F0BEF): prepare the HAT control connection
+    // endpoints whenever the server prepares its HAT connection.
+    tangar_hat::NetHatPrepare();
+#endif
     if (g_CLlDriver.provider != PROVIDER_HAT_TCP) {
         return 0;
     }
@@ -6154,12 +6168,6 @@ int Server::Start(int mode) {
         }
     }
     Printf("Server started.");
-#endif
-#ifdef A2SERVER_TANGAR_HAT
-    // imp_NetLayer_FirstConnect (4F0BEF): prepare and open the HAT control
-    // connection once the server is starting up
-    tangar_hat::NetHatPrepare();
-    tangar_hat::NetHatInit();
 #endif
 
     return 0;
@@ -6932,11 +6940,6 @@ void Server::UpdateHatAnnounce() {
     }
     if (g_HatLLDriver.IsListen()) {
         NetStru1::HatConnector.SendHatLobbyInfo(g_PlayersList->CountHumanPlayers(), this->current_map_title, this->MapLevel, g_ServerConfig.gameType, map_range);
-#ifdef A2SERVER_TANGAR_HAT
-        // imp_UpdateInfo hook (51E289): feed the HAT control connection
-        tangar_hat::NetHatUpdateInfo((uint8_t)g_PlayersList->CountHumanPlayers(), (const char*)this->current_map_title,
-                                     (uint8_t)this->MapLevel, (uint8_t)g_ServerConfig.gameType, (uint8_t)map_range);
-#endif
     }
     if (g_ServerConfig.gameType == GAME_TYPE_DEATHMATCH || g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY) {
         g_NetStru1_main.SendTeamState(0);

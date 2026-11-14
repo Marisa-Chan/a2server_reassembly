@@ -3356,7 +3356,7 @@ void VisCredits::VMethod28() {
 // 43C9B5
 void VisCredits::LoadContent() {
     this->FreeContent();
-    this->text.LoadChunkFile("main\\text\\credits.txt");
+    this->text.LoadChunkFile(A2CLIENT_PATCH_ENABLED ? tangar_locale::credits : "main\\text\\credits.txt");
     for (int32_t i = 0; i < this->text.GetCount(); i++) {
         char* line = this->text.GetLine(i);
         if (*line != '"') {
@@ -3365,7 +3365,7 @@ void VisCredits::LoadContent() {
         CString name(line);
         name = name.Mid(1);
         name = name.Left(name.GetLength() - 1);
-        name = "main\\graphics\\logo\\" + name;
+        name = CString(A2CLIENT_PATCH_ENABLED ? tangar_locale::gfx_logo_dir : "main\\graphics\\logo\\") + name;
         this->bitmaps.SetAt(this->text.GetLine(i), new CBmp64(name));
     }
 }

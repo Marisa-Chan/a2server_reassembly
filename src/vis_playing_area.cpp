@@ -1,5 +1,6 @@
 #include <winsock2.h>
 #include <ctime>
+#include "patch/netlog.h"
 #ifdef A2CLIENT_PATCH
 #include "patch/client_config.h"
 #include "patch/hotkeys.h"
@@ -2441,6 +2442,8 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 		case HAT_TICKET:
 			wnd->m_GameSession.hat_ticket.id1 = packet_2dwords->param1;
 			wnd->m_GameSession.hat_ticket.id2 = packet_2dwords->param2;
+			netlog::logf("HAT->C", "TICKET %08X/%08X", (unsigned)packet_2dwords->param1,
+			             (unsigned)packet_2dwords->param2);
 
 			while (g_NetStru1_local.ReceiveAnyPacket() != nullptr)
 			{}
@@ -2457,15 +2460,23 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 			wnd->m_GameSession.sessionKeyPart1 = *(int32_t*)(p + 0xc);
 			wnd->m_GameSession.sessionKeyPart2 = *(int32_t*)(p + 0x10);
 			wnd->net_session.connect_address = CString((char*)p + 0x14, packet_data->count - 0x14);
+			netlog::logf("HAT->C", "SESSION_SETUP hat_id=%d ticket=%08X/%08X keys=%08X/%08X addr=%s",
+			             wnd->net_session.hat_id, (unsigned)wnd->m_GameSession.hat_ticket.id1,
+			             (unsigned)wnd->m_GameSession.hat_ticket.id2,
+			             (unsigned)wnd->m_GameSession.sessionKeyPart1,
+			             (unsigned)wnd->m_GameSession.sessionKeyPart2,
+			             (const char*)wnd->net_session.connect_address);
 		} break;
 
 		case HAT_SESSION_FAIL:
 			// client: 416948
+			netlog::logf("HAT->C", "SESSION_FAIL");
 			wnd->net_session.hat_id = -1;
 			break;
 
 		case HAT_ERROR:
 			// client: 41695a
+			netlog::logf("HAT->C", "HAT_ERROR code=%d", packet_dword->value);
 			g_GameStatusCode = (SessionError)((packet_dword->value + 0x18) | SESSION_ERROR_FLAG);
 			break;
 #endif

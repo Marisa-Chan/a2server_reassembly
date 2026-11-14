@@ -35,7 +35,27 @@
 #include "patch/hat_client.h"
 #endif
 #ifdef A2SERVER_TANGAR_HAT
+#include "patch/config_new.h"
+#include "patch/flags.h"
 #include "patch/hat_net.h"
+#endif
+#if defined(A2CLIENT_PATCH) || defined(A2SERVER_TANGAR_HAT)
+#include "patch/netlog.h"
+#endif
+
+#if defined(A2CLIENT_PATCH) || defined(A2SERVER_TANGAR_HAT)
+namespace {
+// Netlog direction tag for a CLlDriver TCP socket, by peer port: the HAT
+// listens on 8000 (clients) / 7999 (servers), game servers on 8001+.
+long netlog_peer_port(SOCKET s) {
+    sockaddr_in peer;
+    int sl = sizeof(peer);
+    if (getpeername(s, (sockaddr*)&peer, &sl) == 0) {
+        return ntohs(peer.sin_port);
+    }
+    return 0;
+}
+} // namespace
 #endif
 
 
@@ -667,6 +687,16 @@ void NetStru1::UpdateConnStats() {
 
 // 51E289
 void NetStru1::SendHatLobbyInfo(int32_t player_count, CString source, int32_t map_level, int32_t game_type, int32_t map_range) {
+#ifdef A2SERVER_TANGAR_HAT
+	// imp_UpdateInfo hook (51E289): push server status over the HAT control
+	// layer instead of legacy 0xD2 HAT_LOBBY_INFO so HAT preserves SERVER_CAP_DETAILED_INFO.
+	if ((Config::ServerCaps & SVC_DETAILED_INFO) != 0) {
+		tangar_hat::NetHatUpdateInfo(static_cast<uint8_t>(player_count), static_cast<const char*>(source),
+		                             static_cast<uint8_t>(map_level), static_cast<uint8_t>(game_type),
+		                             static_cast<uint8_t>(map_range));
+		return;
+	}
+#endif
 	PacketJoin& pkt = PacketJoin::Inst;
 	pkt.id = HAT_LOBBY_INFO;
 	pkt.__as_dword = player_count | (map_level << 8) | (game_type << 16) | (map_range << 24);
@@ -3225,6 +3255,20 @@ int CLlDriver::RecvThreadTcp(A2NetSock* sock) {
             if (cpysz == cpynum) {
                 sock->current_buffer->datasz = sock->current_buffer->pos;
                 XorData(sock->current_buffer->buf, sock->current_buffer->datasz);
+#if defined(A2SERVER_TANGAR_HAT) || defined(A2CLIENT_PATCH)
+                {
+                    long peer_port = netlog_peer_port(sock->socket);
+#ifdef A2CLIENT
+                    netlog::frame(peer_port == 8000 ? "HAT->C" : "SRV->C", peer_port,
+                                  &sock->current_buffer->full_data,
+                                  (size_t)sock->current_buffer->datasz + 8, "rcv");
+#else
+                    netlog::frame(peer_port == 7999 ? "HAT->SRV" : "CLI->SRV", peer_port,
+                                  &sock->current_buffer->full_data,
+                                  (size_t)sock->current_buffer->datasz + 8, "rcv");
+#endif
+                }
+#endif
                 sock->manager->ReceiveData(sock->current_buffer);
                 sock->copy_num = 0;
                 sock->current_buffer = nullptr;
@@ -3926,6 +3970,16 @@ int CLlDriver::SendDataTcp(A2NetSock* sock, NetStru3* buffer) {
     int len = buffer->datasz + 8;
     int sendlen = -1;
     if (sock->socket != INVALID_SOCKET) {
+#if defined(A2SERVER_TANGAR_HAT) || defined(A2CLIENT_PATCH)
+        long peer_port = netlog_peer_port(sock->socket);
+#ifdef A2CLIENT
+        netlog::frame(peer_port == 8000 ? "C->HAT" : "C->SRV", peer_port,
+                      &buffer->full_data, len, "snd");
+#else
+        netlog::frame(peer_port == 7999 ? "SRV->HAT" : "SRV->CLI", peer_port,
+                      &buffer->full_data, len, "snd");
+#endif
+#endif
 #ifdef A2SERVER_TANGAR_HAT
         tangar_hat::FlushEnqueuedPackets(sock->socket);
 #endif
@@ -4573,6 +4627,9 @@ void NetStru1::SendHatJoinOk(int32_t a, int32_t b) {
     packet.param1 = a;
     packet.param2 = b;
     packet.to_player_id = 0;
+#if defined(A2SERVER_TANGAR_HAT) || defined(A2CLIENT_PATCH)
+    netlog::logf("EVT", "HAT_JOIN_OK id1=%08X id2=%08X", (unsigned)a, (unsigned)b);
+#endif
     this->QueuePacketSend(&packet);
 }
 
@@ -4586,6 +4643,10 @@ void NetStru1::SendHatJoinFail(int32_t a, int32_t b, int32_t error_code) {
     *p++ = a;
     *p++ = b;
     *p = error_code;
+#if defined(A2SERVER_TANGAR_HAT) || defined(A2CLIENT_PATCH)
+    netlog::logf("EVT", "HAT_JOIN_FAIL id1=%08X id2=%08X error=%d", (unsigned)a, (unsigned)b,
+                 error_code);
+#endif
     this->QueuePacketSend(&packet);
 }
 

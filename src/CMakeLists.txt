@@ -103,6 +103,7 @@ set(A2SERVER_SOURCES
   patch/gm_noclip.cpp
   patch/hat_packet.cpp
   patch/hat_net.cpp
+  patch/netlog.cpp
   patch/screenshots.cpp
   patch/gm_commands.cpp
   patch/crash_filter.cpp
@@ -123,6 +124,7 @@ set(A2CLIENT_SOURCES
   patch/scanrange_calc.cpp
   patch/hat_packet.cpp
   patch/hat_client.cpp
+  patch/netlog.cpp
   patch/happyhttp/happyhttp.cpp
 )
 

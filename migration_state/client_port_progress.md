@@ -72,7 +72,7 @@ Legend: DONE / WIP / PENDING / NO-OP / DEFERRED(reason)
   (default hat.rom2.ru); overrides hatip registry read + PrepareForConnect target.
 
 ## NO-OP'd (verified not needed)
-- FIL x13 (ord2-14) + RES_loadDirectories/RES_noLoad/RES_loadException (resource family),
+- FIL x13 (ord2-14) + RES_loadException,
   fixEscape, getMessageLast('/'), wmChar(baseline)
 - [DISABLED] in the patch itself: TILES_loadTiles/displayTile1, ord96, CHAT_dbg, DBG_x5
   (CSprite256 debug)

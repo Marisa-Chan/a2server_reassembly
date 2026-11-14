@@ -4,6 +4,8 @@
 
 #include "hat_client.h"
 
+#include "netlog.h"
+
 #include <atomic>
 #include <cstdio>
 #include <cstdlib>
@@ -630,6 +632,9 @@ int RecvClientFramed(SOCKET s, char* buf, int len, int flags) {
             pack.WriteUInt8(rd[static_cast<size_t>(i)]);
         }
         pack.Seek(0);
+
+        netlog::hex("SRV->C", &rd[0], (size_t)pkt_size, "EXT id=0x%02X",
+                    pkt_size > 0 ? rd[0] : 0);
 
         if (!ProcessServerPacket(pack)) {
             return -1;

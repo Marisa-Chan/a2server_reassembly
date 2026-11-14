@@ -1,5 +1,6 @@
 #include "main_window.h"
 #include "patch/locale.h"
+#include "patch/netlog.h"
 #ifdef A2CLIENT_PATCH
 #include "patch/client_config.h"
 #include "patch/hat_client.h"
@@ -689,7 +690,11 @@ void MainWindow::ShowCurrentTownDialog() {
 }
 
 // 491142
+// client: 4958ac
 int32_t MainWindow::ConnectToServerAddress() {
+#ifdef A2CLIENT
+    this->serverBootstrapEnabled = 0;
+#endif
     LockSurface2();
     FillRectColorSimple(0, 0, g_ScreenSize.right, g_ScreenSize.bottom, 0);
     g_font1->DrawTextWithShadow(g_ScreenSize.right / 2, g_ScreenSize.bottom / 2, txt_patch.GetLine(0x7e), 10, clrsh_ShockingBlack, 1);
@@ -701,22 +706,28 @@ int32_t MainWindow::ConnectToServerAddress() {
 
     CLlAddress addr;
     strcpy(addr.address, "0.0.0.0");
-    int result = g_CLlDriver.PrepareForConnect(this->net_session.connect_address, &addr);
+    netlog::logf("EVT", "connecting to game server addr='%s' char='%s'",
+                 (const char*)this->net_session.connect_address,
+                 (const char*)this->m_GameSession.character_name);
+    int32_t result = g_CLlDriver.PrepareForConnect(this->net_session.connect_address, &addr);
     if (result != 0) {
         result = g_CLlDriver.Connect(this->m_GameSession.character_name, nullptr);
     }
+    netlog::logf("EVT", "game server connect result=%d", result);
 
     if (result == 0) {
         g_CLlDriver.Close();
         VisMessageBoxWithList* mbox = new VisMessageBoxWithList(1, 0x40, 100, 0x17c, 0x252, txt_patch.GetLine(3), nullptr, 0);
         this->ModalScreen(mbox);
+#ifndef A2CLIENT
         this->PostMessage(0x10, 0, 0);
+#endif
         return 0;
     }
 
     g_NetStru1_local.ProcessConnections();
 #ifdef A2CLIENT
-    g_NetStru1_local.SendServerConnectHatTicket(m_GameSession.hat_ticket, 0);
+    g_NetStru1_local.SendServerConnectHatTicket(this->m_GameSession.hat_ticket, 0);
 #endif
     uint32_t start_time = timeGetTime();
     g_GameStatusCode = SESSION_ERROR_NONE;
@@ -735,7 +746,9 @@ int32_t MainWindow::ConnectToServerAddress() {
             if (this->vis_map_context->ProcessPackets(SERVER_TICK) == 0) {
                 VisMessageBoxWithList* mbox = new VisMessageBoxWithList(1, 0x40, 100, 0x17c, 0x252, txt_patch.GetLine(g_GameStatusCode & 0xff), nullptr, 0);
                 this->ModalScreen(mbox);
+#ifndef A2CLIENT
                 this->PostMessage(0x10, 0, 0);
+#endif
                 return 0;
             }
             return 1;
@@ -749,7 +762,9 @@ int32_t MainWindow::ConnectToServerAddress() {
 
     VisMessageBoxWithList* mbox = new VisMessageBoxWithList(1, 0x40, 100, 0x17c, 0x252, txt_patch.GetLine(0), nullptr, 0);
     this->ModalScreen(mbox);
+#ifndef A2CLIENT
     this->PostMessage(0x10, 0, 0);
+#endif
     return 0;
 }
 
@@ -5634,6 +5649,7 @@ int32_t MainWindow::RunModalLoopClient() { //client 4949cd
 #ifdef A2CLIENT_PATCH
     // Tangar HATENT_url_connect (494AE4): connect to the -hat address
     // instead of the dialog setting.
+    netlog::logf("EVT", "connecting to hat addr='%s'", (const char*)tangar_cfg::HatAddress());
     int local_230 = g_CLlDriver.PrepareForConnect((char*)tangar_cfg::HatAddress(), &local_224);
 #else
     int local_230 = g_CLlDriver.PrepareForConnect(this->hat_settings.hatprogip, &local_224);
@@ -5641,6 +5657,7 @@ int32_t MainWindow::RunModalLoopClient() { //client 4949cd
     if (local_230) {
         local_230 = g_CLlDriver.Connect(this->m_GameSession.character_name, nullptr);
     }
+    netlog::logf("EVT", "hat connect result=%d", local_230);
 
     if (local_230 == 0) {
         g_CLlDriver.Close();
@@ -5654,6 +5671,7 @@ int32_t MainWindow::RunModalLoopClient() { //client 4949cd
     g_NetStru1_local.SendHatCredentials(this->hat_settings.login, this->hat_settings.password, this->hat_settings.deathmatch);
 
     this->net_session.hat_id = 0;
+    this->net_session.connect_address.Empty();
 
     uint32_t start_time = timeGetTime();
     g_GameStatusCode = SESSION_ERROR_NONE;
@@ -5671,28 +5689,27 @@ int32_t MainWindow::RunModalLoopClient() { //client 4949cd
         if (g_NetStru1_local.GetClientsPktNum() == 0) {
             if (g_CmdTimeout < timeGetTime() - start_time) {
                 this->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(18), nullptr, 0));
-                PostMessage(WM_CLOSE, 0, 0);
                 return 0;
             }
 
             g_mousept.Update();
-        }
-        else if (this->vis_map_context->ProcessPackets(100) == 0) {
+        } else if (this->vis_map_context->ProcessPackets(100) == 0) {
             this->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(g_GameStatusCode & 0xff), nullptr, 0));
-            PostMessage(WM_CLOSE, 0, 0);
             return 0;
         }
 
-        if (net_session.hat_id == -1) {
+        if (this->net_session.hat_id == -1) {
             VisScreen* scr = new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(16), nullptr, 4);
-            ModalScreen(scr);
+            this->ModalScreen(scr);
             if (scr->GetCloseCode() == VIS_MSG_BOX_OK) {
-                net_session.hat_id = 0;
+                g_NetStru1_local.SendUnknownDC();
+                this->net_session.hat_id = 0;
+                this->net_session.connect_address.Empty();
                 start_time = timeGetTime();
                 g_GameStatusCode = SESSION_ERROR_NONE;
-            }
-            else
+            } else {
                 return 0;
+            }
         }
     }
 

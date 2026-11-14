@@ -4,6 +4,7 @@
 #include "crash_filter.h"
 
 #include "config_new.h"
+#include "netlog.h"
 #include "tangar_log.h"
 
 #include "../game_app.h"
@@ -144,6 +145,9 @@ void Traceback(const CONTEXT* orig_ctx) {
                        static_cast<unsigned long long>(addr),
                        symbol->Name,
                        static_cast<unsigned long long>(displacement));
+            netlog::logf("CRASH", "  [0x%08llx] %s + 0x%llx",
+                         static_cast<unsigned long long>(addr), symbol->Name,
+                         static_cast<unsigned long long>(displacement));
         } else {
             log_format("  [0x%08llx] (no symbol)\n",
                        static_cast<unsigned long long>(addr));
@@ -211,6 +215,10 @@ LONG WINAPI UnhandledCrashFilter(EXCEPTION_POINTERS* info) {
                        static_cast<unsigned int>(reinterpret_cast<uintptr_t>(info->ExceptionRecord->ExceptionAddress)),
                        static_cast<unsigned int>(info->ExceptionRecord->ExceptionCode),
                        static_cast<unsigned int>(info->ExceptionRecord->ExceptionFlags));
+            netlog::logf("CRASH", "code=%08X eip=%08X addr=%08X (dump written, see .dmp)",
+                         static_cast<unsigned int>(info->ExceptionRecord->ExceptionCode),
+                         static_cast<unsigned int>(info->ContextRecord->Eip),
+                         static_cast<unsigned int>(reinterpret_cast<uintptr_t>(info->ExceptionRecord->ExceptionAddress)));
 
             PrintStackTrace(static_cast<uintptr_t>(info->ContextRecord->Ebp));
             Traceback(info->ContextRecord);
@@ -227,8 +235,51 @@ LONG WINAPI UnhandledCrashFilter(EXCEPTION_POINTERS* info) {
 
 } // namespace
 
+namespace {
+
+// First-chance hook: log the stack of C++ exceptions (0xE06D7363) at throw
+// time, before any handler unwinds the stack. This is what makes throw sites
+// of MFC "improper argument" boxes visible. Rate-limited and guarded so it
+// can never deadlock on dbghelp.
+volatile LONG g_in_first_chance = 0;
+
+LONG WINAPI FirstChanceHandler(EXCEPTION_POINTERS* info) {
+    if (info == nullptr || info->ExceptionRecord == nullptr) {
+        return EXCEPTION_CONTINUE_SEARCH;
+    }
+    if (info->ExceptionRecord->ExceptionCode != 0xE06D7363) { // C++ EH
+        return EXCEPTION_CONTINUE_SEARCH;
+    }
+    if (InterlockedCompareExchange(&g_in_first_chance, 1, 0) != 0) {
+        return EXCEPTION_CONTINUE_SEARCH;
+    }
+    __try {
+        log_format("[crash_filter] C++ exception at throw time:\n");
+        netlog::logf("CRASH", "C++ exception at throw time:");
+        PrintStackTrace(static_cast<uintptr_t>(info->ContextRecord->Ebp));
+        Traceback(info->ContextRecord);
+    } __except (EXCEPTION_EXECUTE_HANDLER) {
+    }
+    InterlockedExchange(&g_in_first_chance, 0);
+    return EXCEPTION_CONTINUE_SEARCH;
+}
+
+} // namespace
+
+void WriteDiagnostic(const char* reason) {
+    CONTEXT ctx = {};
+    RtlCaptureContext(&ctx);
+
+    log_format("[crash_filter] Diagnostic (%s):\n", reason != nullptr ? reason : "");
+    netlog::logf("CRASH", "diagnostic: %s", reason != nullptr ? reason : "");
+
+    WriteMinidump(nullptr);
+    Traceback(&ctx);
+}
+
 void SetExceptionFilter() {
     SetUnhandledExceptionFilter(&UnhandledCrashFilter);
+    AddVectoredExceptionHandler(1, &FirstChanceHandler);
 }
 
 } // namespace tangar_crash

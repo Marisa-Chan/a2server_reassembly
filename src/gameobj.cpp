@@ -1106,6 +1106,12 @@ void CUnit::RenderHeroPortrait(const char* str, CGameBitmap* bmp1, CGameBitmap* 
 
     CSprite256* item_sprites[12] = { nullptr };
     CSprite256* extra_sprites[12] = { nullptr };
+    // Sprites owned by the TangarLoadItemSprite cache must not be deleted
+    // below; deleting them poisons the cache and the next portrait render
+    // calls Draw on freed memory.
+    bool item_cached[12] = { false };
+    bool extra_cached[12] = { false };
+    bool unit_cached = false;
 
     for (int i = 0; i < 12; ++i) {
         if (this->equipmentTokens[i] != nullptr) {
@@ -1126,6 +1132,7 @@ void CUnit::RenderHeroPortrait(const char* str, CGameBitmap* bmp1, CGameBitmap* 
             // Tangar ITEMPNG_loadPng (client 46E014): PNG replacement for the
             // equipment sprite, if a data\<...>.png twin exists.
             item_sprites[i] = TangarLoadItemSprite(base_name);
+            item_cached[i] = (item_sprites[i] != nullptr);
             if (item_sprites[i] == nullptr)
 #endif
             {
@@ -1136,6 +1143,7 @@ void CUnit::RenderHeroPortrait(const char* str, CGameBitmap* bmp1, CGameBitmap* 
             if (i == 3 || i == 8 || i == 9 || (i == 7 && (this->unitFlags & UNIT_FLAG_MAGE) != 0)) {
 #ifdef A2CLIENT_PATCH
                 extra_sprites[i] = TangarLoadItemSprite(extra_name);
+                extra_cached[i] = (extra_sprites[i] != nullptr);
                 if (extra_sprites[i] == nullptr)
 #endif
                 {
@@ -1156,6 +1164,7 @@ void CUnit::RenderHeroPortrait(const char* str, CGameBitmap* bmp1, CGameBitmap* 
     // Tangar ITEMPNG_loadPngChar (client 46E1B0): PNG replacement for the
     // character base sprite.
     unit_sprite = TangarLoadItemSprite(sprite_name);
+    unit_cached = (unit_sprite != nullptr);
     if (unit_sprite == nullptr)
 #endif
     {
@@ -1395,14 +1404,18 @@ void CUnit::RenderHeroPortrait(const char* str, CGameBitmap* bmp1, CGameBitmap* 
     }
 
     for (int i = 0; i < 12; ++i) {
-        delete item_sprites[i];
+        if (!item_cached[i]) {
+            delete item_sprites[i];
+        }
         item_sprites[i] = nullptr;
 
-        delete extra_sprites[i];
+        if (!extra_cached[i]) {
+            delete extra_sprites[i];
+        }
         extra_sprites[i] = nullptr;
     }
 
-    if (unit_sprite != nullptr) {
+    if (unit_sprite != nullptr && !unit_cached) {
         delete unit_sprite;
     }
 

@@ -500,7 +500,11 @@ int32_t VisHatBrowserDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam
             VisScreen::MsgProc(VIS_MSG_HIDE_SCREEN, 0, 0);
 #ifdef A2CLIENT
             if (this->browser != nullptr) {
+                // Signal the ping thread and wait for its ack so it is fully
+                // out of this dialog before the screen is destroyed (bounded
+                // wait: one ping iteration).
                 SetEvent(this->exit_event);
+                WaitForSingleObject(this->ack_event, 3000);
             }
 #endif
         }
@@ -511,6 +515,7 @@ int32_t VisHatBrowserDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam
 #ifdef A2CLIENT
         if (this->browser != nullptr) {
             SetEvent(this->exit_event);
+            WaitForSingleObject(this->ack_event, 3000);
         }
 #endif
         return 1;
@@ -746,9 +751,13 @@ VisHatBrowserDlg::~VisHatBrowserDlg() {
 
 UINT __cdecl VisHatBrowserDlg::ThreadProc(void* pv) { //44e391
     VisHatBrowserDlg* dlg = (VisHatBrowserDlg*)pv;
+    // Cache the event handles: once the thread acks, the dialog (and these
+    // members) may be destroyed while we are still parked in the wait below.
+    HANDLE exit_event = dlg->exit_event;
+    HANDLE ack_event = dlg->ack_event;
 
-    while (WaitForSingleObject(dlg->exit_event, 0) != WAIT_OBJECT_0) {
-        ResetEvent(dlg->ack_event);
+    while (WaitForSingleObject(exit_event, 0) != WAIT_OBJECT_0) {
+        ResetEvent(ack_event);
         EnterCriticalSection(&dlg->connect_cs);
 
         CString addr = dlg->connect_addr;
@@ -763,8 +772,8 @@ UINT __cdecl VisHatBrowserDlg::ThreadProc(void* pv) { //44e391
 
             dlg->browser->Init(addr);
 
-            if (WaitForSingleObject(dlg->exit_event, 0) == 0) {
-                SetEvent(dlg->ack_event);
+            if (WaitForSingleObject(exit_event, 0) == 0) {
+                SetEvent(ack_event);
                 break;
             }
 
@@ -775,9 +784,9 @@ UINT __cdecl VisHatBrowserDlg::ThreadProc(void* pv) { //44e391
 
         dlg->browser->PingServer();
         PostMessageA(g_MainWndHWND, 0x48c, dlg->browser->GetPingError(), 0);
-        SetEvent(dlg->ack_event);
+        SetEvent(ack_event);
 
-        if (WaitForSingleObject(dlg->exit_event, 500) == 0)
+        if (WaitForSingleObject(exit_event, 500) == 0)
             break;
     }
     return 0;

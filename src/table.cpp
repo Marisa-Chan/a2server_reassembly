@@ -1293,7 +1293,12 @@ int GameDataRes::ParseDataBin(const CString& path) {
             Resources::StaticAddResFile("World_srv.res");
         } catch (CFileException* e) {
             e->Delete();
-            return 1;
+            try {
+                Resources::StaticAddResFile("World.res");
+            } catch (CFileException* e2) {
+                e2->Delete();
+                return 1;
+            }
         }
 
         File2 file2;

@@ -122,8 +122,8 @@ struct Resources {
 
     static void MarkSubstitutedFiles(const char* fpath);  // client: 4eb85d
     static uint16_t GetPathType(const char* path);  // client: 4ec310
-    static void StaticAddPath(const char* path);  // client: 4eb741
-    static void StaticAddResFile(const char* path);  // client: 4eb772
+    static void StaticAddPath(const char* path);  // client: 4eb772
+    static void StaticAddResFile(const char* path);  // client: 4eb741
 
     static Resources ResFiles;
 };

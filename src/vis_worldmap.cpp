@@ -388,7 +388,7 @@ void VisGlobalMap::VMethod28() {
     g_mousept.DisableHint();
     this->LoadBitmaps();
     this->LoadSamples();
-    ReadFileToString("main\\text\\globalmap.txt", &g_MissionText);
+    ReadFileToString(A2CLIENT_PATCH_ENABLED ? tangar_locale::globalmap : "main\\text\\globalmap.txt", &g_MissionText);
     this->routePointSoundIndex = 0;
     GMapThing* thing = new GMapThing();
     this->graphNodePoints.RemoveAll();

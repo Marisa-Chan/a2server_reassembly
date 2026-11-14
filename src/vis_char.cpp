@@ -1298,7 +1298,7 @@ void VisCharGenStats::LoadBitmaps() { //429475
     tangar_stats::creating_new_character = true;
 #endif
     this->FreeBitmaps();
-    this->bmp = new CBmp64("main\\graphics\\chrgen\\leftup.bmp");
+    this->bmp = new CBmp64(A2CLIENT_PATCH_ENABLED ? tangar_locale::gfx_chrgen_leftup : "main\\graphics\\chrgen\\leftup.bmp");
     g_mousept.Update();
     this->stat_button_bmps[0] = new CBmp64("graphics\\interface\\chrgen\\buttons\\plon.bmp");
     g_mousept.Update();
@@ -2307,13 +2307,29 @@ void VisCharInfo::VMethod7() {
         if (found_obj->IsKindOf(RUNTIME_CLASS(CStructure))) {
             structure = (CStructure*)found_obj;
         } else {
+#ifdef A2CLIENT_PATCH
+            // Deviation guard: the retail else-branch casts any non-CStructure
+            // CGameObject to CUnit*; hovering a short-vtable object (e.g. a
+            // Pointer decoration) walks off the CUnit vtable when the portrait
+            // path calls RenderHeroPortrait -> jump into .rdata -> AV.
+            if (found_obj->IsKindOf(RUNTIME_CLASS(CUnit))) {
+                unit = (CUnit*)found_obj;
+            }
+#else
             unit = (CUnit*)found_obj;
+#endif
         }
     } else if (map->selected_object_count == 1) {
         if (map->primary_selected_object->IsKindOf(RUNTIME_CLASS(CStructure))) {
             structure = (CStructure*)map->primary_selected_object;
         } else {
+#ifdef A2CLIENT_PATCH
+            if (map->primary_selected_object->IsKindOf(RUNTIME_CLASS(CUnit))) {
+                unit = (CUnit*)map->primary_selected_object;
+            }
+#else
             unit = (CUnit*)map->primary_selected_object;
+#endif
         }
     }
 
