@@ -184,8 +184,10 @@ target_compile_definitions(rea2sp PRIVATE A2SERVER_PATCH)
 target_compile_definitions(rea2st PRIVATE A2SERVER_PATCH A2SERVER_TANGAR_HAT)
 
 # A2CLIENT_PATCH: Enables various crash fixes.
-target_compile_definitions(rea2cp PRIVATE A2CLIENT_PATCH)
-target_compile_definitions(rea2ct PRIVATE A2CLIENT_PATCH A2SERVER_TANGAR_HAT)
+# A2CLIENT must be set on every client target — without it the client exes compile
+# with server code paths and immediately try to start a HAT dedicated server.
+target_compile_definitions(rea2cp PRIVATE A2CLIENT A2CLIENT_PATCH)
+target_compile_definitions(rea2ct PRIVATE A2CLIENT A2CLIENT_PATCH A2SERVER_TANGAR_HAT)
 
 set(A2_LINK_LIBS
     kernel32.lib

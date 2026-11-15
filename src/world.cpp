@@ -2736,7 +2736,7 @@ Spell* World::GetCastableSpell(Unit* unit, int32_t spell_number, int32_t /*flag*
 // wraps GetCastableSpell for the autobuff paths only - a bit set in the
 // player's persisted autobuff_mask suppresses that spell (AI is exempt).
 Spell* World::GetAutobuffSpell(Unit* unit, int32_t spell_number) {
-#ifdef A2SERVER_TANGAR_HAT
+#if defined(A2SERVER_TANGAR_HAT) && !defined(A2CLIENT)
     if (!unit->pOwner->is_ai) {
         settings::PlayerSettings* ps = settings::Find((const char*)unit->pOwner->name);
         if (ps != nullptr && (ps->autobuff_mask & (1u << spell_number)) != 0) {

@@ -365,7 +365,7 @@ int32_t GetRandS16(int32_t range) {
 }
 
 int32_t ParseConfig(const char* fname) { // 4f7188
-#ifdef A2SERVER_TANGAR_HAT
+#if defined(A2SERVER_TANGAR_HAT) && !defined(A2CLIENT)
 	// Tangar config v2.0: the patched server replaces the stock parser
 	// wholesale with the manager's ReadConfig (imp_ParseConfig takeover at
 	// this address; the load_config hook at 482CCC only re-pushed the same
