@@ -3,7 +3,7 @@
 namespace tangar_crash {
 
 // Install the top-level unhandled SEH exception filter (ported from
-// my-srvmgr/crash_filter.cpp + DllMain emergency character save).
+// srvmgr/crash_filter.cpp + DllMain emergency character save).
 void SetExceptionFilter();
 
 // Write a minidump + stack trace for the current thread without terminating

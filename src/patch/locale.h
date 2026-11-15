@@ -1,12 +1,13 @@
 #pragma once
 
+// TODO: get rid of A2CLIENT_PATCH_ENABLED
 #ifdef A2CLIENT_PATCH
 #define A2CLIENT_PATCH_ENABLED 1
 #else
 #define A2CLIENT_PATCH_ENABLED 0
 #endif
 
-// Tangar client localization, ported from my-a2mgr language.cpp (DecideLanguage
+// Tangar client localization, ported from a2mgr language.cpp (DecideLanguage
 // + the locale path table). The patched client loads text and graphics from
 // locale\<lang>\ instead of the hardcoded main\text\ / main\graphics\ paths;
 // the language defaults from the system UI language (Russian -> ru, else en)

@@ -9,7 +9,7 @@
 #include "net.h"
 #include "spell.h"
 #include "unit.h"
-#ifdef A2SERVER_TANGAR_HAT
+#if defined(A2SERVER_PATCH) || defined(A2SERVER_TANGAR_HAT)
 #include "patch/config_new.h"
 #include "patch/damage_filter.h"
 #include "patch/flags.h"
@@ -252,7 +252,7 @@ void Effect::RemoveFromUnit(Unit* unit) {
 
 // 53FA2B
 void Effect::ApplyStatDelta(Unit* unit, int32_t stack_delta) {
-#ifdef A2SERVER_TANGAR_HAT
+#ifdef A2SERVER_PATCH
     // test_health hook (53FA2B): block single-use health potions when SVF_NOHEALING is active.
     if (this->effect_id == modifier::health && this->usage_type == 8 && (Config::ServerFlags & SVF_NOHEALING) != 0) {
         return;

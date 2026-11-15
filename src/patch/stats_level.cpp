@@ -1,4 +1,4 @@
-// Tangar stats-based server-level selection, ported from my-a2mgr gui_bugfix.cpp.
+// Tangar stats-based server-level selection, ported from a2mgr gui_bugfix.cpp.
 // The character stats come from the player-file parse buffer (client 0x6995a8 twin,
 // see GetParsedPlayerStats in player_file.cpp).
 

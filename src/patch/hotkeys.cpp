@@ -1,4 +1,4 @@
-// Tangar custom hotkeys, ported from my-a2mgr hotkey.cpp (see hotkeys.h for the
+// Tangar custom hotkeys, ported from a2mgr hotkey.cpp (see hotkeys.h for the
 // feature summary). The retail helpers the patch reached through raw pointers are
 // called directly here: UserShortcut (the "Hotkey" struct), VisPlayingArea /
 // MainWindow fields, and the parsed player-file sections.
@@ -30,7 +30,7 @@ namespace tangar_hotkeys {
 
 namespace {
 
-// Minimal byte-buffer stream (the used subset of my-a2mgr lib/serialize.hpp).
+// Minimal byte-buffer stream (the used subset of a2mgr lib/serialize.hpp).
 class BinaryStream {
 public:
     bool LoadFromFile(const std::string& filename) {

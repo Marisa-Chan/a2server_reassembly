@@ -1,4 +1,4 @@
-// Ported from my-srvmgr/protolayer_hat.cpp. Map/player field mapping:
+// Ported from srvmgr/protolayer_hat.cpp. Map/player field mapping:
 // map width/height = MapStuff_Instance->map_width/map_height (+0x50000/+0x50004),
 // map time = g_Server->map_elapsed_time2 (+0x254)/1000, player id1 = hat_char_id1,
 // id2 = flags, login = Player::login, IP = NetStru2::buf (the join-time address).
@@ -403,7 +403,7 @@ bool RecvExactServer(SOCKET s, uint8_t* dst, int32_t total) {
     return true;
 }
 
-// Ported from my-srvmgr/srvmgr_new.cpp:209 (Sv_ProcessClientPacket).
+// Ported from srvmgr/srvmgr_new.cpp:209 (Sv_ProcessClientPacket).
 bool ProcessClientExtendedPacket(int16_t player_id, Packet& pack) {
     (void)pack;
     if (player_id == -1) {
@@ -414,7 +414,7 @@ bool ProcessClientExtendedPacket(int16_t player_id, Packet& pack) {
 
 } // namespace
 
-// Ported from my-srvmgr/srvmgr.cpp:2475 (send0).
+// Ported from srvmgr/srvmgr.cpp:2475 (send0).
 void FlushEnqueuedPackets(SOCKET s) {
     if (g_CLlDriver.connection_sockets == nullptr || g_PlayersList == nullptr) {
         return;
@@ -443,7 +443,7 @@ void FlushEnqueuedPackets(SOCKET s) {
     }
 }
 
-// Ported from my-srvmgr/srvmgr.cpp:2539 (recv0).
+// Ported from srvmgr/srvmgr.cpp:2539 (recv0).
 int RecvServerFramed(SOCKET s, char* buf, int len, int flags) {
     SOCKET hat_socket = g_HatLLDriver.listen_socket.socket;
 
@@ -566,7 +566,7 @@ bool IsPeerIpBanned(const char* ip_str) {
 
 } // namespace
 
-// Ported from my-srvmgr/srvmgr.cpp:2426 (accept0 @ 5BB6AE).
+// Ported from srvmgr/srvmgr.cpp:2426 (accept0 @ 5BB6AE).
 SOCKET AcceptServerSocket(SOCKET s, sockaddr* addr, int* addrlen) {
     SOCKET r = accept(s, addr, addrlen);
     if (r == INVALID_SOCKET) {
@@ -605,7 +605,7 @@ SOCKET AcceptServerSocket(SOCKET s, sockaddr* addr, int* addrlen) {
     return r;
 }
 
-// Ported from my-srvmgr/srvmgr.cpp:2517 (closesocket0 @ 5BB6A8).
+// Ported from srvmgr/srvmgr.cpp:2517 (closesocket0 @ 5BB6A8).
 int CloseServerSocket(SOCKET s) {
     netlog::conn("CLOSE", (uint64_t)s, nullptr, 0);
 #ifdef SRV_LOG

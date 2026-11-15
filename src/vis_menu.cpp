@@ -2874,7 +2874,7 @@ void VisMainMenu::VMethod8(CRect* rect) {
 
 // 4AB28F
 void VisMainMenu::VMethod7() {
-#ifdef A2CLIENT_PATCH
+#if defined(A2CLIENT) && defined(A2SERVER_TANGAR_HAT)
     // Tangar MENU_draw (client 4AF2C8): replaces the whole retail draw block —
     // ClientRectToScreen and the dialogsMask check are skipped as well.
     tangar_menu::Draw();
@@ -2905,7 +2905,7 @@ void VisMainMenu::VMethod7() {
 
 // 4AB88C
 int32_t VisMainMenu::OnMouseMove(uint32_t wparam, CPoint pos) {
-#ifdef A2CLIENT_PATCH
+#if defined(A2CLIENT) && defined(A2SERVER_TANGAR_HAT)
     // Tangar MENU_hover2 (client 4AF8C3): replaces UpdateButtonState.
     tangar_menu::Hover(this, pos.x, pos.y, wparam);
     return 0;
@@ -2918,7 +2918,7 @@ int32_t VisMainMenu::OnMouseMove(uint32_t wparam, CPoint pos) {
 
 // 4AB8AF
 int32_t VisMainMenu::OnLButtonDown(uint32_t wparam, CPoint pos) {
-#ifdef A2CLIENT_PATCH
+#if defined(A2CLIENT) && defined(A2SERVER_TANGAR_HAT)
     // Tangar MENU_hover1 (client 4AF8E6): replaces UpdateButtonState and the
     // retail click sound (the patch plays it from inside the hit-test).
     tangar_menu::Hover(this, pos.x, pos.y, wparam);
@@ -2982,7 +2982,7 @@ int32_t VisMainMenu::OnLButtonUp(uint32_t wparam, CPoint pos) {
         AfxGetMainWnd()->PostMessage(msg, 0, 0);
     }
     this->pressed_button = -1;
-#ifdef A2CLIENT_PATCH
+#if defined(A2CLIENT) && defined(A2SERVER_TANGAR_HAT)
     // Tangar MENU_hover3 (client 4AFA5B): replaces UpdateButtonState. The
     // retail switch above already consumed the active_button value that the
     // hover hook wrote on the preceding button-down event.
@@ -3135,7 +3135,7 @@ void VisMainMenu::FreeSfx() {
 
 // 4AADA7
 void VisMainMenu::LoadGraphics() {
-#ifdef A2CLIENT_PATCH
+#if defined(A2CLIENT) && defined(A2SERVER_TANGAR_HAT)
     // Tangar MENU_load (client 4AEDF5): the retail graphics load (including
     // the FreeGraphics call) is skipped entirely; the custom menu assets are
     // loaded lazily instead. Fatal error if the files are absent, exactly as
@@ -3144,11 +3144,9 @@ void VisMainMenu::LoadGraphics() {
 #else
     CString str;
     this->FreeGraphics();
-    this->bmp_menu_mask = new CBmp256(A2CLIENT_PATCH_ENABLED ? tangar_locale::gfx_menu_mask :
-        "main\\graphics\\MainMenu\\MenuMask.bmp");
+    this->bmp_menu_mask = new CBmp256(A2CLIENT_PATCH_ENABLED ? tangar_locale::gfx_menu_mask : "main\\graphics\\MainMenu\\MenuMask.bmp");
     g_mousept.Update();
-    this->bmp_menu = new CBmp64(A2CLIENT_PATCH_ENABLED ? tangar_locale::gfx_menu :
-        "main\\graphics\\MainMenu\\menu_.bmp");
+    this->bmp_menu = new CBmp64(A2CLIENT_PATCH_ENABLED ? tangar_locale::gfx_menu : "main\\graphics\\MainMenu\\menu_.bmp");
     g_mousept.Update();
     this->sprite = new CA16("graphics\\interface\\sprites.16a");
     this->sprite->ResetPalette(0x10, 4, 0);
@@ -3779,9 +3777,3 @@ int32_t VisListBoxDiplomacy::OnKeyDown(uint32_t wparam) {
 // 4E3D30
 void VisListBoxDiplomacy::VMethod30(CPoint pos, const CRect& r) {
 }
-
-
-
-
-
-

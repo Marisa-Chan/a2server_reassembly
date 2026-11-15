@@ -1,5 +1,5 @@
 // Map rotation countdown, state persistence, and self-restart hooks, ported
-// from my-srvmgr/map_rotation.cpp (notify_about_map_rotation @ 48AA87,
+// from srvmgr/map_rotation.cpp (notify_about_map_rotation @ 48AA87,
 // map_rotation @ 48ABA4).
 
 #include "map_rotation.h"

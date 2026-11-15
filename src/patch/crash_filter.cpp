@@ -1,4 +1,4 @@
-// Ported from my-srvmgr/crash_filter.cpp and srvmgr.cpp (DllMain crash save),
+// Ported from srvmgr/crash_filter.cpp and srvmgr.cpp (DllMain crash save),
 // extended with timestamped MiniDumpWriteDump (.dmp) output via dbghelp.
 
 #include "crash_filter.h"

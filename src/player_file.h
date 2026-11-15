@@ -89,6 +89,7 @@ int32_t __cdecl WritePlayerFile(
 
 // Stats section from the most recent ParsePlayerFile call (the static buffer the
 // retail client parses into, 0x6995a8 twin). Read by the Tangar client patch.
+// TODO: rewrite in a better way.
 FileSectionStats* GetParsedPlayerStats();
 
 // Basic-info section from the most recent ParsePlayerFile call (client 0x69c058 twin).

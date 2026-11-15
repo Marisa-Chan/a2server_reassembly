@@ -3,7 +3,7 @@
 namespace tangar_ctl {
 
 // Start/stop the background control-directory watcher thread
-// (ported from my-srvmgr/ctl_handle.cpp and srvmgr.cpp DllMain).
+// (ported from srvmgr/ctl_handle.cpp and srvmgr.cpp DllMain).
 void StartControlThread();
 void StopControlThread();
 

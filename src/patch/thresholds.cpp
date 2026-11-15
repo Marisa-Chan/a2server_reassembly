@@ -1,4 +1,4 @@
-// Tangar thresholds configuration, ported from my-srvmgr thresholds.cpp. The
+// Tangar thresholds configuration, ported from srvmgr thresholds.cpp. The
 // only deviation: the character-kind helpers work through our Unit/Player types
 // (name prefix + typeId + circle::Circle + pOwner->deaths).
 
@@ -73,7 +73,7 @@ uint32_t StrToUInt(const std::string& s) {
     return v;
 }
 
-// Solo-mode name prefixes (my-srvmgr solo.cpp): '@' ironman, '!' pure, '_' legend.
+// Solo-mode name prefixes (srvmgr solo.cpp): '@' ironman, '!' pure, '_' legend.
 bool IsIronPlayer(const Unit* unit) {
     const char* name = unit->pOwner != nullptr ? (const char*)unit->pOwner->name : "";
     return name[0] == '@';

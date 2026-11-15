@@ -1,7 +1,7 @@
 #pragma once
 
 // Tangar remote screenshot request tracker, ported from
-// my-srvmgr/screenshots.{h,cpp}. Pairs each GM `#screenshot <nick>` request
+// srvmgr/screenshots.{h,cpp}. Pairs each GM `#screenshot <nick>` request
 // with a unique UID so HAT 0x64 completion callbacks can notify SourcePlayer.
 
 #include <cstdint>

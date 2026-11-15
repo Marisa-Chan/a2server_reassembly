@@ -1,7 +1,7 @@
 #pragma once
 
 // Tangar per-player settings, ported verbatim from
-// my-srvmgr/player_settings.{h,cpp}. Persisted (autobuff mask, default
+// srvmgr/player_settings.{h,cpp}. Persisted (autobuff mask, default
 // diplomacy) in server_state.dat via patch/server_state.cpp.
 
 #include <cstdint>

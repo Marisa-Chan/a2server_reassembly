@@ -1,6 +1,6 @@
 #pragma once
 
-// Server-side scan-range subsystem, ported from my-srvmgr scanrange.cpp
+// Server-side scan-range subsystem, ported from srvmgr scanrange.cpp
 // (SR_Step called from OnServerTic; #scan dumps via CheatCommand). Every
 // tick each unit's terrain-aware vision (see scanrange_calc.h) is stamped
 // with GetTickCount() into the owning player's Vision table — and the

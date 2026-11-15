@@ -1,4 +1,4 @@
-// Ported from my-srvmgr/circle.cpp.
+// Ported from srvmgr/circle.cpp.
 
 #include "circle.h"
 

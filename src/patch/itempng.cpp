@@ -1,4 +1,4 @@
-// Tangar PNG item/character sprite replacements, ported from my-a2mgr
+// Tangar PNG item/character sprite replacements, ported from a2mgr
 // itempng.cpp. Draw/DrawIndexMask carry over the manager's IImage_Display /
 // IImage_CopyTo logic (only full-size 160x240 portraits render; all draw
 // parameters are ignored — the image always blits at the origin of the

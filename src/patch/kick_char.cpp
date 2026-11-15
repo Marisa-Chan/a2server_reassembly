@@ -25,7 +25,7 @@ void KickPlayer(Player* player, bool silent) {
         return;
     }
 
-    g_NetStru1_main.AnnouncePlayer(player);
+    g_NetStru1_main.DisconnectClient(node);
     g_NetStru1_main.ProcessConnections();
 
     if (!silent && (player->flags & GMF_INVISIBLE) != GMF_INVISIBLE) {

@@ -1,4 +1,4 @@
-// Tangar reborn readiness, ported from my-srvmgr reborn_readiness.cpp. Field
+// Tangar reborn readiness, ported from srvmgr reborn_readiness.cpp. Field
 // mapping onto our types: base stats = unit stat minus equipment_extra, skills =
 // hit_values minus equipment_extra.hit_values, per-server kill counters live in
 // Player::kill_stats, the character name (with the |clan suffix) is Player::name.
@@ -87,7 +87,7 @@ void Send(const Player* p, const std::string& message) {
 }
 
 // server id -> monster name, from the game data monster table
-// (my-srvmgr inn.cpp InitializeMobNames, trimmed to what reborn needs).
+// (srvmgr inn.cpp InitializeMobNames, trimmed to what reborn needs).
 std::unordered_map<int, std::string>& MobNamesByServerId() {
     static std::unordered_map<int, std::string> names;
     if (!names.empty()) {

@@ -1,7 +1,7 @@
 #pragma once
 
 // String helpers used by the Tangar patch modules, copied from
-// my-srvmgr/lib/utils.{hpp,cpp} (behavior-identical copies).
+// srvmgr/lib/utils.{hpp,cpp} (behavior-identical copies).
 // One rename: StrToInt -> StrToUInt (the original name is a shlwapi.h macro
 // in MFC builds, which the plain DLL build never saw).
 

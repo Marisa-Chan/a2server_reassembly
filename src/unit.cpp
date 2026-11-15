@@ -18,21 +18,26 @@
 #include "player.h"
 #include "sack.h"
 #include "server.h"
-#ifdef A2SERVER_TANGAR_HAT
-#include "patch/config_new.h"
-#include "patch/tangar_log.h"
-#include "patch/flags.h"
-#include "patch/circle.h"
-#include "patch/damage_filter.h"
-#include "patch/partial_drop.h"
-#include "patch/player_info.h"
-#endif
 #include "shop.h"
 #include "shop_assortment.h"
 #include "spell.h"
 #include "table.h"
 #include "virtual_caster.h"
 #include "world.h"
+
+#ifdef A2SERVER_PATCH
+#include "patch/tangar_log.h"
+#include "patch/flags.h"
+#endif
+
+#ifdef A2SERVER_TANGAR_HAT
+#include "patch/config_new.h"
+#include "patch/tangar_log.h"
+#include "patch/circle.h"
+#include "patch/damage_filter.h"
+#include "patch/partial_drop.h"
+#include "patch/player_info.h"
+#endif
 
 // 6cdb98
 std::array<CString, 10> MALE_HUMAN_NAMES = {"", "Biker", "Vasya", "Duke Killer", "Samuil", "Danath", "Legolas", "Fat Sam", "Ragnar", "Sir Gerald"};
@@ -724,9 +729,7 @@ void Unit::ProcessEffects() {
 
     // Decay.
 #ifdef A2SERVER_TANGAR_HAT
-    // check_health hook (52BD75): a unit idling at exactly 0 HP with active
-    // regen would stay in limbo forever (hiding behind "nearly-dead"
-    // monsters); once a minute one such unit drops to -1 and dies
+    // check_health hook (52BD75): prevent a unit idling at exactly 0 HP from staying in limbo forever.
     if (this->hp == 0 && this->hp_regen > 0 && (time(nullptr) % 60) == 0) {
         this->hp = -1;
     }
@@ -1303,15 +1306,13 @@ void Unit::InitDefaultStats() {
     this->scan_range = 5 * 0x100;
     this->extra_carrying_weight = 0;
     this->carrying_weight_100g = 0;
-#ifdef A2SERVER_TANGAR_HAT
-    // replace_unit_carrying_body_with_reaction hook (52A29E): circle witches
-    // carry by reaction, not body
-    this->carrying_body_100g =
-        (this->pOwner != nullptr && circle::Circle(this) > 0 && (this->unit_attrs & 4) != 0
-             && (this->typeId == 0x22 || this->typeId == 0x24)
-             ? this->reaction : this->body) * 10;
-#else
+
     this->carrying_body_100g = this->body * 10;
+#ifdef A2SERVER_TANGAR_HAT
+    // replace_unit_carrying_body_with_reaction hook (52A29E): circle witches carry by reaction, not body
+    if (this->pOwner != nullptr && circle::Circle(this) > 0 && (this->unit_attrs & 4) != 0 && (this->typeId == 0x22 || this->typeId == 0x24)) {
+        this->carrying_body_100g = this->reaction * 10;
+    }
 #endif
     this->hp_max = 30;
     this->hp = 30;
@@ -2570,15 +2571,12 @@ void Humanoid::RecalcStats() {
     }
 
     this->scan_range = static_cast<uint16_t>(((this->mind + this->reaction) / 25.0 + 4.0) * 256.0);
-#ifdef A2SERVER_TANGAR_HAT
-    // replace_human_carrying_body_with_reaction hook (531A0B): circle witches
-    // (mage + female + in a circle) carry by reaction, not body
-    this->carrying_body_100g = static_cast<uint16_t>(
-        (this->pOwner != nullptr && circle::Circle(this) > 0 && (this->unit_attrs & 4) != 0
-             && (this->typeId == 0x22 || this->typeId == 0x24)
-             ? this->reaction : this->body) * 10 + 1);
-#else
     this->carrying_body_100g = static_cast<uint16_t>(this->body * 10 + 1);
+#ifdef A2SERVER_TANGAR_HAT
+    // replace_human_carrying_body_with_reaction hook (531A0B): circle witches carry by reaction, not body
+    if (this->pOwner != nullptr && circle::Circle(this) > 0 && (this->unit_attrs & 4) != 0 && (this->typeId == 0x22 || this->typeId == 0x24)) {
+        this->carrying_body_100g = static_cast<uint16_t>(this->reaction * 10 + 1);
+    }
 #endif
 
     this->speed = (this->reaction < 12) ? this->reaction : this->reaction / 5 + 12;
@@ -2706,7 +2704,7 @@ void Humanoid::RecalcStats() {
         uint16_t value = this->protections.magic_protections[i];
 #ifdef A2SERVER_TANGAR_HAT
         // imp_limit_magic_resist_wrapper hook (532243): per-class/gender
-        // resist caps from config replace the retail spirit-based ceiling
+        // resist caps from config clamp the retail spirit-based ceiling more
         const MainCharacterParameters& resist_caps = fighter
             ? (female ? Config::WarriorFemaleMaxParameters : Config::WarriorMaleMaxParameters)
             : (female ? Config::MageFemaleMaxParameters : Config::MageMaleMaxParameters);
@@ -2718,7 +2716,6 @@ void Humanoid::RecalcStats() {
             case 4: resist_limit = resist_caps.ResistEarth; break;
             case 5: resist_limit = resist_caps.ResistAstral; break;
         }
-        // the hook clamps the already-retail-clamped value once more
         this->protections.magic_protections[i] = min(min(value, ceiling), resist_limit);
 #else
         this->protections.magic_protections[i] = min(value, ceiling);
@@ -2743,7 +2740,7 @@ uint32_t Humanoid::RecalcExperience() {
 
 // 530745
 void Humanoid::AddExperience(uint32_t new_exp, Unit* target, int32_t sphere) {
-    #ifdef A2SERVER_TANGAR_HAT
+    #ifdef A2SERVER_PATCH
     // imp_GMNoLevelUp hook (530745): full GMs (GMF_ANY) don't level up
     if (this->pOwner != nullptr && (this->pOwner->flags & GMF_ANY) == GMF_ANY) {
         return;
@@ -2986,14 +2983,14 @@ void Humanoid::CopyFrom(Humanoid* other) {
 
 // 53116B
 void Humanoid::ReviveWithPenalty() {
-    #ifdef A2SERVER_TANGAR_HAT
+    #ifdef A2SERVER_PATCH
     // player_respawned_init hook (53118A)
     if (this->pOwner != nullptr) {
         Printf("Player %s respawned.\n", (const char*)this->pOwner->name);
     }
     #endif
     this->experience = 0;
-    #ifdef A2SERVER_TANGAR_HAT
+    #ifdef A2SERVER_PATCH
     // imp_GMNoLevelDown hook (53126B): full GMs (GMF_ANY) skip the
     // respawn experience penalty
     if (!(this->pOwner != nullptr && (this->pOwner->flags & GMF_ANY) == GMF_ANY))
@@ -3078,10 +3075,10 @@ void Humanoid::InitCreationSkills(int8_t main_skill, int8_t skill_level) {
         if (this->spell_book != nullptr) {
             int32_t spell_id = 0;
             switch (main_skill) {
-                case 1: spell_id = 1; break;  // Fire arrow
-                case 2: spell_id = 5; break;  // Ice missile
-                case 3: spell_id = 10; break; // Lightning
-                case 4: spell_id = 16; break; // Diamond dust
+                case 1: spell_id = spell::fire_arrow; break;
+                case 2: spell_id = spell::ice_missile; break;
+                case 3: spell_id = spell::lightning; break;
+                case 4: spell_id = spell::stone_missile; break;
             }
             if (spell_id != 0 && this->spell_book->GetSpell(spell_id) == nullptr) {
                 this->spell_book->SetSpell(spell_id, new Spell((uint8_t)spell_id));

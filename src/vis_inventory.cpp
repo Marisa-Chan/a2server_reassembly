@@ -489,9 +489,11 @@ void VisInvType1::VMethod7() {
     CPoint mouse_pt(g_mousept.GetX(), g_mousept.GetY());
 
     if (this->grid_source != nullptr) {
+        #ifdef A2CLIENT_PATCH
         if (this->visible_startref == nullptr) { // CRASH_fix_4AAB7E (client 4AAB7E): null guard
             return;
         }
+        #endif
         if (*this->visible_startref != 0) {
             if (left_arrow_rect.PtInRect(mouse_pt)) {
                 g_bmp_invarrow3->DrawSubRectMasked(screen_rect.left + edge_width, screen_rect.top + 2, 0, 0, 0x20, 0x58);
@@ -569,7 +571,7 @@ void VisInvType1::VMethod7() {
             this->DrawGlowTrail(cell_x, cell_y, i);
         }
 
-#ifdef A2CLIENT_PATCH
+#if defined(A2CLIENT) && defined(A2SERVER_TANGAR_HAT)
         // Tangar mark_item_hotkey (4AAC7C): custom-hotkey labels replace the
         // retail F4-F12 labels.
         entry = this->grid_source->GetAt(i + *this->visible_startref);
@@ -699,7 +701,7 @@ int32_t VisInvType1::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
             if (screen_rect.PtInRect(mouse_pt)) {
                 int32_t idx = this->VMethod30(g_mousept.GetX(), -g_mousept.GetY());
                 if (idx >= 0) {
-#ifdef A2CLIENT_PATCH
+#if defined(A2CLIENT) && defined(A2SERVER_TANGAR_HAT)
                     // Tangar item_hotkey_set (4AB545): the custom-hotkey map
                     // owns the binding (with its own dedup); retail dedup skipped.
                     tangar_hotkeys::ItemHotkeySet((int32_t)wparam + VK_F4, this->grid_source->GetAt(idx));
@@ -715,7 +717,7 @@ int32_t VisInvType1::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
                 }
             }
         } else {
-#ifdef A2CLIENT_PATCH
+#if defined(A2CLIENT) && defined(A2SERVER_TANGAR_HAT)
             // Tangar item_hotkey_find (4AB61A): match against the custom hotkey.
             UserShortcut* tangar_hotkey = tangar_hotkeys::LookupHotkey((int32_t)wparam + VK_F4);
             if (tangar_hotkey != nullptr && this->grid_source != nullptr) {
@@ -2632,7 +2634,7 @@ int32_t VisSpellBook::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
         this->pressed = -1;
     } else if (msg == VIS_MSG_SHORTCUT_KEY) {
         if (lparam == 0) {
-#ifdef A2CLIENT_PATCH
+#if defined(A2CLIENT) && defined(A2SERVER_TANGAR_HAT)
             // Tangar spell_hotkey_use (4CF5DF): select from the custom hotkey.
             UserShortcut* tangar_hotkey = tangar_hotkeys::LookupHotkey((int32_t)wparam + VK_F4);
             if (tangar_hotkey != nullptr && tangar_hotkey->kind == 1) {
@@ -2644,7 +2646,7 @@ int32_t VisSpellBook::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
             }
 #endif
         } else {
-#ifdef A2CLIENT_PATCH
+#if defined(A2CLIENT) && defined(A2SERVER_TANGAR_HAT)
             // Tangar spell_hotkey_set_mouse/set_selected (4CF4EE/4CF562): the
             // custom-hotkey map owns the binding (with its own dedup).
             if (this->pressed == -1) {
@@ -2731,7 +2733,7 @@ void VisSpellBook::VMethod7() {
     }
     for (int32_t i = 0; i < 0x18; i++) {
         if (((mc->selected_available_spell_mask | mc->active_spell_effect_mask) & (1 << (i & 0x1F))) != 0) {
-#ifdef A2CLIENT_PATCH
+#if defined(A2CLIENT) && defined(A2SERVER_TANGAR_HAT)
             // Tangar mark_spell_hotkey (4CEFBA): custom spell-hotkey labels
             // replace the retail F4-F12 labels.
             tangar_hotkeys::DrawSpellHotkeyLabel(left + rc.left, rc.top, i, this->pressed);
@@ -2893,8 +2895,3 @@ VisSpellBook::VisSpellBook(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t
 // 4CB020 (scalar deleting dtor ??_G at 4CB020; complete dtor 4cb050 has no custom cleanup)
 VisSpellBook::~VisSpellBook() {
 }
-
-
-
-
-

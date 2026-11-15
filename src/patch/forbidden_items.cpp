@@ -1,4 +1,4 @@
-// Ported from my-srvmgr/scroll_burn.cpp (item sets + CanEat/IsScroll).
+// Ported from srvmgr/scroll_burn.cpp (item sets + CanEat/IsScroll).
 
 #include "forbidden_items.h"
 
@@ -175,4 +175,3 @@ bool IsDisabled(uint16_t item_id) {
     return disabled_shop_items.count(item_id) != 0;
 }
 } // namespace tangar_items
-

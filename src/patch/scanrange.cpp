@@ -1,4 +1,4 @@
-// Server-side scan-range subsystem, ported from my-srvmgr scanrange.cpp
+// Server-side scan-range subsystem, ported from srvmgr scanrange.cpp
 // (see scanrange.h). The manager read map data from raw addresses; this
 // port uses the real classes (MapStuff_Instance->height_map / map_width /
 // map_height, Unit::token_pos / scan_range, g_World->diplomacy).

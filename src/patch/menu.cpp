@@ -1,4 +1,4 @@
-// Tangar custom main menu, ported from my-a2mgr menu.cpp. The patched menu
+// Tangar custom main menu, ported from a2mgr menu.cpp. The patched menu
 // replaces the retail eight-button menu with a menunew.png background and
 // three custom buttons (Play / Authors / Quit) drawn over the inn button
 // art, dispatching through the retail button codes 5 / 3 / 7.

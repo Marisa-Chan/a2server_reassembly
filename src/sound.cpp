@@ -230,10 +230,11 @@ SoundChannel* SfxSample::FindPlayingChannel() { //45c004
 #ifdef A2CLIENT_PATCH
 	// CRASH_fix_45FC3B (client 45FC3B): the sample object may already be freed
 	// at the call sites - guard this before the field reads
-	if (this == nullptr || !g_dsound || !this->loaded) {
-#else
-	if (!g_dsound || !this->loaded) {
+	if (this == nullptr) {
+		return nullptr;
+	}
 #endif
+	if (!g_dsound || !this->loaded) {
 		return nullptr;
 	}
 
@@ -1208,4 +1209,3 @@ void UpdatePositionalMusic(int32_t x, int32_t y) {
 		} while (g_CurrentMusicTrack == -1);
 	}
 }
-

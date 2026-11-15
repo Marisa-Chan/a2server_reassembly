@@ -1,4 +1,4 @@
-// Ported from my-srvmgr/cheat_codes_new.cpp (OnDamage, GetDamageBonus) and
+// Ported from srvmgr/cheat_codes_new.cpp (OnDamage, GetDamageBonus) and
 // pvm2.cpp (VerifyDamage2). The strong/weak check of VerifyDamage2
 // (vd2_CheckStrong) is not ported yet — advanced PvM blocks nothing until it
 // lands; the rest of the filter is complete.
@@ -12,6 +12,7 @@
 #include "player_info.h"
 #include "pvm2.h"
 
+#include "../constants.h"
 #include "../effect.h"
 #include "../item.h"
 #include "../player.h"
@@ -19,8 +20,8 @@
 
 namespace {
 
-// Sum of effect-26 ("damage bonus") values across the unit's equipped items.
-uint32_t TangarGetDamageBonus(Unit* unit) {
+// Sum of fighterskill0 effect values across the unit's equipped items.
+uint32_t GetDamageBonus(Unit* unit) {
     if (unit == nullptr) {
         return 0;
     }
@@ -54,7 +55,7 @@ uint32_t TangarGetDamageBonus(Unit* unit) {
 
         for (POSITION pos = item->_effects.GetHeadPosition(); pos != nullptr;) {
             Effect* effect = item->_effects.GetNext(pos);
-            if (effect != nullptr && effect->effect_id == 26) {
+            if (effect != nullptr && effect->effect_id == modifier::fighterskill0) {
                 retval += effect->spell_value;
             }
         }
@@ -75,7 +76,7 @@ int32_t TangarOnDamage(Unit* attacker, Unit* victim, int16_t damage) {
     }
 
     // calculate damage bonus
-    uint32_t damage_bonus = TangarGetDamageBonus(attacker);
+    uint32_t damage_bonus = GetDamageBonus(attacker);
     if (damage_bonus != 0 && damage > 0) {
         damage = (int16_t)((double)damage * ((double)damage_bonus / 100.0 + 1.0));
     }

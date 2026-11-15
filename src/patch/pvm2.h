@@ -1,6 +1,6 @@
 #pragma once
 
-// Tangar "advanced PvM" strong/weak detection, ported from my-srvmgr/pvm2.cpp
+// Tangar "advanced PvM" strong/weak detection, ported from srvmgr/pvm2.cpp
 // (vd2_CheckStrong and its spell/scroll/item queries). A "strong" character
 // has overcapped stats, tier-3 spells, or too many high-tier scrolls/items;
 // under SVF_ADVPVM strong and weak players cannot damage each other.

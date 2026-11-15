@@ -23,13 +23,18 @@
 #include "token.h"
 #include "unit.h"
 #include "unit_list.h"
+#include "world.h"
+#include "map_stuff.h"
+
+#ifdef A2SERVER_PATCH
+#include "patch/config_new.h"
+#endif
+
 #ifdef A2SERVER_TANGAR_HAT
 #include "patch/config_new.h"
 #include "patch/quest_filters.h"
 #include "patch/player_settings.h"
 #endif
-#include "world.h"
-#include "map_stuff.h"
 
 IMPLEMENT_SERIAL(Inn, Building, 1); // 637330.
 
@@ -734,14 +739,15 @@ void Inn::RegenTick() {
     // Phase 2: Tick the quest-roll counter; when it exceeds 120 and the inn is
     // empty, refresh quests for each player and reset the counter.
     this->quest_roll_counter++;
-    if (this->quest_roll_counter >
-#ifdef A2SERVER_TANGAR_HAT
-        // imp_inn_quest_roll_interval hook (567E7C): configurable roll rate
-        Config::QuestRollInterval
+
+    int roll_interval;
+#ifdef A2SERVER_PATCH
+    roll_interval = Config::QuestRollInterval;
 #else
-        120
-#endif
-        && this->unit_list.unit_list.IsEmpty()) {
+    roll_interval = 120;
+#endif;
+
+    if (this->quest_roll_counter > roll_interval && this->unit_list.unit_list.IsEmpty()) {
         POSITION qpos = this->quest_map_per_player.GetStartPosition();
         while (qpos) {
             uint32_t player_id;
@@ -863,25 +869,24 @@ void Inn::InnReward(Player* player) {
         return;
     }
 
+    // The reward can't be much higher: gold is sent in a uint16_t multiple of 250,
+    // and 65535 * 250 = 16_383_750, so the max reward is just below that.
+    int max_quest_reward = 16383000;
+    int min_quest_reward = 250;
+
 #ifdef A2SERVER_TANGAR_HAT
     // bound_quest_reward hook (565406): configurable reward bounds
     // (defaults equal the retail constants)
-    if (reward > Config::MaxQuestReward) {
-        reward = Config::MaxQuestReward;
-    }
-    if (reward < Config::MinQuestReward) {
-        reward = Config::MinQuestReward;
-    }
-#else
-    if (reward > 16383000) {
-        // The reward can't be much higher: gold is sent in a uint16_t multiple of 250,
-        // and 65535 * 250 = 16_383_750, so the max reward is just below that.
-        reward = 16383000;
-    }
-    if (reward < 250) {
-        reward = 250;
-    }
+    max_quest_reward = Config::MaxQuestReward;
+    min_quest_reward = Config::MinQuestReward;
 #endif
+
+    if (reward > max_quest_reward) {
+        reward = max_quest_reward;
+    }
+    if (reward < min_quest_reward) {
+        reward = min_quest_reward;
+    }
 
     // Check if player already has a reward stored.
     Inventory* existing;
@@ -1531,12 +1536,12 @@ void Inn::RemoveUnit(Humanoid* humanoid, int32_t id) {
                     bool is_item_improvement = (id >= inv_count - 1);
 
                     if (!is_item_improvement) {
-                        // Not last item вЂ” just give it to the humanoid
+                        // Not last item --- just give it to the unit
                         item->TokenID = 1;
                         humanoid->inventory->PutItemIntoBagAtDefault(item);
                         g_NetStru1_main.SendUnitUpdate(humanoid, nullptr, UNIT_UPD_INVENTORY_WEIGHT_SPEED, EQUIP_SLOTS_ALL, 0, 0);
                     } else {
-                        // Last item вЂ” try to equip it, so `equipped` would be the item that was on the player before.
+                        // Last item --- try to equip it, so `equipped` would be the item that was on the player before.
                         Item* equipped = item->Equip(humanoid);
                         if (equipped == nullptr || equipped->upgraded_at_inn == 0) {
 #ifdef A2SERVER_TANGAR_HAT
@@ -1559,7 +1564,7 @@ void Inn::RemoveUnit(Humanoid* humanoid, int32_t id) {
 #endif
                             g_NetStru1_main.SendTeamNotify(TEAM_NOTIFY_PLAYER_FLAGGED, humanoid->pOwner->player_id, humanoid->pOwner);
                         } else {
-                            // Use succeeded вЂ” clean up equipped placeholder
+                            // Use succeeded --- clean up equipped placeholder
                             delete equipped;
                         }
                         g_NetStru1_main.SendUnitUpdate(humanoid, nullptr, UNIT_UPD_EQUIP_WEIGHT_SPEED, EQUIP_SLOTS_ALL, 0, 0);

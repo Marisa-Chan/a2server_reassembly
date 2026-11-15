@@ -74,61 +74,92 @@ set(A2_SOURCES
   world.cpp
   lib/smacker.c
   res/a2server.rc
+
+  patch/locale.cpp
+  patch/netlog.cpp
 )
 
-set(A2SERVER_SOURCES
-  patch/kick_char.cpp
+set(A2SERVER_PATCHES
   patch/allowed_picture.cpp
-  patch/tangar_utils.cpp
-  patch/tangar_log.cpp
-  patch/config_new.cpp
-  patch/server_state.cpp
-  patch/player_info.cpp
-  patch/scanrange_calc.cpp
-  patch/scanrange.cpp
-  patch/player_settings.cpp
-  patch/circle.cpp
-  patch/thresholds.cpp
-  patch/reborn.cpp
-  patch/summon.cpp
-  patch/forbidden_items.cpp
-  patch/multiplayer_shop.cpp
   patch/antiinvis.cpp
-  patch/partial_drop.cpp
-  patch/map_rotation.cpp
-  patch/solo.cpp
-  patch/quest_filters.cpp
-  patch/damage_filter.cpp
-  patch/pvm2.cpp
-  patch/gm_noclip.cpp
-  patch/hat_packet.cpp
-  patch/hat_net.cpp
-  patch/netlog.cpp
-  patch/screenshots.cpp
-  patch/gm_commands.cpp
+  patch/circle.cpp
+  patch/config_new.cpp
   patch/crash_filter.cpp
   patch/ctl_handle.cpp
-  patch/locale.cpp
-)
-
-add_executable(rea2s ${A2_SOURCES} ${A2SERVER_SOURCES})
-set(A2CLIENT_SOURCES
-  patch/locale.cpp
-  patch/client_config.cpp
-  patch/stats_level.cpp
-  patch/hotkeys.cpp
-  patch/lodepng/lodepng.cpp
-  patch/image.cpp
-  patch/menu.cpp
-  patch/itempng.cpp
-  patch/scanrange_calc.cpp
+  patch/damage_filter.cpp
+  patch/forbidden_items.cpp
+  patch/gm_commands.cpp
+  patch/gm_noclip.cpp
+  patch/hat_net.cpp
   patch/hat_packet.cpp
+  patch/kick_char.cpp
+  patch/map_rotation.cpp
+  patch/multiplayer_shop.cpp
+  patch/partial_drop.cpp
+  patch/player_info.cpp
+  patch/player_settings.cpp
+  patch/pvm2.cpp
+  patch/quest_filters.cpp
+  patch/reborn.cpp
+  patch/scanrange.cpp
+  patch/scanrange_calc.cpp
+  patch/screenshots.cpp
+  patch/server_state.cpp
+  patch/solo.cpp
+  patch/summon.cpp
+  patch/tangar_log.cpp
+  patch/tangar_utils.cpp
+  patch/thresholds.cpp
+)
+add_executable(rea2s ${A2_SOURCES})
+add_executable(rea2sp ${A2_SOURCES} ${A2SERVER_PATCHES})
+add_executable(rea2st ${A2_SOURCES} ${A2SERVER_PATCHES})
+
+set(A2CLIENT_PATCHES
+  lib/happyhttp.cpp
+  lib/lodepng.cpp
+  patch/antiinvis.cpp
+  patch/circle.cpp
+  patch/client_config.cpp
+  patch/config_new.cpp
+  patch/crash_filter.cpp
+  patch/ctl_handle.cpp
+  patch/damage_filter.cpp
+  patch/forbidden_items.cpp
+  patch/gm_commands.cpp
+  patch/gm_noclip.cpp
   patch/hat_client.cpp
-  patch/netlog.cpp
-  patch/happyhttp/happyhttp.cpp
+  patch/hat_net.cpp
+  patch/hat_packet.cpp
+  patch/hotkeys.cpp
+  patch/image.cpp
+  patch/itempng.cpp
+  patch/kick_char.cpp
+  patch/locale.cpp
+  patch/map_rotation.cpp
+  patch/menu.cpp
+  patch/multiplayer_shop.cpp
+  patch/partial_drop.cpp
+  patch/player_info.cpp
+  patch/player_settings.cpp
+  patch/pvm2.cpp
+  patch/quest_filters.cpp
+  patch/reborn.cpp
+  patch/scanrange.cpp
+  patch/scanrange_calc.cpp
+  patch/screenshots.cpp
+  patch/server_state.cpp
+  patch/solo.cpp
+  patch/stats_level.cpp
+  patch/summon.cpp
+  patch/tangar_log.cpp
+  patch/tangar_utils.cpp
+  patch/thresholds.cpp
 )
 
-add_executable(rea2c ${A2_SOURCES} ${A2CLIENT_SOURCES})
+add_executable(rea2c ${A2_SOURCES})
+add_executable(rea2cp ${A2_SOURCES} ${A2CLIENT_PATCHES})
+add_executable(rea2ct ${A2_SOURCES} ${A2CLIENT_PATCHES})
 
 # Pin to what the build already defaulted to (26100 SDK MAXVER) — silences
 # the "_WIN32_WINNT not defined" warning in every TU.
@@ -136,7 +167,7 @@ set(A2_COMPILE_DEFS
   _AFXDLL;FKG_FORCED_USAGE;_USE_32BIT_TIME_T;NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;_WIN32_WINNT=0x0A00
 )
 
-foreach(TARGET rea2s rea2c)
+foreach(TARGET rea2s rea2c rea2sp rea2st rea2cp rea2ct)
   set_property(TARGET ${TARGET} PROPERTY
     MSVC_RUNTIME_LIBRARY "MultiThreadedDLL"
   )
@@ -149,10 +180,12 @@ target_compile_definitions(rea2c PRIVATE A2CLIENT)
 # A2SERVER_PATCH: Enables various crash fixes.
 # A2SERVER_TANGAR_HAT: Enables the Tangar's hat balance changes (requires A2SERVER_PATCH).
 
-target_compile_definitions(rea2s PRIVATE A2SERVER_PATCH A2SERVER_TANGAR_HAT)
+target_compile_definitions(rea2sp PRIVATE A2SERVER_PATCH)
+target_compile_definitions(rea2st PRIVATE A2SERVER_PATCH A2SERVER_TANGAR_HAT)
 
 # A2CLIENT_PATCH: Enables various crash fixes.
-target_compile_definitions(rea2c PRIVATE A2CLIENT_PATCH)
+target_compile_definitions(rea2cp PRIVATE A2CLIENT_PATCH)
+target_compile_definitions(rea2ct PRIVATE A2CLIENT_PATCH A2SERVER_TANGAR_HAT)
 
 set(A2_LINK_LIBS
     kernel32.lib
@@ -200,7 +233,7 @@ set(A2_LINK_OPTS
     /ERRORREPORT:PROMPT
 )
 
-foreach(TARGET rea2s rea2c)
+foreach(TARGET rea2s rea2c rea2sp rea2st rea2cp rea2ct)
   target_link_libraries(${TARGET} PRIVATE ${A2_LINK_LIBS})
   target_link_options(${TARGET} PRIVATE ${A2_LINK_OPTS})
 

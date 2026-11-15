@@ -1,8 +1,4 @@
 #include <winsock2.h>
-#ifdef A2CLIENT_PATCH
-#include "patch/stats_level.h"
-#include "patch/client_config.h"
-#endif
 #include <ws2tcpip.h>
 #include <timeapi.h>
 
@@ -27,6 +23,12 @@
 #include "vis_hat.h"
 #include "gameplay.h"
 #include "vis_playing_area.h"
+#include "patch/flags.h"
+
+#if defined(A2CLIENT_PATCH) || defined(A2SERVER_TANGAR_HAT)
+#include "patch/stats_level.h"
+#include "patch/client_config.h"
+#endif
 
 // HatBrowserProgress implementation (struct declared in net.h)
 
@@ -260,7 +262,7 @@ int32_t VisHatBrowserList::IsItemEnabled(int32_t idx) {
 #ifdef A2CLIENT_PATCH
     // GUI_gmEnter hook (44DB8D): a full GM (session key part 2 carries the
     // GMF flags) may enter any server
-    if ((main_wnd->m_GameSession.sessionKeyPart2 & 0x3F000000) == 0x3F000000) {
+    if ((main_wnd->m_GameSession.sessionKeyPart2 & GMF_ANY) == GMF_ANY) {
         return 1;
     }
 #endif
@@ -898,7 +900,7 @@ CVisualObject* VisHatServerListDlg::VMethod30(const void* data, const RECT& r) {
         ip_box->ReadData(hat->hatprogip);
     }
 
-#ifdef A2CLIENT_PATCH
+#if defined(A2CLIENT) && defined(A2SERVER_TANGAR_HAT)
     // Tangar GUI_sandboxSwitch (44CB2D) + GUI_softcoreResetSwitch (44CBC7): the
     // game-mode radio collapses to a single "hardcore" entry in a taller box; the
     // shown index comes from the z_softcore override (1->2, 2->4) or the stored
@@ -1152,10 +1154,3 @@ void VisHatSession::VMethod7() { // 4e8545
     UnlockSurface2();
 }
 #endif
-
-
-
-
-
-
-

@@ -1,4 +1,4 @@
-// Ported verbatim from my-srvmgr/player_settings.cpp.
+// Ported verbatim from srvmgr/player_settings.cpp.
 
 #include "player_settings.h"
 

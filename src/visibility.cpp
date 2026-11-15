@@ -101,7 +101,7 @@ int32_t Visibility::StepVisRay(int32_t x, int32_t y, int32_t base_yx, int32_t ba
     PosYX pos = PosYX(x, y);
     PosYX direction = PosYX(this->ray_dir_table[x][y]);
     PosYX with_offset = PosYX(base_yx + pos.val);
-    int32_t height = this->map_stuff->height_map[with_offset.val];
+    int32_t height = (int8_t)this->map_stuff->height_map[with_offset.val];
 
     PosYX with_direction = PosYX(x + direction.x, y + direction.y);
 
@@ -118,7 +118,9 @@ int32_t Visibility::StepVisRay(int32_t x, int32_t y, int32_t base_yx, int32_t ba
 // 58D768
 void Visibility::ScanUnitVisibility(Unit* unit, uint16_t yx) {
     PosYX pos = PosYX(yx);
-    int32_t base_yx = PosYX(pos.x - Visibility::CENTER, pos.y - Visibility::CENTER).val;
+    int32_t base_x = pos.x - Visibility::CENTER;
+    int32_t base_y = pos.y - Visibility::CENTER;
+    int32_t base_yx = PosYX(base_x, base_y).val;
 
     memset(this->vis_budget_scratch, 0, sizeof(this->vis_budget_scratch));
     this->vis_budget_scratch[Visibility::CENTER][Visibility::CENTER] = ((unit->scan_range >> 8) << this->scan_shift) + (1 << (this->scan_shift - 1));
@@ -126,7 +128,11 @@ void Visibility::ScanUnitVisibility(Unit* unit, uint16_t yx) {
     uint16_t unit_yx = unit->position->CompatGetYX();
     this->vis_scratch[unit_yx] = 1;
 
-    uint8_t base_height = this->map_stuff->height_map[unit_yx];
+    // TODO: heights >= 128 exist only on Tangar HAT maps (retail maps cap at 127).
+    // The signed load is retail-faithful (MOVSX in the binary) but reads a 255 peak
+    // as -1 there. Switch this and the load in StepVisRay to unsigned to match
+    // CScanrangeCalc / map-author intent; to be addressed separately.
+    int32_t base_height = (int8_t)this->map_stuff->height_map[unit_yx];
 
     bool keep_going = true;
     for (int32_t radius = 1; radius < Visibility::CENTER && keep_going; radius++) {
@@ -134,25 +140,25 @@ void Visibility::ScanUnitVisibility(Unit* unit, uint16_t yx) {
         for (int32_t offset = -radius; offset <= radius; offset++) {
             int32_t x1 = Visibility::CENTER + offset;
             int32_t y1 = Visibility::CENTER - radius;
-            if (this->map_stuff->IsInMapBounds(pos.x + x1, pos.y + y1) && !this->StepVisRay(x1, y1, base_yx, base_height)) {
+            if (this->map_stuff->IsInMapBounds(base_x + x1, base_y + y1) && !this->StepVisRay(x1, y1, base_yx, base_height)) {
                 keep_going = true;
             }
 
             x1 = Visibility::CENTER + offset;
             y1 = Visibility::CENTER + radius;
-            if (this->map_stuff->IsInMapBounds(pos.x + x1, pos.y + y1) && !this->StepVisRay(x1, y1, base_yx, base_height)) {
+            if (this->map_stuff->IsInMapBounds(base_x + x1, base_y + y1) && !this->StepVisRay(x1, y1, base_yx, base_height)) {
                 keep_going = true;
             }
 
             x1 = Visibility::CENTER - radius;
             y1 = Visibility::CENTER + offset;
-            if (this->map_stuff->IsInMapBounds(pos.x + x1, pos.y + y1) && !this->StepVisRay(x1, y1, base_yx, base_height)) {
+            if (this->map_stuff->IsInMapBounds(base_x + x1, base_y + y1) && !this->StepVisRay(x1, y1, base_yx, base_height)) {
                 keep_going = true;
             }
 
             x1 = Visibility::CENTER + radius;
             y1 = Visibility::CENTER - offset;
-            if (this->map_stuff->IsInMapBounds(pos.x + x1, pos.y + y1) && !this->StepVisRay(x1, y1, base_yx, base_height)) {
+            if (this->map_stuff->IsInMapBounds(base_x + x1, base_y + y1) && !this->StepVisRay(x1, y1, base_yx, base_height)) {
                 keep_going = true;
             }
         }

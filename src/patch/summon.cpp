@@ -1,4 +1,4 @@
-// Ported from my-srvmgr/summon.cpp. The stat tables (unit_changes and the
+// Ported from srvmgr/summon.cpp. The stat tables (unit_changes and the
 // *_type_changes globals) are copied verbatim; the fixup function is adapted
 // to our field names (experience/typeId/seeInvisible).
 

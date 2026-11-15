@@ -1,7 +1,7 @@
 #pragma once
 
 // GM world-manipulation, spellbook, and item-construction helpers ported from
-// my-srvmgr/zxmgr.cpp, cheat_codes_new.cpp, and cheat_codes.cpp.
+// srvmgr/zxmgr.cpp, cheat_codes_new.cpp, and cheat_codes.cpp.
 
 #include <cstdint>
 #include <string>

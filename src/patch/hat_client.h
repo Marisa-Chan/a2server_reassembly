@@ -1,8 +1,8 @@
 #pragma once
 
 // Tangar client-side v20 HAT authorization & extended-packet wire framing,
-// ported from my-a2mgr/network_protocol.cpp (crcmain,
-// NETPROTO_createAuthorizationPacket, recv_) and my-a2mgr/a2mgr.cpp (SHA1
+// ported from a2mgr/network_protocol.cpp (crcmain,
+// NETPROTO_createAuthorizationPacket, recv_) and a2mgr/a2mgr.cpp (SHA1
 // anticheat fingerprint setup).
 
 #include <cstdint>
@@ -23,11 +23,11 @@ constexpr uint32_t PROTO_VER = 20;
 // Check remote /allods/version_id & /allods/version on api.allods2.eu, download
 // any updated resource files into data/, and self-restart if files changed.
 // Passes through cleanly when the update endpoint is unused or unreachable
-// (ported from my-a2mgr/network_protocol_ext.cpp NETPROTO_updater, client: 4949cd).
+// (ported from a2mgr/network_protocol_ext.cpp NETPROTO_updater, client: 4949cd).
 bool RunAutoUpdater(MainWindow* wnd);
 
 // Lazily compute SHA-1 digests of executable, resources, and first volume UUID
-// used by the v20 HAT authorization fingerprint (my-a2mgr/a2mgr.cpp:107-174).
+// used by the v20 HAT authorization fingerprint (a2mgr/a2mgr.cpp:107-174).
 void EnsureAnticheatHashes();
 
 // Populate PacketJoin as a v20 HAT authorization packet (id = 0) and apply
@@ -42,7 +42,7 @@ bool ProcessServerPacket(tangar_hat::Packet& pack);
 void ProcLastScreenshot();
 
 // Framed TCP receive hook for CLlDriver::RecvThreadTcp (client: 5122d1,
-// my-a2mgr recv_). Demultiplexes 0x80100000 manager packets and normal
+// a2mgr recv_). Demultiplexes 0x80100000 manager packets and normal
 // 8-byte-headed game packets.
 int RecvClientFramed(SOCKET s, char* buf, int len, int flags);
 

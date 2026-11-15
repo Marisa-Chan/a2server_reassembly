@@ -1,6 +1,6 @@
 #pragma once
 
-// Tangar custom hotkeys, ported from my-a2mgr hotkey.{h,cpp} + the alias part of
+// Tangar custom hotkeys, ported from a2mgr hotkey.{h,cpp} + the alias part of
 // config.cpp. Two features layered over the retail UserShortcut F4-F12 system:
 //  - any key can be bound to an item/spell (persisted per character in
 //    hotkey.<id1>.a2key, same serialization as retail shortcuts);
@@ -72,7 +72,7 @@ void RememberKeyHandler(void* obj);
 void RememberWindow(void* window);
 
 // Spell book visibility, tracked by the is_spell_book_open hook.
-void SetSpellBookOpen(bool open);
+void SetSpellBookOpen(bool open); // TODO: that's a crutch, do it better.
 bool SpellBookOpen();
 
 // Action classification (see the Action enum for the patch's address encoding).
@@ -92,7 +92,7 @@ bool SpellHighlighted();
 bool MouseOverMagic();
 bool InventoryOpen();
 bool MouseOverItem();
-void RememberPanel(void* panel);
+void RememberPanel(void* panel); // TODO: this is crutch, do it better.
 
 // Hotkey-map mutation (the item_hotkey_set / spell_hotkey_set hooks).
 UserShortcut* NewCustomHotkey(int key);

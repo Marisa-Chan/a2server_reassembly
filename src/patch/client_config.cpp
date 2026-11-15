@@ -1,4 +1,4 @@
-// Ported from my-a2mgr config.cpp (ParseConfig2x / ParseConfig1x, trimmed to
+// Ported from a2mgr config.cpp (ParseConfig2x / ParseConfig1x, trimmed to
 // the knobs consumed by ported client features).
 
 #include "client_config.h"

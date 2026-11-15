@@ -1,4 +1,4 @@
-// Ported from my-a2mgr language.cpp DecideLanguage + path tables.
+// Ported from a2mgr language.cpp DecideLanguage + path tables.
 
 #include "locale.h"
 
@@ -7,7 +7,6 @@
 #endif
 
 #include <cstdio>
-#include <cstdlib>
 #include <windows.h>
 
 namespace tangar_locale {

@@ -1,6 +1,6 @@
 #pragma once
 
-// Tangar per-player info, ported from my-srvmgr/player_info.{h,cpp}.
+// Tangar per-player info, ported from srvmgr/player_info.{h,cpp}.
 // Backs the timed mute system (UnmuteDate) and GM state (god-mode setters,
 // spell-set restore); created on join (imp_PIadd), deleted on leave
 // (imp_PIdel), rebuilt on map load (PI_Reset, imp_LoadedMap).

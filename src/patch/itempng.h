@@ -1,6 +1,6 @@
 #pragma once
 
-// Tangar PNG item/character sprite replacements, ported from my-a2mgr
+// Tangar PNG item/character sprite replacements, ported from a2mgr
 // itempng.cpp (hooks ITEMPNG_loadPng @ client 46E014, ITEMPNG_loadPngChar @
 // client 46E1B0 and ITEMPNG_cachePng @ client 42AAC0). When a PNG twin of a
 // retail .256 equipment/character sprite exists under data\, it replaces the

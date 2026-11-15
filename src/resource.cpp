@@ -1511,7 +1511,7 @@ int FatEntry::SortCompare(const void* a, const void* b) {
     }
 }
 #ifdef A2CLIENT_PATCH
-// TestMap from my-a2mgr resource_control.cpp: paths inside the archive
+// TestMap from a2mgr resource_control.cpp: paths inside the archive
 // namespaces are loaded unchanged; everything else may be overridden on disk
 static bool TangarTestMapPath(const char* file)
 {

@@ -1,6 +1,6 @@
 #pragma once
 
-// Tangar "circle" progression system, ported from my-srvmgr/circle.cpp.
+// Tangar "circle" progression system, ported from srvmgr/circle.cpp.
 // A player whose name starts with a digit (optionally after '_' or '@')
 // belongs to that circle: circle members take extra damage from monsters
 // and gain extra experience off their main sphere.

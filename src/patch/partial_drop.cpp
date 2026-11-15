@@ -1,4 +1,4 @@
-// Configurable partial item drop on player death, ported from my-srvmgr/partial_drop.cpp
+// Configurable partial item drop on player death, ported from srvmgr/partial_drop.cpp
 // (partial_drop_skip_undress @ 52DA11, imp_drop_partially @ 52DEEF & 52E264).
 
 #define _USE_MATH_DEFINES

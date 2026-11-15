@@ -30,7 +30,7 @@ struct SpellBookDef {
     uint8_t book_sphere;
 };
 
-// Matches SpellNames[32] and SpellBooks[6] in my-srvmgr/cheat_codes_new.cpp:92-137.
+// Matches SpellNames[32] and SpellBooks[6] in srvmgr/cheat_codes_new.cpp:92-137.
 const SpellBookDef kSpellDefs[32] = {
     {"", 0},
     {"Fire_Arrow", 1},
@@ -293,7 +293,7 @@ void ExecuteModifyCommand(Player* caster, const std::string& raw_args) {
 
         g_NetStru1_main.SendUnitUpdate(unit, nullptr, 0xFFFFFFFFu, 0xFFB, 0, 0);
     } else if (command == "knowledge" && unit != nullptr) {
-        // Intentional no-op stub matching my-srvmgr/cheat_codes_new.cpp:1334-1344.
+        // Intentional no-op stub matching srvmgr/cheat_codes_new.cpp:1334-1344.
     }
 }
 

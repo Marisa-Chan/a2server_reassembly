@@ -1,6 +1,6 @@
 #pragma once
 
-// Tangar client configuration, ported from my-a2mgr config.{h,cpp}. Parses
+// Tangar client configuration, ported from a2mgr config.{h,cpp}. Parses
 // allods2.cfg (new 2x format: "key value" lines) or allods2.conf (old 1x
 // format: "key=value" lines). Only the knobs consumed by ported client
 // features are carried; screenshots/PNG/net-key knobs return with those
@@ -47,7 +47,7 @@ extern bool g_altchat;
 extern bool z_screendir;
 
 // HAT address from the -hat command-line argument (default "hat.rom2.ru"),
-// ported from my-a2mgr network_hat_enter.cpp ParseHatAddress.
+// ported from a2mgr network_hat_enter.cpp ParseHatAddress.
 const char* HatAddress();
 
 } // namespace tangar_cfg

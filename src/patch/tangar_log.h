@@ -1,6 +1,6 @@
 #pragma once
 
-// Logging for the Tangar patch modules, ported from my-srvmgr log.h /
+// Logging for the Tangar patch modules, ported from srvmgr log.h /
 // lib/utils.cpp (Printf) / utils.cpp (log_format, LogString).
 //
 // Once Config::ServerStarted is true, Printf and LogString route lines through

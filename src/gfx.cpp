@@ -6,7 +6,7 @@
 #ifdef A2CLIENT_PATCH
 #include "patch/client_config.h"
 #include "patch/hat_client.h"
-#include "patch/lodepng/lodepng.h"
+#include "lib/lodepng.h"
 #endif
 #include "ingame.h"
 #include "util.h"
@@ -5279,7 +5279,6 @@ void SaveScreenshot() { //453d33
 	CString fname;
 	fname.Format("Allods%04d.bmp", screenshot_num);
 	screenshot_num++;
-
 
 	int32_t pixnum = g_ScreenSize.right * g_ScreenSize.bottom;
 	uint8_t* data = new uint8_t[pixnum * 3];

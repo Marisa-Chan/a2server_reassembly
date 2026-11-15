@@ -1,7 +1,7 @@
 #pragma once
 
 // Solo / Ironman / Pure / Giga character loot & drop restrictions, ported from
-// my-srvmgr/solo.{h,cpp} (remember_a2server @ 504A99, solo_pickup_sack @ 5A9977,
+// srvmgr/solo.{h,cpp} (remember_a2server @ 504A99, solo_pickup_sack @ 5A9977,
 // solo_pick_all_sacks @ 5A99DD, drop_item_under @ 505E9C, drop_item_to_another @ 505EBE,
 // choose_drop_item @ 50597C, drop_gold @ 5060A4, plus ClearStapleCells on map load).
 

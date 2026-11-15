@@ -1863,7 +1863,7 @@ void CUnit::DrawHealthBar(int32_t tile_x, int32_t tile_y, int32_t hgt) { // 466a
         g_font2->DrawTxt((left + right) / 2, y - 0x19, this->str1, 2, g_colors_human_pals[this->map_player->color]);
     } else {
 #ifdef A2CLIENT_PATCH
-        // Tangar ADMINISTRAT: staff nicknames ("Administrator <char>" etc.) draw as a
+        // Admin nicknames ("Administrator <char>" etc.) draw as a
         // title line above the character name instead of one long line.
         const char* mp_name = this->map_player->name;
         const char* title = nullptr;
@@ -3540,8 +3540,7 @@ SfxBank* CUnit::GetSfxBank() {
 
 // 46C124
 #ifdef A2CLIENT_PATCH
-// Tangar info_experience_spaces: format a number with thousands separators
-// (my-a2mgr debug.cpp FormatWithSpaces).
+// Tangar info_experience_spaces: format a number with thousands separators.
 static void TangarFormatWithSpaces(int32_t number, char* out_buf, size_t buf_size) {
     char temp[32];
     snprintf(temp, sizeof(temp), "%d", number);
@@ -4991,6 +4990,3 @@ CAirUnit::CAirUnit() {
 // 46f010
 CAirUnit::~CAirUnit() {
 }
-
-
-

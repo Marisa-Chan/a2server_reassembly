@@ -1579,31 +1579,29 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 			} else if (this->my_main_unit->KnowsPlayer(packet_join->player_id) == 0 || packet_join->token_id == CHAT_TYPE_GLOBAL) {
 				MapPlayerData* dat = this->map_players[packet_join->player_id];
 
+				CString chat_text = CString(dat->name) + ": " + packet_join->name;
 #ifdef A2CLIENT_PATCH
-				// Tangar CHAT_prependType (413DF7/413F86): prefix the message with its
-				// type. The patched string-table lines (223-225) are approximated with
-				// locale-aware literals.
-				CString tangar_chat_text = CString(dat->name) + ": " + packet_join->name;
+				// Tangar CHAT_prependType (413DF7/413F86) -> chatAddStringCpp: with
+				// altchat on, prefix the message with its type from patch.txt lines
+				// 223-225 (ally/private/shout). Regular and global chat stay
+				// unprefixed.
 				if (tangar_cfg::g_altchat) {
 					const char* str_type = nullptr;
-					if (packet_join->token_id == CHAT_TYPE_REGULAR) {
-						str_type = tangar_cfg::z_russian ? "Сказать" : "Say";
+					if (packet_join->token_id == CHAT_TYPE_ALLIES) {
+						str_type = txt_patch.GetLine(223);
 					} else if (packet_join->token_id == CHAT_TYPE_PRIVATE) {
-						str_type = tangar_cfg::z_russian ? "Приват" : "Private";
+						str_type = txt_patch.GetLine(224);
 					} else if (packet_join->token_id == CHAT_TYPE_YELL) {
-						str_type = tangar_cfg::z_russian ? "Вопль" : "Shout";
+						str_type = txt_patch.GetLine(225);
 					}
 					if (str_type != nullptr) {
-						tangar_chat_text = CString("[") + str_type + "] " + tangar_chat_text;
+						chat_text = CString("[") + str_type + "] " + chat_text;
 					}
 				}
-#define TANGAR_CHAT_TEXT tangar_chat_text
-#else
-#define TANGAR_CHAT_TEXT CString(dat->name) + ": " + packet_join->name
 #endif
 
 				if (g_MessageColors == 0 || (wnd->dialogsMask & DIALOG_MASK_INGAME) == 0) {
-					this->msglog.Add(TANGAR_CHAT_TEXT, g_colors_human_pals[dat->color], 10000);
+					this->msglog.Add(chat_text, g_colors_human_pals[dat->color], 10000);
 				} else {
 					uint16_t* clr = nullptr;
 					switch (packet_join->token_id) {
@@ -1622,13 +1620,10 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 						break;
 					}
 
-					this->msglog.Add(TANGAR_CHAT_TEXT, clr, 10000);
+					this->msglog.Add(chat_text, clr, 10000);
 				}
 
-	#ifdef A2CLIENT_PATCH
-#undef TANGAR_CHAT_TEXT
-#endif
-			g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
+				g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
 				
 			}
 			wnd->vis_root->MsgProc(VIS_MSG_NETMAP_CHAT_SYNC, 0, 0);
@@ -4820,7 +4815,7 @@ void VisPlayingArea::UpdateMapCursor() {
 // GRID_part1-5 hooks (client 4052D5/405D3F/406372/4058EF/405826): tile-grid
 // overlay - 32-pixel-spaced lines over the drawn terrain area, gated on
 // the allods2.cfg r_grid / r_grid_color knobs
-static void TangarDrawTileGrid(int32_t x, int32_t y, int32_t w, int32_t h) {
+static void DrawTileGrid(int32_t x, int32_t y, int32_t w, int32_t h) {
 	if (!tangar_cfg::r_grid) {
 		return;
 	}
@@ -4832,6 +4827,7 @@ static void TangarDrawTileGrid(int32_t x, int32_t y, int32_t w, int32_t h) {
 	}
 }
 #endif
+
 void VisPlayingArea::DrawTerrainFull() {
 	AfxGetMainWnd();
 	timeGetTime();
@@ -4890,7 +4886,7 @@ void VisPlayingArea::DrawTerrainFull() {
 		}
 	}
 #ifdef A2CLIENT_PATCH
-	TangarDrawTileGrid(0, 0, this->view_tiles_x * 32, this->view_tiles_y * 32);
+	DrawTileGrid(0, 0, this->view_tiles_x * 32, this->view_tiles_y * 32);
 #endif
 }
 
@@ -4950,7 +4946,7 @@ void VisPlayingArea::DrawTerrainAnimated(int32_t arg) {
 		}
 	}
 #ifdef A2CLIENT_PATCH
-	TangarDrawTileGrid(0, 0, this->view_tiles_x * 32, this->view_tiles_y * 32);
+	DrawTileGrid(0, 0, this->view_tiles_x * 32, this->view_tiles_y * 32);
 #endif
 }
 
@@ -5018,7 +5014,7 @@ void VisPlayingArea::DrawTerrainScrolled(int32_t arg) {
 		}
 	}
 #ifdef A2CLIENT_PATCH
-	TangarDrawTileGrid(0, 0, this->view_tiles_x * 32, this->view_tiles_y * 32);
+	DrawTileGrid(0, 0, this->view_tiles_x * 32, this->view_tiles_y * 32);
 #endif
 }
 
@@ -5089,7 +5085,7 @@ void VisPlayingArea::RedrawLitTerrain() {
 		}
 	}
 #ifdef A2CLIENT_PATCH
-	TangarDrawTileGrid(0, 0, this->view_tiles_x * 32, this->view_tiles_y * 32);
+	DrawTileGrid(0, 0, this->view_tiles_x * 32, this->view_tiles_y * 32);
 #endif
 }
 

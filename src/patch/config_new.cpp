@@ -1,5 +1,5 @@
 // Tangar server configuration (config v2.0), ported from
-// my-srvmgr/config_new.cpp. In the patched binary this replaces the stock
+// srvmgr/config_new.cpp. In the patched binary this replaces the stock
 // config parser (imp_ParseConfig @ 0x4F7188).
 //
 // The original wrote parsed values straight into the server binary's config
@@ -71,7 +71,7 @@ uint32_t ParseLogFlags(std::string flags_line)
     return flags;
 }
 
-// Ported from my-srvmgr/cheat_codes_new.cpp (used for the serverflags key).
+// Ported from srvmgr/cheat_codes_new.cpp (used for the serverflags key).
 uint32_t ParseFlags(std::string flags_str)
 {
     if (CheckHex(flags_str)) {

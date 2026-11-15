@@ -2,7 +2,7 @@
 
 #include <cstdint>
 
-// Tangar forbidden-items system, ported from my-srvmgr/scroll_burn.cpp.
+// Tangar forbidden-items system, ported from srvmgr/scroll_burn.cpp.
 // Certain rings/amulets are reserved per class; moving them from the bag onto
 // the character is rejected (the item is forced back into the bag), and
 // treasure (id 3667) can never be equipped.

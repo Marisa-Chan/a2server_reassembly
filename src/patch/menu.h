@@ -1,6 +1,6 @@
 #pragma once
 
-// Tangar custom main menu, ported from my-a2mgr menu.cpp (hooks MENU_load /
+// Tangar custom main menu, ported from a2mgr menu.cpp (hooks MENU_load /
 // MENU_draw / MENU_hover1-3; MENU_click was behaviorally a no-op in the
 // release patch — its DoMenuClick experiment is dead code).
 

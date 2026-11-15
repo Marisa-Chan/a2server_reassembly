@@ -217,12 +217,13 @@ void UnitList::ProcessTick() {
 				} else if (unit->last_hit_by->hp < 0) {
 					// Killer (a monster) is also dead — mutual kill
 					if (unit->pOwner->is_ai == 0) {
-						CString msg;
 						#ifdef A2SERVER_TANGAR_HAT
-						// player_died hook (556A56) - applied before the died message
+						// player_died hook (556A56)
 						TangarApplyDeathExpPenalty(static_cast<Humanoid*>(unit), Config::DeathExpMult);
 						#endif
-msg.Format("Player %s has died.", (const char*)unit->pOwner->name);
+
+						CString msg;
+						msg.Format("Player %s has died.", (const char*)unit->pOwner->name);
 						LogMessage(msg);
 					}
 					unit->last_hit_by = nullptr;
@@ -245,13 +246,15 @@ msg.Format("Player %s has died.", (const char*)unit->pOwner->name);
 						unit->last_hit_by->pOwner->monster_kills++;
 					} else {
 						// Victim is a human
+
+						#ifdef A2SERVER_TANGAR_HAT
+						// player_pkilled hook (556BE6)
+						TangarApplyDeathExpPenalty(static_cast<Humanoid*>(unit), Config::PKExpMult);
+						#endif
+
 						CString msg;
 						uint8_t y = unit->position->GetY();
 						uint8_t x = unit->position->GetX();
-						#ifdef A2SERVER_TANGAR_HAT
-						// player_pkilled hook (556BE6) - applied before the pkilled message
-						TangarApplyDeathExpPenalty(static_cast<Humanoid*>(unit), Config::PKExpMult);
-						#endif
 						// pkill_msg hook (556C0F): pushes killer owner name (unit->last_hit_by->pOwner->name).
 						msg.Format("Player %s pkilled by %s at %d,%d", (const char*)unit->pOwner->name, (const char*)unit->last_hit_by->pOwner->name, x, y);
 						LogMessage(msg);
@@ -369,7 +372,7 @@ void UnitList::ClearSentToMask(Player* player) {
 
 // 5574B5
 #ifdef A2SERVER_TANGAR_HAT
-// UnsummonUnit from the manager (unsummon_unit.cpp): true when the unit's
+// UnsummonUnit from srvmgr (unsummon_unit.cpp): true when the unit's
 // owner has more than one summoned unit alive.
 static bool TangarOwnerHasMultipleSummons(Unit* unit) {
 	if (unit == nullptr || unit->pOwner == nullptr || unit->pOwner->unit_list == nullptr) {

@@ -2318,7 +2318,7 @@ void VisTextBox::ResetBlink() {
 int32_t VisTextBox::GetCursorPosByX(int32_t x) {
     //4da153
     CRect rt = this->ClientRectToScreen(this->rect);
-#ifdef A2CLIENT_PATCH
+#if defined(A2CLIENT_PATCH) && defined(A2CLIENT)
     // Tangar GUI_textField_MeasurePosition (4DEAD4 entry takeover): more
     // accurate cursor placement, password-field asterisk measurement, and
     // correct positions for fields not starting at the screen left edge.
@@ -4342,15 +4342,3 @@ int32_t GetFieldPos(CString str, int32_t field) {
 #ifdef A2CLIENT
 
 #endif
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,6 +1,6 @@
 #pragma once
 
-// Tangar patch image loader, ported from my-a2mgr Image.{h,cpp} (menu.cpp,
+// Tangar patch image loader, ported from a2mgr Image.{h,cpp} (menu.cpp,
 // itempng.cpp and add_info.cpp all render through it). The manager decoded
 // files with SDL_image; this port uses the vendored lodepng for PNG and a
 // built-in decoder for uncompressed 24/32-bit BMP (the only BMP assets the

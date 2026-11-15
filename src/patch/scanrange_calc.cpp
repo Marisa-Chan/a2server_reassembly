@@ -1,5 +1,5 @@
 // Terrain-aware scan-range vision calculator, ported verbatim from
-// my-srvmgr/lib/ScanrangeCalc.cpp (see scanrange_calc.h).
+// srvmgr/lib/ScanrangeCalc.cpp (see scanrange_calc.h).
 
 #include "scanrange_calc.h"
 

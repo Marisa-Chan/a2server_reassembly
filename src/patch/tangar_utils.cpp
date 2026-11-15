@@ -4,7 +4,7 @@
 #include <cstdio>
 #include <sstream>
 
-// All helpers below are copies from my-srvmgr/lib/utils.cpp.
+// All helpers below are copies from srvmgr/lib/utils.cpp.
 
 std::string Format(const std::string format, ...)
 {

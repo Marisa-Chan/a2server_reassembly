@@ -67,7 +67,7 @@ GM_a28::GM_a28() {
 }
 
 #ifdef A2CLIENT_PATCH
-// conv_double_tilde from my-a2mgr chat.cpp: double '~' so the game renderer
+// conv_double_tilde from a2mgr chat.cpp: double '~' so the game renderer
 // shows a literal tilde instead of treating it as a color-code escape
 static CString TangarDoubleTilde(const char* str)
 {
@@ -1329,7 +1329,7 @@ void Vis1200::VMethod26() {
 }
 
 #ifdef A2CLIENT_PATCH
-// Chat history subsystem (my-a2mgr chat_history.cpp): a stack of
+// Chat history subsystem (a2mgr chat_history.cpp): a stack of
 // previously sent messages navigable with Up/Down in the chat console.
 // Each entry is the list of wrapped lines; restoring writes all but the
 // last line back into the wrap array and the last line into input_line.
@@ -1686,7 +1686,3 @@ void VisOrderToolbar::UpdateCursor() {
     }
     new_cursor->Use();
 }
-
-
-
-

@@ -1,4 +1,4 @@
-// Ported from my-srvmgr/player_info.cpp. zxmgr::GetPlayers() iteration is
+// Ported from srvmgr/player_info.cpp. zxmgr::GetPlayers() iteration is
 // g_PlayersList here.
 
 #include "player_info.h"

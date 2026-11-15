@@ -333,7 +333,7 @@ uint8_t MapStuff::GetFacingFor(Unit* unit, PosYX yx) {
 }
 
 #ifdef A2SERVER_TANGAR_HAT
-// OnCast helper from my-srvmgr/common_new.cpp: full GMs (GMF_ANY) cast unit (8)
+// OnCast helper from srvmgr/common_new.cpp: full GMs (GMF_ANY) cast unit (8)
 // and ground (9) spells from any distance across the map without walking.
 static bool TangarOnCast(Unit* unit) {
     if (unit == nullptr) {
@@ -3231,4 +3231,3 @@ void __cdecl ReadRecord(char* buf, File2* file) {
     file->Seek(-8, CFile::current);
     file->Read(buf, header[1]);
 }
-

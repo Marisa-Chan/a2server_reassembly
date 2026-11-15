@@ -1,7 +1,7 @@
 #pragma once
 
 // Tangar server state persistence (map rotation), ported from
-// my-srvmgr/server_state.{h,cpp}. Also persists per-player settings
+// srvmgr/server_state.{h,cpp}. Also persists per-player settings
 // (autobuff masks, default diplomacy) in the same file.
 
 #include <string>

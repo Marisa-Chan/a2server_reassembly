@@ -1,4 +1,4 @@
-// Per-player custom .alm shops, ported from my-srvmgr/multiplayer_shop.cpp
+// Per-player custom .alm shops, ported from srvmgr/multiplayer_shop.cpp
 // (ClearShops, imp_LoadShopData @ 59C66E, imp_EnterCustomShop @ 502C50).
 
 #include "multiplayer_shop.h"

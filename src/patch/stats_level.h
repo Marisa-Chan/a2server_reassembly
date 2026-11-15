@@ -1,6 +1,6 @@
 #pragma once
 
-// Tangar stats-based server-level selection, ported from my-a2mgr gui_bugfix.cpp
+// Tangar stats-based server-level selection, ported from a2mgr gui_bugfix.cpp
 // (StatsBasedLevelSelection + ParseServerNumber + the creating_new_character flag).
 // Replaces the retail skill-tier brackets in VisHatBrowserList::IsItemEnabled.
 

@@ -8,7 +8,7 @@
 #include <ctime>
 
 // Writes one timestamped line to Config::LogFile (appended). Ported from
-// my-srvmgr utils.cpp log_format; the KOI8/CP1251 output-encoding conversion
+// srvmgr utils.cpp log_format; the KOI8/CP1251 output-encoding conversion
 // is dropped (it only affected Cyrillic log text).
 void log_format(const char* format, ...)
 {

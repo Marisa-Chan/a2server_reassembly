@@ -39,20 +39,22 @@
 #include "patch/allowed_picture.h"
 #include "patch/flags.h"
 #include "patch/scanrange.h"
-#ifdef A2SERVER_PATCH
+
+#if defined(A2SERVER_PATCH) || defined(A2SERVER_TANGAR_HAT)
 #include "patch/kick_char.h"
 #include "patch/netlog.h"
-#endif
-#ifdef A2SERVER_TANGAR_HAT
 #include "patch/tangar_log.h"
 #include "patch/config_new.h"
 #include "patch/player_info.h"
+#include "patch/tangar_utils.h"
+#endif
+
+#ifdef A2SERVER_TANGAR_HAT
 #include "patch/player_settings.h"
 #include <map>
 #include <vector>
 #include "patch/reborn.h"
 #include "patch/server_state.h"
-#include "patch/tangar_utils.h"
 #include "patch/gm_noclip.h"
 #include "patch/multiplayer_shop.h"
 #include "patch/antiinvis.h"
@@ -1698,7 +1700,7 @@ void Server::SendWorldState(Player* player, int32_t enter_world) {
 
                 // Copy Self's diplomacy column into the new player's row (slots 2..15).
                 for (int slot = 2; slot <= 15; ++slot) {
-#ifdef A2SERVER_TANGAR_HAT
+#ifdef A2SERVER_PATCH
                     // adm_dip hook (4FFD77): a GM with the AI-ally flag joins
                     // allied with every AI slot (retail copy skipped for it)
                     if ((player->flags & GMF_AI_ALLY) == GMF_AI_ALLY) {
@@ -1997,7 +1999,7 @@ void Server::AssignPlayerSlot(Player* player, int32_t slot_data) {
         }
     }
 
-#ifdef A2SERVER_TANGAR_HAT
+#ifdef A2SERVER_PATCH
     // imp_LogIP hook (4FF783): include the client address in the join log
     NetStru2* join_client = g_NetStru1_main.GetClientByPlayerID(player->player_id);
     LogMessage("Player " + player->name + " has joined the game (from: "
@@ -2163,7 +2165,7 @@ int Server::JoinPlayer(uint32_t pkt_word0, uint32_t pkt_word1,
         return 5;
     }
 
-#ifdef A2SERVER_TANGAR_HAT
+#ifdef A2SERVER_PATCH
     // imp_MapClosed (4FE2D0): full GMs bypass SVF_CLOSED and map-level range checks;
     // non-GMs are rejected when SVF_CLOSED is set.
     if ((player->flags & GMF_ANY) != GMF_ANY) {
@@ -2395,7 +2397,7 @@ int Server::JoinPlayer(uint32_t pkt_word0, uint32_t pkt_word1,
     // Server state update.
     this->UpdateHatAnnounce();
 
-#ifdef A2SERVER_TANGAR_HAT
+#ifdef A2SERVER_PATCH
     // imp_PIadd hook (4FF418): track the joined player in the Tangar
     // per-player info (mute state etc.)
     PI_Create(player);
@@ -2406,17 +2408,7 @@ int Server::JoinPlayer(uint32_t pkt_word0, uint32_t pkt_word1,
 
 void Server::SignalGameStart(int32_t start_kind) {
     //4F94C0
-#ifdef A2SERVER_TANGAR_HAT
-    // map_exit hook (4F94C0): save and kick all connected human players instead of sending GAME_START.
-    if ((g_ServerConfig.gameType == GAME_TYPE_DEATHMATCH) || (g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY)) {
-        g_NetStru1_main.SendTeamState(0);
-    }
-    int32_t was_started = this->game_started;
-    this->game_started = 1;
-    if (was_started == 0) {
-        TangarKickAll(nullptr, false);
-    }
-#elif defined(A2SERVER_PATCH)
+#ifdef A2SERVER_PATCH
     // SRV_EX.xck (4F94E5): save and kick all connected human players instead of sending GAME_START.
     LogMessage("Server::SignalGameStart\n");
     if ((g_ServerConfig.gameType == GAME_TYPE_DEATHMATCH) || (g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY)) {
@@ -2506,12 +2498,9 @@ Human* Server::CreatePlayerCharacter(Player* player, uint8_t body, uint8_t react
     // Validate stat budget: sum of point costs must not exceed 140
     int32_t budget = 140 - StatLevelPoints(body) - StatLevelPoints(reaction) - StatLevelPoints(mind) - StatLevelPoints(spirit);
 #ifdef A2SERVER_TANGAR_HAT
-    // skip_new_character_stats hook (501049 -> 50100B): keep the entered stats unconditionally
+    // skip_new_character_stats hook (501049 -> 50100B): set the stats to 1.
     (void)budget;
-    unit->body     = body;
-    unit->reaction = reaction;
-    unit->mind     = mind;
-    unit->spirit   = spirit;
+    unit->body = unit->reaction = unit->mind = unit->spirit = 1;
 #else
     bool stats_valid = (budget >= 0);
 #ifdef A2SERVER_PATCH
@@ -2795,13 +2784,13 @@ Human* Server::LoadCharacter(void* data, int32_t size, Player* player) {
 //   #event <id>:          fire an in-game script event
 // 502D0B
 void Server::CheatCommand(Player* player, CString cheat_string) {
+#ifdef A2SERVER_TANGAR_HAT
     if (player != nullptr) {
         LogMessage("Server::CheatCommand: player " + player->name + " sent cheat command: " + cheat_string);
     } else {
         LogMessage("Server::CheatCommand: <server> sent cheat command: " + cheat_string);
     }
 
-#ifdef A2SERVER_TANGAR_HAT
     // Selectively reconciled commands from the manager's cheat engine.
     // Player-facing settings commands come first (available to everyone).
     {
@@ -4209,7 +4198,7 @@ void CheckPacketType(Packet* pkt, const char* want_type) {
 }
 
 #if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
-// Ported from my-srvmgr/srvmgr.cpp:1192 (check_sig_c_s).
+// Ported from srvmgr/srvmgr.cpp:1192 (check_sig_c_s).
 static bool IsAllowedClientPacketId(uint8_t c) {
     static const uint8_t kAllowedClientPackets[] = {
         0x02, 0x04, 0x05, 0x07, 0x08, 0x09, 0x12, 0x13, 0x14, 0x16,
@@ -4462,7 +4451,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
             break;
         case GROUP_ENTER_BUILDING:
             CheckPacketType(pkt, "PacketGroupOrder");
-            // enter_b hook (505353): no-op trampoline in my-srvmgr; ResetAfkTimer runs below.
+            // enter_b hook (505353): no-op trampoline in srvmgr; ResetAfkTimer runs below.
             if (g_ServerConfig.gameType != GAME_TYPE_TEAMPLAY || g_PlayersList->AreTeamsStarted() != 0) {
                 player->ResetAfkTimer();
                 auto* building = this->srv_stru1->building_list->FindById(packet_order->param);
@@ -4495,7 +4484,8 @@ void Server::ProcessClientPacket(Packet* pkt) {
 #ifdef A2SERVER_TANGAR_HAT
                 // fix_scroll_burn hook (5056E1): only warriors may cast from
                 // scrolls, and prevented casts put the item back instead of
-                // burning it
+                // burning it.
+                // TODO: peek an item and don't take it in the first place if it's bad food. Concurrent inventory manipulation might kill the server.
                 {
                     Effect* head_eff = item->_effects.GetHead();
                     if (!tangar_items::IsScroll(item) || head_eff == nullptr || head_eff->effect_id != 0x29 ||
@@ -4729,8 +4719,8 @@ void Server::ProcessClientPacket(Packet* pkt) {
             }
 
 #ifdef A2SERVER_TANGAR_HAT
-            // dont_eat_bad_food hook (505BDF): forbidden items moved from
-            // the bag onto the character are forced back into the bag
+            // dont_eat_bad_food hook (505BDF): forbidden items moved from the bag onto the character are forced back into the bag.
+            // TODO: peek an item and don't take it in the first place if it's bad food. Concurrent inventory manipulation might kill the server.
             if (from_type == TRANSFER_SRC_BAG && to_type == TRANSFER_DST_EQUIP && !tangar_items::CanEat(human, item)) {
                 human->inventory->PutItemIntoBag(packet_transfer->param1, item);
                 g_NetStru1_main.SendUnitUpdate(human, human->pOwner, 0xFFFFFFFF, EQUIP_SLOTS_ALL, 0, 0);
@@ -4952,7 +4942,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
             if (!shop) {
                 break;
             }
-#ifdef A2SERVER_TANGAR_HAT
+#ifdef A2SERVER_PATCH
             // left_shop hook (5065E5)
             if (Config::LogMode & SVL_BUILDINGS) {
                 Printf("Player %s left shop.", (const char*)unit->pOwner->name);
@@ -5025,7 +5015,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
             if (!inn) {
                 break;
             }
-#ifdef A2SERVER_TANGAR_HAT
+#ifdef A2SERVER_PATCH
             // left_inn hook (5063B6)
             if (Config::LogMode & SVL_BUILDINGS) {
                 Printf("Player %s left inn.", (const char*)unit->pOwner->name);
@@ -5503,7 +5493,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 break;
             }
 
-#ifdef A2SERVER_TANGAR_HAT
+#ifdef A2SERVER_PATCH
             // public_chat/private_chat/shout_chat hooks: mute system - a
             // per-player timed mute (PI UnmuteDate) or the global SVF_MUTED
             // server flag suppress the message; GMs (GMF_ANY) bypass the
@@ -5523,7 +5513,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
             case CHAT_TYPE_REGULAR: // Regular message: send to all non-AI players within range.
                 for (POSITION node = g_PlayersList->list.GetHeadPosition(); node;) {
                     Player* other = g_PlayersList->list.GetNext(node);
-#ifdef A2SERVER_TANGAR_HAT
+#ifdef A2SERVER_PATCH
                     // public_chat_2 hook: don't deliver to AI players, players
                     // without a main unit, or phased-out units (attrs bit 8)
                     if (other->is_ai || other->main_unit == nullptr || (other->main_unit->unit_attrs & 8) != 0) {
@@ -5540,7 +5530,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
             case CHAT_TYPE_ALLIES: // Allies: send to players with diplomacy bit 2 set toward sender.
                 for (POSITION node = g_PlayersList->list.GetHeadPosition(); node;) {
                     Player* other = g_PlayersList->list.GetNext(node);
-#ifdef A2SERVER_TANGAR_HAT
+#ifdef A2SERVER_PATCH
                     // private_chat_2 hook: don't deliver to AI players, players
                     // without a main unit, or phased-out units (attrs bit 8)
                     if (other->is_ai || other->main_unit == nullptr || (other->main_unit->unit_attrs & 8) != 0) {
@@ -5563,7 +5553,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 out.to_player_id = packet_join->to_player_id;
                 strcpy(out.name, packet_join->name);
                 g_NetStru1_main.QueuePacketSend(&out);
-#ifdef A2SERVER_TANGAR_HAT
+#ifdef A2SERVER_PATCH
                 // private_chat_3 hook: don't deliver to a recipient whose
                 // unit is missing or phased out (the sender CC stands)
                 Player* recipient = g_PlayersList->FindById(recipient_id);
@@ -6419,7 +6409,7 @@ int Server::LoadGame(CString map_name) {
         this->SetupArenaFileList();
     }
 
-#ifdef A2SERVER_TANGAR_HAT
+#ifdef A2SERVER_PATCH
     {
         // imp_LoadedMap callback (4F191D): track the loaded map & title, update
         // the window title, rebuild PlayerInfo, and clear per-player map votes.
@@ -6442,10 +6432,13 @@ int Server::LoadGame(CString map_name) {
         }
         Printf("Loaded map \"%s\".", Config::CurrentMapName.c_str());
         PI_Reset();
+
+#ifdef A2SERVER_TANGAR_HAT
         ClearStapleCells();
         settings::ForEachMutable([](const std::string&, settings::PlayerSettings* player_settings) {
             player_settings->map_vote.clear();
         });
+#endif
     }
 #endif
 

@@ -1,6 +1,6 @@
 #pragma once
 
-// Tangar thresholds configuration, ported from my-srvmgr thresholds.{h,cpp}.
+// Tangar thresholds configuration, ported from srvmgr thresholds.{h,cpp}.
 // A tree-structured config file (thresholds.cfg): sections with `{}`, keys with
 // `=`, values with k/m suffixes. A node holds child sections, per-server values
 // (EASY/KIDS/.../QUEST_T4) or per-mob kill requirements. Lookups descend by

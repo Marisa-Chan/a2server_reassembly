@@ -1,4 +1,4 @@
-// Ported from my-srvmgr/pvm2.cpp (vd2_CheckStrong + spell/scroll/item
+// Ported from srvmgr/pvm2.cpp (vd2_CheckStrong + spell/scroll/item
 // queries). Field mapping vs the DLL: value1 -> damage_min, value2 ->
 // damage_spread (the Effect union at +0x40), amount -> count, option ->
 // value1 on Item.

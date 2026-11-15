@@ -4,7 +4,7 @@
  *
  * Copyright (c) 2006 Ben Campbell
  *
- * Vendored from my-a2mgr/lib/happyhttp.cpp (altered for MSVC _WIN32 / VS2022).
+ * Vendored from a2mgr/lib/happyhttp.cpp (altered for MSVC _WIN32 / VS2022).
  */
 
 #include "happyhttp.h"

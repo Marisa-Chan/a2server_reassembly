@@ -1,6 +1,6 @@
 // Tangar client-side v20 HAT authorization & extended-packet wire framing,
-// ported from my-a2mgr/network_protocol.cpp, my-a2mgr/CRC_32.cpp,
-// my-a2mgr/lib/sha1.cpp, and my-a2mgr/a2mgr.cpp.
+// ported from a2mgr/network_protocol.cpp, a2mgr/CRC_32.cpp,
+// a2mgr/lib/sha1.cpp, and a2mgr/a2mgr.cpp.
 
 #include "hat_client.h"
 
@@ -17,10 +17,10 @@
 #include <windows.h>
 
 #include "client_config.h"
-#include "happyhttp/happyhttp.h"
-#include "lodepng/lodepng.h"
 #include "../game_app.h"
 #include "../gfx.h"
+#include "../lib/happyhttp.h"
+#include "../lib/lodepng.h"
 #include "../main_window.h"
 #include "../mouse.h"
 #include "../packet.h"
@@ -31,7 +31,7 @@ namespace tangar_client {
 namespace {
 
 // ------------------------------------------------------------------- SHA-1
-// FIPS-180-1 SHA-1 (ported from my-a2mgr/lib/sha1.cpp)
+// FIPS-180-1 SHA-1 (ported from a2mgr/lib/sha1.cpp)
 
 struct Sha1Context {
     uint32_t total[2];
@@ -203,7 +203,7 @@ bool ComputeSha1File(const char* path, uint8_t output[20]) {
 }
 
 // ------------------------------------------------------------------ CRC-32
-// IEEE 802.3 CRC-32 (ported from my-a2mgr/CRC_32.cpp)
+// IEEE 802.3 CRC-32 (ported from a2mgr/CRC_32.cpp)
 
 uint32_t CalcCrc32(const void* data, size_t size) {
     if (data == nullptr || size == 0) {
@@ -240,7 +240,7 @@ uint8_t g_sha1_patch_res[20] = {};
 uint8_t g_sha1_world_res[20] = {};
 uint8_t g_sha1_uuid[20] = {};
 
-// Ported from my-a2mgr/network_protocol.cpp:21 (crcmain).
+// Ported from a2mgr/network_protocol.cpp:21 (crcmain).
 // `data` points to `reinterpret_cast<uint8_t*>(pkt) + 0x0A`, so `data + 0x40`
 // aliases `pkt + 0x4A` (the login-len / gamemode / PROTO_VER dword).
 void FillCrcMain(uint8_t* data) {
@@ -323,7 +323,11 @@ void EnsureAnticheatHashes() {
     GetModuleFileNameA(nullptr, exe_path, MAX_PATH - 1);
 
     ComputeSha1File(exe_path, g_sha1_exe);
-    ComputeSha1File("a2mgr.dll", g_sha1_dll);
+
+    // We don't have `a2mgr.dll`.
+    for (int i = 0; i < sizeof(g_sha1_dll); i++) {
+        g_sha1_dll[i] = 0;
+    }
     ComputeSha1File("patch.res", g_sha1_patch_res);
     ComputeSha1File("world.res", g_sha1_world_res);
 
@@ -407,7 +411,7 @@ void SendScreenshotStatus(SOCKET s, const ScreenshotInfo* si, uint8_t done, cons
     tangar_hat::SOCK_SendPacket(s, p, 24);
 }
 
-// Ported from my-a2mgr/network_protocol_ext.cpp:707 (Cl_ScreenshotThread).
+// Ported from a2mgr/network_protocol_ext.cpp:707 (Cl_ScreenshotThread).
 DWORD WINAPI ScreenshotUploadThread(LPVOID param) {
     ScreenshotInfo* si = static_cast<ScreenshotInfo*>(param);
     SOCKET s = tangar_hat::SOCK_Connect(ExtractHatHost(), 8000, "0.0.0.0", 0);
@@ -508,7 +512,7 @@ DWORD WINAPI ScreenshotUploadThread(LPVOID param) {
 
 } // namespace
 
-// Ported from my-a2mgr/network_protocol_ext.cpp:853 (ProcLastSI / imp_MakeScreenshotNet @ 457ff4).
+// Ported from a2mgr/network_protocol_ext.cpp:853 (ProcLastSI / imp_MakeScreenshotNet @ 457ff4).
 void ProcLastScreenshot() {
     if (g_selDrawBitmap.lpSurface == nullptr) {
         return;
@@ -537,7 +541,7 @@ void ProcLastScreenshot() {
     }
 }
 
-// Ported from my-a2mgr/network_protocol_ext.cpp:825 (Cl_ProcessServerPacket).
+// Ported from a2mgr/network_protocol_ext.cpp:825 (Cl_ProcessServerPacket).
 bool ProcessServerPacket(tangar_hat::Packet& pack) {
     uint8_t type = pack.ReadUInt8();
     if (type == 0x01) { // screenshot
@@ -573,7 +577,7 @@ bool ProcessServerPacket(tangar_hat::Packet& pack) {
     return false;
 }
 
-// Ported from my-a2mgr/network_protocol.cpp:225 (recv_).
+// Ported from a2mgr/network_protocol.cpp:225 (recv_).
 int RecvClientFramed(SOCKET s, char* buf, int len, int flags) {
     (void)flags;
 
@@ -671,7 +675,7 @@ int RecvClientFramed(SOCKET s, char* buf, int len, int flags) {
 }
 
 // ------------------------------------------------------------------- HTTP Auto-Updater
-// Ported from my-a2mgr/network_protocol_ext.cpp (NETPROTO_updater + UI loop, client: 4949cd).
+// Ported from a2mgr/network_protocol_ext.cpp (NETPROTO_updater + UI loop, client: 4949cd).
 
 namespace {
 
@@ -1017,8 +1021,10 @@ DWORD WINAPI UpdaterThreadProc(LPVOID param) {
             if (vf_remote.files[i].name == "allods2.exe"
                 || (!exe_basename.empty() && _stricmp(vf_remote.files[i].name.c_str(), exe_basename.c_str()) == 0)) {
                 updated_exe_source = "data/" + vf_remote.files[i].name;
+#if defined(A2CLIENT_PATCH) && !defined(A2SERVER_TANGAR_HAT)
             } else if (_stricmp(vf_remote.files[i].name.c_str(), "a2mgr.dll") == 0) {
                 have_dll = true;
+#endif
             }
         }
     }

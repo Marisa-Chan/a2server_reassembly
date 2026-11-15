@@ -1,4 +1,4 @@
-// Ported from my-srvmgr/quests.cpp (filters + quest lookups) and inn.cpp
+// Ported from srvmgr/quests.cpp (filters + quest lookups) and inn.cpp
 // (InitializeMobNames + NormalizeMobName).
 
 #include "quest_filters.h"

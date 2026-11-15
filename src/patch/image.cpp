@@ -1,4 +1,4 @@
-// Tangar patch image loader, ported from my-a2mgr Image.cpp. Decode via
+// Tangar patch image loader, ported from a2mgr Image.cpp. Decode via
 // lodepng (PNG) and a built-in BMP reader instead of SDL_image; everything
 // else (blending, clipping, fatal-error handling) is behavior-identical.
 
@@ -8,8 +8,8 @@
 
 #include <cstring>
 
-#include "lodepng/lodepng.h"
 #include "../gfx.h"
+#include "../lib/lodepng.h"
 #include "../server.h"
 
 // Manager: MessageBoxA(GetHWND(), ...) + zxmgr::AfxAbort(). The main window

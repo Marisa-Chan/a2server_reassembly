@@ -1,6 +1,6 @@
 #pragma once
 
-// Tangar quest filters, ported from my-srvmgr/quests.cpp + inn.cpp
+// Tangar quest filters, ported from srvmgr/quests.cpp + inn.cpp
 // (InitializeMobNames + the filter_out_existing_* family). Spliced into
 // Inn::InnCreateQuests candidate counting, they prevent duplicate quests
 // (AllowOnlyOneQuest_*) and let players filter quests by mob name

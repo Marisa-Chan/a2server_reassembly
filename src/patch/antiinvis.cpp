@@ -1,4 +1,4 @@
-// Anti-invisibility target exploit checks, ported from my-srvmgr/antiinvis.cpp
+// Anti-invisibility target exploit checks, ported from srvmgr/antiinvis.cpp
 // (stop_unit_attack @ 505563, stop_mage_cast @ 5055FD, stop_unit_cast @ 50564D).
 
 #include "antiinvis.h"

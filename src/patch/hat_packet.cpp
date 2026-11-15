@@ -1,5 +1,5 @@
 // Tangar HAT-protocol support library implementation, ported from
-// my-srvmgr lib/hat2.cpp (send_msg framing), lib/packet.cpp (XOR keys) and
+// srvmgr lib/hat2.cpp (send_msg framing), lib/packet.cpp (XOR keys) and
 // lib/socket.cpp (connection + packet IO + PacketReceiver).
 
 #include "hat_packet.h"

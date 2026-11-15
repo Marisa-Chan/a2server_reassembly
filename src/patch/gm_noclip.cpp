@@ -1,4 +1,4 @@
-// Ported from my-srvmgr zxmgr::MakeUnitNoClip + CheckPlayerNoClip
+// Ported from srvmgr zxmgr::MakeUnitNoClip + CheckPlayerNoClip
 // (common_new.cpp). The DLL zeroed dwords in the two obstacle grids through
 // the raw MapStuff pointer; here the same cells are cleared through the
 // named obstacle_map / obstacle_map2 fields. eye->byte5 is path_mask.

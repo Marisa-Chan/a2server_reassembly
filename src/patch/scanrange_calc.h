@@ -1,9 +1,9 @@
 #pragma once
 
 // Terrain-aware scan-range vision calculator, shared by the client fog
-// (CalcVisMapCLIENT, my-a2mgr scanrange.cpp) and the server-side player
-// vision stamps (my-srvmgr scanrange.cpp / lib/ScanrangeCalc). Ported
-// verbatim from my-srvmgr/lib/ScanrangeCalc.{hpp,cpp}.
+// (CalcVisMapCLIENT, a2mgr scanrange.cpp) and the server-side player
+// vision stamps (srvmgr scanrange.cpp / lib/ScanrangeCalc). Ported
+// verbatim from srvmgr/lib/ScanrangeCalc.{hpp,cpp}.
 
 #include <stdint.h>
 

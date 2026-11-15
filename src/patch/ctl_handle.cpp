@@ -1,4 +1,4 @@
-// Ported from my-srvmgr/ctl_handle.cpp and srvmgr.cpp (DllMain ThreadProc).
+// Ported from srvmgr/ctl_handle.cpp and srvmgr.cpp (DllMain ThreadProc).
 
 #include "ctl_handle.h"
 

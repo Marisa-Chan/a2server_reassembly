@@ -1,6 +1,6 @@
 #pragma once
 
-// Tangar HAT-protocol support library, ported from my-srvmgr lib/
+// Tangar HAT-protocol support library, ported from srvmgr lib/
 // (BinaryStream/serialize.hpp, packet.{hpp,cpp}, hat2.cpp send_msg framing,
 // socket.{hpp,cpp}). The framing is the rom_hat chunked-XOR wire format:
 // payload is split into <=0x8E-byte chunks, each XORed with a per-protocol
@@ -61,7 +61,7 @@ public:
     }
 
     // string with 16-bit size + trailing NUL (almost everywhere). The NUL is
-    // part of the wire format: my-redhat BinaryStream::WriteString appends it
+    // part of the wire format: redhat BinaryStream::WriteString appends it
     // unconditionally and ReadString consumes size+1 bytes.
     std::string ReadString() {
         uint16_t size = ReadUInt16();

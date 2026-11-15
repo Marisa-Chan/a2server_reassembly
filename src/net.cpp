@@ -33,17 +33,20 @@
 #include "shop.h"
 #ifdef A2CLIENT_PATCH
 #include "patch/hat_client.h"
+#include "patch/flags.h"
+#endif
+#ifdef A2SERVER_PATCH
+#include "patch/flags.h"
 #endif
 #ifdef A2SERVER_TANGAR_HAT
 #include "patch/config_new.h"
 #include "patch/flags.h"
 #include "patch/hat_net.h"
 #endif
-#if defined(A2CLIENT_PATCH) || defined(A2SERVER_TANGAR_HAT)
-#include "patch/netlog.h"
-#endif
 
-#if defined(A2CLIENT_PATCH) || defined(A2SERVER_TANGAR_HAT)
+#if defined(A2CLIENT_PATCH) || defined(A2SERVER_PATCH)
+#include "patch/netlog.h"
+
 namespace {
 // Netlog direction tag for a CLlDriver TCP socket, by peer port: the HAT
 // listens on 8000 (clients) / 7999 (servers), game servers on 8001+.
@@ -131,10 +134,10 @@ void NetStru1::SendExistingPlayers(Player* player) {
 		if (p == player) {
 			continue;
 		}
-#ifdef A2SERVER_TANGAR_HAT
+#ifdef A2SERVER_PATCH
 		// adm_invis hook (51C901): invisible GMs are hidden from the joining
 		// player's view of the world
-		if ((p->flags & 0x3F000800) == 0x3F000800) {
+		if ((p->flags & GMF_INVISIBLE) == GMF_INVISIBLE) {
 			continue;
 		}
 #endif

@@ -1,4 +1,4 @@
-// Ported from my-srvmgr/screenshots.cpp.
+// Ported from srvmgr/screenshots.cpp.
 
 #include "screenshots.h"
 

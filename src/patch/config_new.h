@@ -1,6 +1,6 @@
 #pragma once
 
-// Tangar server configuration surface, ported from my-srvmgr/config_new.h.
+// Tangar server configuration surface, ported from srvmgr/config_new.h.
 // The runtime knobs behind most A2SERVER_TANGAR_HAT features; parsed from
 // server.cfg by ReadConfig (config_new.cpp), which in the patched binary
 // replaces the stock config parser (imp_ParseConfig takeover @ 0x4F7188).
