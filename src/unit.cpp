@@ -25,6 +25,20 @@
 #include "virtual_caster.h"
 #include "world.h"
 
+#ifdef A2SERVER_PATCH
+#include "patch/tangar_log.h"
+#include "patch/flags.h"
+#endif
+
+#ifdef A2TANGAR_HAT
+#include "patch/config_new.h"
+#include "patch/tangar_log.h"
+#include "patch/circle.h"
+#include "patch/damage_filter.h"
+#include "patch/partial_drop.h"
+#include "patch/player_info.h"
+#endif
+
 // 6cdb98
 std::array<CString, 10> MALE_HUMAN_NAMES = {"", "Biker", "Vasya", "Duke Killer", "Samuil", "Danath", "Legolas", "Fat Sam", "Ragnar", "Sir Gerald"};
 
@@ -714,6 +728,12 @@ void Unit::ProcessEffects() {
     }
 
     // Decay.
+#ifdef A2TANGAR_HAT
+    // check_health hook (52BD75): prevent a unit idling at exactly 0 HP from staying in limbo forever.
+    if (this->hp == 0 && this->hp_regen > 0 && (time(nullptr) % 60) == 0) {
+        this->hp = -1;
+    }
+#endif
     if (this->hp < 1) {
         this->state = 0;
         this->some_state = 0;
@@ -837,7 +857,15 @@ void Unit::ProcessEffects() {
                         if (this->some_item != nullptr) {
                             if (((this->some_item->item_id >> 8) & 0xF) == 0xE) {
                                 delete this->some_item;
+                                #ifdef A2SERVER_PATCH
+                                // bug_0005: some_spell can be a zombie (zeroed
+                                // vtable) - skip the delete instead of crashing
+                                if (*reinterpret_cast<void**>(this->some_spell) != nullptr) {
+                                    delete this->some_spell;
+                                }
+                                #else
                                 delete this->some_spell;
+                                #endif
                             }
                             this->some_item = nullptr;
                             this->some_spell = nullptr;
@@ -856,7 +884,15 @@ void Unit::ProcessEffects() {
                     }
                     this->charge_countdown = (int8_t)(this->relax + relax_extra + Random0N(3));
                     if ((this->some_state == 0xd || this->some_state == 0xe) && this->some_spell != nullptr) {
+                        #ifdef A2SERVER_PATCH
+                        // bug_0006: spell values array can be empty (null
+                        // m_pData) - skip the add instead of crashing
+                        if (this->some_spell->spell_info->Values().GetSize() != 0) {
+                            this->charge_countdown += (int8_t)this->some_spell->spell_info->Values()[0].level;
+                        }
+                        #else
                         this->charge_countdown += (int8_t)this->some_spell->spell_info->Values()[0].level;
+                        #endif
                     }
                 }
             } else if (this->some_state2 == 7) { // Countdown after attack or spell execution.
@@ -941,10 +977,25 @@ int32_t Unit::IsHumanoid() {
 void Unit::ReleaseObjects() {
     // 52a504
     if (this->some_item && ((this->some_item->item_id >> 8) & 0xF) == 0xE) {
+        #ifdef A2SERVER_PATCH
+        // bug_0002: some_item can be a zombie (destroyed earlier, zeroed
+        // vtable) - skip the delete instead of crashing on virtual dispatch
+        if (*reinterpret_cast<void**>(this->some_item) != nullptr) {
+            delete this->some_item;
+        }
+        #else
         delete this->some_item;
+        #endif
         this->some_item = nullptr;
         if (this->some_spell) {
+            #ifdef A2SERVER_PATCH
+            // bug_0003: same zombie guard for some_spell
+            if (*reinterpret_cast<void**>(this->some_spell) != nullptr) {
+                delete this->some_spell;
+            }
+            #else
             delete this->some_spell;
+            #endif
         }
         this->some_spell = nullptr;
     }
@@ -1089,6 +1140,12 @@ uint32_t Unit::RollDamage(UnitToHit* unit_to_hit, Unit* attacker) {
         damage = preliminary_damage;
     }
 
+#ifdef A2TANGAR_HAT
+    // circle_damage_regular hook (536D81): circle members take scaled
+    // damage from monsters
+    damage = circle::IncreaseDamage(attacker, this, damage);
+#endif
+
     // Absorption and weapon-type resistance.
     if (damage > 0) {
         if (attacker == nullptr || !(attacker->unit_attrs & 0x10)) {
@@ -1107,6 +1164,10 @@ uint32_t Unit::RollDamage(UnitToHit* unit_to_hit, Unit* attacker) {
     // Add magic damage.
     if ((int32_t)unit_to_hit->some_damage_spread + unit_to_hit->some_damage_min != 0) {
         int32_t some_dmg = (int32_t)Random0N(unit_to_hit->some_damage_spread) + unit_to_hit->some_damage_min;
+#ifdef A2TANGAR_HAT
+        // circle_damage_special hook (536E1E)
+        some_dmg = circle::IncreaseDamage(attacker, this, some_dmg);
+#endif
         int16_t protection = this->protections.magic_protections[2];
         if (protection != 0) {
             some_dmg = (int32_t)((100.0 - protection) * (double)some_dmg / 100.0 + 0.75);
@@ -1121,14 +1182,23 @@ uint32_t Unit::RollDamage(UnitToHit* unit_to_hit, Unit* attacker) {
     bool no_phys = (unit_to_hit->hand_damage_min + unit_to_hit->hand_damage_spread == 0);
     if ((unit_to_hit->some_damage2_spread + unit_to_hit->some_damage2_min) != 0 && (attack_roll > defense || no_phys)) {
         int32_t spell_dmg = (int32_t)Random0N(unit_to_hit->some_damage2_spread) + unit_to_hit->some_damage2_min;
+#ifdef A2TANGAR_HAT
+        // circle_damage_magic hook (536ED8)
+        spell_dmg = circle::IncreaseDamage(attacker, this, spell_dmg);
+#endif
         uint8_t sphere = unit_to_hit->spell_id;
         if (sphere >= 1 && sphere <= 5) {
             int16_t protection = this->protections.magic_protections[sphere];
             if (protection != 0) {
                 spell_dmg = (int32_t)((100.0 - protection) * (double)spell_dmg / 100.0 + 0.75);
+#ifdef A2TANGAR_HAT
+                // srv_pvm.xck + verify_damage hook (536F42..537087 -> 504033)
+                spell_dmg = TangarOnDamage(attacker, this, static_cast<int16_t>(spell_dmg));
+#else
                 if (spell_dmg < 0) {
                     spell_dmg = 0;
                 }
+#endif
             }
         } else {
             LogMessage(CString("Unknown magic damage type"));
@@ -1142,7 +1212,13 @@ uint32_t Unit::RollDamage(UnitToHit* unit_to_hit, Unit* attacker) {
     if (attacker != nullptr && attacker->monster_info != nullptr) {
         if (attacker->pOwner == nullptr) {
             this->last_hit_by = nullptr;
+#ifdef A2SERVER_PATCH
+        // prevent_suicide_regular hook (5370ED): self-damage must not
+        // overwrite the kill attribution
+        } else if (this != attacker) {
+#else
         } else {
+#endif
             this->last_hit_by = attacker;
             if (attacker->unit_attrs & 4) {
                 this->last_hit_spell_id = (int8_t)unit_to_hit->spell_id;
@@ -1157,7 +1233,12 @@ uint32_t Unit::RollDamage(UnitToHit* unit_to_hit, Unit* attacker) {
         }
     }
 
+#ifdef A2TANGAR_HAT
+    // srv_pvm.xck + verify_damage hook (537171 -> 504033)
+    return TangarOnDamage(attacker, this, static_cast<int16_t>(cumulative));
+#else
     return cumulative > 0 ? cumulative : 0;
+#endif
 }
 
 void Unit::RecalcStats() {
@@ -1193,6 +1274,12 @@ void Unit::AwardCastExperience(Unit*, int32_t)
 {}
 
 int32_t Unit::GetCorpseDecayTime() {
+    #ifdef A2SERVER_PATCH
+    // bug_0004: monster_info may be null (guards the whole deref chain)
+    if (this->monster_info == nullptr) {
+        return 0;
+    }
+    #endif
     return this->monster_info->Values()[0].dying_time;
 }
 
@@ -1219,7 +1306,14 @@ void Unit::InitDefaultStats() {
     this->scan_range = 5 * 0x100;
     this->extra_carrying_weight = 0;
     this->carrying_weight_100g = 0;
+
     this->carrying_body_100g = this->body * 10;
+#ifdef A2TANGAR_HAT
+    // replace_unit_carrying_body_with_reaction hook (52A29E): circle witches carry by reaction, not body
+    if (this->pOwner != nullptr && circle::Circle(this) > 0 && (this->unit_attrs & 4) != 0 && (this->typeId == 0x22 || this->typeId == 0x24)) {
+        this->carrying_body_100g = this->reaction * 10;
+    }
+#endif
     this->hp_max = 30;
     this->hp = 30;
     this->hp_regen = 100;
@@ -1234,6 +1328,13 @@ void Unit::InitDefaultStats() {
 
 // 52C409
 int32_t Unit::ReturnToMap() {
+#ifdef A2TANGAR_HAT
+    // add_player_to_map hook (52C409): skip if already on the map ((unit_attrs & 8) == 0)
+    // to prevent duplicate g_ServerUnits insertions (speed-hack exploit).
+    if ((this->unit_attrs & 0x08) == 0) {
+        return 0;
+    }
+#endif
     // First try to place unit at the exact position.
     uint8_t y = this->position->GetY();
     uint8_t x = this->position->GetX();
@@ -1242,10 +1343,29 @@ int32_t Unit::ReturnToMap() {
         y = this->position->GetY();
         x = this->position->GetX();
         if (!this->PlaceOnMap(x, y, 3)) {
+#ifdef A2TANGAR_HAT
+            // imp_ReturnFail hook (52C45E): schedule forced-return retry for main unit.
+            if (this->pOwner != nullptr && this == this->pOwner->main_unit) {
+                if (PlayerInfo* pi = PI_Get(this->pOwner)) {
+                    pi->ShouldReturn = true;
+                    pi->LastReturn = GetTickCount();
+                    Printf("Warning: unit of player %s couldn't return to map.", (const char*)this->pOwner->name);
+                }
+            }
+            return 0;
+#else
             LogMessage(CString("Unit can't return to map - no free place"));
             return 0;
+#endif
         }
     }
+#ifdef A2TANGAR_HAT
+    if (this->pOwner != nullptr && this == this->pOwner->main_unit) {
+        if (PlayerInfo* pi = PI_Get(this->pOwner)) {
+            pi->ShouldReturn = false;
+        }
+    }
+#endif
     g_ServerUnits->AddTail(this);
     this->unit_attrs &= ~0x08;
     g_NetStru1_main.BroadcastUnitState(this);
@@ -1295,8 +1415,14 @@ void Unit::PickUpSack(Sack* sack) {
 
                     Humanoid* human = static_cast<Humanoid*>(this);
                     human->experience = 0;
+#ifdef A2TANGAR_HAT
+                    // imp_Experience4 hook (52CD2D): raise skill cap to MAX_SKILL.
+                    const int max_skill = static_cast<int>(MAX_SKILL);
+#else
+                    const int max_skill = 100;
+#endif
                     for (int sphere = 1; sphere < 6; ++sphere) {
-                        int16_t new_lvl = (std::min)(human->hit_values.skill_levels[sphere] + boost, 100);
+                        int16_t new_lvl = static_cast<int16_t>((std::min)(static_cast<int>(human->hit_values.skill_levels[sphere]) + boost, max_skill));
                         human->hit_values.skill_levels[sphere] = new_lvl;
                         human->hit_values2.skill_levels[sphere] = new_lvl;
                         int32_t exp_val = ExperienceTable::GetExp(new_lvl);
@@ -1432,6 +1558,9 @@ void Unit::Die() {
 #else
     {
 #endif
+#if !defined(A2TANGAR_HAT) || defined(A2CLIENT)
+        // partial_drop_skip_undress hook (52DA11): skipped in Tangar server build;
+        // equipped items are rolled individually in DropPartially instead.
         if (this->shield != nullptr) {
             this->inventory->PutItemIntoBagAtDefault(this->Unequip(this->shield));
         }
@@ -1443,6 +1572,7 @@ void Unit::Die() {
 
         // VMethod15: unequip all remaining equipped items.
         this->UnequipAll();
+#endif
 
         bool is_npc = (this->monster_info->name.Find("NPC") != -1);
         bool should_drop = false;
@@ -1498,12 +1628,20 @@ void Unit::Die() {
         }
 
         // Create sack if inventory has items or gold was dropped.
+#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+        if ((this->inventory->items.GetSize() >= 0 || gold > 0) && this->pOwner != nullptr) {
+            int is_main = (this->pOwner->main_unit == this) ? 1 : 0;
+            // imp_drop_partially hook (52DEEF)
+            DropPartially(this, this->inventory, gold, is_main);
+        }
+#else
         if ((this->inventory->items.GetSize() > 0 || gold > 0) && this->pOwner != nullptr) {
             int is_main = (this->pOwner->main_unit == this) ? 1 : 0;
             // Inline CreateSackFromInventory: drop inventory as a sack on the map.
             Inventory* sack_items = this->DetachInventory();
             g_Server->srv_stru1->sack_list->DropInventoryAt(this->position, sack_items, gold, is_main);
         }
+#endif
     } 
 #ifndef A2CLIENT
     else if (this->pOwner != nullptr && g_ServerConfig.gameType != GAME_TYPE_ARENA) {
@@ -1536,8 +1674,13 @@ void Unit::Die() {
         // Create sack if inventory has items.
         if (this->inventory->items.GetSize() > 0) {
             int is_main = (this->pOwner->main_unit == this) ? 1 : 0;
+#ifdef A2TANGAR_HAT
+            // imp_drop_partially hook (52E264)
+            DropPartially(this, this->inventory, 0, is_main);
+#else
             Inventory* sack_inventory = this->DetachInventory();
             g_Server->srv_stru1->sack_list->DropInventoryAt(this->position, sack_inventory, 0, is_main);
+#endif
         }
     }
 #endif
@@ -2359,6 +2502,24 @@ void Humanoid::RecalcStats() {
 
     uint16_t max_body, max_reaction, max_mind, max_spirit;
 
+#ifdef A2TANGAR_HAT
+    // set_*_max_parameters hooks (531650/53166C/531696/5316B8): the
+    // class/gender stat caps come from config (defaults = retail values)
+    const MainCharacterParameters& caps = fighter
+        ? (female ? Config::WarriorFemaleMaxParameters : Config::WarriorMaleMaxParameters)
+        : (female ? Config::MageFemaleMaxParameters : Config::MageMaleMaxParameters);
+    max_body = caps.Body;
+    max_reaction = caps.Reaction;
+    max_mind = caps.Mind;
+    max_spirit = caps.Spirit;
+#elif defined(A2CLIENT_PATCH)
+    // character_stats hook (client 51D2D8): stat ceiling 100 for all
+    // stats on the patched client
+    max_body = 100;
+    max_reaction = 100;
+    max_mind = 100;
+    max_spirit = 100;
+#else
     if (fighter) {
         if (female) {
             max_body = 50;
@@ -2384,6 +2545,7 @@ void Humanoid::RecalcStats() {
             max_spirit = 50;
         }
     }
+#endif
 
     this->body = min(this->body, max_body + this->equipment_extra.body);
     this->reaction = min(this->reaction, max_reaction + this->equipment_extra.reaction);
@@ -2410,6 +2572,12 @@ void Humanoid::RecalcStats() {
 
     this->scan_range = static_cast<uint16_t>(((this->mind + this->reaction) / 25.0 + 4.0) * 256.0);
     this->carrying_body_100g = static_cast<uint16_t>(this->body * 10 + 1);
+#ifdef A2TANGAR_HAT
+    // replace_human_carrying_body_with_reaction hook (531A0B): circle witches carry by reaction, not body
+    if (this->pOwner != nullptr && circle::Circle(this) > 0 && (this->unit_attrs & 4) != 0 && (this->typeId == 0x22 || this->typeId == 0x24)) {
+        this->carrying_body_100g = static_cast<uint16_t>(this->reaction * 10 + 1);
+    }
+#endif
 
     this->speed = (this->reaction < 12) ? this->reaction : this->reaction / 5 + 12;
     if (this->typeId == 0x13 || this->typeId == 0x15) { // Horse-riders, with sword and with lance.
@@ -2431,6 +2599,28 @@ void Humanoid::RecalcStats() {
         this->speed = static_cast<uint16_t>(adjusted < 6 ? 6 : adjusted);
     }
 
+#ifdef A2TANGAR_HAT
+    // set_char_min_speed hook (531B72): clamp the computed speed into the
+    // ServerID-dependent range (EASY 15..15 ... beyond HARD 8..35)
+    {
+        uint16_t min_speed = 8, max_speed = 35;
+        switch (Config::ServerID) {
+            case EASY: min_speed = 15; max_speed = 15; break;
+            case KIDS: min_speed = 12; max_speed = 21; break;
+            case NIVAL: min_speed = 11; max_speed = 23; break;
+            case MEDIUM: min_speed = 10; max_speed = 25; break;
+            case HARD: min_speed = 9; max_speed = 30; break;
+            default: break;
+        }
+        if (this->speed < min_speed) {
+            this->speed = min_speed;
+        }
+        if (this->speed > max_speed) {
+            this->speed = max_speed;
+        }
+    }
+#endif
+
     const double body_pow = std::pow(1.1, static_cast<double>(this->body));
     this->hit_values.hand_damage_spread = static_cast<uint8_t>(body_pow / 20.0);
     this->hit_values.hand_damage_min = this->hit_values.hand_damage_spread;
@@ -2442,10 +2632,26 @@ void Humanoid::RecalcStats() {
         this->hit_values.skill_levels[i] = this->hit_values2.skill_levels[i];
     }
 
+#ifdef A2TANGAR_HAT
+    // imp_Experience5 (531C52) & imp_Experience6 (531D03): raise skill cap to MAX_SKILL.
+    const int16_t max_skill = static_cast<int16_t>(MAX_SKILL);
+#else
+    const int16_t max_skill = 100;
+#endif
     for (int i = 1; i < static_cast<int>(this->hit_values.skill_levels.size()); i++) {
-        if (this->hit_values.skill_levels[i] > 100) {
-            this->hit_values.skill_levels[i] = 100;
+        if (this->hit_values.skill_levels[i] > max_skill) {
+            this->hit_values.skill_levels[i] = max_skill;
         }
+        if (this->hit_values.skill_levels[i] < 0) {
+            this->hit_values.skill_levels[i] = 0;
+        }
+    }
+
+    for (int i = 1; i < static_cast<int>(this->hit_values.skill_levels.size()); i++) {
+        const int16_t base = (this->hit_values.skill_levels[i] > max_skill)
+            ? max_skill
+            : this->hit_values.skill_levels[i];
+        this->hit_values.skill_levels[i] = base + this->equipment_extra.hit_values.skill_levels[i];
     }
 
     if (this->hit_values.physical_damage_type != 0 && this->hit_values.physical_damage_type < this->hit_values.skill_levels.size()) {
@@ -2496,7 +2702,24 @@ void Humanoid::RecalcStats() {
     const uint16_t ceiling = min(100, max_magic);
     for (size_t i = 1; i < this->protections.magic_protections.size(); i++) {
         uint16_t value = this->protections.magic_protections[i];
+#ifdef A2TANGAR_HAT
+        // imp_limit_magic_resist_wrapper hook (532243): per-class/gender
+        // resist caps from config clamp the retail spirit-based ceiling more
+        const MainCharacterParameters& resist_caps = fighter
+            ? (female ? Config::WarriorFemaleMaxParameters : Config::WarriorMaleMaxParameters)
+            : (female ? Config::MageFemaleMaxParameters : Config::MageMaleMaxParameters);
+        uint16_t resist_limit = 100;
+        switch (i) {
+            case 1: resist_limit = resist_caps.ResistFire; break;
+            case 2: resist_limit = resist_caps.ResistWater; break;
+            case 3: resist_limit = resist_caps.ResistAir; break;
+            case 4: resist_limit = resist_caps.ResistEarth; break;
+            case 5: resist_limit = resist_caps.ResistAstral; break;
+        }
+        this->protections.magic_protections[i] = min(min(value, ceiling), resist_limit);
+#else
         this->protections.magic_protections[i] = min(value, ceiling);
+#endif
     }
 
     if (this->spell_book != nullptr) {
@@ -2517,6 +2740,12 @@ uint32_t Humanoid::RecalcExperience() {
 
 // 530745
 void Humanoid::AddExperience(uint32_t new_exp, Unit* target, int32_t sphere) {
+    #ifdef A2SERVER_PATCH
+    // imp_GMNoLevelUp hook (530745): full GMs (GMF_ANY) don't level up
+    if (this->pOwner != nullptr && (this->pOwner->flags & GMF_ANY) == GMF_ANY) {
+        return;
+    }
+    #endif
     if (g_ServerConfig.gameType != GAME_TYPE_COOPERATIVE) {
         return;
     }
@@ -2530,6 +2759,19 @@ void Humanoid::AddExperience(uint32_t new_exp, Unit* target, int32_t sphere) {
     }
 
     new_exp = static_cast<uint32_t>(new_exp * ((double)this->mind / 30.0 + 0.25));
+#ifdef A2TANGAR_HAT
+    // circle_experience hook (5307A3): off-sphere experience is scaled up
+    // for circle members
+    {
+        int eff_sphere = sphere;
+        if ((this->unit_attrs & 4) == 0) {
+            eff_sphere = this->hit_values.physical_damage_type;
+        }
+        if (eff_sphere != this->main_sphere && eff_sphere != 5 && eff_sphere != 0 && circle::Circle(this) != 0) {
+            new_exp = static_cast<uint32_t>(new_exp * circle::ExperienceMultiplier(this));
+        }
+    }
+#endif
 
     // Diminishing returns: reduce XP if this unit was killed multiple times this session.
     if (target != nullptr) {
@@ -2557,11 +2799,18 @@ void Humanoid::AddExperience(uint32_t new_exp, Unit* target, int32_t sphere) {
 
     bool leveled_up = false;
     uint32_t update_mask = 0;
+#ifdef A2TANGAR_HAT
+    // imp_Experience1 (530D47), imp_Experience2 (530AEA), imp_Experience3 (530918):
+    // raise skill cap from 100 to MAX_SKILL.
+    const int16_t max_skill = static_cast<int16_t>(MAX_SKILL);
+#else
+    const int16_t max_skill = 100;
+#endif
 
     if ((this->unit_attrs & 4) == 0) {
         // Fighter: physical attack XP goes to the weapon combat sphere.
         int phys_sphere = this->hit_values.physical_damage_type;
-        if (sphere == 0 && phys_sphere != 0 && this->hit_values.skill_levels[phys_sphere] < 100) {
+        if (sphere == 0 && phys_sphere != 0 && this->hit_values.skill_levels[phys_sphere] < max_skill) {
             // Secondary spheres gain XP at 1/8 the normal rate.
             if (phys_sphere != this->main_sphere && phys_sphere != 5) {
                 new_exp = (new_exp + 7) / 8;
@@ -2589,7 +2838,7 @@ void Humanoid::AddExperience(uint32_t new_exp, Unit* target, int32_t sphere) {
         }
     } else {
         // Mage: XP goes to the specified sphere.
-        if (sphere > 0 && this->hit_values.skill_levels[sphere] < 100) {
+        if (sphere > 0 && this->hit_values.skill_levels[sphere] < max_skill) {
             // Secondary spheres gain XP at 1/8 the normal rate.
             if (sphere != this->main_sphere && sphere != 5) {
                 new_exp = (new_exp + 7) / 8;
@@ -2628,7 +2877,7 @@ void Humanoid::AddExperience(uint32_t new_exp, Unit* target, int32_t sphere) {
         }
         // Apply equipment bonuses on top of base skill levels.
         for (int i = 1; i <= 5; i++) {
-            int16_t base = (this->hit_values.skill_levels[i] < 100) ? this->hit_values.skill_levels[i] : 100;
+            int16_t base = (this->hit_values.skill_levels[i] < max_skill) ? this->hit_values.skill_levels[i] : max_skill;
             this->hit_values.skill_levels[i] = base + this->equipment_extra.hit_values.skill_levels[i];
         }
     }
@@ -2734,7 +2983,18 @@ void Humanoid::CopyFrom(Humanoid* other) {
 
 // 53116B
 void Humanoid::ReviveWithPenalty() {
+    #ifdef A2SERVER_PATCH
+    // player_respawned_init hook (53118A)
+    if (this->pOwner != nullptr) {
+        Printf("Player %s respawned.\n", (const char*)this->pOwner->name);
+    }
+    #endif
     this->experience = 0;
+    #ifdef A2SERVER_PATCH
+    // imp_GMNoLevelDown hook (53126B): full GMs (GMF_ANY) skip the
+    // respawn experience penalty
+    if (!(this->pOwner != nullptr && (this->pOwner->flags & GMF_ANY) == GMF_ANY))
+    #endif
     for (int32_t i = 1; i < 6; i++) {
         if (g_ServerConfig.gameType == GAME_TYPE_DEATHMATCH || g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY) {
             this->hit_values.skill_levels[i] = 70;
@@ -2744,7 +3004,13 @@ void Humanoid::ReviveWithPenalty() {
             this->experience += this->experience_per_sphere[i - 1];
             this->hit_values.skill_levels[i] = ExperienceTable::GetLevel(this->experience_per_sphere[i - 1]);
         } else {
+            #ifdef A2TANGAR_HAT
+            // player_respawned hook (531278): respawn experience multiplier
+            // from config (retail: integer *9/10)
+            this->experience_per_sphere[i - 1] = (uint32_t)(this->experience_per_sphere[i - 1] * Config::RespawnExpMult2);
+            #else
             this->experience_per_sphere[i - 1] = (this->experience_per_sphere[i - 1] * 9) / 10;
+            #endif
             this->experience += this->experience_per_sphere[i - 1];
             this->hit_values.skill_levels[i] = ExperienceTable::GetLevel(this->experience_per_sphere[i - 1]);
         }
@@ -2802,6 +3068,25 @@ void Humanoid::InitCreationSkills(int8_t main_skill, int8_t skill_level) {
     // Set main sphere.
     this->main_sphere = main_skill;
 
+#ifdef A2TANGAR_HAT
+    // skip_new_character_weapon hook (533421): instead of the initial
+    // weapon/staff, give mages their sphere spell directly
+    if (this->unit_attrs & 4) {
+        if (this->spell_book != nullptr) {
+            int32_t spell_id = 0;
+            switch (main_skill) {
+                case 1: spell_id = spell::fire_arrow; break;
+                case 2: spell_id = spell::ice_missile; break;
+                case 3: spell_id = spell::lightning; break;
+                case 4: spell_id = spell::stone_missile; break;
+            }
+            if (spell_id != 0 && this->spell_book->GetSpell(spell_id) == nullptr) {
+                this->spell_book->SetSpell(spell_id, new Spell((uint8_t)spell_id));
+            }
+        }
+        return; // skip the weapon creation entirely
+    }
+#endif
     if (this->unit_attrs & 4) {
         // Mage: create a staff with cast spell.
         CString spell_name;
@@ -2837,6 +3122,12 @@ void Humanoid::InitCreationSkills(int8_t main_skill, int8_t skill_level) {
 
 // 532DDE
 void Humanoid::ApplyHumanInfo(CArray<HumanInfoData>* data) {
+    #ifdef A2SERVER_PATCH
+    // bug_0007: empty human info array (null m_pData) - skip applying the data
+    if (data->GetData() == nullptr) {
+        return;
+    }
+    #endif
     HumanInfoData& d = data->GetData()[0];
 
     if (d.body != -1) {

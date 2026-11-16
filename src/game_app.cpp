@@ -1,4 +1,8 @@
 #include "game_app.h"
+#include "patch/locale.h"
+#ifdef A2CLIENT_PATCH
+#include "patch/client_config.h"
+#endif
 
 #include <cmath>
 
@@ -15,6 +19,13 @@
 #include "gameplay.h"
 #include "vis_playing_area.h"
 #include "vis_net.h"
+#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+#include "patch/config_new.h"
+#include "patch/crash_filter.h"
+#include "patch/ctl_handle.h"
+#include "patch/tangar_log.h"
+#include "patch/thresholds.h"
+#endif
 
 GameApp GameApp::theApp;
 
@@ -252,6 +263,10 @@ void InitCpuAndDistTables() {
 		}
 	}
 
+#ifdef A2CLIENT_PATCH
+	// LANG_fix_codepage hook (client 479D7A): force DOS codepage flag instead of reading main\id.
+	g_isDosCP = 1;
+#else
 	// Read the codepage flag from the end of "main\id"
 	char idbuf[80];
 	memset(idbuf, 0, 80);
@@ -262,6 +277,7 @@ void InitCpuAndDistTables() {
 		file.Close();
 	}
 	g_isDosCP = idbuf[strlen(idbuf) - 1] - '0';
+#endif
 
 	g_DistortMap = new DistortMap(0x14, 0x10);
 
@@ -277,6 +293,10 @@ void InitCpuAndDistTables() {
 
 // 43A857
 void __cdecl PostConsoleLine(const char* source) {
+#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+	// redir_log hook (43A872): write every server console line to Tangar's timestamped log file.
+	log_format("%s\n", source != nullptr ? source : "");
+#endif
 	MainWindow* mainWnd = (MainWindow*)AfxGetMainWnd();
 	if (!mainWnd || mainWnd->sessionMode != SESSION_SERVER) {
 		return;
@@ -347,6 +367,13 @@ int32_t GetRandS16(int32_t range) {
 }
 
 int32_t ParseConfig(const char* fname) { // 4f7188
+#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+	// Tangar config v2.0: the patched server replaces the stock parser
+	// wholesale with the manager's ReadConfig (imp_ParseConfig takeover at
+	// this address; the load_config hook at 482CCC only re-pushed the same
+	// "server.cfg" argument, so nothing else is needed there)
+	return ReadConfig(fname);
+#else
 	CStdioFile file;
 	if (!file.Open(fname, 0, nullptr)) {
 		return -1;
@@ -554,6 +581,7 @@ int32_t ParseConfig(const char* fname) { // 4f7188
 	}
 
 	return 0;
+#endif // A2TANGAR_HAT
 }
 
 
@@ -565,6 +593,9 @@ BOOL GameApp::InitInstance() {
 	g_IsServer = 0;
 #else
 	g_IsServer = 1;
+#endif
+#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+	tangar_crash::SetExceptionFilter();
 #endif
 
 	const char* stmp = strstr(m_lpCmdLine, "-latency");
@@ -584,6 +615,26 @@ BOOL GameApp::InitInstance() {
 
 		g_CmdTimeout *= 1000;
 	}
+
+#ifdef A2CLIENT_PATCH
+	// Tangar a2mgr DllMain_Init: wait before video/window initialization after
+	// an auto-updater self-restart ("-delay 4000").
+	stmp = strstr(this->m_lpCmdLine, "-delay");
+	if (stmp != nullptr && (stmp[6] == ' ' || stmp[6] == '\t')) {
+		int32_t delay = atoi(stmp + 6);
+		if (delay > 0 && delay <= 60000) {
+			Sleep(static_cast<DWORD>(delay));
+		}
+	}
+	tangar_cfg::ParseConfig();
+	tangar_locale::DecideLanguage();
+	if (GetFileAttributesA("maps") == INVALID_FILE_ATTRIBUTES) {
+		CreateDirectoryA("maps", nullptr);
+	}
+	if (tangar_cfg::z_screendir && GetFileAttributesA("screenshots") == INVALID_FILE_ATTRIBUTES) {
+		CreateDirectoryA("screenshots", nullptr);
+	}
+#endif
 
 	HKEY regkey;
 	if (RegOpenKeyA(HKEY_LOCAL_MACHINE, "SOFTWARE\\1C\\Allods 2", &regkey) != ERROR_SUCCESS) {
@@ -612,7 +663,7 @@ BOOL GameApp::InitInstance() {
 	char pathbuf[256];
 	bufsz = 255;
 	if (RegQueryValueExA(regkey, "INSTALLDIR", NULL, NULL, (uint8_t*)pathbuf, &bufsz) == ERROR_SUCCESS) {
-		#ifndef A2SERVER_PATCH
+		#if !defined(A2SERVER_PATCH) && !defined(A2CLIENT_PATCH)
 		SetCurrentDirectoryA(pathbuf);
 		#endif
 	}
@@ -679,10 +730,31 @@ BOOL GameApp::InitInstance() {
 #ifdef A2CLIENT
 	Resources::StaticAddResFile("world.res");
 #else
-	Resources::StaticAddResFile("world_srv.res");
+	try {
+		Resources::StaticAddResFile("world_srv.res");
+	} catch (CException* e) {
+		e->Delete();
+		Resources::StaticAddResFile("world.res");
+	}
 #endif
-	Resources::StaticAddResFile("music.res");
-	Resources::StaticAddResFile("video.res");
+	try {
+		Resources::StaticAddResFile("music.res");
+	} catch (CException* e) {
+		e->Delete();
+	}
+#ifdef A2CLIENT_PATCH
+	// RES_loadDirectories CheckMusic (client 4867E6): disable music if data\music directory is absent.
+	uint32_t music_attrib = GetFileAttributesA("data\\music");
+	if (music_attrib == INVALID_FILE_ATTRIBUTES || (music_attrib & FILE_ATTRIBUTE_DIRECTORY) == 0) {
+		g_SoundSettings.music_allowed = 0;
+	}
+#else
+	try {
+		Resources::StaticAddResFile("video.res");
+	} catch (CException* e) {
+		e->Delete();
+	}
+#endif
 
 	if (strstr(m_lpCmdLine, "-nomusic")) {
 		g_SoundSettings.music_allowed = 0;
@@ -697,7 +769,11 @@ BOOL GameApp::InitInstance() {
 	Resources::StaticAddResFile("sfx.res");
 	Resources::StaticAddResFile("movies.res");
 	Resources::StaticAddResFile("scenario.res");
-	Resources::StaticAddResFile("speech.res");
+	try {
+		Resources::StaticAddResFile("speech.res");
+	} catch (CException* e) {
+		e->Delete();
+	}
 
 	Resources::MarkSubstitutedFiles("update.lst");
 
@@ -742,6 +818,15 @@ BOOL GameApp::InitInstance() {
 		}
 	}
 
+#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+	// DllMain LoadThresholds + StartControlThread (srvmgr.cpp:2719-2756, 2769)
+	try {
+		thresholds::thresholds.LoadFromFile(thresholds::THRESHOLDS_FILE);
+	} catch (const thresholds::ParseException& error) {
+		log_format("Loading thresholds failed: %s\n", error.what());
+	}
+	tangar_ctl::StartControlThread();
+#endif
 #ifndef A2CLIENT
 	if (g_ServerConfig.chr_base.IsEmpty()) {
 		AfxMessageBox("Missing \'ChrBase\' parameter in config file.");
@@ -779,6 +864,25 @@ BOOL GameApp::InitInstance() {
 		exit(1);
 	}
 
+#ifdef A2CLIENT_PATCH
+	// LANG_change_48626D (client 486C39): load text tables from the locale selected in DecideLanguage().
+	ReadFileToString(tangar_locale::help, &g_HelpStr);
+
+	txt_main.LoadChunkFile(tangar_locale::main_txt);
+	txt_heropicture.LoadChunkFile(tangar_locale::heropicture);
+	txt_stats.LoadChunkFile(tangar_locale::stats);
+	txt_spells.LoadChunkFile(tangar_locale::spells);
+	txt_spell.LoadChunkFile(tangar_locale::spell);
+	txt_dialogs.LoadChunkFile(tangar_locale::dialogs);
+	txt_unitname.LoadChunkFile(tangar_locale::unitname);
+	txt_building.LoadChunkFile(tangar_locale::building);
+	txt_itemname.LoadChunkFile(tangar_locale::itemname);
+	txt_npcnames.LoadChunkFile(tangar_locale::npcnames);
+	txt_cutscene.LoadChunkFile(tangar_locale::cutscene);
+	txt_cutpaths.LoadChunkFile(tangar_locale::cutpaths);
+	txt_tunes.LoadChunkFile(tangar_locale::tunes);
+	txt_patch.LoadChunkFile(tangar_locale::patch_txt);
+#else
 	ReadFileToString("main\\text\\help.txt", &g_HelpStr);
 
 	txt_main.LoadChunkFile("main\\text\\main.txt");
@@ -795,6 +899,7 @@ BOOL GameApp::InitInstance() {
 	txt_cutpaths.LoadChunkFile("main\\text\\cutpaths.txt");
 	txt_tunes.LoadChunkFile("main\\text\\tunes.txt");
 	txt_patch.LoadChunkFile("patch\\patch.txt");
+#endif
 
 	ParseTunes();
 
@@ -904,6 +1009,10 @@ BOOL GameApp::OnIdle(LONG lCount) { //4835b0
 }
 
 int GameApp::ExitInstance() { //4833f1
+#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+	Config::ExitingCleanly = true;
+	tangar_ctl::StopControlThread();
+#endif
 	if (g_EnableTrace != 0) {
 		g_NetStru1_main.WriteStatsLog("pkt.log");
 	}
@@ -937,7 +1046,8 @@ int GameApp::ExitInstance() { //4833f1
 	GetTempPathA(sizeof(path), path);
 
 	CString fpath = path;
-	fpath += "allods-2-*.$$$";
+	fpath += A2CLIENT_PATCH_ENABLED ? "" : "allods-2-*.$$$";
+	if (A2CLIENT_PATCH_ENABLED) { fpath.AppendFormat("allods-%u-*.$$$", GetCurrentProcessId()); }
 
 	WIN32_FIND_DATAA fnd;
 	HANDLE fhndl = FindFirstFileA(fpath, &fnd);
@@ -1208,6 +1318,16 @@ void LogWarning(const CString& msg) { //59b753
 	}
 }
 
+#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+// 5EB49E imp_LocalMessageBox hook (OnLocalMessageBox): suppress modal AfxMessageBox
+// popups on the server and log them via Tangar Printf instead.
+int GameApp::DoMessageBox(LPCTSTR lpszPrompt, UINT /*nType*/, UINT /*nIDPrompt*/) {
+	Printf("Error: %s", lpszPrompt != nullptr ? lpszPrompt : "");
+	tangar_crash::WriteDiagnostic(lpszPrompt != nullptr ? lpszPrompt : "MFC error box");
+	return IDOK;
+}
+#endif
+
 // 5e64bd - MFC AfxWinMain; the _a2WinMain@16 stdcall thunk (5d9d58) is folded in
 extern "C" int32_t WINAPI a2WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int32_t nShowCmd) {
 	int32_t exitCode = -1;
@@ -1230,4 +1350,3 @@ extern "C" int32_t WINAPI a2WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance
 	AfxWinTerm();
 	return exitCode;
 }
-

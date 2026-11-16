@@ -66,6 +66,25 @@ GM_a28::GM_a28() {
 	this->dirty = 1;
 }
 
+#ifdef A2CLIENT_PATCH
+// conv_double_tilde from a2mgr chat.cpp: double '~' so the game renderer
+// shows a literal tilde instead of treating it as a color-code escape
+static CString TangarDoubleTilde(const char* str)
+{
+	static char tilda_buf[4000];
+	char* t = tilda_buf;
+	while (*str && t < (tilda_buf + sizeof(tilda_buf) - 3)) {
+		*t++ = *str;
+		if (*str == '~') {
+			*t++ = *str;
+		}
+		str++;
+	}
+	*t = 0;
+	return CString(tilda_buf);
+}
+#endif
+
 void GM_a28::Add(const char* msg, uint16_t* clr, uint32_t t) {
 	//4021fe
 	this->dirty = 1;
@@ -79,6 +98,11 @@ void GM_a28::Add(const char* msg, uint16_t* clr, uint32_t t) {
 
 	bool restart = this->text.GetSize() == 0;
 
+#ifdef A2CLIENT_PATCH
+	// CHAT_logStrings hook (4021FE): every added chat line is echoed
+	// to the client log
+	LogMessage(CString(msg));
+#endif
 	CStringArray& lines = fnt->StringArrayForRect(this->out_area, msg);
 	for (int i = 0; i < lines.GetSize(); i++) {
 		CString& s = lines[i];
@@ -165,6 +189,11 @@ void GM_a28::Draw() {
 
 	for (int i = 0; i < this->text.GetSize(); i++) {
 		CString s = this->text[i];
+#ifdef A2CLIENT_PATCH
+		// CHAT_tilde1/2 hooks (40270A/40275E): double tildes so the font
+		// renderer shows a literal tilde instead of a color-code escape
+		s = TangarDoubleTilde((const char*)s);
+#endif
 
 		while (true) {
 			int rpos = s.Find('\r');
@@ -1249,7 +1278,14 @@ void Vis1200obj::DrawInputLine(CString* str) {
     this->ClientRectToScreen(&screen_rect, this->rect);
     this->match_player_index = -1;
     this->match_name_length = 0;
+#ifdef A2CLIENT_PATCH
+    // CHAT_tilde0 hook (43D976): double tildes in the chat input line so
+    // the font renderer shows a literal tilde instead of a color-code escape
+    this->font->DrawTxt(screen_rect.left, screen_rect.bottom - this->font->GetHeight() * (this->history.GetSize() + 1),
+                          TangarDoubleTilde((const char*)*str), 0, this->clr);
+#else
     this->font->DrawTxt(screen_rect.left, screen_rect.bottom - this->font->GetHeight() * (this->history.GetSize() + 1), *str, 0, this->clr);
+#endif
     if (!str->IsEmpty() && (*str)[0] == '-') {
         CString name_part = str->Mid(1);
         MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
@@ -1292,8 +1328,63 @@ void Vis1200::VMethod26() {
     this->active = 0;
 }
 
+#ifdef A2CLIENT_PATCH
+// Chat history subsystem (a2mgr chat_history.cpp): a stack of
+// previously sent messages navigable with Up/Down in the chat console.
+// Each entry is the list of wrapped lines; restoring writes all but the
+// last line back into the wrap array and the last line into input_line.
+static CList<CStringArray*, CStringArray*> s_sent_history;
+static int32_t s_history_index = 0;
+#endif
+
 // 43BDEC
 int32_t Vis1200::OnKeyDown(uint32_t wparam) {
+#ifdef A2CLIENT_PATCH
+    // CHAT_keyDown hook (43E1FB): Up/Down navigate the sent-message
+    // history; Enter commits the current message into it
+    if (wparam == 0x26) {
+        if (s_history_index > 0) {
+            s_history_index--;
+            CStringArray* entry = s_sent_history.GetAt(s_sent_history.FindIndex(s_history_index));
+            this->text_block->history.RemoveAll();
+            for (int i = 0; i < entry->GetSize() - 1; i++) {
+                this->text_block->history.Add((*entry)[i]);
+            }
+            this->text_block->input_line = (*entry)[entry->GetUpperBound()];
+        }
+        return 1;
+    }
+    if (wparam == 0x28) {
+        if (s_history_index + 1 < s_sent_history.GetCount()) {
+            s_history_index++;
+            CStringArray* entry = s_sent_history.GetAt(s_sent_history.FindIndex(s_history_index));
+            this->text_block->history.RemoveAll();
+            for (int i = 0; i < entry->GetSize() - 1; i++) {
+                this->text_block->history.Add((*entry)[i]);
+            }
+            this->text_block->input_line = (*entry)[entry->GetUpperBound()];
+        }
+        return 1;
+    }
+    if (wparam == 0xd) {
+        // consoleEnter + addString: commit the current lines into history
+        if (this->text_block->history.GetSize() != 0) {
+            CStringArray* entry = new CStringArray();
+            entry->Copy(this->text_block->history);
+            entry->Add(this->text_block->input_line);
+            s_sent_history.AddTail(entry);
+            s_history_index = (int32_t)s_sent_history.GetCount();
+        }
+        this->text_block->SaveHistoryBackup();
+        this->MsgProc(VIS_MSG_HIDE_SCREEN, 0, 0);
+        return 1;
+    }
+    if (wparam == 0x1b) {
+        this->MsgProc(VIS_MSG_CLOSE_SCREEN, 0, 0);
+        return 1;
+    }
+    return VisScreen::OnKeyDown(wparam);
+#else
     if (wparam == 0xd) {
         this->text_block->SaveHistoryBackup();
         this->MsgProc(VIS_MSG_HIDE_SCREEN, 0, 0);
@@ -1307,6 +1398,7 @@ int32_t Vis1200::OnKeyDown(uint32_t wparam) {
         this->text_block->RecallHistoryPrev();
     }
     return VisScreen::OnKeyDown(wparam);
+#endif
 }
 
 // 43BD2E
@@ -1594,7 +1686,3 @@ void VisOrderToolbar::UpdateCursor() {
     }
     new_cursor->Use();
 }
-
-
-
-

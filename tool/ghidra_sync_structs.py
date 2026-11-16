@@ -42,7 +42,7 @@ PORT = 18812
 PROGRAM = None  # explicit program selection ("server"/"client"/...); None = daemon default
 VSDEVCMD = r"C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\Common7\Tools\VsDevCmd.bat"
 DEFINES = ["WIN32", "_WINDOWS", "FKG_FORCED_USAGE", "_USE_32BIT_TIME_T", "NDEBUG", "_CONSOLE",
-           "_CRT_SECURE_NO_WARNINGS", "A2SERVER_PATCH", "A2SERVER_TANGAR_HAT", "_AFXDLL"]
+           "_CRT_SECURE_NO_WARNINGS", "A2SERVER_PATCH", "A2TANGAR_HAT", "_AFXDLL"]
 # headers that are not standalone-includable or irrelevant for layouts
 EXCLUDE_HEADERS = {"afxmsg_.h", "dplay.h", "dplobby.h", "music.h", "mfc_templ_impl.h"}
 

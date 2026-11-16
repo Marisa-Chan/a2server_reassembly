@@ -1,4 +1,11 @@
 #include <winsock2.h>
+#ifdef A2CLIENT_PATCH
+#include "patch/hotkeys.h"
+#endif
+#ifdef A2CLIENT_PATCH
+#include "patch/stats_level.h"
+#endif
+#include "patch/locale.h"
 #include <ws2tcpip.h>
 #include <timeapi.h>
 
@@ -1284,8 +1291,14 @@ void VisCharGen::VMethod28() {
 
 
 void VisCharGenStats::LoadBitmaps() { //429475
+#ifdef A2CLIENT_PATCH
+    // Tangar: the char-gen stats panel is up, so a new character is being
+    // created (it does not re-read the a2c file) - gui_bugfix.cpp
+    // new_character_screen hook, 42B599.
+    tangar_stats::creating_new_character = true;
+#endif
     this->FreeBitmaps();
-    this->bmp = new CBmp64("main\\graphics\\chrgen\\leftup.bmp");
+    this->bmp = new CBmp64(A2CLIENT_PATCH_ENABLED ? tangar_locale::gfx_chrgen_leftup : "main\\graphics\\chrgen\\leftup.bmp");
     g_mousept.Update();
     this->stat_button_bmps[0] = new CBmp64("graphics\\interface\\chrgen\\buttons\\plon.bmp");
     g_mousept.Update();
@@ -2245,7 +2258,15 @@ void VisCharInfo::VMethod7() {
     }
 
     if ((main_wnd->dialogsMask & (DIALOG_MASK_INGAME | DIALOG_MASK_SHOP)) != 0 && (main_wnd->dialogsMask & DIALOG_MASK_TAVERN) == 0) {
+#ifdef A2CLIENT_PATCH
+        // Tangar is_spell_book_open (4B758F): the open/closed book sprite is the
+        // only reliable spell-book indicator, so record it while drawing.
+        bool tangar_book_open = map->IsBookOpen() != 0;
+        tangar_hotkeys::SetSpellBookOpen(tangar_book_open);
+        if (tangar_book_open) {
+#else
         if (map->IsBookOpen()) {
+#endif
             g_bmp_bookopened->DrawSubRectMasked(screen_rect.left, screen_rect.top, 0, 0, 0x1C, 0x26);
         } else {
             g_bmp_bookclosed->DrawSubRectMasked(screen_rect.left, screen_rect.top + 4, 0, 0, 0x1C, 0x25);
@@ -2286,13 +2307,29 @@ void VisCharInfo::VMethod7() {
         if (found_obj->IsKindOf(RUNTIME_CLASS(CStructure))) {
             structure = (CStructure*)found_obj;
         } else {
+#ifdef A2CLIENT_PATCH
+            // Deviation guard: the retail else-branch casts any non-CStructure
+            // CGameObject to CUnit*; hovering a short-vtable object (e.g. a
+            // Pointer decoration) walks off the CUnit vtable when the portrait
+            // path calls RenderHeroPortrait -> jump into .rdata -> AV.
+            if (found_obj->IsKindOf(RUNTIME_CLASS(CUnit))) {
+                unit = (CUnit*)found_obj;
+            }
+#else
             unit = (CUnit*)found_obj;
+#endif
         }
     } else if (map->selected_object_count == 1) {
         if (map->primary_selected_object->IsKindOf(RUNTIME_CLASS(CStructure))) {
             structure = (CStructure*)map->primary_selected_object;
         } else {
+#ifdef A2CLIENT_PATCH
+            if (map->primary_selected_object->IsKindOf(RUNTIME_CLASS(CUnit))) {
+                unit = (CUnit*)map->primary_selected_object;
+            }
+#else
             unit = (CUnit*)map->primary_selected_object;
+#endif
         }
     }
 
@@ -2332,7 +2369,9 @@ void VisCharInfo::VMethod7() {
                 char fname[0x100];
                 char full_path[0x100];
                 GetTempPathA(0x100, temp_path);
-                sprintf(fname, "allods-2-%d.$$$", unit->unit_id);
+                sprintf(fname, A2CLIENT_PATCH_ENABLED ? "allods-%u-%u.$$$" : "allods-2-%d.$$$",
+                A2CLIENT_PATCH_ENABLED ? GetCurrentProcessId() : unit->unit_id,
+                A2CLIENT_PATCH_ENABLED ? unit->unit_id : 0);
                 sprintf(full_path, "%s%s", temp_path, fname);
                 if (strcmp(this->picturename, fname) != 0) {
                     strcpy(this->picturename, fname);
@@ -2888,6 +2927,10 @@ int32_t VisCharInfo::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     int32_t result = CVisualObject::MsgProc(msg, wparam, lparam);
 
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+#ifdef A2CLIENT_PATCH
+    // Tangar panel_toggle (4B6977): remember the char-info panel object.
+    tangar_hotkeys::RememberPanel(this);
+#endif
     CRect screen_rect;
     this->ClientRectToScreen(&screen_rect, this->rect);
 

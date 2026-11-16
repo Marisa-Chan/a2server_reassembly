@@ -9,6 +9,11 @@
 #include "item.h"
 #include "server.h"
 #include "table.h"
+#ifdef A2TANGAR_HAT
+#include "patch/tangar_log.h"
+#include "patch/config_new.h"
+#include "patch/forbidden_items.h"
+#endif
 
 static const uint16_t warrior_spells[] = { spell::stone_curse, spell::drain_life };
 static const uint16_t mage_spells[] = { spell::fire_arrow, spell::lightning, spell::prismatic_spray, spell::stone_curse, spell::drain_life, spell::ice_missile, spell::stone_missile };
@@ -412,7 +417,17 @@ Inventory* ShopAssortment::ArrangeShelfs(int32_t max_count, int32_t max_same, in
                 this->items[i]->count = 2;
 
                 Item* item = this->items[i]->TakeOne();
+#ifdef A2TANGAR_HAT
+                // imp_CheckItemExclusion hook (54DDBA): disabled item ids
+                // never spawn in shops
+                if (tangar_items::IsDisabled(item->item_id)) {
+                    delete item;
+                } else {
+                    item_array.SetAtGrow(item_array.GetSize(), item);
+                }
+#else
                 item_array.SetAtGrow(item_array.GetSize(), item);
+#endif
             }
         }
 
@@ -421,14 +436,26 @@ Inventory* ShopAssortment::ArrangeShelfs(int32_t max_count, int32_t max_same, in
 
             item = new Item("Potion Health Regeneration");
             item->count = Random1N(50) + 50;
+#ifdef A2TANGAR_HAT
+            // imp_increase_potions_in_shops hook: scale the potion stack
+            item->count = (int16_t)(item->count * Config::shop_potions_factor);
+#endif
             item_array.SetAtGrow(item_array.GetSize(), item);
 
             item = new Item("Potion Medium Healing");
             item->count = Random1N(50) + 50;
+#ifdef A2TANGAR_HAT
+            // imp_increase_potions_in_shops hook: scale the potion stack
+            item->count = (int16_t)(item->count * Config::shop_potions_factor);
+#endif
             item_array.SetAtGrow(item_array.GetSize(), item);
 
             item = new Item("Potion Big Healing");
             item->count = Random1N(50) + 50;
+#ifdef A2TANGAR_HAT
+            // imp_increase_potions_in_shops hook: scale the potion stack
+            item->count = (int16_t)(item->count * Config::shop_potions_factor);
+#endif
             item_array.SetAtGrow(item_array.GetSize(), item);
         }
 
@@ -436,18 +463,34 @@ Inventory* ShopAssortment::ArrangeShelfs(int32_t max_count, int32_t max_same, in
 
         item = new Item("Potion Mana Regeneration");
         item->count = Random1N(50) + 50;
+#ifdef A2TANGAR_HAT
+            // imp_increase_potions_in_shops hook: scale the potion stack
+            item->count = (int16_t)(item->count * Config::shop_potions_factor);
+#endif
         item_array.SetAtGrow(item_array.GetSize(), item);
 
         item = new Item("Potion Medium Mana");
         item->count = Random1N(50) + 50;
+#ifdef A2TANGAR_HAT
+            // imp_increase_potions_in_shops hook: scale the potion stack
+            item->count = (int16_t)(item->count * Config::shop_potions_factor);
+#endif
         item_array.SetAtGrow(item_array.GetSize(), item);
 
         item = new Item("Potion Big Mana");
         item->count = Random1N(50) + 50;
+#ifdef A2TANGAR_HAT
+            // imp_increase_potions_in_shops hook: scale the potion stack
+            item->count = (int16_t)(item->count * Config::shop_potions_factor);
+#endif
         item_array.SetAtGrow(item_array.GetSize(), item);
     }
 
     if (max_count > 1000) {
+#ifdef A2TANGAR_HAT
+        // imp_ShopError hook (54DBA1): log instead of a blocking message box
+        Printf("Shop error: amount > 1000!");
+#else
         HWND hWnd = nullptr;
         CWinThread* thread = AfxGetThread();
         if (thread != nullptr) {
@@ -457,6 +500,7 @@ Inventory* ShopAssortment::ArrangeShelfs(int32_t max_count, int32_t max_same, in
             }
         }
         MessageBoxA(hWnd, "Amount > 1000", "Shop Error", 0);
+#endif
     }
 
     int32_t retry_count = 0;

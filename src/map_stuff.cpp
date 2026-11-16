@@ -26,6 +26,9 @@
 #include "gameplay.h"
 #include "vis_playing_area.h"
 #include "vis_net.h"
+#ifdef A2TANGAR_HAT
+#include "patch/flags.h"
+#endif
 
 CString g_MissionText; //660f2c
 CString g_MissionBriefing; //660de8
@@ -329,6 +332,28 @@ uint8_t MapStuff::GetFacingFor(Unit* unit, PosYX yx) {
     return this->ClassifyFacing16(dx, dy);
 }
 
+#ifdef A2TANGAR_HAT
+// OnCast helper from srvmgr/common_new.cpp: full GMs (GMF_ANY) cast unit (8)
+// and ground (9) spells from any distance across the map without walking.
+static bool TangarOnCast(Unit* unit) {
+    if (unit == nullptr) {
+        return false;
+    }
+    Player* player = unit->pOwner;
+    if (player == nullptr || player->is_ai) {
+        return false;
+    }
+    if ((player->flags & GMF_ANY) != GMF_ANY) {
+        return false;
+    }
+    if (unit->eye2 == nullptr) {
+        return false;
+    }
+    uint8_t action = unit->eye2->cast_action;
+    return action == 8 || action == 9;
+}
+#endif
+
 // 58FE6D
 int MapStuff::FacesTargetInRange(Unit* unit, Unit* target, uint8_t max_range) {
     unit->position->IsAtCellCenter();
@@ -337,6 +362,12 @@ int MapStuff::FacesTargetInRange(Unit* unit, Unit* target, uint8_t max_range) {
     if (current_facing != computed_facing) {
         return 0;
     }
+#ifdef A2TANGAR_HAT
+    // imp_OnCast3 hook (58FEA8)
+    if (TangarOnCast(unit)) {
+        return 1;
+    }
+#endif
     if (this->GetRangeTo(unit, target) <= max_range) {
         return 1;
     }
@@ -351,6 +382,12 @@ int MapStuff::FacesPosInRange(Unit* unit, PosYX yx, uint8_t max_range) {
     if (current_facing != computed_facing) {
         return 0;
     }
+#ifdef A2TANGAR_HAT
+    // imp_OnCast1 hook (58FF16)
+    if (TangarOnCast(unit)) {
+        return 1;
+    }
+#endif
     uint8_t distance = this->ChebyshevDistance(unit->position->GetYX(), yx);
     if (distance <= max_range) {
         return 1;
@@ -368,7 +405,12 @@ void MapStuff::MoveStepTowardPos(Unit* unit, PosYX yx, uint8_t max_range) {
         return;
     }
 
+#ifdef A2TANGAR_HAT
+    // imp_OnCast2 hook (58FF96)
+    if (TangarOnCast(unit) || distance <= max_range) {
+#else
     if (distance <= max_range) {
+#endif
         if (max_range != 0) {
             this->FacePosition(unit, yx);
         }
@@ -436,7 +478,12 @@ void MapStuff::MoveStepTowardUnit(Unit* unit, Unit* target, uint8_t max_range) {
         return;
     }
 
+#ifdef A2TANGAR_HAT
+    // imp_OnCast4 hook (5902D9)
+    if (TangarOnCast(unit) || range <= max_range) {
+#else
     if (range <= max_range) {
+#endif
         this->FaceTarget(unit, target);
         return;
     }
@@ -503,7 +550,13 @@ void MapStuff::MoveStepTowardUnit(Unit* unit, Unit* target, uint8_t max_range) {
 int16_t MapStuff::GetTileMoveTime(Unit* unit, uint8_t x, uint8_t y) {
     uint8_t type = (uint8_t)unit->GetMovementType();
     if (type == 1) {
-        return unit->speed * 8 / this->walk_cost_map[y * 256 + x];
+        uint8_t walk_cost = this->walk_cost_map[y * 256 + x];
+#ifdef A2SERVER_PATCH
+        if (walk_cost == 0) {
+            return 0;
+        }
+#endif
+        return unit->speed * 8 / walk_cost;
     }
     if (type == 2 || type == 3) {
         return unit->speed;
@@ -3178,4 +3231,3 @@ void __cdecl ReadRecord(char* buf, File2* file) {
     file->Seek(-8, CFile::current);
     file->Read(buf, header[1]);
 }
-

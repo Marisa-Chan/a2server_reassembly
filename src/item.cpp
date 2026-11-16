@@ -422,6 +422,12 @@ int Item::IsSimilar(Item* other) {
         return 0;
     }
 
+    #ifdef A2SERVER_PATCH
+    // bug_0011: 'this' can be a zombie item (zeroed vtable) - not similar
+    if (*reinterpret_cast<void**>(this) == nullptr) {
+        return 0;
+    }
+    #endif
     int v1 = this->IsSimpleItem();
     int v2 = other->IsSimpleItem();
     if (v1 != 0 && v2 != 0) {
@@ -722,6 +728,12 @@ void Armor::LoadInfo() {
     this->slot = 0;
     this->world_equip = &g_GameDataRes.armors[this->itemDataID];
 
+    #ifdef A2SERVER_PATCH
+    // bug_0012: equip values array can be empty (null m_pData) - skip the load
+    if (this->world_equip->Values().GetData() == nullptr) {
+        return;
+    }
+    #endif
     EquipData* data = &this->world_equip->Values()[0];
     this->slot = (uint8_t)data->slot;
 
@@ -750,6 +762,13 @@ void Armor::LoadInfo() {
 void Weapon::LoadEquipInfo(WorldEquip* params) {
     MatShape* shape = &g_GameDataRes.shapes[this->shape_id];
     MatShape* mat = &g_GameDataRes.materials[this->material_id];
+
+    #ifdef A2SERVER_PATCH
+    // bug_0013: equip values array can be empty (null m_pData) - skip the load
+    if (params->Values().GetData() == nullptr) {
+        return;
+    }
+    #endif
     EquipData* data = &params->Values()[0];
 
     double damage_mult = (double)mat->data.damage * shape->data.damage;

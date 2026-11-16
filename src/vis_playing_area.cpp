@@ -1,4 +1,11 @@
 #include <winsock2.h>
+#include <ctime>
+#include "patch/netlog.h"
+#ifdef A2CLIENT_PATCH
+#include "patch/client_config.h"
+#include "patch/hotkeys.h"
+#include "patch/scanrange_calc.h"
+#endif
 #include <cmath>
 #include <ws2tcpip.h>
 #include <timeapi.h>
@@ -112,6 +119,19 @@ void VisPlayingArea::CloseHatOverlays() {
 		// TODO(client): the vanilla also calls the child's vtable+0x84 with 0x445 first
 		this->RemoveChild(child1200);
 	}
+}
+#endif
+
+#ifdef A2CLIENT_PATCH
+// Tangar get_map_name (map_location.cpp): downloaded maps live in maps\
+// instead of the game root. Idempotent when the name already carries the
+// prefix — servers that keep maps in maps\ announce them as "maps\..." in
+// MAP_INFO, and the checksum path uses that name unchanged.
+static CString TangarMapsPath(const CString& name) {
+	if (name.Find("maps\\") == 0) {
+		return name;
+	}
+	return CString("maps\\") + name;
 }
 #endif
 
@@ -1559,8 +1579,29 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 			} else if (this->my_main_unit->KnowsPlayer(packet_join->player_id) == 0 || packet_join->token_id == CHAT_TYPE_GLOBAL) {
 				MapPlayerData* dat = this->map_players[packet_join->player_id];
 
+				CString chat_text = CString(dat->name) + ": " + packet_join->name;
+#ifdef A2CLIENT_PATCH
+				// Tangar CHAT_prependType (413DF7/413F86) -> chatAddStringCpp: with
+				// altchat on, prefix the message with its type from patch.txt lines
+				// 223-225 (ally/private/shout). Regular and global chat stay
+				// unprefixed.
+				if (tangar_cfg::g_altchat) {
+					const char* str_type = nullptr;
+					if (packet_join->token_id == CHAT_TYPE_ALLIES) {
+						str_type = txt_patch.GetLine(223);
+					} else if (packet_join->token_id == CHAT_TYPE_PRIVATE) {
+						str_type = txt_patch.GetLine(224);
+					} else if (packet_join->token_id == CHAT_TYPE_YELL) {
+						str_type = txt_patch.GetLine(225);
+					}
+					if (str_type != nullptr) {
+						chat_text = CString("[") + str_type + "] " + chat_text;
+					}
+				}
+#endif
+
 				if (g_MessageColors == 0 || (wnd->dialogsMask & DIALOG_MASK_INGAME) == 0) {
-					this->msglog.Add(CString(dat->name) + ": " + packet_join->name, g_colors_human_pals[dat->color], 10000);
+					this->msglog.Add(chat_text, g_colors_human_pals[dat->color], 10000);
 				} else {
 					uint16_t* clr = nullptr;
 					switch (packet_join->token_id) {
@@ -1579,7 +1620,7 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 						break;
 					}
 
-					this->msglog.Add(CString(dat->name) + ": " + packet_join->name, clr, 10000);
+					this->msglog.Add(chat_text, clr, 10000);
 				}
 
 				g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
@@ -1890,6 +1931,7 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 
 			case 1: {
 				g_MapRevealed = 1;
+#ifndef A2CLIENT_PATCH
 				uint16_t* landscape = this->scenario->GetLandscape();
 
 				for (int i = 0; i < this->scenario->GetWidth(); i++) {
@@ -1897,6 +1939,11 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 						landscape[i + j * scenario->GetWidth()] |= 0xc000;
 					}
 				}
+#else
+				// Tangar showmap.xck (40F264): the reveal is a flag only — the
+				// landscape cells are not stamped 0xc000 (no permanent fog
+				// removal) and the full-stats cheats below stay disabled.
+#endif
 			}
 				break;
 			case 2:
@@ -2114,6 +2161,11 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 
 		case FILE_CHUNK: {
 			CString fname = CString((const char*)packet_file->preamble) + ".tmp";
+#ifdef A2CLIENT_PATCH
+			// Tangar MAP_CFileOpen1/2 (client 40E0E3/40E0C9): both chunk-write
+			// opens use the maps\-prefixed path.
+			fname = TangarMapsPath(fname);
+#endif
 			CFile fl;
 
 			try {
@@ -2157,7 +2209,14 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 			if (packet_file->offset + packet_file->count < packet_file->total_length) {
 				this->SendRequestFileChunk(packet_file->offset + packet_file->count);
 			} else {
-				
+#ifdef A2CLIENT_PATCH
+				// Tangar MAP_loadFromServer (client 40E2BA): the finished
+				// download replaces any old copy under maps\ (plain
+				// DeleteFile + MoveFile, no exceptions).
+				CString final_name = TangarMapsPath((const char*)packet_file->preamble);
+				DeleteFile((LPCTSTR)final_name);
+				MoveFile((LPCTSTR)fname, (LPCTSTR)final_name);
+#else
 				try {
 					CFile::Remove((const char*)packet_file->preamble);
 				}
@@ -2169,6 +2228,7 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 				}
 				catch (...)
 				{}
+#endif
 
 				this->SendRequestMapInfo();
 			}
@@ -2377,6 +2437,8 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 		case HAT_TICKET:
 			wnd->m_GameSession.hat_ticket.id1 = packet_2dwords->param1;
 			wnd->m_GameSession.hat_ticket.id2 = packet_2dwords->param2;
+			netlog::logf("HAT->C", "TICKET %08X/%08X", (unsigned)packet_2dwords->param1,
+			             (unsigned)packet_2dwords->param2);
 
 			while (g_NetStru1_local.ReceiveAnyPacket() != nullptr)
 			{}
@@ -2393,15 +2455,23 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 			wnd->m_GameSession.sessionKeyPart1 = *(int32_t*)(p + 0xc);
 			wnd->m_GameSession.sessionKeyPart2 = *(int32_t*)(p + 0x10);
 			wnd->net_session.connect_address = CString((char*)p + 0x14, packet_data->count - 0x14);
+			netlog::logf("HAT->C", "SESSION_SETUP hat_id=%d ticket=%08X/%08X keys=%08X/%08X addr=%s",
+			             wnd->net_session.hat_id, (unsigned)wnd->m_GameSession.hat_ticket.id1,
+			             (unsigned)wnd->m_GameSession.hat_ticket.id2,
+			             (unsigned)wnd->m_GameSession.sessionKeyPart1,
+			             (unsigned)wnd->m_GameSession.sessionKeyPart2,
+			             (const char*)wnd->net_session.connect_address);
 		} break;
 
 		case HAT_SESSION_FAIL:
 			// client: 416948
+			netlog::logf("HAT->C", "SESSION_FAIL");
 			wnd->net_session.hat_id = -1;
 			break;
 
 		case HAT_ERROR:
 			// client: 41695a
+			netlog::logf("HAT->C", "HAT_ERROR code=%d", packet_dword->value);
 			g_GameStatusCode = (SessionError)((packet_dword->value + 0x18) | SESSION_ERROR_FLAG);
 			break;
 #endif
@@ -4741,6 +4811,23 @@ void VisPlayingArea::UpdateMapCursor() {
 }
 
 // 404E1A
+#ifdef A2CLIENT_PATCH
+// GRID_part1-5 hooks (client 4052D5/405D3F/406372/4058EF/405826): tile-grid
+// overlay - 32-pixel-spaced lines over the drawn terrain area, gated on
+// the allods2.cfg r_grid / r_grid_color knobs
+static void DrawTileGrid(int32_t x, int32_t y, int32_t w, int32_t h) {
+	if (!tangar_cfg::r_grid) {
+		return;
+	}
+	for (int32_t gx = x; gx <= x + w; gx += 32) {
+		FillRectColor(gx, y, gx + 1, y + h, tangar_cfg::r_grid_color);
+	}
+	for (int32_t gy = y; gy <= y + h; gy += 32) {
+		FillRectColor(x, gy, x + w, gy + 1, tangar_cfg::r_grid_color);
+	}
+}
+#endif
+
 void VisPlayingArea::DrawTerrainFull() {
 	AfxGetMainWnd();
 	timeGetTime();
@@ -4798,6 +4885,9 @@ void VisPlayingArea::DrawTerrainFull() {
 			}
 		}
 	}
+#ifdef A2CLIENT_PATCH
+	DrawTileGrid(0, 0, this->view_tiles_x * 32, this->view_tiles_y * 32);
+#endif
 }
 
 // 405399
@@ -4855,6 +4945,9 @@ void VisPlayingArea::DrawTerrainAnimated(int32_t arg) {
 			}
 		}
 	}
+#ifdef A2CLIENT_PATCH
+	DrawTileGrid(0, 0, this->view_tiles_x * 32, this->view_tiles_y * 32);
+#endif
 }
 
 // 40587B
@@ -4920,6 +5013,9 @@ void VisPlayingArea::DrawTerrainScrolled(int32_t arg) {
 			}
 		}
 	}
+#ifdef A2CLIENT_PATCH
+	DrawTileGrid(0, 0, this->view_tiles_x * 32, this->view_tiles_y * 32);
+#endif
 }
 
 // 405D0E
@@ -4988,6 +5084,9 @@ void VisPlayingArea::RedrawLitTerrain() {
 			}
 		}
 	}
+#ifdef A2CLIENT_PATCH
+	DrawTileGrid(0, 0, this->view_tiles_x * 32, this->view_tiles_y * 32);
+#endif
 }
 
 // 406F7B
@@ -5004,6 +5103,20 @@ void VisPlayingArea::RenderWorldFrame() {
 	this->gap_0xa90++;
 	this->ClientRectToScreen(&local_rect, this->rect);
 	this->UpdateAmbientSounds();
+#ifdef A2CLIENT_PATCH
+	// SCROLL_part1/part2 hooks (4070F6/4073C9): rate-limit the world scroll
+	// to g_scrollintv milliseconds between steps
+	{
+		static uint32_t tangar_last_scroll_time = 0;
+		uint32_t now = timeGetTime();
+		if (now - tangar_last_scroll_time < tangar_cfg::g_scrollintv) {
+			this->scroll_dx = 0;
+			this->scroll_dy = 0;
+		} else if (this->scroll_dx != 0 || this->scroll_dy != 0) {
+			tangar_last_scroll_time = now;
+		}
+	}
+#endif
 	if (abs(this->scroll_dx) >= this->view_tiles_x / 2 || abs(this->scroll_dy) >= this->view_tiles_y / 2) {
 		this->force_full_redraw = 1;
 	}
@@ -5555,7 +5668,22 @@ void VisPlayingArea::RenderWorldFrame() {
 	uint32_t panel_cmp = charinfo_h <= sidestatus_h;
 	if (g_ScreenSize.bottom > 600) {
 		g_bmp_extra1024l->DrawSubRectMasked(local_rect.right - 0x10, local_rect.top + 480, 0, 0, 0x10, g_bmp_extra1024l->GetHeight(0));
+#ifdef A2CLIENT_PATCH
+		// Tangar info_panel_left_sprite (40A939): the lower text strip is pinned to
+		// the bottom of the window instead of sitting fixed below the top strip.
+		{
+			int32_t strip_y;
+			RECT wr;
+			if (GetWindowRect(AfxGetMainWnd()->m_hWnd, &wr)) {
+				strip_y = wr.bottom - 0xf2;
+			} else {
+				strip_y = local_rect.bottom - 0xf2;
+			}
+			g_bmp_textbackl->DrawSubRectMasked(local_rect.right - 0x10, strip_y, 0, 0, 0x10, 0xf2);
+		}
+#else
 		g_bmp_textbackl->DrawSubRectMasked(local_rect.right - 0x10, local_rect.top + 480 + g_bmp_extra1024l->GetHeight(0), 0, 0, 0x10, 0xf2);
+#endif
 	} else if (g_ScreenSize.bottom > 480) {
 		g_bmp_extra800l->DrawSubRectMasked(local_rect.right - 0x10, local_rect.top + 480, 0, 0, 0x10, g_bmp_extra800l->GetHeight(0));
 	}
@@ -5574,6 +5702,42 @@ void VisPlayingArea::RenderWorldFrame() {
 		this->fps_time_ms -= 1000;
 		this->fps_frames = 0;
 	}
+#ifdef A2CLIENT_PATCH
+	{
+		// Tangar INFO_fps: config-gated fps/time/stopwatch rows replace the retail
+		// g_ShowFps box (patch hook 40AAF5..40ABDA).
+		int32_t info_top = local_rect.top + 16;
+		if (tangar_cfg::r_fps) {
+			char fps_buf[32];
+			sprintf(fps_buf, "%3.1f", this->fps);
+			g_font1->DrawTextWithShadow(local_rect.right - 136, info_top, "fps:", 0, clrsh_TechBlack, 1);
+			g_font1->DrawTextWithShadow(local_rect.right - 86, info_top, fps_buf, 0, clrsh_ShockingBlack, 1);
+			info_top += 16;
+		}
+		if (tangar_cfg::r_time) {
+			time_t now = time(NULL);
+			struct tm tmv;
+			if (localtime_s(&tmv, &now) == 0) {
+				char time_buf[32];
+				sprintf(time_buf, "%02u:%02u:%02u", tmv.tm_hour, tmv.tm_min, tmv.tm_sec);
+				g_font1->DrawTextWithShadow(local_rect.right - 136, info_top, "time:", 0, clrsh_TechBlack, 1);
+				g_font1->DrawTextWithShadow(local_rect.right - 86, info_top, time_buf, 0, clrsh_ShockingBlack, 1);
+			}
+			info_top += 16;
+		}
+		if (tangar_cfg::show_stopwatch && tangar_cfg::r_stopwatch) {
+			time_t elapsed = tangar_cfg::show_stopwatch_frozen != 0
+			                           ? (time_t)tangar_cfg::show_stopwatch_frozen
+			                           : (time_t)difftime(time(NULL), (time_t)tangar_cfg::stopwatch_start);
+			struct tm td;
+			if (gmtime_s(&td, &elapsed) == 0) {
+				char sw_buf[32];
+				sprintf(sw_buf, "%02u:%02u:%02u", td.tm_hour, td.tm_min, td.tm_sec);
+				g_font1->DrawTextWithShadow(local_rect.right - 86, info_top, sw_buf, 0, clrsh_ShockingBlack, 1);
+			}
+		}
+	}
+#else
 	if (g_ShowFps != 0) {
 		FillRectColorSimple(local_rect.right - 0x78, local_rect.top, local_rect.right - 0x1e, local_rect.top + 0x18,
 			GetColorRGB(8, 8, 8));
@@ -5581,6 +5745,7 @@ void VisPlayingArea::RenderWorldFrame() {
 		sprintf(buf, "%3.1f fps", this->fps);
 		g_font1->DrawTextWithShadow(local_rect.right - 0x26, local_rect.top, buf, 1, clrsh_ShockingBlack, 1);
 	}
+#endif
 	if (wnd->sessionMode == SESSION_SINGLEPLAYER && g_ShowNetStats != 0) {
 		NetStru2* client = g_NetStru1_local.GetClientByPlayerID(0);
 		if (client != nullptr) {
@@ -5843,7 +6008,44 @@ void VisPlayingArea::BuildShadowTables() {
 }
 
 // 403CA0
+#ifdef A2CLIENT_PATCH
+// Tangar CalcVisMapCLIENT (client 403D47): the retail inline shadow-field
+// walk is replaced by the shared CScanrangeCalc table algorithm (terrain-
+// aware vision). Height/bounds lookups go through the scenario, exactly as
+// the manager's raw-offset helpers did.
+static VisPlayingArea* tangar_scanrange_map = nullptr;
+
+static bool TangarShadowCheckValid(int16_t x, int16_t y) {
+	return (x >= 7 && y >= 7 &&
+	        x < (int16_t)tangar_scanrange_map->map_width - 7 &&
+	        y < (int16_t)tangar_scanrange_map->map_height - 7);
+}
+
+static uint8_t TangarShadowGetHeight(int16_t x, int16_t y) {
+	if (!TangarShadowCheckValid(x, y)) {
+		return 0;
+	}
+	Scenario* mapthis = tangar_scanrange_map->scenario;
+	uint32_t mapwidth = (uint32_t)mapthis->GetWidth();
+	int8_t* heightmap = mapthis->GetMapHeights();
+	return (uint8_t)heightmap[y * mapwidth + x];
+}
+#endif
+
 void VisPlayingArea::BuildShadowField(CGameObject* obj) {
+#ifdef A2CLIENT_PATCH
+	static CScanrangeCalc tangar_scanrange;
+	static bool tangar_scanrange_initialized = false;
+
+	tangar_scanrange_map = this;
+	if (!tangar_scanrange_initialized) {
+		tangar_scanrange.InitializeTables();
+		tangar_scanrange_initialized = true;
+	}
+
+	tangar_scanrange.CalculateVision(obj->tileX, obj->tileY, obj->scan_range, &TangarShadowGetHeight, &TangarShadowCheckValid);
+	memcpy(this->shadow_light, tangar_scanrange.pTablesVision, 0x1A44);
+#else
 	int32_t base_x = obj->tileX - 20;
 	int32_t base_y = obj->tileY - 20;
 	int32_t base_idx = base_y * this->map_width + base_x;
@@ -5878,6 +6080,7 @@ void VisPlayingArea::BuildShadowField(CGameObject* obj) {
 			break;
 		}
 	}
+#endif
 }
 
 // 41C74B
@@ -6178,9 +6381,55 @@ void VisPlayingArea::ComputeSoundVolumePan(int32_t xpos, int32_t ypos, int32_t* 
 	*pvol = (int32_t)vol;
 }
 
+#ifdef A2CLIENT_PATCH
+// Tangar f_key_handler (patch hook 40caff): the retail F4-F12 case body, driven
+// by the custom-hotkey map instead of the retail shortcut slots. With Shift or
+// Ctrl held the keypress binds the item/spell under the cursor instead.
+void VisPlayingArea::TangarHandleHotkey(uint32_t key) {
+	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
+
+	UserShortcut* shortcut = tangar_hotkeys::LookupHotkey((int32_t)key);
+	if (shortcut == nullptr) {
+		if (g_kbShiftState == 0 && g_kbControlState == 0) {
+			return;
+		}
+		shortcut = tangar_hotkeys::NewCustomHotkey((int32_t)key);
+	}
+
+	if ((shortcut->kind != 2 || g_kbControlState != 0) && g_kbShiftState == 0) {
+		wnd->vis_spellbook->MsgProc(VIS_MSG_SHORTCUT_KEY, key - 0x73, g_kbControlState);
+	}
+	if ((shortcut->kind != 1 || g_kbShiftState != 0) && g_kbControlState == 0) {
+		wnd->vis_invtype1->MsgProc(VIS_MSG_SHORTCUT_KEY, key - 0x73, g_kbShiftState);
+	}
+	if (shortcut->kind == 1) {
+		if (this->IsBookOpen() == 0 && wnd->vis_spellbook->IsSpellAvailable(shortcut->item_id) != 0) {
+			this->SetOrderMode(9);
+		} else if (this->IsBookOpen() == 0 && wnd->vis_spellbook->IsSpellEffectActive(shortcut->item_id) != 0) {
+			this->SetOrderMode(10);
+		}
+	}
+}
+#endif
+
 // 40C902
 int32_t VisPlayingArea::OnKeyDown(uint32_t wparam) {
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
+#ifdef A2CLIENT_PATCH
+	// Tangar hotkey_handler (40c997): remember the live objects, route bound
+	// keys straight into the F-key logic, and re-enter the retail switch with
+	// aliased action keys.
+	tangar_hotkeys::RememberKeyHandler(this);
+	tangar_hotkeys::RememberWindow(wnd);
+	if (tangar_hotkeys::ShouldHandleHotkey(wparam)) {
+		this->TangarHandleHotkey(wparam);
+		return 1;
+	}
+	int alias_key = tangar_hotkeys::HandleAliasKey(wparam);
+	if (alias_key != 0) {
+		wparam = (uint32_t)alias_key;
+	}
+#endif
 	if (wnd->dialogsMask == DIALOG_MASK_INGAME && this->scenario != nullptr) {
 		if (wnd->console_active != 0) {
 			wnd->vis_1200->OnKeyDown(wparam);
@@ -6236,6 +6485,11 @@ int32_t VisPlayingArea::OnKeyDown(uint32_t wparam) {
 		case 0x79:
 		case 0x7A:
 		case 0x7B: {
+#ifdef A2CLIENT_PATCH
+			// Tangar f_key_handler (40caff): the custom-hotkey map replaces the
+			// retail F4-F12 shortcut slots.
+			this->TangarHandleHotkey(wparam);
+#else
 			UserShortcut& shortcut = wnd->m_GameSession.shortcuts[wparam - 0x73];
 			if ((shortcut.kind != 2 || g_kbControlState != 0) && g_kbShiftState == 0) {
 				wnd->vis_spellbook->MsgProc(VIS_MSG_SHORTCUT_KEY, wparam - 0x73, g_kbControlState);
@@ -6250,6 +6504,7 @@ int32_t VisPlayingArea::OnKeyDown(uint32_t wparam) {
 					this->SetOrderMode(10);
 				}
 			}
+#endif
 			break;
 		}
 		default:
@@ -6422,7 +6677,13 @@ void VisPlayingArea::UpdateWorld() {
 
 	this->anim_tick++;
 	TakeDamage::UpdateDamages(&this->damage_labels);
+#ifdef A2CLIENT_PATCH
+	// Tangar showmap.xck (40BE1B): the occupancy rebuild also runs while the
+	// map is revealed.
+	if ((this->anim_tick & 0x1F) == 0) {
+#else
 	if (g_MapRevealed == 0 && (this->anim_tick & 0x1F) == 0) {
+#endif
 		this->RebuildLandscapeOccupancy();
 	}
 	if ((this->anim_tick & 0xF) == 0 && g_SoundSettings.music_allowed != 0 && this->my_unit != nullptr) {

@@ -1,4 +1,8 @@
 ﻿#include "spell.h"
+#ifdef A2TANGAR_HAT
+#include "patch/summon.h"
+#include "patch/damage_filter.h"
+#endif
 
 #include <algorithm>
 #include <cmath>
@@ -96,7 +100,12 @@ Spell::~Spell() //5392fe
 {}
 
 void Spell::Init() { //5391ab
+#ifdef A2CLIENT_PATCH
+    // p10st2.xck (522f14 -> 6e20f9): also reject spell_id > 0x1D (spell::max_spell_id)
+    if (this->spell_id == 0 || this->spell_id > spell::max_spell_id) {
+#else
     if (this->spell_id == 0) {
+#endif
         CString msg;
         msg.Format("Invalid spell #%d - no such ID", this->spell_id);
         LogMessage(msg);
@@ -110,6 +119,13 @@ void Spell::Init() { //5391ab
 
 // 53939E
 int Spell::IsAreaSpell(uint8_t, uint8_t) {
+    #ifdef A2SERVER_PATCH
+    // bug_0008: null spell_info or empty values array -> not an area spell
+    // (guards both derefs instead of crashing)
+    if (this->spell_info == nullptr || this->spell_info->Values().GetData() == nullptr) {
+        return 0;
+    }
+    #endif
     return this->spell_info->Values().GetData()[0].spell_target == 2;
 }
 
@@ -170,6 +186,31 @@ void Spell::SetPower(uint32_t power) {
     const SpellInfoData& info = this->spell_info->Values().GetData()[0];
     uint8_t power_byte = power;
 
+#if defined(A2CLIENT_PATCH) || defined(A2SERVER_PATCH)
+    // CRASH_fix_523295 (client 523295) / srv_range.fc (server 53955F): data-driven range formula -
+    // data.bin max_range packs [base, divider]; range = 0 if base == 0,
+    // else base + power/divider (default teleport divider: 15 in DM/TP on server, else 3; 30 otherwise)
+    {
+        uint8_t range_base = (uint8_t)(info.max_range & 0xFF);
+        uint8_t range_divider = (uint8_t)((info.max_range >> 8) & 0xFF);
+        if (range_base != 0) {
+            if (range_divider == 0) {
+                if (this->spell_id == spell::teleport) {
+#ifndef A2CLIENT
+                    range_divider = (g_ServerConfig.gameType == GAME_TYPE_DEATHMATCH || g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY) ? 15 : 3;
+#else
+                    range_divider = 3;
+#endif
+                } else {
+                    range_divider = 30;
+                }
+            }
+            this->max_range = (uint8_t)(range_base + power_byte / range_divider);
+        } else {
+            this->max_range = 0;
+        }
+    }
+#else
     this->max_range = info.max_range;
     if (this->spell_id == spell::teleport) {
         int32_t divisor = (g_ServerConfig.gameType == GAME_TYPE_DEATHMATCH || g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY) ? 15 : 3;
@@ -177,6 +218,7 @@ void Spell::SetPower(uint32_t power) {
     } else if (this->max_range != 0) {
         this->max_range += power_byte / 30;
     }
+#endif
 
     double multiplier = power_byte / 30.0 + 1.0;
 
@@ -196,9 +238,28 @@ void Spell::SetPower(uint32_t power) {
         if (this->spell_id == spell::invisibility) {
             this->spell_power = power_byte << 4;
         } else if (this->spell_id == spell::stone_curse) {
+#ifdef A2CLIENT_PATCH
+            // Tangar fix_StoneCurseDurationCalculation (5233E6): the multiplier
+            // comes from the data.bin duration parameter (SpellInfoData[0].duration)
+            // instead of the hardcoded 15: power * duration * 32 / 100.
+            this->spell_power = power_byte * info.duration * 32 / 100;
+#elif defined(A2SERVER_PATCH)
+            // fix_StoneCurseDurationCalculation (5396D9): 6-byte CALL replaces
+            // `imul eax, 0x0F; shl eax, 4` with `imul info.duration`, followed by
+            // `shl eax, 1; idiv 100`.
+            this->spell_power = static_cast<uint16_t>(power_byte * info.duration * 2 / 100);
+#else
             this->spell_power = power_byte * 480 / 100;
+#endif
         } else {
-            this->spell_power = std::pow(1.025, power_byte) * info.duration * 16.0;
+            int32_t dur = static_cast<int32_t>(std::pow(1.025, power_byte) * info.duration * 16.0);
+#ifdef A2SERVER_PATCH
+            // fix_spell_duration_overflow_0053973E (53973E)
+            if (dur > 0xFFFF) {
+                dur = 0xFFFF;
+            }
+#endif
+            this->spell_power = static_cast<uint16_t>(dur);
         }
     } else if (info.area_duration > 0) {
         this->spell_power = info.area_duration * 16 + power_byte * 16 / 10;
@@ -246,6 +307,13 @@ int32_t Spell::StartCast(Unit* caster, Unit* target, int8_t x, int8_t y) {
         return 0;
 	}
 
+    #ifdef A2SERVER_PATCH
+    // bug_0009: empty values array (null m_pData) - fail the cast instead of
+    // crashing on the delivery_system read
+    if (this->spell_info->Values().GetData() == nullptr) {
+        return 0;
+    }
+    #endif
     const SpellInfoData& info = this->spell_info->Values().GetData()[0];
     int32_t delay = 0;
     if (info.delivery_system == 2) {
@@ -274,6 +342,12 @@ int32_t Spell::StartCast(Unit* caster, Unit* target, int8_t x, int8_t y) {
 
 // 53D368
 SpellBook::~SpellBook() {
+    #ifdef A2SERVER_PATCH
+    // bug_000F: spells.m_pData can be null (corrupted array) - skip the loop
+    if (this->spells.GetData() == nullptr) {
+        return;
+    }
+    #endif
     for (int i = 0; i < this->spells.GetSize(); ++i) {
         delete this->spells[i];
         this->spells[i] = nullptr;
@@ -347,6 +421,17 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
         return;
     }
 
+    #ifdef A2SERVER_PATCH
+    // bug_000A/000B/000C/000D/000E family (7 sites: 539FFE, 53BF64, 53C736,
+    // 53C73F, 53C94B, 53CA30, 53CA39): the values array can be empty (null
+    // m_pData). The patched binary guards each m_pData re-read mid-function
+    // (six recoveries jump to the common cleanup; the 53A091 one skips the
+    // power calc with stale locals); our single top binding covers all paths,
+    // so one guard + return is the equivalent.
+    if (this->spell_info->Values().GetData() == nullptr) {
+        return;
+    }
+    #endif
     const SpellInfoData& info = this->spell_info->Values().GetData()[0];
     int32_t sphere = info.sphere;
 
@@ -438,7 +523,14 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
             if (g_ServerConfig.gameType == GAME_TYPE_DEATHMATCH || g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY) {
                 effect->spell_value = power * 16;
             } else {
-                effect->spell_value = std::pow(1.025, power) * info.duration * 16.0;
+                int32_t dur = static_cast<int32_t>(std::pow(1.025, power) * info.duration * 16.0);
+#ifdef A2SERVER_PATCH
+                // fix_spell_duration_overflow (53BFA1)
+                if (dur > 0xFFFF) {
+                    dur = 0xFFFF;
+                }
+#endif
+                effect->spell_value = static_cast<uint16_t>(dur);
             }
             effect->itemDataID = this->spell_id;
             effect->typeId = this->spell_id * 2 + 8;
@@ -493,11 +585,21 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
             effect->usage_type |= 1;
             {
                 int32_t factor = (caster->some_item == nullptr) ? 2 : 1;
+#ifdef A2SERVER_PATCH
+                // fix_StoneCurseDurationCalculation (53C32E): 6-byte CALL replaces
+                // `imul eax, 0x0F; shl eax, 4` with `imul info.duration`.
+                effect->spell_value = static_cast<uint16_t>(power * info.duration * factor / 100);
+#else
                 effect->spell_value = power * 240 * factor / 100;
+#endif
             }
             if (target->IsUnit() != 0) {
                 int32_t earth_protection = target->protections.magic_protections[4];
                 int32_t max_duration = effect->spell_value * (100 - earth_protection) / 100;
+#ifdef A2TANGAR_HAT
+                // srv_pvm.xck + verify_damage hook (53C390 -> 5040D2)
+                max_duration = TangarOnDamage(caster, target, static_cast<int16_t>(max_duration));
+#endif
                 effect->spell_value = Random0N(max_duration);
                 if (effect->spell_value == 0) {
                     delete effect;
@@ -518,7 +620,14 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
                 effect->spell_value = power * 16;
             } else {
                 effect->spell_or_damage = power * 4 / 5 + 20;
-                effect->spell_value = std::pow(1.025, power) * info.duration * 16.0;
+                int32_t dur = static_cast<int32_t>(std::pow(1.025, power) * info.duration * 16.0);
+#ifdef A2SERVER_PATCH
+                // fix_spell_duration_overflow (53C0E1)
+                if (dur > 0xFFFF) {
+                    dur = 0xFFFF;
+                }
+#endif
+                effect->spell_value = static_cast<uint16_t>(dur);
             }
             effect->itemDataID = this->spell_id;
             effect->typeId = this->spell_id * 2 + 8;
@@ -533,7 +642,14 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
                 effect->spell_value = power * 16;
             } else {
                 effect->spell_or_damage = power / 15 + 1;
-                effect->spell_value = std::pow(1.025, power) * info.duration * 16.0;
+                int32_t dur = static_cast<int32_t>(std::pow(1.025, power) * info.duration * 16.0);
+#ifdef A2SERVER_PATCH
+                // fix_spell_duration_overflow (53C21E)
+                if (dur > 0xFFFF) {
+                    dur = 0xFFFF;
+                }
+#endif
+                effect->spell_value = static_cast<uint16_t>(dur);
             }
             if (this->spell_id == spell::slow) {
                 effect->spell_or_damage = -effect->spell_or_damage;
@@ -720,7 +836,12 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
                     name += dot_tier;
                 }
                 unit->InitDefaults(name);
+#ifdef A2TANGAR_HAT
+                // summon hook (53AC32): full stat override per ServerID/tier
+                TangarFixSummonedUnit(unit, tier);
+#else
                 unit->summoned = 1;
+#endif
 
                 if (!unit->PlaceOnMap(caster->position->GetX(), caster->position->GetY(), 6)) {
                     return;
@@ -752,6 +873,10 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
                 if (drain >= till_corpse) {
                     drain = till_corpse;
                 }
+#ifdef A2TANGAR_HAT
+                // srv_pvm.xck + verify_damage hook (53A740 -> 5040D2)
+                drain = TangarOnDamage(caster, target, static_cast<int16_t>(drain));
+#endif
                 if (drain <= 0) {
                     return;
                 }
@@ -761,8 +886,16 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
                 }
                 target->hp -= drain;
                 g_NetStru1_main.SendUnitUpdate(target, nullptr, UNIT_UPD_HP, EQUIP_SLOTS_ALL, 0, 0);
+                #ifdef A2SERVER_PATCH
+                // prevent_suicide_drain_life hook (53A7CC): self-damage must
+                // not overwrite the kill attribution
+                if (target != caster) {
+                #endif
                 target->last_hit_by = caster;
                 target->last_hit_spell_id = this->spell_id;
+                #ifdef A2SERVER_PATCH
+                }
+                #endif
                 caster->AddHp(drain);
                 g_NetStru1_main.SendUnitUpdate(caster, nullptr, UNIT_UPD_HP, EQUIP_SLOTS_ALL, 0, 0);
                 return;
@@ -776,7 +909,14 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
                 effect->spell_value = power * 16;
             } else {
                 effect->spell_or_damage = power / 10 + 3;
-                effect->spell_value = std::pow(1.025, power) * info.duration * 16.0;
+                int32_t dur = static_cast<int32_t>(std::pow(1.025, power) * info.duration * 16.0);
+#ifdef A2SERVER_PATCH
+                // fix_spell_duration_overflow (53C52A)
+                if (dur > 0xFFFF) {
+                    dur = 0xFFFF;
+                }
+#endif
+                effect->spell_value = static_cast<uint16_t>(dur);
             }
             effect->itemDataID = this->spell_id;
             effect->typeId = this->spell_id * 2 + 8;

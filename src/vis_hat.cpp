@@ -23,6 +23,12 @@
 #include "vis_hat.h"
 #include "gameplay.h"
 #include "vis_playing_area.h"
+#include "patch/flags.h"
+
+#if defined(A2CLIENT_PATCH) || defined(A2TANGAR_HAT)
+#include "patch/stats_level.h"
+#include "patch/client_config.h"
+#endif
 
 // HatBrowserProgress implementation (struct declared in net.h)
 
@@ -253,13 +259,26 @@ int32_t VisHatBrowserList::IsItemEnabled(int32_t idx) {
     int32_t players = atoi(item.Mid(pos, 2));
 
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+#ifdef A2CLIENT_PATCH
+    // GUI_gmEnter hook (44DB8D): a full GM (session key part 2 carries the
+    // GMF flags) may enter any server
+    if ((main_wnd->m_GameSession.sessionKeyPart2 & GMF_ANY) == GMF_ANY) {
+        return 1;
+    }
+#endif
     if (main_wnd->net_session.internet_game == 0 || main_wnd->hat_settings.ishat == 0 || main_wnd->hat_settings.deathmatch == 0) {
+#ifdef A2CLIENT_PATCH
+        // Tangar GUI_softcoreEnter (44DD0F): stats-based server-level selection
+        // replaces the retail skill-tier brackets (and the players == 16 check).
+        return tangar_stats::StatsBasedLevelSelection((const char*)item) ? 1 : 0;
+#else
         if (main_wnd->m_GameSession.GetSkillTier1() > level + 1
             || main_wnd->m_GameSession.GetSkillTier2() < level + 1
             || players == 16) {
             return 0;
         }
         return 1;
+#endif
     }
 
     return players != 16 ? 1 : 0;
@@ -346,7 +365,16 @@ void VisHatBrowserList::DrawItem(int32_t idx, CPoint pos, uint16_t* clr) {
 void VisHatBrowserDlg::VMethod26() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
-    VisLabel* title_label = new VisLabel(0x19, 0x28, 0x16, this->rect.Width() - 0x28, 0x38, txt_patch.GetLine(0x6a), g_font1, p_clrsh_Black, 2);
+#ifdef A2CLIENT_PATCH
+    // long_servers.txt (44e7e7, 44e87f): shift header labels up (0x16 -> 0x10, 0x2c -> 0x20)
+    int32_t title_top = 0x10;
+    int32_t ip_top = 0x20;
+#else
+    int32_t title_top = 0x16;
+    int32_t ip_top = 0x2c;
+#endif
+
+    VisLabel* title_label = new VisLabel(0x19, 0x28, title_top, this->rect.Width() - 0x28, 0x38, txt_patch.GetLine(0x6a), g_font1, p_clrsh_Black, 2);
     this->AddChild(title_label);
 
     const char* ip_text = main_wnd->hat_settings.hatip;
@@ -355,7 +383,7 @@ void VisHatBrowserDlg::VMethod26() {
         ip_text = main_wnd->hat_settings.hatprogip;
     }
 #endif
-    VisLabel* ip_label = new VisLabel(0x7e, 0x28, 0x2c, this->rect.Width() - 0x28, 0x44, ip_text, g_font1, p_clrsh_Black, 2);
+    VisLabel* ip_label = new VisLabel(0x7e, 0x28, ip_top, this->rect.Width() - 0x28, 0x44, ip_text, g_font1, p_clrsh_Black, 2);
     this->AddChild(ip_label);
 
 #ifdef A2CLIENT
@@ -371,8 +399,20 @@ void VisHatBrowserDlg::VMethod26() {
 
     VisHatBrowserList* list = nullptr;
     if (main_wnd->hat_settings.ishat != 0) {
+#ifdef A2CLIENT_PATCH
+        // Tangar GUI_setServColumnSize (44E9D5 + 44EBB0): the HAT server list
+        // starts higher (top 0x5c -> 0x44) and the non-deathmatch list grows
+        // taller (bottom Height-0x80 -> Height-0x60).
         int32_t list_top = 0x44;
         int32_t list_bottom = this->rect.Height() - 0x60;
+#elif defined(A2CLIENT)
+        int32_t list_top = 0x5c;
+        int32_t list_bottom = this->rect.Height() - 0x80;
+#else
+        // server retail: single list ctor (1, 0x28, 0x5c, Width-0x40, Height-0x60)
+        int32_t list_top = 0x5c;
+        int32_t list_bottom = this->rect.Height() - 0x60;
+#endif
         if (main_wnd->hat_settings.deathmatch == 2) {
             list_bottom = this->rect.Height() - 0xc0;
         }
@@ -413,7 +453,12 @@ void VisHatBrowserDlg::VMethod26() {
 
     CPoint btn_center(0xc0, this->rect.Height() - 0x30);
     CRect btn_rect(btn_center.x - 0x30, btn_center.y - 0xc, btn_center.x + 0x30, btn_center.y + 0xc);
+#ifdef A2CLIENT_PATCH
+    // extend_servers.txt (44ef07): shift button row right (+4 instead of -0x48) for 704px width
+    btn_rect.OffsetRect(4, 0);
+#else
     btn_rect.OffsetRect(-0x48, 0);
+#endif
 
     VisButton* ok_btn = new VisButton(0x14, btn_rect, txt_dialogs.GetLine(0), g_font1, nullptr, 0x445, 0, "");
     this->AddChild(ok_btn);
@@ -457,7 +502,11 @@ int32_t VisHatBrowserDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam
             VisScreen::MsgProc(VIS_MSG_HIDE_SCREEN, 0, 0);
 #ifdef A2CLIENT
             if (this->browser != nullptr) {
+                // Signal the ping thread and wait for its ack so it is fully
+                // out of this dialog before the screen is destroyed (bounded
+                // wait: one ping iteration).
                 SetEvent(this->exit_event);
+                WaitForSingleObject(this->ack_event, 3000);
             }
 #endif
         }
@@ -468,6 +517,7 @@ int32_t VisHatBrowserDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam
 #ifdef A2CLIENT
         if (this->browser != nullptr) {
             SetEvent(this->exit_event);
+            WaitForSingleObject(this->ack_event, 3000);
         }
 #endif
         return 1;
@@ -703,9 +753,13 @@ VisHatBrowserDlg::~VisHatBrowserDlg() {
 
 UINT __cdecl VisHatBrowserDlg::ThreadProc(void* pv) { //44e391
     VisHatBrowserDlg* dlg = (VisHatBrowserDlg*)pv;
+    // Cache the event handles: once the thread acks, the dialog (and these
+    // members) may be destroyed while we are still parked in the wait below.
+    HANDLE exit_event = dlg->exit_event;
+    HANDLE ack_event = dlg->ack_event;
 
-    while (WaitForSingleObject(dlg->exit_event, 0) != WAIT_OBJECT_0) {
-        ResetEvent(dlg->ack_event);
+    while (WaitForSingleObject(exit_event, 0) != WAIT_OBJECT_0) {
+        ResetEvent(ack_event);
         EnterCriticalSection(&dlg->connect_cs);
 
         CString addr = dlg->connect_addr;
@@ -720,8 +774,8 @@ UINT __cdecl VisHatBrowserDlg::ThreadProc(void* pv) { //44e391
 
             dlg->browser->Init(addr);
 
-            if (WaitForSingleObject(dlg->exit_event, 0) == 0) {
-                SetEvent(dlg->ack_event);
+            if (WaitForSingleObject(exit_event, 0) == 0) {
+                SetEvent(ack_event);
                 break;
             }
 
@@ -732,9 +786,9 @@ UINT __cdecl VisHatBrowserDlg::ThreadProc(void* pv) { //44e391
 
         dlg->browser->PingServer();
         PostMessageA(g_MainWndHWND, 0x48c, dlg->browser->GetPingError(), 0);
-        SetEvent(dlg->ack_event);
+        SetEvent(ack_event);
 
-        if (WaitForSingleObject(dlg->exit_event, 500) == 0)
+        if (WaitForSingleObject(exit_event, 500) == 0)
             break;
     }
     return 0;
@@ -760,7 +814,17 @@ void VisHatServerListDlg::VMethod31(int32_t code) {
         this->FindChild(8)->WriteData(buffer);
         this->hat_settings->password = buffer;
         this->FindChild(3)->WriteData(&this->hat_settings->deathmatch);
-#ifdef A2CLIENT
+#ifdef A2CLIENT_PATCH
+        // Tangar GUI_softcoreSwitch (44C966): dropdown value -> registry mode
+        // remap (0=PvP, 1=PvE->2, 2=Sandbox->4, 3=Arena->3).
+        if (this->hat_settings->deathmatch == 2) {
+            this->hat_settings->deathmatch = 4;
+        } else if (this->hat_settings->deathmatch == 1) {
+            this->hat_settings->deathmatch = 2;
+        } else if (this->hat_settings->deathmatch != 3) {
+            this->hat_settings->deathmatch = 0;
+        }
+#elif defined(A2CLIENT)
         if (this->hat_settings->deathmatch == 1) {
             this->hat_settings->deathmatch = 3;
         }
@@ -825,6 +889,10 @@ CVisualObject* VisHatServerListDlg::VMethod30(const void* data, const RECT& r) {
 #endif
 
     VisTextBox* ip_box = new VisTextBox(2, r.left, r.top, r.right, r.top + 0x18, g_font1, clrsh_TechBlack, txt_patch.GetLine(0x70));
+#ifdef A2CLIENT_PATCH
+    // p10lck.xck (44caad -> 6e215b): disable/unfocus the HAT IP text box (flags = 2)
+    ip_box->flags = CVisualObject::FLAG_NOTFOCUS;
+#endif
     this->AddChild(ip_box);
     if (hat->ishat == 0) {
         ip_box->ReadData(hat->hatip);
@@ -832,6 +900,37 @@ CVisualObject* VisHatServerListDlg::VMethod30(const void* data, const RECT& r) {
         ip_box->ReadData(hat->hatprogip);
     }
 
+#if defined(A2CLIENT) && defined(A2TANGAR_HAT)
+    // Tangar GUI_sandboxSwitch (44CB2D) + GUI_softcoreResetSwitch (44CBC7): the
+    // game-mode radio collapses to a single "hardcore" entry in a taller box; the
+    // shown index comes from the z_softcore override (1->2, 2->4) or the stored
+    // deathmatch value, remapped for display (2->1, 4->2).
+    VisRadioType2* deathmatch_radio = new VisRadioType2(3, r.left, 0x7C, r.right, 0xDC, g_font1, p_clrsh_Black, nullptr);
+    deathmatch_radio->AddEntry(txt_patch.GetLine(0x68));
+    this->AddChild(deathmatch_radio);
+    int32_t dm_value;
+    if (tangar_cfg::z_softcore == 1) {
+        dm_value = 2;
+    } else if (tangar_cfg::z_softcore == 2) {
+        dm_value = 4;
+    } else {
+        dm_value = hat->deathmatch;
+    }
+    int32_t dm_display;
+    if (dm_value == 2) {
+        dm_display = 1;
+    } else if (dm_value == 4) {
+        dm_display = 2;
+    } else if (dm_value == 3 || dm_value == 0) {
+        dm_display = dm_value;
+    } else {
+        dm_display = 0;
+    }
+    deathmatch_radio->ReadData(&dm_display);
+    if (hat->ishat == 0) {
+        deathmatch_radio->ChangeFlags(1, false);
+    }
+#else
     VisRadioType2* deathmatch_radio = new VisRadioType2(3, r.left, 0x6c, r.right, 0x9c + dy, g_font1, p_clrsh_Black, nullptr);
     deathmatch_radio->AddEntry(txt_patch.GetLine(0x68));
 #ifdef A2CLIENT
@@ -853,12 +952,23 @@ CVisualObject* VisHatServerListDlg::VMethod30(const void* data, const RECT& r) {
     if (hat->ishat == 0) {
         deathmatch_radio->ChangeFlags(1, false);
     }
+#endif
 
+#ifdef A2CLIENT_PATCH
+    // Tangar GUI_removeServerList (44CC1E): the ishat selector is removed -
+    // an off-screen disabled radio keeps the id-4 child (entries and ReadData
+    // still run so the stored value survives VMethod31 writeback).
+    VisRadioType2* ishat_radio = new VisRadioType2(4, r.left, (int32_t)0x80FFFFF0, r.right, (int32_t)0x80FFFFC0, g_font1, p_clrsh_Black, nullptr);
+#else
     VisRadioType2* ishat_radio = new VisRadioType2(4, r.left, 0xa8 + dy, r.right, 0xd8 + dy, g_font1, p_clrsh_Black, nullptr);
+#endif
     ishat_radio->AddEntry(txt_patch.GetLine(0x78));
     ishat_radio->AddEntry(txt_patch.GetLine(0x79));
     this->AddChild(ishat_radio);
     ishat_radio->ReadData(&hat->ishat);
+#ifdef A2CLIENT_PATCH
+    ishat_radio->flags = 0;
+#endif
 
     this->AddChild(new VisLabel(5, r.left, 0xe4 + dy, r.right, 0xfc + dy, txt_patch.GetLine(0x6e), g_font1, p_clrsh_Black, 0));
 
@@ -1044,10 +1154,3 @@ void VisHatSession::VMethod7() { // 4e8545
     UnlockSurface2();
 }
 #endif
-
-
-
-
-
-
-

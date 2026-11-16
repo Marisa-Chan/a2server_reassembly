@@ -13,6 +13,9 @@
 #include "quest_map.h"
 #include "sound.h"
 #include "mouse.h"
+#ifdef A2CLIENT_PATCH
+#include "patch/itempng.h"
+#endif
 
 #include <cmath>
 #include <cstdio>
@@ -255,6 +258,13 @@ void CGameObject::UpdateMapPosition() { //46190d
     int32_t idx = (this->centerWorldX8 >> 8) + (this->centerWorldY8 >> 8) * map->map_width;
     const int8_t* heights = map->scenario->GetMapHeights();
 
+#ifdef A2CLIENT_PATCH
+    // CRASH_fix_4657AD (client 4657AD): missing height array or out-of-map
+    // position skips the terrain height interpolation entirely
+    if (heights == nullptr) {
+        return;
+    }
+#endif
     int32_t h00 = heights[idx];
     int32_t h10 = heights[idx + 1];
     int32_t h01 = heights[idx + map->map_width];
@@ -1096,6 +1106,12 @@ void CUnit::RenderHeroPortrait(const char* str, CGameBitmap* bmp1, CGameBitmap* 
 
     CSprite256* item_sprites[12] = { nullptr };
     CSprite256* extra_sprites[12] = { nullptr };
+    // Sprites owned by the TangarLoadItemSprite cache must not be deleted
+    // below; deleting them poisons the cache and the next portrait render
+    // calls Draw on freed memory.
+    bool item_cached[12] = { false };
+    bool extra_cached[12] = { false };
+    bool unit_cached = false;
 
     for (int i = 0; i < 12; ++i) {
         if (this->equipmentTokens[i] != nullptr) {
@@ -1112,13 +1128,29 @@ void CUnit::RenderHeroPortrait(const char* str, CGameBitmap* bmp1, CGameBitmap* 
             extra_name += item_name2;
             extra_name += ".256";
 
-            item_sprites[i] = new CSprite256(base_name);
-            item_sprites[i]->ResetPalette(1, 1, 0);
+#ifdef A2CLIENT_PATCH
+            // Tangar ITEMPNG_loadPng (client 46E014): PNG replacement for the
+            // equipment sprite, if a data\<...>.png twin exists.
+            item_sprites[i] = TangarLoadItemSprite(base_name);
+            item_cached[i] = (item_sprites[i] != nullptr);
+            if (item_sprites[i] == nullptr)
+#endif
+            {
+                item_sprites[i] = new CSprite256(base_name);
+                item_sprites[i]->ResetPalette(1, 1, 0);
+            }
 
             if (i == 3 || i == 8 || i == 9 || (i == 7 && (this->unitFlags & UNIT_FLAG_MAGE) != 0)) {
-                extra_sprites[i] = new CSprite256(extra_name);
-                if (extra_sprites[i]) {
-                    extra_sprites[i]->ResetPalette(1, 1, 0);
+#ifdef A2CLIENT_PATCH
+                extra_sprites[i] = TangarLoadItemSprite(extra_name);
+                extra_cached[i] = (extra_sprites[i] != nullptr);
+                if (extra_sprites[i] == nullptr)
+#endif
+                {
+                    extra_sprites[i] = new CSprite256(extra_name);
+                    if (extra_sprites[i]) {
+                        extra_sprites[i]->ResetPalette(1, 1, 0);
+                    }
                 }
             }
         }
@@ -1127,9 +1159,19 @@ void CUnit::RenderHeroPortrait(const char* str, CGameBitmap* bmp1, CGameBitmap* 
     char sprite_name[256] = { 0 };
     sprintf(sprite_name, "%s%d.256", sprite_prefix, this->face);
 
-    CSprite256* unit_sprite = new CSprite256(sprite_name);
-    if (unit_sprite) {
-        unit_sprite->ResetPalette(1, 1, 0);
+    CSprite256* unit_sprite = nullptr;
+#ifdef A2CLIENT_PATCH
+    // Tangar ITEMPNG_loadPngChar (client 46E1B0): PNG replacement for the
+    // character base sprite.
+    unit_sprite = TangarLoadItemSprite(sprite_name);
+    unit_cached = (unit_sprite != nullptr);
+    if (unit_sprite == nullptr)
+#endif
+    {
+        unit_sprite = new CSprite256(sprite_name);
+        if (unit_sprite) {
+            unit_sprite->ResetPalette(1, 1, 0);
+        }
     }
 
     CBmp64* horse_sprite = nullptr;
@@ -1362,14 +1404,18 @@ void CUnit::RenderHeroPortrait(const char* str, CGameBitmap* bmp1, CGameBitmap* 
     }
 
     for (int i = 0; i < 12; ++i) {
-        delete item_sprites[i];
+        if (!item_cached[i]) {
+            delete item_sprites[i];
+        }
         item_sprites[i] = nullptr;
 
-        delete extra_sprites[i];
+        if (!extra_cached[i]) {
+            delete extra_sprites[i];
+        }
         extra_sprites[i] = nullptr;
     }
 
-    if (unit_sprite != nullptr) {
+    if (unit_sprite != nullptr && !unit_cached) {
         delete unit_sprite;
     }
 
@@ -1724,7 +1770,15 @@ void CUnit::DrawHealthBar(int32_t tile_x, int32_t tile_y, int32_t hgt) { // 466a
         color_hi = (color_hi >> 1) & add_mask;
     }
 
+#ifdef A2CLIENT_PATCH
+    // CRASH_fix_46AD10 (client 46AD10): clamp hp to hp_max; hp_max == 0 -> fill 0
+    if (this->hp > this->hp_max) {
+        this->hp = this->hp_max;
+    }
+    int32_t fill = this->hp_max != 0 ? this->hp * (right - left - 8) / this->hp_max : 0;
+#else
     int32_t fill = this->hp * (right - left - 8) / this->hp_max;
+#endif
     if (fill == 0 && this->hp != 0) {
         fill = 1;
     }
@@ -1808,6 +1862,31 @@ void CUnit::DrawHealthBar(int32_t tile_x, int32_t tile_y, int32_t hgt) { // 466a
         g_font2->DrawTxt((left + right) / 2, y - 0xF, this->str2, 2, g_colors_human_pals[this->map_player->color]);
         g_font2->DrawTxt((left + right) / 2, y - 0x19, this->str1, 2, g_colors_human_pals[this->map_player->color]);
     } else {
+#ifdef A2CLIENT_PATCH
+        // Admin nicknames ("Administrator <char>" etc.) draw as a
+        // title line above the character name instead of one long line.
+        const char* mp_name = this->map_player->name;
+        const char* title = nullptr;
+        const char* char_name = mp_name;
+        if (strncmp(mp_name, "Administrator ", 14) == 0) {
+            title = "Administrator";
+            char_name = mp_name + 14;
+        } else if (strncmp(mp_name, "GameMaster ", 11) == 0) {
+            title = "GameMaster";
+            char_name = mp_name + 11;
+        } else if (strncmp(mp_name, "TournamentMaster ", 17) == 0) {
+            title = "TournamentMaster";
+            char_name = mp_name + 17;
+        } else if (strncmp(mp_name, "BalanceMaker ", 13) == 0) {
+            title = "BalanceMaker";
+            char_name = mp_name + 13;
+        }
+        if (title != nullptr) {
+            g_font2->DrawTxt((left + right) / 2, y - 0xF, char_name, 2, g_colors_human_pals[this->map_player->color]);
+            g_font2->DrawTxt((left + right) / 2, y - 0x19, title, 2, g_colors_human_pals[this->map_player->color]);
+            return;
+        }
+#endif
         g_font2->DrawTxt((left + right) / 2, y - 0xF, this->str1, 2, g_colors_human_pals[this->map_player->color]);
     }
 }
@@ -1889,10 +1968,16 @@ void CUnit::Draw(int32_t tile_x, int32_t tile_y, int32_t light) { // 464974
                 dir8 = 8 - dir8;
                 flip = 1;
             }
+#ifdef A2CLIENT_PATCH
+            // boneidle.xck (468bd9, 468c34): corpse direction stride uses idle_phases (+0x28) instead of bone_phases (+0x24)
+            int32_t corpse_dir_phases = dying_vfx->idle_phases;
+#else
+            int32_t corpse_dir_phases = dying_vfx->bone_phases;
+#endif
             if (dying_vfx->flip != 0) {
-                frame = (base_phases + dying_vfx->attack_phases + dying_vfx->dying_phases) * 5 + dir8 * dying_vfx->bone_phases + 9 + this->death_state - 2;
+                frame = (base_phases + dying_vfx->attack_phases + dying_vfx->dying_phases) * 5 + dir8 * corpse_dir_phases + 9 + this->death_state - 2;
             } else {
-                frame = dir8 * dying_vfx->bone_phases + (base_phases + dying_vfx->attack_phases + dying_vfx->dying_phases) * 8 + 0x10 + this->death_state - 2;
+                frame = dir8 * corpse_dir_phases + (base_phases + dying_vfx->attack_phases + dying_vfx->dying_phases) * 8 + 0x10 + this->death_state - 2;
             }
         }
         break;
@@ -2095,10 +2180,16 @@ void CUnit::DrawShadow(int32_t tile_x, int32_t tile_y, int32_t light) { // 465b5
                 dir8 = 8 - dir8;
                 flip = 1;
             }
+#ifdef A2CLIENT_PATCH
+            // boneidle.xck (469c2f, 469c87): corpse shadow direction stride uses idle_phases (+0x28) instead of bone_phases (+0x24)
+            int32_t corpse_dir_phases = dying_vfx->idle_phases;
+#else
+            int32_t corpse_dir_phases = dying_vfx->bone_phases;
+#endif
             if (dying_vfx->flip != 0) {
-                frame = (base_phases + dying_vfx->attack_phases + dying_vfx->dying_phases) * 5 + dir8 * dying_vfx->bone_phases + 7 + this->death_state;
+                frame = (base_phases + dying_vfx->attack_phases + dying_vfx->dying_phases) * 5 + dir8 * corpse_dir_phases + 7 + this->death_state;
             } else {
-                frame = dir8 * dying_vfx->bone_phases + (base_phases + dying_vfx->attack_phases + dying_vfx->dying_phases) * 8 + 14 + this->death_state;
+                frame = dir8 * corpse_dir_phases + (base_phases + dying_vfx->attack_phases + dying_vfx->dying_phases) * 8 + 14 + this->death_state;
             }
         }
         break;
@@ -2663,6 +2754,13 @@ void CUnit::UpdateTransientVisualElements() { // 468dcb
 }
 
 int32_t CUnit::Update() { // 46785f
+#ifdef A2CLIENT_PATCH
+    // CRASH_fix_46B685 (client 46B685): guard a stale unit pointer before
+    // the UpdateTransientVisualElements virtual call
+    if (this == nullptr) {
+        return 0;
+    }
+#endif
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     UnitVFXUnfo* vfx = g_VFX_info[this->typeId];
 
@@ -3441,6 +3539,40 @@ SfxBank* CUnit::GetSfxBank() {
 }
 
 // 46C124
+#ifdef A2CLIENT_PATCH
+// Tangar info_experience_spaces: format a number with thousands separators.
+static void TangarFormatWithSpaces(int32_t number, char* out_buf, size_t buf_size) {
+    char temp[32];
+    snprintf(temp, sizeof(temp), "%d", number);
+
+    size_t len = strlen(temp);
+    size_t out_i = 0;
+    int32_t digits = 0;
+
+    for (size_t i = len; i-- > 0;) {
+        if (out_i + 2 >= buf_size) {
+            break;
+        }
+        out_buf[out_i++] = temp[i];
+        digits++;
+        if (digits % 3 == 0 && i != 0 && temp[i - 1] != '-') {
+            if (out_i + 2 >= buf_size) {
+                break;
+            }
+            out_buf[out_i++] = ' ';
+        }
+    }
+
+    out_buf[out_i] = 0;
+
+    for (size_t i = 0, j = out_i - 1; i < j; ++i, --j) {
+        char t = out_buf[i];
+        out_buf[i] = out_buf[j];
+        out_buf[j] = t;
+    }
+}
+#endif
+
 void CUnit::DrawStatsPanel(CRect* rect) {
     VisPlayingArea* map = this->pMapObject;
     uint16_t* label_color = clrsh_DullGold;
@@ -3457,9 +3589,13 @@ void CUnit::DrawStatsPanel(CRect* rect) {
     } else if (map->my_main_unit->IsVisibleTo(this->map_player->index) != 0) {
         view_level = 7;
     }
+#ifndef A2CLIENT_PATCH
+    // Tangar showmap.xck (46FF75): a revealed map no longer grants the full
+    // enemy stats view.
     if (g_MapRevealed != 0) {
         view_level = 7;
     }
+#endif
 
     char buf1[16];
     char buf2[16];
@@ -3518,14 +3654,20 @@ void CUnit::DrawStatsPanel(CRect* rect) {
             g_font2->DrawTextWithShadow(rect->left + 0x46, rect->top + 0x58, buf2, 1, value_color, 1);
         } else if (this->equipmentTokens[0] != nullptr && this->equipmentTokens[0]->mods_count != 0) {
             Spell spell((uint8_t)this->equipmentTokens[0]->GetCastSpellId());
-            spell.SetPower(this->equipmentTokens[0]->GetAttribute('2'));
-            CString str;
-            if (spell.damage_min + spell.damage_spread != 0) {
-                // NB: the binary formats this string but never draws it
-                str.Format("#%s: %d-%d", TxtFile::AllLines[0x76], spell.damage_min, spell.damage_min + spell.damage_spread);
-                g_font2->DrawTextWithShadow(rect->left + 6, rect->top + 0x58, TxtFile::AllLines[0x17], 0, label_color, 1);
-                sprintf(buf2, "%d-%d", spell.damage_min, spell.damage_min + spell.damage_spread);
-                g_font2->DrawTextWithShadow(rect->left + 0x46, rect->top + 0x58, buf2, 1, value_color, 1);
+#ifdef A2CLIENT_PATCH
+            // p10stf.xck (470452 -> 6e20c0): skip SetPower and damage draw when spell_info is null
+            if (spell.spell_info != nullptr)
+#endif
+            {
+                spell.SetPower(this->equipmentTokens[0]->GetAttribute('2'));
+                CString str;
+                if (spell.damage_min + spell.damage_spread != 0) {
+                    // NB: the binary formats this string but never draws it
+                    str.Format("#%s: %d-%d", TxtFile::AllLines[0x76], spell.damage_min, spell.damage_min + spell.damage_spread);
+                    g_font2->DrawTextWithShadow(rect->left + 6, rect->top + 0x58, TxtFile::AllLines[0x17], 0, label_color, 1);
+                    sprintf(buf2, "%d-%d", spell.damage_min, spell.damage_min + spell.damage_spread);
+                    g_font2->DrawTextWithShadow(rect->left + 0x46, rect->top + 0x58, buf2, 1, value_color, 1);
+                }
             }
         }
     }
@@ -3579,7 +3721,12 @@ void CUnit::DrawStatsPanel(CRect* rect) {
         sprintf(buf1, "%d.%d", this->carrying_weight_100g / 10, this->carrying_weight_100g % 10);
         g_font2->DrawTextWithShadow(rect->left + 0x10, rect->top + 0xae, TxtFile::AllLines[0x23], 0, label_color, 1);
         g_font2->DrawTextWithShadow(rect->left + 0x7f, rect->top + 0xae, buf1, 1, value_color, 1);
+#ifdef A2CLIENT_PATCH
+        // Tangar info_experience_spaces (470D13).
+        TangarFormatWithSpaces(this->exp_summary, buf1, sizeof(buf1));
+#else
         sprintf(buf1, "%d", this->exp_summary);
+#endif
         g_font2->DrawTextWithShadow(rect->left + 0x10, rect->top + 0xba, TxtFile::AllLines[0x2e], 0, label_color, 1);
         g_font2->DrawTextWithShadow(rect->left + 0x7f, rect->top + 0xba, buf1, 1, value_color, 1);
     }
@@ -3610,9 +3757,13 @@ const char* CUnit::GetStatsHint(int32_t x, int32_t y) {
     } else if (map->my_main_unit->IsVisibleTo(this->map_player->index) != 0) {
         view_level = 7;
     }
+#ifndef A2CLIENT_PATCH
+    // Tangar showmap.xck (470F2E): a revealed map no longer grants the full
+    // enemy stats view.
     if (g_MapRevealed != 0) {
         view_level = 7;
     }
+#endif
 
     if (view_level >= 5 && x <= 0x4f && y >= 0x2c && y <= 0x53) {
         return TxtFile::AllLines[(y - 0x2c) / 10 + 0x9b];
@@ -4839,6 +4990,3 @@ CAirUnit::CAirUnit() {
 // 46f010
 CAirUnit::~CAirUnit() {
 }
-
-
-

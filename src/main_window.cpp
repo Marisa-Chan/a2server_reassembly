@@ -1,4 +1,12 @@
 #include "main_window.h"
+#include "patch/locale.h"
+#include "patch/netlog.h"
+#ifdef A2CLIENT_PATCH
+#include "patch/client_config.h"
+#include "patch/hat_client.h"
+#include "patch/hotkeys.h"
+#endif
+#include <ctime>
 #include <cstdio>
 #include <timeapi.h>
 #include "smacker_player.h"
@@ -26,6 +34,10 @@
 
 #ifdef A2SERVER_PATCH
 #include "patch/kick_char.h"
+#endif
+#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+#include "patch/map_rotation.h"
+#include "patch/tangar_log.h"
 #endif
 #include "gameplay.h"
 #include "vis_playing_area.h"
@@ -123,9 +135,20 @@ void CEdit2::OnKeyDown(UINT nChar, UINT nRepcnt, UINT nFlags) {
 		char buf[1024];
 		CharToOemA(txt, buf);
 
+#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+		Printf("<server>: %s", buf);
+		if (buf[0] != '#') {
+			CString msg;
+			msg.Format("<server>: %s", buf);
+			g_NetStru1_main.AnnouncePlayerName(msg, nullptr);
+		} else if (g_Server != nullptr) {
+			g_Server->CheatCommand(nullptr, CString(buf));
+		}
+#else
 		g_NetStru1_main.AnnouncePlayerName(buf, nullptr);
 
 		LogMessage(buf);
+#endif
 
 		SetSel(0xffff0000);
 	}
@@ -633,7 +656,7 @@ int32_t MainWindow::WaitConnectionCharacterJoin() {
 // 48d815
 void MainWindow::ShowCurrentTownDialog() {
     CStringArray* plist = new CStringArray();
-    ReadFileToString("main\\text\\town.txt", &g_MissionText);
+    ReadFileToString(A2CLIENT_PATCH_ENABLED ? tangar_locale::town : "main\\text\\town.txt", &g_MissionText);
     g_Cursors[0x1a]->Use();
     this->ShowRightPanelInfo();
 
@@ -667,7 +690,11 @@ void MainWindow::ShowCurrentTownDialog() {
 }
 
 // 491142
+// client: 4958ac
 int32_t MainWindow::ConnectToServerAddress() {
+#ifdef A2CLIENT
+    this->serverBootstrapEnabled = 0;
+#endif
     LockSurface2();
     FillRectColorSimple(0, 0, g_ScreenSize.right, g_ScreenSize.bottom, 0);
     g_font1->DrawTextWithShadow(g_ScreenSize.right / 2, g_ScreenSize.bottom / 2, txt_patch.GetLine(0x7e), 10, clrsh_ShockingBlack, 1);
@@ -679,22 +706,28 @@ int32_t MainWindow::ConnectToServerAddress() {
 
     CLlAddress addr;
     strcpy(addr.address, "0.0.0.0");
-    int result = g_CLlDriver.PrepareForConnect(this->net_session.connect_address, &addr);
+    netlog::logf("EVT", "connecting to game server addr='%s' char='%s'",
+                 (const char*)this->net_session.connect_address,
+                 (const char*)this->m_GameSession.character_name);
+    int32_t result = g_CLlDriver.PrepareForConnect(this->net_session.connect_address, &addr);
     if (result != 0) {
         result = g_CLlDriver.Connect(this->m_GameSession.character_name, nullptr);
     }
+    netlog::logf("EVT", "game server connect result=%d", result);
 
     if (result == 0) {
         g_CLlDriver.Close();
         VisMessageBoxWithList* mbox = new VisMessageBoxWithList(1, 0x40, 100, 0x17c, 0x252, txt_patch.GetLine(3), nullptr, 0);
         this->ModalScreen(mbox);
+#ifndef A2CLIENT
         this->PostMessage(0x10, 0, 0);
+#endif
         return 0;
     }
 
     g_NetStru1_local.ProcessConnections();
 #ifdef A2CLIENT
-    g_NetStru1_local.SendServerConnectHatTicket(m_GameSession.hat_ticket, 0);
+    g_NetStru1_local.SendServerConnectHatTicket(this->m_GameSession.hat_ticket, 0);
 #endif
     uint32_t start_time = timeGetTime();
     g_GameStatusCode = SESSION_ERROR_NONE;
@@ -713,7 +746,9 @@ int32_t MainWindow::ConnectToServerAddress() {
             if (this->vis_map_context->ProcessPackets(SERVER_TICK) == 0) {
                 VisMessageBoxWithList* mbox = new VisMessageBoxWithList(1, 0x40, 100, 0x17c, 0x252, txt_patch.GetLine(g_GameStatusCode & 0xff), nullptr, 0);
                 this->ModalScreen(mbox);
+#ifndef A2CLIENT
                 this->PostMessage(0x10, 0, 0);
+#endif
                 return 0;
             }
             return 1;
@@ -727,13 +762,59 @@ int32_t MainWindow::ConnectToServerAddress() {
 
     VisMessageBoxWithList* mbox = new VisMessageBoxWithList(1, 0x40, 100, 0x17c, 0x252, txt_patch.GetLine(0), nullptr, 0);
     this->ModalScreen(mbox);
+#ifndef A2CLIENT
     this->PostMessage(0x10, 0, 0);
+#endif
     return 0;
 }
 
 // 4863f6 client 48a097
 void MainWindow::OnKeyDown(UINT key, UINT repeat, UINT flags) {
     if (this->input_locked == 0) {
+#ifdef A2CLIENT_PATCH
+        // Tangar INFO_fps stopwatch: a Right Shift keydown (VK_SHIFT while the right
+        // shift is physically held) freezes the running stopwatch, or toggles it off/on
+        // (restarting the timer). The key still falls through to the retail switch.
+        if (tangar_cfg::r_stopwatch && key == 0x10 && (GetAsyncKeyState(VK_RSHIFT) & 0x8000)) {
+            if (tangar_cfg::show_stopwatch && tangar_cfg::show_stopwatch_frozen == 0) {
+                tangar_cfg::show_stopwatch_frozen = (uint32_t)difftime(time(NULL), (time_t)tangar_cfg::stopwatch_start);
+            } else {
+                tangar_cfg::show_stopwatch = !tangar_cfg::show_stopwatch;
+                tangar_cfg::show_stopwatch_frozen = 0;
+                tangar_cfg::stopwatch_start = (int64_t)time(NULL);
+            }
+        }
+#endif
+#ifdef A2CLIENT_PATCH
+        // Tangar top_level_key (48a0de): custom hotkeys and non-top-level
+        // aliases go to the standard in-game handler; top-level aliases
+        // (help/diplomacy) dispatch straight into the F1/F3 case bodies.
+        {
+            int32_t dispatch = tangar_hotkeys::TopLevelKeyDispatch((int32_t)key);
+            if (dispatch == -1) {
+                this->vis_root->MsgProc(0x100, key, 0);
+                return;
+            }
+            if (dispatch == 0x70) {
+                this->PostMessage(MAIN_MSG_SHOW_HELP, 0, 0);
+                return;
+            }
+            if (dispatch == 0x72) {
+                if (this->sessionMode == SESSION_LOCAL_BATTLE) {
+                    if (this->dialogsMask == DIALOG_MASK_INGAME || this->dialogsMask == 0) {
+                        this->PostMessage(MAIN_MSG_SHOW_LOAD_GAME, 0, 0);
+                    }
+                } else if (this->dialogsMask == DIALOG_MASK_INGAME
+#ifdef A2CLIENT
+                    && (net_session.internet_game == 0 || hat_settings.ishat == 0 || hat_settings.deathmatch == 0 || hat_settings.deathmatch == 3)
+#endif
+                          ) {
+                    this->PostMessage(MAIN_MSG_SHOW_DIPLOMACY, 0, 0);
+                }
+                return;
+            }
+        }
+#endif
         switch (key) {
         case 0x08:
         case 0x09:
@@ -1320,8 +1401,28 @@ MainWindow::MainWindow() { //4837e1
             resolution.x = 1024;
             resolution.y = 768;
         } else {
+#ifdef A2CLIENT_PATCH
+            // VIDEO_checkVideoMode hook (487679): smart default - pick the
+            // largest mode the desktop supports instead of hardcoded 640x480
+            {
+                DEVMODEA mode;
+                mode.dmSize = sizeof(mode);
+                EnumDisplaySettingsA(NULL, ENUM_CURRENT_SETTINGS, &mode);
+                if (mode.dmPelsWidth >= 1024 && mode.dmPelsHeight >= 768) {
+                    resolution.x = 1024;
+                    resolution.y = 768;
+                } else if (mode.dmPelsWidth >= 800 && mode.dmPelsHeight >= 600) {
+                    resolution.x = 800;
+                    resolution.y = 600;
+                } else {
+                    resolution.x = 640;
+                    resolution.y = 480;
+                }
+            }
+#else
             resolution.x = 640;
             resolution.y = 480;
+#endif
         }
 
     } else {
@@ -1492,8 +1593,8 @@ void PhoneBook::Save(HKEY& rkey) {
 void HatSettings::Load(HKEY& rkey) { //43d249
     char buf[256];
 
-    buf[0] = '\0';
     DWORD sz = 255;
+    buf[0] = '\0';
     RegQueryValueExA(rkey, "hatip", nullptr, nullptr, (LPBYTE)buf, &sz);
 
     this->hatip = buf;
@@ -1501,6 +1602,11 @@ void HatSettings::Load(HKEY& rkey) { //43d249
         this->hatip = txt_patch.GetLine(118);
     }
 
+#ifdef A2CLIENT_PATCH
+    // Tangar HATENT_url_text (43F738): the hat address comes from the -hat
+    // command line (default "hat.rom2.ru"); the registry value is ignored.
+    this->hatprogip = tangar_cfg::HatAddress();
+#else
     buf[0] = '\0';
     sz = 255;
     RegQueryValueExA(rkey, "hatprogip", nullptr, nullptr, (LPBYTE)buf, &sz);
@@ -1509,6 +1615,7 @@ void HatSettings::Load(HKEY& rkey) { //43d249
     if (this->hatprogip.IsEmpty()) {
         this->hatprogip = txt_patch.GetLine(119);
     }
+#endif
 
     buf[0] = '\0';
     sz = 255;
@@ -1523,8 +1630,13 @@ void HatSettings::Load(HKEY& rkey) { //43d249
     this->password = XorRegString(buf);
 
     sz = 4;
+#ifdef A2CLIENT_PATCH
+    // p10lck.xck (43f895, 43f8b6): lock client to HAT mode (ishat = 1, ignore registry)
+    this->ishat = 1;
+#else
     this->ishat = 0;
     RegQueryValueExA(rkey, "ishat", nullptr, nullptr, (LPBYTE)&this->ishat, &sz);
+#endif
 
     this->deathmatch = 0;
     RegQueryValueExA(rkey, "deathmatch", nullptr, nullptr, (LPBYTE)&this->deathmatch, &sz);
@@ -1550,7 +1662,19 @@ void HatSettings::Save(HKEY& rkey) {
 
     cbData = 4;
     RegSetValueExA(rkey, "ishat", 0, REG_DWORD, (const BYTE*)&this->ishat, cbData);
+#ifdef A2CLIENT_PATCH
+    // Tangar GUI_softcoreSaveSwitch (43FA41): when the dialog left PvP (0) and
+    // config forces a mode, persist the forced mode instead.
+    {
+        int32_t dm_value = this->deathmatch;
+        if (dm_value == 0 && tangar_cfg::z_softcore != 0) {
+            dm_value = (tangar_cfg::z_softcore == 2) ? 4 : 2;
+        }
+        RegSetValueExA(rkey, "deathmatch", 0, REG_DWORD, (const BYTE*)&dm_value, 4);
+    }
+#else
     RegSetValueExA(rkey, "deathmatch", 0, REG_DWORD, (const BYTE*)&this->deathmatch, cbData);
+#endif
     RegSetValueExA(rkey, "store", 0, REG_DWORD, (const BYTE*)&this->store, cbData);
 #ifdef A2CLIENT
     RegSetValueExA(rkey, "team", 0, REG_DWORD, (const BYTE*)&this->team, cbData);
@@ -1694,7 +1818,9 @@ void MainWindow::SetControlPositions() { //484127
 // Game loop tick processing function
 // Called from GameApp::OnIdle when server is active
 void MainWindow::IdleLoop() {
+#ifndef A2SERVER_PATCH
     try {
+#endif
         g_mousept.Update();
 
         // Calculate next tick time
@@ -1782,6 +1908,10 @@ void MainWindow::IdleLoop() {
                     int32_t target_time = map_duration * 60000;
                     int32_t time_diff = target_time - g_Server->map_elapsed_time;
                     
+#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+                    // notify_about_map_rotation hook (48AA87): includes 1s notices for final 10s.
+                    NotifyAboutMapRotation(time_diff, this->game_tic_time);
+#else
                     if (time_diff < 660000 && time_diff > 1000) {
                         int32_t tick_interval = this->game_tic_time * 16;
                         
@@ -1799,6 +1929,7 @@ void MainWindow::IdleLoop() {
                             }
                         }
                     }
+#endif
                     
                     // Check if map should change now.
                     if (time_diff <= (this->game_tic_time * 16)) {
@@ -1815,6 +1946,10 @@ void MainWindow::IdleLoop() {
                             }
                             
                             g_Server->SignalGameStart(0);
+#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+                            // map_rotation hook (48ABA4)
+                            MapRotation();
+#endif
 
                             return;
                         }
@@ -1853,11 +1988,11 @@ void MainWindow::IdleLoop() {
         }
         
         g_mousept.Update();
+#ifndef A2SERVER_PATCH
     } catch (...) {
-        #ifdef A2SERVER_PATCH
         _exit(-1);
-        #endif
     }
+#endif
 }
 #else
 // client 48e9d4
@@ -3253,7 +3388,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         break;
 
     case MAIN_MSG_NEW_CAMPAIGN:
-        ReadFileToString("main\\text\\town.txt", &g_MissionText);
+        ReadFileToString(A2CLIENT_PATCH_ENABLED ? tangar_locale::town : "main\\text\\town.txt", &g_MissionText);
         ScenarioNewGame();
         this->serverLoopCounter = 0;
         this->serverBootstrapEnabled = 1;
@@ -3272,7 +3407,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         break;
 
     case MAIN_MSG_SHOW_CHAR_LOADER:
-        ReadFileToString("main\\text\\town.txt", &g_MissionText);
+        ReadFileToString(A2CLIENT_PATCH_ENABLED ? tangar_locale::town : "main\\text\\town.txt", &g_MissionText);
         this->serverLoopCounter = 0;
         this->sessionMode = SESSION_SINGLEPLAYER;
 #ifdef A2CLIENT
@@ -3485,7 +3620,12 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
             this->ClearDiplomacyEntries();
             // The original passes the address of the array pointer so the dialog
             // re-reads the current array on every ReadData (see VisDiplomacy::diplomacy).
+#ifdef A2CLIENT_PATCH
+            // long_dip.txt (48b423): taller diplomacy dialog (height 480 -> 592)
+            this->vis_msgbox = new VisDiplomacy(1, 10, 0, 630, 592, (const CArray<DiplomacyEntry*>*)&this->diplomacy_entries);
+#else
             this->vis_msgbox = new VisDiplomacy(1, 10, 0, 630, 480, (const CArray<DiplomacyEntry*>*)&this->diplomacy_entries);
+#endif
             this->PopUpScreen(this->vis_msgbox);
         }
         break;
@@ -3944,7 +4084,12 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         break;
 
     case MAIN_MSG_SHOW_HAT_BROWSER: {
+#ifdef A2CLIENT_PATCH
+        // extend_servers.txt (48deb2) + long_servers.txt (48dead): 704x544 server browser dialog
+        this->vis_hatbrowser = new VisHatBrowserDlg(1, 0, -64, 704, 544);
+#else
         this->vis_hatbrowser = new VisHatBrowserDlg(1, 0, -64, 640, 480);
+#endif
         this->PopUpScreen(this->vis_hatbrowser);
 
         int32_t res;
@@ -4342,7 +4487,7 @@ int MainWindow::RunSessionBootstrap(int mode) { // 48e502
     }
 
     if (this->sessionMode == SESSION_LOCAL_BATTLE) {
-        sprintf(buf, "main\\text\\mission%d.txt", ScenarioGetCurrentLocation()->GetId());
+        sprintf(buf, A2CLIENT_PATCH_ENABLED ? tangar_locale::mission_fmt : "main\\text\\mission%d.txt", ScenarioGetCurrentLocation()->GetId());
         ReadFileToString(buf, &g_MissionText);
         MissionGetBriefing(&g_MissionBriefing);
 
@@ -4374,7 +4519,7 @@ int MainWindow::RunSessionBootstrap(int mode) { // 48e502
             PostMessage(MAIN_MSG_AUTOSAVE, 0, 0);
         }
     } else {
-        ReadFileToString("main\\text\\quest.txt", &g_MissionText);
+        ReadFileToString(A2CLIENT_PATCH_ENABLED ? tangar_locale::quest : "main\\text\\quest.txt", &g_MissionText);
     }
 
     g_Cursors[CURSOR_DEFAULT]->Use();
@@ -5480,6 +5625,11 @@ int32_t MainWindow::RunModalLoopServer() { //49057b
 int32_t MainWindow::RunModalLoopClient() { //client 4949cd
     MSG msg;
 
+#ifdef A2CLIENT_PATCH
+    // We can run auto-update here, `tangar_client::RunAutoUpdater`.
+    tangar_client::EnsureAnticheatHashes();
+#endif
+
     LockSurface2();
     FillRectColorSimple(0, 0, g_ScreenSize.right, g_ScreenSize.bottom, 0);
     //Connection to hat in process...
@@ -5500,10 +5650,18 @@ int32_t MainWindow::RunModalLoopClient() { //client 4949cd
     CLlAddress local_224;
     strcpy(local_224.address, "0.0.0.0");
 
+#ifdef A2CLIENT_PATCH
+    // Tangar HATENT_url_connect (494AE4): connect to the -hat address
+    // instead of the dialog setting.
+    netlog::logf("EVT", "connecting to hat addr='%s'", (const char*)tangar_cfg::HatAddress());
+    int local_230 = g_CLlDriver.PrepareForConnect((char*)tangar_cfg::HatAddress(), &local_224);
+#else
     int local_230 = g_CLlDriver.PrepareForConnect(this->hat_settings.hatprogip, &local_224);
+#endif
     if (local_230) {
         local_230 = g_CLlDriver.Connect(this->m_GameSession.character_name, nullptr);
     }
+    netlog::logf("EVT", "hat connect result=%d", local_230);
 
     if (local_230 == 0) {
         g_CLlDriver.Close();
@@ -5517,6 +5675,7 @@ int32_t MainWindow::RunModalLoopClient() { //client 4949cd
     g_NetStru1_local.SendHatCredentials(this->hat_settings.login, this->hat_settings.password, this->hat_settings.deathmatch);
 
     this->net_session.hat_id = 0;
+    this->net_session.connect_address.Empty();
 
     uint32_t start_time = timeGetTime();
     g_GameStatusCode = SESSION_ERROR_NONE;
@@ -5534,28 +5693,27 @@ int32_t MainWindow::RunModalLoopClient() { //client 4949cd
         if (g_NetStru1_local.GetClientsPktNum() == 0) {
             if (g_CmdTimeout < timeGetTime() - start_time) {
                 this->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(18), nullptr, 0));
-                PostMessage(WM_CLOSE, 0, 0);
                 return 0;
             }
 
             g_mousept.Update();
-        }
-        else if (this->vis_map_context->ProcessPackets(100) == 0) {
+        } else if (this->vis_map_context->ProcessPackets(100) == 0) {
             this->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(g_GameStatusCode & 0xff), nullptr, 0));
-            PostMessage(WM_CLOSE, 0, 0);
             return 0;
         }
 
-        if (net_session.hat_id == -1) {
+        if (this->net_session.hat_id == -1) {
             VisScreen* scr = new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(16), nullptr, 4);
-            ModalScreen(scr);
+            this->ModalScreen(scr);
             if (scr->GetCloseCode() == VIS_MSG_BOX_OK) {
-                net_session.hat_id = 0;
+                g_NetStru1_local.SendUnknownDC();
+                this->net_session.hat_id = 0;
+                this->net_session.connect_address.Empty();
                 start_time = timeGetTime();
                 g_GameStatusCode = SESSION_ERROR_NONE;
-            }
-            else
+            } else {
                 return 0;
+            }
         }
     }
 
@@ -6581,6 +6739,3 @@ void UserShortcut::LoadFromBuffer(uint8_t** buf) { //41e689
 
     *buf = data;
 }
-
-
-

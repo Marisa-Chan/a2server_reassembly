@@ -26,6 +26,16 @@
 #include "world.h"
 #include "map_stuff.h"
 
+#ifdef A2SERVER_PATCH
+#include "patch/config_new.h"
+#endif
+
+#ifdef A2TANGAR_HAT
+#include "patch/config_new.h"
+#include "patch/quest_filters.h"
+#include "patch/player_settings.h"
+#endif
+
 IMPLEMENT_SERIAL(Inn, Building, 1); // 637330.
 
 // 56046B
@@ -107,8 +117,13 @@ void Inn::InnCreateQuests(Player* player) {
         max_skill = (std::max)(max_skill, (int)player->main_unit->hit_values.skill_levels[i]);
     }
 
+#ifdef A2TANGAR_HAT
+    int def_min = max_skill * 3 - 100;
+    int def_max = max_skill * 100 + 75;
+#else
     int def_min = max_skill * 3 - 50;
     int def_max = max_skill * 3 + 75;
+#endif
 
     // ---- Map width and distance thresholds ----
     uint8_t map_width = MapStuff_Instance->map_width;
@@ -135,6 +150,15 @@ void Inn::InnCreateQuests(Player* player) {
                 continue;
             }
 
+            #ifdef A2SERVER_PATCH
+            // bug_0017: an AI player's unit_list can be null - bail out of
+            // quest generation (recovery = function exit; the histogram loops
+            // have no observable side effects, so guarding the first walk
+            // matches the patched site wherever it fires)
+            if (p->unit_list == nullptr) {
+                return;
+            }
+            #endif
             POSITION upos = p->unit_list->unit_list.GetHeadPosition();
             while (upos) {
                 Unit* u = p->unit_list->unit_list.GetNext(upos);
@@ -165,7 +189,15 @@ void Inn::InnCreateQuests(Player* player) {
                     continue;
                 }
 
+#ifdef A2TANGAR_HAT
+                // remove_existing_n_monters_quests_wrapper hook (56289E):
+                // duplicate-quest and name-filter gating before counting
+                if (tangar_quests::FilterKillNCandidate(player, fid << 8 | tid)) {
+                    counts[fid][tid]++;
+                }
+#else
                 counts[fid][tid]++;
+#endif
             }
         }
 
@@ -191,6 +223,29 @@ void Inn::InnCreateQuests(Player* player) {
             }
 
             int amount = 0;
+#ifdef A2TANGAR_HAT
+            // quest_change_kill_n_count hook (562996): rebalanced ranges
+            // plus the player's quest_mob_count preference
+            {
+                settings::PlayerSettings* ps = settings::Find((const char*)player->name);
+                int desired = ps != nullptr ? ps->quest_mob_count : 0;
+                int min_mobs = 0, max_mobs = 0;
+                if (candidate.count < 2) {
+                    min_mobs = 1; max_mobs = 4;
+                } else if (candidate.count < 4) {
+                    min_mobs = 1; max_mobs = 6; // was 2..5, lowered for dragon.4 quests
+                } else if (candidate.count < 8) {
+                    min_mobs = 1; max_mobs = 7; // was 2..7
+                } else {
+                    min_mobs = 5; max_mobs = 25; // was 2..10
+                }
+                if (min_mobs <= desired && desired <= max_mobs) {
+                    amount = desired;
+                } else {
+                    amount = Random0N(max_mobs - min_mobs) + min_mobs;
+                }
+            }
+#else
             if (candidate.count < 2) {
                 amount = Random0N(3) + 1;
             } else if (candidate.count < 4) {
@@ -200,6 +255,7 @@ void Inn::InnCreateQuests(Player* player) {
             } else {
                 amount = Random0N(8) + 2;
             }
+#endif
 
             int reward = 0;
             if (type_id >= 0 && type_id < g_GameDataRes.monsters.GetSize()) {
@@ -252,7 +308,14 @@ void Inn::InnCreateQuests(Player* player) {
                     continue;
                 }
 
+#ifdef A2TANGAR_HAT
+                // remove_existing_monster_quests_wrapper hook (562E10)
+                if (tangar_quests::FilterKillMobCandidate(player, u)) {
+                    candidates.push_back(u);
+                }
+#else
                 candidates.push_back(u);
+#endif
             }
         }
 
@@ -291,6 +354,13 @@ void Inn::InnCreateQuests(Player* player) {
                 if (!grp->has_quest_kill) {
                     continue;
                 }
+#ifdef A2TANGAR_HAT
+                // remove_existing_group_quests_wrapper hook (563355):
+                // groups already covered by a live quest are skipped
+                if (Config::AllowOnlyOneQuest_KillTheGroup && tangar_quests::HasQuestForMonsterGroup(player, grp->group_id)) {
+                    continue;
+                }
+#endif
 
                 POSITION upos = grp->unit_list.GetHeadPosition();
                 while (upos) {
@@ -305,6 +375,12 @@ void Inn::InnCreateQuests(Player* player) {
                     if (g_QuestMap.OnEvent(0xd, grp->group_id, 0)) {
                         continue;
                     }
+#ifdef A2TANGAR_HAT
+                    // name-filter gate per unit (retry with next unit)
+                    if (!tangar_quests::FilterKillGroupCandidateUnit(player, u)) {
+                        continue;
+                    }
+#endif
                     
                     candidates.push_back(grp);
                     break;
@@ -324,9 +400,13 @@ void Inn::InnCreateQuests(Player* player) {
                 avg_x += u->position->x;
                 avg_y += u->position->y;
                 count++;
+#ifdef A2TANGAR_HAT
+                max_exp += u->_exp;
+#else
                 if (u->_exp > max_exp) {
                     max_exp = u->_exp;
                 }
+#endif
             }
             if (count == 0) {
                 count = 1;
@@ -345,7 +425,12 @@ void Inn::InnCreateQuests(Player* player) {
             Quest* q = MakeActiveQuest(this, new QuestKillGroup());
             int32_t kind = q->Kind();
             int32_t some_id = (this->building_id << 16) | (player->player_id << 8) | kind;
-            RegisterQuest(this, q, some_id, player->player_id, this->building_id, obj, landmark_id, 0, max_exp * 5);
+#ifdef A2TANGAR_HAT
+            int32_t reward = max_exp * 2;
+#else
+            int32_t reward = max_exp * 5;
+#endif
+            RegisterQuest(this, q, some_id, player->player_id, this->building_id, obj, landmark_id, 0, reward);
         }
     }
 
@@ -594,7 +679,11 @@ void Inn::InnCreateQuests(Player* player) {
     //  DeliverMail (vtable: 60F8E0)
     // =====================================================================
     {
+#ifdef A2TANGAR_HAT
+        int32_t dest_id = 0;
+#else
         int32_t dest_id = g_QuestMap.PickRandomOtherInn(this->building_id);
+#endif
         if (dest_id != 0) {
             Building* target_building = building_list->FindById(dest_id);
             if (target_building) {
@@ -637,6 +726,11 @@ void Inn::RegenTick() {
     POSITION pos = this->unit_list.unit_list.GetHeadPosition();
     while (pos) {
         Unit* unit = this->unit_list.unit_list.GetNext(pos);
+#ifdef A2SERVER_PATCH
+        if (unit->pOwner == nullptr) {
+            break;
+        }
+#endif
         if (unit->pOwner->is_active == 0) {
             this->RemoveUnit(static_cast<Humanoid*>(unit), 0xFFFF);
         }
@@ -645,7 +739,15 @@ void Inn::RegenTick() {
     // Phase 2: Tick the quest-roll counter; when it exceeds 120 and the inn is
     // empty, refresh quests for each player and reset the counter.
     this->quest_roll_counter++;
-    if (this->quest_roll_counter > 120 && this->unit_list.unit_list.IsEmpty()) {
+
+    int roll_interval;
+#ifdef A2SERVER_PATCH
+    roll_interval = Config::QuestRollInterval;
+#else
+    roll_interval = 120;
+#endif;
+
+    if (this->quest_roll_counter > roll_interval && this->unit_list.unit_list.IsEmpty()) {
         POSITION qpos = this->quest_map_per_player.GetStartPosition();
         while (qpos) {
             uint32_t player_id;
@@ -767,13 +869,23 @@ void Inn::InnReward(Player* player) {
         return;
     }
 
-    if (reward > 16383000) {
-        // The reward can't be much higher: gold is sent in a uint16_t multiple of 250,
-        // and 65535 * 250 = 16_383_750, so the max reward is just below that.
-        reward = 16383000;
+    // The reward can't be much higher: gold is sent in a uint16_t multiple of 250,
+    // and 65535 * 250 = 16_383_750, so the max reward is just below that.
+    int max_quest_reward = 16383000;
+    int min_quest_reward = 250;
+
+#ifdef A2TANGAR_HAT
+    // bound_quest_reward hook (565406): configurable reward bounds
+    // (defaults equal the retail constants)
+    max_quest_reward = Config::MaxQuestReward;
+    min_quest_reward = Config::MinQuestReward;
+#endif
+
+    if (reward > max_quest_reward) {
+        reward = max_quest_reward;
     }
-    if (reward < 250) {
-        reward = 250;
+    if (reward < min_quest_reward) {
+        reward = min_quest_reward;
     }
 
     // Check if player already has a reward stored.
@@ -855,7 +967,17 @@ void Inn::InnReward(Player* player) {
 
         int32_t exp_800 = scroll->_exp * 800;
         if (scroll->_exp < reward && reward < exp_800) {
+#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+            // inn_scrolls_reward hook (565B27)
+            uint32_t scroll_reward = tangar_quests::InnScrollsReward(player, static_cast<uint32_t>(reward));
+            if (scroll_reward == 0) {
+                delete scroll;
+                continue;
+            }
+            scroll->count = static_cast<int32_t>(scroll_reward) / scroll->_exp;
+#else
             scroll->count = reward / scroll->_exp;
+#endif
             if (scroll->count > 10) {
                 scroll->count = (scroll->count - 10) / 2 + 10;
             }
@@ -901,11 +1023,28 @@ void Inn::InnReward(Player* player) {
 
     // --- Phase 7: Stat potions ---
     if ((player->main_unit->experience > 18000000 && reward >= 1000000) || player->gm_level > 50) {
+#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+        // skip_potion_reward hook (5660C8)
+        if (!tangar_quests::SkipPotionReward()) {
+#else
+        {
+#endif
         bool is_fighter = (player->main_unit->unit_attrs & 4) == 0;
         bool is_female = (player->main_unit->typeId == 0x22 || player->main_unit->typeId == 0x24);
 
         uint8_t max_body, max_reaction, max_mind, max_spirit;
 
+#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+        // set_*_max_parameters_taking_potion hooks (566149/56617A/5661B6/
+        // 5661EA): the stat-potion caps come from config
+        const MainCharacterParameters& caps = is_fighter
+            ? (is_female ? Config::WarriorFemaleMaxParameters : Config::WarriorMaleMaxParameters)
+            : (is_female ? Config::MageFemaleMaxParameters : Config::MageMaleMaxParameters);
+        max_body = caps.Body;
+        max_reaction = caps.Reaction;
+        max_mind = caps.Mind;
+        max_spirit = caps.Spirit;
+#else
         if (is_fighter && !is_female) {
             max_body = 52;
             max_reaction = 50;
@@ -927,6 +1066,7 @@ void Inn::InnReward(Player* player) {
             max_mind = 50;
             max_spirit = 52;
         }
+#endif
 
         // Note: vanilla logic used a retrying loop.
         std::vector<const char*> upgradable;
@@ -949,6 +1089,7 @@ void Inn::InnReward(Player* player) {
             const char* name = upgradable[Random0N(upgradable.size() - 1)];
             result_items.Add(new Item(name));
         }
+        }
     }
 
     // --- Phase 8: Gold ---
@@ -960,7 +1101,12 @@ void Inn::InnReward(Player* player) {
     }
 
     // --- Phase 9: Experience ---
+#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+    // skip_experience_reward hook (5666C1)
+    if (!tangar_quests::SkipExperienceReward() && g_ServerConfig.gameType == GAME_TYPE_COOPERATIVE) {
+#else
     if (g_ServerConfig.gameType == GAME_TYPE_COOPERATIVE) {
+#endif
         Item* experience = new Item();
         experience->item_id = 0xFFFE;
         experience->count = reward / 250;
@@ -1005,7 +1151,13 @@ void Inn::InnReward(Player* player) {
                     equip->RecalcFromTemplate();
                 }
 
+#ifdef A2TANGAR_HAT
+                // imp_UpgradeItem hook (5669A6): quest items (price 2) are
+                // not upgradable at the inn
+                if (!equip || equip->IsSimpleItem() != 0 || equip->magic_volume <= 0 || equip->_exp == 2) {
+#else
                 if (!equip || equip->IsSimpleItem() != 0 || equip->magic_volume <= 0) {
+#endif
                     continue;
                 }
 
@@ -1328,7 +1480,12 @@ void Inn::RemoveUnit(Humanoid* humanoid, int32_t id) {
                     // ---- Experience reward ----
                     uint32_t base_exp = ((uint32_t)item->count) * 250;
                     int32_t carry = 0;
+#ifdef A2TANGAR_HAT
+                    // imp_Experience7 hook (5610DC): raise skill XP cap to MAX_SKILL.
+                    int32_t max_skill_exp = ExperienceTable::GetExp(MAX_SKILL);
+#else
                     int32_t max_skill_exp = ExperienceTable::GetExp(100);
+#endif
 
                     for (int32_t sphere = 1; sphere <= 5; sphere++) {
                         if (sphere == 5 || sphere == humanoid->main_sphere) {
@@ -1379,23 +1536,35 @@ void Inn::RemoveUnit(Humanoid* humanoid, int32_t id) {
                     bool is_item_improvement = (id >= inv_count - 1);
 
                     if (!is_item_improvement) {
-                        // Not last item вЂ” just give it to the humanoid
+                        // Not last item --- just give it to the unit
                         item->TokenID = 1;
                         humanoid->inventory->PutItemIntoBagAtDefault(item);
                         g_NetStru1_main.SendUnitUpdate(humanoid, nullptr, UNIT_UPD_INVENTORY_WEIGHT_SPEED, EQUIP_SLOTS_ALL, 0, 0);
                     } else {
-                        // Last item вЂ” try to equip it, so `equipped` would be the item that was on the player before.
+                        // Last item --- try to equip it, so `equipped` would be the item that was on the player before.
                         Item* equipped = item->Equip(humanoid);
                         if (equipped == nullptr || equipped->upgraded_at_inn == 0) {
+#ifdef A2TANGAR_HAT
+                            // imp_inn_item_upgrade_failed hook (56154E): only
+                            // the upgraded copy is deleted; the original is put
+                            // back on (or the copy taken off when it is missing)
+                            if (equipped != nullptr) {
+                                equipped->Equip(humanoid);
+                            } else {
+                                item->Unequip(humanoid);
+                            }
+                            delete item;
+#else
                             // Failed --- burn the item.
                             item->Unequip(humanoid);
                             delete item;
                             if (equipped != nullptr) {
                                 delete equipped;
                             }
+#endif
                             g_NetStru1_main.SendTeamNotify(TEAM_NOTIFY_PLAYER_FLAGGED, humanoid->pOwner->player_id, humanoid->pOwner);
                         } else {
-                            // Use succeeded вЂ” clean up equipped placeholder
+                            // Use succeeded --- clean up equipped placeholder
                             delete equipped;
                         }
                         g_NetStru1_main.SendUnitUpdate(humanoid, nullptr, UNIT_UPD_EQUIP_WEIGHT_SPEED, EQUIP_SLOTS_ALL, 0, 0);

@@ -27,6 +27,11 @@
 #include "token.h"
 #include "unit.h"
 #include "virtual_caster.h"
+#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+#include "patch/player_settings.h"
+#include "patch/solo.h"
+#include "patch/tangar_log.h"
+#endif
 
 World* g_World; // 6a8b8c
 
@@ -236,22 +241,29 @@ void World::SplitTargetLists(Unit* unit, UnitList* pList) {
 
         // If u has has invisibility and is not allied with `unit`, verify that at least one
         // unit in `unit`'s group can see it before including it.
-        if ((u->enchantments & (1 << spell::invisibility)) != 0 && this->diplomacy.diplomacy[unit->pOwner->player_id][u->pOwner->player_id] != DIPLO_ALLIANCE) {
-            bool can_see = false;
-            for (POSITION gn = unit->group->unit_list.GetHeadPosition(); gn != nullptr;) {
-                Unit* gu = unit->group->unit_list.GetNext(gn);
-                int32_t range = this->map_stuff->GetRangeTo(u, gu);
-                if ((range & 0xFF) <= gu->eye2->seeInvisible) {
-                    can_see = true;
-                }
+        if ((u->enchantments & (1 << spell::invisibility)) != 0) {
+#ifdef A2SERVER_PATCH
+            if (u->pOwner == nullptr) {
+                return;
             }
-            if (!can_see) {
-                continue;
+#endif
+            if (this->diplomacy.diplomacy[unit->pOwner->player_id][u->pOwner->player_id] != DIPLO_ALLIANCE) {
+                bool can_see = false;
+                for (POSITION gn = unit->group->unit_list.GetHeadPosition(); gn != nullptr;) {
+                    Unit* gu = unit->group->unit_list.GetNext(gn);
+                    int32_t range = this->map_stuff->GetRangeTo(u, gu);
+                    if ((range & 0xFF) <= gu->eye2->seeInvisible) {
+                        can_see = true;
+                    }
+                }
+                if (!can_see) {
+                    continue;
+                }
             }
         }
 
         // Classify: enemy -> attack list; others -> non-attack list.
-        if ((this->diplomacy.diplomacy[unit->pOwner->player_id][u->pOwner->player_id] & DIPLO_WAR) != 0) {
+        if (this->AreAtWar(unit, u)) {
             this->targets.unit_list.AddTail(u);
         } else {
             this->non_targets.unit_list.AddTail(u);
@@ -611,6 +623,10 @@ void Diplomacy::RecordHostility(Unit* attacker, Unit* target, int32_t hit_flag) 
     if ((this->diplomacy[attacker_pid][target_pid] & (DIPLO_WAR | DIPLO_ALLIANCE)) == 0) {
         this->diplomacy[attacker_pid][target_pid] |= DIPLO_WAR;
         if (!attacker->pOwner->is_ai) {
+#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+            // auto_war_1 hook (5B56EF)
+            Printf("Player %s (%s) set auto-war to player %s", (const char*)attacker->pOwner->name, "attacker", (const char*)target->pOwner->name);
+#endif
             g_NetStru1_main.SendVisibilityState(attacker->pOwner);
             g_NetStru1_main.SendVisibilityState(target->pOwner);
         }
@@ -624,6 +640,10 @@ void Diplomacy::RecordHostility(Unit* attacker, Unit* target, int32_t hit_flag) 
     if (hit_flag == 0 || target->eye2->hits_taken > 10 || target->hp < target->hp_max / 2 || target->some_state == 0x10) {
         this->diplomacy[target_pid][attacker_pid] |= DIPLO_WAR;
         if (!target->pOwner->is_ai) {
+#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+            // auto_war_2 hook (5B57C6)
+            Printf("Player %s (%s) set auto-war to player %s", (const char*)target->pOwner->name, "victim", (const char*)attacker->pOwner->name);
+#endif
             g_NetStru1_main.SendVisibilityState(attacker->pOwner);
             g_NetStru1_main.SendVisibilityState(target->pOwner);
         }
@@ -637,6 +657,11 @@ void Diplomacy::RecordHostility(Unit* attacker, Unit* target, int32_t hit_flag) 
 // Check if two units are at war.
 // 5B5816
 bool World::AreAtWar(Unit* unit1, Unit* unit2) {
+#ifdef A2SERVER_PATCH
+    if (unit2->pOwner == nullptr || unit1->pOwner == nullptr) {
+        return false;
+    }
+#endif
     return (this->diplomacy.diplomacy[unit1->pOwner->player_id][unit2->pOwner->player_id] & DIPLO_WAR) != 0;
 }
 
@@ -1041,6 +1066,12 @@ void World::CastSelfHealOrBuff(Unit* unit) {
 // eligible unit when target is null). If no target is found the caster idles.
 // 5A85F4
 void World::BeginAutobuffCast(Unit* caster, Unit* target, Spell* spell) {
+    #ifdef A2SERVER_PATCH
+    // bug_001A: target->eye2 may be null - treat the target as unavailable
+    if (target != nullptr && target->eye2 == nullptr) {
+        target = nullptr;
+    }
+    #endif
     if (target == nullptr) {
         PosYX yx = caster->position->GetYX();
         UnitList* list = (spell->is_defensive != 0) ? this->GetNearbyAllies(caster, yx) : this->GetNearbyEnemies(caster, yx);
@@ -1271,7 +1302,12 @@ void World::ProcessVirtualCasters() {
 // 5A9961
 void World::OrderSwarmTo(Unit* unit, uint8_t x, uint8_t y) {
     this->BeginUnitOrder(unit);
+#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+    // solo_pickup_sack hook (5A9977)
+    SoloPickup(unit, y, x);
+#else
     unit->state = 2;
+#endif
     unit->eye2->command_to = ((uint16_t)y << 8) + x;
     unit->eye->target_reached = 0;
     unit->eye2->cast_action = 0;
@@ -1280,7 +1316,12 @@ void World::OrderSwarmTo(Unit* unit, uint8_t x, uint8_t y) {
 // 5A99C7
 void World::OrderGatherLoot(Unit* unit) {
     this->BeginUnitOrder(unit);
+#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+    // solo_pick_all_sacks hook (5A99DD)
+    SoloPickupAll(unit);
+#else
     unit->state = 26;
+#endif
     unit->eye->target_reached = 0;
     unit->eye2->cast_action = 0;
 }
@@ -1320,6 +1361,16 @@ void World::RecordUnitHit(Unit* target, Unit* attacker, int32_t hit_flag) {
 
 // 5AAA89
 void World::ChaseOrCast(Unit* unit) {
+#ifdef A2TANGAR_HAT
+    // imp_distance_bug_fix hook (5AAA8D): state 13 is "cast point spell from
+    // the book onto an enemy that is too far" - if the queued spell is not
+    // defensive, stop instead of casting
+    if (unit->state == 13) {
+        if (unit->eye2 == nullptr || unit->eye2->spell == nullptr || unit->eye2->spell->is_defensive == 0) {
+            unit->state = 12;
+        }
+    }
+#endif
     if (unit != unit->eye2->unit5 && this->map_stuff->FacesTargetInRange(unit, unit->eye2->unit5, unit->eye2->max_range) == 0) {
         this->StepTowardUnit(unit, unit->eye2->unit5);
         unit->some_state = 1;
@@ -1740,7 +1791,7 @@ void World::DoAutobuff(Unit* unit) {
 
     // Self-heal.
     if (unit->hp != unit->hp_max) {
-        Spell* spell = this->GetCastableSpell(unit, spell::heal, 0);
+        Spell* spell = this->GetAutobuffSpell(unit, spell::heal);
         if (spell != nullptr) {
             unit->eye2->action_done = 1;
             this->BeginAutobuffCast(unit, unit, spell);
@@ -1750,7 +1801,7 @@ void World::DoAutobuff(Unit* unit) {
 
     // Self-shield.
     if ((unit->enchantments & (1 << spell::shield)) == 0) {
-        Spell* spell = this->GetCastableSpell(unit, spell::shield, 0);
+        Spell* spell = this->GetAutobuffSpell(unit, spell::shield);
         if (spell != nullptr) {
             unit->eye2->action_done = 1;
             this->BeginAutobuffCast(unit, unit, spell);
@@ -1763,7 +1814,7 @@ void World::DoAutobuff(Unit* unit) {
     this->SplitTargetLists(unit, &this->nearby_list);
 
     // Ally-heal.
-    Spell* spell = this->GetCastableSpell(unit, spell::heal, 0);
+    Spell* spell = this->GetAutobuffSpell(unit, spell::heal);
     if (spell != nullptr && this->non_targets.unit_list.GetCount() > 1) {
         double best_ratio = 2.0;
         Unit* best_unit = nullptr;
@@ -1813,7 +1864,7 @@ void World::DoAutobuff(Unit* unit) {
             int32_t autobuff_backoff = abs((int32_t)other->eye2->autobuff_tick - g_Server->tick);
 
             // Bless: requires fighter, no matching enchantment.
-            spell = this->GetCastableSpell(unit, spell::bless, 0);
+            spell = this->GetAutobuffSpell(unit, spell::bless);
             if (spell != nullptr && (other->unit_attrs & 4) == 0 && (other->enchantments & (1 << spell::bless)) == 0) {
                 if (other->eye2->autobuff_spell_id != 20 || autobuff_backoff > 20) {
                     if (this->IsSpellInRange(unit, other, spell) != 0) {
@@ -1825,7 +1876,7 @@ void World::DoAutobuff(Unit* unit) {
             }
 
             // Haste: no matching enchantment.
-            spell = this->GetCastableSpell(unit, spell::haste, 0);
+            spell = this->GetAutobuffSpell(unit, spell::haste);
             if (spell != nullptr && (other->enchantments & (1 << spell::haste)) == 0) {
                 if (other->eye2->autobuff_spell_id != 20 || autobuff_backoff > 20) {
                     if (this->IsSpellInRange(unit, other, spell) != 0) {
@@ -1861,7 +1912,7 @@ void World::DoAutobuff(Unit* unit) {
             int32_t autobuff_backoff = abs((int32_t)other->eye2->autobuff_tick - g_Server->tick);
 
             // Protection from air: no matching enchantment.
-            spell = this->GetCastableSpell(unit, spell::protection_from_air, 0);
+            spell = this->GetAutobuffSpell(unit, spell::protection_from_air);
             if (spell != nullptr && this->IsSpellInRange(unit, other, spell) != 0) {
                 if ((other->enchantments & (1 << spell::protection_from_air)) == 0) {
                     if (other->eye2->autobuff_spell_id != 20 || autobuff_backoff > 20) {
@@ -1873,7 +1924,7 @@ void World::DoAutobuff(Unit* unit) {
             }
 
             // Protection from earth: no matching enchantment.
-            spell = this->GetCastableSpell(unit, spell::protection_from_earth, 0);
+            spell = this->GetAutobuffSpell(unit, spell::protection_from_earth);
             if (spell != nullptr && this->IsSpellInRange(unit, other, spell) != 0) {
                 if ((other->enchantments & (1 << spell::protection_from_earth)) == 0) {
                     if (other->eye2->autobuff_spell_id != 20 || autobuff_backoff > 20) {
@@ -1885,7 +1936,7 @@ void World::DoAutobuff(Unit* unit) {
             }
 
             // Protection from fire: no matching enchantment.
-            spell = this->GetCastableSpell(unit, spell::protection_from_fire, 0);
+            spell = this->GetAutobuffSpell(unit, spell::protection_from_fire);
             if (spell != nullptr && this->IsSpellInRange(unit, other, spell) != 0) {
                 if ((other->enchantments & (1 << spell::protection_from_fire)) == 0) {
                     if (other->eye2->autobuff_spell_id != 20 || autobuff_backoff > 20) {
@@ -1897,7 +1948,7 @@ void World::DoAutobuff(Unit* unit) {
             }
 
             // Protection from water: no matching enchantment.
-            spell = this->GetCastableSpell(unit, spell::protection_from_water, 0);
+            spell = this->GetAutobuffSpell(unit, spell::protection_from_water);
             if (spell != nullptr && this->IsSpellInRange(unit, other, spell) != 0) {
                 if ((other->enchantments & (1 << spell::protection_from_water)) == 0) {
                     if (other->eye2->autobuff_spell_id != 20 || autobuff_backoff > 20) {
@@ -1909,7 +1960,7 @@ void World::DoAutobuff(Unit* unit) {
             }
 
             // Invisibility: no matching enchantment, not self, diplomacy check.
-            spell = this->GetCastableSpell(unit, spell::invisibility, 0);
+            spell = this->GetAutobuffSpell(unit, spell::invisibility);
             if (spell != nullptr && this->IsSpellInRange(unit, other, spell) != 0) {
                 if ((other->enchantments & (1 << spell::invisibility)) == 0 && unit != other) {
                     if ((this->diplomacy.diplomacy[unit->pOwner->player_id][other->pOwner->player_id] & (DIPLO_WAR | DIPLO_ALLIANCE)) != 0) {
@@ -1925,7 +1976,7 @@ void World::DoAutobuff(Unit* unit) {
     }
 
     // Self-invisibility --- last.
-    spell = this->GetCastableSpell(unit, spell::invisibility, 0);
+    spell = this->GetAutobuffSpell(unit, spell::invisibility);
     if (spell != nullptr && (unit->enchantments & (1 << spell::invisibility)) == 0) {
         unit->eye2->action_done = 1;
         this->BeginAutobuffCast(unit, unit, spell);
@@ -2129,6 +2180,12 @@ void World::ScriptOP_0x0a(TriggerAction* action) {
 
 // 5b3e56 — Give item from one unit (action->unit) to another (action->multi)
 void World::ScriptOP_0x0b(TriggerAction* action) {
+    #ifdef A2SERVER_PATCH
+    // bug_001B: action->unit can be null - skip the script op
+    if (action->unit == nullptr) {
+        return;
+    }
+    #endif
     Item* item = action->unit->inventory->TakeItemById(action->item_id);
     g_NetStru1_main.SendMonsterInventory(action->unit, action->unit->pOwner, 0, 0);
     if (item) {
@@ -2158,11 +2215,23 @@ void World::ScriptOP_0x0d(TriggerAction* action) {
 
 // 5b408d — kill unit
 void World::ScriptOP_0x0e(TriggerAction* action) {
+    #ifdef A2SERVER_PATCH
+    // bug_001C: action->unit can be null - skip the script op
+    if (action->unit == nullptr) {
+        return;
+    }
+    #endif
     g_NetStru1_main.SendHumanoidProps(action->unit, action->unit->pOwner, EQUIP_SLOTS_ALL);
 }
 
 // 5b40ba — kill unit (same as 0x0e)
 void World::ScriptOP_0x0f(TriggerAction* action) {
+    #ifdef A2SERVER_PATCH
+    // bug_001D: action->unit can be null - skip the script op
+    if (action->unit == nullptr) {
+        return;
+    }
+    #endif
     g_NetStru1_main.SendHumanoidProps(action->unit, action->unit->pOwner, EQUIP_SLOTS_ALL);
 }
 
@@ -2661,6 +2730,21 @@ Spell* World::GetCastableSpell(Unit* unit, int32_t spell_number, int32_t /*flag*
         return nullptr;
     }
     return spell;
+}
+
+// autobuff-family hooks (5A7BBD..5A83FE, 11 call sites inside DoAutobuff):
+// wraps GetCastableSpell for the autobuff paths only - a bit set in the
+// player's persisted autobuff_mask suppresses that spell (AI is exempt).
+Spell* World::GetAutobuffSpell(Unit* unit, int32_t spell_number) {
+#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+    if (!unit->pOwner->is_ai) {
+        settings::PlayerSettings* ps = settings::Find((const char*)unit->pOwner->name);
+        if (ps != nullptr && (ps->autobuff_mask & (1u << spell_number)) != 0) {
+            return nullptr;
+        }
+    }
+#endif
+    return this->GetCastableSpell(unit, spell_number, 0);
 }
 
 // Check whether `other` is within `spell`'s max range from `unit`.

@@ -1,4 +1,5 @@
 #include <winsock2.h>
+#include "patch/locale.h"
 #include <ws2tcpip.h>
 #include <timeapi.h>
 
@@ -466,7 +467,7 @@ void VisFameHall::UpdateRects() {
 // 45D32E
 void VisFameHall::LoadBitmaps() {
     this->FreeBitmaps();
-    this->bmp_bkg = new CBmp64("main\\graphics\\famehall\\hall.bmp");
+    this->bmp_bkg = new CBmp64(A2CLIENT_PATCH_ENABLED ? tangar_locale::gfx_famehall : "main\\graphics\\famehall\\hall.bmp");
     this->bmp_close_off = new CBmp64("graphics\\interface\\Docs\\OK\\Ok_l_off.bmp");
     this->bmp_close_on = new CBmp64("graphics\\interface\\Docs\\OK\\Ok_l_on.bmp");
     this->bmp_cur_close = nullptr;
@@ -609,7 +610,7 @@ void Fame2::LoadDocument() { //4ac0af
         sprintf(buffer, "graphics\\interface\\Docs\\%d.bmp", this->doc_id);
         this->picture = new CBmp64(buffer);
     } else {
-        sprintf(buffer, "main\\text\\Docs\\%d.txt", this->doc_id);
+        sprintf(buffer, A2CLIENT_PATCH_ENABLED ? tangar_locale::docs_fmt : "main\\text\\Docs\\%d.txt", this->doc_id);
         ReadFileToString(buffer, &this->str);
         this->str_arr.Copy(g_font4->StringArrayForRect(this->rect, this->str));
     }

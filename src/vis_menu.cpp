@@ -1,4 +1,6 @@
 #include <winsock2.h>
+#include "patch/locale.h"
+#include "patch/menu.h"
 #include <ws2tcpip.h>
 #include <timeapi.h>
 
@@ -81,7 +83,12 @@ VisListBoxDiplomacy::VisListBoxDiplomacy(int32_t _id, const RECT& r, CArray<Dipl
     if ((uint32_t)_entry_height <= 0x18) {
         _entry_height = 0x18;
     }
+#ifdef A2CLIENT_PATCH
+    // long_dip.txt (4e13ff): compact diplomacy row spacing (+8 -> +1)
+    this->entry_height_full = _entry_height + 1;
+#else
     this->entry_height_full = _entry_height + 8;
+#endif
     this->num_vis_entry = this->rect.Height() / this->entry_height_full;
 
     this->enemy_radios = new CArray<VisRadioType1*>();
@@ -2867,6 +2874,11 @@ void VisMainMenu::VMethod8(CRect* rect) {
 
 // 4AB28F
 void VisMainMenu::VMethod7() {
+#if defined(A2CLIENT) && defined(A2TANGAR_HAT)
+    // Tangar MENU_draw (client 4AF2C8): replaces the whole retail draw block —
+    // ClientRectToScreen and the dialogsMask check are skipped as well.
+    tangar_menu::Draw();
+#else
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     CRect screen_rect;
     this->ClientRectToScreen(&screen_rect, this->rect);
@@ -2887,23 +2899,37 @@ void VisMainMenu::VMethod7() {
     }
     this->sprite->Draw(screen_rect.left + 0x1E0, screen_rect.top + 0x168, 0, 0, 0);
     UnlockSurface2();
+#endif
 }
 
 
 // 4AB88C
 int32_t VisMainMenu::OnMouseMove(uint32_t wparam, CPoint pos) {
+#if defined(A2CLIENT) && defined(A2TANGAR_HAT)
+    // Tangar MENU_hover2 (client 4AF8C3): replaces UpdateButtonState.
+    tangar_menu::Hover(this, pos.x, pos.y, wparam);
+    return 0;
+#else
     this->UpdateButtonState(wparam, pos);
     return 0;
+#endif
 }
 
 
 // 4AB8AF
 int32_t VisMainMenu::OnLButtonDown(uint32_t wparam, CPoint pos) {
+#if defined(A2CLIENT) && defined(A2TANGAR_HAT)
+    // Tangar MENU_hover1 (client 4AF8E6): replaces UpdateButtonState and the
+    // retail click sound (the patch plays it from inside the hit-test).
+    tangar_menu::Hover(this, pos.x, pos.y, wparam);
+    return 1;
+#else
     this->UpdateButtonState(wparam, pos);
     if (this->pressed_button != -1) {
         CSound::Play((CSound&)this->snd_btn_click);
     }
     return 1;
+#endif
 }
 
 
@@ -2956,7 +2982,14 @@ int32_t VisMainMenu::OnLButtonUp(uint32_t wparam, CPoint pos) {
         AfxGetMainWnd()->PostMessage(msg, 0, 0);
     }
     this->pressed_button = -1;
+#if defined(A2CLIENT) && defined(A2TANGAR_HAT)
+    // Tangar MENU_hover3 (client 4AFA5B): replaces UpdateButtonState. The
+    // retail switch above already consumed the active_button value that the
+    // hover hook wrote on the preceding button-down event.
+    tangar_menu::Hover(this, pos.x, pos.y, wparam);
+#else
     this->UpdateButtonState(wparam, pos);
+#endif
     if (msg != 0) {
         this->VMethod9();
         this->DoClose(msg);
@@ -3102,27 +3135,35 @@ void VisMainMenu::FreeSfx() {
 
 // 4AADA7
 void VisMainMenu::LoadGraphics() {
+#if defined(A2CLIENT) && defined(A2TANGAR_HAT)
+    // Tangar MENU_load (client 4AEDF5): the retail graphics load (including
+    // the FreeGraphics call) is skipped entirely; the custom menu assets are
+    // loaded lazily instead. Fatal error if the files are absent, exactly as
+    // in the manager patch.
+    tangar_menu::Load();
+#else
     CString str;
     this->FreeGraphics();
-    this->bmp_menu_mask = new CBmp256("main\\graphics\\MainMenu\\MenuMask.bmp");
+    this->bmp_menu_mask = new CBmp256(A2CLIENT_PATCH_ENABLED ? tangar_locale::gfx_menu_mask : "main\\graphics\\MainMenu\\MenuMask.bmp");
     g_mousept.Update();
-    this->bmp_menu = new CBmp64("main\\graphics\\MainMenu\\menu_.bmp");
+    this->bmp_menu = new CBmp64(A2CLIENT_PATCH_ENABLED ? tangar_locale::gfx_menu : "main\\graphics\\MainMenu\\menu_.bmp");
     g_mousept.Update();
     this->sprite = new CA16("graphics\\interface\\sprites.16a");
     this->sprite->ResetPalette(0x10, 4, 0);
     g_mousept.Update();
     for (int32_t i = 0; i < 8; i++) {
-        str.Format("main\\graphics\\MainMenu\\button%dp.bmp", i + 1);
+        str.Format(A2CLIENT_PATCH_ENABLED ? tangar_locale::gfx_button_p_fmt : "main\\graphics\\MainMenu\\button%dp.bmp", i + 1);
         this->bmp_pressed.Add(new CBmp64(str));
         g_mousept.Update();
-        str.Format("main\\graphics\\MainMenu\\button%d.bmp", i + 1);
+        str.Format(A2CLIENT_PATCH_ENABLED ? tangar_locale::gfx_button_fmt : "main\\graphics\\MainMenu\\button%d.bmp", i + 1);
         this->bmp_button.Add(new CBmp64(str));
         g_mousept.Update();
-        str.Format("main\\graphics\\MainMenu\\text%d.bmp", i + 1);
+        str.Format(A2CLIENT_PATCH_ENABLED ? tangar_locale::gfx_text_fmt : "main\\graphics\\MainMenu\\text%d.bmp", i + 1);
         this->bmp_labels.Add(new CBmp64(str));
         g_mousept.Update();
     }
     this->bmp_active_button = nullptr;
+#endif
 }
 
 
@@ -3313,7 +3354,7 @@ void VisCredits::VMethod28() {
 // 43C9B5
 void VisCredits::LoadContent() {
     this->FreeContent();
-    this->text.LoadChunkFile("main\\text\\credits.txt");
+    this->text.LoadChunkFile(A2CLIENT_PATCH_ENABLED ? tangar_locale::credits : "main\\text\\credits.txt");
     for (int32_t i = 0; i < this->text.GetCount(); i++) {
         char* line = this->text.GetLine(i);
         if (*line != '"') {
@@ -3322,7 +3363,7 @@ void VisCredits::LoadContent() {
         CString name(line);
         name = name.Mid(1);
         name = name.Left(name.GetLength() - 1);
-        name = "main\\graphics\\logo\\" + name;
+        name = CString(A2CLIENT_PATCH_ENABLED ? tangar_locale::gfx_logo_dir : "main\\graphics\\logo\\") + name;
         this->bitmaps.SetAt(this->text.GetLine(i), new CBmp64(name));
     }
 }
@@ -3736,9 +3777,3 @@ int32_t VisListBoxDiplomacy::OnKeyDown(uint32_t wparam) {
 // 4E3D30
 void VisListBoxDiplomacy::VMethod30(CPoint pos, const CRect& r) {
 }
-
-
-
-
-
-

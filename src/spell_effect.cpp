@@ -171,7 +171,13 @@ void PointEffect::FinishHit() {
 		if (this->caster != nullptr && this->offensive != 0) {
 			if (this->caster->monster_info == nullptr) {
 				attacker->last_hit_by = nullptr;
+			#ifdef A2SERVER_PATCH
+			// prevent_suicide_point_effect hook (53766C): self-damage must
+			// not overwrite the kill attribution
+			} else if (this->caster->pOwner != nullptr && attacker != this->caster) {
+			#else
 			} else if (this->caster->pOwner != nullptr) {
+			#endif
 				attacker->last_hit_by = this->caster;
 				attacker->last_hit_spell_id = this->effect->itemDataID;
 			}
@@ -273,7 +279,13 @@ void AreaEffect::DamageUnit(Unit* unit) {
 		unit->last_hit_by = nullptr;
 	} else if (this->caster->pOwner == nullptr) {
 		unit->last_hit_by = nullptr;
+	#ifdef A2SERVER_PATCH
+	// prevent_suicide_area_effect hook (538473): self-damage must not
+	// overwrite the kill attribution
+	} else if (this->itemDataID != 0xE && unit != this->caster) {
+	#else
 	} else if (this->itemDataID != 0xE) {
+	#endif
 		unit->last_hit_by = this->caster;
 		unit->last_hit_spell_id = this->effect->itemDataID;
 	}

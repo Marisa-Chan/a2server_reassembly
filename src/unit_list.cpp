@@ -7,6 +7,22 @@
 #include "game_app.h"
 #include "players_list.h"
 #include "quest_map.h"
+#ifdef A2TANGAR_HAT
+#include "patch/config_new.h"
+#endif
+
+#ifdef A2TANGAR_HAT
+// death_update_exp from the manager (player_died/player_killed/
+// player_pkilled hooks): scale each sphere's experience by the multiplier
+// and recompute the total.
+static void TangarApplyDeathExpPenalty(Humanoid* unit, double mult) {
+	unit->experience = 0;
+	for (int32_t i = 0; i < 5; i++) {
+		unit->experience_per_sphere[i] = (uint32_t)(unit->experience_per_sphere[i] * mult);
+		unit->experience += unit->experience_per_sphere[i];
+	}
+}
+#endif
 
 //555a1d
 UnitList::UnitList() = default;
@@ -110,7 +126,14 @@ void UnitList::ProcessTick() {
 
 		// Tick alive unit
 		if (unit->some_state != 0x10) {
+			#ifdef A2SERVER_PATCH
+			// bug_0014: skip the virtual call for zombie units (zeroed vtable)
+			if (*reinterpret_cast<void**>(unit) != nullptr) {
+				unit->ProcessEffects();
+			}
+			#else
 			unit->ProcessEffects();
+			#endif
 		}
 
 		// Process dead unit
@@ -145,10 +168,24 @@ void UnitList::ProcessTick() {
 			}
 
 			// Kill attribution
+			#ifdef A2SERVER_PATCH
+			// part_of_kill hook (5569EF): units with hp_max <= 0 must not
+			// attribute kills; their last_hit_by is cleared. bug_0015:
+			// unit->pOwner may be null - skip kill attribution.
+			if (unit->hp_max <= 0) {
+				unit->last_hit_by = nullptr;
+			}
+			if (unit->last_hit_by != NULL && unit->pOwner != NULL) {
+			#else
 			if (unit->last_hit_by != NULL) {
+			#endif
 				if (unit->last_hit_by->typeId < 0x21 || unit->last_hit_by->typeId > 0x3f) {
 					// Killer is NOT a monster type
 					if (0x20 < unit->typeId && unit->typeId < 0x40 && unit->last_hit_by->IsUnit() != 0 && unit->last_hit_by->monster_info != NULL) {
+						#ifdef A2TANGAR_HAT
+						// player_killed hook (557005)
+						TangarApplyDeathExpPenalty(static_cast<Humanoid*>(unit), Config::KilledExpMult);
+						#endif
 						CString msg;
 						uint8_t y = unit->position->GetY();
 						uint8_t x = unit->position->GetX();
@@ -180,6 +217,11 @@ void UnitList::ProcessTick() {
 				} else if (unit->last_hit_by->hp < 0) {
 					// Killer (a monster) is also dead — mutual kill
 					if (unit->pOwner->is_ai == 0) {
+						#ifdef A2TANGAR_HAT
+						// player_died hook (556A56)
+						TangarApplyDeathExpPenalty(static_cast<Humanoid*>(unit), Config::DeathExpMult);
+						#endif
+
 						CString msg;
 						msg.Format("Player %s has died.", (const char*)unit->pOwner->name);
 						LogMessage(msg);
@@ -204,9 +246,16 @@ void UnitList::ProcessTick() {
 						unit->last_hit_by->pOwner->monster_kills++;
 					} else {
 						// Victim is a human
+
+						#ifdef A2TANGAR_HAT
+						// player_pkilled hook (556BE6)
+						TangarApplyDeathExpPenalty(static_cast<Humanoid*>(unit), Config::PKExpMult);
+						#endif
+
 						CString msg;
 						uint8_t y = unit->position->GetY();
 						uint8_t x = unit->position->GetX();
+						// pkill_msg hook (556C0F): pushes killer owner name (unit->last_hit_by->pOwner->name).
 						msg.Format("Player %s pkilled by %s at %d,%d", (const char*)unit->pOwner->name, (const char*)unit->last_hit_by->pOwner->name, x, y);
 						LogMessage(msg);
 						uint32_t kill_sphere = 0;
@@ -322,6 +371,26 @@ void UnitList::ClearSentToMask(Player* player) {
 }
 
 // 5574B5
+#ifdef A2TANGAR_HAT
+// UnsummonUnit from srvmgr (unsummon_unit.cpp): true when the unit's
+// owner has more than one summoned unit alive.
+static bool TangarOwnerHasMultipleSummons(Unit* unit) {
+	if (unit == nullptr || unit->pOwner == nullptr || unit->pOwner->unit_list == nullptr) {
+		return true;
+	}
+
+	int summoned_units = 0;
+	for (POSITION pos = unit->pOwner->unit_list->unit_list.GetHeadPosition(); pos != nullptr;) {
+		Unit* u = unit->pOwner->unit_list->unit_list.GetNext(pos);
+		if (u != nullptr && u->summoned != 0 && u->summon_id != 0) {
+			summoned_units++;
+		}
+	}
+
+	return summoned_units > 1;
+}
+#endif
+
 void UnitList::RegenTick() {
 	// Tick all units in this list (call VMethod1 on each)
 	POSITION pos = this->unit_list.GetHeadPosition();
@@ -350,9 +419,18 @@ void UnitList::RegenTick() {
 
 	CMap<uint32_t, uint32_t, int32_t, int32_t> map;
 	while (unit != NULL) {
+#ifdef A2TANGAR_HAT
+		// unsummon_unit hook (557985): a player's last remaining summon is
+		// excluded from the culling counts (only count when the owner has
+		// more than one summoned unit alive)
+		if (unit->summon_id != 0 && TangarOwnerHasMultipleSummons(unit)) {
+			map[unit->summon_id]++;
+		}
+#else
 		if (unit->summon_id != 0) {
 			map[unit->summon_id]++;
 		}
+#endif
 		if (pos == NULL) {
 			unit = NULL;
 		} else {

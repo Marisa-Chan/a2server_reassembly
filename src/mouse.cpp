@@ -53,8 +53,14 @@ CMousePointer::CMousePointer() {
         }
     }
 
+#ifdef A2CLIENT_PATCH
+    // p10iti.xck (42859b, 4285dd -> 6e2213): enlarge tooltip backing bitmaps from 640x117 to 640x453
+    this->hint_image = new CBmp64(640, 453);
+    this->saved_screen_rect_hint = new CBmp64(640, 453);
+#else
     this->hint_image = new CBmp64(640, 117);
     this->saved_screen_rect_hint = new CBmp64(640, 117);
+#endif
 
     this->mouse_hint_time = 0;
     this->mouse_hint_ts = 0;

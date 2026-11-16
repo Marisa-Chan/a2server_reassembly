@@ -1,4 +1,12 @@
 #include "player_file.h"
+#ifdef A2CLIENT_PATCH
+#include "patch/stats_level.h"
+#endif
+#ifdef A2TANGAR_HAT
+#include "patch/config_new.h"
+#include "patch/flags.h"
+#include "patch/tangar_log.h"
+#endif
 
 #include <cstring>
 
@@ -305,6 +313,17 @@ void WriteKillStatsSection(CFile& file, uint8_t* kill_stats) {
 
 } // namespace
 
+
+// Stats section from the most recent ParsePlayerFile call (client 0x6995a8 twin).
+// Outside the anonymous namespace so the Tangar client patch can reach it.
+FileSectionStats* GetParsedPlayerStats() {
+	return &s_stats_buf;
+}
+
+// Basic-info section from the most recent ParsePlayerFile call (client 0x69c058 twin).
+FileSectionBasicInfo* GetParsedPlayerBasicInfo() {
+	return &s_basic_info_buf;
+}
 // 4F53EA
 int32_t __cdecl WritePlayerFile(const char* filename, FileSectionBasicInfo* basic_info, FileSectionStats* stats, uint8_t* kill_stats, PacketUnitStateVec* equip_pkt, PacketUnitStateVec* inv_pkt, uint8_t* section_40a, uint32_t size_40a) {
 	FileSectionBasicInfo* merged_basic_info = nullptr;
@@ -379,12 +398,23 @@ int32_t __cdecl WritePlayerFile(const char* filename, FileSectionBasicInfo* basi
 		WriteEncryptedSection(file, 0x3A5A3A5A, GetPacketPayload(merged_inventory), GetPacketPayloadSize(merged_inventory));
 	}
 
+#ifdef A2TANGAR_HAT
+	// part_of_save hook (4F62B1): log character save completion under SVL_SAVES.
+	if (Config::LogMode & SVL_SAVES) {
+		Printf("Saved successfully!");
+	}
+#endif
 	file.Close();
 	return 1;
 }
 
 // 4F62E6
 int32_t __cdecl ParsePlayerFile(CFile* file, FileSectionBasicInfo** basic_info, FileSectionStats** stats, uint8_t** kill_stats, PacketUnitStateVec** equipment, PacketUnitStateVec** inventory, uint8_t** section_40a, uint32_t* size_40a) {
+#ifdef A2CLIENT_PATCH
+	// Tangar: parsing a player file means an existing character is being loaded
+	// (gui_bugfix.cpp load_character hook, 4F75F5).
+	tangar_stats::creating_new_character = false;
+#endif
 	*basic_info = nullptr;
 	*stats = nullptr;
 	*kill_stats = nullptr;
@@ -415,6 +445,17 @@ int32_t __cdecl ParsePlayerFile(CFile* file, FileSectionBasicInfo** basic_info, 
                 if (!ReadStatsSection(*file, header)) {
                     return 0;
                 }
+#ifdef A2TANGAR_HAT
+                // imp_FixExperience hook (4F6888): clamp loaded sphere XP and money.
+                for (int i = 0; i < 5; i++) {
+                    if (s_stats_buf.experience[i] > MAX_EXP_ON_SKILL) {
+                        s_stats_buf.experience[i] = MAX_EXP_ON_SKILL;
+                    }
+                }
+                if (s_stats_buf.money > 0x7FFFFFFFu) {
+                    s_stats_buf.money = 0x7FFFFFFFu;
+                }
+#endif
                 *stats = &s_stats_buf;
                 break;
             }
@@ -499,7 +540,8 @@ void CGameSession::RefreshCharacterRosterFiles(int val) { //49265a
 						sec->hat_id = mwnd->net_session.hat_id;
 					}
 					if (sec->hat_id == mwnd->net_session.hat_id
-#ifdef A2CLIENT
+#if defined(A2CLIENT) && !defined(A2CLIENT_PATCH)
+						// p10ach.xck (497083): disable 0xbabad0d0 wildcard HAT ID fallback
 						|| (sec->hat_id == 0xbabad0d0 && mwnd->net_session.internet_game != 0 && mwnd->hat_settings.ishat && mwnd->hat_settings.deathmatch)
 #endif
 						) {	

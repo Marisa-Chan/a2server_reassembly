@@ -66,9 +66,19 @@ PacketJoin::PacketJoin() {
 
 PacketJoin::PacketJoin(const PacketJoin *src) {
     //526c52
+    // client: 515aec
 
     this->id = src->id;
     this->from_player_id = src->from_player_id;
+
+#if defined(A2CLIENT_PATCH) || defined(A2SERVER_PATCH)
+    if (src->id == 0) {
+        memcpy(&this->player_id, &src->player_id, 0x46);
+        uint16_t auth_len = *reinterpret_cast<const uint16_t*>(src->name + 0x3E);
+        memcpy(this->name + 0x40, src->name + 0x40, auth_len + 1);
+        return;
+    }
+#endif
 
     this->player_id = src->player_id;
     this->token_id = src->token_id;
@@ -102,19 +112,54 @@ Packet* PacketJoin::Duplicate() {
 
 void PacketJoin::WriteTo(NetStru2* net) {
     //526ede
+    // client: 515d77
+#if defined(A2CLIENT_PATCH) || defined(A2SERVER_PATCH)
+    if (this->id == 0) {
+        uint16_t auth_len = static_cast<uint16_t>(strlen(this->name + 0x40));
+        *reinterpret_cast<uint16_t*>(this->name + 0x3E) = auth_len;
+        net->WriteData(&this->id, static_cast<uint32_t>(auth_len) + 0x48);
+        return;
+    }
+#endif
     this->name_len = strlen(this->name);
     net->WriteData(&this->id, this->name_len + 8);
 }
 
 void PacketJoin::ReadFrom(NetStru2* net) {
     //526f1d
+    // client: 515db6
+#if defined(A2CLIENT_PATCH) || defined(A2SERVER_PATCH)
+    if (this->id == 0) {
+        net->ReadData(&this->player_id, 0x46);
+        uint16_t auth_len = *reinterpret_cast<uint16_t*>(this->name + 0x3E);
+        if (auth_len >= sizeof(this->name) - 0x40) {
+            auth_len = static_cast<uint16_t>(sizeof(this->name) - 0x41);
+            *reinterpret_cast<uint16_t*>(this->name + 0x3E) = auth_len;
+        }
+        net->ReadData(this->name + 0x40, static_cast<uint32_t>(auth_len) + 1);
+        this->name[0x40 + auth_len] = 0;
+        return;
+    }
+#endif
     net->ReadData(&this->player_id, 6);
+#ifdef A2SERVER_PATCH
+    if (this->name_len >= sizeof(this->name)) {
+        this->name_len = static_cast<uint16_t>(sizeof(this->name) - 1);
+    }
+#endif
     net->ReadData(this->name, this->name_len + 1);
     this->name[this->name_len] = 0;
 }
 
 uint32_t PacketJoin::GetDataSize() {
     //57a410
+    // client: 54b2c0
+#if defined(A2CLIENT_PATCH) || defined(A2SERVER_PATCH)
+    if (this->id == 0) {
+        uint16_t auth_len = *reinterpret_cast<uint16_t*>(this->name + 0x3E);
+        return static_cast<uint32_t>(auth_len) + 0x48;
+    }
+#endif
     return this->name_len + 8;
 }
 
@@ -177,6 +222,11 @@ void PacketTerrain::WriteTo(NetStru2* net) {
 void PacketTerrain::ReadFrom(NetStru2* net) {
     //5273ce
     net->ReadData(&this->count, 4);
+#ifdef A2SERVER_PATCH
+    if (this->count > (sizeof(this->buf) / sizeof(this->buf[0]))) {
+        this->count = static_cast<uint32_t>(sizeof(this->buf) / sizeof(this->buf[0]));
+    }
+#endif
     if (this->count) {
         net->ReadData(this->buf, this->count * 2);
     }
@@ -379,6 +429,11 @@ void PacketGroupOrder::WriteTo(NetStru2* net) {
 void PacketGroupOrder::ReadFrom(NetStru2* net) {
     // 5C3
     net->ReadData(&this->x, 9);
+#ifdef A2SERVER_PATCH
+    if (this->count > 0xFD) {
+        this->count = 0xFD;
+    }
+#endif
     if (this->count) {
         net->ReadData(this->entries, this->count * 2);
     }
@@ -721,6 +776,11 @@ void PacketData::WriteTo(NetStru2* net) {
 void PacketData::ReadFrom(NetStru2* net) {
     // 527309
     net->ReadData(&this->count, 4);
+#ifdef A2SERVER_PATCH
+    if (this->count > sizeof(this->data)) {
+        this->count = static_cast<uint32_t>(sizeof(this->data));
+    }
+#endif
     if (this->count > 0) {
         net->ReadData(this->data, this->count);
     }

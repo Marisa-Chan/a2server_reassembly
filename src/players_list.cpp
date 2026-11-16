@@ -10,6 +10,9 @@
 #include "unit.h"
 #include "unit_list.h"
 #include "world.h"
+#ifdef A2TANGAR_HAT
+#include "patch/player_info.h"
+#endif
 
 
 // 5357C6
@@ -221,6 +224,11 @@ void PlayersList::ProcessPlayerTimeouts() {
 			uint32_t now = GetTickCount();
 			if (now > player->afk_expire_tick) {
 				// Timer expired.
+#ifdef A2SERVER_PATCH
+				// part_of_camp hook (534E87): forced save upon AFK
+				// deactivation ("autosave upon camping")
+				g_Server->SaveCharacter(player->main_unit);
+#endif
 				player->Deactivate();
 				player->drop_deadline_tick16--;
 				player->afk_expire_tick = 0;
@@ -238,12 +246,21 @@ void PlayersList::ProcessPlayerTimeouts() {
 
 		// Check if player has timed out.
 		if (0 < player->drop_deadline_tick16 && player->drop_deadline_tick16 < g_Server->tick16) {
+#ifdef A2SERVER_PATCH
+			// part_of_disconnect hook (534F4C): always save the character on
+			// the 5-minute disconnect timeout (anti-dupe); the vanilla save
+			// below is skipped (the hook jumps past it).
+			if (player->main_unit != nullptr) {
+				g_Server->SaveCharacter(player->main_unit);
+			}
+#endif
 			if (player->is_in_world != 0) {
+#ifndef A2SERVER_PATCH
 				// Tournament mode: save player's main unit.
 				if (g_Server->multiplayer != 0 && player->main_unit != nullptr) {
 					g_Server->SaveCharacter(player->main_unit);
 				}
-
+#endif
 				g_QuestMap.RemovePlayerQuests(player->player_id);
 
 				// Remove all units from map and move to dead pool.
@@ -319,6 +336,10 @@ void PlayersList::ProcessPlayerTimeouts() {
 
 			g_Server->HatKeepaliveTick();
 			g_NetStru1_main.SendInfoPacket(PLAYER_LEFT, player->player_id, 0, nullptr);
+#ifdef A2TANGAR_HAT
+			// imp_PIdel hook (535439): drop the Tangar per-player info
+			PI_Delete(player);
+#endif
 			LogMessage("Player " + player->name + " has left the game");
 
 			// Decrement next_player_id if this was the last assigned.

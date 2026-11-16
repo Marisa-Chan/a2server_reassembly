@@ -9,6 +9,11 @@
 #include "net.h"
 #include "spell.h"
 #include "unit.h"
+#if defined(A2SERVER_PATCH) || defined(A2TANGAR_HAT)
+#include "patch/config_new.h"
+#include "patch/damage_filter.h"
+#include "patch/flags.h"
+#endif
 
 IMPLEMENT_SERIAL(Effect, Token, 1); // 637098.
 
@@ -20,7 +25,13 @@ void Effect::ApplyToUnit(Unit* unit) {
             damage = (int32_t)((damage * (100 - unit->protections.magic_protections[2])) / 100.0 + 0.5);
         }
         if (damage != 0) {
+#ifdef A2TANGAR_HAT
+            // srv_pvm.xck + verify_damage hook (53F7CD -> 5048D3)
+            int32_t applied_damage = TangarOnDamage(this->caster, unit, static_cast<int16_t>(damage));
+            unit->hp -= static_cast<int16_t>(applied_damage);
+#else
             unit->hp -= damage;
+#endif
             if (this->caster != nullptr) {
                 if (this->caster->hp < 0) {
                     this->caster = nullptr;
@@ -241,6 +252,12 @@ void Effect::RemoveFromUnit(Unit* unit) {
 
 // 53FA2B
 void Effect::ApplyStatDelta(Unit* unit, int32_t stack_delta) {
+#ifdef A2SERVER_PATCH
+    // test_health hook (53FA2B): block single-use health potions when SVF_NOHEALING is active.
+    if (this->effect_id == modifier::health && this->usage_type == 8 && (Config::ServerFlags & SVF_NOHEALING) != 0) {
+        return;
+    }
+#endif
     int32_t value;
     if (this->usage_type & 7) {
         value = stack_delta * this->spell_or_damage;
@@ -565,11 +582,21 @@ void Effect::ModifyVision(Unit* unit) {
 // 541c87
 int32_t Effect::CalcScrollPrice() {
     if (this->effect_id == modifier::castspell) {
+#ifdef A2CLIENT_PATCH
+        // p10st2.xck (52916f..529195): reject spell_id == 0 or > 0x1D (spell::max_spell_id)
+        uint8_t spell_id = this->damage_min;
+        if (spell_id == 0 || spell_id > spell::max_spell_id) {
+            this->_exp = 0;
+            return this->_exp;
+        }
+        int32_t scroll_cost = g_GameDataRes.spells[spell_id].Values()[0].scroll_cost;
+#else
         if (this->spell_or_damage > spell::max_spell_id) {
             this->spell_or_damage = spell::drain_life;
         }
 
         int32_t scroll_cost = g_GameDataRes.spells[this->spell_or_damage].Values()[0].scroll_cost;
+#endif
         double level = (double)this->spell_value / 30.0 + 1.0;
         this->_exp = (int32_t)(std::pow(2.0, std::log(level) / std::log(1.2)) * (scroll_cost * 10));
     } else {

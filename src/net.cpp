@@ -31,6 +31,35 @@
 #include "inventory.h"
 #include "shelf.h"
 #include "shop.h"
+#ifdef A2CLIENT_PATCH
+#include "patch/hat_client.h"
+#include "patch/flags.h"
+#endif
+#ifdef A2SERVER_PATCH
+#include "patch/flags.h"
+#endif
+#ifdef A2TANGAR_HAT
+#include "patch/config_new.h"
+#include "patch/flags.h"
+#include "patch/hat_net.h"
+#endif
+
+#if defined(A2CLIENT_PATCH) || defined(A2SERVER_PATCH)
+#include "patch/netlog.h"
+
+namespace {
+// Netlog direction tag for a CLlDriver TCP socket, by peer port: the HAT
+// listens on 8000 (clients) / 7999 (servers), game servers on 8001+.
+long netlog_peer_port(SOCKET s) {
+    sockaddr_in peer;
+    int sl = sizeof(peer);
+    if (getpeername(s, (sockaddr*)&peer, &sl) == 0) {
+        return ntohs(peer.sin_port);
+    }
+    return 0;
+}
+} // namespace
+#endif
 
 
 uint32_t g_SpectatorState;
@@ -105,6 +134,13 @@ void NetStru1::SendExistingPlayers(Player* player) {
 		if (p == player) {
 			continue;
 		}
+#ifdef A2SERVER_PATCH
+		// adm_invis hook (51C901): invisible GMs are hidden from the joining
+		// player's view of the world
+		if ((p->flags & GMF_INVISIBLE) == GMF_INVISIBLE) {
+			continue;
+		}
+#endif
 
 		PacketJoin& packet = PacketJoin::Inst;
 
@@ -654,6 +690,16 @@ void NetStru1::UpdateConnStats() {
 
 // 51E289
 void NetStru1::SendHatLobbyInfo(int32_t player_count, CString source, int32_t map_level, int32_t game_type, int32_t map_range) {
+#ifdef A2TANGAR_HAT
+	// imp_UpdateInfo hook (51E289): push server status over the HAT control
+	// layer instead of legacy 0xD2 HAT_LOBBY_INFO so HAT preserves SERVER_CAP_DETAILED_INFO.
+	if ((Config::ServerCaps & SVC_DETAILED_INFO) != 0) {
+		tangar_hat::NetHatUpdateInfo(static_cast<uint8_t>(player_count), static_cast<const char*>(source),
+		                             static_cast<uint8_t>(map_level), static_cast<uint8_t>(game_type),
+		                             static_cast<uint8_t>(map_range));
+		return;
+	}
+#endif
 	PacketJoin& pkt = PacketJoin::Inst;
 	pkt.id = HAT_LOBBY_INFO;
 	pkt.__as_dword = player_count | (map_level << 8) | (game_type << 16) | (map_range << 24);
@@ -771,18 +817,24 @@ void NetStru1::SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t
         if (unit->pOwner != player) {
             mask &= 0xc08000fb;
 
-            int32_t max_hp = unit->monster_info->Values()[0].health_max;
+#ifdef A2SERVER_PATCH
+            // fix_0051946B hook (51946B): unit->monster_info may be null on non-humanoid units.
+            if (unit->monster_info != nullptr && unit->monster_info->Values().GetSize() > 0)
+#endif
+            {
+                int32_t max_hp = unit->monster_info->Values()[0].health_max;
 
-            if (g_Server->multiplayer == 0) {
-                if (g_Server->difficulty == DIFFICULTY_EASY) {
-                    max_hp = (int32_t)((double)max_hp * 0.5);
-                } else if (g_Server->difficulty == DIFFICULTY_HARD) {
-                    max_hp = (int32_t)((double)max_hp * 1.5);
+                if (g_Server->multiplayer == 0) {
+                    if (g_Server->difficulty == DIFFICULTY_EASY) {
+                        max_hp = (int32_t)((double)max_hp * 0.5);
+                    } else if (g_Server->difficulty == DIFFICULTY_HARD) {
+                        max_hp = (int32_t)((double)max_hp * 1.5);
+                    }
                 }
-            }
 
-            if (unit->hp_max == max_hp && unit->typeId != 0x1A && unit->typeId != 0x1B) {
-                mask &= 0xc08000f3;
+                if (unit->hp_max == max_hp && unit->typeId != 0x1A && unit->typeId != 0x1B) {
+                    mask &= 0xc08000f3;
+                }
             }
         }
     } else { // Humanoid units
@@ -790,7 +842,14 @@ void NetStru1::SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t
             uint16_t tid = unit->typeId;
             if (tid < 0x21 || tid > 0x3F) {
                 mask &= 0xc0c000fb;
-            } else if (g_World != nullptr) {
+            }
+            #ifdef A2SERVER_PATCH
+            // bug_0001: unit->pOwner may be null here - skip the vision-share
+            // check (keep the full mask) instead of crashing
+            else if (g_World != nullptr && unit->pOwner != nullptr) {
+            #else
+            else if (g_World != nullptr) {
+            #endif
                 if ((g_World->diplomacy.diplomacy[unit->pOwner->player_id][player->player_id] & DIPLO_VISION_SHARE) == 0) {
                     mask &= 0xc0c000fb;
                 }
@@ -1056,7 +1115,11 @@ Packet* NetStru1::DecodePacket(uint8_t cmd, NetStru2* ns2) {
         break;
 
     case START_GAME: case REQUEST_SAVE_GAME: case REQUEST_LOAD_GAME: case HAT_JOIN_NAME: case HAT_SCORE_UPDATE: case PLAYER_ANNOUNCED:
+#if defined(A2CLIENT_PATCH) || defined(A2SERVER_PATCH)
+    case MAP_INFO: case 0: case HAT_LOGIN: case HAT_LOBBY_INFO: case HAT_CHAR_RETURN:
+#else
     case MAP_INFO: case HAT_CREDENTIALS: case HAT_LOGIN: case HAT_LOBBY_INFO: case HAT_CHAR_RETURN:
+#endif
         pkt = &PacketJoin::Inst;
         pkt->ReadFrom(ns2);
         break;
@@ -2187,7 +2250,11 @@ void CLlDriver::CloseTcpSocket(A2NetSock* sock) {
 
     sock->is_in_use = 0;
     if (sock->socket != INVALID_SOCKET) {
+#ifdef A2TANGAR_HAT
+        tangar_hat::CloseServerSocket(sock->socket);
+#else
         closesocket(sock->socket);
+#endif
         sock->socket = INVALID_SOCKET;
     }
 
@@ -2973,7 +3040,11 @@ void __cdecl CLlDriver::AcceptThreadTcp(void* context) {
     //522e8f
     CLlDriver* drv = (CLlDriver*)context;
 
+#if !defined(A2SERVER_PATCH) && !defined(A2CLIENT_PATCH)
+    // setthreadp hook (522EA1) / SYSTEM_setThreadPriority (client 51259D):
+    // patched server and client skip raising the accept thread's priority
     SetThreadPriority(GetCurrentThread(), THREAD_PRIORITY_ABOVE_NORMAL);
+#endif
 
     while (true) {
         if (drv->listen_socket.is_in_use != 1) {
@@ -3016,7 +3087,11 @@ void __cdecl CLlDriver::AcceptThreadTcp(void* context) {
             if (drv->listen_socket.is_in_use == 1 &&
                 FD_ISSET(drv->listen_socket.socket, &fd) &&
                 drv->RecvThreadTcp(&drv->listen_socket) == 0) {
+#ifdef A2TANGAR_HAT
+                tangar_hat::CloseServerSocket(drv->listen_socket.socket);
+#else
                 closesocket(drv->listen_socket.socket);
+#endif
                 drv->listen_socket.socket = INVALID_SOCKET;
             }
             continue;
@@ -3025,7 +3100,11 @@ void __cdecl CLlDriver::AcceptThreadTcp(void* context) {
         if (FD_ISSET(drv->listen_socket.socket, &fd)) {
             sockaddr_in newcon;
             int newconln = sizeof(newcon);
+#ifdef A2TANGAR_HAT
+            SOCKET nsock = tangar_hat::AcceptServerSocket(drv->listen_socket.socket, (sockaddr*)&newcon, &newconln);
+#else
             SOCKET nsock = accept(drv->listen_socket.socket, (sockaddr*)&newcon, &newconln);
+#endif
             if (nsock == INVALID_SOCKET) {
                 if (drv->listen_socket.is_in_use == 1) {
                     ReportWarning("CLlDriverAcceptThreadTcp().\nUnable to accept new connection.\n");
@@ -3034,7 +3113,11 @@ void __cdecl CLlDriver::AcceptThreadTcp(void* context) {
             }
             
             if (drv->num_connections >= drv->max_connections) {
+#ifdef A2TANGAR_HAT
+                tangar_hat::CloseServerSocket(nsock);
+#else
                 closesocket(nsock);
+#endif
                 ReportWarning("CLlDriverAcceptThreadTcp().\nClient connection refused.\n");
                 continue;
             }
@@ -3052,7 +3135,11 @@ void __cdecl CLlDriver::AcceptThreadTcp(void* context) {
             }
 
             if (idx == -1) {
+#ifdef A2TANGAR_HAT
+                tangar_hat::CloseServerSocket(nsock);
+#else
                 closesocket(nsock);
+#endif
                 ReportWarning("CLlDriverAcceptThreadTcp().\n No free slot.\n");
             } else {
                 A2NetSock* cs = drv->connection_sockets + idx;
@@ -3075,7 +3162,11 @@ void __cdecl CLlDriver::AcceptThreadTcp(void* context) {
             if (conn->is_in_use == 1 &&
                 FD_ISSET(conn->socket, &fd) &&
                 drv->RecvThreadTcp(conn) == 0) {
+#ifdef A2TANGAR_HAT
+                tangar_hat::CloseServerSocket(conn->socket);
+#else
                 closesocket(conn->socket);
+#endif
                 conn->socket = INVALID_SOCKET;
             }
         }
@@ -3105,8 +3196,20 @@ void __cdecl CLlDriver::SetSockOptions(SOCKET s, int enlinger) {
 
 int CLlDriver::RecvThreadTcp(A2NetSock* sock) {
     //522b95
+    // client: 5122d1
+#ifdef A2CLIENT_PATCH
+    static uint8_t databuf[51200];
+    int rsz = tangar_client::RecvClientFramed(sock->socket, reinterpret_cast<char*>(databuf), sizeof(databuf), 0);
+#elif defined(A2TANGAR_HAT)
+    uint8_t databuf[0x2000];
+    int rsz = tangar_hat::RecvServerFramed(sock->socket, reinterpret_cast<char*>(databuf), sizeof(databuf), 0);
+    if (rsz == -2) {
+        return 1;
+    }
+#else
     uint8_t databuf[0x2000];
     int rsz = recv(sock->socket, (char *)databuf, 0x2000, 0);
+#endif
     if (rsz == 0 || rsz == -1) {
         return 0;
     }
@@ -3155,6 +3258,20 @@ int CLlDriver::RecvThreadTcp(A2NetSock* sock) {
             if (cpysz == cpynum) {
                 sock->current_buffer->datasz = sock->current_buffer->pos;
                 XorData(sock->current_buffer->buf, sock->current_buffer->datasz);
+#if defined(A2TANGAR_HAT) || defined(A2CLIENT_PATCH)
+                {
+                    long peer_port = netlog_peer_port(sock->socket);
+#ifdef A2CLIENT
+                    netlog::frame(peer_port == 8000 ? "HAT->C" : "SRV->C", peer_port,
+                                  &sock->current_buffer->full_data,
+                                  (size_t)sock->current_buffer->datasz + 8, "rcv");
+#else
+                    netlog::frame(peer_port == 7999 ? "HAT->SRV" : "CLI->SRV", peer_port,
+                                  &sock->current_buffer->full_data,
+                                  (size_t)sock->current_buffer->datasz + 8, "rcv");
+#endif
+                }
+#endif
                 sock->manager->ReceiveData(sock->current_buffer);
                 sock->copy_num = 0;
                 sock->current_buffer = nullptr;
@@ -3348,7 +3465,11 @@ void __cdecl CLlDriver::RecvThreadDp(void* context) {
     //523b7a
     CLlDriver* drv = (CLlDriver*)context;
 
+#ifndef A2CLIENT_PATCH
+    // SYSTEM_setThreadPriority hook (client 51259D): patched client skips
+    // raising the recv thread priority
     SetThreadPriority(GetCurrentThread(), THREAD_PRIORITY_ABOVE_NORMAL);
+#endif
 
     HANDLE handles[2] = { drv->ev_close, drv->ev_create_player };
 
@@ -3848,9 +3969,23 @@ int CLlDriver::Connect(const char* name, CLlNetSession* session) {
 
 int CLlDriver::SendDataTcp(A2NetSock* sock, NetStru3* buffer) {
     //52394a
+    // client: 513005
     int len = buffer->datasz + 8;
     int sendlen = -1;
     if (sock->socket != INVALID_SOCKET) {
+#if defined(A2TANGAR_HAT) || defined(A2CLIENT_PATCH)
+        long peer_port = netlog_peer_port(sock->socket);
+#ifdef A2CLIENT
+        netlog::frame(peer_port == 8000 ? "C->HAT" : "C->SRV", peer_port,
+                      &buffer->full_data, len, "snd");
+#else
+        netlog::frame(peer_port == 7999 ? "SRV->HAT" : "SRV->CLI", peer_port,
+                      &buffer->full_data, len, "snd");
+#endif
+#endif
+#ifdef A2TANGAR_HAT
+        tangar_hat::FlushEnqueuedPackets(sock->socket);
+#endif
         sendlen = send(sock->socket, (char*)&buffer->full_data, len, 0);
     }
 
@@ -4495,6 +4630,9 @@ void NetStru1::SendHatJoinOk(int32_t a, int32_t b) {
     packet.param1 = a;
     packet.param2 = b;
     packet.to_player_id = 0;
+#if defined(A2TANGAR_HAT) || defined(A2CLIENT_PATCH)
+    netlog::logf("EVT", "HAT_JOIN_OK id1=%08X id2=%08X", (unsigned)a, (unsigned)b);
+#endif
     this->QueuePacketSend(&packet);
 }
 
@@ -4508,6 +4646,10 @@ void NetStru1::SendHatJoinFail(int32_t a, int32_t b, int32_t error_code) {
     *p++ = a;
     *p++ = b;
     *p = error_code;
+#if defined(A2TANGAR_HAT) || defined(A2CLIENT_PATCH)
+    netlog::logf("EVT", "HAT_JOIN_FAIL id1=%08X id2=%08X error=%d", (unsigned)a, (unsigned)b,
+                 error_code);
+#endif
     this->QueuePacketSend(&packet);
 }
 
@@ -4932,7 +5074,11 @@ void NetStru1::WriteStatsLog(CString fname) { //51f124
 }
 
 void NetStru1::SendHatCredentials(const CString& login, const CString& password, uint32_t flags) { //51d8d6
+    // client: 50e48b
     PacketJoin* pkt = &PacketJoin::Inst;
+#ifdef A2CLIENT_PATCH
+    tangar_client::BuildAuthorizationPacket(pkt, login, password, flags);
+#else
     CString namepwd = login + password;
 
     strcpy(pkt->name, namepwd);
@@ -4944,6 +5090,7 @@ void NetStru1::SendHatCredentials(const CString& login, const CString& password,
     pkt->color = flags;
     pkt->flags = 7;
     pkt->to_player_id = 0;
+#endif
 
     this->QueuePacketSend(pkt);
 }

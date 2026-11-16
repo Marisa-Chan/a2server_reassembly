@@ -38,6 +38,40 @@
 
 #include "patch/allowed_picture.h"
 #include "patch/flags.h"
+#include "patch/scanrange.h"
+
+#if defined(A2SERVER_PATCH) || defined(A2TANGAR_HAT)
+#include "patch/kick_char.h"
+#include "patch/netlog.h"
+#include "patch/tangar_log.h"
+#include "patch/config_new.h"
+#include "patch/player_info.h"
+#include "patch/tangar_utils.h"
+#endif
+
+#ifdef A2TANGAR_HAT
+#include "patch/player_settings.h"
+#include <map>
+#include <vector>
+#include "patch/reborn.h"
+#include "patch/server_state.h"
+#include "patch/gm_noclip.h"
+#include "patch/multiplayer_shop.h"
+#include "patch/antiinvis.h"
+#include "patch/solo.h"
+#include "patch/hat_net.h"
+#include "patch/screenshots.h"
+#include "patch/forbidden_items.h"
+#include "patch/quest_filters.h"
+#include "patch/pvm2.h"
+#include "patch/gm_commands.h"
+#include "patch/crash_filter.h"
+#include "patch/ctl_handle.h"
+#include "quest.h"
+#include "quest_map.h"
+#include "main_window.h"
+#include "vis_core.h"
+#endif
 
 // ---- Global variables used by JoinPlayer ----
 UnitList* g_ServerUnits;  // pending-unit list
@@ -141,6 +175,24 @@ SrvStru1 SrvStru1::Instance; //6cf390
 
 // 4f2c26
 Server::~Server() {
+#ifdef A2TANGAR_HAT
+    // imp_ServerClosed callback (4F2FC3); the HAT NetCmd_Shutdown /
+    // NetHat::Connected reset lands with the HAT net layer
+    Config::ExitingCleanly = true;
+    Config::MapLoaded = false;
+    {
+        CString title;
+        title.Format("Server ID %u (map not loaded)", Config::ServerID);
+        if (CWnd* main_wnd = AfxGetMainWnd()) {
+            main_wnd->SetWindowTextA(title);
+        }
+    }
+    Printf("Server closed.");
+    log_format("\n");
+    if (!tangar_hat::NetCmdShutdown()) {
+        // stay marked disconnected; the pump will not reconnect after shutdown
+    }
+#endif
     g_NetStru1_main.SendBarePacket(SERVER_SHUTDOWN, nullptr);
     g_NetStru1_main.SendPacket_64(this->tick | 1, 0);
     g_NetStru1_main.SendAllData();
@@ -190,6 +242,15 @@ Server::~Server() {
         delete this->script_settings;
         this->script_settings = nullptr;
     }
+
+#ifdef A2TANGAR_HAT
+    // server_closed hook (4F2FD3): flag MainWindow::shutdown_pending when SVF_ONEMAP is set.
+    if ((Config::ServerFlags & SVF_ONEMAP) != 0) {
+        if (MainWindow* main_wnd = static_cast<MainWindow*>(AfxGetMainWnd())) {
+            main_wnd->shutdown_pending = 1;
+        }
+    }
+#endif
 
     LogMessage("Server closed\n");
 }
@@ -423,6 +484,20 @@ int Srv1::LoadMap(CString map_name) {
             error = "Unknown error";
             break;
         }
+#ifdef A2TANGAR_HAT
+        // imp_MapLoadError callback (59B969)
+        {
+            CString what;
+            what.Format("Error: map \"%s\" not loaded (%s)", (const char*)map_name, (const char*)error);
+            Printf("%s", (const char*)what);
+            Config::MapLoaded = false;
+            CString title;
+            title.Format("Server ID %u (map not loaded)", Config::ServerID);
+            if (CWnd* main_wnd = AfxGetMainWnd()) {
+                main_wnd->SetWindowTextA(title);
+            }
+        }
+#endif
         LogMessage("Map error :" + error + ", in " + map_name);
 
         if (alm != nullptr) {
@@ -518,6 +593,10 @@ void Srv1::CreateBuildings(MapAlm* alm) {
         int16_t type_id = bd->type_id;
 
         if (shop_type_ids.count(type_id) > 0) {
+#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+            // imp_LoadShopData hook (59C66E): create main shop plus 16 per-player custom shop clones.
+            building = CreateMultiShops(bd, alm);
+#else
             TokenPos pos(bd->x, bd->y, MapStuff_Instance);
             Shop* shop = new Shop(bd->type_id, &pos);
             building = shop;
@@ -536,6 +615,7 @@ void Srv1::CreateBuildings(MapAlm* alm) {
                 }
                 break;
             }
+#endif
         } else if (inn_type_ids.count(type_id) > 0) {
             TokenPos pos(bd->x, bd->y, MapStuff_Instance);
             Inn* inn = new Inn(bd->type_id, &pos);
@@ -610,6 +690,10 @@ void Srv1::CreateBuildings(MapAlm* alm) {
 
 // 59FC97
 void Srv1::SpawnRandomSacks(int count) {
+#ifdef A2TANGAR_HAT
+    (void)count;
+    return;
+#else
     uint8_t x_range = (uint8_t)(MapStuff_Instance->map_width - 20);
     uint8_t y_range = (uint8_t)(MapStuff_Instance->map_height - 20);
     if (count == 0) {
@@ -630,6 +714,7 @@ void Srv1::SpawnRandomSacks(int count) {
         TokenPos pos(x, y, MapStuff_Instance);
         g_Server->srv_stru1->sack_list->DumpInventoryAt(&pos, inventory, gold, 0);
     }
+#endif
 }
 
 // 59BEDB
@@ -1037,9 +1122,13 @@ void Srv1::LoadTriggers(MapAlm* alm, int flag) {
     int action_idx = 0;
     while (instance_iter != nullptr) {
         MapLogicData* action_data = alm->logic_instances.GetNext(instance_iter);
-        TriggerAction& action = g_World->trigger_actions->ElementAt(action_idx);
 
         if (action_data->type_id < 0x10002) {
+            // The retail release build indexed the array for every instance
+            // (including type_id >= 0x10002) and silently read out of bounds
+            // once all slots were consumed; take the reference only for the
+            // instances that actually use it.
+            TriggerAction& action = g_World->trigger_actions->ElementAt(action_idx);
             int has_unit = 0;
             int has_group = 0;
             int has_player = 0;
@@ -1611,6 +1700,15 @@ void Server::SendWorldState(Player* player, int32_t enter_world) {
 
                 // Copy Self's diplomacy column into the new player's row (slots 2..15).
                 for (int slot = 2; slot <= 15; ++slot) {
+#ifdef A2SERVER_PATCH
+                    // adm_dip hook (4FFD77): a GM with the AI-ally flag joins
+                    // allied with every AI slot (retail copy skipped for it)
+                    if ((player->flags & GMF_AI_ALLY) == GMF_AI_ALLY) {
+                        g_World->diplomacy.diplomacy[player->player_id][slot] = 2;
+                        g_World->diplomacy.diplomacy[slot][player->player_id] = 2;
+                        continue;
+                    }
+#endif
                     g_World->diplomacy.diplomacy[slot][player_id] = g_World->diplomacy.diplomacy[slot][self_id];
                     g_World->diplomacy.diplomacy[self_id][slot] = g_World->diplomacy.diplomacy[player_id][slot];
                 }
@@ -1624,6 +1722,35 @@ void Server::SendWorldState(Player* player, int32_t enter_world) {
                     if (p->is_ai != 0 || p_id == player_id) {
                         continue;
                     }
+
+#ifdef A2TANGAR_HAT
+                    // new_player_diplomacy hook (4FFEA6): apply the per-player
+                    // default diplomacy (both directions) and the GM players-ally
+                    // override; when handled, the retail zeroing and vision clears
+                    // are skipped
+                    {
+                        bool handled = false;
+                        settings::PlayerSettings* ps = settings::Find((const char*)player->name);
+                        if (ps != nullptr && ps->default_diplomacy != 0) {
+                            g_World->diplomacy.diplomacy[player->player_id][p_id] = ps->default_diplomacy;
+                            handled = true;
+                        }
+                        settings::PlayerSettings* ps2 = settings::Find((const char*)p->name);
+                        if (ps2 != nullptr && ps2->default_diplomacy != 0) {
+                            g_World->diplomacy.diplomacy[p_id][player->player_id] = ps2->default_diplomacy;
+                            handled = true;
+                        }
+                        auto gm_ally = [](Player* pl) { return (pl->flags & GMF_ANY) == GMF_ANY && (pl->flags & GMF_PLAYERS_ALLY) == GMF_PLAYERS_ALLY; };
+                        if (gm_ally(player) || gm_ally(p)) {
+                            g_World->diplomacy.diplomacy[player->player_id][p_id] = 2;
+                            g_World->diplomacy.diplomacy[p_id][player->player_id] = 2;
+                            handled = true;
+                        }
+                        if (handled) {
+                            continue;
+                        }
+                    }
+#endif
 
                     // Co-op: clear mutual alliance bytes.
                     if (g_ServerConfig.gameType == GAME_TYPE_COOPERATIVE) {
@@ -1872,7 +1999,14 @@ void Server::AssignPlayerSlot(Player* player, int32_t slot_data) {
         }
     }
 
+#ifdef A2SERVER_PATCH
+    // imp_LogIP hook (4FF783): include the client address in the join log
+    NetStru2* join_client = g_NetStru1_main.GetClientByPlayerID(player->player_id);
+    LogMessage("Player " + player->name + " has joined the game (from: "
+               + CString(join_client != nullptr ? (const char*)join_client->buf : "n/a") + ")");
+#else
     LogMessage("Player " + player->name + " has joined the game");
+#endif
 
     player->AddMoney(0, 1);
 
@@ -2008,7 +2142,7 @@ int Server::JoinPlayer(uint32_t pkt_word0, uint32_t pkt_word1,
 
         player->name = name;
 
-        #ifdef A2SERVER_TANGAR_HAT
+        #ifdef A2TANGAR_HAT
         player->money = 0;
         #else
         player->money = 1000;
@@ -2031,6 +2165,41 @@ int Server::JoinPlayer(uint32_t pkt_word0, uint32_t pkt_word1,
         return 5;
     }
 
+#ifdef A2SERVER_PATCH
+    // imp_MapClosed (4FE2D0): full GMs bypass SVF_CLOSED and map-level range checks;
+    // non-GMs are rejected when SVF_CLOSED is set.
+    if ((player->flags & GMF_ANY) != GMF_ANY) {
+        if ((Config::ServerFlags & SVF_CLOSED) != 0) {
+            Printf("Player %s login %s has been rejected (Map closed)", (const char*)name, (const char*)login);
+            if (player != nullptr) {
+                delete player;
+                player = nullptr;
+            }
+            if (Block != nullptr) {
+                delete[] Block;
+            }
+            return 1;
+        }
+
+        // Map level range checks:
+        // - test_if_valid_injection (4FE2ED): only enforces "Too strong for this map"
+        //   when SVF_SOFTCORE is set (normal/hardcore allows entering lower-tier maps).
+        // - allow_low_skill_enter_high_tier_maps (4FE632): skips "Too weak for this map".
+        if (g_ServerConfig.gameType == GAME_TYPE_COOPERATIVE && g_ServerConfig.map_range_check != 0) {
+            if ((Config::ServerFlags & SVF_SOFTCORE) != 0 && this->MapLevel < player->min_server_level) {
+                LogMessage("Player " + name + " login " + login + " has been rejected (Too strong for this map)");
+                if (player != nullptr) {
+                    delete player;
+                    player = nullptr;
+                }
+                if (Block != nullptr) {
+                    delete[] Block;
+                }
+                return 6;
+            }
+        }
+    }
+#else
     // Map level range checks.
     if (g_ServerConfig.gameType == GAME_TYPE_COOPERATIVE && g_ServerConfig.map_range_check != 0) {
         if (this->MapLevel < player->min_server_level) {
@@ -2057,6 +2226,7 @@ int Server::JoinPlayer(uint32_t pkt_word0, uint32_t pkt_word1,
             return 7;
         }
     }
+#endif
 
     // Normalize the player's stored name (var_34 / var_14 split).
     // Re-read name from the character data (player->name at +0x18, which was set by packet processing)
@@ -2227,17 +2397,36 @@ int Server::JoinPlayer(uint32_t pkt_word0, uint32_t pkt_word1,
     // Server state update.
     this->UpdateHatAnnounce();
 
+#ifdef A2SERVER_PATCH
+    // imp_PIadd hook (4FF418): track the joined player in the Tangar
+    // per-player info (mute state etc.)
+    PI_Create(player);
+#endif
+
     return 0;
 }
 
 void Server::SignalGameStart(int32_t start_kind) {
     //4F94C0
+#ifdef A2SERVER_PATCH
+    // SRV_EX.xck (4F94E5): save and kick all connected human players instead of sending GAME_START.
+    LogMessage("Server::SignalGameStart\n");
+    if ((g_ServerConfig.gameType == GAME_TYPE_DEATHMATCH) || (g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY)) {
+        g_NetStru1_main.SendTeamState(0);
+    }
+    int32_t was_started = this->game_started;
+    this->game_started = 1;
+    if (was_started == 0) {
+        TangarKickAll(nullptr, false);
+    }
+#else
     LogMessage("Server::SignalGameStart\n");
     if ((g_ServerConfig.gameType == GAME_TYPE_DEATHMATCH) || (g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY)) {
         g_NetStru1_main.SendTeamState(0);
     }
     g_NetStru1_main.SendInfoPacket(GAME_START, start_kind, 0, nullptr);
     this->game_started = 1;
+#endif
 }
 
 
@@ -2306,15 +2495,20 @@ Human* Server::CreatePlayerCharacter(Player* player, uint8_t body, uint8_t react
 
     Human* unit = new Human(CString(prefix) + filename, 1, nullptr);
 
-    #ifdef A2SERVER_PATCH
-    if (body < 15 || body > 43 || reaction < 15 || reaction > 43 || mind < 15 || mind > 43 || spirit < 15 || spirit > 43) {
-        unit->body = unit->reaction = unit->mind = unit->spirit = 25;
-    }
-    #endif
-
     // Validate stat budget: sum of point costs must not exceed 140
     int32_t budget = 140 - StatLevelPoints(body) - StatLevelPoints(reaction) - StatLevelPoints(mind) - StatLevelPoints(spirit);
-    if (budget >= 0) {
+#ifdef A2TANGAR_HAT
+    // skip_new_character_stats hook (501049 -> 50100B): set the stats to 1.
+    (void)budget;
+    unit->body = unit->reaction = unit->mind = unit->spirit = 1;
+#else
+    bool stats_valid = (budget >= 0);
+#ifdef A2SERVER_PATCH
+    if (body < 15 || body > 43 || reaction < 15 || reaction > 43 || mind < 15 || mind > 43 || spirit < 15 || spirit > 43) {
+        stats_valid = false;
+    }
+#endif
+    if (stats_valid) {
         unit->body     = body;
         unit->reaction = reaction;
         unit->mind     = mind;
@@ -2322,6 +2516,7 @@ Human* Server::CreatePlayerCharacter(Player* player, uint8_t body, uint8_t react
     } else {
         unit->body = unit->reaction = unit->mind = unit->spirit = 25;
     }
+#endif
 
     // Configure skills, then trigger stat-recalc `VMethod18()`.
     #ifdef A2SERVER_PATCH
@@ -2331,7 +2526,7 @@ Human* Server::CreatePlayerCharacter(Player* player, uint8_t body, uint8_t react
     #endif
 
     int32_t main_skill_level = 20;
-    #ifdef A2SERVER_TANGAR_HAT
+    #ifdef A2TANGAR_HAT
     main_skill_level = 0;
     #endif
     unit->InitCreationSkills(main_skill, main_skill_level);
@@ -2589,8 +2784,1051 @@ Human* Server::LoadCharacter(void* data, int32_t size, Player* player) {
 //   #event <id>:          fire an in-game script event
 // 502D0B
 void Server::CheatCommand(Player* player, CString cheat_string) {
-    LogMessage("Server::CheatCommand: player " + player->name + " sent cheat command: " + cheat_string);
+#ifdef A2TANGAR_HAT
+    if (player != nullptr) {
+        LogMessage("Server::CheatCommand: player " + player->name + " sent cheat command: " + cheat_string);
+    } else {
+        LogMessage("Server::CheatCommand: <server> sent cheat command: " + cheat_string);
+    }
 
+    // Selectively reconciled commands from the manager's cheat engine.
+    // Player-facing settings commands come first (available to everyone).
+    {
+        CString trimmed(cheat_string);
+        trimmed.TrimLeft();
+        if (trimmed.IsEmpty() || trimmed[0] != '#') {
+            return;
+        }
+
+        CString lowered(trimmed);
+        lowered.MakeLower();
+
+        if (lowered.Find("#mapinfo") == 0) {
+            // Tangar #mapinfo: current map, elapsed and total time (available to
+            // everyone; the console path of the DLL falls back to Printf).
+            uint32_t tme = (uint32_t)(g_Server->map_elapsed_time2 / 1000);
+            uint32_t tm_h = tme / 3600;
+            uint32_t tm_m = tme / 60 - tm_h * 60;
+            uint32_t tm_s = tme - (tm_h * 3600 + tm_m * 60);
+            uint32_t total_min = g_ServerConfig.map_durations[(int)g_ServerConfig.current_map_index];
+            tme = total_min * 60;
+            uint32_t tt_h = tme / 3600;
+            uint32_t tt_m = tme / 60 - tt_h * 60;
+            uint32_t tt_s = tme - (tt_h * 3600 + tt_m * 60);
+
+            CString time_left = "infinite";
+            if (!Config::Suspended && total_min != 0x7FFFFFFF) {
+                time_left.Format("%u:%02u:%02u", tt_h, tt_m, tt_s);
+            }
+
+            if (player != nullptr) {
+                CString msg;
+                msg.Format("map: \"%s\" in \"%s\", time elapsed: %u:%02u:%02u, time total: %s",
+                           Config::CurrentMapTitle.c_str(), Config::CurrentMapName.c_str(), tm_h, tm_m, tm_s, (const char*)time_left);
+                g_NetStru1_main.AnnouncePlayerName(msg, player);
+            } else {
+                Printf("Map: \"%s\" in \"%s\", time elapsed: %u:%02u:%02u, time total: %s",
+                       Config::CurrentMapTitle.c_str(), Config::CurrentMapName.c_str(), tm_h, tm_m, tm_s, (const char*)time_left);
+            }
+            return;
+        }
+
+        if (lowered == "#reborn") {
+            if (player == nullptr) {
+                Printf("This command may not be used from the console.");
+                return;
+            }
+            // Tangar #reborn: reborn / reclass / ascend readiness report
+            // (reborn_readiness.cpp).
+            reborn::RebornReadinessInfo(Config::ServerID, player, false);
+            return;
+        }
+        if (lowered == "#hell") {
+            if (player == nullptr) {
+                Printf("This command may not be used from the console.");
+                return;
+            }
+            // Tangar #hell: force the hell-circle readiness report.
+            reborn::RebornReadinessInfo(Config::ServerID, player, true);
+            return;
+        }
+        if (lowered == "#vote_map" || lowered.Find("#vote_map ") == 0) {
+            if (player == nullptr) {
+                Printf("This command may not be used from the console.");
+                return;
+            }
+            // Tangar #vote_map (ProcessCheat_VoteMap): players vote for the next
+            // map; the leading map is rotated into the slot after the current one.
+            // Only active on the QUEST_T1 server.
+            bool vote_applied = false;
+            if (Config::ServerID == QUEST_T1) {
+                CStringArray& map_files = g_ServerConfig.map_names;
+                CDWordArray& map_times = g_ServerConfig.map_durations;
+                int32_t map_index = (int32_t)g_ServerConfig.current_map_index;
+
+                if (map_index == map_files.GetSize() - 1) {
+                    g_NetStru1_main.AnnouncePlayerName("This is the last map in the pool, voting is closed. The next map will be chosen randomly.", player);
+                } else if (map_index == map_files.GetSize() - 2) {
+                    g_NetStru1_main.AnnouncePlayerName("There is only one map left in the pool, voting is closed.", player);
+                } else {
+                    // Map basenames for easier matching.
+                    std::vector<CString> all_map_names;
+                    for (int32_t i = 0; i < map_files.GetSize(); i++) {
+                        CString name = map_files[i];
+                        int32_t slash = name.ReverseFind('\\');
+                        int32_t slash2 = name.ReverseFind('/');
+                        if (slash2 > slash) {
+                            slash = slash2;
+                        }
+                        if (slash >= 0) {
+                            name = name.Mid(slash + 1);
+                        }
+                        all_map_names.push_back(name);
+                    }
+
+                    CString args = cheat_string.Mid(9);
+                    args.TrimLeft();
+                    args.TrimRight();
+
+                    settings::PlayerSettings* player_settings = settings::FindOrCreate((const char*)player->name);
+
+                    if (args.GetLength() > 0) {
+                        std::vector<CString> matching_maps;
+                        for (int32_t i = map_index + 1; i < map_files.GetSize(); i++) {
+                            if (all_map_names[i].Find((const char*)args) >= 0) {
+                                matching_maps.push_back(all_map_names[i]);
+                            }
+                        }
+
+                        if (matching_maps.size() == 0) {
+                            CString m;
+                            m.Format("Map '%s' is not available for selection", (const char*)args);
+                            g_NetStru1_main.AnnouncePlayerName(m, player);
+                        } else if (matching_maps.size() > 1) {
+                            CString names;
+                            for (size_t i = 0; i < matching_maps.size(); i++) {
+                                if (names.GetLength() > 0) {
+                                    names += ", ";
+                                }
+                                names += matching_maps[i];
+                            }
+                            CString m;
+                            m.Format("Multiple maps match '%s': %s", (const char*)args, (const char*)names);
+                            g_NetStru1_main.AnnouncePlayerName(m, player);
+                        } else {
+                            CString m;
+                            m.Format("You voted for map '%s'", (const char*)matching_maps[0]);
+                            g_NetStru1_main.AnnouncePlayerName(m, player);
+                            player_settings->map_vote = (const char*)matching_maps[0];
+                            player_settings->last_modified = time(nullptr);
+                        }
+                    }
+
+                    // Current votes.
+                    std::map<std::string, int32_t> current_votes;
+                    settings::ForEachReadonly([&current_votes](const std::string& name, settings::PlayerSettings* ps) {
+                        (void)name;
+                        if (!ps->map_vote.empty()) {
+                            current_votes[ps->map_vote]++;
+                        }
+                    });
+
+                    if (args.GetLength() == 0) {
+                        // No vote cast: show the current tally.
+                        for (auto vote_it = current_votes.begin(); vote_it != current_votes.end(); ++vote_it) {
+                            CString m;
+                            m.Format("Map '%s' has %d votes", vote_it->first.c_str(), vote_it->second);
+                            g_NetStru1_main.AnnouncePlayerName(m, player);
+                        }
+                    } else {
+                        // Which map is the most voted now? Ties cancel out.
+                        int32_t most_votes = -1;
+                        std::string next_map;
+                        for (auto vote_it = current_votes.begin(); vote_it != current_votes.end(); ++vote_it) {
+                            if (vote_it->second == most_votes) {
+                                next_map = "";
+                            } else if (vote_it->second > most_votes) {
+                                most_votes = vote_it->second;
+                                next_map = vote_it->first;
+                            }
+                        }
+
+                        int32_t next_map_index = -1;
+                        if (!next_map.empty()) {
+                            for (int32_t i = 0; i < map_files.GetSize(); i++) {
+                                if (strcmp((const char*)all_map_names[i], next_map.c_str()) == 0) {
+                                    next_map_index = i;
+                                }
+                            }
+
+                            if (next_map_index != -1 && next_map_index > map_index + 1) {
+                                // Rotate names and durations so the voted map follows
+                                // the current one (std::rotate(begin, middle, end)).
+                                CString chosen_name = map_files[next_map_index];
+                                uint32_t chosen_duration = map_times[next_map_index];
+                                for (int32_t i = next_map_index; i > map_index + 1; i--) {
+                                    map_files[i] = map_files[i - 1];
+                                    map_times[i] = map_times[i - 1];
+                                }
+                                map_files[map_index + 1] = chosen_name;
+                                map_times[map_index + 1] = (int32_t)chosen_duration;
+                                vote_applied = true;
+                            } else if (next_map_index != -1) {
+                                CString m;
+                                m.Format("The next map will be '%s' with %d vote(s).", next_map.c_str(), most_votes);
+                                g_NetStru1_main.AnnouncePlayerName(m, player);
+                            }
+                        }
+                    }
+                }
+            }
+            if (vote_applied) {
+                server_state.ThrottledSave(); // Map order has changed, save it.
+            }
+            return;
+        }
+
+        if (lowered == "#autobuff" || lowered.Find("#autobuff ") == 0 || lowered == "#ab" || lowered.Find("#ab ") == 0) {
+            if (player == nullptr) {
+                Printf("This command may not be used from the console.");
+                return;
+            }
+            CString args = trimmed.Mid(lowered.Find("#autobuff") == 0 ? 9 : 3);
+            args.TrimLeft();
+            args.MakeLower();
+            // ProcessCheat_Autobuff from the manager: toggle one spell in the
+            // player's persisted autobuff mask (prefix match on the name)
+            settings::PlayerSettings* player_settings = settings::FindOrCreate((const char*)player->name);
+            static const struct { const char* name; uint32_t spell_number; } autobuff_spells[] = {
+                {"heal", 0x18},
+                {"haste", 0x15},
+                {"bless", 0x14},
+                {"shield", 0x1B},
+                {"invisibility", 0x0C},
+                {"fire protection", 0x04},
+                {"water protection", 0x08},
+                {"air protection", 0x0D},
+                {"earth protection", 0x13},
+            };
+
+            if (args.GetLength() == 0) {
+                player_settings->autobuff_mask = 0;
+                player_settings->last_modified = time(nullptr);
+                g_NetStru1_main.AnnouncePlayerName("Autobuff mask reset, all spells are allowed", player);
+            } else {
+                const char* command = (const char*)args;
+                if (strcmp(command, "h") == 0) {
+                    command = "heal"; // the only disambiguation needed
+                }
+                bool matched = false;
+                for (const auto& spell : autobuff_spells) {
+                    if (strncmp(spell.name, command, strlen(command)) == 0) {
+                        uint32_t mask = 1u << spell.spell_number;
+                        player_settings->autobuff_mask ^= mask;
+                        player_settings->last_modified = time(nullptr);
+                        CString reply;
+                        if ((player_settings->autobuff_mask & mask) != 0) {
+                            reply.Format("Filtered out *%s*, you will not cast it during autobuff", spell.name);
+                        } else {
+                            reply.Format("You will cast *%s* during autobuff normally", spell.name);
+                        }
+                        g_NetStru1_main.AnnouncePlayerName(reply, player);
+                        matched = true;
+                        break;
+                    }
+                }
+                if (!matched) {
+                    CString reply;
+                    reply.Format("'%s' does not match any spells. Autobuff mask left unchanged.", command);
+                    g_NetStru1_main.AnnouncePlayerName(reply, player);
+                }
+            }
+            server_state.ThrottledSave(); // Save autobuff settings.
+            return;
+        }
+
+        // ProcessCheat_Diplomacy from the manager: the player's default
+        // diplomacy toward newly met players (persisted).
+        auto describe_diplomacy = [](int diplomacy) -> CString {
+            CString description;
+            if (diplomacy & 1) {
+                description += "war";
+            }
+            if (diplomacy & 2) {
+                description += description.IsEmpty() ? "" : "+";
+                description += "ally";
+            }
+            if (diplomacy & 4) {
+                description += description.IsEmpty() ? "" : "+";
+                description += "silent";
+            }
+            if (diplomacy & 16) {
+                description += description.IsEmpty() ? "" : "+";
+                description += "vision";
+            }
+            if (description.IsEmpty()) {
+                description = "nothing";
+            }
+            return description;
+        };
+
+        bool is_diplomacy = false;
+        CString diplomacy_args;
+        if (lowered == "#diplomacy" || lowered.Find("#diplomacy ") == 0) {
+            is_diplomacy = true;
+            diplomacy_args = trimmed.Mid(10);
+        } else if (lowered == "#fren" || lowered.Find("#fren ") == 0) { // easter-egg alias
+            is_diplomacy = true;
+            diplomacy_args = "ally+vision";
+        }
+        if (is_diplomacy) {
+            if (player == nullptr) {
+                Printf("This command may not be used from the console.");
+                return;
+            }
+            diplomacy_args.TrimLeft();
+            diplomacy_args.TrimRight();
+            diplomacy_args.MakeLower();
+            settings::PlayerSettings* player_settings = settings::FindOrCreate((const char*)player->name);
+
+            if (diplomacy_args.IsEmpty()) {
+                CString reply;
+                reply.Format("Your default diplomacy is: %s", (const char*)describe_diplomacy(player_settings->default_diplomacy));
+                g_NetStru1_main.AnnouncePlayerName(reply, player);
+                return;
+            }
+
+            int new_diplomacy = 0;
+            if (CheckInt((const char*)diplomacy_args)) {
+                new_diplomacy = StrToUInt((const char*)diplomacy_args) & 0x17;
+            } else {
+                for (const auto& part : Explode((const char*)diplomacy_args, "+")) {
+                    std::string mode = Trim(part);
+                    if (mode == "war") {
+                        new_diplomacy |= 1;
+                    } else if (mode == "ally") {
+                        new_diplomacy |= 2;
+                    } else if (mode == "silent") {
+                        new_diplomacy |= 4;
+                    } else if (mode == "vision") {
+                        new_diplomacy |= 16;
+                    } else if (mode == "nothing") {
+                        // Pass.
+                    } else {
+                        CString reply;
+                        reply.Format("Unknown diplomacy mode '%s'. Supported values: nothing, war, ally, silent, vision. Example: 'ally+vision'.", mode.c_str());
+                        g_NetStru1_main.AnnouncePlayerName(reply, player);
+                        return;
+                    }
+                }
+            }
+
+            if (new_diplomacy & 2) {
+                new_diplomacy &= ~1; // Can't be ally and at war.
+            }
+
+            player_settings->default_diplomacy = new_diplomacy;
+            player_settings->last_modified = time(nullptr);
+            CString reply;
+            reply.Format("Default diplomacy set to: %s", (const char*)describe_diplomacy(player_settings->default_diplomacy));
+            g_NetStru1_main.AnnouncePlayerName(reply, player);
+            server_state.ThrottledSave(); // Save diplomacy settings.
+            return;
+        }
+
+        // #quest_state/#qs and #quest/#q (cheat_codes_new.cpp:178-241, quests.cpp:144-160).
+        CString cmd_token = lowered;
+        CString cmd_rest;
+        int first_space = trimmed.Find(' ');
+        if (first_space >= 0) {
+            cmd_token = lowered.Left(first_space);
+            cmd_rest = trimmed.Mid(first_space + 1);
+        }
+
+        if (cmd_token == "#quest_state" || cmd_token == "#qs") {
+            if (player == nullptr) {
+                return;
+            }
+            std::vector<std::string> messages = tangar_quests::QuestStateNMonsters(player);
+            for (size_t i = 0; i < messages.size(); ++i) {
+                g_NetStru1_main.AnnouncePlayerName(messages[i].c_str(), player);
+            }
+            return;
+        }
+        if (cmd_token == "#quest" || cmd_token == "#q") {
+            if (player == nullptr) {
+                return;
+            }
+            if (!Config::AllowQuestFilters) {
+                g_NetStru1_main.AnnouncePlayerName("Quest filtering is disabled", player);
+                return;
+            }
+            CString args_str = cmd_rest;
+            args_str.TrimLeft();
+            args_str.MakeLower(); // NormalizeMobName (lower + '-'->'_')
+            args_str.Replace('-', '_');
+
+            CString filter = args_str;
+            int mob_count = 0;
+            int spacepos = filter.Find(' ');
+            if (spacepos >= 0) {
+                CString raw_count = filter.Mid(spacepos + 1);
+                raw_count.TrimLeft();
+                filter = filter.Left(spacepos);
+                if (CheckInt((const char*)raw_count)) {
+                    mob_count = (int)StrToUInt((const char*)raw_count);
+                } else {
+                    CString warn;
+                    warn.Format("'%s' is not an integer, ignored", (const char*)raw_count);
+                    g_NetStru1_main.AnnouncePlayerName(warn, player);
+                }
+            }
+
+            if (filter.GetLength() > 0) {
+                if (tangar_quests::CountMatchingMobs((const char*)filter) == 0) {
+                    CString nomatch;
+                    nomatch.Format("'%s' does not match any mobs, quest filter unchanged", (const char*)filter);
+                    g_NetStru1_main.AnnouncePlayerName(nomatch, player);
+                    return;
+                }
+            }
+
+            settings::PlayerSettings* player_settings = settings::FindOrCreate((const char*)player->name);
+            player_settings->quest_filter = (const char*)filter;
+            player_settings->quest_mob_count = mob_count;
+            player_settings->last_modified = time(nullptr);
+
+            CString reply2;
+            if (filter.GetLength() > 0 && mob_count > 0) {
+                reply2.Format("Quest filter set to '%s', mob count set to %d", (const char*)filter, mob_count);
+            } else if (filter.GetLength() > 0) {
+                reply2.Format("Quest filter set to '%s'", (const char*)filter);
+            } else {
+                reply2 = "Quest filter reset";
+            }
+            g_NetStru1_main.AnnouncePlayerName(reply2, player);
+            return;
+        }
+
+        // Admin commands (GMF-gated), reconciled from the manager's cheat
+        // engine. Every GMF_* constant in flags.h carries GMF_ANY (0x3F000000)
+        // in its upper byte, so strip to the low 24 permission bits first.
+        uint32_t tangar_rights = 0;
+        if (player == nullptr || tangar_ctl::IsFullRightsOverride()) {
+            tangar_rights = 0xFFFFFFFFu;
+        } else if (player->is_ai == 0 && (player->flags & 0xFF000000u) == GMF_ANY) {
+            tangar_rights = player->flags & 0x00FFFFFFu;
+        }
+        if ((Config::CheatsAdditionalRights & 0xFF000000u) == GMF_ANY ||
+            (Config::CheatsAdditionalRights & 0xFF000000u) == 0) {
+            tangar_rights |= (Config::CheatsAdditionalRights & 0x00FFFFFFu);
+        }
+        auto has_gm = [tangar_rights](uint32_t flag) -> bool {
+            return (tangar_rights & (flag & 0x00FFFFFFu)) != 0;
+        };
+
+        if (has_gm(GMF_CMD_CHAT)) {
+            if (trimmed.Find("#@") == 0) {
+                CString body = trimmed.Mid(2);
+                CString what;
+                if (player == nullptr) {
+                    what.Format("[broadcast] <server%u>: %s", Config::ServerID, (const char*)body);
+                } else {
+                    what.Format("[broadcast] %s: %s", (const char*)player->name, (const char*)body);
+                }
+                tangar_hat::NetCmdBroadcast((const char*)what);
+                return;
+            } else if (trimmed.Find("#!") == 0) {
+                CString body = trimmed.Mid(2);
+                CString msg;
+                if (player == nullptr) {
+                    msg.Format("<server>: %s", (const char*)body);
+                } else {
+                    msg.Format("%s: %s", (const char*)player->name, (const char*)body);
+                }
+                g_NetStru1_main.AnnouncePlayerName(msg, nullptr);
+                return;
+            }
+        }
+
+        if (has_gm(GMF_CMD_INFO)) {
+            if (cmd_token == "#locate") {
+                CString target_name = cmd_rest;
+                target_name.TrimLeft();
+                Player* target = FindPlayerByNickname((const char*)target_name);
+                if (target != nullptr && target->main_unit != nullptr && target->main_unit->position != nullptr) {
+                    uint32_t p_x = target->main_unit->position->x;
+                    uint32_t p_y = target->main_unit->position->y;
+                    if (player == nullptr) {
+                        Printf("%s (%u:%u)", (const char*)target->name, p_x, p_y);
+                    } else {
+                        CString msg;
+                        msg.Format("%s (%u:%u)", (const char*)target->name, p_x, p_y);
+                        g_NetStru1_main.AnnouncePlayerName(msg, player);
+                    }
+                }
+                return;
+            } else if (cmd_token == "#info") {
+                CString target_name = cmd_rest;
+                target_name.TrimLeft();
+                Player* target = FindPlayerByNickname((const char*)target_name);
+                if (target == nullptr || target->main_unit == nullptr) {
+                    return;
+                }
+
+                const char* p_charname = (const char*)target->name;
+                const char* p_logname = (const char*)target->login;
+                NetStru2* netinf = g_NetStru1_main.GetClientByPlayerID(target->player_id);
+                CString p_state;
+                if (netinf != nullptr) {
+                    p_state.Format("connected (%s)", (const char*)netinf->buf);
+                } else {
+                    p_state = "disconnected";
+                }
+
+                Human* unit = target->main_unit;
+                uint16_t p_body = unit->body;
+                uint16_t p_reaction = unit->reaction;
+                uint16_t p_mind = unit->mind;
+                uint16_t p_spirit = unit->spirit;
+                const char* p_strong = tangar_pvm2::CheckStrong(unit) ? "yes" : "no";
+
+                if (player == nullptr) {
+                    Printf("nickname: \"%s\", login: \"%s\", state: %s, stats: [%u,%u,%u,%u], strong: %s",
+                           p_charname, p_logname, (const char*)p_state,
+                           (unsigned)p_body, (unsigned)p_reaction, (unsigned)p_mind, (unsigned)p_spirit, p_strong);
+                } else {
+                    CString msg;
+                    msg.Format("nickname: \"%s\", login: \"%s\", state: %s, stats: [%u,%u,%u,%u], strong: %s\n",
+                               p_charname, p_logname, (const char*)p_state,
+                               (unsigned)p_body, (unsigned)p_reaction, (unsigned)p_mind, (unsigned)p_spirit, p_strong);
+                    g_NetStru1_main.AnnouncePlayerName(msg, player);
+                }
+                return;
+            } else if (cmd_token == "#scan") {
+                // Tangar #scan (GMF_CMD_INFO-gated in the manager): dump the
+                // issuing player's scanrange vision grid into the log.
+                if (player != nullptr && player->main_unit != nullptr) {
+                    tangar_scanrange::SR_DumpToFile(player);
+                }
+                return;
+            } else if (lowered.Find("#show map") == 0) {
+                if (player == nullptr) {
+                    Printf("This command may not be used from the console.");
+                    return;
+                }
+                g_NetStru1_main.SendInfoPacket(MAP_REVEAL, 1, 0, player);
+                return;
+            } else if (lowered.Find("#hide map") == 0) {
+                if (player == nullptr) {
+                    Printf("This command may not be used from the console.");
+                    return;
+                }
+                g_NetStru1_main.SendInfoPacket(MAP_REVEAL, 0, 0, player);
+                return;
+            }
+        }
+        if (has_gm(GMF_CMD_KILL)) {
+            auto target_god_protected = [player, &has_gm](Player* target) -> bool {
+                if (target == nullptr || target->is_ai != 0 || target == player) {
+                    return false;
+                }
+                if ((target->flags & 0xFF000000u) != GMF_ANY) {
+                    return false;
+                }
+                uint32_t tri = target->flags & 0x00FFFFFFu;
+                bool target_god = (tri & (GMF_GODMODE & 0x00FFFFFFu)) != 0;
+                bool target_god_admin = (tri & (GMF_GODMODE_ADMIN & 0x00FFFFFFu)) != 0;
+                return (target_god && !has_gm(GMF_GODMODE_ADMIN)) || target_god_admin;
+            };
+
+            if (cmd_token == "#kill") {
+                CString target_name = cmd_rest;
+                target_name.TrimLeft();
+                Player* target = FindPlayerByNickname((const char*)target_name);
+                if (target != nullptr && !target_god_protected(target)) {
+                    tangar_gm::KillPlayerUnits(target, player);
+                }
+                return;
+            } else if (cmd_token == "#murder") {
+                CString target_name = cmd_rest;
+                target_name.TrimLeft();
+                Player* target = FindPlayerByNickname((const char*)target_name);
+                if (target != nullptr && !target_god_protected(target)) {
+                    tangar_gm::KillPlayerUnits(target, player);
+                    if (target->main_unit != nullptr && target != player) {
+                        tangar_gm::DropEverything(target->main_unit, true);
+                    }
+                }
+                return;
+            } else if (cmd_token == "#killall") {
+                tangar_gm::KillAllUnits(player, false);
+                return;
+            } else if (cmd_token == "#killai") {
+                tangar_gm::KillAllUnits(player, true);
+                return;
+            }
+        }
+        if (has_gm(GMF_CMD_PICKUP)) {
+            if (cmd_token == "#pickup") {
+                if (player == nullptr) {
+                    Printf("This command may not be used from the console.");
+                    return;
+                }
+                CString pickup_arg = cmd_rest;
+                pickup_arg.TrimLeft();
+                pickup_arg.TrimRight();
+                pickup_arg.MakeLower();
+                if ((pickup_arg.IsEmpty() || pickup_arg.Find("all") == 0) && player->main_unit != nullptr &&
+                    this->srv_stru1 != nullptr && this->srv_stru1->sack_list != nullptr) {
+                    SackList* sack_list = this->srv_stru1->sack_list;
+                    POSITION pos = sack_list->list.GetHeadPosition();
+                    while (pos != nullptr) {
+                        POSITION cur_pos = pos;
+                        Sack* sack = sack_list->list.GetNext(pos);
+                        this->PrepareSackPickup(sack);
+                        MapStuff_Instance->RemoveSack(sack);
+                        g_Server->srv_stru1->sack_list->list.RemoveAt(cur_pos);
+                        player->main_unit->PickUpSack(sack);
+                    }
+                    LogMessage("All sacks picked up");
+                }
+                return;
+            }
+        }
+        if (has_gm(GMF_CMD_MODIFY) || has_gm(GMF_CMD_SUMMON)) {
+            auto find_player_any = [](const char* nick) -> Player* {
+                Player* p = FindPlayerByNickname(nick);
+                if (p == nullptr && g_PlayersList != nullptr) {
+                    p = g_PlayersList->FindByName(CString(nick));
+                }
+                return p;
+            };
+
+            if (cmd_token == "#own") {
+                if (player == nullptr) {
+                    Printf("This command may not be used from the console.");
+                    return;
+                }
+                CString from_name = cmd_rest;
+                from_name.TrimLeft();
+                Player* from = find_player_any((const char*)from_name);
+                if (from != nullptr) {
+                    tangar_gm::OwnUnits(from, player);
+                }
+                return;
+            } else if (cmd_token == "#own_for") {
+                auto reply_own_err = [player](const std::string& err) {
+                    const char* usage = "Usage: #own_for <player-from> <player-to>";
+                    if (player != nullptr) {
+                        g_NetStru1_main.AnnouncePlayerName(err.c_str(), player);
+                        g_NetStru1_main.AnnouncePlayerName(usage, player);
+                    } else {
+                        Printf("%s", err.c_str());
+                        Printf("%s", usage);
+                    }
+                };
+
+                std::vector<std::string> args;
+                if (!tangar_gm::ParseSpaceDelimited((const char*)cmd_rest, args) || args.size() != 2) {
+                    reply_own_err("Invalid arguments");
+                    return;
+                }
+                Player* from = find_player_any(args[0].c_str());
+                if (from == nullptr) {
+                    reply_own_err("Invalid arguments : no such player - " + args[0]);
+                    return;
+                }
+                Player* to = find_player_any(args[1].c_str());
+                if (to == nullptr) {
+                    reply_own_err("Invalid arguments : no such player - " + args[1]);
+                    return;
+                }
+                tangar_gm::OwnUnits(from, to);
+                return;
+            }
+        }
+        if (has_gm(GMF_CMD_SUMMON)) {
+            if (cmd_token == "#summon") {
+                if (player == nullptr) {
+                    Printf("This command may not be used from the console.");
+                    return;
+                }
+                if (player->main_unit != nullptr) {
+                    std::string command = Trim((const char*)cmd_rest);
+                    if (command.empty()) {
+                        return;
+                    }
+                    uint32_t count = 1;
+                    size_t fsp = command.find_first_of(' ');
+                    if (fsp != std::string::npos) {
+                        std::string intstr = command.substr(0, fsp);
+                        if (CheckInt(intstr)) {
+                            command = TrimLeft(command.substr(fsp + 1));
+                            count = StrToUInt(intstr);
+                            if (count == 0) {
+                                count = 1;
+                            }
+                        }
+                    }
+                    if (command.empty()) {
+                        return;
+                    }
+                    CString unit_name(command.c_str());
+                    for (uint32_t i = 0; i < count; i++) {
+                        Unit* unit = this->SummonUnit(&unit_name, player->main_unit, 0);
+                        if (unit != nullptr) {
+                            g_NetStru1_main.SendUnitUpdate(unit, nullptr, 0xFFFFFFFFu, 0xFFB, 0, 0);
+                        }
+                    }
+                }
+                return;
+            }
+        }
+        if (has_gm(GMF_CMD_CREATE)) {
+            if (cmd_token == "#create") {
+                if (player == nullptr) {
+                    Printf("This command may not be used from the console.");
+                    return;
+                }
+                tangar_gm::ExecuteCreateCommand(player, (const char*)cmd_rest);
+                return;
+            }
+        }
+        if (has_gm(GMF_CMD_MODIFY)) {
+            if (cmd_token == "#modify") {
+                tangar_gm::ExecuteModifyCommand(player, (const char*)cmd_rest);
+                return;
+            }
+        }
+        if (has_gm(GMF_CMD_KICK)) {
+            if (lowered == "#kickme") {
+                if (player == nullptr) {
+                    Printf("This command may not be used from the console.");
+                } else {
+                    KickPlayer(player, true);
+                }
+                return;
+            } else if (lowered == "#kickall") {
+                TangarKickAll(nullptr, false);
+                return;
+            } else if (lowered.Find("#kick_silent ") == 0) {
+                CString target_name = trimmed.Mid(12);
+                target_name.TrimLeft();
+                Player* target = FindPlayerByNickname((const char*)target_name);
+                if (target != nullptr) {
+                    KickPlayer(target, true);
+                }
+                return;
+            } else if (lowered.Find("#disconnect ") == 0) {
+                CString target_name = trimmed.Mid(11);
+                target_name.TrimLeft();
+                Player* target = FindPlayerByNickname((const char*)target_name);
+                if (target != nullptr) {
+                    DisconnectPlayer(target);
+                }
+                return;
+            } else if (lowered.Find("#kick ") == 0) {
+                // The manager's #kick performs the real kick (the baseline
+                // variant only announces).
+                CString target_name = trimmed.Mid(6);
+                target_name.TrimLeft();
+                Player* target = FindPlayerByNickname((const char*)target_name);
+                if (target != nullptr) {
+                    KickPlayer(target, false);
+                }
+                return;
+            }
+        }
+
+        if (has_gm(GMF_CMD_SCREENSHOT)) {
+            if (lowered == "#screenshot" || lowered.Find("#screenshot ") == 0) {
+                auto reply_ss = [player](const CString& msg) {
+                    if (player != nullptr) {
+                        g_NetStru1_main.AnnouncePlayerName(msg, player);
+                    } else {
+                        Printf("%s", (const char*)msg);
+                    }
+                };
+                CString target_name = trimmed.Mid(11);
+                target_name.TrimLeft();
+                Player* target = FindPlayerByNickname((const char*)target_name);
+                if (target == nullptr) {
+                    CString msg;
+                    msg.Format("screenshot: Player %s not found", (const char*)target_name);
+                    reply_ss(msg);
+                    return;
+                }
+
+                PlayerInfo* target_pi = PI_Get(target);
+                if (target_pi == nullptr) {
+                    CString msg;
+                    msg.Format("screenshot: Player %s has no playerinfo!", (const char*)target->name);
+                    reply_ss(msg);
+                    return;
+                }
+
+                SOCKET target_sock = INVALID_SOCKET;
+                if (g_CLlDriver.connection_sockets != nullptr) {
+                    for (uint32_t i = 0; i < g_CLlDriver.max_connections; i++) {
+                        A2NetSock* conn = g_CLlDriver.connection_sockets + i;
+                        if (conn->is_in_use != 0 && conn->manager != nullptr &&
+                            conn->manager->player_id == target->player_id &&
+                            conn->socket != INVALID_SOCKET && conn->socket != 0) {
+                            target_sock = conn->socket;
+                            break;
+                        }
+                    }
+                }
+                if (target_sock == INVALID_SOCKET) {
+                    CString msg;
+                    msg.Format("screenshot: Player %s has no socket (AI or disconnected?)", (const char*)target->name);
+                    reply_ss(msg);
+                    return;
+                }
+
+                uint32_t uid = ClientScreenshot_Enqueue(player, target);
+                tangar_hat::Packet cmd;
+                cmd.WriteUInt8(0x01);
+                cmd.WriteString((const char*)target->login);
+                cmd.WriteUInt32(uid);
+                target_pi->EnqueuedPackets.push_back(cmd);
+
+                CString msg;
+                msg.Format("screenshot: Request sent to player %s", (const char*)target->name);
+                reply_ss(msg);
+                return;
+            }
+        }
+
+        // Map / server admin commands (GMF_CMD_SET gated), from the
+        // manager's cheat engine (zxmgr::NextMap/PrevMap + timer helpers).
+        if (has_gm(GMF_CMD_SET)) {
+            if (lowered == "#nextmap") {
+                g_ServerConfig.current_map_index += 1;
+                if (g_ServerConfig.current_map_index >= (uint32_t)g_ServerConfig.map_durations.GetSize()) {
+                    g_ServerConfig.current_map_index = 0;
+                }
+                this->SignalGameStart(0);
+                return;
+            } else if (lowered == "#prevmap") {
+                if (g_ServerConfig.current_map_index > 0) {
+                    g_ServerConfig.current_map_index -= 1;
+                } else {
+                    int32_t count = (int32_t)g_ServerConfig.map_durations.GetSize();
+                    if (count > 0) {
+                        g_ServerConfig.current_map_index = (uint32_t)(count - 1);
+                    } else {
+                        g_ServerConfig.current_map_index -= 1; // matches the DLL fallthrough
+                    }
+                }
+                this->SignalGameStart(0);
+                return;
+            } else if (lowered == "#resetmap") {
+                if (Config::Suspended) {
+                    g_ServerConfig.map_durations[g_ServerConfig.current_map_index] = Config::OriginalTime;
+                    Config::Suspended = false;
+                }
+                // zxmgr::ResetMap: close the server screen (MainWindow+0x3D0),
+                // which reloads the current map
+                MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+                if (main_wnd != nullptr && main_wnd->vis_serverscreen != nullptr) {
+                    main_wnd->vis_serverscreen->MsgProc(VIS_MSG_HIDE_SCREEN, 0, 0);
+                }
+                return;
+            } else if (lowered == "#shutdown") {
+                TerminateProcess(GetCurrentProcess(), 100);
+                return;
+            } else if (lowered == "#suspend") {
+                if (!Config::Suspended) {
+                    Config::OriginalTime = g_ServerConfig.map_durations[g_ServerConfig.current_map_index];
+                    g_ServerConfig.map_durations[g_ServerConfig.current_map_index] = 0x7FFFFFFF;
+                    if (player == nullptr) {
+                        Printf("Map timer suspended.");
+                    } else {
+                        g_NetStru1_main.AnnouncePlayerName("suspend: map timer suspended.", player);
+                    }
+                } else {
+                    bool change_map = false;
+                    uint32_t cur_time = this->map_elapsed_time2 / 60000;
+                    if (cur_time >= Config::OriginalTime) {
+                        change_map = true;
+                    }
+
+                    g_ServerConfig.map_durations[g_ServerConfig.current_map_index] = Config::OriginalTime;
+                    Config::OriginalTime = 0;
+
+                    if (player == nullptr) {
+                        Printf("Map timer released.");
+                    } else {
+                        g_NetStru1_main.AnnouncePlayerName("suspend: map timer released.", player);
+                    }
+
+                    if (change_map) {
+                        Printf("Note: map timer beyond total map time. Changing map...");
+                        g_ServerConfig.current_map_index += 1;
+                        if (g_ServerConfig.current_map_index >= (uint32_t)g_ServerConfig.map_durations.GetSize()) {
+                            g_ServerConfig.current_map_index = 0;
+                        }
+                        this->SignalGameStart(0);
+                    }
+                }
+                Config::Suspended = !Config::Suspended;
+                return;
+            } else if (lowered.Find("#speed") == 0) {
+                CString speed_str = trimmed.Mid(6);
+                speed_str.TrimLeft();
+                speed_str.TrimRight();
+                if (CheckInt((const char*)speed_str)) {
+                    uint32_t speed = StrToUInt((const char*)speed_str);
+                    if (speed == 0) {
+                        speed = 1;
+                    }
+                    if (speed > 8) {
+                        speed = 8;
+                    }
+                    g_ServerConfig.game_speed = speed;
+                    g_NetStru1_main.SendGameInfo(speed, nullptr);
+                }
+                return;
+            } else if (lowered.Find("#set mode") == 0) {
+                CString mode_str = trimmed.Mid(9);
+                mode_str.TrimLeft();
+                if (mode_str.IsEmpty()) {
+                    if (player == nullptr) {
+                        Printf("Mode is set to %08X.", Config::ServerFlags);
+                    } else {
+                        CString reply;
+                        reply.Format("mode is set to %08X", Config::ServerFlags);
+                        g_NetStru1_main.AnnouncePlayerName(reply, player);
+                    }
+                } else {
+                    int32_t add_flags = 0;
+                    if (mode_str[0] == '+') {
+                        add_flags = 1;
+                        mode_str = mode_str.Mid(1);
+                    } else if (mode_str[0] == '-') {
+                        add_flags = -1;
+                        mode_str = mode_str.Mid(1);
+                    } else if (mode_str[0] != '=') {
+                        return;
+                    }
+                    if (mode_str.IsEmpty() || mode_str[0] != '=') {
+                        return;
+                    }
+                    mode_str = mode_str.Mid(1); // the '='
+                    mode_str.TrimLeft();
+
+                    uint32_t old_mode = Config::ServerFlags;
+                    uint32_t flags = ParseFlags((const char*)mode_str);
+                    if (add_flags == -1) {
+                        Config::ServerFlags &= ~flags;
+                    } else if (add_flags == 1) {
+                        Config::ServerFlags |= flags;
+                    } else {
+                        Config::ServerFlags = flags;
+                    }
+
+                    if (old_mode != Config::ServerFlags) {
+                        if (player == nullptr) {
+                            Printf("Mode is set to %08X (was: %08X).", Config::ServerFlags, old_mode);
+                        } else {
+                            CString reply;
+                            reply.Format("mode is set to %08X (was: %08X)", Config::ServerFlags, old_mode);
+                            g_NetStru1_main.AnnouncePlayerName(reply, player);
+                        }
+                        if (Config::ServerFlags & SVF_SOFTCORE) {
+                            MAX_SKILL = 110;
+                            Config::ServerCaps |= SVC_SOFTCORE;
+                        } else {
+                            MAX_SKILL = 100;
+                            Config::ServerCaps &= ~SVC_SOFTCORE;
+                        }
+                    } else {
+                        if (player == nullptr) {
+                            Printf("Mode is set to %08X.", Config::ServerFlags);
+                        } else {
+                            CString reply;
+                            reply.Format("mode is set to %08X", Config::ServerFlags);
+                            g_NetStru1_main.AnnouncePlayerName(reply, player);
+                        }
+                    }
+                }
+                return;
+            } else if (lowered == "#mapwide" || lowered.Find("#mapwide ") == 0) {
+                // Tangar #mapwide (GMF_CMD_SET-gated in the manager): rain an area
+                // spell over a 51x51 cell grid centered on the caster. Only a few
+                // effect ids are allowed; anything else is ignored.
+                if (player == nullptr) {
+                    Printf("This command may not be used from the console.");
+                    return;
+                }
+                uint32_t what = 7; // blizzard
+                {
+                    CString arg = trimmed.Mid(8);
+                    arg.TrimLeft();
+                    arg.TrimRight();
+                    if (arg.GetLength() > 0 && CheckInt((const char*)arg)) {
+                        what = StrToUInt((const char*)arg);
+                    }
+                }
+                switch (what) {
+                case 7:  // blizzard
+                case 14: // darkness
+                case 15: // light
+                case 6:  // poison cloud
+                case 9:  // acid steam
+                case 2:  // fire ball
+                case 3:  // fire wall
+                    break;
+                default: // any other spell is forbidden
+                    return;
+                }
+
+                Human* unit = player->main_unit;
+                if (unit == nullptr) {
+                    return;
+                }
+                if (unit->position == nullptr) {
+                    return;
+                }
+                uint32_t p_x = unit->position->x;
+                uint32_t p_y = unit->position->y;
+                int32_t p_mapwidth = MapStuff_Instance->map_width;
+                int32_t p_mapheight = MapStuff_Instance->map_height;
+
+                int32_t start_x = (int32_t)p_x - 25;
+                int32_t start_y = (int32_t)p_y - 25;
+
+                for (int32_t i = start_x; i <= start_x + 51; i++) {
+                    for (int32_t j = start_y; j <= start_y + 51; j++) {
+                        if (i < 8 || i > p_mapwidth - 8 || j < 8 || j > p_mapheight - 8) {
+                            continue;
+                        }
+                        // zxmgr::CastPointEffect: fresh Spell with the effect id,
+                        // executed at the point with no target.
+                        Spell spell((uint8_t)what);
+                        spell.ExecuteAtArea(unit, nullptr, (int8_t)i, (int8_t)j);
+                    }
+                }
+                return;
+            } else if (lowered == "#inn") {
+                // Tangar #inn (GMF_CMD_SET-gated): debug dump of equipped weapon item id.
+                if (player == nullptr) {
+                    return;
+                }
+                Human* unit = player->main_unit;
+                if (unit == nullptr || unit->weapon == nullptr) {
+                    return;
+                }
+                CString msg;
+                msg.Format("%04x", unit->weapon->item_id);
+                g_NetStru1_main.AnnouncePlayerName(msg, nullptr);
+                return;
+            }
+        }
+    }
+#else
     if (this->multiplayer != 0) {
         // Non-admin commands.
         NetStru2* ns2 = g_NetStru1_main.GetClientByPlayerID(player->player_id);
@@ -2894,26 +4132,29 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
         int32_t event_id = atoi(cheat_string);
         g_NetStru1_main.SendGameEvent(player, event_id, 0);
     }
+#endif
 }
 
 Shop g_DefaultShop;     // 6D10B8
 
 // 502C50
 Shop* Server::FindShopAt(TokenPos* pos) {
+    Shop* shop = nullptr;
     if (this->use_default_shop != 0) {
-        return &g_DefaultShop;
+        shop = &g_DefaultShop;
+    } else if (this->srv_stru1->building_list != nullptr) {
+        Building* building = this->srv_stru1->building_list->FindNearby(pos);
+        if (building != nullptr && building->IsKindOf(RUNTIME_CLASS(Shop))) {
+            shop = static_cast<Shop*>(building);
+        }
     }
-    if (this->srv_stru1->building_list == nullptr) {
-        return nullptr;
+#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+    // imp_EnterCustomShop hook (502C50): substitute per-player .alm shop clone.
+    if (this->use_default_shop == 0) {
+        return CheckReplacementBuilding(shop, pos);
     }
-    Building* building = this->srv_stru1->building_list->FindNearby(pos);
-    if (building == nullptr) {
-        return nullptr;
-    }
-    if (!building->IsKindOf(RUNTIME_CLASS(Shop))) {
-        return nullptr;
-    }
-    return static_cast<Shop*>(building);
+#endif
+    return shop;
 }
 
 const char* PacketType(Packet *pkt) {
@@ -2956,7 +4197,75 @@ void CheckPacketType(Packet* pkt, const char* want_type) {
     }
 }
 
+#if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
+// Ported from srvmgr/srvmgr.cpp:1192 (check_sig_c_s).
+static bool IsAllowedClientPacketId(uint8_t c) {
+    static const uint8_t kAllowedClientPackets[] = {
+        0x02, 0x04, 0x05, 0x07, 0x08, 0x09, 0x12, 0x13, 0x14, 0x16,
+        0x17, 0x18, 0x19, 0x1A, 0x1B, 0x1C, 0x1D, 0x1E, 0x1F, 0x21,
+        0x22, 0x23, 0x24, 0x25, 0x26, 0x32, 0x33, 0x34, 0x35, 0x36,
+        0x38, 0x39, 0x3A, 0x3B, 0x3E, 0x3F, 0x45, 0x46, 0x48, 0x49,
+        0x4A, 0x4B, 0x4C, 0x4D, 0x91, 0xAE, 0xBE, 0xC1, 0xD0, 0x64,
+    };
+    for (size_t i = 0; i < sizeof(kAllowedClientPackets); ++i) {
+        if (c == kAllowedClientPackets[i]) {
+            return true;
+        }
+    }
+    return false;
+}
+#endif
+
 void Server::ProcessClientPacket(Packet* pkt) {
+#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+    // remember_a2server hook (504A99)
+    RememberA2Server(this);
+    if (pkt != nullptr) {
+        netlog::logf("CLI-DISP", "player=%d id=0x%02X %s", pkt->from_player_id, pkt->id,
+                     netlog::pkt_name(pkt->id));
+    }
+#endif
+#if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
+    // packet_recvd hook (504ABC): validate client->server opcode and ENTER_GAME color slot.
+    if (pkt == nullptr) {
+        return;
+    }
+    if (!IsAllowedClientPacketId(pkt->id)) {
+        Player* bad_player = g_PlayersList ? g_PlayersList->FindById(pkt->from_player_id) : nullptr;
+        if (bad_player != nullptr) {
+#ifdef A2TANGAR_HAT
+            Printf("Invalid packet '%.2X' from '%s'", static_cast<unsigned int>(pkt->id), (const char*)bad_player->login);
+#else
+            CString inv_msg;
+            inv_msg.Format("Invalid packet '%.2X' from '%s'", static_cast<unsigned int>(pkt->id), (const char*)bad_player->login);
+            LogMessage(inv_msg);
+#endif
+            NetStru2* ns2 = g_NetStru1_main.GetClientByPlayerID(bad_player->player_id);
+            if (ns2 != nullptr && ns2->is_local_player == 0) {
+                g_NetStru1_main.AnnouncePlayer(bad_player);
+            }
+        }
+        return;
+    }
+    if (pkt->id == ENTER_GAME) {
+        PacketEnterGame* enter_pkt = reinterpret_cast<PacketEnterGame*>(pkt);
+        uint8_t color_slot = static_cast<uint8_t>((enter_pkt->value3 >> 8) & 0xFF);
+        if (color_slot >= 0x11 && color_slot != 0xE1) {
+            enter_pkt->value3 &= ~0xFF00u;
+            Player* crasher = g_PlayersList ? g_PlayersList->FindById(pkt->from_player_id) : nullptr;
+            if (crasher != nullptr) {
+#ifdef A2TANGAR_HAT
+                Printf("Player %s tried to use color crash bug", (const char*)crasher->name);
+#else
+                CString crash_msg;
+                crash_msg.Format("Player %s tried to use color crash bug", (const char*)crasher->name);
+                LogMessage(crash_msg);
+#endif
+            }
+        }
+    }
+#endif
+
     PacketGroupOrder* packet_order = reinterpret_cast<PacketGroupOrder*>(pkt);
     CString message;
     void* vtable = *reinterpret_cast<void**>(pkt);
@@ -2970,9 +4279,15 @@ void Server::ProcessClientPacket(Packet* pkt) {
         if (!g_World) {
             return;
         }
+#if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
+        if (packet_order->count == 0 || packet_order->count > 0xFD) {
+            return;
+        }
+#else
         if (packet_order->count == 0) {
             return;
         }
+#endif
 
         Unit* unit = this->FindPlayerUnit(packet_order->from_player_id, packet_order->entries[0]);
         if (!unit) {
@@ -3009,6 +4324,11 @@ void Server::ProcessClientPacket(Packet* pkt) {
 
         Spell* cast_spell = nullptr;
         if (pkt->id == GROUP_CAST_UNIT || pkt->id == GROUP_CAST_POS) {
+#if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
+            if (packet_order->slot >= BOOK_POS_TO_SPELL_ID.size()) {
+                return;
+            }
+#endif
             uint8_t spell_id = BOOK_POS_TO_SPELL_ID[packet_order->slot];
             packet_order->slot = spell_id;
             // Find hero unit in group that matches the spell type
@@ -3057,6 +4377,12 @@ void Server::ProcessClientPacket(Packet* pkt) {
             player->ResetAfkTimer();
             break;
         case GROUP_ATTACK: // move to building?
+#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+            // stop_unit_attack hook (505563)
+            if (StopUnitAttack(player, target)) {
+                break;
+            }
+#endif
             if (g_ServerConfig.gameType != GAME_TYPE_TEAMPLAY || g_PlayersList->AreTeamsStarted() != 0) {
                 g_World->GroupAttackCommand(group, static_cast<Unit*>(target));
                 player->ResetAfkTimer();
@@ -3088,6 +4414,12 @@ void Server::ProcessClientPacket(Packet* pkt) {
             }
             break;
         case GROUP_CAST_UNIT: // cast at unit/building?
+#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+            // stop_mage_cast hook (5055FD)
+            if (StopMageCast(player, target)) {
+                break;
+            }
+#endif
             if (g_ServerConfig.gameType != GAME_TYPE_TEAMPLAY || g_PlayersList->AreTeamsStarted() != 0) {
                 g_World->GroupCastAtUnitCommand(group, static_cast<Unit*>(target), cast_spell);
                 player->ResetAfkTimer();
@@ -3119,6 +4451,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
             break;
         case GROUP_ENTER_BUILDING:
             CheckPacketType(pkt, "PacketGroupOrder");
+            // enter_b hook (505353): no-op trampoline in srvmgr; ResetAfkTimer runs below.
             if (g_ServerConfig.gameType != GAME_TYPE_TEAMPLAY || g_PlayersList->AreTeamsStarted() != 0) {
                 player->ResetAfkTimer();
                 auto* building = this->srv_stru1->building_list->FindById(packet_order->param);
@@ -3134,6 +4467,13 @@ void Server::ProcessClientPacket(Packet* pkt) {
         case SCROLL_CAST_UNIT: // Cast point spell with a scroll.
         case SCROLL_CAST_POS: // Cast area spell with a scroll.
             CheckPacketType(pkt, "PacketGroupOrder");
+#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+            // stop_unit_cast hook (50564D): runs before TakeItemAt so blocked
+            // scroll casts never consume the scroll from the bag.
+            if (StopUnitCast(player, target)) {
+                break;
+            }
+#endif
             if (g_ServerConfig.gameType != GAME_TYPE_TEAMPLAY || g_PlayersList->AreTeamsStarted() != 0) {
                 player->ResetAfkTimer();
                 auto* item = player->main_unit->inventory->TakeItemAt(packet_order->slot, 1);
@@ -3141,6 +4481,21 @@ void Server::ProcessClientPacket(Packet* pkt) {
                     break;
                 }
 
+#ifdef A2TANGAR_HAT
+                // fix_scroll_burn hook (5056E1): only warriors may cast from
+                // scrolls, and prevented casts put the item back instead of
+                // burning it.
+                // TODO: peek an item and don't take it in the first place if it's bad food. Concurrent inventory manipulation might kill the server.
+                {
+                    Effect* head_eff = item->_effects.GetHead();
+                    if (!tangar_items::IsScroll(item) || head_eff == nullptr || head_eff->effect_id != 0x29 ||
+                        (player->main_unit->unit_attrs & 4) != 0) {
+                        player->main_unit->inventory->PutItemIntoBag(packet_order->slot, item);
+                        g_NetStru1_main.SendUnitUpdate(player->main_unit, player, 0xFFFFFFFF, EQUIP_SLOTS_ALL, 0, 0);
+                        break;
+                    }
+                }
+#endif
                 Effect* eff = item->_effects.GetHead();
                 if (eff && eff->effect_id == 0x29) {
                     player->main_unit->some_item = item;
@@ -3166,8 +4521,31 @@ void Server::ProcessClientPacket(Packet* pkt) {
             break;
         case GROUP_STOP_AFK:
             g_World->GroupStopCommand(group);
-            if (g_ServerConfig.gameType == GAME_TYPE_COOPERATIVE) {
+            if (player && g_ServerConfig.gameType == GAME_TYPE_COOPERATIVE) {
+#ifdef A2TANGAR_HAT
+                // camp hook (50512E, superseding SRV_CMP.xck): forbid camping from inside buildings.
+                if ((unit->unit_attrs & 8) == 0) {
+                    player->StartAfkTimer();
+                    if (Config::LogMode & SVL_CAMPING) {
+                        if (Player* p = g_PlayersList->FindById(packet_order->from_player_id)) {
+                            Printf("Player %s initiated camping.", (const char*)p->name);
+                        }
+                    }
+                } else {
+                    if (Config::LogMode & SVL_CAMPING) {
+                        if (Player* p = g_PlayersList->FindById(packet_order->from_player_id)) {
+                            Printf("Player %s tried to camp from building.", (const char*)p->name);
+                        }
+                    }
+                }
+#elif defined(A2SERVER_PATCH)
+                // SRV_CMP.xck (505158 -> 50411E): forbid camping while phased out in a building.
+                if ((unit->unit_attrs & 8) == 0) {
+                    player->StartAfkTimer();
+                }
+#else
                 player->StartAfkTimer();
+#endif
             }
             break;
         default:
@@ -3270,6 +4648,13 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 break;
             }
 
+#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+            // choose_drop_item hook (50597C): prevent giga/pure players from dropping items onto the ground.
+            if (ChooseDropItem(from_type, to_type, human)) {
+                break;
+            }
+#endif
+
             // TRANSFER_SRC_SACK: pickup sack from ground.
             if (from_type == TRANSFER_SRC_SACK) {
                 Sack* sack = MapStuff_Instance->GetSackAtPos(human->position);
@@ -3333,6 +4718,16 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 break;
             }
 
+#ifdef A2TANGAR_HAT
+            // dont_eat_bad_food hook (505BDF): forbidden items moved from the bag onto the character are forced back into the bag.
+            // TODO: peek an item and don't take it in the first place if it's bad food. Concurrent inventory manipulation might kill the server.
+            if (from_type == TRANSFER_SRC_BAG && to_type == TRANSFER_DST_EQUIP && !tangar_items::CanEat(human, item)) {
+                human->inventory->PutItemIntoBag(packet_transfer->param1, item);
+                g_NetStru1_main.SendUnitUpdate(human, human->pOwner, 0xFFFFFFFF, EQUIP_SLOTS_ALL, 0, 0);
+                break;
+            }
+#endif
+
             if (to_type == TRANSFER_DST_EQUIP) {
                 // Equip item.
                 human->inventory->default_position = packet_transfer->param1;
@@ -3373,8 +4768,16 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 int dy = std::abs((int)human->position->GetY() - (int)drop_y);
                 if (dx <= 2 && dy <= 2) {
                     TokenPos new_pos(drop_x, drop_y, MapStuff_Instance);
+#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+                    // drop_item_under hook (505E9C)
+                    PoisonStapleCell(&new_pos);
+#endif
                     this->srv_stru1->sack_list->DropInventoryAt(&new_pos, sack_inv, 0, 1);
                 } else {
+#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+                    // drop_item_to_another hook (505EBE)
+                    PoisonStapleCell(human->position);
+#endif
                     this->srv_stru1->sack_list->DropInventoryAt(human->position, sack_inv, 0, 1);
                 }
                 human->AddCarriedWeight(0);
@@ -3412,6 +4815,13 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 break;
             }
 
+#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+            // drop_gold hook (5060A4): prevent giga/pure players from dropping gold, and poison staple cell for regular players.
+            if (HandleDropGoldSolo(player)) {
+                break;
+            }
+#endif
+
             player->money -= amount;
 
             uint8_t drop_x = static_cast<uint8_t>(packet_2dwords->param2 & 0xFF);
@@ -3444,9 +4854,29 @@ void Server::ProcessClientPacket(Packet* pkt) {
             if (!shop) {
                 break;
             }
+#ifdef A2TANGAR_HAT
+            // enter_shop hook (50623D): require alive unit, log entry under SVL_BUILDINGS, and cancel camp.
+            if (unit->hp <= 0) {
+                break;
+            }
+#endif
             unit->CancelQueuedSpell();
             unit->pOwner->building_entered_from_yx = unit->position->GetY() * 0x100 + unit->position->GetX();
+#ifdef A2TANGAR_HAT
+            if (Config::LogMode & SVL_BUILDINGS) {
+                Printf("Player %s entered shop ID=%u from (%u, %u).",
+                       (const char*)unit->pOwner->name,
+                       static_cast<uint32_t>(shop->TokenID & 0xFFFF),
+                       static_cast<uint32_t>(unit->position->GetX()),
+                       static_cast<uint32_t>(unit->position->GetY()));
+            }
+#endif
             shop->AttachUnit(unit);
+#ifdef A2TANGAR_HAT
+            if (unit->pOwner != nullptr) {
+                unit->pOwner->ResetAfkTimer();
+            }
+#endif
             break;
         }
 
@@ -3512,6 +4942,12 @@ void Server::ProcessClientPacket(Packet* pkt) {
             if (!shop) {
                 break;
             }
+#ifdef A2SERVER_PATCH
+            // left_shop hook (5065E5)
+            if (Config::LogMode & SVL_BUILDINGS) {
+                Printf("Player %s left shop.", (const char*)unit->pOwner->name);
+            }
+#endif
             shop->ReturnItems(unit);
             shop->CloseShop(unit);
             break;
@@ -3528,12 +4964,33 @@ void Server::ProcessClientPacket(Packet* pkt) {
             if (!inn) {
                 break;
             }
+#ifdef A2TANGAR_HAT
+            // enter_inn hook (5062FB): require alive unit, log entry under SVL_BUILDINGS, and cancel camp.
+            if (unit->hp <= 0) {
+                break;
+            }
+#endif
             unit->CancelQueuedSpell();
             unit->pOwner->building_entered_from_yx = unit->position->GetY() * 0x100 + unit->position->GetX();
+#ifdef A2TANGAR_HAT
+            if (Config::LogMode & SVL_BUILDINGS) {
+                Printf("Player %s entered inn! ID=%u from (%u, %u).",
+                       (const char*)unit->pOwner->name,
+                       static_cast<uint32_t>(inn->TokenID & 0xFFFF),
+                       static_cast<uint32_t>(unit->position->GetX()),
+                       static_cast<uint32_t>(unit->position->GetY()));
+            }
+#endif
             inn->UpdateQuests(unit);
+#ifdef A2TANGAR_HAT
+            if (unit->pOwner != nullptr) {
+                unit->pOwner->ResetAfkTimer();
+            }
+#else
             CString m;
             m.Format("Enter inn: player %d, unit %d, inn %d at (%d, %d)", packet_word->from_player_id, packet_word->value, inn->building_id, unit->position->GetX(), unit->position->GetY());
             LogMessage(m);
+#endif
             break;
         }
 
@@ -3558,6 +5015,12 @@ void Server::ProcessClientPacket(Packet* pkt) {
             if (!inn) {
                 break;
             }
+#ifdef A2SERVER_PATCH
+            // left_inn hook (5063B6)
+            if (Config::LogMode & SVL_BUILDINGS) {
+                Printf("Player %s left inn.", (const char*)unit->pOwner->name);
+            }
+#endif
             inn->RemoveUnit(static_cast<Humanoid*>(unit), packet_2dwords->param2);
             CString m;
             m.Format("Exit inn: player %d, unit %d, field: %x", packet_2dwords->from_player_id, packet_2dwords->param1, packet_2dwords->param2);
@@ -3594,9 +5057,15 @@ void Server::ProcessClientPacket(Packet* pkt) {
             CFile f;
             if (f.Open(this->current_map_name, CFile::modeRead | CFile::shareDenyNone, nullptr)) {
                 int32_t file_length = f.GetLength();
+#if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
+                if (file_start < 0 || file_start > file_length) {
+                    f.Close();
+                    break;
+                }
+#endif
 
                 int32_t chunk_size = 0x1000;
-                if (file_length < file_start + 0x1000) {
+                if (file_length - file_start < 0x1000) {
                     chunk_size = file_length - file_start;
                 }
 
@@ -3605,7 +5074,9 @@ void Server::ProcessClientPacket(Packet* pkt) {
 
                 resp.count = chunk_size;
                 f.Seek(static_cast<LONG>(file_start), CFile::begin);
-                f.Read(resp.var_data, static_cast<UINT>(chunk_size));
+                if (chunk_size > 0) {
+                    f.Read(resp.var_data, static_cast<UINT>(chunk_size));
+                }
                 f.Close();
             }
             g_NetStru1_main.QueuePacketSend(&resp);
@@ -3647,6 +5118,11 @@ void Server::ProcessClientPacket(Packet* pkt) {
 
             int count = packet_data->count;
             const int16_t* modification = reinterpret_cast<const int16_t*>(packet_data->data);
+#if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
+            if (count < 0 || count > 0x10000 || player->player_id >= 70) {
+                break;
+            }
+#endif
 
             for (POSITION node = g_PlayersList->list.GetHeadPosition(); node;) {
                 Player* other = g_PlayersList->list.GetNext(node);
@@ -3655,6 +5131,11 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 }
 
                 int other_id = other->player_id;
+#if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
+                if (other_id < 0 || other_id >= count || other_id >= 70) {
+                    continue;
+                }
+#endif
 
                 uint8_t* diplo_slot = &g_World->diplomacy.diplomacy[player->player_id][other_id];
                 uint8_t old_val = *diplo_slot;
@@ -3663,6 +5144,28 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 if (old_val == new_val) {
                     continue;
                 }
+
+#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+                // log_dip_change hook (5081DC): enforce GMF_PLAYERS_VISION / GMF_PLAYERS_ALLY
+                // toward target GMs and log individual diplomacy bit transitions.
+                uint8_t requested_val = new_val;
+                if ((other->flags & GMF_PLAYERS_VISION) == GMF_PLAYERS_VISION) {
+                    new_val |= 0x10;
+                }
+                if ((other->flags & GMF_PLAYERS_ALLY) == GMF_PLAYERS_ALLY) {
+                    new_val |= 0x02;
+                }
+                static const char* const diplo_names[4] = {"war", "ally", "ignore", "vision"};
+                static const uint8_t diplo_flags[4] = {1, 2, 4, 0x10};
+                for (int i = 0; i < 4; ++i) {
+                    if ((old_val & diplo_flags[i]) != 0 && (requested_val & diplo_flags[i]) == 0) {
+                        Printf("Player %s unset %s to player %s", (const char*)player->name, diplo_names[i], (const char*)other->name);
+                    }
+                    if ((old_val & diplo_flags[i]) == 0 && (requested_val & diplo_flags[i]) != 0) {
+                        Printf("Player %s set %s to player %s", (const char*)player->name, diplo_names[i], (const char*)other->name);
+                    }
+                }
+#endif
 
                 *diplo_slot = new_val;
 
@@ -3773,11 +5276,30 @@ void Server::ProcessClientPacket(Packet* pkt) {
 #else
             CheckPacketType(pkt, "Packet2Dwords");
             player = this->FindPlayerById(packet_2dwords->from_player_id);
+#ifdef A2SERVER_PATCH
+            if (!player || !player->main_unit) {
+                break;
+            }
+#else
             if (!player) {
                 break;
             }
+#endif
 
             if (g_ServerConfig.gameType == GAME_TYPE_COOPERATIVE && (player->main_unit->unit_attrs & 8) != 0) {
+#ifdef A2TANGAR_HAT
+                // imp_CheckShield hook (506A53): only grant JOIN_MAP spawn buffs once per map session.
+                bool allow_join_buffs = false;
+                PlayerInfo* pi = PI_Get(player);
+                if (pi != nullptr && !pi->Casted) {
+                    pi->Casted = true;
+                    allow_join_buffs = true;
+                } else {
+                    Printf("Warning: player %s tried to use shield bug!", (const char*)player->name);
+                }
+                if (allow_join_buffs)
+#endif
+                {
                 {
                     Effect* eff = new Effect("castSpell=Invisibility:20");
                     eff->itemDataID  = 0xC;
@@ -3836,9 +5358,16 @@ void Server::ProcessClientPacket(Packet* pkt) {
                     eff->spell_value    = 0x140;
                     eff->RemoveFromUnit(player->main_unit);
                 }
+                }
             }
 
+#ifdef A2TANGAR_HAT
+            // imp_GMNoClip hook (5070EC): re-apply the noclip footprint clear
+            // on return-to-map, then the full unit update
+            TangarCheckPlayerNoClip(player);
+#else
             g_NetStru1_main.SendUnitUpdate(player->main_unit, player, UNIT_UPD_ALL, EQUIP_SLOTS_ALL, 0, 0);
+#endif
             if ((player->main_unit->unit_attrs & 8) != 0) {
                 player->main_unit->ReturnToMap();
             }
@@ -3902,6 +5431,11 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 player->ResetAfkTimer();
 
                 if (player->main_unit && player->main_unit->hp > -1) {
+#ifdef A2SERVER_PATCH
+                    // self_damage hook (5084F5): don't attribute self-damage
+                    // (zero damage_by / last_hit_by before the hit processes)
+                    player->main_unit->last_hit_by = nullptr;
+#endif
                     player->main_unit->hp -= 1;
                     g_NetStru1_main.SendLevelUp(player->main_unit, 1);
                 }
@@ -3912,6 +5446,15 @@ void Server::ProcessClientPacket(Packet* pkt) {
     case CHAT: // Chat message.
         CheckPacketType(pkt, "PacketJoin");
         {
+#ifdef A2SERVER_PATCH
+            // chat_crash_fix hook (50716D): control characters in the chat
+            // text are replaced with spaces before further processing
+            for (char* p = packet_join->name; *p != '\0'; p++) {
+                if ((uint8_t)*p < 0x20) {
+                    *p = ' ';
+                }
+            }
+#endif
             CString msg(packet_join->name);
             if (msg.IsEmpty()) {
                 break;
@@ -3922,15 +5465,45 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 break;
             }
 
+            uint8_t chat_type = packet_join->token_id;   // chat type (byte 0xb)
+            uint8_t recipient_id = packet_join->player_id;  // private message target (byte 0xa)
+
+#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+            // chat_log hook (50721C): format ally ("--> ") and private (">>>") chat lines.
+            {
+                char chat_line[5000];
+                if (chat_type == CHAT_TYPE_ALLIES) {
+                    _snprintf(chat_line, sizeof(chat_line) - 1, "--> %s: %s", (const char*)player->name, (const char*)msg);
+                } else if (chat_type == CHAT_TYPE_PRIVATE) {
+                    Player* to_player = g_PlayersList->FindById(recipient_id);
+                    const char* to_name = (to_player != nullptr) ? (const char*)to_player->name : "(null)";
+                    _snprintf(chat_line, sizeof(chat_line) - 1, "%s >>> %s: %s", (const char*)player->name, to_name, (const char*)msg);
+                } else {
+                    _snprintf(chat_line, sizeof(chat_line) - 1, "%s: %s", (const char*)player->name, (const char*)msg);
+                }
+                chat_line[sizeof(chat_line) - 1] = '\0';
+                PostConsoleLine(chat_line);
+            }
+#else
             LogMessage(player->name + ": " + msg);
+#endif
 
             if (msg[0] == '#') {
                 this->CheatCommand(player, msg);
                 break;
             }
 
-            uint8_t chat_type = packet_join->token_id;   // chat type (byte 0xb)
-            uint8_t recipient_id = packet_join->player_id;  // private message target (byte 0xa)
+#ifdef A2SERVER_PATCH
+            // public_chat/private_chat/shout_chat hooks: mute system - a
+            // per-player timed mute (PI UnmuteDate) or the global SVF_MUTED
+            // server flag suppress the message; GMs (GMF_ANY) bypass the
+            // global flag only
+            PlayerInfo* pi = PI_Get(player);
+            if ((pi != nullptr && pi->UnmuteDate != 0 && time(nullptr) < (time_t)pi->UnmuteDate) ||
+                ((Config::ServerFlags & SVF_MUTED) != 0 && (player->flags & GMF_ANY) != GMF_ANY)) {
+                break;
+            }
+#endif
 
             PacketJoin out;
             out.id = packet_join->id;
@@ -3940,7 +5513,14 @@ void Server::ProcessClientPacket(Packet* pkt) {
             case CHAT_TYPE_REGULAR: // Regular message: send to all non-AI players within range.
                 for (POSITION node = g_PlayersList->list.GetHeadPosition(); node;) {
                     Player* other = g_PlayersList->list.GetNext(node);
-                    if (!other->is_ai && player->main_unit->position->Distance(other->main_unit->position) <= g_ServerConfig.chat_range) {
+#ifdef A2SERVER_PATCH
+                    // public_chat_2 hook: don't deliver to AI players, players
+                    // without a main unit, or phased-out units (attrs bit 8)
+                    if (other->is_ai || other->main_unit == nullptr || (other->main_unit->unit_attrs & 8) != 0) {
+                        continue;
+                    }
+#endif
+                    if (player->main_unit->position->Distance(other->main_unit->position) <= g_ServerConfig.chat_range) {
                         out.to_player_id = other->player_id;
                         strcpy(out.name, packet_join->name);
                         g_NetStru1_main.QueuePacketSend(&out);
@@ -3950,7 +5530,14 @@ void Server::ProcessClientPacket(Packet* pkt) {
             case CHAT_TYPE_ALLIES: // Allies: send to players with diplomacy bit 2 set toward sender.
                 for (POSITION node = g_PlayersList->list.GetHeadPosition(); node;) {
                     Player* other = g_PlayersList->list.GetNext(node);
-                    if (!other->is_ai && (g_World->diplomacy.diplomacy[player->player_id][other->player_id] & DIPLO_ALLIANCE) != 0) {
+#ifdef A2SERVER_PATCH
+                    // private_chat_2 hook: don't deliver to AI players, players
+                    // without a main unit, or phased-out units (attrs bit 8)
+                    if (other->is_ai || other->main_unit == nullptr || (other->main_unit->unit_attrs & 8) != 0) {
+                        continue;
+                    }
+#endif
+                    if ((g_World->diplomacy.diplomacy[player->player_id][other->player_id] & DIPLO_ALLIANCE) != 0) {
                         out.to_player_id = other->player_id;
                         strcpy(out.name, packet_join->name);
                         g_NetStru1_main.QueuePacketSend(&out);
@@ -3958,6 +5545,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 }
                 break;
             case CHAT_TYPE_PRIVATE: // Private message.
+            {
                 out.from_player_id = player->player_id;
                 out.player_id = player->player_id;
                 out.token_id = chat_type;
@@ -3965,10 +5553,19 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 out.to_player_id = packet_join->to_player_id;
                 strcpy(out.name, packet_join->name);
                 g_NetStru1_main.QueuePacketSend(&out);
+#ifdef A2SERVER_PATCH
+                // private_chat_3 hook: don't deliver to a recipient whose
+                // unit is missing or phased out (the sender CC stands)
+                Player* recipient = g_PlayersList->FindById(recipient_id);
+                if (recipient == nullptr || recipient->main_unit == nullptr || (recipient->main_unit->unit_attrs & 8) != 0) {
+                    break;
+                }
+#endif
                 // Deliver to target.
                 out.to_player_id = (uint16_t)recipient_id;
                 g_NetStru1_main.QueuePacketSend(&out);
                 break;
+            }
             case CHAT_TYPE_YELL: // Yell: global with cooldown.
                 if (player->shout_cooldown == 0) {
                     out.from_player_id = player->player_id;
@@ -4002,6 +5599,9 @@ void Server::ProcessClientPacket(Packet* pkt) {
             // WAT: Vanilla builds a local announcement packet but then sends the ORIGINAL packet. We send the constructed announcement instead.
             PacketJoin announcement;
             std::strncpy(announcement.name, packet_join->name, 1023);
+#if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
+            announcement.name[1023] = '\0';
+#endif
             g_NetStru1_main.QueuePacketSend(&announcement);
             break;
         }
@@ -4009,7 +5609,11 @@ void Server::ProcessClientPacket(Packet* pkt) {
     case REQUEST_UNIT_UPDATE:
         CheckPacketType(pkt, "Packet");
         player = this->FindPlayerById(pkt->from_player_id);
+#if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
+        if (player != nullptr && player->main_unit != nullptr) {
+#else
         if (player->main_unit != nullptr) {
+#endif
             g_NetStru1_main.SendUnitUpdate(player->main_unit, player, UNIT_UPD_ALL, EQUIP_SLOTS_ALL, 0, 0);
         }
         break;
@@ -4316,6 +5920,11 @@ Player* Server::Allods2_CreatePlayer(CString name) {
 
 // 4f0bef
 int32_t Server::ConnectToHat() {
+#ifdef A2TANGAR_HAT
+    // imp_NetLayer_FirstConnect (4F0BEF): prepare the HAT control connection
+    // endpoints whenever the server prepares its HAT connection.
+    tangar_hat::NetHatPrepare();
+#endif
     if (g_CLlDriver.provider != PROVIDER_HAT_TCP) {
         return 0;
     }
@@ -4399,7 +6008,11 @@ void Server::HatKeepaliveTick() {
                 file.Read(file_data, file_size);
 
                 NetStru1::HatConnector.SendHatMessage(basic_info->id1, basic_info->id2, login, file_data, file_size, 0);
+#ifndef A2TANGAR_HAT
+                // skip_updating_character_log hook (4F117E): dropped from the
+                // production log
                 LogMessage("Updating character data file for " + login);
+#endif
                 file.Close();
             }
         }
@@ -4440,7 +6053,11 @@ void Server::HatKeepaliveTick() {
         file.Read(file_data, file_size);
 
         NetStru1::HatConnector.SendHatCharData(basic_info->id1, basic_info->id2, login, file_data, file_size, 0);
+#ifndef A2TANGAR_HAT
+        // skip_returning_character_log hook (4F13F4): dropped from the
+        // production log
         LogMessage("Returning character data file for " + login);
+#endif
         this->hat_upload_tick = tick_count;
         file.Close();
     }
@@ -4527,6 +6144,22 @@ int Server::Start(int mode) {
     }
 #endif
 
+#ifdef A2TANGAR_HAT
+    // imp_ServerStarted callback (4F09DB, srvmgr_new.cpp OnInitializeServer)
+    tangar_crash::SetExceptionFilter();
+    Config::ExitingCleanly = false;
+    Config::MapLoaded = false;
+    Config::ServerStarted = true;
+    {
+        CString title;
+        title.Format("Server ID %u (map not loaded)", Config::ServerID);
+        if (CWnd* main_wnd = AfxGetMainWnd()) {
+            main_wnd->SetWindowTextA(title);
+        }
+    }
+    Printf("Server started.");
+#endif
+
     return 0;
 }
 
@@ -4577,6 +6210,13 @@ void Server::SaveCharacter(Humanoid* humanoid) {
     stats.mind = humanoid->mind - humanoid->equipment_extra.mind;
     stats.spirit = humanoid->spirit - humanoid->equipment_extra.spirit;
 
+#ifdef A2TANGAR_HAT
+    // Never persist temporary #modify +/-spells changes into the character file.
+    PlayerInfo* save_pi = PI_Get(player);
+    if (save_pi != nullptr && save_pi->SetSpells != 0) {
+        stats.spells = save_pi->LastSpells;
+    } else
+#endif
     if (humanoid->spell_book) {
         stats.spells = humanoid->spell_book->CalcSpellMask();
     } else {
@@ -4645,6 +6285,12 @@ void Server::SaveCharacter(Humanoid* humanoid) {
     }
 #endif
 
+#ifdef A2TANGAR_HAT
+    // part_of_save_char hook (4EE563): log character save start under SVL_SAVES.
+    if (Config::LogMode & SVL_SAVES) {
+        Printf("Saving character to file \"%s\"...", (const char*)filename);
+    }
+#endif
     WritePlayerFile((const char*)filename, &basic_info, &stats, player->kill_stats, &equip_pkt, &inv_pkt, nullptr, 0);
 }
 
@@ -4652,6 +6298,18 @@ void Server::SaveCharacter(Humanoid* humanoid) {
 // Load map (or a saved game?)
 // 4F1471
 int Server::LoadGame(CString map_name) {
+#ifdef A2TANGAR_HAT
+    // imp_LoadingMap callback (4F1471): reset custom shops before building reload.
+    ClearShops();
+    Config::MapLoaded = false;
+    {
+        CString title;
+        title.Format("Server ID %u (loading map...)", Config::ServerID);
+        if (CWnd* main_wnd = AfxGetMainWnd()) {
+            main_wnd->SetWindowTextA(title);
+        }
+    }
+#endif
     this->gap_0x8c = 0;
     this->game_started = 0;
     this->current_map_name = map_name;
@@ -4714,7 +6372,9 @@ int Server::LoadGame(CString map_name) {
 
     this->UpdateHatAnnounce();
 
+#ifndef A2SERVER_PATCH
     LogMessage("Loaded map \"" + map_name + "\"");
+#endif
 
     CStdioFile file;
     CString info_map = g_ServerConfig.chr_base + "info.map";
@@ -4751,11 +6411,67 @@ int Server::LoadGame(CString map_name) {
         this->SetupArenaFileList();
     }
 
+#ifdef A2SERVER_PATCH
+    {
+        // imp_LoadedMap callback (4F191D): track the loaded map & title, update
+        // the window title, rebuild PlayerInfo, and clear per-player map votes.
+        Config::CurrentMapName = static_cast<const char*>(this->current_map_name);
+        Config::CurrentMapTitle = static_cast<const char*>(this->current_map_title);
+        Config::MapLoaded = true;
+
+        std::string map_title;
+        if (Config::CurrentMapTitle.empty()) {
+            Config::CurrentMapTitle = Basename(Config::CurrentMapName);
+        } else if (Config::ServerFlags & SVF_PVM) {
+            map_title = "PvM: ";
+        }
+        map_title += Config::CurrentMapTitle;
+
+        CString title;
+        title.Format("Server ID %u (%s)", Config::ServerID, map_title.c_str());
+        if (CWnd* main_wnd = AfxGetMainWnd()) {
+            main_wnd->SetWindowTextA(title);
+        }
+        Printf("Loaded map \"%s\".", Config::CurrentMapName.c_str());
+        PI_Reset();
+
+#ifdef A2TANGAR_HAT
+        ClearStapleCells();
+        settings::ForEachMutable([](const std::string&, settings::PlayerSettings* player_settings) {
+            player_settings->map_vote.clear();
+        });
+#endif
+    }
+#endif
+
     return 0;
 }
 
 // 4FBB79
 void Server::ServerTic() {
+#ifdef A2TANGAR_HAT
+    // imp_ServerTic callback (4FBB79): pump the HAT control connection,
+    // drain control-directory commands, retry failed main-unit map returns
+    // every 5s, step scanrange, and yield.
+    tangar_hat::NetRegularProc();
+    tangar_ctl::PollControlActions();
+    for (int i = 0; i < 32; i++) {
+        if (!g_PlayerInfo[i].Exists || g_PlayerInfo[i].Class == nullptr) {
+            continue;
+        }
+        if (g_PlayerInfo[i].Class->is_ai || g_PlayerInfo[i].Class->main_unit == nullptr) {
+            continue;
+        }
+        if (g_PlayerInfo[i].ShouldReturn && GetTickCount() - g_PlayerInfo[i].LastReturn > 5000) {
+            if ((g_PlayerInfo[i].Class->main_unit->unit_attrs & 0x08) == 0 ||
+                g_PlayerInfo[i].Class->main_unit->ReturnToMap() != 0) {
+                g_PlayerInfo[i].ShouldReturn = false;
+            }
+        }
+    }
+    tangar_scanrange::SR_Step();
+    Sleep(1);
+#endif
     if (this->has_world_state == 0) {
         return;
     }

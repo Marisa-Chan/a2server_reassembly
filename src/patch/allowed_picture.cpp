@@ -17,5 +17,5 @@ uint8_t FilterAllowedCharacterPicture(uint8_t character_class) {
     }
 
     // Reset the picture to the first in the allowed list.
-    return character_class | (allowed_vector[0] & 0xc0);
+    return allowed_vector[0];
 }

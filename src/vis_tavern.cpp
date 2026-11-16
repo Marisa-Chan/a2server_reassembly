@@ -1,4 +1,5 @@
 #include <winsock2.h>
+#include "patch/locale.h"
 #include <ws2tcpip.h>
 #include <timeapi.h>
 
@@ -664,7 +665,9 @@ void VisTavLeftPanel::DrawUnitPanel(CUnit* unit) {
                 char fname[0x100];
                 char full_path[0x100];
                 GetTempPathA(0x100, temp_path);
-                sprintf(fname, "allods-2-%d.$$$", unit->unit_id);
+                sprintf(fname, A2CLIENT_PATCH_ENABLED ? "allods-%u-%u.$$$" : "allods-2-%d.$$$",
+                A2CLIENT_PATCH_ENABLED ? GetCurrentProcessId() : unit->unit_id,
+                A2CLIENT_PATCH_ENABLED ? unit->unit_id : 0);
                 sprintf(full_path, "%s%s", temp_path, fname);
                 if (strcmp(this->picture_name, fname) != 0) {
                     strcpy(this->picture_name, fname);
@@ -718,7 +721,9 @@ void VisTavLeftPanel::DrawUnitPanel(CUnit* unit) {
                     char fname[0x100];
                     char full_path[0x100];
                     GetTempPathA(0x100, temp_path);
-                    sprintf(fname, "allods-2-%d.$$$", target->unit_id);
+                    sprintf(fname, A2CLIENT_PATCH_ENABLED ? "allods-%u-%u.$$$" : "allods-2-%d.$$$",
+                    A2CLIENT_PATCH_ENABLED ? GetCurrentProcessId() : target->unit_id,
+                    A2CLIENT_PATCH_ENABLED ? target->unit_id : 0);
                     sprintf(full_path, "%s%s", temp_path, fname);
                     if (strcmp(this->picture_name, fname) != 0) {
                         strcpy(this->picture_name, fname);

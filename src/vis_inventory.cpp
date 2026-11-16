@@ -1,4 +1,7 @@
 #include <winsock2.h>
+#ifdef A2CLIENT_PATCH
+#include "patch/hotkeys.h"
+#endif
 #include <ws2tcpip.h>
 #include <timeapi.h>
 
@@ -486,6 +489,11 @@ void VisInvType1::VMethod7() {
     CPoint mouse_pt(g_mousept.GetX(), g_mousept.GetY());
 
     if (this->grid_source != nullptr) {
+        #ifdef A2CLIENT_PATCH
+        if (this->visible_startref == nullptr) { // CRASH_fix_4AAB7E (client 4AAB7E): null guard
+            return;
+        }
+        #endif
         if (*this->visible_startref != 0) {
             if (left_arrow_rect.PtInRect(mouse_pt)) {
                 g_bmp_invarrow3->DrawSubRectMasked(screen_rect.left + edge_width, screen_rect.top + 2, 0, 0, 0x20, 0x58);
@@ -563,6 +571,12 @@ void VisInvType1::VMethod7() {
             this->DrawGlowTrail(cell_x, cell_y, i);
         }
 
+#if defined(A2CLIENT) && defined(A2TANGAR_HAT)
+        // Tangar mark_item_hotkey (4AAC7C): custom-hotkey labels replace the
+        // retail F4-F12 labels.
+        entry = this->grid_source->GetAt(i + *this->visible_startref);
+        tangar_hotkeys::DrawItemHotkeyLabels(edge_width + screen_rect.left, screen_rect.top, i, entry);
+#else
         for (int32_t j = 0; j < 9; j++) {
             entry = this->grid_source->GetAt(i + *this->visible_startref);
             if (main_wnd->m_GameSession.shortcuts[j].MatchesItem(entry) != 0) {
@@ -572,6 +586,7 @@ void VisInvType1::VMethod7() {
                 break;
             }
         }
+#endif
     }
 }
 
@@ -610,11 +625,25 @@ int32_t VisInvType1::OnMouseMove(uint32_t wparam, CPoint pos) {
             count = this->grid_source->GetAt(idx)->count;
         }
     } else {
+        int32_t stack_count = this->grid_source->GetAt(idx)->count;
+#ifdef A2CLIENT_PATCH
+        // p10itm.xck (4ab2a8 -> 6e21d0): Shift = all, Alt = min(count, 1000), Ctrl = min(count, 10), else 1
+        if (g_kbShiftState != 0) {
+            count = stack_count;
+        } else if (g_kbMenuState != 0) {
+            count = (stack_count > 1000) ? 1000 : stack_count;
+        } else if (g_kbControlState != 0) {
+            count = (stack_count > 10) ? 10 : stack_count;
+        } else {
+            count = 1;
+        }
+#else
         if (g_kbShiftState == 0) {
             count = 1;
         } else {
-            count = this->grid_source->GetAt(idx)->count;
+            count = stack_count;
         }
+#endif
     }
 
     if (this->grid_source->GetAt(idx)->IsQuestItem() != 0) {
@@ -639,6 +668,29 @@ int32_t VisInvType1::OnMouseMove(uint32_t wparam, CPoint pos) {
 
 
 // 4A7441
+#ifdef A2CLIENT_PATCH
+// Tangar pack_scrolling: PSCRL_gameInventory replaces the retail (base-class)
+// VisInvType1::OnKeyDown - PageUp/PageDown page through the bags, one bag
+// column per step (page width = (screen width - 240) / 80 - 1).
+int32_t VisInvType1::OnKeyDown(uint32_t wparam) {
+    if (wparam == 0x21 || wparam == 0x22) {
+        int32_t page_steps = ((int32_t)g_ScreenSize.right - 240) / 80 - 1;
+        if (page_steps <= 1) {
+            page_steps = 1;
+        }
+        for (int32_t i = 0; i < page_steps; i++) {
+            if (wparam == 0x21) {
+                this->ScrollCellsBack();
+            } else {
+                this->ScrollCellsForward();
+            }
+        }
+        return 1;
+    }
+    return 0;
+}
+#endif
+
 int32_t VisInvType1::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
@@ -649,16 +701,39 @@ int32_t VisInvType1::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
             if (screen_rect.PtInRect(mouse_pt)) {
                 int32_t idx = this->VMethod30(g_mousept.GetX(), -g_mousept.GetY());
                 if (idx >= 0) {
+#if defined(A2CLIENT) && defined(A2TANGAR_HAT)
+                    // Tangar item_hotkey_set (4AB545): the custom-hotkey map
+                    // owns the binding (with its own dedup); retail dedup skipped.
+                    tangar_hotkeys::ItemHotkeySet((int32_t)wparam + VK_F4, this->grid_source->GetAt(idx));
+#else
                     main_wnd->m_GameSession.shortcuts[wparam].SetItem(this->grid_source->GetAt(idx));
                     for (int32_t i = 0; i < 9; i++) {
                         if (i != wparam && main_wnd->m_GameSession.shortcuts[i].MatchesItem(this->grid_source->GetAt(idx)) != 0) {
                             main_wnd->m_GameSession.shortcuts[i].kind = 0;
                         }
                     }
+#endif
                     main_wnd->m_GameSession.SaveShortcuts();
                 }
             }
         } else {
+#if defined(A2CLIENT) && defined(A2TANGAR_HAT)
+            // Tangar item_hotkey_find (4AB61A): match against the custom hotkey.
+            UserShortcut* tangar_hotkey = tangar_hotkeys::LookupHotkey((int32_t)wparam + VK_F4);
+            if (tangar_hotkey != nullptr && this->grid_source != nullptr) {
+                for (int32_t i = 0; i < this->grid_source->GetSize(); i++) {
+                    TokenEntry* candidate = this->grid_source->GetAt(i);
+                    // p10mny.xck (4ab621 -> 6e20ee): skip money slot (item_id == 0xFFFF) before MatchesItem
+                    if (candidate->item_id != 0xFFFF && tangar_hotkey->MatchesItem(candidate) != 0) {
+                        TokenEntry* entry = this->VMethod36(i, 1);
+                        if (entry != nullptr) {
+                            main_wnd->vis_charinfo->VMethod27(entry->GetType() - 1);
+                        }
+                        break;
+                    }
+                }
+            }
+#else
             if (this->grid_source != nullptr) {
                 for (int32_t i = 0; i < this->grid_source->GetSize(); i++) {
                     if (main_wnd->m_GameSession.shortcuts[wparam].MatchesItem(this->grid_source->GetAt(i)) != 0) {
@@ -670,6 +745,7 @@ int32_t VisInvType1::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
                     }
                 }
             }
+#endif
         }
     }
 
@@ -1092,12 +1168,26 @@ int32_t VisInvExtBase::OnMouseMove(uint32_t wparam, CPoint pos) {
     if (wparam & 1) {
         MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
         if (main_wnd->drag_src_slot >= 0 && main_wnd->drag_src_slot < this->grid_source->GetSize() && main_wnd->drag_entry == nullptr) {
+            int32_t stack_count = this->grid_source->GetAt(main_wnd->drag_src_slot)->count;
             int32_t count;
+#ifdef A2CLIENT_PATCH
+            // p10itm.xck (4ba637 -> 6e21d0): Shift = all, Alt = min(count, 1000), Ctrl = min(count, 10), else 1
             if (g_kbShiftState != 0) {
-                count = this->grid_source->GetAt(main_wnd->drag_src_slot)->count;
+                count = stack_count;
+            } else if (g_kbMenuState != 0) {
+                count = (stack_count > 1000) ? 1000 : stack_count;
+            } else if (g_kbControlState != 0) {
+                count = (stack_count > 10) ? 10 : stack_count;
             } else {
                 count = 1;
             }
+#else
+            if (g_kbShiftState != 0) {
+                count = stack_count;
+            } else {
+                count = 1;
+            }
+#endif
             if (this->grid_source->GetAt(main_wnd->drag_src_slot)->IsQuestItem() == 0) {
                 if (this->VMethod36(main_wnd->drag_src_slot, count) != 0) {
                     this->StartItemDrag(main_wnd->drag_src_slot);
@@ -1520,6 +1610,13 @@ void VisInvExtType1::ClearCategoryGrids() {
 
 // 4B777C
 int32_t VisInvExtType1::OnKeyDown(uint32_t wparam) {
+#ifdef A2CLIENT_PATCH
+    // Tangar pack_scrolling (PSCRL_shopShelfOnKeyDown, client vtable slot
+    // 0x5D92F4): the shelf page keys only reach the retail handler with Ctrl held.
+    if (GetAsyncKeyState(VK_CONTROL) == 0) {
+        return 0;
+    }
+#endif
     if (wparam == 0x21) {
         this->ScrollCellsBack();
         this->ScrollCellsBack();
@@ -2537,10 +2634,32 @@ int32_t VisSpellBook::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
         this->pressed = -1;
     } else if (msg == VIS_MSG_SHORTCUT_KEY) {
         if (lparam == 0) {
+#if defined(A2CLIENT) && defined(A2TANGAR_HAT)
+            // Tangar spell_hotkey_use (4CF5DF): select from the custom hotkey.
+            UserShortcut* tangar_hotkey = tangar_hotkeys::LookupHotkey((int32_t)wparam + VK_F4);
+            if (tangar_hotkey != nullptr && tangar_hotkey->kind == 1) {
+                this->pressed = tangar_hotkey->item_id;
+            }
+#else
             if (main_wnd->m_GameSession.shortcuts[wparam].kind == 1) {
                 this->pressed = main_wnd->m_GameSession.shortcuts[wparam].item_id;
             }
+#endif
         } else {
+#if defined(A2CLIENT) && defined(A2TANGAR_HAT)
+            // Tangar spell_hotkey_set_mouse/set_selected (4CF4EE/4CF562): the
+            // custom-hotkey map owns the binding (with its own dedup).
+            if (this->pressed == -1) {
+                CPoint pt;
+                GetCursorPos(&pt);
+                int32_t idx = this->HitTestSpellCell(&pt);
+                if (idx >= 0) {
+                    tangar_hotkeys::SpellHotkeySet((int32_t)wparam + VK_F4, (short)idx);
+                }
+            } else {
+                tangar_hotkeys::SpellHotkeySet((int32_t)wparam + VK_F4, (short)this->pressed);
+            }
+#else
             if (this->pressed == -1) {
                 CPoint pt;
                 GetCursorPos(&pt);
@@ -2563,6 +2682,7 @@ int32_t VisSpellBook::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
                     }
                 }
             }
+#endif
             main_wnd->m_GameSession.SaveShortcuts();
         }
     }
@@ -2613,6 +2733,11 @@ void VisSpellBook::VMethod7() {
     }
     for (int32_t i = 0; i < 0x18; i++) {
         if (((mc->selected_available_spell_mask | mc->active_spell_effect_mask) & (1 << (i & 0x1F))) != 0) {
+#if defined(A2CLIENT) && defined(A2TANGAR_HAT)
+            // Tangar mark_spell_hotkey (4CEFBA): custom spell-hotkey labels
+            // replace the retail F4-F12 labels.
+            tangar_hotkeys::DrawSpellHotkeyLabel(left + rc.left, rc.top, i, this->pressed);
+#else
             int32_t fkey = 0;
             for (int32_t s = 0; s < 9; s++) {
                 if (main_wnd->m_GameSession.shortcuts[s].IsSpellShortcut((short)i)) {
@@ -2629,6 +2754,7 @@ void VisSpellBook::VMethod7() {
                 g_font3->DrawTextWithShadow(left + rc.left + 8 + off + (i % 0xC) * 0x26,
                     rc.top + 8 + off + (i / 0xC) * 0x26, buf, 0, clrsh_TechBlack, 1);
             }
+#endif
         }
         if ((mc->selected_active_spell_mask & (1 << (i & 0x1F))) != 0) {
             char buf[80];
@@ -2769,8 +2895,3 @@ VisSpellBook::VisSpellBook(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t
 // 4CB020 (scalar deleting dtor ??_G at 4CB020; complete dtor 4cb050 has no custom cleanup)
 VisSpellBook::~VisSpellBook() {
 }
-
-
-
-
-

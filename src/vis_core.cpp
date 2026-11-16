@@ -24,6 +24,9 @@
 #include "gameplay.h"
 #include "vis_playing_area.h"
 #include "vis_net.h"
+#ifdef A2CLIENT_PATCH
+#include "vis_menu.h"
+#endif
 
 
 
@@ -2315,6 +2318,37 @@ void VisTextBox::ResetBlink() {
 int32_t VisTextBox::GetCursorPosByX(int32_t x) {
     //4da153
     CRect rt = this->ClientRectToScreen(this->rect);
+#if defined(A2CLIENT_PATCH) && defined(A2CLIENT)
+    // Tangar GUI_textField_MeasurePosition (4DEAD4 entry takeover): more
+    // accurate cursor placement, password-field asterisk measurement, and
+    // correct positions for fields not starting at the screen left edge.
+    if (this->is_password != 0) {
+        char* ctx = this->text.GetBuffer(0);
+        size_t len = strlen(ctx);
+        for (size_t i = 0; i < len; i++) {
+            ctx[i] = '*';
+        }
+        this->text.ReleaseBuffer();
+    }
+
+    const char* ctx = (const char*)this->text;
+    int32_t inner_pos = x - rt.left;
+    int32_t pos = this->text.GetLength();
+    for (int32_t i = 0; ctx[i] != 0; i++) {
+        int32_t wd = this->font->GetStrWidth(this->text.Left(i + 1));
+        if (wd >= inner_pos) {
+            char thissym[2] = { ctx[i], 0 };
+            int32_t wdx = (this->font->GetStrWidth(thissym) - 4) / 2;
+            if (wd - wdx >= inner_pos) {
+                pos = i;
+            } else {
+                pos = i + 1;
+            }
+            break;
+        }
+    }
+    return pos;
+#else
     for (int32_t i = 0; i < this->text.GetLength(); i++) {
         CString str = this->text.Left(i + 1);
         if (rt.left + 4 + this->font->GetStrWidth(str) >= x) {
@@ -2322,6 +2356,7 @@ int32_t VisTextBox::GetCursorPosByX(int32_t x) {
         }
     }
     return this->text.GetLength();
+#endif
 }
 
 
@@ -3818,7 +3853,12 @@ void VisMessageBox::VMethod26() {
 
             this->AddChild(lbl);
 
+#ifdef A2CLIENT_PATCH
+            // long_dip.txt (446875): single-line header payload bottom Height-112 -> Height-80
+            r2 = CRect(40, 68, this->rect.Width() - 40, this->rect.Height() - 80);
+#else
             r2 = CRect(40, 68, this->rect.Width() - 40, this->rect.Height() - 112);
+#endif
         }
     } else {
         r2 = CRect(40, 56, this->rect.Width() - 40, this->rect.Height() - 88);
@@ -3832,6 +3872,12 @@ void VisMessageBox::VMethod26() {
 
     CVisualObject* obj = this->VMethod30(this->payload, r2);
     this->rect.bottom = this->rect.top + 144 + obj->GetRect().bottom;
+#ifdef A2CLIENT_PATCH
+    // long_dip.txt (446a03..446a15): vtable check for VisDiplomacy shrinks bottom margin by 32
+    if (dynamic_cast<VisDiplomacy*>(this) != nullptr) {
+        this->rect.bottom -= 32;
+    }
+#endif
     this->UpdateWinRect();
 #ifdef A2CLIENT
     if (this->button_types == 0x1000) {
@@ -4296,15 +4342,3 @@ int32_t GetFieldPos(CString str, int32_t field) {
 #ifdef A2CLIENT
 
 #endif
-
-
-
-
-
-
-
-
-
-
-
-

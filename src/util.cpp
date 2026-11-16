@@ -2,6 +2,9 @@
 #include <string.h>
 #include <ctype.h>
 #include <stdio.h>
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+#include "patch/hat_packet.h"
+#endif
 
 int g_PathLower = 1;
 
@@ -15,6 +18,15 @@ uint8_t __cdecl DecodeChar(uint8_t ch) {
 		return ch;
 	}
 
+#ifdef A2CLIENT_PATCH
+	// CHAT_convDosToIdx hook (461DB6): map DOS jo-tyo back to the
+	// font-table indices before the standard decode
+	if (ch == 0xF0) {
+		return 192 + 32;
+	} else if (ch == 0xF1) {
+		return 105 + 32;
+	}
+#endif
 	uint8_t t = ch;
 	if (t >= 0x80 && t < 0xb0) {
 		return t + 0x30;
@@ -27,6 +39,17 @@ uint8_t __cdecl DecodeChar(uint8_t ch) {
 // 1251 -> dos
 uint8_t __cdecl EncodeChar(uint8_t c) {
 	//4763a9
+#ifdef A2CLIENT_PATCH
+	// CHAT_convWinToDos hook (47A11E): map Win-1251 jo-tyo to the
+	// DOS codepage equivalents before the standard conversion
+	if (g_isDosCP == 1) {
+		if (c == 0xA8) {
+			c = 0xF0;
+		} else if (c == 0xB8) {
+			c = 0xF1;
+		}
+	}
+#endif
 	if (g_isDosCP == 1 && c >= 0x80) {
 		if (c >= 0xc0 && c < 0xf0) {
 			c -= 0x40;
@@ -90,6 +113,10 @@ void __cdecl ReportWarning(const char* warn) {
 
 void __cdecl XorData(void* data, uint32_t size) {
 	//51fd7d
+	// client: 50feed
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+	tangar_hat::PACKET_XorByKey(static_cast<uint8_t*>(data), size, 20);
+#else
 	static const uint8_t xorkey[80] =
 	{ 0x2e, 0xc7, 0xc4, 0x8d, 0xff, 0xe5, 0x5d, 0x0b,
 		0xd6, 0xff, 0x7f, 0xff, 0xd7, 0x34, 0xd2, 0x02,
@@ -118,5 +145,6 @@ void __cdecl XorData(void* data, uint32_t size) {
 		}
 
 		size -= num;
-	}	
+	}
+#endif
 }
