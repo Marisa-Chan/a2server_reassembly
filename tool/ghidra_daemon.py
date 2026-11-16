@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-"""Standalone Ghidra daemon: opens the A2 project with pyghidra and serves BOTH
-programs (server + client) over HTTP for tool/gh.py (ops in tool/ghidra_ops.py).
+"""Standalone Ghidra daemon: opens the A2 project with pyghidra and serves ALL
+programs (server + client + editor) over HTTP for tool/gh.py (ops in tool/ghidra_ops.py).
 
     python tool/ghidra_daemon.py                     # server default; client opens on first 'gh.py --client'
     python tool/ghidra_daemon.py --no-autosave
@@ -57,7 +57,8 @@ A2_DIR = os.path.dirname(os.path.dirname(HERE))
 GHIDRA_INSTALL_DIR = os.path.join(A2_DIR, "ghidra_12.1.2_PUBLIC")
 PROJECT_DIR = os.path.join(A2_DIR, "shared-ghidra")
 PROJECT_NAME = "A2"
-PROGRAMS = {"server": "/a2serv6.exe_new", "client": "/allods2.exe"}
+PROGRAMS = {"server": "/a2serv6.exe_new", "client": "/allods2.exe",
+            "editor": "/rom2me.exe", "rom1": "/ROM.EXE"}
 
 
 def main():
@@ -66,7 +67,8 @@ def main():
     ap.add_argument("--project", default=PROJECT_DIR)
     ap.add_argument("--name", default=PROJECT_NAME)
     ap.add_argument("--program", help="which program is the DEFAULT for requests that omit one "
-                    "(server/client/a2serv6.exe_new/allods2.exe); both stay reachable either way")
+                    "(aliases: server/client/editor/rom1, or the program file names); "
+                    "all stay reachable either way")
     ap.add_argument("--preload", action="append", default=[], metavar="NAME",
                     help="open this program eagerly at startup instead of on first use (repeatable); "
                     "the default program is always opened eagerly")

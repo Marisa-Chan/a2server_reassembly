@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 """CLI client for the Ghidra daemon (tool/ghidra_daemon.py or tool/ghidra_gui_server.py).
 
-One daemon serves BOTH programs: pass --client / --server (or --program NAME)
-BEFORE the command. GHIDRA_PROGRAM=client keeps the selection sticky for a whole
-shell session; an explicit flag always wins. Output is tagged [server]/[client].
+One daemon serves ALL programs: pass --client / --server / --editor (or
+--program NAME) BEFORE the command. GHIDRA_PROGRAM=client keeps the selection
+sticky for a whole shell session; an explicit flag always wins. Output is
+tagged [server]/[client]/[editor].
 
 Addresses can be given as 55ECFE, 0x55ECFE, sub_55ECFE, FUN_0055ecfe, or a symbol
 name (QuestMap::sub_55ECFE, or a mangled name). IDA data names (off_60AF78,
@@ -12,6 +13,7 @@ dword_6CDB3C, ...) also work.
 Examples:
   python tool/gh.py info 55ECFE
   python tool/gh.py --client context 4e2c33     # allods2.exe instead of a2serv6.exe_new
+  python tool/gh.py --editor find MapEditor     # rom2me.exe (the RoM2 map editor)
   python tool/gh.py decompile 55ECFE
   python tool/gh.py global off_60AF78 --lines 20
   python tool/gh.py set-mangled 55ECFE "?sub_55ECFE@QuestMap@@QAEXH@Z" player_id
@@ -30,10 +32,11 @@ import urllib.request
 DEFAULT_PORT = 18812  # keep in sync with ghidra_ops.DEFAULT_PORT
 
 HELP = """\
-PROGRAM SELECTION (one daemon serves both a2serv6.exe_new and allods2.exe; flags go BEFORE the command)
+PROGRAM SELECTION (one daemon serves a2serv6.exe_new, allods2.exe, rom2me.exe and ROM.EXE; flags go BEFORE the command)
   --client                          talk to allods2.exe
   --server                          talk to a2serv6.exe_new (default)
-  --program NAME                    server/client/a2serv6.exe_new/allods2.exe
+  --editor                          talk to rom2me.exe (the RoM2 map editor)
+  --program NAME                    server/client/editor/rom1/a2serv6.exe_new/allods2.exe/rom2me.exe/ROM.EXE
   GHIDRA_PROGRAM env var            sticky default for the shell session (explicit flags win)
 
 READ
@@ -101,13 +104,16 @@ def main():
     ap.add_argument("--port", type=int, default=DEFAULT_PORT)
     sel = ap.add_mutually_exclusive_group()
     sel.add_argument("--client", action="store_true", help="talk to allods2.exe (the client program)")
+    sel.add_argument("--editor", action="store_true", help="talk to rom2me.exe (the RoM2 map editor program)")
     sel.add_argument("--server", action="store_true", help="talk to a2serv6.exe_new (the server program, default)")
-    sel.add_argument("--program", help="program by name: server/client/a2serv6.exe_new/allods2.exe")
+    sel.add_argument("--program", help="program by name: server/client/editor/rom1 "
+                                       "or a program file name (a2serv6.exe_new/allods2.exe/rom2me.exe/ROM.EXE)")
     ap.add_argument("cmd", nargs="?")
     ap.add_argument("rest", nargs=argparse.REMAINDER)
     top = ap.parse_args()
     cmd, rest, port = top.cmd, top.rest, top.port
-    program = "client" if top.client else "server" if top.server else (top.program or os.environ.get("GHIDRA_PROGRAM") or None)
+    program = ("client" if top.client else "editor" if top.editor else "server" if top.server
+               else (top.program or os.environ.get("GHIDRA_PROGRAM") or None))
     if cmd in (None, "help", "-h", "--help"):
         print(HELP)
         return
