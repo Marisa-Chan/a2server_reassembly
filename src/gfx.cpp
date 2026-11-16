@@ -22,15 +22,34 @@ IMPLEMENT_DYNAMIC(CSprite256, CGameBitmap);
 IMPLEMENT_DYNAMIC(CA16, CSprite256);
 IMPLEMENT_DYNAMIC(CSprite16, CGameBitmap);
 
+#ifdef A2CLIENT_PATCH
+int32_t gfx_bits = 32; //65fb74
+#else
 int32_t gfx_bits = 16; //65fb74
+#endif
 
 IDirectDraw* g_ddraw = nullptr; //659bec
 IDirectDrawSurface* g_ddsurface = nullptr; //659c90
 int32_t g_ddsurf_lock = 0; //659bfc
+#ifndef A2CLIENT_PATCH
 IDirectDrawSurface* g_ddsurface2 = nullptr; //659c8c
+#endif
 int32_t g_ddsurf_lock2 = 0; //659bf4
+#ifndef A2CLIENT_PATCH
 IDirectDrawSurface* g_ddsurface3 = nullptr; //659a68
+#endif
 int32_t g_ddsurf_lock3 = 0; //659bf8
+
+#ifdef A2CLIENT_PATCH
+static uint16_t* g_surf1_buf = nullptr;
+static uint16_t* g_surf2_buf = nullptr;
+static uint16_t* g_surf3_buf = nullptr;
+static int32_t g_is_fullscreen = 0;
+static int32_t g_display_bpp = 32;
+static int32_t g_display_is_rgb565 = 0;
+static uint32_t g_rgb565_to_32[65536];
+static uint16_t g_rgb565_to_16[65536];
+#endif
 
 CRect g_clipRect; //659d08
 DDSURFACEDESC g_selDrawBitmap; //659c98
@@ -2989,9 +3008,121 @@ void __cdecl CopyScreenBlock(int32_t sx, int32_t sy, int32_t w, int32_t h) {
 	UnlockSurface3();
 }
 
+#ifdef A2CLIENT_PATCH
+void PresentSurface1Rect(const CRect& rect) {
+	if (g_IsServer != 0 || g_ddsurface == nullptr || g_surf1_buf == nullptr) {
+		return;
+	}
+
+	MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
+	if (mwnd == nullptr || mwnd->has_focus == 0) {
+		return;
+	}
+
+	CRect r;
+	if (!r.IntersectRect(&rect, &g_ScreenSize)) {
+		return;
+	}
+
+	DDSURFACEDESC ddsd;
+	memset(&ddsd, 0, sizeof(DDSURFACEDESC));
+	ddsd.dwSize = sizeof(DDSURFACEDESC);
+	RECT lock_rc = r;
+	HRESULT hr = g_ddsurface->Lock(&lock_rc, &ddsd, DDLOCK_WAIT, nullptr);
+	if (hr == DDERR_SURFACELOST) {
+		if (g_is_fullscreen != 0) {
+			g_ddraw->SetCooperativeLevel(mwnd->m_hWnd, DDSCL_EXCLUSIVE | DDSCL_FULLSCREEN);
+			g_ddraw->SetDisplayMode(g_ScreenSize.right, g_ScreenSize.bottom, gfx_bits);
+		}
+		if (FAILED(g_ddsurface->Restore())) {
+			return;
+		}
+		r = g_ScreenSize;
+		lock_rc = r;
+		memset(&ddsd, 0, sizeof(DDSURFACEDESC));
+		ddsd.dwSize = sizeof(DDSURFACEDESC);
+		hr = g_ddsurface->Lock(&lock_rc, &ddsd, DDLOCK_WAIT, nullptr);
+	}
+	if (FAILED(hr) || ddsd.lpSurface == nullptr) {
+		return;
+	}
+
+	const int32_t w = r.Width();
+	const int32_t h = r.Height();
+	const int32_t src_stride = g_ScreenSize.right;
+	const uint16_t* src_row = g_surf1_buf + r.top * src_stride + r.left;
+	uint8_t* dst_row = (uint8_t*)ddsd.lpSurface;
+
+	if (g_display_bpp == 32) {
+		for (int32_t y = 0; y < h; y++) {
+			uint32_t* dst32 = (uint32_t*)dst_row;
+			for (int32_t x = 0; x < w; x++) {
+				dst32[x] = g_rgb565_to_32[src_row[x]];
+			}
+			src_row += src_stride;
+			dst_row += ddsd.lPitch;
+		}
+	} else if (g_display_is_rgb565 != 0) {
+		for (int32_t y = 0; y < h; y++) {
+			memcpy(dst_row, src_row, (size_t)w * 2);
+			src_row += src_stride;
+			dst_row += ddsd.lPitch;
+		}
+	} else {
+		for (int32_t y = 0; y < h; y++) {
+			uint16_t* dst16 = (uint16_t*)dst_row;
+			for (int32_t x = 0; x < w; x++) {
+				dst16[x] = g_rgb565_to_16[src_row[x]];
+			}
+			src_row += src_stride;
+			dst_row += ddsd.lPitch;
+		}
+	}
+
+	g_ddsurface->Unlock(ddsd.lpSurface);
+}
+#endif
+
 void __cdecl gfxFlushRect(const CRect& rect) { //454c74
 	MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 
+#ifdef A2CLIENT_PATCH
+	if (mwnd != nullptr && mwnd->has_focus != 0 && g_IsServer == 0 && g_surf1_buf != nullptr && g_surf2_buf != nullptr) {
+		CRect r;
+		r.IntersectRect(&rect, &g_ScreenSize);
+
+		g_mousept.SaveScreenParts2(r);
+		int32_t w = r.Width();
+		int32_t h = r.Height();
+
+		if (w < 1 || h < 1) {
+			g_mousept.SaveScreenParts(r);
+		} else {
+			LockSurface2();
+
+			void* sv = g_selDrawBitmap.lpSurface;
+
+			uint8_t* src = (uint8_t*)g_selDrawBitmap.lpSurface + r.top * g_selDrawBitmap.lPitch + r.left * 2;
+			int32_t spitch = g_selDrawBitmap.lPitch;
+
+			LockSurface1();
+
+			CopySurface16Rect(src, 0, 0, 
+				             (uint8_t*)g_selDrawBitmap.lpSurface + r.top * g_selDrawBitmap.lPitch + r.left * 2, 0, 0, 
+				             w, h, 
+							 spitch, 
+				             g_selDrawBitmap.lPitch);
+
+			UnlockSurface1();
+			PresentSurface1Rect(r);
+
+			g_selDrawBitmap.lpSurface = sv;
+
+			UnlockSurface2();
+			g_mousept.SaveScreenParts(r);
+		}
+	}
+#else
 	if (mwnd->has_focus != 0 && g_IsServer == 0) {
 		CRect r;
 		r.IntersectRect(&rect, &g_ScreenSize);
@@ -3032,6 +3163,7 @@ void __cdecl gfxFlushRect(const CRect& rect) { //454c74
 			g_mousept.SaveScreenParts(r);
 		}
 	}
+#endif
 }
 
 void __cdecl FlushScreen() {
@@ -3042,6 +3174,21 @@ void __cdecl FlushScreen() {
 
 
 uint32_t LockSurface1() { //45431c
+#ifdef A2CLIENT_PATCH
+	if (g_IsServer || g_surf1_buf == nullptr) {
+		return 0;
+	}
+
+	if (g_ddsurf_lock == 0) {
+		g_selDrawBitmap.dwSize = sizeof(DDSURFACEDESC);
+		g_selDrawBitmap.lpSurface = g_surf1_buf;
+		g_selDrawBitmap.dwWidth = g_ScreenSize.right;
+		g_selDrawBitmap.dwHeight = g_ScreenSize.bottom + 1;
+		g_selDrawBitmap.lPitch = g_ScreenSize.right * 2;
+	}
+	g_ddsurf_lock++;
+	return 1;
+#else
 	if (g_IsServer) {
 		return 0;
 	}
@@ -3053,6 +3200,7 @@ uint32_t LockSurface1() { //45431c
 		g_ddsurf_lock++;
 	}
 	return res;
+#endif
 }
 
 
@@ -3062,21 +3210,43 @@ uint32_t UnlockSurface1() { //454378
 		return 0;
 	}
 
-	int res = 0;
-	if (g_ddsurf_lock != 0) {
 #ifdef A2CLIENT_PATCH
+	uint32_t res = 0;
+	if (g_ddsurf_lock != 0) {
 		// imp_MakeScreenshotNet (client: 457ff4): capture any armed HAT
 		// screenshot request while the primary draw surface is still mapped.
 		tangar_client::ProcLastScreenshot();
-#endif
+		g_ddsurf_lock--;
+		res = 1;
+	}
+	return res;
+#else
+	int res = 0;
+	if (g_ddsurf_lock != 0) {
 		res = SUCCEEDED(g_ddsurface->Unlock(g_selDrawBitmap.lpSurface));
 		g_ddsurf_lock--;
 	}
 	return res;
+#endif
 }
 
 
-uint32_t LockSurface2() { //45431c
+uint32_t LockSurface2() { //45426e
+#ifdef A2CLIENT_PATCH
+	if (g_IsServer || g_surf2_buf == nullptr) {
+		return 0;
+	}
+
+	if (g_ddsurf_lock2 == 0) {
+		g_selDrawBitmap.dwSize = sizeof(DDSURFACEDESC);
+		g_selDrawBitmap.lpSurface = g_surf2_buf;
+		g_selDrawBitmap.dwWidth = g_ScreenSize.right;
+		g_selDrawBitmap.dwHeight = g_ScreenSize.bottom + 1;
+		g_selDrawBitmap.lPitch = g_ScreenSize.right * 2;
+	}
+	g_ddsurf_lock2++;
+	return 1;
+#else
 	if (g_IsServer) {
 		return 0;
 	}
@@ -3088,9 +3258,22 @@ uint32_t LockSurface2() { //45431c
 		g_ddsurf_lock2++;
 	}
 	return res;
+#endif
 }
 
 uint32_t UnlockSurface2() { //4542ca
+#ifdef A2CLIENT_PATCH
+	if (g_IsServer) {
+		return 0;
+	}
+
+	uint32_t res = 0;
+	if (g_ddsurf_lock2 != 0) {
+		g_ddsurf_lock2--;
+		res = 1;
+	}
+	return res;
+#else
 	if (g_IsServer) {
 		return 0;
 	}
@@ -3101,9 +3284,25 @@ uint32_t UnlockSurface2() { //4542ca
 		g_ddsurf_lock2--;
 	}
 	return res;
+#endif
 }
 
 uint32_t LockSurface3() { //4543ca
+#ifdef A2CLIENT_PATCH
+	if (g_IsServer || g_surf3_buf == nullptr) {
+		return 0;
+	}
+
+	if (g_ddsurf_lock3 == 0) {
+		g_selDrawBitmap.dwSize = sizeof(DDSURFACEDESC);
+		g_selDrawBitmap.lpSurface = g_surf3_buf;
+		g_selDrawBitmap.dwWidth = g_ScreenSize.right - 160;
+		g_selDrawBitmap.dwHeight = g_ScreenSize.bottom + 1;
+		g_selDrawBitmap.lPitch = (g_ScreenSize.right - 160) * 2;
+	}
+	g_ddsurf_lock3++;
+	return 1;
+#else
 	if (g_IsServer) {
 		return 0;
 	}
@@ -3119,10 +3318,23 @@ uint32_t LockSurface3() { //4543ca
 		g_ddsurf_lock3++;
 	}
 	return res;
+#endif
 }
 
 
 uint32_t UnlockSurface3() { //45444f
+#ifdef A2CLIENT_PATCH
+	if (g_IsServer) {
+		return 0;
+	}
+
+	uint32_t res = 0;
+	if (g_ddsurf_lock3 != 0) {
+		g_ddsurf_lock3--;
+		res = 1;
+	}
+	return res;
+#else
 	if (g_IsServer) {
 		return 0;
 	}
@@ -3137,6 +3349,7 @@ uint32_t UnlockSurface3() { //45444f
 		g_ddsurf_lock3--;
 	}
 	return res;
+#endif
 }
 
 uint32_t GetLockCountSurf2() { return g_ddsurf_lock2; }//4538e1
@@ -3176,7 +3389,7 @@ void __cdecl CopyScreenRectToBmp64(int32_t x, int32_t y, int32_t w, int32_t h, i
 
 int BitmaskLowBound(uint32_t bm) { //453f5c
 	for (int32_t i = 0; i < 32; i++) {
-		if (bm & (1 << i)) {
+		if (bm & (1u << i)) {
 			return i;
 		}
 	}
@@ -3185,12 +3398,12 @@ int BitmaskLowBound(uint32_t bm) { //453f5c
 
 int BitmaskHighBound(uint32_t bm) { //453f94
 	int32_t max = 15;
-	#ifdef A2CLIENT_PATCH
+#ifdef A2CLIENT_PATCH
 	max = 31;
-	#endif
+#endif
 
 	for (int32_t i = max; i >= 0; i--) {
-		if (bm & (1 << i)) {
+		if (bm & (1u << i)) {
 			return i;
 		}
 	}
@@ -3327,7 +3540,91 @@ void CalcColorsAndPalettes() { //46011e
 }
 
 
+#ifdef A2CLIENT_PATCH
+static uint32_t Scale8ToMaskBits(uint32_t v8, int32_t bits, int32_t shift) {
+	if (bits <= 0 || shift < 0) {
+		return 0;
+	}
+	uint32_t scaled = bits <= 8 ? (v8 >> (8 - bits)) : (v8 << (bits - 8));
+	return scaled << shift;
+}
+#endif
+
 uint32_t InitPixelColors() { //45488c
+#ifdef A2CLIENT_PATCH
+	DDPIXELFORMAT pfmt;
+	memset(&pfmt, 0, sizeof(DDPIXELFORMAT));
+	pfmt.dwSize = sizeof(DDPIXELFORMAT);
+	if (FAILED(g_ddsurface->GetPixelFormat(&pfmt))) {
+		return 0;
+	}
+
+	if ((pfmt.dwFlags & DDPF_RGB) == 0 || pfmt.dwRBitMask == 0 ||
+		(pfmt.dwRGBBitCount != 16 && pfmt.dwRGBBitCount != 32)) {
+		((MainWindow*)AfxGetMainWnd())->UpdateClipCursor();
+		return 0;
+	}
+
+	g_display_bpp = pfmt.dwRGBBitCount;
+	int32_t disp_r_shift = BitmaskLowBound(pfmt.dwRBitMask);
+	int32_t disp_g_shift = BitmaskLowBound(pfmt.dwGBitMask);
+	int32_t disp_b_shift = BitmaskLowBound(pfmt.dwBBitMask);
+	int32_t disp_r_bits = BitmaskHighBound(pfmt.dwRBitMask) - disp_r_shift + 1;
+	int32_t disp_g_bits = BitmaskHighBound(pfmt.dwGBitMask) - disp_g_shift + 1;
+	int32_t disp_b_bits = BitmaskHighBound(pfmt.dwBBitMask) - disp_b_shift + 1;
+
+	if (g_display_bpp == 32) {
+		g_display_is_rgb565 = 0;
+		for (uint32_t c = 0; c < 65536; c++) {
+			uint32_t r5 = (c >> 11) & 0x1F;
+			uint32_t g6 = (c >> 5) & 0x3F;
+			uint32_t b5 = c & 0x1F;
+			uint32_t r8 = (r5 << 3) | (r5 >> 2);
+			uint32_t g8 = (g6 << 2) | (g6 >> 4);
+			uint32_t b8 = (b5 << 3) | (b5 >> 2);
+			g_rgb565_to_32[c] =
+				Scale8ToMaskBits(r8, disp_r_bits, disp_r_shift) |
+				Scale8ToMaskBits(g8, disp_g_bits, disp_g_shift) |
+				Scale8ToMaskBits(b8, disp_b_bits, disp_b_shift);
+		}
+	} else {
+		g_display_is_rgb565 = (pfmt.dwRBitMask == 0xF800 && pfmt.dwGBitMask == 0x07E0 && pfmt.dwBBitMask == 0x001F) ? 1 : 0;
+		if (g_display_is_rgb565 == 0) {
+			for (uint32_t c = 0; c < 65536; c++) {
+				uint32_t r5 = (c >> 11) & 0x1F;
+				uint32_t g6 = (c >> 5) & 0x3F;
+				uint32_t b5 = c & 0x1F;
+				uint32_t r8 = (r5 << 3) | (r5 >> 2);
+				uint32_t g8 = (g6 << 2) | (g6 >> 4);
+				uint32_t b8 = (b5 << 3) | (b5 >> 2);
+				g_rgb565_to_16[c] = (uint16_t)(
+					Scale8ToMaskBits(r8, disp_r_bits, disp_r_shift) |
+					Scale8ToMaskBits(g8, disp_g_bits, disp_g_shift) |
+					Scale8ToMaskBits(b8, disp_b_bits, disp_b_shift));
+			}
+		}
+	}
+
+	// Internal software rendering is pinned to 16-bit RGB565.
+	g_RBits = 5;
+	g_GBits = 6;
+	g_BBits = 5;
+	g_RBitShift = 11;
+	g_GBitShift = 5;
+	g_BBitShift = 0;
+	g_RBitMask = 0xF800;
+	g_GBitMask = 0x07E0;
+	g_BBitMask = 0x001F;
+
+	if (g_brightnessLookup == nullptr) {
+		CalculateBrightness();
+		CalcColorsAndPalettes();
+	}
+
+	((MainWindow*)AfxGetMainWnd())->UpdateClipCursor();
+
+	return g_RBitMask;
+#else
 	DDPIXELFORMAT pfmt;
 	pfmt.dwSize = sizeof(DDPIXELFORMAT);
 	g_ddsurface->GetPixelFormat(&pfmt);
@@ -3352,6 +3649,7 @@ uint32_t InitPixelColors() { //45488c
 	((MainWindow*)AfxGetMainWnd())->UpdateClipCursor();
 
 	return g_RBitMask;
+#endif
 }
 
 int32_t InitVideo() { //453fcc
@@ -3360,6 +3658,67 @@ int32_t InitVideo() { //453fcc
 		return 1;
 	}
 
+#ifdef A2CLIENT_PATCH
+	g_ddsurface = nullptr;
+	g_is_fullscreen = 0;
+
+	g_ddsurf_lock = 0;
+	g_ddsurf_lock2 = 0;
+	g_ddsurf_lock3 = 0;
+
+	g_ScreenSize.top = 0;
+	g_ScreenSize.left = 0;
+	g_clipRect = g_ScreenSize;
+
+	gfx_bits = 32;
+
+	delete[] g_surf1_buf;
+	delete[] g_surf2_buf;
+	delete[] g_surf3_buf;
+
+	size_t surf12_pixels = (size_t)g_ScreenSize.right * (size_t)(g_ScreenSize.bottom + 1);
+	size_t surf3_pixels = (size_t)(g_ScreenSize.right - 160) * (size_t)(g_ScreenSize.bottom + 1);
+	g_surf1_buf = new uint16_t[surf12_pixels];
+	g_surf2_buf = new uint16_t[surf12_pixels];
+	g_surf3_buf = new uint16_t[surf3_pixels];
+	memset(g_surf1_buf, 0, surf12_pixels * sizeof(uint16_t));
+	memset(g_surf2_buf, 0, surf12_pixels * sizeof(uint16_t));
+	memset(g_surf3_buf, 0, surf3_pixels * sizeof(uint16_t));
+
+	memset(&g_selDrawBitmap, 0, sizeof(DDSURFACEDESC));
+	g_selDrawBitmap.dwSize = sizeof(DDSURFACEDESC);
+	g_selDrawBitmap.lpSurface = g_surf2_buf;
+	g_selDrawBitmap.dwWidth = g_ScreenSize.right;
+	g_selDrawBitmap.dwHeight = g_ScreenSize.bottom + 1;
+	g_selDrawBitmap.lPitch = g_ScreenSize.right * 2;
+
+	if (FAILED(DirectDrawCreate(nullptr, &g_ddraw, nullptr))) {
+		return 0;
+	}
+
+	if (FAILED(g_ddraw->SetCooperativeLevel(AfxGetMainWnd()->m_hWnd, DDSCL_NORMAL))) {
+		return 0;
+	}
+
+	DDSURFACEDESC tmp;
+	memset(&tmp, 0, sizeof(DDSURFACEDESC));
+	tmp.dwSize = sizeof(DDSURFACEDESC);
+	tmp.dwFlags = DDSD_CAPS;
+	tmp.ddsCaps.dwCaps = DDSCAPS_PRIMARYSURFACE;
+	tmp.dwBackBufferCount = 0;
+
+	if (FAILED(g_ddraw->CreateSurface(&tmp, &g_ddsurface, nullptr))) {
+		return 0;
+	}
+
+	// If we can't init pixel colors in desktop mode, force fullscreen video mode.
+	if (InitPixelColors() == 0 && SetVideoMode() == 0) {
+		AfxMessageBox("Unable to set video mode", 0, 0);
+		exit(-1);
+	}
+
+	return 1;
+#else
 	g_ddsurface = nullptr;
 	g_ddsurface2 = nullptr;
 
@@ -3371,10 +3730,6 @@ int32_t InitVideo() { //453fcc
 	g_clipRect = g_ScreenSize;
 
 	gfx_bits = 16;
-
-	#ifdef A2CLIENT_PATCH
-	gfx_bits = g_RBits + g_GBits + g_BBits;
-	#endif
 	
 	if (FAILED(DirectDrawCreate(nullptr, &g_ddraw, nullptr))) {
 		return 0;
@@ -3436,6 +3791,7 @@ int32_t InitVideo() { //453fcc
 
 	}
 	return 1;
+#endif
 }
 
 int32_t SetVideoMode() { //4546c6
@@ -3443,6 +3799,42 @@ int32_t SetVideoMode() { //4546c6
 		return 1;
 	}
 
+#ifdef A2CLIENT_PATCH
+	if (g_ddsurface != nullptr) {
+		IDirectDrawSurface* old_surf = g_ddsurface;
+		g_ddsurface = nullptr;
+		old_surf->Release();
+	}
+
+	if (FAILED(g_ddraw->SetCooperativeLevel(AfxGetMainWnd()->m_hWnd, DDSCL_EXCLUSIVE | DDSCL_FULLSCREEN))) {
+		return 0;
+	}
+
+	if (SUCCEEDED(g_ddraw->SetDisplayMode(g_ScreenSize.right, g_ScreenSize.bottom, 32))) {
+		gfx_bits = 32;
+	} else if (SUCCEEDED(g_ddraw->SetDisplayMode(g_ScreenSize.right, g_ScreenSize.bottom, 16))) {
+		gfx_bits = 16;
+	} else {
+		return 0;
+	}
+
+	DDSURFACEDESC primary_desc;
+	memset(&primary_desc, 0, sizeof(DDSURFACEDESC));
+	primary_desc.dwSize = sizeof(DDSURFACEDESC);
+	primary_desc.dwFlags = DDSD_CAPS;
+	primary_desc.ddsCaps.dwCaps = DDSCAPS_PRIMARYSURFACE;
+	primary_desc.dwBackBufferCount = 0;
+
+	if (FAILED(g_ddraw->CreateSurface(&primary_desc, &g_ddsurface, nullptr))) {
+		return 0;
+	}
+
+	g_is_fullscreen = 1;
+	if (InitPixelColors() == 0) {
+		return 0;
+	}
+	return 1;
+#else
 	if (g_ddsurface) {
 		g_ddsurface->Release();
 	}
@@ -3467,6 +3859,7 @@ int32_t SetVideoMode() { //4546c6
 
 	InitPixelColors();
 	return 1;
+#endif
 }
 
 
@@ -5207,10 +5600,33 @@ void FreeFontData() { //460d7f
 }
 
 void FreeDDraw() { //454219
+#ifdef A2CLIENT_PATCH
+	if (g_IsServer == 0) {
+		IDirectDrawSurface* surf = g_ddsurface;
+		g_ddsurface = nullptr;
+		if (surf != nullptr) {
+			surf->Release();
+		}
+
+		IDirectDraw* ddraw = g_ddraw;
+		g_ddraw = nullptr;
+		if (ddraw != nullptr) {
+			ddraw->Release();
+		}
+
+		delete[] g_surf1_buf;
+		g_surf1_buf = nullptr;
+		delete[] g_surf2_buf;
+		g_surf2_buf = nullptr;
+		delete[] g_surf3_buf;
+		g_surf3_buf = nullptr;
+	}
+#else
 	if (g_IsServer == 0 && g_ddraw) {
 		g_ddraw->Release();
 		g_ddraw = nullptr;
 	}
+#endif
 }
 
 
@@ -5225,8 +5641,8 @@ void SaveScreenshot() { //453d33
 	uint32_t* ndata = new uint32_t[si_width * si_height];
 	uint32_t* ndatap = ndata;
 
-	uint8_t* sdata = (uint8_t*)g_selDrawBitmap.lpSurface;
-	uint32_t spitch = g_selDrawBitmap.lPitch;
+	uint8_t* sdata = g_surf1_buf != nullptr ? (uint8_t*)g_surf1_buf : (uint8_t*)g_selDrawBitmap.lpSurface;
+	uint32_t spitch = g_surf1_buf != nullptr ? g_ScreenSize.right * 2 : g_selDrawBitmap.lPitch;
 
 	for (int32_t y = 0; y < si_height; y++) {
 		uint16_t* row = (uint16_t*)(sdata + y * spitch);

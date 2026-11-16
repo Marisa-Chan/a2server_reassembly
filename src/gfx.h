@@ -185,6 +185,9 @@ uint32_t LockSurface3(); // 4543ca (client: 45800a)
 uint32_t UnlockSurface3(); // 45444f (client: 45808f)
 uint32_t LockSurface1(); // 45431c (client: 457f5c)
 uint32_t UnlockSurface1(); // 454378 (client: 457fb8)
+#ifdef A2CLIENT_PATCH
+void PresentSurface1Rect(const CRect& rect);
+#endif
 
 uint32_t GetLockCountSurf2(); //4538e1 (client: 457521)
 

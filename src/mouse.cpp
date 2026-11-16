@@ -109,17 +109,39 @@ void CMousePointer::DrawToScreen() {
 
     LockSurface1();
 
+#ifdef A2CLIENT_PATCH
+    int32_t cx = this->x - this->x_offset;
+    int32_t cy = this->y - this->y_offset;
+    int32_t cw = this->cursor_sprite->GetWidth(0);
+    int32_t ch = this->cursor_sprite->GetHeight(0);
+    CopyScreenRectToBmp64(cx, cy, cw, ch, cw, ch, (uint8_t*)this->saved_screen_rect->GetData());
+    this->cursor_sprite->Draw(cx, cy, this->frame, 0, 0);
+
+    UnlockSurface1();
+    PresentSurface1Rect(CRect(cx, cy, cx + cw, cy + ch));
+#else
     CopyScreenRectToBmp64(this->x - this->x_offset, this->y - this->y_offset, this->cursor_sprite->GetWidth(0), this->cursor_sprite->GetHeight(0), this->cursor_sprite->GetWidth(0), this->cursor_sprite->GetHeight(0), (uint8_t*)this->saved_screen_rect->GetData());
     this->cursor_sprite->Draw(this->x - this->x_offset, this->y - this->y_offset, this->frame, 0, 0);
 
     UnlockSurface1();
+#endif
 }
 
 void CMousePointer::EraseCursor() {
     //426df7
     LockSurface1();
+#ifdef A2CLIENT_PATCH
+    int32_t cx = this->x - this->x_offset;
+    int32_t cy = this->y - this->y_offset;
+    int32_t cw = this->cursor_sprite->GetWidth(0);
+    int32_t ch = this->cursor_sprite->GetHeight(0);
+    this->saved_screen_rect->DrawSubRect(cx, cy, 0, 0, cw, ch);
+    UnlockSurface1();
+    PresentSurface1Rect(CRect(cx, cy, cx + cw, cy + ch));
+#else
     this->saved_screen_rect->DrawSubRect(this->x - this->x_offset, this->y - this->y_offset, 0, 0, this->cursor_sprite->GetWidth(0), this->cursor_sprite->GetHeight(0));
     UnlockSurface1();
+#endif
 }
 
 void CMousePointer::ForceDisableHint() {
@@ -211,6 +233,21 @@ void CMousePointer::PaintSelectFrame() {
         DrawRectangleFrame(r.left, r.top, r.right - 1, r.bottom - 1, GetColorRGB(0xff, 0xff, 0xff));
 
         UnlockSurface1();
+
+#ifdef A2CLIENT_PATCH
+        if (r.Width() > 0 && r.Height() > 0) {
+            PresentSurface1Rect(CRect(r.left, r.top, r.right, r.top + 1));
+            if (r.Height() > 1) {
+                PresentSurface1Rect(CRect(r.left, r.bottom - 1, r.right, r.bottom));
+            }
+            if (r.Height() > 2) {
+                PresentSurface1Rect(CRect(r.left, r.top + 1, r.left + 1, r.bottom - 1));
+                if (r.Width() > 1) {
+                    PresentSurface1Rect(CRect(r.right - 1, r.top + 1, r.right, r.bottom - 1));
+                }
+            }
+        }
+#endif
     }
 }
 
@@ -252,6 +289,9 @@ void CMousePointer::RepaintHint() {
     this->hint_image->DrawSubRect(this->hint_rect.left, this->hint_rect.top, 0, 0, this->hint_rect.Width(), this->hint_rect.Height());
 
     UnlockSurface1();
+#ifdef A2CLIENT_PATCH
+    PresentSurface1Rect(CRect(this->hint_rect.left, this->hint_rect.top, this->hint_rect.right + 1, this->hint_rect.bottom + 1));
+#endif
     this->Paint();
 }
 
@@ -465,6 +505,21 @@ void CMousePointer::UnpaintSelectFrame() {
     }
 
     UnlockSurface1();
+
+#ifdef A2CLIENT_PATCH
+    if (r.Width() > 0 && r.Height() > 0) {
+        PresentSurface1Rect(CRect(r.left, r.top, r.right, r.top + 1));
+        if (r.Height() > 1) {
+            PresentSurface1Rect(CRect(r.left, r.bottom - 1, r.right, r.bottom));
+        }
+        if (r.Height() > 2) {
+            PresentSurface1Rect(CRect(r.left, r.top + 1, r.left + 1, r.bottom - 1));
+            if (r.Width() > 1) {
+                PresentSurface1Rect(CRect(r.right - 1, r.top + 1, r.right, r.bottom - 1));
+            }
+        }
+    }
+#endif
 }
 
 void CMousePointer::Update() {
@@ -554,6 +609,9 @@ void CMousePointer::UpdateHint() {
     CopyScreenRectToBmp64(this->hint_rect.left, this->hint_rect.top, this->hint_rect.Width(), this->hint_rect.Height(), this->hint_image->GetWidth(0), this->hint_image->GetHeight(0), (uint8_t*)this->hint_image->GetData());
     this->PaintHint();
     UnlockSurface1();
+#ifdef A2CLIENT_PATCH
+    PresentSurface1Rect(CRect(this->hint_rect.left, this->hint_rect.top, this->hint_rect.right + 1, this->hint_rect.bottom + 1));
+#endif
 
     this->Paint();
 }
