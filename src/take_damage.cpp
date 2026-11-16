@@ -122,5 +122,17 @@ void __cdecl TakeDamage::UpdateDamages(CArray<TakeDamage>* arr) {
 	}
 }
 
+#ifdef A2CLIENT_PATCH
+// Retail bug fix: drop every label that references a unit which is about to
+// be deleted, so Draw() cannot dereference a freed CUnit*.
+void __cdecl TakeDamage::RemoveDamagesFor(CArray<TakeDamage>* arr, CUnit* ct) {
+	for (int i = arr->GetSize() - 1; i >= 0; i--) {
+		if (arr->ElementAt(i).cunit == ct) {
+			arr->RemoveAt(i);
+		}
+	}
+}
+#endif
+
 
 

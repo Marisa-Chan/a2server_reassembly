@@ -34,6 +34,12 @@ struct TakeDamage {
 	static void __cdecl AddDamage(CArray<TakeDamage>* arr, const TakeDamage& dmg); //45dea1 (client: 461ac1)
 	static void __cdecl DrawDamages(CArray<TakeDamage>* arr); //45ddf6 (client: 461a16)
 	static void __cdecl UpdateDamages(CArray<TakeDamage>* arr); //45de65 (client: 461a85)
+#ifdef A2CLIENT_PATCH
+	// Crash fix (deviation from retail): labels hold a raw CUnit* for up to 1s;
+	// retail deletes units (TOKEN_REMOVE, deep death, player leave, per-frame
+	// object expiry) without purging them - use-after-free in Draw().
+	static void __cdecl RemoveDamagesFor(CArray<TakeDamage>* arr, CUnit* ct);
+#endif
 };
 ASSERT_SIZE(TakeDamage, 0x24);
 

@@ -312,11 +312,14 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 		case TOKEN_REMOVE: {
 			CUnit* unit;
 			if (this->objects.Lookup(packet_word->value, *(CGameObject**)&unit)) {
+#ifdef A2CLIENT_PATCH
+				TakeDamage::RemoveDamagesFor(&this->damage_labels, unit);
+#endif
 				this->objects.RemoveKey(packet_word->value);
 				delete unit;
 			}
 		}
-			break;
+		break;
 
 		case UNIT_MOVE: {
 			CUnit* unit;
@@ -803,6 +806,9 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 							}
 
 							if (ct->unit_id < 0x6000) {
+#ifdef A2CLIENT_PATCH
+								TakeDamage::RemoveDamagesFor(&this->damage_labels, ct);
+#endif
 								this->objects.RemoveKey(packet_unit->unit_id);
 								if (ct) {
 									delete ct;
@@ -1859,6 +1865,9 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 				this->objects.Lookup(tmp[i], obj);
 				this->objects.RemoveKey(tmp[i]);
 
+#ifdef A2CLIENT_PATCH
+				TakeDamage::RemoveDamagesFor(&this->damage_labels, (CUnit*)obj);
+#endif
 				if (obj->IsSelected() != 0) {
 					this->order_mode = 0;
 					wnd->vis_spellbook->ClearSpellSelection();
@@ -6703,6 +6712,9 @@ void VisPlayingArea::UpdateWorld() {
 		CGameObject* obj;
 		this->objects.Lookup(arr[i], obj);
 		this->objects.RemoveKey(arr[i]);
+#ifdef A2CLIENT_PATCH
+		TakeDamage::RemoveDamagesFor(&this->damage_labels, (CUnit*)obj);
+#endif
 		if (obj->IsSelected() != 0) {
 			this->order_mode = 0;
 			wnd->vis_spellbook->ClearSpellSelection();
@@ -7933,6 +7945,9 @@ void VisPlayingArea::LeaveInn(int32_t serv_id) {
 			this->objects.Lookup(ids[0], obj);
 			this->objects.RemoveKey(ids[0]);
 			if (obj != nullptr) {
+#ifdef A2CLIENT_PATCH
+				TakeDamage::RemoveDamagesFor(&this->damage_labels, (CUnit*)obj);
+#endif
 				delete obj;
 			}
 			ids.RemoveAt(0, 1);
