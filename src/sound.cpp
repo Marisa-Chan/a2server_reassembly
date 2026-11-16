@@ -965,9 +965,11 @@ void SfxBank::Load(CString name) { //4c880e
 	this->retreat = new SfxSample("sfx\\characters\\" + name + "\\retreat\\1.wav");
 	this->defend = new SfxSample("sfx\\characters\\" + name + "\\defend\\1.wav");
 	this->pickup = new SfxSample("sfx\\characters\\" + name + "\\pickup\\1.wav");
-	this->easy = new SfxSample("sfx\\characters\\" + name + "\\easy\\1.wav");
-	this->hard = new SfxSample("sfx\\characters\\" + name + "\\hard\\1.wav");
-	this->dead = new SfxSample("sfx\\characters\\" + name + "\\dead\\1.wav");
+	// easy/hard/dead are flat files (<name>\easy.wav), not subdirectories -
+	// retail string table 0x600588/0x6005a4/0x6005c0.
+	this->easy = new SfxSample("sfx\\characters\\" + name + "\\easy.wav");
+	this->hard = new SfxSample("sfx\\characters\\" + name + "\\hard.wav");
+	this->dead = new SfxSample("sfx\\characters\\" + name + "\\dead.wav");
 }
 
 void SfxBank::Unload() { //4c926b
