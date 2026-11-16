@@ -6372,7 +6372,9 @@ int Server::LoadGame(CString map_name) {
 
     this->UpdateHatAnnounce();
 
+#ifndef A2SERVER_PATCH
     LogMessage("Loaded map \"" + map_name + "\"");
+#endif
 
     CStdioFile file;
     CString info_map = g_ServerConfig.chr_base + "info.map";
