@@ -4160,7 +4160,7 @@ int32_t VisPlayingArea::StepShadowRay(int32_t arg1, int32_t arg2, int32_t arg3, 
 
 // 41B155
 void VisPlayingArea::SendRequestRespawn() {
-	Packet2Dwords* pkt = &Packet2Dwords::Inst;
+	Packet* pkt = &Packet::Inst;
 	pkt->id = REQUEST_RESPAWN;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
@@ -4169,7 +4169,7 @@ void VisPlayingArea::SendRequestRespawn() {
 
 // 41CE14
 void VisPlayingArea::SendHurtSelf() {
-	Packet2Dwords* pkt = &Packet2Dwords::Inst;
+	Packet* pkt = &Packet::Inst;
 	pkt->id = HURT_SELF;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
