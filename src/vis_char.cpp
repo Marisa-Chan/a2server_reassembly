@@ -2567,7 +2567,7 @@ int32_t VisCharInfo::VMethod27(int32_t a) {
     }
 
     TokenEntry* token = main_wnd->drag_entry;
-    if ((token->flg & 6) == 0 && token->item_id == 0xE4D) {
+    if ((token->flg & 6) == 0 && token->item_id == ItemId::FAME_HALL_SCROLL) {
         main_wnd->PostMessageA(MAIN_MSG_SHOW_FAME_HALL_DOC, 0, 0);
     }
 

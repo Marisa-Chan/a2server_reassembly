@@ -839,7 +839,7 @@ void VisTavLeftPanel::DrawUnitPanel(CUnit* unit) {
         CRect text_rect = CRect(CPoint(0x12, 0x32), CSize(0x84, 0xEE)) + screen_rect.TopLeft();
         g_font2->DrawTextJustifyInRectShadow(text_rect, quest_text, clrsh_DullGold, 0xA);
     } else {
-        if (this->vis_tav->rewards.GetSize() != 0 && this->vis_tav->rewards[this->vis_tav->quest_id]->item_id == 0xFFFD) {
+        if (this->vis_tav->rewards.GetSize() != 0 && this->vis_tav->rewards[this->vis_tav->quest_id]->item_id == ItemId::REWARD_ALLY) {
             char picture[0x100];
             picture[0] = 0;
             char suffix[0x50];
@@ -941,11 +941,11 @@ int32_t VisTavRightPanel::OnLButtonUp(uint32_t wparam, CPoint pos) {
                 } else {
                     if (this->vis_tav->rewards.GetSize() != 0) {
                         TokenEntry* reward = this->vis_tav->rewards[this->vis_tav->quest_id];
-                        if (reward->item_id == 0xFFFD) {
+                        if (reward->item_id == ItemId::REWARD_ALLY) {
                             ShowRoleKeyDialog("treasureally");
-                        } else if (reward->item_id == 0xFFFE) {
+                        } else if (reward->item_id == ItemId::REWARD_EXP) {
                             ShowRoleKeyDialog("treasurexp");
-                        } else if (reward->item_id == 0xFFFF) {
+                        } else if (reward->item_id == ItemId::REWARD_GOLD) {
                             ShowRoleKeyDialog("treasuremoney");
                         } else if ((uint32_t)this->vis_tav->quest_id < (uint32_t)(this->vis_tav->rewards.GetSize() - 1)) {
                             ShowRoleKeyDialog("treasureitem");
@@ -1505,13 +1505,13 @@ const char* VisTavScene::GetHint() {
         int32_t col = i % 3;
         if (this->party_rects[row][col].PtInRect(pt)) {
             TokenEntry* entry = this->vis_tav->rewards[i];
-            if (entry->item_id == 0xFFFD) {
+            if (entry->item_id == ItemId::REWARD_ALLY) {
                 return TxtFile::AllLines[0x166];
             }
-            if (entry->item_id == 0xFFFE) {
+            if (entry->item_id == ItemId::REWARD_EXP) {
                 return TxtFile::AllLines[0x2E];
             }
-            if (entry->item_id == 0xFFFF) {
+            if (entry->item_id == ItemId::REWARD_GOLD) {
                 return TxtFile::AllLines[0x4A];
             }
             return entry->GetHintText();
@@ -1664,15 +1664,15 @@ void VisTavScene::DrawQuestRoster() {
         }
 
         TokenEntry* entry = this->vis_tav->rewards[i];
-        if (entry->item_id == 0xFFFD) {
+        if (entry->item_id == ItemId::REWARD_ALLY) {
             g_font2->DrawTextWithShadow(tav_topleft.x + pt.x + 0x28, tav_topleft.y + pt.y + 0x23, TxtFile::AllLines[0x166], 2, clrsh_DullGold, 1);
-        } else if (entry->item_id == 0xFFFE) {
+        } else if (entry->item_id == ItemId::REWARD_EXP) {
             g_font2->DrawTextWithShadow(tav_topleft.x + pt.x + 0x28, tav_topleft.y + pt.y + 0x23, TxtFile::AllLines[0x2E], 2, clrsh_DullGold, 1);
             CString text;
             text.Format("%d", entry->count * 250);
             InsertThousandsSeparators(&text);
             g_font2->DrawTextWithShadow(tav_topleft.x + pt.x + 3, tav_topleft.y + pt.y + 0x42, text, 0, clrsh_DullGold, 1);
-        } else if (entry->item_id == 0xFFFF) {
+        } else if (entry->item_id == ItemId::REWARD_GOLD) {
             g_ca16_money->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, 0, 0, 0);
             CString text;
             text.Format("%d", entry->count * 250);
@@ -1709,7 +1709,7 @@ void VisTavScene::DrawQuestRoster() {
                 main_wnd->vis_invtype1->DrawGlowTrail(cell_x, cell_y, i);
             }
 
-            if (i > 1 && this->vis_tav->rewards[i - 1]->item_id >= 0xFFFD) {
+            if (i > 1 && this->vis_tav->rewards[i - 1]->item_id >= ItemId::REWARD_ALLY) {
                 g_font2->DrawTextWithShadow(tav_topleft.x + pt.x + 0x28, tav_topleft.y + pt.y + 0x23, TxtFile::AllLines[0x161], 2, clrsh_DullGold, 1);
                 g_font2->DrawTextWithShadow(tav_topleft.x + pt.x + 0x28, tav_topleft.y + pt.y + 0x2D, TxtFile::AllLines[0x162], 2, clrsh_DullGold, 1);
             }

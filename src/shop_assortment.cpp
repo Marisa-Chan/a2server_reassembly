@@ -385,10 +385,10 @@ void ShopAssortment::AddMagicItems(CArray<MagicItem>* items) {
     // Second pass: scrolls and potions
     for (int32_t spell_id = 1; spell_id <= spell::max_spell_id; spell_id++) {
         Item* item = nullptr;
-        if (Random1N(2) == 1) {
-            item = new Item(item_slot::magic_item, (uint8_t)(spell_id + 5));
+    if (Random1N(2) == 1) {
+            item = new Item(item_slot::magic_item, (uint8_t)(spell_id + ItemId::SCROLL_OFFSET));
         } else {
-            item = new Item(item_slot::magic_item, (uint8_t)(spell_id + 34));
+            item = new Item(item_slot::magic_item, (uint8_t)(spell_id + ItemId::SUPERSCROLL_OFFSET));
         }
         item->CalcValue();
 
@@ -571,7 +571,7 @@ Inventory* ShopAssortment::ArrangeShelfs(int32_t max_count, int32_t max_same, in
 int32_t ShopAssortment::AddMagicToItem(Item* item) {
     int32_t is_warrior = (item->world_equip->Values()[0].suitable_for & equip_suitable::warrior) != 0;
     int32_t item_type = item->item_type;
-    int32_t local_18 = (item->item_id >> 8) & 0xF;
+    int32_t local_18 = item->item_id.slot;
 
     int32_t budget = this->max_cost * 2 - item->_exp;
 

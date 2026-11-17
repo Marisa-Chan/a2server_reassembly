@@ -24,13 +24,13 @@ CMapWordToPtr g_ItemNameMap;
 // 4F499B
 Item* __cdecl ReadItem(uint8_t** packet_data) {
     uint8_t* data = *packet_data;
-    uint16_t encoded_item_id = *reinterpret_cast<uint16_t*>(data);
+    ItemId encoded_item_id = *reinterpret_cast<uint16_t*>(data);
     data += sizeof(uint16_t);
 
     uint8_t flags = *data;
     data += sizeof(uint8_t);
 
-    if (encoded_item_id == 0) {
+    if (encoded_item_id == ItemId::NONE) {
         *packet_data = data;
         return new Item();
     }
@@ -51,17 +51,17 @@ Item* __cdecl ReadItem(uint8_t** packet_data) {
     }
 
     Item* item = nullptr;
-    uint8_t shape_id = static_cast<uint8_t>((encoded_item_id >> 5) & 0x07);
-    uint8_t material_id = static_cast<uint8_t>((encoded_item_id >> 12) & 0x0F);
-    uint8_t item_data_id = static_cast<uint8_t>(encoded_item_id & 0x1F);
-    uint8_t slot = static_cast<uint8_t>((encoded_item_id >> 8) & 0x0F);
+    uint8_t shape_id = encoded_item_id.shape_id;
+    uint8_t material_id = encoded_item_id.material_id;
+    uint8_t item_data_id = encoded_item_id.equip_id;
+    uint8_t slot = encoded_item_id.slot;
 
     if (slot == item_slot::weapon) {
         item = new Weapon(shape_id, material_id, item_data_id);
     } else if (slot == item_slot::shield) {
         item = new Shield(shape_id, material_id, item_data_id);
     } else if (slot == item_slot::magic_item) {
-        item = new Item(g_GameDataRes.magic_items[encoded_item_id & 0xff].name);
+        item = new Item(g_GameDataRes.magic_items[encoded_item_id.magic_item_id].name);
     } else {
         item = new Armor(shape_id, material_id, item_data_id);
     }
@@ -212,7 +212,7 @@ void Item::InitFromTemplate(uint8_t slot) {
     } else if (magic_item.name.Find("SuperScroll") == 0) {
         this->item_type = ItemType::SCROLL;
     }
-    this->item_id = (this->material_id << 12) | (slot << 8) | (this->shape_id << 5) | (uint8_t)this->itemDataID;
+    this->item_id = ItemId::MakeMagic((uint8_t)this->itemDataID, slot, this->material_id);
     if (!magic_item.effect.IsEmpty()) {
         this->ApplyPropertyString(magic_item.effect);
     }
@@ -755,7 +755,7 @@ void Armor::LoadInfo() {
 
     this->CalcValue();
 
-    this->item_id = (this->material_id << 12) | (this->slot << 8) | (this->shape_id << 5) | this->itemDataID;
+    this->item_id = ItemId::MakeEquip(this->material_id, this->slot, this->shape_id, (uint8_t)this->itemDataID);
 }
 
 // 550E26
@@ -975,8 +975,7 @@ void Shield::LoadInfo() {
 
     this->CalcValue();
 
-    const int slot = item_slot::shield;
-    this->item_id = (this->material_id << 12) | (slot << 8) | (this->shape_id << 5) | (uint8_t)this->itemDataID;
+    this->item_id = ItemId::MakeEquip(this->material_id, item_slot::shield, this->shape_id, (uint8_t)this->itemDataID);
 }
 
 // 55044b
@@ -1091,8 +1090,7 @@ Weapon::Weapon() {
     this->imbued_spell = nullptr;
     this->special_flag = 0;
 
-    const int slot = item_slot::weapon;
-    this->item_id = (uint16_t)((this->material_id << 12) | (slot << 8) | (this->shape_id << 5) | (uint8_t)this->itemDataID);
+    this->item_id = ItemId::MakeEquip(this->material_id, item_slot::weapon, this->shape_id, (uint8_t)this->itemDataID);
 }
 
 // 550929
@@ -1157,8 +1155,7 @@ void Weapon::LoadInfo() {
     this->LoadEquipInfo(this->world_equip);
     this->CalcValue();
 
-    const int slot = item_slot::weapon;
-    this->item_id = (this->material_id << 12) | (slot << 8) | (this->shape_id << 5) | (uint8_t)this->itemDataID;
+    this->item_id = ItemId::MakeEquip(this->material_id, item_slot::weapon, this->shape_id, (uint8_t)this->itemDataID);
 }
 
 // 5511EE
@@ -1402,9 +1399,9 @@ void LoadItemNames() {
 
     ItemNamePktEntry* entry = (ItemNamePktEntry*)((uint8_t*)g_ItemNamePktData + 9);
     for (int32_t i = 0; i < count; i++) {
-        uint16_t id = entry->id;
-        if ((id & 0xF00) == 0xE00) {
-            MagicItem* magic_item = &g_GameDataRes.magic_items[id & 0xFF];
+        ItemId id = entry->id;
+        if (id.slot == item_slot::magic_item) {
+            MagicItem* magic_item = &g_GameDataRes.magic_items[id.magic_item_id];
             *(int32_t*)&entry->data[1] = magic_item->Values()[0].shape; // Maybe `data` is actually `int32_t`?
         }
         g_ItemNamePktMap[id] = entry;

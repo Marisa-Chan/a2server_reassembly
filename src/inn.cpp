@@ -1095,7 +1095,7 @@ void Inn::InnReward(Player* player) {
     // --- Phase 8: Gold ---
     {
         Item* gold = new Item();
-        gold->item_id = 0xFFFF;
+        gold->item_id = ItemId::REWARD_GOLD;
         gold->count = reward / 250;
         result_items.Add(gold);
     }
@@ -1108,7 +1108,7 @@ void Inn::InnReward(Player* player) {
     if (g_ServerConfig.gameType == GAME_TYPE_COOPERATIVE) {
 #endif
         Item* experience = new Item();
-        experience->item_id = 0xFFFE;
+        experience->item_id = ItemId::REWARD_EXP;
         experience->count = reward / 250;
         result_items.Add(experience);
     }
@@ -1118,7 +1118,7 @@ void Inn::InnReward(Player* player) {
         int mob_idx = g_GameDataRes.GetRandomRecruitIndex(reward / 16);
         if (mob_idx != 0) {
             Item* mob = new Item();
-            mob->item_id = 0xFFFD;
+            mob->item_id = ItemId::REWARD_ALLY;
             MonsterInfoData* data = g_GameDataRes.monsters[mob_idx].Values().GetData();
             mob->count = (data->face << 8) | data->type_id;
             result_items.Add(mob);
@@ -1446,7 +1446,7 @@ void Inn::RemoveUnit(Humanoid* humanoid, int32_t id) {
             Item* item = item_list->TakeItemAt(id, 0xFFFF);
             if (item != nullptr) {
                 uint16_t item_hash = item->item_id;
-                if (item_hash == 0xFFFD) {
+                if (item_hash == ItemId::REWARD_ALLY) {
                     // ---- Monster reward ----
                     uint8_t low_byte = item->count & 0xFF;
                     uint8_t high_byte = (item->count >> 8) & 0xFF;
@@ -1476,7 +1476,7 @@ void Inn::RemoveUnit(Humanoid* humanoid, int32_t id) {
                             delete new_unit;
                         }
                     }
-                } else if (item_hash == 0xFFFE) {
+                } else if (item_hash == ItemId::REWARD_EXP) {
                     // ---- Experience reward ----
                     uint32_t base_exp = ((uint32_t)item->count) * 250;
                     int32_t carry = 0;
@@ -1528,7 +1528,7 @@ void Inn::RemoveUnit(Humanoid* humanoid, int32_t id) {
                         humanoid->experience += humanoid->experience_per_sphere[sphere - 1];
                     }
                     g_NetStru1_main.SendUnitUpdate(humanoid, nullptr, UNIT_UPD_ALL_STATS, EQUIP_SLOTS_ALL, 0, 0);
-                } else if (item_hash == 0xFFFF) {
+                } else if (item_hash == ItemId::REWARD_GOLD) {
                     // ---- Money reward ----
                     humanoid->pOwner->AddMoney(((uint32_t)item->count) * 250, 0);
                 } else {

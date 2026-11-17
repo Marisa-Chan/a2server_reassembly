@@ -80,6 +80,64 @@ namespace item_shape {
     };
 }
 
+struct ItemId {
+    enum Sentinel : uint16_t {
+        NONE               = 0x0000,
+        FAME_HALL_SCROLL   = 0x0E4D, // 3661
+        QUEST_TREASURE     = 0x0E53, // 3667
+        SCRIPT_ITEM_OFFSET = 0x0E18, // 3608: added to scenario script item args
+        GOLD_PSEUDO_MIN    = 0xFFF0,
+        REWARD_ALLY        = 0xFFFD,
+        REWARD_EXP         = 0xFFFE,
+        REWARD_GOLD        = 0xFFFF,
+        EMPTY_EQUIP_SLOT   = 0xFFFF,
+    };
+
+    enum MagicRange : uint8_t {
+        BOOK_FIRST         = 1,
+        BOOK_LAST          = 5,
+        SCROLL_OFFSET      = 5,  // 6..34  (spell_id 1..29)
+        SUPERSCROLL_OFFSET = 34, // 35..63 (spell_id 1..29)
+    };
+
+    union {
+        uint16_t raw;
+        struct {
+            uint16_t equip_id    : 5; // [4:0]   1..31 in weapons/shields/armors
+            uint16_t shape_id    : 3; // [7:5]   item_shape::* (0..6)
+            uint16_t slot        : 4; // [11:8]  item_slot::* (1..12)
+            uint16_t material_id : 4; // [15:12] material::* (0..15)
+        };
+        struct {
+            uint16_t magic_item_id : 8; // [7:0]   1..255 in magic_items[] when slot == item_slot::magic_item
+            uint16_t magic_slot    : 4; // [11:8]  item_slot::magic_item (0x0E)
+            uint16_t magic_mat     : 4; // [15:12] 0
+        };
+    };
+
+    constexpr ItemId() : raw(0) {}
+    constexpr ItemId(uint16_t v) : raw(v) {}
+    constexpr operator uint16_t() const { return this->raw; }
+
+    static constexpr ItemId MakeEquip(uint8_t mat, uint8_t sl, uint8_t sh, uint8_t id) {
+        return ItemId(static_cast<uint16_t>(((mat & 0x0F) << 12) | ((sl & 0x0F) << 8) | ((sh & 0x07) << 5) | (id & 0x1F)));
+    }
+    static constexpr ItemId MakeMagic(uint8_t magic_idx, uint8_t sl = item_slot::magic_item, uint8_t mat = 0) {
+        return ItemId(static_cast<uint16_t>(((mat & 0x0F) << 12) | ((sl & 0x0F) << 8) | magic_idx));
+    }
+
+    constexpr bool IsMagicTemplate() const { return this->slot == item_slot::magic_item && this->raw < GOLD_PSEUDO_MIN; }
+    constexpr bool IsScroll() const {
+        return this->raw >= MakeMagic(SCROLL_OFFSET + 1).raw &&
+               this->raw <= MakeMagic(SUPERSCROLL_OFFSET + 29).raw;
+    }
+
+    friend CArchive& operator>>(CArchive& ar, ItemId& id) { return ar >> id.raw; }
+};
+ASSERT_SIZE(ItemId, 2);
+static_assert(ItemId::MakeEquip(material::bone, item_slot::ring, item_shape::rare, 1).raw == 0xD441, "ItemId equip bit layout");
+static_assert(ItemId::MakeMagic(83).raw == ItemId::QUEST_TREASURE, "ItemId magic bit layout");
+
 class Item : public Token {
 public:
     DECLARE_SERIAL(Item); // Runtime class definition at 6372b8.
@@ -131,7 +189,7 @@ public:
 
 public:
     WorldEquip* world_equip;
-    uint16_t item_id;
+    ItemId item_id;
     uint16_t count;
     ItemType item_type;
     uint8_t shape_id;

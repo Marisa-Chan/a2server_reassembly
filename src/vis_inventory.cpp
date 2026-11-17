@@ -724,7 +724,7 @@ int32_t VisInvType1::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
                 for (int32_t i = 0; i < this->grid_source->GetSize(); i++) {
                     TokenEntry* candidate = this->grid_source->GetAt(i);
                     // p10mny.xck (4ab621 -> 6e20ee): skip money slot (item_id == 0xFFFF) before MatchesItem
-                    if (candidate->item_id != 0xFFFF && tangar_hotkey->MatchesItem(candidate) != 0) {
+                    if (candidate->item_id != ItemId::REWARD_GOLD && tangar_hotkey->MatchesItem(candidate) != 0) {
                         TokenEntry* entry = this->VMethod36(i, 1);
                         if (entry != nullptr) {
                             main_wnd->vis_charinfo->VMethod27(entry->GetType() - 1);
@@ -1209,7 +1209,7 @@ int32_t VisInvExtBase::VMethod31(const CPoint* pt) {
     for (int32_t i = 0; i < this->visible_columns * this->visible_rows; i++) {
         if (this->cell_rects[i].PtInRect(rel)) {
             int32_t idx = i + *this->visible_startref;
-            if (idx <= this->grid_source->GetUpperBound() && this->grid_source->GetAt(idx)->item_id != 0xffff) {
+            if (idx <= this->grid_source->GetUpperBound() && this->grid_source->GetAt(idx)->item_id != ItemId::EMPTY_EQUIP_SLOT) {
                 return idx;
             }
         }

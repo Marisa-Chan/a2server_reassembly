@@ -140,7 +140,7 @@ void RebornReadinessInfoImpl(ServerIDType server_id, const Player* player, bool 
         POSITION pos = unit->inventory->items.GetHeadPosition();
         while (pos != nullptr) {
             Item* item = unit->inventory->items.GetNext(pos);
-            if (item != nullptr && item->item_id == 3667) {
+            if (item != nullptr && item->item_id == ItemId::QUEST_TREASURE) {
                 has_treasures += item->count;
             }
         }

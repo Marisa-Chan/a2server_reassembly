@@ -208,8 +208,7 @@ Item* Inventory::TakeItemAt(int32_t item_number, int32_t count) {
 Item* Inventory::FindItemByName(const char* name) {
     for (POSITION pos = this->items.GetHeadPosition(); pos != nullptr;) {
         Item* item = this->items.GetNext(pos);
-        uint8_t item_type = (item->item_id >> 8) & 0xF;
-        if (item_type == item_slot::magic_item) {
+        if (item->item_id.slot == item_slot::magic_item) {
             if (item->world_equip->name == name) {
                 return item;
             }

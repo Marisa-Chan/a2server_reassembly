@@ -855,7 +855,7 @@ void Unit::ProcessEffects() {
                         }
 
                         if (this->some_item != nullptr) {
-                            if (((this->some_item->item_id >> 8) & 0xF) == item_slot::magic_item) {
+                            if (this->some_item->item_id.slot == item_slot::magic_item) {
                                 delete this->some_item;
                                 #ifdef A2SERVER_PATCH
                                 // bug_0005: some_spell can be a zombie (zeroed
@@ -989,7 +989,7 @@ int32_t Unit::IsHumanoid() {
 
 void Unit::ReleaseObjects() {
     // 52a504
-    if (this->some_item && ((this->some_item->item_id >> 8) & 0xF) == 0xE) {
+    if (this->some_item && this->some_item->item_id.slot == item_slot::magic_item) {
         #ifdef A2SERVER_PATCH
         // bug_0002: some_item can be a zombie (destroyed earlier, zeroed
         // vtable) - skip the delete instead of crashing on virtual dispatch
@@ -1829,7 +1829,7 @@ void Unit::Revive() {
 // 52C641
 void Unit::ResetActionState() {
     this->CancelQueuedSpell();
-    if (this->attack_ready == 0 && this->some_item != nullptr && ((this->some_item->item_id >> 8) & 0xF) == 0xE) {
+    if (this->attack_ready == 0 && this->some_item != nullptr && this->some_item->item_id.slot == item_slot::magic_item) {
         delete this->some_item;
         this->some_item = nullptr;
         delete this->some_spell;

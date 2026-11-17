@@ -101,21 +101,18 @@ uint32_t QueryScrolls(Unit* character, uint32_t level, bool elven) {
             item_slot = item_slot::magic_item;
         }
 
-        uint16_t iid = item_material & 0xF;
-        iid <<= 4;
-        iid |= item_slot & 0xF;
-        iid <<= 8;
-        iid |= (item_class & 0x7) << 5;
-        iid |= item_option;
+        ItemId iid = (item_slot == item_slot::magic_item)
+            ? ItemId::MakeMagic((uint8_t)item_option, item_slot, item_material)
+            : ItemId::MakeEquip(item_material, item_slot, item_class, (uint8_t)item_option);
 
         uint32_t item_count = item->count;
 
-        if ((iid & 0xF000) == 0 && (iid & 0x0E00) == 0x0E00) { // scroll
+        if (iid.material_id == 0 && iid.slot == item_slot::magic_item) { // scroll
             bool spell_match = false;
-            uint32_t kindof = iid & 0x00FF;
-            if (((kindof >= 6 && kindof <= 34) && !elven) ||   // scroll
-                ((kindof >= 35 && kindof <= 63) && elven)) {   // superscroll
-                kindof -= 5;
+            uint32_t kindof = iid.magic_item_id;
+            if (((kindof >= ItemId::SCROLL_OFFSET + 1 && kindof <= ItemId::SCROLL_OFFSET + 29) && !elven) ||   // scroll
+                ((kindof >= ItemId::SUPERSCROLL_OFFSET + 1 && kindof <= ItemId::SUPERSCROLL_OFFSET + 29) && elven)) {   // superscroll
+                kindof -= ItemId::SCROLL_OFFSET;
                 if (elven) {
                     kindof -= 29;
                 }

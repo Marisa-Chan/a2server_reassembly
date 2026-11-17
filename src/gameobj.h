@@ -5,6 +5,7 @@
 
 #include <afx.h>
 #include "alm.h"
+#include "item.h"
 #include "util.h"
 
 #include <array>
@@ -51,10 +52,10 @@ public:
 	int HasKnownName(); //4396d6 (client: 43b9f4)
 	const char* GetHintText(); //439973 (client: 43bc8f)
 
-	int GetType() const { return (this->item_id >> 8) & 0xf; } //41f0b0 (client: 420df0)
-	int GetId() const { return this->item_id & 0x1f; } //43a800 (client: 43cb90)
-	int GetMaterial() const { return (this->item_id >> 0xc); } //43a7c0 (client: 420e30)
-	int GetShape() const { return (this->item_id >> 5) & 7; } //43a7e0 (client: 420e10)
+	int GetType() const { return this->item_id.slot; } //41f0b0 (client: 420df0)
+	int GetId() const { return this->item_id.equip_id; } //43a800 (client: 43cb90)
+	int GetMaterial() const { return this->item_id.material_id; } //43a7c0 (client: 420e30)
+	int GetShape() const { return this->item_id.shape_id; } //43a7e0 (client: 420e10)
 
 	uint32_t GetAttribute(uint8_t aid) const { //4397de (client: 43bafa)
 		if (!this->mods || this->mods_count == 0 || this->mods_size == 0) {
@@ -84,7 +85,7 @@ public:
 	uint32_t GetCastSpellId() const { return this->GetAttribute(CAST_SPELL_ATTRIBUTE_ID); } //41f0f0 (client: 420e10)
 public:
 	uint16_t match_id = 0;
-	uint16_t item_id = 0;
+	ItemId item_id = 0;
 	uint8_t flg = 0;
 	uint8_t mods_count = 0;
 	uint8_t mods_size = 0;

@@ -1225,7 +1225,7 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 						}
 
 						TokenEntry* gt = new TokenEntry(0);
-						gt->item_id = 0xffff;
+						gt->item_id = ItemId::REWARD_GOLD;
 						gt->count = this->my_main_unit->gold;
 						gt->flg = 0;
 						gt->mods_count = 0;
@@ -1299,7 +1299,7 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 					uint8_t* pdata = packet_state->data;
 					for (int i = 0; i < packet_state->entry_count; i++) {
 						TokenEntry* d0 = new TokenEntry(&pdata, 0);
-						if (d0->HasKnownName() || d0->item_id > 0xfff0) {
+						if (d0->HasKnownName() || d0->item_id > ItemId::GOLD_PSEUDO_MIN) {
 							tavern->rewards.Add(d0);
 						//WAT ?  else - delete ???
 						}

@@ -561,7 +561,7 @@ TokenEntry::TokenEntry(uint8_t** data, int id1) {
     pdata++;
 
     ItemNamePktEntry* pkt = nullptr;
-    if (this->item_id < 0xfff0) {
+    if (this->item_id < ItemId::GOLD_PSEUDO_MIN) {
         if (g_ItemNamePktMap.Lookup(this->item_id, *(void**)&pkt) == 0) {
             *data = pdata;
             return;
@@ -867,7 +867,7 @@ int32_t TokenEntry::IsQuestItem() { //43a5e5
     }
 
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    MagicItem& item = g_GameDataRes.magic_items[this->GetShape() << 5 | this->GetId()];
+    MagicItem& item = g_GameDataRes.magic_items[this->item_id.magic_item_id];
 
     if (item.name.Find("Crown") != -1) {
         return 1;
@@ -888,7 +888,7 @@ int32_t TokenEntry::IsQuestTreasure() { //43a6d5
         return 0;
     }
 
-    MagicItem& item = g_GameDataRes.magic_items[this->GetShape() << 5 | this->GetId()];
+    MagicItem& item = g_GameDataRes.magic_items[this->item_id.magic_item_id];
     return item.name == "Quest Treasure";
 }
 
@@ -898,7 +898,7 @@ int32_t TokenEntry::IsPotion() {
         return 0;
     }
 
-    MagicItem& item = g_GameDataRes.magic_items[this->GetShape() << 5 | this->GetId()];
+    MagicItem& item = g_GameDataRes.magic_items[this->item_id.magic_item_id];
     return item.name.Find("Potion") == 0;
 }
 
@@ -908,7 +908,7 @@ int32_t TokenEntry::IsScroll() {
         return 0;
     }
 
-    MagicItem& item = g_GameDataRes.magic_items[this->GetShape() << 5 | this->GetId()];
+    MagicItem& item = g_GameDataRes.magic_items[this->item_id.magic_item_id];
     if (item.name.Find("Scroll") == 0 || item.name.Find("Super Scroll") == 0) {
         return 1;
     }
@@ -944,7 +944,7 @@ int TokenEntry::HasKnownName() { //4396d6
 
 
 int32_t TokenEntry::IsEmpty() { //41f0d0
-    return this->item_id == 0xffff;
+    return this->item_id == ItemId::EMPTY_EQUIP_SLOT;
 }
 
 
@@ -958,7 +958,7 @@ CString TokenEntry::GetSpriteName() { //4394f3
     char buffer[0x50];
 
     if (this->GetType() == TYPE_SPELL) {
-        sprintf(buffer, "%02d%02d%03d", this->GetMaterial(), this->GetType(), this->GetShape() << 5 | this->GetId());
+        sprintf(buffer, "%02d%02d%03d", this->GetMaterial(), this->GetType(), this->item_id.magic_item_id);
     } else {
         sprintf(buffer, "%02d%02d%1d%02d", this->GetMaterial(), this->GetType(), this->GetShape(), this->GetId());
     }

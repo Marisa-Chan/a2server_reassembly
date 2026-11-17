@@ -1204,7 +1204,7 @@ void Srv1::LoadTriggers(MapAlm* alm, int flag) {
                         break;
                         
                     case 8: // Item
-                        action.item_id = static_cast<uint16_t>(arg_value + 3608);
+                        action.item_id = static_cast<uint16_t>(arg_value + ItemId::SCRIPT_ITEM_OFFSET);
                         break;
                         
                     case 9: // Building
@@ -1344,7 +1344,7 @@ void Srv1::LoadTriggers(MapAlm* alm, int flag) {
                         break;
 
                     case 8: // Item
-                        check.item_id = static_cast<uint16_t>(check_data->argument_values[arg_idx] + 3608);
+                        check.item_id = static_cast<uint16_t>(check_data->argument_values[arg_idx] + ItemId::SCRIPT_ITEM_OFFSET);
                         break;
 
                     case 9: // Building
@@ -3822,7 +3822,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
                     return;
                 }
                 CString msg;
-                msg.Format("%04x", unit->weapon->item_id);
+                msg.Format("%04x", unit->weapon->item_id.raw);
                 g_NetStru1_main.AnnouncePlayerName(msg, nullptr);
                 return;
             }
@@ -4731,7 +4731,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
             if (to_type == TRANSFER_DST_EQUIP) {
                 // Equip item.
                 human->inventory->default_position = packet_transfer->param1;
-                uint16_t item_slot_type = (item->item_id >> 8) & 0xF;
+                uint16_t item_slot_type = item->item_id.slot;
                 equip_mask |= (item_slot_type < 3) ? (EQUIP_SLOT_WEAPON | EQUIP_SLOT_SHIELD) : (1 << (item_slot_type - 1));
                 Item* prev = item;
                 item = human->UseItem(item); // equip; returns displaced item if any

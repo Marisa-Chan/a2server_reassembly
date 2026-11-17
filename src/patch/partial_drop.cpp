@@ -85,7 +85,7 @@ void DropRndItems(Inventory* item_list_src, Inventory* item_list_dst, float prob
 
     while (src_current != nullptr) {
         Item* item = item_list_src->items.GetPrev(src_current);
-        if (item == nullptr || item->item_id == 3667) {
+        if (item == nullptr || item->item_id == ItemId::QUEST_TREASURE) {
             ind--;
             continue;
         }

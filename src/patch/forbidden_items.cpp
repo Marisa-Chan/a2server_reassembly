@@ -12,25 +12,38 @@ namespace tangar_items {
 // The following two sets are all rings and amulets. All custom items are
 // supposed to be worn exclusively by wizards or fighters.
 static const std::set<uint16_t> forbidden_wizard_items{
-    54337, 54594, // Black Pearl
-    54273, 54530, // Black Widow
-    54465, 54722, // Crimson Red Crystal
-    54305, 54562, // Flamer
-    17473, 17730, // Golden Wrath
-    54433, 54690, // Valkyr
+    ItemId::MakeEquip(material::bone, item_slot::ring,   item_shape::rare,     1), // 54337: Black Pearl
+    ItemId::MakeEquip(material::bone, item_slot::amulet, item_shape::rare,     2), // 54594
+    ItemId::MakeEquip(material::bone, item_slot::ring,   item_shape::common,   1), // 54273: Black Widow
+    ItemId::MakeEquip(material::bone, item_slot::amulet, item_shape::common,   2), // 54530
+    ItemId::MakeEquip(material::bone, item_slot::ring,   item_shape::good,     1), // 54465: Crimson Red Crystal
+    ItemId::MakeEquip(material::bone, item_slot::amulet, item_shape::good,     2), // 54722
+    ItemId::MakeEquip(material::bone, item_slot::ring,   item_shape::uncommon, 1), // 54305: Flamer
+    ItemId::MakeEquip(material::bone, item_slot::amulet, item_shape::uncommon, 2), // 54562
+    ItemId::MakeEquip(material::gold, item_slot::ring,   item_shape::rare,     1), // 17473: Golden Wrath
+    ItemId::MakeEquip(material::gold, item_slot::amulet, item_shape::rare,     2), // 17730
+    ItemId::MakeEquip(material::bone, item_slot::ring,   item_shape::bad,      1), // 54433: Valkyr
+    ItemId::MakeEquip(material::bone, item_slot::amulet, item_shape::bad,      2), // 54690
 };
 static const std::set<uint16_t> forbidden_warrior_items{
-    58561, 58818, // Aizen's Hogyoku
-    54401, 54658, // Elf
-    5249, 5506,   // Light Fantastic
-    1153, 1410,   // Sanctuary Red
-    50305, 50562, // Sea Witcher
-    37985, 38242, // Shaman
-    54369, 54626, // Vampic
+    ItemId::MakeEquip(material::crystal,        item_slot::ring,   item_shape::good,      1), // 58561: Aizen's Hogyoku
+    ItemId::MakeEquip(material::crystal,        item_slot::amulet, item_shape::good,      2), // 58818
+    ItemId::MakeEquip(material::bone,           item_slot::ring,   item_shape::elven,     1), // 54401: Elf
+    ItemId::MakeEquip(material::bone,           item_slot::amulet, item_shape::elven,     2), // 54658
+    ItemId::MakeEquip(material::bronze,         item_slot::ring,   item_shape::elven,     1), // 5249:  Light Fantastic
+    ItemId::MakeEquip(material::bronze,         item_slot::amulet, item_shape::elven,     2), // 5506
+    ItemId::MakeEquip(material::iron,           item_slot::ring,   item_shape::elven,     1), // 1153:  Sanctuary Red
+    ItemId::MakeEquip(material::iron,           item_slot::amulet, item_shape::elven,     2), // 1410
+    ItemId::MakeEquip(material::dragon_leather, item_slot::ring,   item_shape::elven,     1), // 50305: Sea Witcher
+    ItemId::MakeEquip(material::dragon_leather, item_slot::amulet, item_shape::elven,     2), // 50562
+    ItemId::MakeEquip(material::magic_wood,     item_slot::ring,   item_shape::very_rare, 1), // 37985: Shaman
+    ItemId::MakeEquip(material::magic_wood,     item_slot::amulet, item_shape::very_rare, 2), // 38242
+    ItemId::MakeEquip(material::bone,           item_slot::ring,   item_shape::very_rare, 1), // 54369: Vampic
+    ItemId::MakeEquip(material::bone,           item_slot::amulet, item_shape::very_rare, 2), // 54626
 };
 
 bool CanEat(Unit* unit, Item* item) {
-    if (item->item_id == 3667) { // Treasure.
+    if (item->item_id == ItemId::QUEST_TREASURE) { // Treasure.
         return false;
     }
 
@@ -48,7 +61,7 @@ bool CanEat(Unit* unit, Item* item) {
 }
 
 bool IsScroll(Item* item) {
-    return 3590 <= item->item_id && item->item_id <= 3647;
+    return item->item_id.IsScroll();
 }
 
 static const std::set<uint16_t> disabled_shop_items{

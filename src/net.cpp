@@ -4744,15 +4744,15 @@ void NetStru1::SendHumanoidProps(Unit* unit, Player* player, int32_t flags) {
 
             int32_t i = 0;
             if (flags & 1) {
-                packet.prop[i++] = unit->weapon ? unit->weapon->item_id : 0;
+                packet.prop[i++] = unit->weapon ? unit->weapon->item_id.raw : 0;
             }
             if (flags & 2) {
-                packet.prop[i++] = unit->shield ? unit->shield->item_id : 0;
+                packet.prop[i++] = unit->shield ? unit->shield->item_id.raw : 0;
             }
             for (int32_t slot = 3; slot <= 12; slot++) {
                 if (flags & (1 << (slot - 1))) {
                     Item* equip = static_cast<Humanoid*>(unit)->equipment[slot];
-                    packet.prop[i++] = equip ? equip->item_id : 0;
+                    packet.prop[i++] = equip ? equip->item_id.raw : 0;
                 }
             }
 

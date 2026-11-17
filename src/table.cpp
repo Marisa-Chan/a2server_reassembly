@@ -845,18 +845,14 @@ Item* GameDataRes::CreateItem(uint8_t slot, uint8_t shape_id, uint8_t material_i
 }
 
 // 510EE6
-Item* GameDataRes::CreateItemById(uint16_t item_id) {
-    uint8_t slot = (item_id >> 8) & 0x0F;
+Item* GameDataRes::CreateItemById(uint16_t raw_item_id) {
+    ItemId item_id = raw_item_id;
 
-    if (slot == item_slot::magic_item) {
-        return this->CreateItem(slot, 0, 0, item_id);
+    if (item_id.slot == item_slot::magic_item) {
+        return this->CreateItem(item_id.slot, 0, 0, item_id.magic_item_id);
     }
 
-    uint8_t shape_id = (item_id >> 5) & 0x07;
-    uint8_t material_id = (item_id >> 12) & 0x0F;
-    uint8_t item_data_id = item_id & 0x1F;
-
-    return this->CreateItem(slot, shape_id, material_id, item_data_id);
+    return this->CreateItem(item_id.slot, item_id.shape_id, item_id.material_id, item_id.equip_id);
 }
 
 // 50DC69

@@ -40,7 +40,7 @@ bool GigaAllowedToPickup(const Item* item, ServerIDType server_id)
         return false;
     }
 
-    if (item->item_id == 3667) { // Treasures can be picked up always.
+    if (item->item_id == ItemId::QUEST_TREASURE) { // Treasures can be picked up always.
         return true;
     }
 
