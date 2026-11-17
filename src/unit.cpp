@@ -908,7 +908,19 @@ void Unit::ProcessEffects() {
     case 0xf: { // Interact with building
             BuildingsList* building_list = g_Server->srv_stru1->building_list;
 
-            Building* building = building_list->FindNearby(this->position);
+#ifdef A2SERVER_PATCH
+            // Prefer the building the player actually clicked; fall back to the retail "scan a nearby building 2 cells away".
+            Building* clicked = this->eye2 != nullptr ? this->eye2->enter_building : nullptr;
+            if (clicked != nullptr) {
+                this->eye2->enter_building = nullptr;
+                if (building_list->Find(clicked) == nullptr) {
+                    clicked = nullptr;
+                }
+            }
+#else
+            Building* clicked = nullptr;
+#endif
+            Building* building = clicked != nullptr ? clicked : building_list->FindNearby(this->position);
             if (building) {
                 // TODO: also check C++ runtime class.
                 if (building->IsKindOf(RUNTIME_CLASS(Shop))) { // Shop
@@ -941,7 +953,8 @@ void Unit::ProcessEffects() {
                 }
             }
 
-            Building* near_building = building_list->FindNearbyExact(this->position);
+            // Use the clicked building if available, otherwise retail behavior - first building within 2 tiles of the unit.
+            Building* near_building = clicked != nullptr ? clicked : building_list->FindNearbyExact(this->position);
             if (near_building) {
                 if (near_building->object_info_id == 0x0f && near_building->hp > 0) {
                     near_building->hp--;
