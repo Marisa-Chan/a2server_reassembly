@@ -259,7 +259,7 @@ void ShopAssortment::AddItemsFlags(CArray<WorldEquip>* items, uint32_t flags) {
             material_ids.SetAtGrow(material_ids.GetSize(), index);
         }
         index++;
-        if (index == 0xD) {
+        if (index == material::bone) {
             index++;
         }
         material_flags >>= 1;
@@ -301,7 +301,7 @@ void ShopAssortment::AddItems(CArray<WorldEquip>* items, int32_t shape, int32_t 
         Item* item = nullptr;
         switch (item_type) {
         case 1:
-            if ((shape != 0 || mat != 0 || i != 2) && (shape != 0 || mat != 1 || i != 2) && (shape != 6 || mat != 4 || i != 6)) {
+            if ((shape != 0 || mat != material::iron || i != 2) && (shape != 0 || mat != material::bronze || i != 2) && (shape != 6 || mat != material::gold || i != 6)) {
                 item = new Armor(shape, mat, i);
             }
             break;

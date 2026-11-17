@@ -46,6 +46,27 @@ namespace item_slot {
     };
 }
 
+namespace material {
+    enum : uint8_t {
+        iron           = 0,
+        bronze         = 1,
+        steel          = 2,
+        silver         = 3,
+        gold           = 4,
+        mithril        = 5,
+        adamantium     = 6,
+        meteoric       = 7,
+        wood           = 8,
+        magic_wood     = 9,
+        leather        = 10,
+        hard_leather   = 11,
+        dragon_leather = 12,
+        bone           = 13, // 0x0D: skipped in shop material_mask
+        crystal        = 14,
+        none           = 15,
+    };
+}
+
 class Item : public Token {
 public:
     DECLARE_SERIAL(Item); // Runtime class definition at 6372b8.

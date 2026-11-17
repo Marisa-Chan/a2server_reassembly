@@ -737,7 +737,7 @@ uint8_t GameDataRes::FindMaterialIndex(CString* name, CString* out) {
     if (out != nullptr) {
         *out = *name;
     }
-    return 0x0F;
+    return material::none;
 }
 
 // 50DB4E

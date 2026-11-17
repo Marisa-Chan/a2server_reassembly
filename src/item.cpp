@@ -118,7 +118,7 @@ Item* __cdecl ReadItem(uint8_t** packet_data) {
             first_effect->full_magic_value -= 1;
             item->RecalcFromTemplate();
         }
-    } else if (item->material_id != 4 && item->material_id != 2) {
+    } else if (item->material_id != material::gold && item->material_id != material::steel) {
         Effect* first_effect = item->_effects.IsEmpty() ? nullptr : item->_effects.GetHead();
         if (first_effect != nullptr && first_effect->effect_id == modifier::body && first_effect->full_magic_value > 3) {
             first_effect->spell_or_damage = 3;
@@ -698,7 +698,7 @@ Armor::Armor(const CString& name) : Item() {
     }
     this->itemDataID = item_data_id;
 
-    if (this->itemDataID == 0 || this->material_id > 0x0F) {
+    if (this->itemDataID == 0 || this->material_id > material::none) {
         LogMessage("Invalid armor '" + name + "' created - discarded.");
         return;
     }
@@ -934,7 +934,7 @@ Shield::Shield(const CString& name) : Item() {
     }
     this->itemDataID = item_data_id;
 
-    if (this->itemDataID == 0 || this->material_id > 0x0F) {
+    if (this->itemDataID == 0 || this->material_id > material::none) {
         LogMessage("Invalid shield <" + name + "> created - discarded.");
         return;
     }
@@ -1145,7 +1145,7 @@ void Weapon::LoadInfo() {
     this->imbued_spell = nullptr;
 
     int32_t count = g_GameDataRes.weapons.GetSize();
-    if (this->material_id > 0x0F || this->itemDataID >= count) {
+    if (this->material_id > material::none || this->itemDataID >= count) {
         CString s;
         s.Format("Invalid weapon %d %d - no such ID", (int)this->material_id, (int)this->itemDataID);
         LogMessage(s);

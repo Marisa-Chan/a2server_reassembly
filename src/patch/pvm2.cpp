@@ -159,9 +159,9 @@ bool CheckItemLevel(Item* item, uint32_t level) {
         return false; // don't check scrolls here
     }
 
-    if (item_material == 7 || item_material == 12) {
+    if (item_material == material::meteoric || item_material == material::dragon_leather) {
         item_level = 2; // hard, meteoric/dragonleather
-    } else if (item_material == 14) {
+    } else if (item_material == material::crystal) {
         item_level = 3; // horror, crystal
     } else {
         item_level = 1; // allowed, easy
