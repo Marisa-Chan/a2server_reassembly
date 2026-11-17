@@ -43,6 +43,14 @@ enum : uint8_t {
 };
 } // namespace obstacle_flag
 
+namespace path_mask {
+enum : uint8_t {
+    land       = obstacle_flag::ground_unit | obstacle_flag::land,      // 0x41 (65)
+    amphibious = obstacle_flag::ground_unit | obstacle_flag::structure, // 0x44 (68)
+    flying     = obstacle_flag::air_unit | obstacle_flag::air_border,   // 0x82 (130)
+};
+} // namespace path_mask
+
 struct Obstacle {
     uint8_t bits;
 

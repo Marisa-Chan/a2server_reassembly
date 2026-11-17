@@ -2,13 +2,14 @@
 
 #include <cstring>
 
+#include "map_stuff.h"
 #include "unit.h"
 
 
 // 58BE86
 UnitEye::UnitEye() {
     memset(this, 0, sizeof(UnitEye));
-    this->path_mask = 65;
+    this->path_mask = path_mask::land;
     this->rotation_speed = 16;
     this->static_age = 0xff;
     this->scan_radius_base = 5;
@@ -23,11 +24,11 @@ uint8_t UnitEye::GetFacingHalf() {
 void UnitEye::SetPathMaskByMovement(Unit* unit) {
     uint8_t movement_type = unit->MovementType();
     if (movement_type == 1) {
-        this->path_mask = 65;
+        this->path_mask = path_mask::land;
     } else if (movement_type == 2) {
-        this->path_mask = 68;
+        this->path_mask = path_mask::amphibious;
     } else if (movement_type == 3) {
-        this->path_mask = 130;
+        this->path_mask = path_mask::flying;
     }
 }
 
