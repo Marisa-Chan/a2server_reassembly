@@ -197,6 +197,10 @@ struct MapMusicInfo {
 ASSERT_SIZE(MapMusicInfo, 0x1c);
 
 struct MapBuildingData {
+    enum Flags : uint32_t {
+        FLAG_BRIDGE_DIMS = 0x01000000,
+    };
+
     uint16_t x;
     uint16_t y;
     uint16_t type_id;
