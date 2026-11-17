@@ -326,7 +326,7 @@ void Inn::InnCreateQuests(Player* player) {
 
             int32_t obj = unit->building_id;
             int32_t near_id = near_building ? near_building->building_id : 0;
-            int32_t landmark_id = near_id | 0xffff0000;
+            int32_t landmark_id = QuestLandmarkId::MakeHint(near_id);
 
             Quest* q = MakeActiveQuest(this, new QuestKillMob());
             int32_t kind = q->Kind();
@@ -420,7 +420,7 @@ void Inn::InnCreateQuests(Player* player) {
 
             int32_t obj = grp->group_id;
             int32_t near_id = near_building ? near_building->building_id : 0;
-            int32_t landmark_id = near_id | 0xffff0000;
+            int32_t landmark_id = QuestLandmarkId::MakeHint(near_id);
 
             Quest* q = MakeActiveQuest(this, new QuestKillGroup());
             int32_t kind = q->Kind();
@@ -665,7 +665,7 @@ void Inn::InnCreateQuests(Player* player) {
             }
 
             int32_t obj = candidate.p->player_id;
-            int32_t landmark_id = candidate.b->building_id | 0xffff0000;
+            int32_t landmark_id = QuestLandmarkId::MakeHint(candidate.b->building_id);
             int32_t reward = max_exp * 10;
 
             Quest* q = MakeActiveQuest(this, new QuestKillInnDefenders());

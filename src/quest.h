@@ -31,6 +31,30 @@ struct QuestId {
 ASSERT_SIZE(QuestId, 4);
 
 
+struct QuestLandmarkId {
+    enum ModeTag : uint16_t {
+        TRIGGER_TAG   = 0x0000, // Destination inn registered in QuestMap::glues_map
+        HINT_ONLY_TAG = 0xFFFF, // Nearby landmark hint only (not registered in glues_map)
+    };
+
+    union {
+        uint32_t raw;
+        struct {
+            uint32_t building_id : 16;
+            uint32_t mode_tag    : 16;
+        };
+    };
+
+    constexpr QuestLandmarkId(uint32_t v = 0) : raw(v) {}
+    constexpr operator uint32_t() const { return this->raw; }
+
+    static constexpr QuestLandmarkId MakeHint(uint16_t bld_id) {
+        return QuestLandmarkId((static_cast<uint32_t>(HINT_ONLY_TAG) << 16) | bld_id);
+    }
+};
+ASSERT_SIZE(QuestLandmarkId, 4);
+
+
 // These fields are copied in Quest::CopyFields.
 struct QuestData {
     QuestId quest_id;
@@ -38,7 +62,7 @@ struct QuestData {
     uint32_t building_id;
     uint32_t state; // 0: started, 1: completed, 2: failed. (3: presented candidate in the inn?)
     uint32_t obj;
-    uint32_t landmark_id;
+    QuestLandmarkId landmark_id;
     uint32_t limit; // Limit for a "kill N" quest.
 };
 ASSERT_SIZE(QuestData, 0x1c);
@@ -102,7 +126,7 @@ public: // VTable at 60F6F8. Sub-classes have their own vtables, see CreateQuest
     uint32_t GetObj() { return this->quest_data.obj; }         // 41eb70 (client: 420f20)
     QuestId GetQuestId() { return this->quest_data.quest_id; }          // 41eb10 (client: 420ec0)
     uint32_t GetBuildingId() { return this->quest_data.building_id; }   // 41eb30 (client: 420ee0)
-    uint32_t GetLandmarkId() { return this->quest_data.landmark_id; }   // 41eb50 (client: 420f00)
+    QuestLandmarkId GetLandmarkId() { return this->quest_data.landmark_id; } // 41eb50 (client: 420f00)
     uint32_t GetLimit(); //4a4780 (client: 4a7e70) in asm
 
 public:

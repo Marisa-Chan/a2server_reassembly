@@ -451,7 +451,7 @@ void VisQuestStatus::VMethod7() {
         CString area_name;
         CString building_name;
         CGameObject* landmark;
-        if (main_wnd->vis_map_context->objects.Lookup((uint16_t)quest->GetLandmarkId(), landmark)) {
+        if (main_wnd->vis_map_context->objects.Lookup(quest->GetLandmarkId().building_id, landmark)) {
             building_name = txt_building.GetLine(landmark->typeId - 1);
             int32_t cell_x = ((landmark->tileX - 8) * 5) / (main_wnd->vis_map_context->map_width - 0x10);
             int32_t cell_y = ((landmark->tileY - 8) * 5) / (main_wnd->vis_map_context->map_height - 0x10);

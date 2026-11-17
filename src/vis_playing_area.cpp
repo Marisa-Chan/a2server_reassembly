@@ -4530,7 +4530,7 @@ uint32_t VisPlayingArea::UpdateMouseHover() {
 					if (quest->Kind() != Quest::KIND_KILL_GROUP && quest->Kind() != Quest::KIND_INTERCEPT_GROUP) {
 						this->quest_some_id_2 = quest->GetQuestId();
 					}
-				} else if (this->hovered_unit->unit_id == (quest->GetLandmarkId() & 0xFFFF)) {
+				} else if (this->hovered_unit->unit_id == quest->GetLandmarkId().building_id) {
 					this->quest_landmark_some_id = quest->GetQuestId();
 				}
 				if (this->hovered_unit->unit_id == quest->GetBuildingId()) {

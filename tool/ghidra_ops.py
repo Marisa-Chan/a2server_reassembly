@@ -28,6 +28,7 @@ TYPE_ALIASES = {
     "AssortFlags": "uint",
     "MonsterTypeFace": "ushort",
     "QuestId": "uint",
+    "QuestLandmarkId": "uint",
 }
 GAME_CATEGORY = "/Game"
 
