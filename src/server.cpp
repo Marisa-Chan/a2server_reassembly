@@ -891,10 +891,10 @@ void Srv1::CreateUnits(MapAlm* alm) {
             unit = new Human(g_GameDataRes.humans[idx].name, is_hero, nullptr);
         }
 
-        unit->quest_kill_mark = (unit_data->flags2 & 1) ? 1 : 0;
-        unit->quest_intercept_mark = (unit_data->flags2 & 2) ? 1 : 0;
-        unit->quest_escort_mark = (unit_data->flags2 & 4) ? 1 : 0;
-        unit->summoned   = (unit_data->flags2 & 8) ? 1 : 0;
+        unit->quest_kill_mark = (unit_data->flags2 & MapUnitData::FLAG_QUEST_KILL) ? 1 : 0;
+        unit->quest_intercept_mark = (unit_data->flags2 & MapUnitData::FLAG_QUEST_INTERCEPT) ? 1 : 0;
+        unit->quest_escort_mark = (unit_data->flags2 & MapUnitData::FLAG_QUEST_ESCORT) ? 1 : 0;
+        unit->summoned   = (unit_data->flags2 & MapUnitData::FLAG_SUMMONED) ? 1 : 0;
 
         if (unit->typeId == 0) {
             CString msg;

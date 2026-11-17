@@ -209,6 +209,13 @@ struct MapUnitData {
         FLAG_IS_HUMAN = 0x10,
     };
 
+    enum Flags2 : uint32_t {
+        FLAG_QUEST_KILL      = 0x01,
+        FLAG_QUEST_INTERCEPT = 0x02,
+        FLAG_QUEST_ESCORT    = 0x04,
+        FLAG_SUMMONED        = 0x08,
+    };
+
     uint32_t x;
     uint32_t y;
     uint32_t type_id;
