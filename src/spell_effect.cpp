@@ -310,18 +310,18 @@ void AreaEffect::ApplyDistribution() {
 uint32_t AreaEffect::GetLayerIndex() const {
 	switch (this->itemDataID) {
 	case spell::wall_of_fire:
-		return 0;
+		return AreaEffect::LAYER_FIRE;
 	case spell::poison_cloud:
-		return 2;
+		return AreaEffect::LAYER_POISON;
 	case spell::darkness:
-		return 5;
+		return AreaEffect::LAYER_DARKNESS;
 	case spell::light:
-		return 4;
+		return AreaEffect::LAYER_LIGHT;
 	case spell::wall_of_earth:
-		return 3;
+		return AreaEffect::LAYER_EARTH_WALL;
 	default:
 		// Vanilla constructed the string "MapLayer() call - Invalid Area Effect" here, but didn't log it --- likely because it would be logged on every blizzard spell.
-		return 0;
+		return AreaEffect::LAYER_FIRE;
 	}
 }
 
@@ -397,36 +397,36 @@ void AreaEffect::ApplyCellLayer(uint8_t x, uint8_t y) {
 	switch (this->itemDataID) {
 	case spell::fire_ball:
 	case spell::wall_of_fire:
-		if (layers[2] != nullptr) {
-			AreaEffect* layer = layers[2];
+		if (layers[AreaEffect::LAYER_POISON] != nullptr) {
+			AreaEffect* layer = layers[AreaEffect::LAYER_POISON];
 			MapStuff_Instance->PlaceAreaEffectAt(layer, x, y);
 			g_NetStru1_main.SendAreaEffect(layer, 0);
 		}
-		if (layers[1] != nullptr) {
-			AreaEffect* layer = layers[1];
+		if (layers[AreaEffect::LAYER_CLEARED_BY_FIRE] != nullptr) {
+			AreaEffect* layer = layers[AreaEffect::LAYER_CLEARED_BY_FIRE];
 			MapStuff_Instance->PlaceAreaEffectAt(layer, x, y);
 			g_NetStru1_main.SendAreaEffect(layer, 0);
 		}
 		break;
 	case spell::poison_cloud:
-		if (layers[0] != nullptr) {
-			AreaEffect* layer = layers[2];
+		if (layers[AreaEffect::LAYER_FIRE] != nullptr) {
+			AreaEffect* layer = layers[AreaEffect::LAYER_POISON];
 			MapStuff_Instance->PlaceAreaEffectAt(layer, x, y);
 			g_NetStru1_main.SendAreaEffect(layer, 0);
 		}
 		break;
 	case spell::darkness:
-		if (layers[4] != nullptr) {
-			MapStuff_Instance->PlaceAreaEffectAt(layers[5], x, y);
-			AreaEffect* layer = layers[4];
+		if (layers[AreaEffect::LAYER_LIGHT] != nullptr) {
+			MapStuff_Instance->PlaceAreaEffectAt(layers[AreaEffect::LAYER_DARKNESS], x, y);
+			AreaEffect* layer = layers[AreaEffect::LAYER_LIGHT];
 			MapStuff_Instance->PlaceAreaEffectAt(layer, x, y);
 			g_NetStru1_main.SendAreaEffect(layer, 0);
 		}
 		break;
 	case spell::light:
-		if (layers[5] != nullptr) {
-			MapStuff_Instance->PlaceAreaEffectAt(layers[4], x, y);
-			AreaEffect* layer = layers[5];
+		if (layers[AreaEffect::LAYER_DARKNESS] != nullptr) {
+			MapStuff_Instance->PlaceAreaEffectAt(layers[AreaEffect::LAYER_LIGHT], x, y);
+			AreaEffect* layer = layers[AreaEffect::LAYER_DARKNESS];
 			MapStuff_Instance->PlaceAreaEffectAt(layer, x, y);
 			g_NetStru1_main.SendAreaEffect(layer, 0);
 		}

@@ -59,6 +59,16 @@ ASSERT_SIZE(PointEffect, 0x50);
 
 class AreaEffect : public SpellEffect {
 public:
+    enum Layer : uint8_t {
+        LAYER_FIRE            = 0,
+        LAYER_CLEARED_BY_FIRE = 1,
+        LAYER_POISON          = 2,
+        LAYER_EARTH_WALL      = 3,
+        LAYER_LIGHT           = 4,
+        LAYER_DARKNESS        = 5,
+        LAYER_COUNT           = 6,
+    };
+
     DECLARE_SERIAL(AreaEffect); // Runtime class definition at 6364B8.
 
 public: // VTable at 60f1f0.

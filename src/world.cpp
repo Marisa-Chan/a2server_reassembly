@@ -2348,7 +2348,7 @@ void World::ScriptOP_0x1d(TriggerAction* action) {
     if (!slots) {
         return;
     }
-    for (int i = 0; i < 6; i++) {
+    for (int i = 0; i < AreaEffect::LAYER_COUNT; i++) {
         if (slots[i] && slots[i]->itemDataID == action->data[2]) {
             slots[i]->duration = action->data[3];
             break;

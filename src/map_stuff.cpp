@@ -1037,14 +1037,14 @@ void MapStuff::ApplyCellState(CellState& cell) { //58b5d6
         }
     }
 
-    for (int i = 0; i < 6; i++) {
+    for (int i = 0; i < AreaEffect::LAYER_COUNT; i++) {
         if (cell.area_effects[i]) {
             if (true) { // 59a050
                 this->WalkCostAt(pos) *= 4;
             }
         }
     }
-    if (cell.area_effects[3]) {
+    if (cell.area_effects[AreaEffect::LAYER_EARTH_WALL]) {
         ob1->SetBits(1 | 4);
         ob2->SetBits(1 | 4);
     }
@@ -1932,7 +1932,7 @@ int MapStuff::RegisterAreaEffectCell(AreaEffect* ae, uint16_t yx) {
     uint8_t idx = ae->GetLayerIndex();
     this->scratch_cell_state.area_effects[idx] = ae;
     this->scratch_cell_state.effect_count = 0;
-    for (int32_t i = 0; i < 6; i++) {
+    for (int32_t i = 0; i < AreaEffect::LAYER_COUNT; i++) {
         if (this->scratch_cell_state.area_effects[i] != nullptr) {
             this->scratch_cell_state.effect_count++;
         }
@@ -1953,7 +1953,7 @@ int MapStuff::RemoveAreaEffectAt(AreaEffect* ae, uint16_t yx) {
     }
     this->scratch_cell_state.area_effects[idx] = nullptr;
     this->scratch_cell_state.effect_count = 0;
-    for (int32_t i = 0; i < 6; i++) {
+    for (int32_t i = 0; i < AreaEffect::LAYER_COUNT; i++) {
         if (this->scratch_cell_state.area_effects[i] != nullptr) {
             this->scratch_cell_state.effect_count++;
         }
