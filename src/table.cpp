@@ -515,7 +515,7 @@ void SpellInfo::ParseValue(CString str, int32_t type_id, int32_t* out_value, dou
         }
         break;
     case 5:
-        *out_value = (_stricmp(str, "Unit") == 0) ? 1 : 2;
+        *out_value = (_stricmp(str, "Unit") == 0) ? Spell::TARGET_UNIT : Spell::TARGET_AREA;
         break;
     case 6:
         *out_value = (_stricmp(str, "Spell Effect") == 0) ? 2 : 1;

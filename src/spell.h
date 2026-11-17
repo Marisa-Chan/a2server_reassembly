@@ -30,6 +30,11 @@ namespace magic_sphere {
 
 class Spell : public CObject {
 public:
+    enum TargetType : uint8_t {
+        TARGET_UNIT = 1,
+        TARGET_AREA = 2,
+    };
+
     DECLARE_SERIAL(Spell);
 
     virtual ~Spell();

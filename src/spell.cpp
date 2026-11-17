@@ -126,12 +126,12 @@ int Spell::IsAreaSpell(uint8_t, uint8_t) {
         return 0;
     }
     #endif
-    return this->spell_info->Values().GetData()[0].spell_target == 2;
+    return this->spell_info->Values().GetData()[0].spell_target == Spell::TARGET_AREA;
 }
 
 // 5393C7
 int Spell::IsUnitSpell() {
-    return this->spell_info->Values().GetData()[0].spell_target == 1;
+    return this->spell_info->Values().GetData()[0].spell_target == Spell::TARGET_UNIT;
 }
 
 // 53940D
