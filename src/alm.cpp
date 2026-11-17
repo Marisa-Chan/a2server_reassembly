@@ -149,7 +149,7 @@ MapAlm::MapAlm(const char* filename) {
         file->Read(&sec, sizeof(MapSectionHeader));
 
         switch (sec.section_id) {
-        case 0:
+        case alm_section::general:
             has_info_section = 1;
             file->Read(&this->map_width, 4);
             file->Read(&this->map_height, 4);
@@ -183,18 +183,18 @@ MapAlm::MapAlm(const char* filename) {
             }
             file->Read(this->map_author, sizeof(this->map_author));
             break;
-        case 1:
+        case alm_section::landscape:
             this->landscape_val1 = sec.val1;
             map_area = this->map_width * this->map_height * 2;
             this->landscape = new uint16_t[map_area / 2];
             file->Read(this->landscape, map_area);
             break;
-        case 2:
+        case alm_section::heights:
             map_area = sec.section_size;
             this->map_heights = new uint8_t[map_area];
             file->Read(this->map_heights, map_area);
             break;
-        case 3:
+        case alm_section::objects:
             // WAT: vanilla version doesn't set `map_area`. They rely on section 3 being right
             // after section 2 and having the same number of objects as heights.
             map_area = sec.section_size;
@@ -202,7 +202,7 @@ MapAlm::MapAlm(const char* filename) {
             this->map_objects = new uint8_t[map_area];
             file->Read(this->map_objects, map_area);
             break;
-        case 4:
+        case alm_section::buildings:
             for (int32_t i = 0; i < building_count; i++) {
                 uint32_t x_raw, y_raw, type_flags;
                 uint16_t health;
@@ -235,7 +235,7 @@ MapAlm::MapAlm(const char* filename) {
                 this->map_buildings.SetAtGrow(this->map_buildings.GetSize(), building);
             }
             break;
-        case 5:
+        case alm_section::players:
             for (int32_t i = 0; i < player_count; i++) {
                 MapPlayerData* player = new MapPlayerData();
                 file->Read(&player->color, 4);
@@ -250,7 +250,7 @@ MapAlm::MapAlm(const char* filename) {
             }
             this->loading_player = this->map_players.GetData()[0];
             break;
-        case 6:
+        case alm_section::units:
             for (int32_t i = 0; i < unit_count; i++) {
                 MapUnitData* unit = new MapUnitData{};
                 file->Read(&unit->x, 4);
@@ -316,7 +316,7 @@ MapAlm::MapAlm(const char* filename) {
                 this->units_datas.SetAtGrow(this->units_datas.GetSize(), unit);
             }
             break;
-        case 7: {
+        case alm_section::logic: {
                 int32_t instance_count;
                 file->Read(&instance_count, 4);
                 for (int32_t i = 0; i < instance_count; i++) {
@@ -351,7 +351,7 @@ MapAlm::MapAlm(const char* filename) {
                 }
                 break;
             }
-        case 8:
+        case alm_section::sacks:
             for (int32_t i = 0; i < sack_count; i++) {
                 int32_t item_count;
                 file->Read(&item_count, 4);
@@ -384,7 +384,7 @@ MapAlm::MapAlm(const char* filename) {
                 this->sacks.SetAtGrow(this->sacks.GetSize(), sack);
             }
             break;
-        case 9: {
+        case alm_section::effects: {
                 int32_t num_effects;
                 file->Read(&num_effects, 4);
                 for (int32_t i = 0; i < num_effects; i++) {
@@ -407,14 +407,14 @@ MapAlm::MapAlm(const char* filename) {
                 }
                 break;
             }
-        case 10:
+        case alm_section::groups:
             for (int32_t i = 0; i < groups_count; i++) {
                 MapGroupData* grp = new MapGroupData{};
                 file->Read(grp, sizeof(MapGroupData));
                 this->groups.SetAtGrow(this->groups.GetSize(), grp);
             }
             break;
-        case 11:
+        case alm_section::inns_shops:
             for (int32_t i = 0; i < tavern_count; i++) {
                 MapInnData* inn = new MapInnData{};
                 file->Read(inn, sizeof(MapInnData));
@@ -431,7 +431,7 @@ MapAlm::MapAlm(const char* filename) {
                 this->pointers.SetAtGrow(this->pointers.GetSize(), pointer);
             }
             break;
-        case 12:
+        case alm_section::music:
             file->Read(&this->default_music, sizeof(MapMusicInfo));
             for (int32_t i = 0; i < music_count; i++) {
                 MapMusicInfo* music = new MapMusicInfo{};

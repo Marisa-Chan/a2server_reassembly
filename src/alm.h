@@ -25,6 +25,24 @@ struct MapSectionHeader {
 };
 ASSERT_SIZE(MapSectionHeader, 0x14);
 
+namespace alm_section {
+enum : uint32_t {
+    general    = 0,
+    landscape  = 1,
+    heights    = 2,
+    objects    = 3,
+    buildings  = 4,
+    players    = 5,
+    units      = 6,
+    logic      = 7,
+    sacks      = 8,
+    effects    = 9,
+    groups     = 10,
+    inns_shops = 11,
+    music      = 12,
+};
+} // namespace alm_section
+
 class MapPlayerData : public CObject {
     DECLARE_DYNAMIC(MapPlayerData); // original RTTI name: "CPlayer"
 public:
