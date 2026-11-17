@@ -899,12 +899,12 @@ void Inn::InnReward(Player* player) {
     CArray<Item*> filtered_by_class;
     CArray<Item*> temp_candidates;
 
-    // Determine player class filter: 1 = fighter, 2 = wizard.
+    // Determine player class filter: warrior or mage.
     uint8_t item_type_filter;
     if (player->main_unit->unit_attrs & 4) {
-        item_type_filter = 2;
+        item_type_filter = equip_suitable::mage;
     } else {
-        item_type_filter = 1;
+        item_type_filter = equip_suitable::warrior;
     }
 
     // --- Phase 1: Non-magic item ---

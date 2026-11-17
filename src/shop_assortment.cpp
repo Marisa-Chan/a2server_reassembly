@@ -37,12 +37,12 @@ static int32_t __cdecl CompareItemsForSort(const void* a, const void* b) {
 
     int32_t warrior_a = 0;
     if (item_a->item_type == 2 || item_a->item_type == 1 || item_a->item_type == 7) {
-        warrior_a = item_a->world_equip->Values()[0].suitable_for & 1;
+        warrior_a = item_a->world_equip->Values()[0].suitable_for & equip_suitable::warrior;
     }
 
     int32_t warrior_b = 0;
     if (item_b->item_type == 2 || item_b->item_type == 1 || item_b->item_type == 7) {
-        warrior_b = item_b->world_equip->Values()[0].suitable_for & 1;
+        warrior_b = item_b->world_equip->Values()[0].suitable_for & equip_suitable::warrior;
     }
 
     if (warrior_a < warrior_b) {
@@ -307,7 +307,7 @@ void ShopAssortment::AddItems(CArray<WorldEquip>* items, int32_t shape, int32_t 
             break;
         case 2: {
                 Weapon* weapon = new Weapon(shape, mat, i);
-                if ((weapon->world_equip->Values()[0].suitable_for & 1) == 0) {
+                if ((weapon->world_equip->Values()[0].suitable_for & equip_suitable::warrior) == 0) {
                     delete weapon;
                 } else {
                     item = weapon;
@@ -319,7 +319,7 @@ void ShopAssortment::AddItems(CArray<WorldEquip>* items, int32_t shape, int32_t 
             break;
         case 8: {
                 Weapon* weapon = new Weapon(shape, mat, i);
-                if ((weapon->world_equip->Values()[0].suitable_for & 1) != 0) {
+                if ((weapon->world_equip->Values()[0].suitable_for & equip_suitable::warrior) != 0) {
                     delete weapon;
                 } else {
                     item = weapon;
@@ -569,7 +569,7 @@ Inventory* ShopAssortment::ArrangeShelfs(int32_t max_count, int32_t max_same, in
 
 // 54EA76
 int32_t ShopAssortment::AddMagicToItem(Item* item) {
-    int32_t is_warrior = (item->world_equip->Values()[0].suitable_for & 1) != 0;
+    int32_t is_warrior = (item->world_equip->Values()[0].suitable_for & equip_suitable::warrior) != 0;
     int32_t item_type = item->item_type;
     int32_t local_18 = (item->item_id >> 8) & 0xF;
 

@@ -613,7 +613,7 @@ int Item::IsCheatCreatable() {
 // 548FAA
 void Item::AddEffect(Effect* effect) {
     int32_t usable_by = g_GameDataRes.magics[effect->effect_id].Values()[0].usable_by;
-    if (usable_by != 3) {
+    if (usable_by != equip_suitable::both) {
         POSITION it = this->_effects.GetHeadPosition();
         while (it != nullptr) {
             Effect* e = this->_effects.GetNext(it);
@@ -883,10 +883,10 @@ void Armor::WriteState(PacketUnitStateVec* pkt, uint8_t* slot) {
     pkt->AppendByteInt(1, this->_exp, slot);
     slot[4] = 0;
     int32_t suitable_for = this->world_equip->Values()[0].suitable_for;
-    if (suitable_for & 1) {
+    if (suitable_for & equip_suitable::warrior) {
         slot[4] |= 2;
     }
-    if (suitable_for & 2) {
+    if (suitable_for & equip_suitable::mage) {
         slot[4] |= 4;
     }
     pkt->AppendByteByte(modifier::defence, this->protections.defense, slot);
@@ -1069,10 +1069,10 @@ void Shield::WriteState(PacketUnitStateVec* pkt, uint8_t* slot) {
     pkt->AppendByteInt(1, this->_exp, slot);
     slot[4] = 0;
     int32_t suitable_for = this->world_equip->Values()[0].suitable_for;
-    if (suitable_for & 1) {
+    if (suitable_for & equip_suitable::warrior) {
         slot[4] |= 2;
     }
-    if (suitable_for & 2) {
+    if (suitable_for & equip_suitable::mage) {
         slot[4] |= 4;
     }
     pkt->AppendByteByte(modifier::defence, this->protections.defense, slot);
@@ -1345,7 +1345,7 @@ void Weapon::WriteState(PacketUnitStateVec* pkt, uint8_t* slot) {
     pkt->AppendByteInt(1, this->_exp, slot);
     slot[4] = 0;
     int32_t suitable_for = this->world_equip->Values()[0].suitable_for;
-    if (suitable_for & 1) {
+    if (suitable_for & equip_suitable::warrior) {
         slot[4] |= 2;
         pkt->AppendByteByte(modifier::damagemin, this->hit_values.hand_damage_min, slot);
         pkt->AppendByteByte(modifier::damagemax, this->hit_values.hand_damage_spread, slot);
@@ -1359,7 +1359,7 @@ void Weapon::WriteState(PacketUnitStateVec* pkt, uint8_t* slot) {
             pkt->AppendByteByte(modifier::itemlore, this->range, slot); // Don't know why it uses `itemlore`. Maybe it's a reused property?
         }
     }
-    if (suitable_for & 2) {
+    if (suitable_for & equip_suitable::mage) {
         slot[4] |= 4;
     }
     if (this->hit_values.some_damage2_spread != 0) {

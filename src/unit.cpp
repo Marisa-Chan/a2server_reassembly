@@ -1579,7 +1579,7 @@ void Unit::Die() {
         }
 
         // Unequip weapon only if it is player-equippable (natural monster weapons have suitable_for == 0).
-        if (this->weapon != nullptr && this->weapon->world_equip->Values().GetData()[0].suitable_for != 0) {
+        if (this->weapon != nullptr && this->weapon->world_equip->Values().GetData()[0].suitable_for != equip_suitable::none) {
             this->inventory->PutItemIntoBagAtDefault(this->Unequip(this->weapon));
         }
 
@@ -2458,10 +2458,10 @@ void Humanoid::ReleaseObjects() {
 Item* Humanoid::UseItem(Item* item) {
     if (item->IsKindOf(RUNTIME_CLASS(Armor)) || item->IsKindOf(RUNTIME_CLASS(Weapon)) || item->IsKindOf(RUNTIME_CLASS(Shield))) {
         int32_t suitable_for = item->world_equip->Values().GetData()->suitable_for;
-        if ((suitable_for & 1) == 0 && (this->unit_attrs & 4) == 0) {
+        if ((suitable_for & equip_suitable::warrior) == 0 && (this->unit_attrs & 4) == 0) {
             return item;
         }
-        if ((suitable_for & 2) == 0 && (this->unit_attrs & 4) != 0) {
+        if ((suitable_for & equip_suitable::mage) == 0 && (this->unit_attrs & 4) != 0) {
             return item;
         }
     }

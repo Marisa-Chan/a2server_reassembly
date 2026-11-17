@@ -156,6 +156,15 @@ public:
 };
 ASSERT_SIZE(BuildingInfo, 0x1c);
 
+namespace equip_suitable {
+    enum : uint8_t {
+        none    = 0,
+        warrior = 1,
+        mage    = 2,
+        both    = warrior | mage,
+    };
+}
+
 struct EquipData {
     int32_t shape;
     int32_t material;
