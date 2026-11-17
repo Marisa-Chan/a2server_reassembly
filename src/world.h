@@ -42,6 +42,39 @@ enum DiplomacyFlag : uint8_t {
     DIPLO_THEY_WAR      = 0x40, // display only: the other set war toward us
 };
 
+namespace trigger_check_op {
+enum : uint32_t {
+    group_unit_count           = 1,
+    unit_in_box                = 2,
+    unit_in_circle             = 3,
+    unit_param                 = 4,
+    unit_alive                 = 5,
+    unit_distance              = 6,
+    point_to_unit_dist         = 7,
+    player_unit_count          = 8,
+    unit_attack_target         = 9,
+    diplomacy                  = 10,
+    noop_11                    = 11,
+    item_in_inventory          = 12,
+    noop_13                    = 13,
+    sack_at_point              = 14,
+    nearest_player_unit_dist   = 15,
+    item_carrier_to_point_dist = 16,
+    item_in_inventory_alt      = 17,
+    vip_unit_alive             = 18,
+    variable_value             = 19,
+    player_building_count      = 20,
+    building_health            = 21,
+    teleport_unit_on_tile      = 22,
+    scenario_variable          = 23,
+    subobjective               = 24,
+    spell_on_tile              = 25,
+    spell_on_unit              = 26,
+    unit_centered_on_tile      = 27,
+    constant_value             = 0x10002,
+};
+} // namespace trigger_check_op
+
 struct Diplomacy {
 public:
     uint8_t flags[4];

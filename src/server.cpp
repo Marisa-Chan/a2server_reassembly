@@ -1274,7 +1274,7 @@ void Srv1::LoadTriggers(MapAlm* alm, int flag) {
         check.exec_once = check_data->exec_once_flag;
         check.counter = 0;
 
-        if (check.type < 0x10002) {
+        if (check.type < trigger_check_op::constant_value) {
             int has_unit = 0;
             int has_group = 0;
             int has_player = 0;
@@ -1305,9 +1305,9 @@ void Srv1::LoadTriggers(MapAlm* alm, int flag) {
                             }
                         }
 
-                        if (check.group != nullptr && check.type != 1) {
+                        if (check.group != nullptr && check.type != trigger_check_op::group_unit_count) {
                             check.group->group_sub->active = 1;
-                        } else if (check.multi != nullptr && check.type != 1) {
+                        } else if (check.multi != nullptr && check.type != trigger_check_op::group_unit_count) {
                             static_cast<Group*>(check.multi)->group_sub->active = 1;
                         }
 
@@ -1342,9 +1342,9 @@ void Srv1::LoadTriggers(MapAlm* alm, int flag) {
                             }
                         }
                         
-                        if (check.unit != nullptr && check.unit->group != nullptr && check.type != 1) {
+                        if (check.unit != nullptr && check.unit->group != nullptr && check.type != trigger_check_op::group_unit_count) {
                             check.unit->group->group_sub->active = 1;
-                        } else if (check.multi != nullptr && static_cast<Unit*>(check.multi)->group != nullptr && check.type != 1) {
+                        } else if (check.multi != nullptr && static_cast<Unit*>(check.multi)->group != nullptr && check.type != trigger_check_op::group_unit_count) {
                             static_cast<Unit*>(check.multi)->group->group_sub->active = 1;
                         }
 
@@ -1394,7 +1394,7 @@ void Srv1::LoadTriggers(MapAlm* alm, int flag) {
                 LogMessage(msg);
             }
         } else {
-            if (check.type == 0x10002) {
+            if (check.type == trigger_check_op::constant_value) {
                 g_World->trigger_variables[check_idx] = check_data->argument_values[0];
                 check_idx++;
             }

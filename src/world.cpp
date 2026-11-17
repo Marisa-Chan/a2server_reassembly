@@ -4591,33 +4591,33 @@ void World::EvaluateTriggerChecks() {
 // 5B081E — trigger-check dispatcher.
 void World::DispatchTriggerCheck(TriggerCheck* check) {
     switch (check->type) {
-    case 1: this->CheckOP_1(check); break;
-    case 2: this->CheckOP_2(check); break;
-    case 3: this->CheckOP_3(check); break;
-    case 4: this->CheckOP_4(check); break;
-    case 5: this->CheckOP_5(check); break;
-    case 6: this->CheckOP_6(check); break;
-    case 7: this->CheckOP_7(check); break;
-    case 8: this->CheckOP_8(check); break;
-    case 9: this->CheckOP_9(check); break;
-    case 10: this->CheckOP_10(check); break;
-    case 11: break; // No-op.
-    case 12: this->CheckOP_12(check); break;
-    case 13: break; // No-op.
-    case 14: this->CheckOP_14(check); break;
-    case 15: this->CheckOP_15(check); break;
-    case 16: this->CheckOP_16(check); break;
-    case 17: this->CheckOP_17(check); break;
-    case 18: this->CheckOP_18(check); break;
-    case 19: this->CheckOP_19(check); break;
-    case 20: this->CheckOP_20(check); break;
-    case 21: this->CheckOP_21(check); break;
-    case 22: this->CheckOP_22(check); break;
-    case 23: this->CheckOP_23(check); break;
-    case 24: this->CheckOP_24(check); break;
-    case 25: this->CheckOP_25(check); break;
-    case 26: this->CheckOP_26(check); break;
-    case 27: this->CheckOP_27(check); break;
+    case trigger_check_op::group_unit_count:           this->CheckOP_1(check); break;
+    case trigger_check_op::unit_in_box:                this->CheckOP_2(check); break;
+    case trigger_check_op::unit_in_circle:             this->CheckOP_3(check); break;
+    case trigger_check_op::unit_param:                 this->CheckOP_4(check); break;
+    case trigger_check_op::unit_alive:                 this->CheckOP_5(check); break;
+    case trigger_check_op::unit_distance:              this->CheckOP_6(check); break;
+    case trigger_check_op::point_to_unit_dist:         this->CheckOP_7(check); break;
+    case trigger_check_op::player_unit_count:          this->CheckOP_8(check); break;
+    case trigger_check_op::unit_attack_target:         this->CheckOP_9(check); break;
+    case trigger_check_op::diplomacy:                  this->CheckOP_10(check); break;
+    case trigger_check_op::noop_11:                    break; // No-op.
+    case trigger_check_op::item_in_inventory:          this->CheckOP_12(check); break;
+    case trigger_check_op::noop_13:                    break; // No-op.
+    case trigger_check_op::sack_at_point:              this->CheckOP_14(check); break;
+    case trigger_check_op::nearest_player_unit_dist:   this->CheckOP_15(check); break;
+    case trigger_check_op::item_carrier_to_point_dist: this->CheckOP_16(check); break;
+    case trigger_check_op::item_in_inventory_alt:      this->CheckOP_17(check); break;
+    case trigger_check_op::vip_unit_alive:             this->CheckOP_18(check); break;
+    case trigger_check_op::variable_value:             this->CheckOP_19(check); break;
+    case trigger_check_op::player_building_count:      this->CheckOP_20(check); break;
+    case trigger_check_op::building_health:            this->CheckOP_21(check); break;
+    case trigger_check_op::teleport_unit_on_tile:      this->CheckOP_22(check); break;
+    case trigger_check_op::scenario_variable:          this->CheckOP_23(check); break;
+    case trigger_check_op::subobjective:               this->CheckOP_24(check); break;
+    case trigger_check_op::spell_on_tile:              this->CheckOP_25(check); break;
+    case trigger_check_op::spell_on_unit:              this->CheckOP_26(check); break;
+    case trigger_check_op::unit_centered_on_tile:      this->CheckOP_27(check); break;
     }
 }
 
