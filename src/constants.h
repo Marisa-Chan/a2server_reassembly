@@ -84,6 +84,8 @@ namespace modifier {
     const int damageearth = 47;         // 0x2f
     const int damageastral = 48;        // 0x30
     const int damagebonus = 49;         // 0x31
+    const int wire_castspell_power = 50;   // 0x32: wire-only spell_value byte after castspell
+    const int wire_effects_delimiter = 51; // 0x33: wire-only magic effects section delimiter
 };
 
 namespace alm_group_flags {

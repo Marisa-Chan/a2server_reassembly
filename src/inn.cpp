@@ -1180,31 +1180,64 @@ void Inn::InnReward(Player* player) {
                 int32_t diff = 0;
 
                 switch (effect->effect_id) {
-                    case 2: case 3: case 4: case 5:
-                    case 0x10: case 0x11: case 0x12: case 0x13:
+                    case modifier::body:
+                    case modifier::mind:
+                    case modifier::reaction:
+                    case modifier::spirit:
+                    case modifier::absorbtion:
+                    case modifier::speed:
+                    case modifier::rotationspeed:
+                    case modifier::scanrange:
                         capacity = (effect->full_magic_value < effect_max) ? 1 : 0;
                         break;
-                    case 6: case 7: case 9: case 10:
-                    case 0xC: case 0xD: case 0xF: case 0x2B:
+                    case modifier::health:
+                    case modifier::healthmax:
+                    case modifier::mana:
+                    case modifier::manamax:
+                    case modifier::tohit:
+                    case modifier::damagemin:
+                    case modifier::defence:
+                    case modifier::damage:
                         diff = effect_max - effect->full_magic_value;
                         capacity = (diff < 9) ? diff : 8;
                         break;
-                    case 8: case 0xB:
+                    case modifier::healthregeneration:
+                    case modifier::manaregeneration:
                         diff = effect_max - effect->full_magic_value;
                         capacity = (diff < 21) ? diff : 20;
                         break;
-                    case 0x14: case 0x15: case 0x16: case 0x17: case 0x18: case 0x19:
-                    case 0x1A: case 0x1B: case 0x1C: case 0x1D: case 0x1E: case 0x1F:
-                    case 0x20: case 0x21: case 0x22: case 0x23: case 0x24: case 0x25:
+                    case modifier::protection0:
+                    case modifier::protectionfire:
+                    case modifier::protectionwater:
+                    case modifier::protectionair:
+                    case modifier::protectionearth:
+                    case modifier::protectionastral:
+                    case modifier::fighterskill0:
+                    case modifier::skillblade:
+                    case modifier::skillaxe:
+                    case modifier::skillbludgeon:
+                    case modifier::skillpike:
+                    case modifier::skillshooting:
+                    case modifier::mageskill0:
+                    case modifier::skillfire:
+                    case modifier::skillwater:
+                    case modifier::skillair:
+                    case modifier::skillearth:
+                    case modifier::skillastral:
                         diff = effect_max - effect->full_magic_value;
                         capacity = (diff < 6) ? diff : 5;
                         break;
-                    case 0x29:
+                    case modifier::castspell:
                         effect_max = 100;
                         diff = 100 - (int)effect->spell_value;
                         capacity = (diff < 9) ? diff : 8;
                         break;
-                    case 0x2C: case 0x2D: case 0x2E: case 0x2F: case 0x30: case 0x31:
+                    case modifier::damagefire:
+                    case modifier::damagewater:
+                    case modifier::damageair:
+                    case modifier::damageearth:
+                    case modifier::damageastral:
+                    case modifier::damagebonus:
                         diff = effect_max - effect->damage_min - effect->damage_spread;
                         capacity = (diff < 9) ? diff : 8;
                         break;
@@ -1243,9 +1276,9 @@ void Inn::InnReward(Player* player) {
                 // Reduce magic volume by the cost and apply upgrade.
                 copy->magic_volume = copy->magic_volume - mana_cost * upgrade_points;
 
-                if (effect->effect_id == 0x29) {
+                if (effect->effect_id == modifier::castspell) {
                     effect->spell_value = effect->spell_value + upgrade_points;
-                } else if (effect->effect_id >= 0x2C && effect->effect_id <= 0x31) {
+                } else if (effect->effect_id >= modifier::damagefire && effect->effect_id <= modifier::damagebonus) {
                     effect->damage_min = effect->damage_min + upgrade_points;
                 } else {
                     effect->full_magic_value = effect->full_magic_value + upgrade_points;

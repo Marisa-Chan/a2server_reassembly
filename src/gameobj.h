@@ -5,6 +5,7 @@
 
 #include <afx.h>
 #include "alm.h"
+#include "constants.h"
 #include "item.h"
 #include "util.h"
 
@@ -22,8 +23,8 @@ extern CStringArray g_CUnitMaterialSpritePaths; //660e70
 class TokenEntry : public CObject {
 public:
 	enum {
-		TYPE_SPELL = 0x0E,
-		CAST_SPELL_ATTRIBUTE_ID = 0x29,
+		TYPE_SPELL = item_slot::magic_item,
+		CAST_SPELL_ATTRIBUTE_ID = modifier::castspell,
 	};
 public:
 
@@ -70,14 +71,14 @@ public:
 		for (int i = 0; i < this->mods_count; i++) {
 			uint8_t k = cmods[pos];
 			if (k == aid) {
-				if (k == 1) {
+				if (k == modifier::price) {
 					result = GetU32(cmods + pos + 1);
 				} else {
 					result = cmods[pos + 1];
 				}
 			}
 			
-			pos += k == 1 ? 5 : 2;
+			pos += k == modifier::price ? 5 : 2;
 		}
 		return result;
 	}

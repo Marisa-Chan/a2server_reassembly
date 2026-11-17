@@ -339,9 +339,9 @@ int32_t Item::IsSimpleItem() {
 void Item::WriteState(PacketUnitStateVec* packet, uint8_t* slot) {
     if (this->_exp == -1) {
         slot[4] = ItemWireFlags::FLAG_USABLE;
-        packet->AppendByteInt(1, 0, slot);
+        packet->AppendByteInt(modifier::price, 0, slot);
     } else {
-        packet->AppendByteInt(1, this->_exp, slot);
+        packet->AppendByteInt(modifier::price, this->_exp, slot);
         slot[4] |= ItemWireFlags::FLAG_ALL_CLASSES;
         if (this->item_type == Item::BOOK) {
             slot[4] &= ~ItemWireFlags::FLAG_WARRIOR;
@@ -359,15 +359,15 @@ void Item::WriteEffects(PacketUnitStateVec* packet, uint8_t* slot) {
         return;
     }
     slot[4] |= ItemWireFlags::FLAG_MAGIC_EFFECTS;
-    packet->AppendByteByte(0x33, 0, slot);
+    packet->AppendByteByte(modifier::wire_effects_delimiter, 0, slot);
     POSITION pos = this->_effects.GetHeadPosition();
     while (pos != nullptr) {
         Effect* e = this->_effects.GetNext(pos);
         packet->AppendByteByte(e->effect_id, e->damage_min, slot);
-        if (e->effect_id == 0x29) {
+        if (e->effect_id == modifier::castspell) {
             slot[4] |= ItemWireFlags::FLAG_CAST_SPELL;
-            packet->AppendByteByte(0x32, (uint8_t)e->spell_value, slot);
-        } else if (0x2c <= e->effect_id && e->effect_id <= 0x30) {
+            packet->AppendByteByte(modifier::wire_castspell_power, (uint8_t)e->spell_value, slot);
+        } else if (modifier::damagefire <= e->effect_id && e->effect_id <= modifier::damageastral) {
             packet->AppendByteByte(e->effect_id, e->damage_spread, slot);
         }
     }
@@ -482,28 +482,28 @@ void Item::StoreToPacket(PacketUnitStateVec* pkt, int with_shelf_id) {
 
         for (POSITION pos = this->_effects.GetHeadPosition(); pos != nullptr;) {
             Effect* eff = this->_effects.GetNext(pos);
-            if (eff->effect_id != 1) {
+            if (eff->effect_id != modifier::price) {
                 pkt->data[pkt->data_size] = eff->effect_id;
                 pkt->data_size++;
 
                 pkt->data[pkt->data_size] = eff->spell_or_damage & 0xff;
                 pkt->data_size++;
 
-                if (eff->effect_id == 0x29) {
+                if (eff->effect_id == modifier::castspell) {
                     wire_flags.has_cast_spell = 1;
 
-                    pkt->data[pkt->data_size] = 0x32;
+                    pkt->data[pkt->data_size] = modifier::wire_castspell_power;
                     pkt->data_size++;
 
                     pkt->data[pkt->data_size] = eff->spell_value & 0xff;
                     pkt->data_size++;
 
                     cnt_flg += 2;
-                } else if (eff->effect_id == 0x2c ||
-                        eff->effect_id == 0x2d ||
-                        eff->effect_id == 0x2e ||
-                        eff->effect_id == 0x2f || 
-                        eff->effect_id == 0x30) {
+                } else if (eff->effect_id == modifier::damagefire ||
+                        eff->effect_id == modifier::damagewater ||
+                        eff->effect_id == modifier::damageair ||
+                        eff->effect_id == modifier::damageearth ||
+                        eff->effect_id == modifier::damageastral) {
                         pkt->data[pkt->data_size] = eff->effect_id;
                         pkt->data_size++;
 
@@ -883,7 +883,7 @@ int32_t Armor::CalcValue() {
 
 // 54FCA8
 void Armor::WriteState(PacketUnitStateVec* pkt, uint8_t* slot) {
-    pkt->AppendByteInt(1, this->_exp, slot);
+    pkt->AppendByteInt(modifier::price, this->_exp, slot);
     slot[4] = 0;
     int32_t suitable_for = this->world_equip->Values()[0].suitable_for;
     if (suitable_for & equip_suitable::warrior) {
@@ -1068,7 +1068,7 @@ int32_t Shield::CalcValue() {
 
 // 5506FC
 void Shield::WriteState(PacketUnitStateVec* pkt, uint8_t* slot) {
-    pkt->AppendByteInt(1, this->_exp, slot);
+    pkt->AppendByteInt(modifier::price, this->_exp, slot);
     slot[4] = 0;
     int32_t suitable_for = this->world_equip->Values()[0].suitable_for;
     if (suitable_for & equip_suitable::warrior) {
@@ -1342,7 +1342,7 @@ int32_t Weapon::CalcValue() {
 
 // 551855
 void Weapon::WriteState(PacketUnitStateVec* pkt, uint8_t* slot) {
-    pkt->AppendByteInt(1, this->_exp, slot);
+    pkt->AppendByteInt(modifier::price, this->_exp, slot);
     slot[4] = 0;
     int32_t suitable_for = this->world_equip->Values()[0].suitable_for;
     if (suitable_for & equip_suitable::warrior) {

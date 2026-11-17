@@ -591,7 +591,7 @@ TokenEntry::TokenEntry(uint8_t** data, int id1) {
             memcpy(this->mods, pkt->data, this->mods_size);
 
             uint8_t* ot = (uint8_t*)this->mods + pkt->data_len;
-            ot[0] = 0x33;
+            ot[0] = modifier::wire_effects_delimiter;
             ot[1] = 0;
             memcpy(ot + 2, pdata, esz * 2);
 
@@ -672,16 +672,16 @@ const char* TokenEntry::GetHintText() { //439973
         p++;
 
         switch (attr_id) {
-        case 1:
+        case modifier::price:
             p += 4;
             break;
 
-        case 0xd:
-        case 0x2c:
-        case 0x2d:
-        case 0x2e:
-        case 0x2f:
-        case 0x30:
+        case modifier::damagemin:
+        case modifier::damagefire:
+        case modifier::damagewater:
+        case modifier::damageair:
+        case modifier::damageearth:
+        case modifier::damageastral:
             value = *p;
             p++;
 
@@ -698,7 +698,7 @@ const char* TokenEntry::GetHintText() { //439973
             i++;
             break;
 
-        case 0x26:
+        case modifier::itemlore:
             value = *p;
             p++;
 
@@ -708,7 +708,7 @@ const char* TokenEntry::GetHintText() { //439973
             }
             break;
 
-        case 0x29:
+        case modifier::castspell:
             value = *p;
             p++;
             cast_spell_id = value;
@@ -722,14 +722,14 @@ const char* TokenEntry::GetHintText() { //439973
             strcat(g_Destination, buffer);
             break;
 
-        case 0x2a:
+        case modifier::teachspell:
             value = *p;
             p++;
             sprintf(buffer, " %s %s%s", TxtFile::AllLines[0x5a], txt_spell.GetLine(value - 1), TxtFile::AllLines[0x5b]);
             strcat(g_Destination, buffer);
             break;
 
-        case 0x32: {
+        case modifier::wire_castspell_power: {
             value = *p;
             p++;
 
@@ -804,7 +804,7 @@ const char* TokenEntry::GetHintText() { //439973
             break;
         }
 
-        case 0x33:
+        case modifier::wire_effects_delimiter:
             value = *p;
             p++;
 
@@ -823,7 +823,7 @@ const char* TokenEntry::GetHintText() { //439973
                 strcat(g_Destination, buffer);
             }
 
-            if (attr_id == 0xb || attr_id == 8) {
+            if (attr_id == modifier::manaregeneration || attr_id == modifier::healthregeneration) {
                 strcat(g_Destination, "%");
             }
             break;
@@ -999,35 +999,35 @@ int32_t TokenEntry::GetFirstModAttrId() { //43988e
         p++;
 
         switch (attr_id) {
-        case 2:
-        case 3:
-        case 4:
-        case 5:
-        case 6:
-        case 7:
-        case 8:
-        case 9:
-        case 0xa:
-        case 0xb:
-        case 0x15:
-        case 0x16:
-        case 0x17:
-        case 0x18:
-        case 0x19:
-        case 0x1b:
-        case 0x1c:
-        case 0x1d:
-        case 0x1e:
-        case 0x1f:
-        case 0x21:
-        case 0x22:
-        case 0x23:
-        case 0x24:
-        case 0x25:
+        case modifier::body:
+        case modifier::mind:
+        case modifier::reaction:
+        case modifier::spirit:
+        case modifier::health:
+        case modifier::healthmax:
+        case modifier::healthregeneration:
+        case modifier::mana:
+        case modifier::manamax:
+        case modifier::manaregeneration:
+        case modifier::protectionfire:
+        case modifier::protectionwater:
+        case modifier::protectionair:
+        case modifier::protectionearth:
+        case modifier::protectionastral:
+        case modifier::skillblade:
+        case modifier::skillaxe:
+        case modifier::skillbludgeon:
+        case modifier::skillpike:
+        case modifier::skillshooting:
+        case modifier::skillfire:
+        case modifier::skillwater:
+        case modifier::skillair:
+        case modifier::skillearth:
+        case modifier::skillastral:
             return attr_id;
         }
 
-        if (attr_id == 1) {
+        if (attr_id == modifier::price) {
             p += 4;
         } else {
             p += 1;
