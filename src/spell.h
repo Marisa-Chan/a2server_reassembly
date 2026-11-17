@@ -28,6 +28,21 @@ namespace magic_sphere {
     };
 }
 
+struct PatchedSpellRange {
+    union {
+        int32_t raw;
+        struct {
+            uint8_t  base_range;
+            uint8_t  power_divider;
+            uint16_t unused;
+        };
+    };
+
+    constexpr PatchedSpellRange(int32_t v = 0) : raw(v) {}
+    constexpr operator int32_t() const { return this->raw; }
+};
+ASSERT_SIZE(PatchedSpellRange, 4);
+
 class Spell : public CObject {
 public:
     enum TargetType : uint8_t {

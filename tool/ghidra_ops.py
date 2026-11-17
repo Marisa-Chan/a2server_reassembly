@@ -24,6 +24,7 @@ TYPE_ALIASES = {
     "size_t": "uint", "void*": "void *",
     "ItemId": "ushort",
     "ItemWireFlags": "uchar",
+    "PatchedSpellRange": "int",
 }
 GAME_CATEGORY = "/Game"
 

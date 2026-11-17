@@ -191,9 +191,9 @@ void Spell::SetPower(uint32_t power) {
     // data.bin max_range packs [base, divider]; range = 0 if base == 0,
     // else base + power/divider (default teleport divider: 15 in DM/TP on server, else 3; 30 otherwise)
     {
-        uint8_t range_base = (uint8_t)(info.max_range & 0xFF);
-        uint8_t range_divider = (uint8_t)((info.max_range >> 8) & 0xFF);
-        if (range_base != 0) {
+        PatchedSpellRange packed_range(info.max_range);
+        uint8_t range_divider = packed_range.power_divider;
+        if (packed_range.base_range != 0) {
             if (range_divider == 0) {
                 if (this->spell_id == spell::teleport) {
 #ifndef A2CLIENT
@@ -205,7 +205,7 @@ void Spell::SetPower(uint32_t power) {
                     range_divider = 30;
                 }
             }
-            this->max_range = (uint8_t)(range_base + power_byte / range_divider);
+            this->max_range = (uint8_t)(packed_range.base_range + power_byte / range_divider);
         } else {
             this->max_range = 0;
         }
