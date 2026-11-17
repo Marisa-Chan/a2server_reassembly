@@ -45,7 +45,7 @@ void QuestMap::ProcessQueuedEvents() {
 		if (this->substructs.GetCount() == 0) {
 			this->substructs.RemoveAll();
 		}
-		this->OnEvent(sub->id, sub->building_id, sub->some_id);
+		this->OnEvent(sub->event_type, sub->param_a, sub->param_b);
 		delete sub;
 	}
 }
@@ -84,22 +84,22 @@ void QuestMap::DeleteGlues() {
 // 55DD10
 void QuestMap::QueueEvent(int32_t event_type, int32_t a, int32_t b) {
 	QuestSubstruct* sub = new QuestSubstruct;
-	sub->id = event_type;
-	sub->building_id = a;
-	sub->some_id = b;
+	sub->event_type = event_type;
+	sub->param_a = a;
+	sub->param_b = b;
 	this->substructs.AddTail(sub);
 }
 
 // 55E24A
 void QuestMap::RegisterQuest(Quest* quest) {
-	this->quests_map[quest->quest_data.some_id] = quest;
+	this->quests_map[quest->quest_data.quest_id] = quest;
 	quest->quest_map = this;
 
 	if (quest->quest_data.landmark_id != 0) {
 		QuestInnGlue* glue = nullptr;
 		if (this->glues_map.Lookup(quest->quest_data.landmark_id, glue)) {
 			this->glue = glue;
-			glue->map[quest->quest_data.some_id] = quest;
+			glue->map[quest->quest_data.quest_id] = quest;
 		}
 	}
 }
@@ -107,14 +107,14 @@ void QuestMap::RegisterQuest(Quest* quest) {
 // 55E5FB
 void QuestMap::UnregisterQuest(Quest* quest) {
 	this->flags[quest->quest_data.player_id] |= 1;
-	this->quests_map.RemoveKey(quest->quest_data.some_id);
+	this->quests_map.RemoveKey(quest->quest_data.quest_id);
 	quest->quest_map = nullptr;
 
 	if (quest->quest_data.landmark_id != 0) {
 		QuestInnGlue* glue = nullptr;
 		if (this->glues_map.Lookup(quest->quest_data.landmark_id, glue)) {
 			this->glue = glue;
-			glue->map.RemoveKey(quest->quest_data.some_id);
+			glue->map.RemoveKey(quest->quest_data.quest_id);
 			if (glue->map.GetCount() == 0) {
 				glue->map.RemoveAll();
 			}

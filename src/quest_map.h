@@ -15,14 +15,14 @@ class QuestInnGlue;
 
 struct QuestSubstruct {
     uint32_t gap_0x0;
-    uint32_t id;
-    uint32_t building_id;
-    uint32_t some_id;
+    uint32_t event_type;
+    uint32_t param_a;
+    uint32_t param_b;
     uint32_t gap_0x10;
     uint32_t gap_0x14;
     uint32_t gap_0x18;
 };
-ASSERT_OFFSET(QuestSubstruct, some_id, 0xc);
+ASSERT_OFFSET(QuestSubstruct, param_b, 0xc);
 ASSERT_SIZE(QuestSubstruct, 0x1c);
 
 class QuestMap : public CObject {

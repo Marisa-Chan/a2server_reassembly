@@ -406,10 +406,10 @@ void VisQuestStatus::VMethod7() {
         quest_map->quests_map.GetNextAssoc(quest_it, quest_key, quest);
 
         bool is_shown = (
-            main_wnd->vis_map_context->quest_some_id_2 == quest->GetSomeId() ||
-            main_wnd->vis_map_context->quest_landmark_some_id == quest->GetSomeId() ||
-            main_wnd->vis_map_context->quest_building_some_id == quest->GetSomeId() ||
-            main_wnd->vis_map_context->quest_some_id == quest->GetSomeId()
+            main_wnd->vis_map_context->quest_some_id_2 == quest->GetQuestId() ||
+            main_wnd->vis_map_context->quest_landmark_some_id == quest->GetQuestId() ||
+            main_wnd->vis_map_context->quest_building_some_id == quest->GetQuestId() ||
+            main_wnd->vis_map_context->quest_some_id == quest->GetQuestId()
         );
 
         if (is_shown) {

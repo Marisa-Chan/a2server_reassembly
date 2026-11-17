@@ -1783,7 +1783,7 @@ int32_t VisTavScene::HitTestRoster(CPoint* pos) {
             int32_t row = i / 6;
             int32_t col = i % 6;
             if (this->roster_rects[row][col].PtInRect(pt)) {
-                return quest->GetSomeId();
+                return quest->GetQuestId();
             }
             i++;
         }

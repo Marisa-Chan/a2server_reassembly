@@ -638,7 +638,7 @@ void NetStru1::SendSrvStru1State(QuestMap* quest_map, Player* player, int32_t fl
         }
         *reinterpret_cast<uint16_t*>(ptr) = (uint16_t)quest->Kind();
         ptr += 2;
-        memcpy(ptr, &quest->quest_data.some_id, sizeof(QuestData));
+        memcpy(ptr, &quest->quest_data.quest_id, sizeof(QuestData));
         ptr += sizeof(QuestData);
         packet.count += 0xF;
         packet.buf[0] += 1;

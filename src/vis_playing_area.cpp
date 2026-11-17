@@ -4528,23 +4528,23 @@ uint32_t VisPlayingArea::UpdateMouseHover() {
 				this->quest_map->quests_map.GetNextAssoc(it, quest_id, quest);
 				if (this->hovered_unit->unit_id == quest->GetObj() && quest->IsInWork() != 0) {
 					if (quest->Kind() != 3 && quest->Kind() != 0xC) {
-						this->quest_some_id_2 = quest->GetSomeId();
+						this->quest_some_id_2 = quest->GetQuestId();
 					}
 				} else if (this->hovered_unit->unit_id == (quest->GetLandmarkId() & 0xFFFF)) {
-					this->quest_landmark_some_id = quest->GetSomeId();
+					this->quest_landmark_some_id = quest->GetQuestId();
 				}
 				if (this->hovered_unit->unit_id == quest->GetBuildingId()) {
-					this->quest_building_some_id = quest->GetSomeId();
+					this->quest_building_some_id = quest->GetQuestId();
 				}
 				if (this->hovered_unit->IsKindOf(RUNTIME_CLASS(CUnit)) && quest->IsInWork() != 0) {
 					if (this->hovered_unit->questFlags == quest->GetObj() && (quest->Kind() == 3 || quest->Kind() == 0xC)) {
-						this->quest_some_id = quest->GetSomeId();
+						this->quest_some_id = quest->GetQuestId();
 					}
 					if (this->hovered_unit->typeId == (quest->GetObj() & 0xFF) && this->hovered_unit->face == (quest->GetObj() >> 8) && quest->Kind() == 2) {
-						this->quest_some_id_2 = quest->GetSomeId();
+						this->quest_some_id_2 = quest->GetQuestId();
 					}
 					if (this->hovered_unit->map_player->index == quest->GetObj() && quest->Kind() == 0xD) {
-						this->quest_some_id_2 = quest->GetSomeId();
+						this->quest_some_id_2 = quest->GetQuestId();
 					}
 				}
 			}

@@ -35,7 +35,7 @@ void QuestInnGlue::ProcessQuests() {
         this->map.GetNextAssoc(pos, key, quest);
         this->current_quest_key = key;
         this->current_quest = quest;
-        switch (quest->Something2()) {
+        switch (quest->GetGlueEvent()) {
         case 6:  this->ProcessEscortTarget(this->current_quest); break;
         case 7:  this->ProcessDeliverItem(this->current_quest); break;
         case 8:  this->SpawnZombieMobs(this->current_quest); break;
@@ -48,7 +48,7 @@ void QuestInnGlue::ProcessQuests() {
 
 // 5BA920
 void QuestInnGlue::ProcessEscortTarget(Quest* quest) {
-    int32_t inn_id = quest->Something3();
+    int32_t inn_id = quest->GetGlueParam();
     if (quest->target_object == 0) {
         Unit* unit = this->world->map_stuff->all_units->FindById(inn_id);
         quest->target_object = unit;
@@ -74,7 +74,7 @@ void QuestInnGlue::ProcessEscortTarget(Quest* quest) {
 
 // 5BAA38
 void QuestInnGlue::ProcessDeliverItem(Quest* quest) {
-    uint16_t item_type = (uint16_t)quest->Something3() | 0xE00;
+    uint16_t item_type = (uint16_t)quest->GetGlueParam() | 0xE00;
     bool found = false;
     int32_t player_id = 0;
     for (POSITION pos = this->world->players_list->list.GetHeadPosition(); pos != nullptr;) {
@@ -101,14 +101,14 @@ void QuestInnGlue::ProcessDeliverItem(Quest* quest) {
     }
 
     if (found) {
-        int32_t item_id = quest->Something3();
+        int32_t item_id = quest->GetGlueParam();
         this->quest_map->QueueEvent(7, item_id, (this->building_id << 16) | player_id);
     }
 }
 
 // 5BABAA
 void QuestInnGlue::ProcessInterceptGroup(Quest* quest) {
-    int32_t group_id = quest->Something3();
+    int32_t group_id = quest->GetGlueParam();
     bool found = false;
     if (quest->target_object == nullptr) {
         POSITION pos = this->world->players_list->list.GetHeadPosition();
@@ -154,8 +154,8 @@ void QuestInnGlue::ProcessInterceptGroup(Quest* quest) {
 void QuestInnGlue::SpawnZombieMobs(Quest* quest) {
     const uint16_t mob_type_id = 0x52; // F_Zombie.1
 
-    int32_t player_id = quest->Something3() & 0xFFFF;
-    int32_t count_needed = quest->Something3() >> 16;
+    int32_t player_id = quest->GetGlueParam() & 0xFFFF;
+    int32_t count_needed = quest->GetGlueParam() >> 16;
     if (quest->target_object == nullptr) {
         quest->target_object = g_PlayersList->FindById(player_id);
     }
@@ -208,8 +208,8 @@ void QuestInnGlue::SpawnZombieMobs(Quest* quest) {
 void QuestInnGlue::SpawnSkeletonMobs(Quest* quest) {
     const uint16_t mob_type_id = 0x59; // F_Skeleton.1
     
-    int32_t player_id = quest->Something3() & 0xFFFF;
-    int32_t count_needed = quest->Something3() >> 16;
+    int32_t player_id = quest->GetGlueParam() & 0xFFFF;
+    int32_t count_needed = quest->GetGlueParam() >> 16;
     if (quest->target_object == nullptr) {
         quest->target_object = g_PlayersList->FindById(player_id);
     }
@@ -261,8 +261,8 @@ void QuestInnGlue::SpawnSkeletonMobs(Quest* quest) {
 void QuestInnGlue::SpawnGhostMobs(Quest* quest) {
     const uint16_t mob_type_id = 0x45; // Ghost
 
-    int32_t player_id = quest->Something3() & 0xFFFF;
-    int32_t count_needed = quest->Something3() >> 16;
+    int32_t player_id = quest->GetGlueParam() & 0xFFFF;
+    int32_t count_needed = quest->GetGlueParam() >> 16;
     if (quest->target_object == nullptr) {
         quest->target_object = g_PlayersList->FindById(player_id);
     }
