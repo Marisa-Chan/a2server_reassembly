@@ -702,14 +702,14 @@ void VisTavLeftPanel::DrawUnitPanel(CUnit* unit) {
         picture[0] = 0;
         CString unit_name;
         switch (quest->Kind()) {
-        case 1:
-        case 3:
-        case 4:
-        case 0xB:
-        case 0xC: {
+        case Quest::KIND_KILL_MOB:
+        case Quest::KIND_KILL_GROUP:
+        case Quest::KIND_ESCORT:
+        case Quest::KIND_INTERCEPT_UNIT:
+        case Quest::KIND_INTERCEPT_GROUP: {
             int32_t found = 0;
             CGameObject* obj;
-            if (quest->Kind() == 3 || quest->Kind() == 0xC) {
+            if (quest->Kind() == Quest::KIND_KILL_GROUP || quest->Kind() == Quest::KIND_INTERCEPT_GROUP) {
                 found = main_wnd->vis_map_context->FindUnitByQuestFlag(quest->GetObj(), (CUnit**)&obj);
             } else {
                 found = main_wnd->vis_map_context->objects.Lookup((uint16_t)quest->GetObj(), obj);
@@ -764,7 +764,7 @@ void VisTavLeftPanel::DrawUnitPanel(CUnit* unit) {
             }
             break;
         }
-        case 2: {
+        case Quest::KIND_KILL_N: {
             MonsterTypeFace mob((uint16_t)quest->GetObj());
             char suffix[0x50];
             strcpy(picture, g_VFX_info[mob.type_id]->info_picture);
@@ -805,32 +805,32 @@ void VisTavLeftPanel::DrawUnitPanel(CUnit* unit) {
 
         CString quest_text;
         switch (quest->Kind()) {
-        case 1:
+        case Quest::KIND_KILL_MOB:
             quest_text.Format(TxtFile::AllLines[quest->Kind() + 0x11C], (const char*)unit_name, (const char*)area_name, (const char*)building_name);
             break;
-        case 2:
+        case Quest::KIND_KILL_N:
             quest_text.Format(TxtFile::AllLines[quest->Kind() + 0x11C], quest->GetLimit(), (const char*)unit_name);
             break;
-        case 3:
+        case Quest::KIND_KILL_GROUP:
             quest_text.Format(TxtFile::AllLines[quest->Kind() + 0x11C], (const char*)area_name, (const char*)building_name);
             break;
-        case 4:
-        case 5:
-        case 0xD:
+        case Quest::KIND_ESCORT:
+        case Quest::KIND_DELIVER_ITEM:
+        case Quest::KIND_KILL_INN_DEFENDERS:
             quest_text.Format(TxtFile::AllLines[quest->Kind() + 0x11C], (const char*)area_name);
             break;
-        case 6:
+        case Quest::KIND_DELIVER_MAIL:
             quest_text.Format(TxtFile::AllLines[quest->Kind() + 0x11C], quest->GetLimit() / 0x3C0, (quest->GetLimit() >> 4) % 0x3C, (const char*)area_name);
             break;
-        case 8:
-        case 9:
-        case 0xA:
+        case Quest::KIND_RAISE_ZOMBIES:
+        case Quest::KIND_RAISE_SKELETONS:
+        case Quest::KIND_RAISE_GHOSTS:
             quest_text.Format(TxtFile::AllLines[quest->Kind() + 0x11C], quest->GetLimit());
             break;
-        case 0xB:
+        case Quest::KIND_INTERCEPT_UNIT:
             quest_text.Format(TxtFile::AllLines[quest->Kind() + 0x11C], (const char*)unit_name);
             break;
-        case 0xC:
+        case Quest::KIND_INTERCEPT_GROUP:
             quest_text.Format(TxtFile::AllLines[quest->Kind() + 0x11C]);
             break;
         default:

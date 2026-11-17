@@ -85,7 +85,7 @@ int32_t Quest::OnEvent(int32_t event_type, int32_t a, int32_t b) {
 
 // 57FF20
 int32_t Quest::Kind() {
-    return 0;
+    return Quest::KIND_NONE;
 }
 
 // 57FF30
@@ -121,7 +121,7 @@ int32_t QuestKillMob::OnEvent(int32_t event_type, int32_t a, int32_t b) {
 
 // 5815F0
 int32_t QuestKillMob::Kind() {
-    return 1;
+    return Quest::KIND_KILL_MOB;
 }
 
 
@@ -143,7 +143,7 @@ int32_t QuestKillN::OnEvent(int32_t event_type, int32_t a, int32_t b) {
 
 // 581650
 int32_t QuestKillN::Kind() {
-    return 2;
+    return Quest::KIND_KILL_N;
 }
 
 
@@ -164,7 +164,7 @@ int32_t QuestKillGroup::OnEvent(int32_t event_type, int32_t a, int32_t b) {
 
 // 5816B0
 int32_t QuestKillGroup::Kind() {
-    return 3;
+    return Quest::KIND_KILL_GROUP;
 }
 
 
@@ -190,7 +190,7 @@ int32_t QuestEscort::OnEvent(int32_t event_type, int32_t a, int32_t b) {
 
 // 581710
 int32_t QuestEscort::Kind() {
-    return 4;
+    return Quest::KIND_ESCORT;
 }
 
 // 581720
@@ -229,7 +229,7 @@ int32_t QuestDeliverItem::OnEvent(int32_t event_type, int32_t a, int32_t b) {
 
 // 5817A0
 int32_t QuestDeliverItem::Kind() {
-    return 5;
+    return Quest::KIND_DELIVER_ITEM;
 }
 
 // 5817B0
@@ -266,7 +266,7 @@ int32_t QuestDeliverMail::OnEvent(int32_t event_type, int32_t a, int32_t b) {
 
 // 581830
 int32_t QuestDeliverMail::Kind() {
-    return 6;
+    return Quest::KIND_DELIVER_MAIL;
 }
 
 // 581840
@@ -297,7 +297,7 @@ int32_t QuestRaiseZombies::OnEvent(int32_t event_type, int32_t a, int32_t b) {
 
 // 5819E0
 int32_t QuestRaiseZombies::Kind() {
-    return 8;
+    return Quest::KIND_RAISE_ZOMBIES;
 }
 
 // 5819F0
@@ -328,7 +328,7 @@ int32_t QuestRaiseSkeletons::OnEvent(int32_t event_type, int32_t a, int32_t b) {
 
 // 581A70
 int32_t QuestRaiseSkeletons::Kind() {
-    return 9;
+    return Quest::KIND_RAISE_SKELETONS;
 }
 
 // 581A80
@@ -359,7 +359,7 @@ int32_t QuestRaiseGhosts::OnEvent(int32_t event_type, int32_t a, int32_t b) {
 
 // 581B00
 int32_t QuestRaiseGhosts::Kind() {
-    return 10;
+    return Quest::KIND_RAISE_GHOSTS;
 }
 
 // 581B10
@@ -400,7 +400,7 @@ int32_t QuestInterceptUnit::OnEvent(int32_t event_type, int32_t a, int32_t b) {
 
 // 5818C0
 int32_t QuestInterceptUnit::Kind() {
-    return 11;
+    return Quest::KIND_INTERCEPT_UNIT;
 }
 
 // 5818D0
@@ -441,7 +441,7 @@ int32_t QuestInterceptGroup::OnEvent(int32_t event_type, int32_t a, int32_t b) {
 
 // 581950
 int32_t QuestInterceptGroup::Kind() {
-    return 12;
+    return Quest::KIND_INTERCEPT_GROUP;
 }
 
 // 581960
@@ -469,5 +469,5 @@ int32_t QuestKillInnDefenders::OnEvent(int32_t event_type, int32_t a, int32_t b)
 
 // 581B90
 int32_t QuestKillInnDefenders::Kind() {
-    return 13;
+    return Quest::KIND_KILL_INN_DEFENDERS;
 }

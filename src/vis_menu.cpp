@@ -418,9 +418,9 @@ void VisQuestStatus::VMethod7() {
 
         CString unit_name;
         switch (quest->Kind()) {
-        case 1:
-        case 4:
-        case 0xB: {
+        case Quest::KIND_KILL_MOB:
+        case Quest::KIND_ESCORT:
+        case Quest::KIND_INTERCEPT_UNIT: {
             CGameObject* obj;
             if (main_wnd->vis_map_context->objects.Lookup((uint16_t)quest->GetObj(), obj)) {
                 CUnit* unit = (CUnit*)obj;
@@ -436,7 +436,7 @@ void VisQuestStatus::VMethod7() {
             }
             break;
         }
-        case 2: {
+        case Quest::KIND_KILL_N: {
             if ((quest->GetObj() & 0xFF) < 0x52 || (quest->GetObj() & 0xFF) > 0x66) {
                 unit_name.Format("%s[%d]", txt_unitname.GetLine(quest->GetObj() & 0xFF), quest->GetObj() >> 8);
             } else {
@@ -460,32 +460,32 @@ void VisQuestStatus::VMethod7() {
 
         CString quest_text;
         switch (quest->Kind()) {
-        case 1:
+        case Quest::KIND_KILL_MOB:
             quest_text.Format(TxtFile::AllLines[quest->Kind() + 0x11C], (const char*)unit_name, (const char*)area_name, (const char*)building_name);
             break;
-        case 2:
+        case Quest::KIND_KILL_N:
             quest_text.Format(TxtFile::AllLines[quest->Kind() + 0x11C], quest->GetLimit(), (const char*)unit_name);
             break;
-        case 3:
+        case Quest::KIND_KILL_GROUP:
             quest_text.Format(TxtFile::AllLines[quest->Kind() + 0x11C], (const char*)area_name, (const char*)building_name);
             break;
-        case 4:
-        case 5:
-        case 0xD:
+        case Quest::KIND_ESCORT:
+        case Quest::KIND_DELIVER_ITEM:
+        case Quest::KIND_KILL_INN_DEFENDERS:
             quest_text.Format(TxtFile::AllLines[quest->Kind() + 0x11C], (const char*)area_name);
             break;
-        case 6:
+        case Quest::KIND_DELIVER_MAIL:
             quest_text.Format(TxtFile::AllLines[quest->Kind() + 0x11C], quest->GetLimit() / 0x3C0, (quest->GetLimit() >> 4) % 0x3C, (const char*)area_name);
             break;
-        case 8:
-        case 9:
-        case 0xA:
+        case Quest::KIND_RAISE_ZOMBIES:
+        case Quest::KIND_RAISE_SKELETONS:
+        case Quest::KIND_RAISE_GHOSTS:
             quest_text.Format(TxtFile::AllLines[quest->Kind() + 0x11C], quest->GetLimit());
             break;
-        case 0xB:
+        case Quest::KIND_INTERCEPT_UNIT:
             quest_text.Format(TxtFile::AllLines[quest->Kind() + 0x11C], (const char*)unit_name);
             break;
-        case 0xC:
+        case Quest::KIND_INTERCEPT_GROUP:
             quest_text.Format(TxtFile::AllLines[quest->Kind() + 0x11C]);
             break;
         default:

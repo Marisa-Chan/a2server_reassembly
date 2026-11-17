@@ -165,31 +165,31 @@ int32_t QuestMap::OnEvent(int32_t event_type, int32_t a, int32_t b) {
 // 55EE42
 Quest* QuestMap::CreateQuest(int quest_kind) {
 	switch (quest_kind) {
-	case 1:
+	case Quest::KIND_KILL_MOB:
 		return new QuestKillMob();
-	case 2:
+	case Quest::KIND_KILL_N:
 		return new QuestKillN();
-	case 3:
+	case Quest::KIND_KILL_GROUP:
 		return new QuestKillGroup();
-	case 4:
+	case Quest::KIND_ESCORT:
 		return new QuestEscort();
-	case 5:
+	case Quest::KIND_DELIVER_ITEM:
 		return new QuestDeliverItem();
-	case 6:
+	case Quest::KIND_DELIVER_MAIL:
 		return new QuestDeliverMail();
-	case 8:
+	case Quest::KIND_RAISE_ZOMBIES:
 		return new QuestRaiseZombies();
-	case 9:
+	case Quest::KIND_RAISE_SKELETONS:
 		return new QuestRaiseSkeletons();
-	case 10:
+	case Quest::KIND_RAISE_GHOSTS:
 		return new QuestRaiseGhosts();
-	case 11:
+	case Quest::KIND_INTERCEPT_UNIT:
 		return new QuestInterceptUnit();
-	case 12:
+	case Quest::KIND_INTERCEPT_GROUP:
 		return new QuestInterceptGroup();
-	case 13:
+	case Quest::KIND_KILL_INN_DEFENDERS:
 		return new QuestKillInnDefenders();
-	default: // 0 and 7 are covered here.
+	default: // KIND_NONE and KIND_FIND_ITEM are covered here.
 		return new Quest();
 	}
 }

@@ -1405,7 +1405,7 @@ void Inn::RemoveUnit(Humanoid* humanoid, int32_t id) {
 
                 int32_t kind = this->active_quest->Kind();
                 switch (kind) {
-                    case 4: { // Escort
+                    case Quest::KIND_ESCORT: { // Escort
                         Unit* escort_unit = g_ServerUnits->FindById(this->active_quest->quest_data.obj);
                         if (escort_unit == nullptr || humanoid == nullptr) {
                             g_QuestMap.UnregisterQuest(this->active_quest);
@@ -1414,18 +1414,18 @@ void Inn::RemoveUnit(Humanoid* humanoid, int32_t id) {
                         }
                         break;
                     }
-                    case 5: { // DeliverItem
+                    case Quest::KIND_DELIVER_ITEM: { // DeliverItem
                         uint8_t subtype = this->active_quest->quest_data.obj;
                         Item* new_item = new Item(item_slot::magic_item, subtype);
                         humanoid->inventory->PutItemIntoBagAtDefault(new_item);
                         g_NetStru1_main.SendUnitUpdate(humanoid, humanoid->pOwner, UNIT_UPD_INVENTORY_WEIGHT, EQUIP_SLOTS_ALL, 0, 0);
                         break;
                     }
-                    case 6: { // DeliverMail
+                    case Quest::KIND_DELIVER_MAIL: { // DeliverMail
                         this->active_quest->progress = GetTickCount();
                         break;
                     }
-                    case 11: { // Intercept unit
+                    case Quest::KIND_INTERCEPT_UNIT: { // Intercept unit
                         uint16_t unit_id = this->active_quest->quest_data.obj;
                         Unit* target_unit = g_ServerUnits->FindById(unit_id);
                         if (target_unit == nullptr) {
@@ -1438,7 +1438,7 @@ void Inn::RemoveUnit(Humanoid* humanoid, int32_t id) {
                         }
                         break;
                     }
-                    case 12: { // Intercept group
+                    case Quest::KIND_INTERCEPT_GROUP: { // Intercept group
                         POSITION ppos = g_PlayersList->list.GetHeadPosition();
                         Player* pl = nullptr;
                         while (ppos) {

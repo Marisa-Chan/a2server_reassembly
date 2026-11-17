@@ -125,7 +125,7 @@ bool PlayerHasQuest(int32_t kind, uint32_t player_id, uint32_t obj, bool obj_low
 
 bool FilterKillNCandidate(Player* player, int32_t quest_monster_type) {
     // Is this unit type already in the player's quests?
-    if (Config::AllowOnlyOneQuest_KillNMonsters && PlayerHasQuest(2, player->player_id, (uint32_t)quest_monster_type, false)) {
+    if (Config::AllowOnlyOneQuest_KillNMonsters && PlayerHasQuest(Quest::KIND_KILL_N, player->player_id, (uint32_t)quest_monster_type, false)) {
         return false;
     }
 
@@ -146,7 +146,7 @@ bool FilterKillNCandidate(Player* player, int32_t quest_monster_type) {
 
 bool FilterKillMobCandidate(Player* player, Unit* candidate) {
     // Is this unit already in the player's quests?
-    if (Config::AllowOnlyOneQuest_KillTheMonster && PlayerHasQuest(1, player->player_id, candidate->server_id, true)) {
+    if (Config::AllowOnlyOneQuest_KillTheMonster && PlayerHasQuest(Quest::KIND_KILL_MOB, player->player_id, candidate->server_id, true)) {
         return false;
     }
 
@@ -181,7 +181,7 @@ bool FilterKillGroupCandidateUnit(Player* player, Unit* unit) {
 }
 
 bool HasQuestForMonsterGroup(Player* player, int32_t group_id) {
-    return PlayerHasQuest(3, player->player_id, (uint32_t)group_id, false);
+    return PlayerHasQuest(Quest::KIND_KILL_GROUP, player->player_id, (uint32_t)group_id, false);
 }
 
 int CountMatchingMobs(const std::string& filter) {
@@ -209,7 +209,7 @@ std::vector<std::string> QuestStateNMonsters(Player* player) {
     uint32_t key = 0;
     while (pos != nullptr) {
         g_QuestMap.quests_map.GetNextAssoc(pos, key, quest);
-        if (quest == nullptr || quest->Kind() != 2) {
+        if (quest == nullptr || quest->Kind() != Quest::KIND_KILL_N) {
             continue;
         }
         if ((int16_t)(player->player_id & 0xFFFF) == (int16_t)(quest->quest_data.player_id & 0xFFFF)) {

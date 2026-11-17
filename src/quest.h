@@ -26,6 +26,23 @@ ASSERT_SIZE(QuestData, 0x1c);
 
 class Quest : public CObject {
 public: // VTable at 60F6F8. Sub-classes have their own vtables, see CreateQuest.
+    enum KindId : uint8_t {
+        KIND_NONE               = 0,
+        KIND_KILL_MOB           = 1,
+        KIND_KILL_N             = 2,
+        KIND_KILL_GROUP         = 3,
+        KIND_ESCORT             = 4,
+        KIND_DELIVER_ITEM       = 5,
+        KIND_DELIVER_MAIL       = 6,
+        KIND_FIND_ITEM          = 7,
+        KIND_RAISE_ZOMBIES      = 8,
+        KIND_RAISE_SKELETONS    = 9,
+        KIND_RAISE_GHOSTS       = 10,
+        KIND_INTERCEPT_UNIT     = 11,
+        KIND_INTERCEPT_GROUP    = 12,
+        KIND_KILL_INN_DEFENDERS = 13,
+    };
+
     virtual ~Quest();                                      // 57FF50 (client: 550a40)
     virtual int32_t OnEvent(int32_t event_type, int32_t a, int32_t b); // 55D25D (client: 537a42)
     virtual void MarkFailed();                             // 55D23F (client: 537a24)

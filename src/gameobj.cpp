@@ -1832,19 +1832,19 @@ void CUnit::DrawHealthBar(int32_t tile_x, int32_t tile_y, int32_t hgt) { // 466a
 
                 if (quest->IsInWork() != 0) {
                     if (this->unit_id == quest->GetObj()) {
-                        if (quest->Kind() != 3 && quest->Kind() != 0xC) {
+                        if (quest->Kind() != Quest::KIND_KILL_GROUP && quest->Kind() != Quest::KIND_INTERCEPT_GROUP) {
                             quest_flag = 1;
                         }
                     } else if (quest->GetObj() <= 0xFFFF && this->typeId == MonsterTypeFace((uint16_t)quest->GetObj()).type_id && this->face == MonsterTypeFace((uint16_t)quest->GetObj()).face) {
-                        if (quest->Kind() == 2) {
+                        if (quest->Kind() == Quest::KIND_KILL_N) {
                             quest_flag = 1;
                         }
                     } else if (this->questFlags == quest->GetObj()) {
-                        if (quest->Kind() == 3 || quest->Kind() == 0xC) {
+                        if (quest->Kind() == Quest::KIND_KILL_GROUP || quest->Kind() == Quest::KIND_INTERCEPT_GROUP) {
                             quest_flag = 1;
                         }
                     } else if (this->map_player->index == quest->GetObj()) {
-                        if (quest->Kind() == 0xD) {
+                        if (quest->Kind() == Quest::KIND_KILL_INN_DEFENDERS) {
                             quest_flag = 1;
                         }
                     }
