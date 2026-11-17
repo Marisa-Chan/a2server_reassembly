@@ -313,7 +313,7 @@ int32_t Item::VMethod14(int, int) {
 // 54872b
 int32_t Item::CalcValue() {
     this->_exp = this->world_equip->Values()[0].shape;
-    if (this->item_type == 5) {
+    if (this->item_type == Item::BOOK) {
         Effect* first_effect = this->_effects.IsEmpty() ? nullptr : this->_effects.GetHead();
         if (first_effect == nullptr) {
             this->_exp = 0;
@@ -321,7 +321,7 @@ int32_t Item::CalcValue() {
             this->_exp = g_GameDataRes.spells[first_effect->spell_or_damage].Values()[0].book_cost;
         }
     }
-    if (this->item_type == 4) {
+    if (this->item_type == Item::SCROLL) {
         this->_exp = this->world_equip->Values()[0].shape;
     }
     return this->_exp;
@@ -343,11 +343,11 @@ void Item::WriteState(PacketUnitStateVec* packet, uint8_t* slot) {
     } else {
         packet->AppendByteInt(1, this->_exp, slot);
         slot[4] |= ItemWireFlags::FLAG_ALL_CLASSES;
-        if (this->item_type == 5) {
+        if (this->item_type == Item::BOOK) {
             slot[4] &= ~ItemWireFlags::FLAG_WARRIOR;
         }
         this->WriteEffects(packet, slot);
-        if (this->item_type == 3 || this->item_type == 4) {
+        if (this->item_type == Item::POTION || this->item_type == Item::SCROLL) {
             slot[4] &= ~ItemWireFlags::FLAG_MAGIC_EFFECTS;
         }
     }
@@ -463,7 +463,7 @@ void Item::StoreToPacket(PacketUnitStateVec* pkt, int with_shelf_id) {
 
     ItemWireFlags wire_flags = 0;
 
-    if (this->_effects.IsEmpty() || this->item_type == 3 || this->item_type == 4 || this->count == 0) {
+    if (this->_effects.IsEmpty() || this->item_type == Item::POTION || this->item_type == Item::SCROLL || this->count == 0) {
         if (this->count < ItemWireFlags::COMPACT_COUNT_MAX) {
             wire_flags.is_compact_count = 1;
             wire_flags.compact_count = (uint8_t)this->count;

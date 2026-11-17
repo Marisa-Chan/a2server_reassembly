@@ -36,12 +36,12 @@ static int32_t __cdecl CompareItemsForSort(const void* a, const void* b) {
     Item* item_b = *(Item**)b;
 
     int32_t warrior_a = 0;
-    if (item_a->item_type == 2 || item_a->item_type == 1 || item_a->item_type == 7) {
+    if (item_a->item_type == Item::WEAPON || item_a->item_type == Item::EQUIPMENT || item_a->item_type == 7) {
         warrior_a = item_a->world_equip->Values()[0].suitable_for & equip_suitable::warrior;
     }
 
     int32_t warrior_b = 0;
-    if (item_b->item_type == 2 || item_b->item_type == 1 || item_b->item_type == 7) {
+    if (item_b->item_type == Item::WEAPON || item_b->item_type == Item::EQUIPMENT || item_b->item_type == 7) {
         warrior_b = item_b->world_equip->Values()[0].suitable_for & equip_suitable::warrior;
     }
 
@@ -159,7 +159,7 @@ Effect* __cdecl RollItemEffect(int32_t is_warrior, int32_t item_type, int32_t su
     }
 
     if (found != -1) {
-        if (!is_warrior && item_type == 2) {
+        if (!is_warrior && item_type == Item::WEAPON) {
             found = modifier::castspell;
         }
 
@@ -413,7 +413,7 @@ Inventory* ShopAssortment::ArrangeShelfs(int32_t max_count, int32_t max_same, in
 
     if ((this->flags & 0x4000000) != 0) {
         for (int32_t i = 0; i < this->items.GetSize(); i++) {
-            if (this->items[i]->item_type == 5) {
+            if (this->items[i]->item_type == Item::BOOK) {
                 this->items[i]->count = 2;
 
                 Item* item = this->items[i]->TakeOne();
@@ -510,7 +510,7 @@ Inventory* ShopAssortment::ArrangeShelfs(int32_t max_count, int32_t max_same, in
         do {
             attempts++;
             pick = Random0N(this->items.GetSize() - 1);
-            if (this->items[pick]->item_type != 5) {
+            if (this->items[pick]->item_type != Item::BOOK) {
                 break;
             }
         } while (attempts < 1000);
@@ -575,7 +575,7 @@ int32_t ShopAssortment::AddMagicToItem(Item* item) {
 
     int32_t budget = this->max_cost * 2 - item->_exp;
 
-    if (!is_warrior && item->item_type == 2) {        
+    if (!is_warrior && item->item_type == Item::WEAPON) {        
         int32_t cap = item->_exp * 100;
         if (budget > cap) {
             budget = cap;
