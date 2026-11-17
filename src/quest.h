@@ -43,6 +43,13 @@ public: // VTable at 60F6F8. Sub-classes have their own vtables, see CreateQuest
         KIND_KILL_INN_DEFENDERS = 13,
     };
 
+    enum State : uint32_t {
+        STATE_IN_WORK       = 0,
+        STATE_COMPLETED     = 1,
+        STATE_FAILED        = 2,
+        STATE_INN_CANDIDATE = 3,
+    };
+
     virtual ~Quest();                                      // 57FF50 (client: 550a40)
     virtual int32_t OnEvent(int32_t event_type, int32_t a, int32_t b); // 55D25D (client: 537a42)
     virtual void MarkFailed();                             // 55D23F (client: 537a24)
@@ -53,7 +60,7 @@ public: // VTable at 60F6F8. Sub-classes have their own vtables, see CreateQuest
     virtual int32_t GetGlueEvent();                        // 57ff30 (client: 550a20)
     virtual int32_t GetGlueParam();                        // 57ff40 (client: 550a30)
 
-    int32_t IsInWork() { return this->quest_data.state == 0; } // 41eb90 (client: 420f40)
+    int32_t IsInWork() { return this->quest_data.state == STATE_IN_WORK; } // 41eb90 (client: 420f40)
     uint32_t GetObj() { return this->quest_data.obj; }         // 41eb70 (client: 420f20)
     uint32_t GetQuestId() { return this->quest_data.quest_id; }         // 41eb10 (client: 420ec0)
     uint32_t GetBuildingId() { return this->quest_data.building_id; }   // 41eb30 (client: 420ee0)

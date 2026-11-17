@@ -79,7 +79,7 @@ static Quest* MakeActiveQuest(Inn* inn, Quest* q) {
 // Helper: register quest (initialize, set state, register in quest_map)
 static void RegisterQuest(Inn* inn, Quest* q, int quest_id, int player_id, int building_id, int obj, int landmark_id, int limit, int reward) {
     q->Initialize(quest_id, player_id, building_id, obj, landmark_id, limit, reward);
-    q->quest_data.state = 3;
+    q->quest_data.state = Quest::STATE_INN_CANDIDATE;
     inn->quest_map->RegisterQuest(q);
 }
 
@@ -859,7 +859,7 @@ void Inn::InnReward(Player* player) {
         uint32_t key;
         Quest* quest;
         g_QuestMap.quests_map.GetNextAssoc(pos, key, quest);
-        if (quest && quest->quest_data.player_id == player->player_id && quest->quest_data.building_id == this->building_id && quest->quest_data.state == 1) {
+        if (quest && quest->quest_data.player_id == player->player_id && quest->quest_data.building_id == this->building_id && quest->quest_data.state == Quest::STATE_COMPLETED) {
             reward = quest->reward;
             break;
         }
@@ -1306,7 +1306,7 @@ Quest* Inn::FindActiveQuest(Player* player) {
         uint32_t key;
         Quest* quest;
         g_QuestMap.quests_map.GetNextAssoc(quest_it, key, quest);
-        if (quest && quest->quest_data.player_id == player->player_id && quest->quest_data.building_id == this->building_id && quest->quest_data.state == 1) {
+        if (quest && quest->quest_data.player_id == player->player_id && quest->quest_data.building_id == this->building_id && quest->quest_data.state == Quest::STATE_COMPLETED) {
             return quest;
         }
     }
@@ -1341,7 +1341,7 @@ void Inn::DeleteCompletedQuests(Player* player) {
         uint32_t key;
         Quest* quest;
         g_QuestMap.quests_map.GetNextAssoc(pos, key, quest);
-        if (quest && quest->quest_data.player_id == player->player_id && quest->quest_data.building_id == this->building_id && quest->quest_data.state == 2) {
+        if (quest && quest->quest_data.player_id == player->player_id && quest->quest_data.building_id == this->building_id && quest->quest_data.state == Quest::STATE_FAILED) {
             g_QuestMap.UnregisterQuest(quest);
             delete quest;
         }
@@ -1398,7 +1398,7 @@ void Inn::RemoveUnit(Humanoid* humanoid, int32_t id) {
 
                 // Process the quest
                 qm->UnregisterQuest(this->active_quest);
-                this->active_quest->quest_data.state = 0;
+                this->active_quest->quest_data.state = Quest::STATE_IN_WORK;
                 g_QuestMap.RegisterQuest(this->active_quest);
                 g_NetStru1_main.SendSrvStru1State(&g_QuestMap, humanoid->pOwner, 0);
                 g_NetStru1_main.SendTeamNotify(0x10, 0, humanoid->pOwner);

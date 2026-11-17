@@ -5,7 +5,7 @@
 
 // 55d0e0
 Quest::Quest() {
-    this->quest_data.state = 0;
+    this->quest_data.state = Quest::STATE_IN_WORK;
     this->quest_data.quest_id = 0;
     this->quest_data.player_id = 0;
     this->quest_data.obj = 0;
@@ -22,7 +22,7 @@ Quest::~Quest() {
 
 // 55D177
 void Quest::Initialize(int quest_id, int player_id, int building_id, int obj, int landmark_id, int limit, int reward) {
-    this->quest_data.state = 0;
+    this->quest_data.state = Quest::STATE_IN_WORK;
     this->quest_data.quest_id = quest_id;
     this->quest_data.player_id = player_id;
     this->quest_data.building_id = building_id;
@@ -44,15 +44,15 @@ void Quest::CopyFields(QuestData* other) {
 
 // 55D221
 void Quest::MarkCompleted() {
-    if (this->quest_data.state == 0) {
-        this->quest_data.state = 1;
+    if (this->quest_data.state == Quest::STATE_IN_WORK) {
+        this->quest_data.state = Quest::STATE_COMPLETED;
     }
 }
 
 // 55D23F
 void Quest::MarkFailed() {
-    if (this->quest_data.state != 2) {
-        this->quest_data.state = 2;
+    if (this->quest_data.state != Quest::STATE_FAILED) {
+        this->quest_data.state = Quest::STATE_FAILED;
     }
 }
 
@@ -61,21 +61,21 @@ int32_t Quest::OnEvent(int32_t event_type, int32_t a, int32_t b) {
     int32_t result = 0;
 
     if (event_type == 1) {
-        if (a == this->quest_data.quest_id && this->quest_data.state == 0) {
+        if (a == this->quest_data.quest_id && this->quest_data.state == Quest::STATE_IN_WORK) {
             this->MarkCompleted();
             uint32_t old_flags = 0;
             this->quest_map->flags.Lookup(this->quest_data.player_id, old_flags);
             this->quest_map->flags[this->quest_data.player_id] = old_flags | 0x20;
         }
     } else if (event_type == 2) {
-        if (a == this->quest_data.quest_id && this->quest_data.state == 0) {
+        if (a == this->quest_data.quest_id && this->quest_data.state == Quest::STATE_IN_WORK) {
             this->MarkFailed();
             uint32_t old_flags = 0;
             this->quest_map->flags.Lookup(this->quest_data.player_id, old_flags);
             this->quest_map->flags[this->quest_data.player_id] = old_flags | 0x40;
         }
     } else if (event_type == 0x11) {
-        if (a == this->quest_data.player_id && b == this->quest_data.building_id && this->quest_data.state == 0) {
+        if (a == this->quest_data.player_id && b == this->quest_data.building_id && this->quest_data.state == Quest::STATE_IN_WORK) {
             result = this->quest_data.quest_id;
         }
     }
@@ -110,10 +110,10 @@ QuestKillMob::~QuestKillMob() {}
 // 55F736
 int32_t QuestKillMob::OnEvent(int32_t event_type, int32_t a, int32_t b) {
     if (event_type == 4) {
-        if (a == this->quest_data.obj && (b & 0xffff) == this->quest_data.player_id && this->quest_data.state != 1) {
+        if (a == this->quest_data.obj && (b & 0xffff) == this->quest_data.player_id && this->quest_data.state != Quest::STATE_COMPLETED) {
             this->quest_map->QueueEvent(1, this->quest_data.quest_id, 0);
         }
-    } else if (event_type == 0xc && a == this->quest_data.obj && this->quest_data.state == 0) {
+    } else if (event_type == 0xc && a == this->quest_data.obj && this->quest_data.state == Quest::STATE_IN_WORK) {
         return this->quest_data.quest_id;
     }
     return Quest::OnEvent(event_type, a, b);
@@ -131,7 +131,7 @@ QuestKillN::~QuestKillN() {}
 // 55F7E4
 int32_t QuestKillN::OnEvent(int32_t event_type, int32_t a, int32_t b) {
     if (event_type == 4 && (b >> 16) == this->quest_data.obj && (b & 0xffff) == this->quest_data.player_id) {
-        if (this->quest_data.state != 1 && this->progress < this->quest_data.limit) {
+        if (this->quest_data.state != Quest::STATE_COMPLETED && this->progress < this->quest_data.limit) {
             this->progress++;
             if (this->progress >= this->quest_data.limit) {
                 this->quest_map->QueueEvent(1, this->quest_data.quest_id, 0);
@@ -153,10 +153,10 @@ QuestKillGroup::~QuestKillGroup() {}
 // 55F896
 int32_t QuestKillGroup::OnEvent(int32_t event_type, int32_t a, int32_t b) {
     if (event_type == 5) {
-        if (a == this->quest_data.obj && (b & 0xffff) == this->quest_data.player_id && this->quest_data.state != 1) {
+        if (a == this->quest_data.obj && (b & 0xffff) == this->quest_data.player_id && this->quest_data.state != Quest::STATE_COMPLETED) {
             this->quest_map->QueueEvent(1, this->quest_data.quest_id, 0);
         }
-    } else if (event_type == 0xd && a == this->quest_data.obj && this->quest_data.state == 0) {
+    } else if (event_type == 0xd && a == this->quest_data.obj && this->quest_data.state == Quest::STATE_IN_WORK) {
         return this->quest_data.quest_id;
     }
     return Quest::OnEvent(event_type, a, b);
@@ -174,11 +174,11 @@ QuestEscort::~QuestEscort() {}
 // 55F944
 int32_t QuestEscort::OnEvent(int32_t event_type, int32_t a, int32_t b) {
     if (event_type == 4) {
-        if (a == this->quest_data.obj && this->quest_data.state != 2) {
+        if (a == this->quest_data.obj && this->quest_data.state != Quest::STATE_FAILED) {
             this->quest_map->QueueEvent(2, this->quest_data.quest_id, 0);
         }
     } else if (event_type == 6) {
-        if (a == this->quest_data.obj && (b >> 16) == this->quest_data.landmark_id && this->quest_data.state != 1) {
+        if (a == this->quest_data.obj && (b >> 16) == this->quest_data.landmark_id && this->quest_data.state != Quest::STATE_COMPLETED) {
             this->quest_map->QueueEvent(1, this->quest_data.quest_id, 0);
         }
     } else if (event_type == 12 && a == this->quest_data.obj) {
@@ -214,13 +214,13 @@ int32_t QuestDeliverItem::OnEvent(int32_t event_type, int32_t a, int32_t b) {
         const uint16_t landmark_id = (b >> 16);
 
         if (a == this->quest_data.obj && landmark_id == this->quest_data.landmark_id) {
-            if (player_id == this->quest_data.player_id && this->quest_data.state != 1) {
+            if (player_id == this->quest_data.player_id && this->quest_data.state != Quest::STATE_COMPLETED) {
                 this->quest_map->QueueEvent(1, this->quest_data.quest_id, 0);
-            } else if (player_id != this->quest_data.player_id && this->quest_data.state != 2) {
+            } else if (player_id != this->quest_data.player_id && this->quest_data.state != Quest::STATE_FAILED) {
                 this->quest_map->QueueEvent(2, this->quest_data.quest_id, 0);
             }
         }
-    } else if (event_type == 14 && a == this->quest_data.obj && this->quest_data.state == 0) {
+    } else if (event_type == 14 && a == this->quest_data.obj && this->quest_data.state == Quest::STATE_IN_WORK) {
         return this->quest_data.quest_id;
     }
 
@@ -249,7 +249,7 @@ QuestDeliverMail::~QuestDeliverMail() {}
 // 55FB32
 int32_t QuestDeliverMail::OnEvent(int32_t event_type, int32_t a, int32_t b) {
     if (event_type == 6) {
-        if (a == this->quest_data.obj && (b >> 16) == this->quest_data.landmark_id && this->quest_data.state != 1 && this->quest_data.state != 2) {
+        if (a == this->quest_data.obj && (b >> 16) == this->quest_data.landmark_id && this->quest_data.state != Quest::STATE_COMPLETED && this->quest_data.state != Quest::STATE_FAILED) {
             DWORD tick = GetTickCount();
             if (tick < ((this->quest_data.limit * 1000) >> 4) + this->progress) {
                 this->quest_map->QueueEvent(1, this->quest_data.quest_id, 0);
@@ -286,7 +286,7 @@ QuestRaiseZombies::~QuestRaiseZombies() {}
 // 560111
 int32_t QuestRaiseZombies::OnEvent(int32_t event_type, int32_t a, int32_t b) {
     if (event_type == 8 && this->quest_data.limit <= (a & 0xffff) && (b & 0xffff) == this->quest_data.player_id) {
-        if ((b >> 16) == this->quest_data.landmark_id && this->quest_data.state != 2) {
+        if ((b >> 16) == this->quest_data.landmark_id && this->quest_data.state != Quest::STATE_FAILED) {
             this->reward = ((a >> 16) * (a >> 16)) / 5;
             this->quest_map->QueueEvent(1, this->quest_data.quest_id, 0);
         }
@@ -317,7 +317,7 @@ QuestRaiseSkeletons::~QuestRaiseSkeletons() {}
 // 5601C7
 int32_t QuestRaiseSkeletons::OnEvent(int32_t event_type, int32_t a, int32_t b) {
     if (event_type == 9 && this->quest_data.limit <= (a & 0xffff) && (b & 0xffff) == this->quest_data.player_id) {
-        if ((b >> 16) == this->quest_data.landmark_id && this->quest_data.state != 2) {
+        if ((b >> 16) == this->quest_data.landmark_id && this->quest_data.state != Quest::STATE_FAILED) {
             this->reward = ((a >> 16) * (a >> 16)) / 5;
             this->quest_map->QueueEvent(1, this->quest_data.quest_id, 0);
         }
@@ -348,7 +348,7 @@ QuestRaiseGhosts::~QuestRaiseGhosts() {}
 // 56027D
 int32_t QuestRaiseGhosts::OnEvent(int32_t event_type, int32_t a, int32_t b) {
     if (event_type == 10 && this->quest_data.limit <= (a & 0xffff) && (b & 0xffff) == this->quest_data.player_id) {
-        if ((b >> 16) == this->quest_data.landmark_id && this->quest_data.state != 2) {
+        if ((b >> 16) == this->quest_data.landmark_id && this->quest_data.state != Quest::STATE_FAILED) {
             this->reward = ((a >> 16) * (a >> 16)) / 8;
             this->quest_map->QueueEvent(1, this->quest_data.quest_id, 0);
         }
@@ -379,7 +379,7 @@ QuestInterceptUnit::~QuestInterceptUnit() {}
 // 55FC25
 int32_t QuestInterceptUnit::OnEvent(int32_t event_type, int32_t a, int32_t b) {
     if (event_type == 4) {
-        if (a == this->quest_data.obj && this->quest_data.state != 1 && this->quest_data.state != 2) {
+        if (a == this->quest_data.obj && this->quest_data.state != Quest::STATE_COMPLETED && this->quest_data.state != Quest::STATE_FAILED) {
             if ((b & 0xffff) != this->quest_data.player_id) {
                 this->quest_map->UnregisterQuest(this);
                 this->quest_map->flags[this->quest_data.player_id] = 0x80;
@@ -388,7 +388,7 @@ int32_t QuestInterceptUnit::OnEvent(int32_t event_type, int32_t a, int32_t b) {
             this->quest_map->QueueEvent(1, this->quest_data.quest_id, 0);
         }
     } else if (event_type == 6) {
-        if (a == this->quest_data.obj && (b >> 16) == this->quest_data.landmark_id && this->quest_data.state != 2) {
+        if (a == this->quest_data.obj && (b >> 16) == this->quest_data.landmark_id && this->quest_data.state != Quest::STATE_FAILED) {
             this->quest_map->QueueEvent(2, this->quest_data.quest_id, 0);
         }
     } else if (event_type == 0xc && a == this->quest_data.obj) {
@@ -420,7 +420,7 @@ QuestInterceptGroup::~QuestInterceptGroup() {}
 // 55FE9B
 int32_t QuestInterceptGroup::OnEvent(int32_t event_type, int32_t a, int32_t b) {
     if (event_type == 5) {
-        if (a == this->quest_data.obj && this->quest_data.state != 1 && this->quest_data.state != 2) {
+        if (a == this->quest_data.obj && this->quest_data.state != Quest::STATE_COMPLETED && this->quest_data.state != Quest::STATE_FAILED) {
             if ((b & 0xffff) != this->quest_data.player_id) {
                 this->quest_map->UnregisterQuest(this);
                 this->quest_map->flags[this->quest_data.player_id] = 0x80;
@@ -429,7 +429,7 @@ int32_t QuestInterceptGroup::OnEvent(int32_t event_type, int32_t a, int32_t b) {
             this->quest_map->QueueEvent(1, this->quest_data.quest_id, 0);
         }
     } else if (event_type == 11) {
-        if (a == this->quest_data.obj && (b >> 16) == this->quest_data.landmark_id && this->quest_data.state != 2) {
+        if (a == this->quest_data.obj && (b >> 16) == this->quest_data.landmark_id && this->quest_data.state != Quest::STATE_FAILED) {
             this->quest_map->QueueEvent(2, this->quest_data.quest_id, 0);
         }
     } else if (event_type == 13 && a == this->quest_data.obj) {
@@ -460,7 +460,7 @@ QuestKillInnDefenders::~QuestKillInnDefenders() {}
 
 // 56032D
 int32_t QuestKillInnDefenders::OnEvent(int32_t event_type, int32_t a, int32_t b) {
-    if (event_type == 15 && a == this->quest_data.obj && (b & 0xffff) == this->quest_data.player_id && this->quest_data.state != 2) {
+    if (event_type == 15 && a == this->quest_data.obj && (b & 0xffff) == this->quest_data.player_id && this->quest_data.state != Quest::STATE_FAILED) {
         this->quest_map->QueueEvent(1, this->quest_data.quest_id, 0);
     }
 

@@ -496,13 +496,13 @@ void VisQuestStatus::VMethod7() {
 
         uint16_t* clr = clrsh_TechBlack;
         int32_t icon_index = 0xA;
-        if (quest->quest_data.state == 0) {
+        if (quest->quest_data.state == Quest::STATE_IN_WORK) {
             clr = clrsh_TechBlack;
             icon_index = 0;
-        } else if (quest->quest_data.state == 1) {
+        } else if (quest->quest_data.state == Quest::STATE_COMPLETED) {
             clr = clrsh_ShockingBlack;
             icon_index = 1;
-        } else if (quest->quest_data.state == 2) {
+        } else if (quest->quest_data.state == Quest::STATE_FAILED) {
             clr = clrsh_CoralRed;
             icon_index = 2;
         }
