@@ -266,8 +266,8 @@ Item* Item::Equip(Unit* pUnit) {
     POSITION pos = this->_effects.GetHeadPosition();
     while (pos != nullptr) {
         Effect* e = this->_effects.GetNext(pos);
-        if (e->usage_type == 0) {
-            e->usage_type |= 8;
+        if (e->usage_type == Effect::USAGE_PERMANENT) {
+            e->usage_type |= Effect::USAGE_SINGLE_USE;
         }
         e->RemoveFromUnit(pUnit);
     }

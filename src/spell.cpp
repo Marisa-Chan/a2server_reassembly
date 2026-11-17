@@ -518,7 +518,7 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
         case spell::protection_from_air:
         case spell::protection_from_earth:
             effect = new Effect(this->spell_info->effect);
-            effect->usage_type |= 1;
+            effect->usage_type |= Effect::USAGE_DURATION;
             effect->spell_or_damage = power / 2;
             if (g_ServerConfig.gameType == GAME_TYPE_DEATHMATCH || g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY) {
                 effect->spell_value = power * 16;
@@ -548,7 +548,7 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
                 return;
             }
             effect = new Effect();
-            effect->usage_type |= 1;
+            effect->usage_type |= Effect::USAGE_DURATION;
             effect->spell_value = power * 16;
             effect->itemDataID = this->spell_id;
             effect->typeId = this->spell_id * 2 + 8;
@@ -582,7 +582,7 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
                 return;
             }
             effect = new Effect(this->spell_info->effect);
-            effect->usage_type |= 1;
+            effect->usage_type |= Effect::USAGE_DURATION;
             {
                 int32_t factor = (caster->some_item == nullptr) ? 2 : 1;
 #ifdef A2SERVER_PATCH
@@ -614,7 +614,7 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
         case spell::bless:
         case spell::curse:
             effect = new Effect();
-            effect->usage_type |= 1;
+            effect->usage_type |= Effect::USAGE_DURATION;
             if (g_ServerConfig.gameType == GAME_TYPE_DEATHMATCH || g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY) {
                 effect->spell_or_damage = 0;
                 effect->spell_value = power * 16;
@@ -636,7 +636,7 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
         case spell::haste:
         case spell::slow:
             effect = new Effect(this->spell_info->effect);
-            effect->usage_type |= 1;
+            effect->usage_type |= Effect::USAGE_DURATION;
             if (g_ServerConfig.gameType == GAME_TYPE_DEATHMATCH || g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY) {
                 effect->spell_or_damage = power / 10;
                 effect->spell_value = power * 16;
@@ -903,7 +903,7 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
 
         case spell::shield:
             effect = new Effect(this->spell_info->effect);
-            effect->usage_type |= 1;
+            effect->usage_type |= Effect::USAGE_DURATION;
             if (g_ServerConfig.gameType == GAME_TYPE_DEATHMATCH || g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY) {
                 effect->spell_or_damage = power * 30 / 100;
                 effect->spell_value = power * 16;

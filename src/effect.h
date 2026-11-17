@@ -46,10 +46,28 @@ public:
     static int64_t MagicPriceBonus(int32_t total); // 540A33 (client: 5280eb)
 
 public:
+    enum UsageFlags : uint8_t {
+        USAGE_PERMANENT    = 0x00,
+        USAGE_DURATION     = 0x01,
+        USAGE_CONTINUOUS   = 0x02,
+        USAGE_TICKING_MASK = USAGE_DURATION | USAGE_CONTINUOUS, // 0x03: ticks down on unit
+        USAGE_CHARGES      = 0x04,
+        USAGE_TIMED_MASK   = USAGE_DURATION | USAGE_CONTINUOUS | USAGE_CHARGES, // 0x07: uses 16-bit spell_or_damage
+        USAGE_SINGLE_USE   = 0x08, // One-shot potion / consumable
+        USAGE_EXPIRED      = 0x80, // Flagged for removal after TickOnUnit
+    };
+
+    int32_t GetPermanentValue() const { return this->full_magic_value; }
+    int16_t GetTimedStatDelta() const { return this->spell_or_damage; }
+    uint16_t GetRemainingTicks() const { return this->spell_value; }
+    uint8_t GetImbuedSpellId() const { return this->damage_min; }
+    uint16_t GetSpellPower() const { return this->spell_value; }
+
+public:
     uint8_t effect_id;
     uint8_t usage_type;
     uint8_t gap_0x3e[2];
-    union { // TODO: god that spaghetti looks terrible. Maybe use getters/setters?
+    union {
         int32_t full_magic_value;
         struct {
             union {

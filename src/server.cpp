@@ -5304,7 +5304,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
                     Effect* eff = new Effect("castSpell=Invisibility:20");
                     eff->itemDataID  = 0xC;
                     eff->typeId      = 0x20;
-                    eff->usage_type |= 1;
+                    eff->usage_type |= Effect::USAGE_DURATION;
                     eff->spell_value = 0x140;
                     eff->RemoveFromUnit(player->main_unit);
                 }
@@ -5312,7 +5312,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
                     Effect* eff = new Effect("castSpell=Protection_from_Fire:200");
                     eff->itemDataID     = 4;
                     eff->typeId         = 0x10;
-                    eff->usage_type    |= 1;
+                    eff->usage_type    |= Effect::USAGE_DURATION;
                     eff->effect_id      = 0x15;
                     eff->spell_or_damage = 0x96;
                     eff->spell_value    = 0x140;
@@ -5322,7 +5322,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
                     Effect* eff = new Effect("castSpell=Protection_from_Water:200");
                     eff->itemDataID     = 8;
                     eff->typeId         = 0x18;
-                    eff->usage_type    |= 1;
+                    eff->usage_type    |= Effect::USAGE_DURATION;
                     eff->effect_id      = 0x16;
                     eff->spell_or_damage = 0x96;
                     eff->spell_value    = 0x140;
@@ -5332,7 +5332,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
                     Effect* eff = new Effect("castSpell=Protection_from_Earth:200");
                     eff->itemDataID     = 0x13;
                     eff->typeId         = 0x2E;
-                    eff->usage_type    |= 1;
+                    eff->usage_type    |= Effect::USAGE_DURATION;
                     eff->effect_id      = 0x18;
                     eff->spell_or_damage = 0x96;
                     eff->spell_value    = 0x140;
@@ -5342,7 +5342,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
                     Effect* eff = new Effect("castSpell=Protection_from_Air:200");
                     eff->itemDataID     = 0xD;
                     eff->typeId         = 0x22;
-                    eff->usage_type    |= 1;
+                    eff->usage_type    |= Effect::USAGE_DURATION;
                     eff->effect_id      = 0x17;
                     eff->spell_or_damage = 0x96;
                     eff->spell_value    = 0x140;
@@ -5352,7 +5352,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
                     Effect* eff = new Effect("castSpell=Shield:200");
                     eff->itemDataID     = 0x1B;
                     eff->typeId         = 0x3E;
-                    eff->usage_type    |= 1;
+                    eff->usage_type    |= Effect::USAGE_DURATION;
                     eff->effect_id      = 0x10;
                     eff->spell_or_damage = 0x96;
                     eff->spell_value    = 0x140;

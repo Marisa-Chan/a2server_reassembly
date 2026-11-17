@@ -720,7 +720,7 @@ void Unit::ProcessEffects() {
 
             effect->TickOnUnit(this);
 
-            if (effect->usage_type & 0x80) {
+            if (effect->usage_type & Effect::USAGE_EXPIRED) {
                 this->_effects.RemoveAt(cur_pos);
                 delete effect;
             }
@@ -1523,7 +1523,7 @@ void Unit::PickUpSack(Sack* sack) {
                             effect->caster = 0;
                             effect->TickOnUnit(this);
 
-                            if (effect->usage_type & 0x80) {
+                            if (effect->usage_type & Effect::USAGE_EXPIRED) {
                                 this->_effects.RemoveAt(cur_pos);
                                 delete effect;
                             }
@@ -1705,11 +1705,11 @@ void Unit::Die() {
             Effect* effect = this->_effects.GetNext(pos);
 
             // Inline 53EE08: check `usage_type & 3`.
-            if (effect->usage_type & 3) {
+            if (effect->usage_type & Effect::USAGE_TICKING_MASK) {
                 effect->spell_value = 1;
                 effect->TickOnUnit(this);
 
-                if (effect->usage_type & 0x80) {
+                if (effect->usage_type & Effect::USAGE_EXPIRED) {
                     this->_effects.RemoveAt(cur_pos);
                     delete effect;
                 }

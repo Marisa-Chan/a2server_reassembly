@@ -161,7 +161,7 @@ void UnitList::ProcessTick() {
 				effect->spell_value = 1;
 				effect->caster = NULL;
 				effect->TickOnUnit(unit);
-				if (effect->usage_type & 0x80) {
+				if (effect->usage_type & Effect::USAGE_EXPIRED) {
 					unit->_effects.RemoveAt(ecur_pos);
 					delete effect;
 				}

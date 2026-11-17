@@ -137,17 +137,17 @@ void Effect::Serialize(CArchive& ar) {
 
 // 53ee54
 void Effect::TickOnUnit(Unit* unit) {
-    if ((this->usage_type & 3) == 0) {
+    if ((this->usage_type & USAGE_TICKING_MASK) == 0) {
         return;
     }
-    if ((this->usage_type & 2) != 0 && (this->spell_value & 7) == 0) {
+    if ((this->usage_type & USAGE_CONTINUOUS) != 0 && (this->spell_value & 7) == 0) {
         unit->item_op_dirty_flags = 0;
         this->ApplyToUnit(unit);
         g_NetStru1_main.SendUnitUpdate(unit, nullptr, unit->item_op_dirty_flags, EQUIP_SLOTS_ALL, 0, 0);
     }
     this->spell_value -= 1;
     if (this->spell_value == 0) {
-        if ((this->usage_type & 2) == 0) {
+        if ((this->usage_type & USAGE_CONTINUOUS) == 0) {
             unit->item_op_dirty_flags = 0;
             this->ModifyVision(unit);
             g_NetStru1_main.SendUnitUpdate(unit, nullptr, unit->item_op_dirty_flags, EQUIP_SLOTS_ALL, 0, 0);
@@ -156,14 +156,14 @@ void Effect::TickOnUnit(Unit* unit) {
         if (this->itemDataID != 0) {
             g_NetStru1_main.BroadcastEffect(this, unit, 0x89);
         }
-        this->usage_type |= 0x80;
+        this->usage_type |= USAGE_EXPIRED;
     }
 }
 
 // 53efb2
 void Effect::RemoveFromUnit(Unit* unit) {
     unit->item_op_dirty_flags = 0;
-    if ((this->usage_type & 3) != 0 && (this->itemDataID == spell::bless || this->itemDataID == spell::curse)) {
+    if ((this->usage_type & USAGE_TICKING_MASK) != 0 && (this->itemDataID == spell::bless || this->itemDataID == spell::curse)) {
         Effect* counterpart = nullptr; // Note: can reuse Unit::FindEnchantment here.
         for (POSITION pos = unit->_effects.GetHeadPosition(); pos != nullptr; ) {
             Effect* e = unit->_effects.GetNext(pos);
@@ -199,7 +199,7 @@ void Effect::RemoveFromUnit(Unit* unit) {
         }
     }
 
-    if ((this->usage_type & 3) == 0) {
+    if ((this->usage_type & USAGE_TICKING_MASK) == 0) {
         this->ApplyToUnit(unit);
     } else {
         Effect* existing = nullptr;
@@ -254,12 +254,12 @@ void Effect::RemoveFromUnit(Unit* unit) {
 void Effect::ApplyStatDelta(Unit* unit, int32_t stack_delta) {
 #ifdef A2SERVER_PATCH
     // test_health hook (53FA2B): block single-use health potions when SVF_NOHEALING is active.
-    if (this->effect_id == modifier::health && this->usage_type == 8 && (Config::ServerFlags & SVF_NOHEALING) != 0) {
+    if (this->effect_id == modifier::health && this->usage_type == USAGE_SINGLE_USE && (Config::ServerFlags & SVF_NOHEALING) != 0) {
         return;
     }
 #endif
     int32_t value;
-    if (this->usage_type & 7) {
+    if (this->usage_type & USAGE_TIMED_MASK) {
         value = stack_delta * this->spell_or_damage;
     } else {
         value = stack_delta * this->full_magic_value;
@@ -274,7 +274,7 @@ void Effect::ApplyStatDelta(Unit* unit, int32_t stack_delta) {
             break;
         case modifier::body:
             unit->body += value;
-            if (!(this->usage_type & 8)) {
+            if (!(this->usage_type & USAGE_SINGLE_USE)) {
                 unit->equipment_extra.body += value;
             }
             unit->body = (std::min)((int32_t)unit->body, 100);
@@ -282,7 +282,7 @@ void Effect::ApplyStatDelta(Unit* unit, int32_t stack_delta) {
             break;
         case modifier::mind:
             unit->mind += value;
-            if (!(this->usage_type & 8)) {
+            if (!(this->usage_type & USAGE_SINGLE_USE)) {
                 unit->equipment_extra.mind += value;
             }
             unit->mind = (std::min)((int32_t)unit->mind, 100);
@@ -290,7 +290,7 @@ void Effect::ApplyStatDelta(Unit* unit, int32_t stack_delta) {
             break;
         case modifier::reaction:
             unit->reaction += value;
-            if (!(this->usage_type & 8)) {
+            if (!(this->usage_type & USAGE_SINGLE_USE)) {
                 unit->equipment_extra.reaction += value;
             }
             unit->reaction = (std::min)((int32_t)unit->reaction, 100);
@@ -298,7 +298,7 @@ void Effect::ApplyStatDelta(Unit* unit, int32_t stack_delta) {
             break;
         case modifier::spirit:
             unit->spirit += value;
-            if (!(this->usage_type & 8)) {
+            if (!(this->usage_type & USAGE_SINGLE_USE)) {
                 unit->equipment_extra.spirit += value;
             }
             unit->spirit = (std::min)((int32_t)unit->spirit, 100);
@@ -608,7 +608,7 @@ int32_t Effect::CalcScrollPrice() {
 // 541d59
 int32_t Effect::CalcChargePercent(double mana) {
     int32_t result = 1;
-    if ((this->usage_type & 3) == 0) {
+    if ((this->usage_type & USAGE_TICKING_MASK) == 0) {
         if (this->effect_id == modifier::castspell) {
             result = (int32_t)(mana * 10.0 / g_GameDataRes.spells[this->spell_or_damage].Values()[0].book_cost);
             if (result > 100) {
@@ -696,33 +696,33 @@ int32_t Effect::ParseUsage(CString* str, int32_t* out_value) {
     str->TrimRight();
 
     if (*str == "permanent") {
-        return 0;
+        return USAGE_PERMANENT;
     }
     if (*str == "singleuse") {
-        return 8;
+        return USAGE_SINGLE_USE;
     }
     int32_t pos = str->Find("charges");
     if (pos != -1) {
         *str = str->Right(str->GetLength() - pos - 8);
         str->TrimLeft();
         *out_value = Effect::AtoI(str);
-        return 4;
+        return USAGE_CHARGES;
     }
     pos = str->Find("duration");
     if (pos != -1) {
         *str = str->Right(str->GetLength() - pos - 9);
         str->TrimLeft();
         *out_value = Effect::AtoI(str);
-        return 1;
+        return USAGE_DURATION;
     }
     pos = str->Find("continuous");
     if (pos != -1) {
         *str = str->Right(str->GetLength() - pos - 11);
         str->TrimLeft();
         *out_value = Effect::AtoI(str);
-        return 2;
+        return USAGE_CONTINUOUS;
     }
-    return 0;
+    return USAGE_PERMANENT;
 }
 
 // 6370C8
@@ -817,7 +817,7 @@ Effect* Effect::CreateFromString(const CString& effect_str) {
             effect->usage_type = (uint8_t)usage_flags;
         }
 
-        if ((usage_flags & 1) != 0 || (usage_flags & 2) != 0 || (usage_flags & 4) != 0) {
+        if ((usage_flags & USAGE_TIMED_MASK) != 0) {
             effect->spell_value = (uint16_t)(parsed_value << 4);
         }
     } else if (effect_id == modifier::castspell || effect_id == modifier::teachspell) {
