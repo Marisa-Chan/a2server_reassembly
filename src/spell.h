@@ -40,6 +40,14 @@ public:
         DELIVERY_PROJECTILE = 2,
     };
 
+    enum Distribution : uint8_t {
+        DIST_POINT        = 1,
+        DIST_DEFAULT_AREA = 2,
+        DIST_ROUND        = 3,
+        DIST_LONG_WALL    = 4,
+        DIST_PHASED_WAVE  = 5,
+    };
+
     DECLARE_SERIAL(Spell);
 
     virtual ~Spell();

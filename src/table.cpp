@@ -522,15 +522,15 @@ void SpellInfo::ParseValue(CString str, int32_t type_id, int32_t* out_value, dou
         break;
     case 9:
         if (str == "Point") {
-            *out_value = 1;
+            *out_value = Spell::DIST_POINT;
         } else if (str.Find("Round") > 0) {
-            *out_value = 3;
+            *out_value = Spell::DIST_ROUND;
         } else if (str.Find("Long") > 0) {
-            *out_value = 4;
+            *out_value = Spell::DIST_LONG_WALL;
         } else if (str.Find("Phase") > 0) {
-            *out_value = 5;
+            *out_value = Spell::DIST_PHASED_WAVE;
         } else {
-            *out_value = 2;
+            *out_value = Spell::DIST_DEFAULT_AREA;
         }
         break;
     case 0x0E:

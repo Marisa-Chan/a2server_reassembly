@@ -299,7 +299,7 @@ void AreaEffect::DamageUnit(Unit* unit) {
 
 // 537C8C
 void AreaEffect::ApplyDistribution() {
-	if (g_GameDataRes.spells[this->itemDataID].Values()[0].distribution == 4) {
+	if (g_GameDataRes.spells[this->itemDataID].Values()[0].distribution == Spell::DIST_LONG_WALL) {
 		this->ApplyWaveDistribution();
 	} else {
 		this->ApplyAroundPosition();

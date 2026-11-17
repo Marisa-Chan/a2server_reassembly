@@ -936,7 +936,7 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
 
     SpellEffect* container = nullptr;
 
-    if (info.distribution == 1) {
+    if (info.distribution == Spell::DIST_POINT) {
         if (target == nullptr) {
             LogMessage("Spell, oops - can't cast point effect of x,y");
             return;
@@ -965,7 +965,7 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
             ae->duration += power * 16 / 10;
             ae->TokenID = 1;
         }
-        if (info.distribution == 5) {
+        if (info.distribution == Spell::DIST_PHASED_WAVE) {
             ae->TokenID = 2;
             ae->duration = 0;
         }
