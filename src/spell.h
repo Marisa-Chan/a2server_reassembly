@@ -48,6 +48,11 @@ public:
         DIST_PHASED_WAVE  = 5,
     };
 
+    enum ApplyMethod : uint8_t {
+        APPLY_INSTANT      = 1,
+        APPLY_HANG_ON_UNIT = 2,
+    };
+
     DECLARE_SERIAL(Spell);
 
     virtual ~Spell();

@@ -534,7 +534,7 @@ void SpellInfo::ParseValue(CString str, int32_t type_id, int32_t* out_value, dou
         }
         break;
     case 0x0E:
-        *out_value = (_stricmp(str, "Hang On Unit") == 0) ? 2 : 1;
+        *out_value = (_stricmp(str, "Hang On Unit") == 0) ? Spell::APPLY_HANG_ON_UNIT : Spell::APPLY_INSTANT;
         break;          
     default:
         if (out_double == nullptr) {
