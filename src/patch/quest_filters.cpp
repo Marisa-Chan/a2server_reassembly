@@ -64,7 +64,7 @@ void InitializeMobNames() {
             name = "Catapult";
         }
 
-        const int mob_type = d.face << 8 | d.type_id;
+        const int mob_type = MonsterTypeFace::Make(d.type_id, d.face);
         mob_names[mob_type] = NormalizeMobName(name.c_str());
         mob_names_raw[mob_type] = name;
         mob_names_by_server_id[d.server_id] = (const char*)m.name;

@@ -255,6 +255,24 @@ public:
 };
 ASSERT_SIZE(MagicInfo, 0x1c);
 
+struct MonsterTypeFace {
+    union {
+        uint16_t raw;
+        struct {
+            uint16_t type_id : 8;
+            uint16_t face    : 8;
+        };
+    };
+
+    constexpr MonsterTypeFace(uint16_t v = 0) : raw(v) {}
+    constexpr operator uint16_t() const { return this->raw; }
+
+    static constexpr MonsterTypeFace Make(uint8_t tid, uint8_t f) {
+        return MonsterTypeFace(static_cast<uint16_t>((static_cast<uint16_t>(f) << 8) | tid));
+    }
+};
+ASSERT_SIZE(MonsterTypeFace, 2);
+
 struct MonsterInfoData {
     int32_t body;
     int32_t reaction;

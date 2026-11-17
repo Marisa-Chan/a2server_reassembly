@@ -317,7 +317,7 @@ void UnitList::ProcessTick() {
 
 			// Quest event: unit death
 			if (unit->summon_id == 0) {
-				g_QuestMap.QueueEvent(4, unit->building_id, unit->typeId << 16 | unit->face << 24 | killer_pid);
+				g_QuestMap.QueueEvent(4, unit->building_id, (static_cast<int32_t>(MonsterTypeFace::Make(unit->typeId, unit->face).raw) << 16) | killer_pid);
 
 			// Quest event: group death
 			}

@@ -1835,7 +1835,7 @@ void CUnit::DrawHealthBar(int32_t tile_x, int32_t tile_y, int32_t hgt) { // 466a
                         if (quest->Kind() != 3 && quest->Kind() != 0xC) {
                             quest_flag = 1;
                         }
-                    } else if (this->typeId == (quest->GetObj() & 0xFF) && this->face == (quest->GetObj() >> 8)) {
+                    } else if (quest->GetObj() <= 0xFFFF && this->typeId == MonsterTypeFace((uint16_t)quest->GetObj()).type_id && this->face == MonsterTypeFace((uint16_t)quest->GetObj()).face) {
                         if (quest->Kind() == 2) {
                             quest_flag = 1;
                         }

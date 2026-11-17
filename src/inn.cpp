@@ -192,7 +192,7 @@ void Inn::InnCreateQuests(Player* player) {
 #ifdef A2TANGAR_HAT
                 // remove_existing_n_monters_quests_wrapper hook (56289E):
                 // duplicate-quest and name-filter gating before counting
-                if (tangar_quests::FilterKillNCandidate(player, fid << 8 | tid)) {
+                if (tangar_quests::FilterKillNCandidate(player, MonsterTypeFace::Make(tid, fid))) {
                     counts[fid][tid]++;
                 }
 #else
@@ -264,7 +264,7 @@ void Inn::InnCreateQuests(Player* player) {
 
             Quest* q = MakeActiveQuest(this, new QuestKillN());
             int32_t kind = q->Kind();
-            int32_t encoded_unit_id = candidate.typeId | (candidate.face << 8);
+            int32_t encoded_unit_id = MonsterTypeFace::Make(candidate.typeId, candidate.face);
             int32_t some_id = (this->building_id << 16) | (player->player_id << 8) | kind;
             RegisterQuest(this, q, some_id, player->player_id, this->building_id, encoded_unit_id, 0, amount, reward);
         }
@@ -1120,7 +1120,7 @@ void Inn::InnReward(Player* player) {
             Item* mob = new Item();
             mob->item_id = ItemId::REWARD_ALLY;
             MonsterInfoData* data = g_GameDataRes.monsters[mob_idx].Values().GetData();
-            mob->count = (data->face << 8) | data->type_id;
+            mob->count = MonsterTypeFace::Make(data->type_id, data->face);
             result_items.Add(mob);
         }
     }
@@ -1481,9 +1481,8 @@ void Inn::RemoveUnit(Humanoid* humanoid, int32_t id) {
                 uint16_t item_hash = item->item_id;
                 if (item_hash == ItemId::REWARD_ALLY) {
                     // ---- Monster reward ----
-                    uint8_t low_byte = item->count & 0xFF;
-                    uint8_t high_byte = (item->count >> 8) & 0xFF;
-                    int monster_index = g_GameDataRes.GetMonsterDataIndex(low_byte, high_byte);
+                    MonsterTypeFace mob_reward((uint16_t)item->count);
+                    int monster_index = g_GameDataRes.GetMonsterDataIndex(mob_reward.type_id, mob_reward.face);
 
                     Unit* new_unit = new Unit(g_GameDataRes.monsters[monster_index].name);
 

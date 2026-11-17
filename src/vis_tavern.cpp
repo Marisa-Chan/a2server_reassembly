@@ -765,16 +765,17 @@ void VisTavLeftPanel::DrawUnitPanel(CUnit* unit) {
             break;
         }
         case 2: {
+            MonsterTypeFace mob((uint16_t)quest->GetObj());
             char suffix[0x50];
-            strcpy(picture, g_VFX_info[quest->GetObj() & 0xFF]->info_picture);
-            sprintf(suffix, "%d", quest->GetObj() >> 8);
-            if ((quest->GetObj() >> 8) > 1) {
+            strcpy(picture, g_VFX_info[mob.type_id]->info_picture);
+            sprintf(suffix, "%d", mob.face);
+            if (mob.face > 1) {
                 strcat(picture, suffix);
             }
-            if ((quest->GetObj() & 0xFF) >= 0x52 && (quest->GetObj() & 0xFF) <= 0x66) {
-                unit_name.Format("%s", txt_unitname.GetLine(quest->GetObj() & 0xFF));
+            if (mob.type_id >= 0x52 && mob.type_id <= 0x66) {
+                unit_name.Format("%s", txt_unitname.GetLine(mob.type_id));
             } else {
-                unit_name.Format("%s[%d]", txt_unitname.GetLine(quest->GetObj() & 0xFF), quest->GetObj() >> 8);
+                unit_name.Format("%s[%d]", txt_unitname.GetLine(mob.type_id), mob.face);
             }
             if (picture[0] != 0) {
                 if (strcmp(this->picture_name, picture) != 0) {
@@ -840,12 +841,13 @@ void VisTavLeftPanel::DrawUnitPanel(CUnit* unit) {
         g_font2->DrawTextJustifyInRectShadow(text_rect, quest_text, clrsh_DullGold, 0xA);
     } else {
         if (this->vis_tav->rewards.GetSize() != 0 && this->vis_tav->rewards[this->vis_tav->quest_id]->item_id == ItemId::REWARD_ALLY) {
+            MonsterTypeFace ally((uint16_t)this->vis_tav->rewards[this->vis_tav->quest_id]->count);
             char picture[0x100];
             picture[0] = 0;
             char suffix[0x50];
-            strcpy(picture, g_VFX_info[this->vis_tav->rewards[this->vis_tav->quest_id]->count & 0xFF]->info_picture);
-            sprintf(suffix, "%d", (int32_t)this->vis_tav->rewards[this->vis_tav->quest_id]->count >> 8);
-            if ((int32_t)this->vis_tav->rewards[this->vis_tav->quest_id]->count >> 8 > 1) {
+            strcpy(picture, g_VFX_info[ally.type_id]->info_picture);
+            sprintf(suffix, "%d", ally.face);
+            if (ally.face > 1) {
                 strcat(picture, suffix);
             }
             if (picture[0] != 0) {
