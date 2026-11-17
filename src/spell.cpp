@@ -316,7 +316,7 @@ int32_t Spell::StartCast(Unit* caster, Unit* target, int8_t x, int8_t y) {
     #endif
     const SpellInfoData& info = this->spell_info->Values().GetData()[0];
     int32_t delay = 0;
-    if (info.delivery_system == 2) {
+    if (info.delivery_system == Spell::DELIVERY_PROJECTILE) {
         delay = CalcWalkDist(caster->position, &local_pos) / info.effect_speed;
         if (this->spell_id == spell::lightning || this->spell_id == spell::prismatic_spray) {
             delay = 5;
@@ -974,10 +974,10 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
         container = ae;
     }
 
-    if (info.delivery_system == 1) {
+    if (info.delivery_system == Spell::DELIVERY_INSTANT) {
         container->typeId = this->spell_id * 2 + 9;
         g_Server->srv_stru1->effects_list->list.AddTail(container);
-    } else if (info.delivery_system == 2) {
+    } else if (info.delivery_system == Spell::DELIVERY_PROJECTILE) {
         SpellTransport* transport = new SpellTransport(container, caster->position, info.effect_speed);
         if (this->spell_id == spell::lightning || this->spell_id == spell::prismatic_spray) {
             transport->duration = 10;

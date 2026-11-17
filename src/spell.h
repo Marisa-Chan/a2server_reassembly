@@ -35,6 +35,11 @@ public:
         TARGET_AREA = 2,
     };
 
+    enum DeliveryType : uint8_t {
+        DELIVERY_INSTANT    = 1,
+        DELIVERY_PROJECTILE = 2,
+    };
+
     DECLARE_SERIAL(Spell);
 
     virtual ~Spell();
