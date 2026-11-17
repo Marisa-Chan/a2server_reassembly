@@ -29,6 +29,20 @@ extern CStringArray g_MissionFailures; //660f18
 extern CStringArray g_MissionSubjs; //660ea8
 
 
+namespace obstacle_flag {
+enum : uint8_t {
+    land          = 0x01, // impassable terrain / water for land units
+    air_border    = 0x02, // impassable border for flying units
+    structure     = 0x04, // static map object / building / earth wall (blocks amphibious too)
+    map_border    = 0x08, // outer map border flag
+    dynamic_block = 0x10, // runtime terrain block (encoded in terrain sync)
+    border_all    = 0x1F, // all static/border obstacle bits (8-tile map border)
+    cell_state    = 0x20, // cell has an entry in MapStuff::cell_states
+    ground_unit   = 0x40, // occupied by ground/amphibious unit in obstacle_map2
+    air_unit      = 0x80, // occupied by flying unit in obstacle_map2
+};
+} // namespace obstacle_flag
+
 struct Obstacle {
     uint8_t bits;
 
@@ -334,10 +348,10 @@ public:
     inline Obstacle& Obstacle2At(PosYX yx) { return this->obstacle_map2[yx.val]; } //59a7c0 (client: 569a80)
     inline uint8_t& WalkCostAt(PosYX yx) { return this->walk_cost_map[yx.val]; } //59a780 (client: 569a40)
 
-    int IsObstacle2_40(PosYX yx) { return this->Obstacle2At(yx).TestBits(0x40); } //58b9ee (client: 55ae9e)
-    void SetObstacle2_40(PosYX yx) { this->Obstacle2At(yx).SetBits(0x40); } //58b920 (client: 55add0)
-    int IsObstacle2_80(PosYX yx) { return this->Obstacle2At(yx).TestBits(0x80); } //58ba15 (client: 55aec5)
-    void SetObstacle2_80(PosYX yx) { this->Obstacle2At(yx).SetBits(0x80); } //58b952 (client: 55ae02)
+    int IsObstacle2_40(PosYX yx) { return this->Obstacle2At(yx).TestBits(obstacle_flag::ground_unit); } //58b9ee (client: 55ae9e)
+    void SetObstacle2_40(PosYX yx) { this->Obstacle2At(yx).SetBits(obstacle_flag::ground_unit); } //58b920 (client: 55add0)
+    int IsObstacle2_80(PosYX yx) { return this->Obstacle2At(yx).TestBits(obstacle_flag::air_unit); } //58ba15 (client: 55aec5)
+    void SetObstacle2_80(PosYX yx) { this->Obstacle2At(yx).SetBits(obstacle_flag::air_unit); } //58b952 (client: 55ae02)
 
     void ApplyCellState(CellState& cell); //58b5d6 (client: 55aa86)
     int RestoreCellState(PosYX yx); //58b4a6 (client: 55a956)

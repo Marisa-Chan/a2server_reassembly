@@ -148,29 +148,29 @@ void MapStuff::MarkMapBorder() {
     if (this->map_width == this->map_height) {
         for (int32_t i = 0; i < this->map_width; i++) {
             for (int32_t j = 0; j < 8; j++) {
-                this->ObstacleAt(PosYX(j, i)) = 0x1F;
-                this->ObstacleAt(PosYX(this->map_width - 1 - j, i)) = 0x1F;
-                this->ObstacleAt(PosYX(i, j)) = 0x1F;
-                this->ObstacleAt(PosYX(i, this->map_width - 1 - j)) = 0x1F;
+                this->ObstacleAt(PosYX(j, i)) = obstacle_flag::border_all;
+                this->ObstacleAt(PosYX(this->map_width - 1 - j, i)) = obstacle_flag::border_all;
+                this->ObstacleAt(PosYX(i, j)) = obstacle_flag::border_all;
+                this->ObstacleAt(PosYX(i, this->map_width - 1 - j)) = obstacle_flag::border_all;
             }
         }
     } else {
         for (int32_t i = 0; i < 256; i++) {
             for (int32_t j = 0; j < 8; j++) {
-                this->ObstacleAt(PosYX(j, i)) = 0x1F;
-                this->ObstacleAt(PosYX(255 - j, i)) = 0x1F;
-                this->ObstacleAt(PosYX(i, j)) = 0x1F;
-                this->ObstacleAt(PosYX(i, 255 - j)) = 0x1F;
+                this->ObstacleAt(PosYX(j, i)) = obstacle_flag::border_all;
+                this->ObstacleAt(PosYX(255 - j, i)) = obstacle_flag::border_all;
+                this->ObstacleAt(PosYX(i, j)) = obstacle_flag::border_all;
+                this->ObstacleAt(PosYX(i, 255 - j)) = obstacle_flag::border_all;
             }
         }
         for (int32_t i = 0; i < this->map_height; i++) {
             for (int32_t j = 0; j < 8; j++) {
-                this->ObstacleAt(PosYX(this->map_width - 1 - j, i)) = 0x1F;
+                this->ObstacleAt(PosYX(this->map_width - 1 - j, i)) = obstacle_flag::border_all;
             }
         }
         for (int32_t i = 0; i < this->map_width; i++) {
             for (int32_t j = 0; j < 8; j++) {
-                this->ObstacleAt(PosYX(i, this->map_height - 1 - j)) = 0x1F;
+                this->ObstacleAt(PosYX(i, this->map_height - 1 - j)) = obstacle_flag::border_all;
             }
         }
     }
@@ -195,7 +195,7 @@ void MapStuff::InitFromAlm(MapAlm* alm) {
 
             LandscapeTile terrain(alm->landscape[idx]);
             if (terrain.scorched_or_imp) {
-                this->ObstacleAt(yx) = 1;
+                this->ObstacleAt(yx) = obstacle_flag::land;
             }
 
             uint8_t map_height_val = alm->map_heights[idx];
@@ -204,7 +204,7 @@ void MapStuff::InitFromAlm(MapAlm* alm) {
             uint8_t walk_cost_val;
             uint8_t classification = this->CalcTerrainWalkCost(terrain.raw & LandscapeTile::SERVER_TERRAIN_MASK, &walk_cost_val);
             if (classification == 8) {
-                this->ObstacleAt(yx) = 1;
+                this->ObstacleAt(yx) = obstacle_flag::land;
             }
 
             if (classification < 0xD) {
@@ -214,11 +214,11 @@ void MapStuff::InitFromAlm(MapAlm* alm) {
             }
 
             if ((terrain & 0x300) == 0x200) {
-                this->ObstacleAt(yx) = 1;
+                this->ObstacleAt(yx) = obstacle_flag::land;
             }
 
             if (map_object_val != 0) {
-                this->ObstacleAt(yx) = 5;
+                this->ObstacleAt(yx) = obstacle_flag::land | obstacle_flag::structure;
             }
 
             this->height_map[yx.val] = map_height_val;
@@ -753,7 +753,7 @@ void MapStuff::PickNextPathTarget(Unit* unit, Unit* target) {
 
 // 58E407
 int MapStuff::CanPlaceSack(Sack* sack) {
-    if (this->Obstacle2At(sack->position->CompatGetYX()).TestBits(1)) {
+    if (this->Obstacle2At(sack->position->CompatGetYX()).TestBits(obstacle_flag::land)) {
         return 0;
     }
 
@@ -780,7 +780,7 @@ int MapStuff::CanPlaceSack(Sack* sack) {
 
 // 596576
 int MapStuff::ApplyTerrainMod(uint16_t yx, void* src) {
-    if (this->Obstacle2At(yx).TestBits(1)) {
+    if (this->Obstacle2At(yx).TestBits(obstacle_flag::land)) {
         return 0;
     }
 
@@ -831,13 +831,13 @@ void MapStuff::EncodeTerrain(CWordArray* encode_buf) {
 
     PosYX yx(8, 8);
 
-    uint8_t cur = this->ObstacleAt(yx).TestBits(0x10);
+    uint8_t cur = this->ObstacleAt(yx).TestBits(obstacle_flag::dynamic_block);
     encode_buf->Add(cur);
     uint16_t run_len = 1;
 
     for (;;) {
         yx.val += 1;
-        uint8_t bits = this->ObstacleAt(yx).TestBits(0x10);
+        uint8_t bits = this->ObstacleAt(yx).TestBits(obstacle_flag::dynamic_block);
 
         if (cur == bits) {
             run_len += 1;
@@ -1015,26 +1015,26 @@ void MapStuff::ApplyCellState(CellState& cell) { //58b5d6
     *ob1 = cell.obstacle;
     this->WalkCostAt(pos) = cell.walk_cost;
 
-    ob1->SetBits(0x20);
+    ob1->SetBits(obstacle_flag::cell_state);
     *ob2 = *ob1;
 
     if (cell.static_blocker) {
-        ob2->SetBits(0x40);
+        ob2->SetBits(obstacle_flag::ground_unit);
     }
 
     if (cell.dynamic_blocker) {
-        ob2->SetBits(0x80);
+        ob2->SetBits(obstacle_flag::air_unit);
     }
 
     if (cell.building) {
         TokenPos* bldpos = cell.building->position;
         if ((cell.building->unpassable_mask & (1 << (((pos.y - bldpos->GetY()) * cell.building->width) + pos.x - bldpos->GetX()))) == 0) {
-            ob1->UnsetBits(1 | 4);
-            ob2->UnsetBits(1 | 4);
+            ob1->UnsetBits(obstacle_flag::land | obstacle_flag::structure);
+            ob2->UnsetBits(obstacle_flag::land | obstacle_flag::structure);
             this->WalkCostAt(pos) = this->walk_cost[5];
         } else {
-            ob1->SetBits(1 | 4);
-            ob2->SetBits(1 | 4);
+            ob1->SetBits(obstacle_flag::land | obstacle_flag::structure);
+            ob2->SetBits(obstacle_flag::land | obstacle_flag::structure);
         }
     }
 
@@ -1046,13 +1046,13 @@ void MapStuff::ApplyCellState(CellState& cell) { //58b5d6
         }
     }
     if (cell.area_effects[AreaEffect::LAYER_EARTH_WALL]) {
-        ob1->SetBits(1 | 4);
-        ob2->SetBits(1 | 4);
+        ob1->SetBits(obstacle_flag::land | obstacle_flag::structure);
+        ob2->SetBits(obstacle_flag::land | obstacle_flag::structure);
     }
 
-    if (old.TestBits(0x10)) {
-        ob1->SetBits(0x10);
-        ob2->SetBits(0x10);
+    if (old.TestBits(obstacle_flag::dynamic_block)) {
+        ob1->SetBits(obstacle_flag::dynamic_block);
+        ob2->SetBits(obstacle_flag::dynamic_block);
     }
 }
 
@@ -1066,15 +1066,15 @@ int MapStuff::RestoreCellState(PosYX yx) { //58b4a6
     this->ObstacleAt(yx) = this->scratch_cell_state.obstacle;
     this->cell_states.RemoveKey(yx.val);
 
-    if (old.TestBits(0x10)) {
-        this->ObstacleAt(yx).SetBits(0x10);
-        this->Obstacle2At(yx).SetBits(0x10);
+    if (old.TestBits(obstacle_flag::dynamic_block)) {
+        this->ObstacleAt(yx).SetBits(obstacle_flag::dynamic_block);
+        this->Obstacle2At(yx).SetBits(obstacle_flag::dynamic_block);
     }
     return 1;
 }
 
 void MapStuff::ClearBlockerAt(Unit* unit, PosYX yx) { //596d3e
-    if (this->ObstacleAt(yx).TestBits(0x20) && this->cell_states.Lookup(yx.val, this->scratch_cell_state)) {
+    if (this->ObstacleAt(yx).TestBits(obstacle_flag::cell_state) && this->cell_states.Lookup(yx.val, this->scratch_cell_state)) {
         if ((unit->GetMovementType() & 0xff) == 3) {
             if (this->scratch_cell_state.dynamic_blocker == unit) {
                 this->scratch_cell_state.dynamic_blocker = nullptr;
@@ -1102,12 +1102,12 @@ void MapStuff::SnapshotCellState(PosYX yx) { //58b3e0
 
         this->cell_states[yx.val] = this->scratch_cell_state;
 
-        this->ObstacleAt(yx).SetBits(0x20);
+        this->ObstacleAt(yx).SetBits(obstacle_flag::cell_state);
     }
 }
 
 void MapStuff::SetBlockerAt(Unit* unit, PosYX yx) { //596e0e
-    if (this->ObstacleAt(yx).TestBits(0x20) == 0 || !this->cell_states.Lookup(yx.val, this->scratch_cell_state)) {
+    if (this->ObstacleAt(yx).TestBits(obstacle_flag::cell_state) == 0 || !this->cell_states.Lookup(yx.val, this->scratch_cell_state)) {
         this->SnapshotCellState(yx);
 
         if (!this->cell_states.Lookup(yx.val, this->scratch_cell_state)) {
@@ -1511,7 +1511,7 @@ void __cdecl MissionGetDescription(int32_t t, int32_t idx, CString* out) { //4e1
 
 // 58CA1B
 Unit* MapStuff::GetUnitAt(PosYX yx) {
-    if (!this->ObstacleAt(yx).TestBits(0x20)) {
+    if (!this->ObstacleAt(yx).TestBits(obstacle_flag::cell_state)) {
         return nullptr;
     }
     if (!this->cell_states.Lookup(yx.val, this->scratch_cell_state)) {
@@ -1524,7 +1524,7 @@ Unit* MapStuff::GetUnitAt(PosYX yx) {
 UnitList* MapStuff::BuildNearbyUnitList(PosYX yx, uint8_t range) {
     this->nearby_units.unit_list.RemoveAll();
 
-    if (this->ObstacleAt(yx).TestBits(0x20)) {
+    if (this->ObstacleAt(yx).TestBits(obstacle_flag::cell_state)) {
         Unit* unit = this->GetUnitAt(yx);
         if (unit != nullptr) {
             this->nearby_units.AddTail(unit);
@@ -1534,7 +1534,7 @@ UnitList* MapStuff::BuildNearbyUnitList(PosYX yx, uint8_t range) {
     for (uint8_t ring = 1; ring < range + 1; ring++) {
         for (int32_t offset = -(int32_t)ring; offset < ring + 1; offset++) {
             uint16_t cell = (ring << 8) + offset + yx.val;
-            if (this->obstacle_map[cell].TestBits(0x20)) {
+            if (this->obstacle_map[cell].TestBits(obstacle_flag::cell_state)) {
                 Unit* unit = this->GetUnitAt(cell);
                 if (unit != nullptr) {
                     this->nearby_units.AddTail(unit);
@@ -1542,7 +1542,7 @@ UnitList* MapStuff::BuildNearbyUnitList(PosYX yx, uint8_t range) {
             }
 
             cell = yx.val - (ring << 8) + offset;
-            if (this->obstacle_map[cell].TestBits(0x20)) {
+            if (this->obstacle_map[cell].TestBits(obstacle_flag::cell_state)) {
                 Unit* unit = this->GetUnitAt(cell);
                 if (unit != nullptr) {
                     this->nearby_units.AddTail(unit);
@@ -1551,7 +1551,7 @@ UnitList* MapStuff::BuildNearbyUnitList(PosYX yx, uint8_t range) {
 
             if (std::abs(offset) != ring) {
                 cell = yx.val + (offset << 8) + ring;
-                if (this->obstacle_map[cell].TestBits(0x20)) {
+                if (this->obstacle_map[cell].TestBits(obstacle_flag::cell_state)) {
                     Unit* unit = this->GetUnitAt(cell);
                     if (unit != nullptr) {
                         this->nearby_units.AddTail(unit);
@@ -1559,7 +1559,7 @@ UnitList* MapStuff::BuildNearbyUnitList(PosYX yx, uint8_t range) {
                 }
 
                 cell = yx.val + (offset << 8) - ring;
-                if (this->obstacle_map[cell].TestBits(0x20)) {
+                if (this->obstacle_map[cell].TestBits(obstacle_flag::cell_state)) {
                     Unit* unit = this->GetUnitAt(cell);
                     if (unit != nullptr) {
                         this->nearby_units.AddTail(unit);
@@ -1574,7 +1574,7 @@ UnitList* MapStuff::BuildNearbyUnitList(PosYX yx, uint8_t range) {
 
 // 58CB5A
 Unit* MapStuff::GetSmallUnitAt(uint16_t yx) {
-    if (!this->ObstacleAt(yx).TestBits(0x20)) {
+    if (!this->ObstacleAt(yx).TestBits(obstacle_flag::cell_state)) {
         return nullptr;
     }
     if (!this->cell_states.Lookup(yx, this->scratch_cell_state)) {
@@ -1585,7 +1585,7 @@ Unit* MapStuff::GetSmallUnitAt(uint16_t yx) {
 
 // 58CBB9
 Unit* MapStuff::GetLargeUnitAt(uint16_t yx) {
-    if (!this->ObstacleAt(yx).TestBits(0x20)) {
+    if (!this->ObstacleAt(yx).TestBits(obstacle_flag::cell_state)) {
         return nullptr;
     }
     if (!this->cell_states.Lookup(yx, this->scratch_cell_state)) {
@@ -1659,7 +1659,7 @@ void MapStuff::RefreshCellObstacles(PosYX yx) {
 
 // 58E611
 Sack* MapStuff::GetSackInCell(uint16_t yx) {
-    if (!this->ObstacleAt(yx).TestBits(0x20)) {
+    if (!this->ObstacleAt(yx).TestBits(obstacle_flag::cell_state)) {
         return nullptr;
     }
     if (!this->cell_states.Lookup(yx, this->scratch_cell_state)) {
@@ -1970,7 +1970,7 @@ int MapStuff::RemoveAreaEffectAt(AreaEffect* ae, uint16_t yx) {
 // 59536C --- get pointer to area_effects[6] array at cell yx
 AreaEffect** MapStuff::GetAreaEffectsAt(uint32_t yx) {
     uint16_t key = (uint16_t)yx;
-    if (!this->ObstacleAt(key).TestBits(0x20)) {
+    if (!this->ObstacleAt(key).TestBits(obstacle_flag::cell_state)) {
         return nullptr;
     }
     if (!this->cell_states.Lookup(key, this->scratch_cell_state)) {
@@ -1981,7 +1981,7 @@ AreaEffect** MapStuff::GetAreaEffectsAt(uint32_t yx) {
 
 // 5953CB --- check if area effect covers cell coord
 AreaEffect* MapStuff::AreaEffectCovers(AreaEffect* ae, uint16_t coord) {
-    if (!this->ObstacleAt(coord).TestBits(0x20)) {
+    if (!this->ObstacleAt(coord).TestBits(obstacle_flag::cell_state)) {
         return nullptr;
     }
     if (!this->cell_states.Lookup(coord, this->scratch_cell_state)) {
@@ -2642,8 +2642,8 @@ Unit* MapStuff::GetBuildingUnitAt(uint8_t x, uint8_t y) {
 // 594768 --- set bit 0x10 in both obstacle maps at (x, y)
 void MapStuff::BlockCell(uint8_t x, uint8_t y) {
     PosYX yx(x, y);
-    this->ObstacleAt(yx).SetBits(0x10);
-    this->Obstacle2At(yx).SetBits(0x10);
+    this->ObstacleAt(yx).SetBits(obstacle_flag::dynamic_block);
+    this->Obstacle2At(yx).SetBits(obstacle_flag::dynamic_block);
 }
 
 // 594E65 --- register area effect at (x, y)
@@ -2658,7 +2658,7 @@ void MapStuff::PlaceAreaEffectAt(AreaEffect* ae, uint8_t x, uint8_t y) {
 
 // 594709
 Building* MapStuff::GetBuildingAt(uint16_t yx) {
-    if (!this->ObstacleAt(yx).TestBits(0x20)) {
+    if (!this->ObstacleAt(yx).TestBits(obstacle_flag::cell_state)) {
         return nullptr;
     }
     if (!this->cell_states.Lookup(yx, this->scratch_cell_state)) {
@@ -2683,7 +2683,7 @@ int32_t MapStuff::GetEffectiveSpeed(Unit* unit) {
 
 // 594C87 --- Walk cost at yx, adjusted for area effects when the cell is occupied.
 uint8_t MapStuff::GetWalkCost(uint16_t yx) {
-    if (!this->ObstacleAt(yx).TestBits(0x20)) {
+    if (!this->ObstacleAt(yx).TestBits(obstacle_flag::cell_state)) {
         return this->WalkCostAt(yx);
     }
 

@@ -370,7 +370,7 @@ void AreaEffect::BroadcastAndApply() {
 void AreaEffect::ApplyAtCell(uint8_t x, uint8_t y, bool spread_damage) {
 	uint16_t yx = PosYX(x, y).val;
 	Unit* unit = MapStuff_Instance->GetBuildingUnitAt(x, y);
-	if (unit != nullptr && (MapStuff_Instance->obstacle_map[yx].bits & 4) != 0) {
+	if (unit != nullptr && (MapStuff_Instance->obstacle_map[yx].bits & obstacle_flag::structure) != 0) {
 		return;
 	}
 
