@@ -308,7 +308,7 @@ void Server::ProcessPlayers() {
                     main_unit->sent_to_mask = 0;
                     this->CreatePlayerCharacter(player, 0, 0, 0, 0, 0, 0);
                     this->EnsurePlayerGroup(player);
-                    player->mission_result = 0;
+                    player->mission_result = mission_result::in_progress;
 
                     Player* self = g_PlayersList->FindByName("Self");
                     if (self != nullptr && (g_ServerConfig.gameType == GAME_TYPE_COOPERATIVE || g_ServerConfig.gameType == GAME_TYPE_ARENA)) {
@@ -1694,7 +1694,7 @@ void Server::SendWorldState(Player* player, int32_t enter_world) {
     }
 
     // Reset the rejoining flag.
-    player->mission_result = 0;
+    player->mission_result = mission_result::in_progress;
 
     // Early-out for some game types.
     if (this->multiplayer != 0 && enter_world != 0) {
@@ -2289,7 +2289,7 @@ int Server::JoinPlayer(uint32_t pkt_word0, uint32_t pkt_word1,
 
     // Clear state fields.
     player->building_entered_from_yx = 0;
-    player->mission_result = 0;
+    player->mission_result = mission_result::in_progress;
 
     // Initialize diplomacy.
     Player* self = g_PlayersList->FindByName("Self");
@@ -7883,23 +7883,23 @@ void Server::UpdateMissionResult(Player* player) {
         return;
     }
 
-    if (player->mission_result < 2) {
+    if (player->mission_result < mission_result::hero_died) {
         if (player->main_unit == nullptr || player->main_unit->decay != 0) {
-            player->mission_result = 2;
+            player->mission_result = mission_result::hero_died;
             g_NetStru1_main.SendInfoPacket(MISSION_RESULT, player->mission_result, 0, player);
             if (player->is_logged_in != 0 && this->multiplayer == 0) {
-                g_NetStru1_main.SendInfoPacket(MISSION_RESULT, 0, 0, player);
+                g_NetStru1_main.SendInfoPacket(MISSION_RESULT, mission_result::in_progress, 0, player);
             }
         } else if (g_World->mission_fail > 0) {
-            if (player->mission_result < 2) {
+            if (player->mission_result < mission_result::hero_died) {
                 LogMessage("Logic - Mission Failed");
                 g_NetStru1_main.SendInfoPacket(MISSION_RESULT, g_World->mission_fail, 0, player);
                 player->mission_result = (uint8_t)g_World->mission_fail;
             }
-        } else if (g_World->mission_complete != 0 && player->mission_result != 1) {
+        } else if (g_World->mission_complete != 0 && player->mission_result != mission_result::victory) {
             LogMessage("Logic - Mission Complete");
             g_NetStru1_main.SendInfoPacket(MISSION_COMPLETE, 0, 0, player);
-            player->mission_result = 1;
+            player->mission_result = mission_result::victory;
         }
     } else {
         if (this->multiplayer != 0 && player->is_active != 0 && player->main_unit->hp <= -40 && player->respawn_requested != 0) {
@@ -7916,7 +7916,7 @@ void Server::UpdateMissionResult(Player* player) {
             uint8_t saved_spell_id = unit->eye2->spell_id;
             this->CreatePlayerCharacter(player, 0, 0, 0, 0, 0, 0);
             this->EnsurePlayerGroup(player);
-            player->mission_result = 0;
+            player->mission_result = mission_result::in_progress;
 #ifndef A2CLIENT
             unit->eye2->spell_id = saved_spell_id;
             if (g_Server->multiplayer != 0 && (g_ServerConfig.gameType == GAME_TYPE_COOPERATIVE || g_ServerConfig.gameType == GAME_TYPE_ARENA)) {

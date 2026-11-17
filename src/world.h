@@ -119,6 +119,14 @@ enum : uint32_t {
 };
 } // namespace script_action_op
 
+namespace mission_result {
+enum : uint8_t {
+    in_progress = 0,
+    victory     = 1,
+    hero_died   = 2,
+};
+} // namespace mission_result
+
 struct Diplomacy {
 public:
     uint8_t flags[4];
