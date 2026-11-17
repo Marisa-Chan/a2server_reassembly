@@ -557,7 +557,8 @@ TokenEntry::TokenEntry(uint8_t** data, int id1) {
     this->item_id = *(uint16_t*)pdata;
     pdata += 2;
 
-    this->flg = *pdata;
+    ItemWireFlags wire_flags = *pdata;
+    this->flg = wire_flags;
     pdata++;
 
     ItemNamePktEntry* pkt = nullptr;
@@ -571,15 +572,15 @@ TokenEntry::TokenEntry(uint8_t** data, int id1) {
         this->mods_count = pkt->mods_count;
     }
 
-    if ((this->flg & 0x80) == 0) {
-        if ((this->flg & 0x20) == 0) {
-            this->count =  *(uint16_t*)pdata;
+    if (!wire_flags.is_compact_count) {
+        if (!wire_flags.has_magic_effects) {
+            this->count = *(uint16_t*)pdata;
             pdata += 2;
 
             this->mods = malloc(this->mods_size);
             memcpy(this->mods, pkt->data, this->mods_size);
         } else {
-            int esz = this->flg & 0xf;
+            int esz = wire_flags.effect_pair_count;
             this->mods_count += esz + 1;
             this->mods_size += (esz + 1) * 2;
             
@@ -598,14 +599,14 @@ TokenEntry::TokenEntry(uint8_t** data, int id1) {
 
             memcpy((uint8_t *)this->mods + 1, &local_18, 4);
 
-            this->flg &= 0x60;
+            this->flg &= (ItemWireFlags::FLAG_MAGIC_EFFECTS | ItemWireFlags::FLAG_NEWLY_PICKED);
             this->count = 1;
         }
     } else {
-        this->count = this->flg & 0x3f;
+        this->count = wire_flags.compact_count;
         this->mods = malloc(this->mods_size);
         memcpy(this->mods, pkt->data, this->mods_size);
-        this->flg &= 0x40;
+        this->flg &= ItemWireFlags::FLAG_NEWLY_PICKED;
     }
 
     if (pkt) {
@@ -982,7 +983,7 @@ int32_t TokenEntry::IsStackableWith(TokenEntry* other) { //4a7900
         return 0;
     }
 
-    if ((this->flg & 0x20) != 0 || (other->flg & 0x20) != 0) {
+    if ((this->flg & ItemWireFlags::FLAG_MAGIC_EFFECTS) != 0 || (other->flg & ItemWireFlags::FLAG_MAGIC_EFFECTS) != 0) {
         return 0;
     }
 

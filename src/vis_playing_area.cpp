@@ -1179,8 +1179,8 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 							wnd->vis_map_context->msglog.Add(logstr, clrsh_TechBlack, 30000);
 						}
 						
-						if ((obj->flg & 0x40) != 0) {
-							obj->flg = obj->flg & 0xbf;
+						if ((obj->flg & ItemWireFlags::FLAG_NEWLY_PICKED) != 0) {
+							obj->flg &= ~ItemWireFlags::FLAG_NEWLY_PICKED;
 
 							char* itmname = nullptr;
 							g_ItemNameMap.Lookup(obj->item_id, *(void **)&itmname);

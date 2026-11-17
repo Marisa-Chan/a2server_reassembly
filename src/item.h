@@ -138,6 +138,40 @@ ASSERT_SIZE(ItemId, 2);
 static_assert(ItemId::MakeEquip(material::bone, item_slot::ring, item_shape::rare, 1).raw == 0xD441, "ItemId equip bit layout");
 static_assert(ItemId::MakeMagic(83).raw == ItemId::QUEST_TREASURE, "ItemId magic bit layout");
 
+struct ItemWireFlags {
+    enum FlagBit : uint8_t {
+        FLAG_USABLE        = 0x01, // Consumable / usable item (potions, scrolls, books)
+        FLAG_WARRIOR       = 0x02, // Usable by warrior (in itemname.pkt) / mage-restricted on client
+        FLAG_MAGE          = 0x04, // Usable by mage (in itemname.pkt) / warrior-restricted on client
+        FLAG_ALL_CLASSES   = FLAG_USABLE | FLAG_WARRIOR | FLAG_MAGE,
+        FLAG_CAST_SPELL    = 0x10, // Has modifier::castspell
+        FLAG_MAGIC_EFFECTS = 0x20, // Wire: 4B price + effect pairs follow; client: glow trail
+        FLAG_NEWLY_PICKED  = 0x40, // Highlight / "picked up" message
+        FLAG_COMPACT_COUNT = 0x80, // Wire: inline 6-bit stack count (1..63)
+        COMPACT_COUNT_MAX  = 0x40,
+    };
+
+    union {
+        uint8_t raw;
+        struct {
+            uint8_t effect_pair_count : 4; // [3:0] TLV pair count when has_magic_effects == 1
+            uint8_t has_cast_spell    : 1; // [4]   0x10
+            uint8_t has_magic_effects : 1; // [5]   0x20
+            uint8_t is_newly_picked   : 1; // [6]   0x40
+            uint8_t is_compact_count  : 1; // [7]   0x80
+        };
+        struct {
+            uint8_t compact_count     : 6; // [5:0] stack count (1..63) when is_compact_count == 1
+            uint8_t compact_new_flag  : 1; // [6]   0x40
+            uint8_t compact_mode_bit  : 1; // [7]   0x80
+        };
+    };
+
+    constexpr ItemWireFlags(uint8_t v = 0) : raw(v) {}
+    constexpr operator uint8_t() const { return this->raw; }
+};
+ASSERT_SIZE(ItemWireFlags, 1);
+
 class Item : public Token {
 public:
     DECLARE_SERIAL(Item); // Runtime class definition at 6372b8.

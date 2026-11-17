@@ -23,6 +23,7 @@ TYPE_ALIASES = {
     "unsigned long": "ulong", "BOOL": "int", "BYTE": "uchar", "WORD": "ushort", "DWORD": "uint",
     "size_t": "uint", "void*": "void *",
     "ItemId": "ushort",
+    "ItemWireFlags": "uchar",
 }
 GAME_CATEGORY = "/Game"
 

@@ -27,7 +27,7 @@ Item* __cdecl ReadItem(uint8_t** packet_data) {
     ItemId encoded_item_id = *reinterpret_cast<uint16_t*>(data);
     data += sizeof(uint16_t);
 
-    uint8_t flags = *data;
+    ItemWireFlags flags = *data;
     data += sizeof(uint8_t);
 
     if (encoded_item_id == ItemId::NONE) {
@@ -39,10 +39,10 @@ Item* __cdecl ReadItem(uint8_t** packet_data) {
     int32_t effect_bytes_remaining = 0;
     int32_t stored_price = 0;
 
-    if ((flags & 0x80) != 0) {
-        count = flags & 0x3F;
-    } else if ((flags & 0x20) != 0) {
-        effect_bytes_remaining = flags & 0x0F;
+    if (flags.is_compact_count) {
+        count = flags.compact_count;
+    } else if (flags.has_magic_effects) {
+        effect_bytes_remaining = flags.effect_pair_count;
         stored_price = *reinterpret_cast<int32_t*>(data);
         data += sizeof(int32_t);
     } else {
@@ -338,17 +338,17 @@ int32_t Item::IsSimpleItem() {
 // 549e86
 void Item::WriteState(PacketUnitStateVec* packet, uint8_t* slot) {
     if (this->_exp == -1) {
-        slot[4] = 1;
+        slot[4] = ItemWireFlags::FLAG_USABLE;
         packet->AppendByteInt(1, 0, slot);
     } else {
         packet->AppendByteInt(1, this->_exp, slot);
-        slot[4] |= 7;
+        slot[4] |= ItemWireFlags::FLAG_ALL_CLASSES;
         if (this->item_type == 5) {
-            slot[4] &= 0xfd;
+            slot[4] &= ~ItemWireFlags::FLAG_WARRIOR;
         }
         this->WriteEffects(packet, slot);
         if (this->item_type == 3 || this->item_type == 4) {
-            slot[4] &= 0xdf;
+            slot[4] &= ~ItemWireFlags::FLAG_MAGIC_EFFECTS;
         }
     }
 }
@@ -358,14 +358,14 @@ void Item::WriteEffects(PacketUnitStateVec* packet, uint8_t* slot) {
     if (this->_effects.IsEmpty()) {
         return;
     }
-    slot[4] |= 0x20;
+    slot[4] |= ItemWireFlags::FLAG_MAGIC_EFFECTS;
     packet->AppendByteByte(0x33, 0, slot);
     POSITION pos = this->_effects.GetHeadPosition();
     while (pos != nullptr) {
         Effect* e = this->_effects.GetNext(pos);
         packet->AppendByteByte(e->effect_id, e->damage_min, slot);
         if (e->effect_id == 0x29) {
-            slot[4] |= 0x10;
+            slot[4] |= ItemWireFlags::FLAG_CAST_SPELL;
             packet->AppendByteByte(0x32, (uint8_t)e->spell_value, slot);
         } else if (0x2c <= e->effect_id && e->effect_id <= 0x30) {
             packet->AppendByteByte(e->effect_id, e->damage_spread, slot);
@@ -461,18 +461,19 @@ void Item::StoreToPacket(PacketUnitStateVec* pkt, int with_shelf_id) {
 
     //printf("StoreToPacket item_id %x item_type %d count %d\n", item_id, item_type, count);
 
-    pdata[2] = 0;
+    ItemWireFlags wire_flags = 0;
 
     if (this->_effects.IsEmpty() || this->item_type == 3 || this->item_type == 4 || this->count == 0) {
-        if (this->count < 0x40) {
-            pdata[2] = this->count | 0x80;
+        if (this->count < ItemWireFlags::COMPACT_COUNT_MAX) {
+            wire_flags.is_compact_count = 1;
+            wire_flags.compact_count = (uint8_t)this->count;
             pkt->data_size += 3;
         } else {
             SetU16(pdata + 3, this->count);
             pkt->data_size += 5;
         }
     } else {
-        pdata[2] |= 0x20;
+        wire_flags.has_magic_effects = 1;
         SetU32(pdata + 3, this->_exp);
 
         int32_t cnt_flg = 0;
@@ -489,7 +490,7 @@ void Item::StoreToPacket(PacketUnitStateVec* pkt, int with_shelf_id) {
                 pkt->data_size++;
 
                 if (eff->effect_id == 0x29) {
-                    pdata[2] |= 0x10;
+                    wire_flags.has_cast_spell = 1;
 
                     pkt->data[pkt->data_size] = 0x32;
                     pkt->data_size++;
@@ -515,13 +516,15 @@ void Item::StoreToPacket(PacketUnitStateVec* pkt, int with_shelf_id) {
             }
         }
 
-        pdata[2] = (pdata[2] & 0xf0) | cnt_flg;
+        wire_flags.raw = (wire_flags.raw & 0xf0) | cnt_flg;
     }
 
     if (this->TokenID != 0) {
-        pdata[2] |= 0x40;
+        wire_flags.is_newly_picked = 1;
         this->TokenID = 0;
     }
+
+    pdata[2] = wire_flags;
 
     if (with_shelf_id != 0) {
         pkt->data[pkt->data_size] = this->shelf_id;
@@ -884,10 +887,10 @@ void Armor::WriteState(PacketUnitStateVec* pkt, uint8_t* slot) {
     slot[4] = 0;
     int32_t suitable_for = this->world_equip->Values()[0].suitable_for;
     if (suitable_for & equip_suitable::warrior) {
-        slot[4] |= 2;
+        slot[4] |= ItemWireFlags::FLAG_WARRIOR;
     }
     if (suitable_for & equip_suitable::mage) {
-        slot[4] |= 4;
+        slot[4] |= ItemWireFlags::FLAG_MAGE;
     }
     pkt->AppendByteByte(modifier::defence, this->protections.defense, slot);
     if (this->protections.absorption > 0) {
@@ -1069,10 +1072,10 @@ void Shield::WriteState(PacketUnitStateVec* pkt, uint8_t* slot) {
     slot[4] = 0;
     int32_t suitable_for = this->world_equip->Values()[0].suitable_for;
     if (suitable_for & equip_suitable::warrior) {
-        slot[4] |= 2;
+        slot[4] |= ItemWireFlags::FLAG_WARRIOR;
     }
     if (suitable_for & equip_suitable::mage) {
-        slot[4] |= 4;
+        slot[4] |= ItemWireFlags::FLAG_MAGE;
     }
     pkt->AppendByteByte(modifier::defence, this->protections.defense, slot);
     if (this->protections.absorption > 0) {
@@ -1343,7 +1346,7 @@ void Weapon::WriteState(PacketUnitStateVec* pkt, uint8_t* slot) {
     slot[4] = 0;
     int32_t suitable_for = this->world_equip->Values()[0].suitable_for;
     if (suitable_for & equip_suitable::warrior) {
-        slot[4] |= 2;
+        slot[4] |= ItemWireFlags::FLAG_WARRIOR;
         pkt->AppendByteByte(modifier::damagemin, this->hit_values.hand_damage_min, slot);
         pkt->AppendByteByte(modifier::damagemax, this->hit_values.hand_damage_spread, slot);
         if (this->hit_values.attack > 0) {
@@ -1357,7 +1360,7 @@ void Weapon::WriteState(PacketUnitStateVec* pkt, uint8_t* slot) {
         }
     }
     if (suitable_for & equip_suitable::mage) {
-        slot[4] |= 4;
+        slot[4] |= ItemWireFlags::FLAG_MAGE;
     }
     if (this->hit_values.some_damage2_spread != 0) {
         uint8_t damage_sphere = 0;
@@ -1372,7 +1375,7 @@ void Weapon::WriteState(PacketUnitStateVec* pkt, uint8_t* slot) {
         pkt->AppendByteByte(modifier::damagemax, this->hit_values.some_damage2_spread, slot);
     }
     this->WriteEffects(pkt, slot);
-    slot[4] &= 0xef;
+    slot[4] &= ~ItemWireFlags::FLAG_CAST_SPELL;
 }
 
 

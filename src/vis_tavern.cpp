@@ -1694,7 +1694,7 @@ void VisTavScene::DrawQuestRoster() {
                 g_font2->DrawTextWithShadow(tav_topleft.x + pt.x + 3, tav_topleft.y + pt.y + 0x42, buf, 0, clrsh_DullGold, 1);
             }
 
-            if (entry->flg & 0x20) {
+            if (entry->flg & ItemWireFlags::FLAG_MAGIC_EFFECTS) {
                 uint32_t t = GetTickCount() / 120;
                 int32_t cell_x = tav_topleft.x + pt.x;
                 int32_t cell_y = tav_topleft.y + pt.y;
