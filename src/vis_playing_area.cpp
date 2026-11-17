@@ -1945,7 +1945,7 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 
 				for (int i = 0; i < this->scenario->GetWidth(); i++) {
 					for (int j = 0; j < this->scenario->GetHeight(); j++) {
-						landscape[i + j * scenario->GetWidth()] |= 0xc000;
+						landscape[i + j * scenario->GetWidth()] |= LandscapeTile::FOW_VISIBLE;
 					}
 				}
 #else
@@ -4014,9 +4014,9 @@ void VisPlayingArea::RebuildWorldGrids() {
 			if (y == this->view_tiles_y + 7) {
 				h_idx -= this->view_tiles_x + 6;
 			}
-			uint16_t tile = landscape[src_idx] & 0xC000;
+			uint16_t tile = landscape[src_idx] & LandscapeTile::FOW_MASK;
 			src_idx++;
-			if (tile == 0xC000) {
+			if (tile == LandscapeTile::FOW_VISIBLE) {
 				if (g_Animation != 0) {
 					CRect rect((x - 3) * 0x20, this->tile_top_y[h_idx] - 0x60, (x + 3) * 0x20, this->tile_bottom_y[h_idx] + 0x60);
 					this->dirty_rect |= rect;
@@ -4025,7 +4025,7 @@ void VisPlayingArea::RebuildWorldGrids() {
 					this->dirty_rect |= rect;
 				}
 				this->corner_tile_kind[out_idx] = 0;
-			} else if (tile == 0x8000) {
+			} else if (tile == LandscapeTile::FOW_EXPLORED) {
 				this->corner_tile_kind[out_idx] = 8;
 			} else {
 				this->corner_tile_kind[out_idx] = 0x10;
@@ -4574,12 +4574,12 @@ uint32_t VisPlayingArea::UpdateMouseHover() {
 	int32_t tile_y = this->ScreenToTileRow(g_mousept.x, g_mousept.y);
 	uint16_t* land = this->scenario->GetLandscape();
 	int32_t cell = tile_x + this->view_x + (tile_y + this->view_y) * this->map_width;
-	uint16_t land_flags = (land[cell] & 0xC000) | (land[cell + 1] & 0xC000) |
-		(land[cell + 1 + this->map_width] & 0xC000) | (land[cell + this->map_width] & 0xC000);
-	if (land_flags == 0xC000 && this->tile_backpacks[tile_x + 3 + (tile_y + 3) * (this->view_tiles_x + 6)] != 0) {
+	uint16_t land_flags = (land[cell] & LandscapeTile::FOW_MASK) | (land[cell + 1] & LandscapeTile::FOW_MASK) |
+		(land[cell + 1 + this->map_width] & LandscapeTile::FOW_MASK) | (land[cell + this->map_width] & LandscapeTile::FOW_MASK);
+	if (land_flags == LandscapeTile::FOW_VISIBLE && this->tile_backpacks[tile_x + 3 + (tile_y + 3) * (this->view_tiles_x + 6)] != 0) {
 		avail |= 0x40;
 	}
-	if (land_flags != 0xC000) {
+	if (land_flags != LandscapeTile::FOW_VISIBLE) {
 		avail |= 0x400;
 	}
 	tile_x += this->view_x;
@@ -4858,7 +4858,7 @@ void VisPlayingArea::DrawTerrainFull() {
 			int32_t h2 = this->tile_corner_y[x + h_idx + 1];
 			int32_t h3 = this->tile_corner_y[x + h_idx2];
 			int32_t h4 = this->tile_corner_y[x + h_idx2 + 1];
-			uint16_t tile_id = landscape[cell] & 0x1FFF;
+			uint16_t tile_id = landscape[cell] & LandscapeTile::CLIENT_TERRAIN_MASK;
 			int32_t ter_type = tile_id >> 6;
 			int32_t ter_var = (tile_id >> 4) & 3;
 			bool animated = ter_type >= 8 && ter_type < 12;
@@ -4870,7 +4870,7 @@ void VisPlayingArea::DrawTerrainFull() {
 				ter_type = frame + 8;
 			}
 			CGameBitmap* tile = g_ter_tiles(ter_var, ter_type);
-			if ((landscape[cell] & 0x2000) != 0 && !animated) {
+			if ((landscape[cell] & LandscapeTile::SCORCHED_OR_IMP_FLAG) != 0 && !animated) {
 				memcpy(this->scratch_tile->GetData(), (uint8_t*)tile->GetData() + (tile_id & 0xF) * 0x400, 0x400);
 				CopyIndexedSkip0((uint8_t*)this->scratch_tile->GetData(),
 					(uint8_t*)g_TerDirtBmp->GetData() + ((tile_x + tile_y * 5) & 3) * 0x400, 0x400);
@@ -4916,9 +4916,9 @@ void VisPlayingArea::DrawTerrainAnimated(int32_t arg) {
 			int32_t tile_x = x + this->view_x;
 			int32_t tile_y = y + this->view_y;
 			int32_t cell = tile_x + tile_y * this->map_width;
-			if (((landscape[cell] & 0xC000) | (landscape[cell + 1] & 0xC000) |
-				(landscape[cell + this->map_width] & 0xC000) |
-				(landscape[cell + this->map_width + 1] & 0xC000)) != 0xC000) {
+			if (((landscape[cell] & LandscapeTile::FOW_MASK) | (landscape[cell + 1] & LandscapeTile::FOW_MASK) |
+				(landscape[cell + this->map_width] & LandscapeTile::FOW_MASK) |
+				(landscape[cell + this->map_width + 1] & LandscapeTile::FOW_MASK)) != LandscapeTile::FOW_VISIBLE) {
 				continue;
 			}
 			int32_t h_idx = x + 3 + (y + 3) * (this->view_tiles_x + 7);
@@ -4927,7 +4927,7 @@ void VisPlayingArea::DrawTerrainAnimated(int32_t arg) {
 			int32_t h_idx2 = h_idx + this->view_tiles_x + 7;
 			int32_t h3 = this->tile_corner_y[h_idx2] + y_off;
 			int32_t h4 = this->tile_corner_y[h_idx2 + 1] + y_off;
-			uint16_t tile_id = landscape[cell] & 0x1FFF;
+			uint16_t tile_id = landscape[cell] & LandscapeTile::CLIENT_TERRAIN_MASK;
 			int32_t ter_type = tile_id >> 6;
 			int32_t ter_var = (tile_id >> 4) & 3;
 			bool animated = ter_type >= 8 && ter_type < 12;
@@ -4986,7 +4986,7 @@ void VisPlayingArea::DrawTerrainScrolled(int32_t arg) {
 			int32_t h2 = this->tile_corner_y[x + h_idx + 1] + y_off;
 			int32_t h3 = this->tile_corner_y[x + h_idx2] + y_off;
 			int32_t h4 = this->tile_corner_y[x + h_idx2 + 1] + y_off;
-			uint16_t tile_id = landscape[cell] & 0x1FFF;
+			uint16_t tile_id = landscape[cell] & LandscapeTile::CLIENT_TERRAIN_MASK;
 			int32_t ter_type = tile_id >> 6;
 			int32_t ter_var = (tile_id >> 4) & 3;
 			bool animated = ter_type >= 8 && ter_type < 12;
@@ -4998,7 +4998,7 @@ void VisPlayingArea::DrawTerrainScrolled(int32_t arg) {
 				ter_type = frame + 8;
 			}
 			CGameBitmap* tile = g_ter_tiles(ter_var, ter_type);
-			if ((landscape[cell] & 0x2000) != 0 && !animated) {
+			if ((landscape[cell] & LandscapeTile::SCORCHED_OR_IMP_FLAG) != 0 && !animated) {
 				memcpy(this->scratch_tile->GetData(), (uint8_t*)tile->GetData() + (tile_id & 0xF) * 0x400, 0x400);
 				CopyIndexedSkip0((uint8_t*)this->scratch_tile->GetData(),
 					(uint8_t*)g_TerDirtBmp->GetData() + ((tile_x + tile_y * 5) & 3) * 0x400, 0x400);
@@ -5061,7 +5061,7 @@ void VisPlayingArea::RedrawLitTerrain() {
 			int32_t h2 = this->tile_corner_y[x + h_idx + 1];
 			int32_t h3 = this->tile_corner_y[x + h_idx2];
 			int32_t h4 = this->tile_corner_y[x + h_idx2 + 1];
-			uint16_t tile_id = landscape[cell] & 0x1FFF;
+			uint16_t tile_id = landscape[cell] & LandscapeTile::CLIENT_TERRAIN_MASK;
 			int32_t ter_type = tile_id >> 6;
 			int32_t ter_var = (tile_id >> 4) & 3;
 			bool animated = ter_type >= 8 && ter_type < 12;
@@ -5073,7 +5073,7 @@ void VisPlayingArea::RedrawLitTerrain() {
 				ter_type = frame + 8;
 			}
 			CGameBitmap* tile = g_ter_tiles(ter_var, ter_type);
-			if ((landscape[cell] & 0x2000) != 0 && !animated) {
+			if ((landscape[cell] & LandscapeTile::SCORCHED_OR_IMP_FLAG) != 0 && !animated) {
 				memcpy(this->scratch_tile->GetData(), (uint8_t*)tile->GetData() + (tile_id & 0xF) * 0x400, 0x400);
 				CopyIndexedSkip0((uint8_t*)this->scratch_tile->GetData(),
 					(uint8_t*)g_TerDirtBmp->GetData() + ((tile_x + tile_y * 5) & 3) * 0x400, 0x400);
@@ -5287,8 +5287,8 @@ void VisPlayingArea::RenderWorldFrame() {
 		for (int32_t y = -4; y < this->view_tiles_y + 7; y++) {
 			for (int32_t x = this->view_tiles_x + 3; x > -5; x--) {
 				int32_t cell = x + this->view_x + this->map_width * (y + this->view_y);
-				uint16_t lflags = (landscape[cell] & 0xC000) | (landscape[cell + 1] & 0xC000) |
-					(landscape[cell + this->map_width] & 0xC000) | (landscape[cell + this->map_width + 1] & 0xC000);
+				uint16_t lflags = (landscape[cell] & LandscapeTile::FOW_MASK) | (landscape[cell + 1] & LandscapeTile::FOW_MASK) |
+					(landscape[cell + this->map_width] & LandscapeTile::FOW_MASK) | (landscape[cell + this->map_width + 1] & LandscapeTile::FOW_MASK);
 				if (y > -4 && y < this->view_tiles_y + 7 && x > -4 && x < this->view_tiles_x + 3) {
 					int32_t idx = x + 3 + (y + 3) * (this->view_tiles_x + 6);
 					CGameObject* obj = this->tile_structures[idx];
@@ -5304,8 +5304,8 @@ void VisPlayingArea::RenderWorldFrame() {
 	for (int32_t y = -4; y < this->view_tiles_y + 7; y++) {
 		for (int32_t x = this->view_tiles_x + 3; x > -5; x--) {
 			int32_t cell = x + this->view_x + this->map_width * (y + this->view_y);
-			uint16_t lflags = (landscape[cell] & 0xC000) | (landscape[cell + 1] & 0xC000) |
-				(landscape[cell + this->map_width] & 0xC000) | (landscape[cell + this->map_width + 1] & 0xC000);
+			uint16_t lflags = (landscape[cell] & LandscapeTile::FOW_MASK) | (landscape[cell + 1] & LandscapeTile::FOW_MASK) |
+				(landscape[cell + this->map_width] & LandscapeTile::FOW_MASK) | (landscape[cell + this->map_width + 1] & LandscapeTile::FOW_MASK);
 			if (y > -4 && y < this->view_tiles_y + 7 && x > -4 && x < this->view_tiles_x + 3) {
 				int32_t idx = x + 3 + (y + 3) * (this->view_tiles_x + 6);
 				uint8_t light = this->tile_light[idx];
@@ -5331,7 +5331,7 @@ void VisPlayingArea::RenderWorldFrame() {
 	for (int32_t y = -4; y < this->view_tiles_y + 7; y++) {
 		for (int32_t x = this->view_tiles_x + 3; x > -5; x--) {
 			int32_t cell = x + this->view_x + this->map_width * (y + this->view_y);
-			uint16_t lflags = (landscape[cell] & 0xC000) | (landscape[cell + 1] & 0xC000) | (landscape[cell + this->map_width] & 0xC000) | (landscape[cell + this->map_width + 1] & 0xC000);
+			uint16_t lflags = (landscape[cell] & LandscapeTile::FOW_MASK) | (landscape[cell + 1] & LandscapeTile::FOW_MASK) | (landscape[cell + this->map_width] & LandscapeTile::FOW_MASK) | (landscape[cell + this->map_width + 1] & LandscapeTile::FOW_MASK);
 			if (y > -4 && y < this->view_tiles_y + 7 && x > -4 && x < this->view_tiles_x + 3) {
 				int32_t idx = x + 3 + (y + 3) * (this->view_tiles_x + 6);
 				uint8_t light = this->tile_light[idx];
@@ -5357,8 +5357,8 @@ void VisPlayingArea::RenderWorldFrame() {
 	for (int32_t y = -4; y < this->view_tiles_y + 7; y++) {
 		for (int32_t x = this->view_tiles_x + 3; x > -5; x--) {
 			int32_t cell = x + this->view_x + this->map_width * (y + this->view_y);
-			uint16_t lflags = (landscape[cell] & 0xC000) | (landscape[cell + 1] & 0xC000) |
-				(landscape[cell + this->map_width] & 0xC000) | (landscape[cell + this->map_width + 1] & 0xC000);
+			uint16_t lflags = (landscape[cell] & LandscapeTile::FOW_MASK) | (landscape[cell + 1] & LandscapeTile::FOW_MASK) |
+				(landscape[cell + this->map_width] & LandscapeTile::FOW_MASK) | (landscape[cell + this->map_width + 1] & LandscapeTile::FOW_MASK);
 			if (y > -4 && y < this->view_tiles_y + 7 && x > -4 && x < this->view_tiles_x + 3) {
 				int32_t idx = x + 3 + (y + 3) * (this->view_tiles_x + 6);
 				uint8_t light = this->tile_light[idx];
@@ -5393,7 +5393,7 @@ void VisPlayingArea::RenderWorldFrame() {
 					uint16_t lkey = (x + this->view_x) | ((y + this->view_y) << 8);
 					uint32_t lval;
 					if (this->lightning_cells.Lookup(lkey, lval)) {
-						int32_t terrain = (uint16_t)(landscape[cell] & 0x1FFF) >> 6;
+						int32_t terrain = (uint16_t)(landscape[cell] & LandscapeTile::CLIENT_TERRAIN_MASK) >> 6;
 						if (lval < 0x12 && terrain > 7 && terrain < 0xC) {
 							ProjectileInfo* proj = g_ProjectileInfos[8];
 							proj->GetSprite()->Draw((x * 0x20 + 0x10) - proj->width / 2,
@@ -5415,15 +5415,15 @@ void VisPlayingArea::RenderWorldFrame() {
 					int32_t index = gobj->index;
 					int32_t frame_count = gobj->frame_count;
 					int32_t frame;
-					if (frame_count == 0 || lflags != 0xC000) {
-						if ((landscape[cell] & 0x2000) == 0 || gobj->dead_object == -1) {
+					if (frame_count == 0 || lflags != LandscapeTile::FOW_VISIBLE) {
+						if ((landscape[cell] & LandscapeTile::SCORCHED_OR_IMP_FLAG) == 0 || gobj->dead_object == -1) {
 							frame = index;
 						} else {
 							file = g_GfxObjects[gobj->dead_object]->file;
 							index = 0;
 							frame = 0;
 						}
-					} else if ((landscape[cell] & 0x2000) == 0 || gobj->dead_object == -1) {
+					} else if ((landscape[cell] & LandscapeTile::SCORCHED_OR_IMP_FLAG) == 0 || gobj->dead_object == -1) {
 						int32_t fidx = (tick + x + this->view_x + (y + this->view_y) * (x + this->view_x)) % frame_count;
 						frame = index + gobj->frames[fidx];
 					} else {
@@ -5477,7 +5477,7 @@ void VisPlayingArea::RenderWorldFrame() {
 			if (y > -4 && y < this->view_tiles_y + 7 && x > -4 && x < this->view_tiles_x + 3) {
 				uint16_t tkey = (this->view_x + x) | ((this->view_y + y) << 8);
 				uint32_t tval;
-				if (this->terrain_light_override_cells.Lookup(tkey, tval) && tval != 0 && lflags == 0xC000) {
+				if (this->terrain_light_override_cells.Lookup(tkey, tval) && tval != 0 && lflags == LandscapeTile::FOW_VISIBLE) {
 					int32_t tidx = x + 3 + (y + 3) * (this->view_tiles_x + 6);
 					this->DrawTileOverlayFx(x * 0x20 + 0x10,
 						(int32_t)(this->tile_top_y[tidx] + this->tile_bottom_y[tidx]) / 2, tval, 1);
@@ -5495,8 +5495,8 @@ void VisPlayingArea::RenderWorldFrame() {
 		for (int32_t y = -4; y < this->view_tiles_y + 7; y++) {
 			for (int32_t x = this->view_tiles_x + 3; x > -5; x--) {
 				int32_t cell = x + this->view_x + this->map_width * (y + this->view_y);
-				uint16_t lflags = (landscape[cell] & 0xC000) | (landscape[cell + 1] & 0xC000) |
-					(landscape[cell + this->map_width] & 0xC000) | (landscape[cell + this->map_width + 1] & 0xC000);
+				uint16_t lflags = (landscape[cell] & LandscapeTile::FOW_MASK) | (landscape[cell + 1] & LandscapeTile::FOW_MASK) |
+					(landscape[cell + this->map_width] & LandscapeTile::FOW_MASK) | (landscape[cell + this->map_width + 1] & LandscapeTile::FOW_MASK);
 				if (y > -4 && y < this->view_tiles_y + 7 && x > -4 && x < this->view_tiles_x + 3) {
 					int32_t idx = x + 3 + (y + 3) * (this->view_tiles_x + 6);
 					CGameObject* obj = this->tile_air_units[idx];
@@ -5520,12 +5520,12 @@ void VisPlayingArea::RenderWorldFrame() {
 	for (int32_t y = -4; y < this->view_tiles_y + 7; y++) {
 		for (int32_t x = this->view_tiles_x + 3; x > -5; x--) {
 			int32_t cell = x + this->view_x + this->map_width * (y + this->view_y);
-			uint16_t lflags = (landscape[cell] & 0xC000) | (landscape[cell + 1] & 0xC000) |
-				(landscape[cell + this->map_width] & 0xC000) | (landscape[cell + this->map_width + 1] & 0xC000);
+			uint16_t lflags = (landscape[cell] & LandscapeTile::FOW_MASK) | (landscape[cell + 1] & LandscapeTile::FOW_MASK) |
+				(landscape[cell + this->map_width] & LandscapeTile::FOW_MASK) | (landscape[cell + this->map_width + 1] & LandscapeTile::FOW_MASK);
 			if (y > -1 && y < this->view_tiles_y + 4 && x > -1 && x < this->view_tiles_x) {
 				uint16_t tkey = (this->view_x + x) | ((this->view_y + y) << 8);
 				uint32_t tval;
-				if (this->terrain_light_override_cells.Lookup(tkey, tval) && tval != 0 && lflags == 0xC000) {
+				if (this->terrain_light_override_cells.Lookup(tkey, tval) && tval != 0 && lflags == LandscapeTile::FOW_VISIBLE) {
 					int32_t tidx = x + 3 + (y + 3) * (this->view_tiles_x + 6);
 					this->DrawTileOverlayFx(x * 0x20 + 0x10,
 						(int32_t)(this->tile_top_y[tidx] + this->tile_bottom_y[tidx]) / 2, tval, 0);
@@ -5537,8 +5537,8 @@ void VisPlayingArea::RenderWorldFrame() {
 	for (int32_t y = -4; y < this->view_tiles_y + 7; y++) {
 		for (int32_t x = this->view_tiles_x + 3; x > -5; x--) {
 			int32_t cell = x + this->view_x + this->map_width * (y + this->view_y);
-			uint16_t lflags = (landscape[cell] & 0xC000) | (landscape[cell + 1] & 0xC000) |
-				(landscape[cell + this->map_width] & 0xC000) | (landscape[cell + this->map_width + 1] & 0xC000);
+			uint16_t lflags = (landscape[cell] & LandscapeTile::FOW_MASK) | (landscape[cell + 1] & LandscapeTile::FOW_MASK) |
+				(landscape[cell + this->map_width] & LandscapeTile::FOW_MASK) | (landscape[cell + this->map_width + 1] & LandscapeTile::FOW_MASK);
 			if (y > -4 && y < this->view_tiles_y + 7 && x > -4 && x < this->view_tiles_x + 3) {
 				int32_t idx = x + 3 + (y + 3) * (this->view_tiles_x + 6);
 				uint8_t light = this->tile_light[idx];
@@ -6123,14 +6123,14 @@ void VisPlayingArea::ApplyTileLightMask(int32_t x, int32_t y, int32_t w, int32_t
 				} else if (unk1 == 3) {
 					uint32_t zero_val = 0;
 					uint16_t* land = this->scenario->GetLandscape();
-					if ((land[idx] & 0x2000) == 0) {
+					if ((land[idx] & LandscapeTile::SCORCHED_OR_IMP_FLAG) == 0) {
 						uint8_t gfx_id = this->scenario->GetObjectMap()[idx];
 						if (gfx_id != 0 && g_GfxObjects[gfx_id - 1]->in_map_editor != -1) {
 							this->lightning_cells.SetAt(packed, zero_val);
 						}
 					}
 					this->ambient_view_x++;
-					land[idx] |= 0x2000;
+					land[idx] |= LandscapeTile::SCORCHED_OR_IMP_FLAG;
 				}
 			} else {
 				value &= ~(1 << unk1);
@@ -6938,7 +6938,7 @@ void VisPlayingArea::RebuildLandscapeOccupancy() {
 	uint16_t* landscape = this->scenario->GetLandscape();
 	int32_t count = this->map_width * this->map_height;
 	for (int32_t i = 0; i < count; i++) {
-		landscape[i] &= 0xBFFF;
+		landscape[i] &= ~LandscapeTile::FOW_VISIBLE_NOW_BIT;
 	}
 	for (POSITION it = this->objects.GetStartPosition(); it != nullptr;) {
 		uint16_t key;
@@ -7057,7 +7057,7 @@ int32_t VisPlayingArea::OnLButtonUp(uint32_t wparam, CPoint pos) {
 void VisPlayingArea::ApplyLandscapeFlags(CWordArray* data) {
 	uint16_t flag = (*data)[0];
 	if (flag != 0) {
-		flag = 0x2000;
+		flag = LandscapeTile::SCORCHED_OR_IMP_FLAG;
 	}
 	data->RemoveAt(0, 1);
 	uint16_t* land = this->scenario->GetLandscape();
@@ -7066,7 +7066,7 @@ void VisPlayingArea::ApplyLandscapeFlags(CWordArray* data) {
 	while (data->GetSize() != 0) {
 		for (int32_t i = 0; i < (*data)[0]; i++) {
 			uint16_t* cell = land + x + y * this->map_width;
-			*cell = (*cell & 0xDFFF) | flag;
+			*cell = (*cell & ~LandscapeTile::SCORCHED_OR_IMP_FLAG) | flag;
 			x++;
 			if (x == this->map_width - 8) {
 				x = 8;
@@ -7074,7 +7074,7 @@ void VisPlayingArea::ApplyLandscapeFlags(CWordArray* data) {
 			}
 		}
 		data->RemoveAt(0, 1);
-		flag ^= 0x2000;
+		flag ^= LandscapeTile::SCORCHED_OR_IMP_FLAG;
 	}
 }
 
@@ -7607,7 +7607,7 @@ void VisPlayingArea::UpdateAmbientSounds() { //41b8d0
 			for (int32_t xx = minX; xx <= maxX; xx++) {
 				int32_t dx = xx - centerX;
 
-				uint16_t tmp = (landscape[land_idx] & 0x1fff) >> 6;
+				uint16_t tmp = LandscapeTile(landscape[land_idx]).terrain_group;
 				if (tmp > 7 && tmp < 12) {
 					int32_t scale = (dx * 2000) / this->view_tiles_x;
 					if (scale < -2000) {

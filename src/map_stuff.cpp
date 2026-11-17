@@ -193,8 +193,8 @@ void MapStuff::InitFromAlm(MapAlm* alm) {
             uint16_t idx = y * this->map_width + x;
             PosYX yx(x, y);
 
-            uint16_t terrain = alm->landscape[idx];
-            if (terrain & 0x2000) {
+            LandscapeTile terrain(alm->landscape[idx]);
+            if (terrain.scorched_or_imp) {
                 this->ObstacleAt(yx) = 1;
             }
 
@@ -202,7 +202,7 @@ void MapStuff::InitFromAlm(MapAlm* alm) {
             uint8_t map_object_val = alm->map_objects[idx];
 
             uint8_t walk_cost_val;
-            uint8_t classification = this->CalcTerrainWalkCost(terrain & 0x3FF, &walk_cost_val);
+            uint8_t classification = this->CalcTerrainWalkCost(terrain.raw & LandscapeTile::SERVER_TERRAIN_MASK, &walk_cost_val);
             if (classification == 8) {
                 this->ObstacleAt(yx) = 1;
             }
@@ -236,18 +236,19 @@ uint8_t MapStuff::CalcTerrainWalkCost(uint16_t terrain_code, uint8_t* out_walk_c
     uint8_t result = 0xFF;
     *out_walk_cost = 8;
 
+    LandscapeTile tile(terrain_code);
     if ((terrain_code & 0x300) == 0x200) {
-        if ((terrain_code & 0xF) < 8) {
-            if ((terrain_code & 0xF) == 4) {
-                result = (((terrain_code & 0x30) >> 4) == 1) ? 1 : 9;
+        if (tile.sub_tile < 8) {
+            if (tile.sub_tile == 4) {
+                result = (tile.variant == 1) ? 1 : 9;
             } else {
                 result = 9;
             }
         }
     } else {
-        uint32_t dir_idx = (terrain_code & 0x3C0) >> 6;
-        uint32_t sub_idx = (terrain_code & 0x30) >> 4;
-        uint32_t weight_idx = terrain_code & 0xF;
+        uint32_t dir_idx = tile.dir_idx;
+        uint32_t sub_idx = tile.variant;
+        uint32_t weight_idx = tile.sub_tile;
 
         if (weight_idx < 0xE) {
             PosYX dir_pair(this->direction_pairs[dir_idx]);
@@ -2973,7 +2974,7 @@ Scenario::Scenario(const char* fname) {
     this->daytime_minutes = alm->day_time_minutes;
     this->abrightness = (uint8_t)alm->a_brightness;
     this->contrast = (uint8_t)alm->contrast;
-    this->terrain_tile_mask = 0x1FFF;
+    this->terrain_tile_mask = LandscapeTile::CLIENT_TERRAIN_MASK;
 
     this->landscape = (uint16_t*)malloc(this->width * this->height * 2);
     memcpy(this->landscape, alm->landscape, this->width * this->height * 2);
@@ -3151,7 +3152,7 @@ Scenario::Scenario(const char* fname) {
 
     for (int32_t i = 0; i < this->width; i++) {
         for (int32_t j = 0; j < this->height; j++) {
-            this->landscape[j * this->width + i] &= 0xDFFF;
+            this->landscape[j * this->width + i] &= ~LandscapeTile::SCORCHED_OR_IMP_FLAG;
         }
     }
 }

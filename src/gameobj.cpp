@@ -468,14 +468,14 @@ void CGameObject::MarkOccupancy() { //462226
             for (int i = 0; i < 41; i++) {
                 int32_t idx = iVar2 + iVar6 / 2 - 20 + j + (iVar3 + iVar7 / 2 - 20 + i) * this->pMapObject->map_width;
                 if (this->pMapObject->shadow_light[j][i] > 0) {
-                    land[idx] |= 0xc000;
+                    land[idx] |= LandscapeTile::FOW_VISIBLE;
                     idx++;
 
-                    land[idx] |= 0xc000;
+                    land[idx] |= LandscapeTile::FOW_VISIBLE;
                     idx += this->pMapObject->map_width;
 
-                    land[idx] |= 0xc000;
-                    land[idx - 1] |= 0xc000;
+                    land[idx] |= LandscapeTile::FOW_VISIBLE;
+                    land[idx - 1] |= LandscapeTile::FOW_VISIBLE;
                 }
             }
         }
@@ -490,7 +490,7 @@ int32_t CGameObject::UpdateBlockedState() { //46207a
     uint16_t* land = this->pMapObject->scenario->GetLandscape();
 
     int32_t idx = this->tileX + this->pMapObject->map_width * this->tileY;
-    this->bIsBlocked = (land[idx] & 0xc000U | land[idx + 1] & 0xc000U | land[idx + this->pMapObject->map_width] & 0xc000U | land[idx + this->pMapObject->map_width + 1] & 0xc000U) != 0xc000;
+    this->bIsBlocked = ((land[idx] & LandscapeTile::FOW_MASK) | (land[idx + 1] & LandscapeTile::FOW_MASK) | (land[idx + this->pMapObject->map_width] & LandscapeTile::FOW_MASK) | (land[idx + this->pMapObject->map_width + 1] & LandscapeTile::FOW_MASK)) != LandscapeTile::FOW_VISIBLE;
 
     if (this->bIsBlocked == 0 || this->m_bSelected == 0) {
         return 0;
@@ -3271,8 +3271,8 @@ void CUnit::DrawMinimapRect(int32_t x, int32_t y, int32_t zoom) {
     uint16_t* land = map->scenario->GetLandscape();
     int32_t idx = (this->x_pos >> 8) + map->map_width * (this->y_pos >> 8);
 
-    uint16_t mask = (land[idx] & 0xc000) | (land[idx + 1] & 0xc000) | (land[idx + map->map_width] & 0xc000) | (land[idx + map->map_width + 1] & 0xc000);
-    if (mask != 0xc000) {
+    uint16_t mask = (land[idx] & LandscapeTile::FOW_MASK) | (land[idx + 1] & LandscapeTile::FOW_MASK) | (land[idx + map->map_width] & LandscapeTile::FOW_MASK) | (land[idx + map->map_width + 1] & LandscapeTile::FOW_MASK);
+    if (mask != LandscapeTile::FOW_VISIBLE) {
         return;
     }
 
@@ -3313,7 +3313,7 @@ int32_t CUnit::UpdateBlockedState() {
 
     uint16_t* land = map->scenario->GetLandscape();
     int32_t idx = this->tileX + map->map_width * this->tileY;
-    this->bIsBlocked = (land[idx] & 0xc000 | land[idx + 1] & 0xc000 | land[idx + map->map_width] & 0xc000 | land[idx + map->map_width + 1] & 0xc000) != 0xc000;
+    this->bIsBlocked = ((land[idx] & LandscapeTile::FOW_MASK) | (land[idx + 1] & LandscapeTile::FOW_MASK) | (land[idx + map->map_width] & LandscapeTile::FOW_MASK) | (land[idx + map->map_width + 1] & LandscapeTile::FOW_MASK)) != LandscapeTile::FOW_VISIBLE;
 
     if (this->bIsBlocked == 0 || this->m_bSelected == 0) {
         return 0;
@@ -4227,8 +4227,8 @@ void CStructure::DrawMinimapRect(int32_t x, int32_t y, int32_t zoom) {
     uint16_t* land = map->scenario->GetLandscape();
     int32_t idx = (this->x_pos >> 8) + map->map_width * (this->y_pos >> 8);
 
-    uint16_t mask = (land[idx] & 0xc000) | (land[idx + 1] & 0xc000) | (land[idx + map->map_width] & 0xc000) | (land[idx + map->map_width + 1] & 0xc000);
-    if (mask != 0xc000) {
+    uint16_t mask = (land[idx] & LandscapeTile::FOW_MASK) | (land[idx + 1] & LandscapeTile::FOW_MASK) | (land[idx + map->map_width] & LandscapeTile::FOW_MASK) | (land[idx + map->map_width + 1] & LandscapeTile::FOW_MASK);
+    if (mask != LandscapeTile::FOW_VISIBLE) {
         return;
     }
 
@@ -4266,11 +4266,11 @@ int32_t CStructure::UpdateBlockedState() {
         StructureInfo* info = g_StructuresInfo[this->typeId];
         for (int32_t y = this->GetTileHeight() - info->full_height; y < this->GetTileHeight(); y++) {
             int32_t idx = this->tileX + x + map->map_width * (this->tileY + y);
-            uint16_t u = (land[idx] & 0xc000) | (land[idx + 1] & 0xc000) | (land[idx + map->map_width] & 0xc000) | (land[idx + map->map_width + 1] & 0xc000);
-            if (u == 0x8000) {
+            uint16_t u = (land[idx] & LandscapeTile::FOW_MASK) | (land[idx + 1] & LandscapeTile::FOW_MASK) | (land[idx + map->map_width] & LandscapeTile::FOW_MASK) | (land[idx + map->map_width + 1] & LandscapeTile::FOW_MASK);
+            if (u == LandscapeTile::FOW_EXPLORED) {
                 this->bIsBlocked = 1;
             }
-            if (u == 0xc000) {
+            if (u == LandscapeTile::FOW_VISIBLE) {
                 this->bIsBlocked = 0;
                 break;
             }
@@ -4620,10 +4620,10 @@ int32_t CProjectile::Update() {
                     for (int32_t j = -1; j < 2; j++) {
                         uint16_t* landscape = map->scenario->GetLandscape();
                         int32_t idx = this->tileX + i + (this->tileY + j) * map->map_width;
-                        int32_t height = (landscape[idx] & 0x1fff) >> 6;
+                        int32_t height = LandscapeTile(landscape[idx]).terrain_group;
                         uint8_t gfx_idx = map->scenario->GetObjectMap()[idx];
                         if (height < 8 || height >= 12 || gfx_idx != 0) {
-                            landscape[idx] |= 0x2000;
+                            landscape[idx] |= LandscapeTile::SCORCHED_OR_IMP_FLAG;
                         }
                     }
                 }
@@ -4632,13 +4632,13 @@ int32_t CProjectile::Update() {
                     for (int32_t j = -1; j < 2; j++) {
                         uint16_t* landscape = map->scenario->GetLandscape();
                         int32_t idx = this->tileX + i + (this->tileY + j) * map->map_width;
-                        if ((landscape[idx] & 0x2000) == 0) {
+                        if ((landscape[idx] & LandscapeTile::SCORCHED_OR_IMP_FLAG) == 0) {
                             uint16_t packed = (uint16_t)((this->tileX + i) | (this->tileY + j) << 8);
                             uint8_t gfx_idx = map->scenario->GetObjectMap()[idx];
                             if (gfx_idx != 0 && g_GfxObjects[gfx_idx - 1]->dead_object != -1) {
                                 map->lightning_cells.SetAt(packed, 0);
                             }
-                            int32_t height = (landscape[idx] & 0x1fff) >> 6;
+                            int32_t height = LandscapeTile(landscape[idx]).terrain_group;
                             if (height > 7 && height < 12) {
                                 map->lightning_cells.SetAt(packed, 0);
                             }

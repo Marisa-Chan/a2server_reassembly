@@ -43,6 +43,44 @@ struct Obstacle {
     inline void operator=(uint8_t val) { this->bits = val; }
 };
 
+struct LandscapeTile {
+    enum : uint16_t {
+        SERVER_TERRAIN_MASK  = 0x03FF,
+        CLIENT_TERRAIN_MASK  = 0x1FFF,
+        SCORCHED_OR_IMP_FLAG = 0x2000,
+        FOW_VISIBLE_NOW_BIT  = 0x4000,
+        FOW_EXPLORED         = 0x8000,
+        FOW_VISIBLE          = 0xC000,
+        FOW_MASK             = 0xC000,
+    };
+
+    union {
+        uint16_t raw;
+        struct {
+            uint16_t sub_tile        : 4; // [3:0]   sub-tile index (0..15)
+            uint16_t variant         : 2; // [5:4]   terrain variant (0..3)
+            uint16_t dir_idx         : 4; // [9:6]   server terrain / transition direction index
+            uint16_t extra_tile_bits : 3; // [12:10] extended client tile set bits
+            uint16_t scorched_or_imp : 1; // [13]    ALM impassable flag on disk / client scorched flag
+            uint16_t visible_now     : 1; // [14]    currently in sight
+            uint16_t explored        : 1; // [15]    previously explored
+        };
+        struct {
+            uint16_t low_6           : 6; // [5:0]
+            uint16_t terrain_group   : 7; // [12:6]  client terrain palette/tile group
+            uint16_t high_3          : 3; // [15:13]
+        };
+        struct {
+            uint16_t client_tile_id  : 13; // [12:0]
+            uint16_t flags_3         : 3;  // [15:13]
+        };
+    };
+
+    constexpr LandscapeTile(uint16_t v = 0) : raw(v) {}
+    constexpr operator uint16_t() const { return this->raw; }
+};
+ASSERT_SIZE(LandscapeTile, 2);
+
 // Player presence scan grid, embedded in MapStuff at offset 0x92ecc.
 // Tracks which player side bitmasks have units in each 8x8-tile sector.
 // On unit add, the unit's owner bitmask (unit->player->field_0x32) is OR'd

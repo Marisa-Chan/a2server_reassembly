@@ -690,12 +690,12 @@ void VisMiniMap::RebuildMap() {
     uint16_t* minimap_data = (uint16_t*)g_bmp_minimapdata->GetData();
     for (int32_t y = 8; y < scen->GetHeight() - 8; y++) {
         for (int32_t x = 8; x < scen->GetWidth() - 8; x++) {
-            uint16_t v = landscape[x + y * scen->GetWidth()];
+            LandscapeTile v(landscape[x + y * scen->GetWidth()]);
             int32_t mm_w = g_bmp_minimapdata->GetWidth(0);
             int32_t mm_h = g_bmp_minimapdata->GetHeight(0);
             int32_t full_w = full->GetWidth(0);
             full_data[(x - 8) + (y - 8) * full_w] =
-                minimap_data[((v & 0x1FFF) >> 4) + mm_w * ((mm_h - 1) - (v & 0xF))];
+                minimap_data[(v.client_tile_id >> 4) + mm_w * ((mm_h - 1) - v.sub_tile)];
         }
     }
     if (scen->GetHeight() < scen->GetWidth()) {
@@ -879,10 +879,10 @@ void VisMiniMap::VMethod7() {
             int32_t sx = 8;
             while (sx < scen->GetWidth() - 8) {
                 int32_t lidx = sx + sy * scen->GetWidth();
-                uint16_t flags = (landscape[lidx] & 0xC000)
-                    | (landscape[lidx + 1] & 0xC000)
-                    | (landscape[lidx + scen->GetWidth()] & 0xC000)
-                    | (landscape[lidx + scen->GetWidth() + 1] & 0xC000);
+                uint16_t flags = (landscape[lidx] & LandscapeTile::FOW_MASK)
+                    | (landscape[lidx + 1] & LandscapeTile::FOW_MASK)
+                    | (landscape[lidx + scen->GetWidth()] & LandscapeTile::FOW_MASK)
+                    | (landscape[lidx + scen->GetWidth() + 1] & LandscapeTile::FOW_MASK);
                 uint16_t* src = &cryst_data[src_row + cx];
                 uint16_t* dst = (uint16_t*)((uint16_t*)g_selDrawBitmap.lpSurface + dst_pix + dst_row + cx);
                 if (flags == 0) {
@@ -895,7 +895,7 @@ void VisMiniMap::VMethod7() {
                         dst += g_selDrawBitmap.dwWidth - step;
                         src += -step - cryst_w;
                     }
-                } else if (flags == 0x8000) {
+                } else if (flags == LandscapeTile::FOW_EXPLORED) {
                     for (int32_t j = step; j != 0; j--) {
                         for (int32_t i = step; i != 0; i--) {
                             uint16_t s = *src++;
