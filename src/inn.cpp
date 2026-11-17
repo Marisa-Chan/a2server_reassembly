@@ -1137,11 +1137,11 @@ void Inn::InnReward(Player* player) {
         if ((high_skills > 3 && reward >= 1000000) || player->gm_level > 50) {
             temp_candidates.SetSize(0, -1);
 
-            for (int slot = 1; slot < 13; slot++) {
+            for (int slot = item_slot::weapon; slot < item_slot::count; slot++) {
                 Item* equip;
-                if (slot == 1) {
+                if (slot == item_slot::weapon) {
                     equip = player->main_unit->weapon;
-                } else if (slot == 2) {
+                } else if (slot == item_slot::shield) {
                     equip = player->main_unit->shield;
                 } else {
                     equip = player->main_unit->equipment[slot];
@@ -1229,9 +1229,9 @@ void Inn::InnReward(Player* player) {
 
                 // Create a copy of the item.
                 Item* copy;
-                if (slot == 1) {
+                if (slot == item_slot::weapon) {
                     copy = new Weapon((Weapon*)equip);
-                } else if (slot == 2) {
+                } else if (slot == item_slot::shield) {
                     copy = new Shield((Shield*)equip);
                 } else {
                     copy = new Armor((Armor*)equip);
@@ -1383,7 +1383,7 @@ void Inn::RemoveUnit(Humanoid* humanoid, int32_t id) {
                     }
                     case 5: { // DeliverItem
                         uint8_t subtype = this->active_quest->quest_data.obj;
-                        Item* new_item = new Item(0xE, subtype);
+                        Item* new_item = new Item(item_slot::magic_item, subtype);
                         humanoid->inventory->PutItemIntoBagAtDefault(new_item);
                         g_NetStru1_main.SendUnitUpdate(humanoid, humanoid->pOwner, UNIT_UPD_INVENTORY_WEIGHT, EQUIP_SLOTS_ALL, 0, 0);
                         break;

@@ -209,7 +209,7 @@ Item* Inventory::FindItemByName(const char* name) {
     for (POSITION pos = this->items.GetHeadPosition(); pos != nullptr;) {
         Item* item = this->items.GetNext(pos);
         uint8_t item_type = (item->item_id >> 8) & 0xF;
-        if (item_type == 0xE) {
+        if (item_type == item_slot::magic_item) {
             if (item->world_equip->name == name) {
                 return item;
             }

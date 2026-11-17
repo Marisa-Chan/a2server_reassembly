@@ -56,11 +56,11 @@ Item* __cdecl ReadItem(uint8_t** packet_data) {
     uint8_t item_data_id = static_cast<uint8_t>(encoded_item_id & 0x1F);
     uint8_t slot = static_cast<uint8_t>((encoded_item_id >> 8) & 0x0F);
 
-    if (slot == 1) {
+    if (slot == item_slot::weapon) {
         item = new Weapon(shape_id, material_id, item_data_id);
-    } else if (slot == 2) {
+    } else if (slot == item_slot::shield) {
         item = new Shield(shape_id, material_id, item_data_id);
-    } else if (slot == 0x0E) {
+    } else if (slot == item_slot::magic_item) {
         item = new Item(g_GameDataRes.magic_items[encoded_item_id & 0xff].name);
     } else {
         item = new Armor(shape_id, material_id, item_data_id);
@@ -188,7 +188,7 @@ Item::Item(const CString& name) : Token() {
     for (int32_t i = 1; i < count; i++) {
         if (g_GameDataRes.magic_items[i].name == name) {
             this->itemDataID = (int16_t)i;
-            this->InitFromTemplate(0xE);
+            this->InitFromTemplate(item_slot::magic_item);
             return;
         }
     }
@@ -737,7 +737,7 @@ void Armor::LoadInfo() {
     EquipData* data = &this->world_equip->Values()[0];
     this->slot = (uint8_t)data->slot;
 
-    if (this->slot >= 13) {
+    if (this->slot >= item_slot::count) {
         CString s;
         s.Format("Invalid armor part %d created - discarded.", this->slot);
         LogMessage(s);
@@ -806,7 +806,7 @@ void Armor::Serialize(CArchive& ar) {
 
 // 54FA6E
 Item* Armor::Equip(Unit* unit) {
-    if (this->slot == 0) {
+    if (this->slot == item_slot::none) {
         LogMessage(CString("Illegal armor"));
         return this;
     }
@@ -975,7 +975,7 @@ void Shield::LoadInfo() {
 
     this->CalcValue();
 
-    const int slot = 2;
+    const int slot = item_slot::shield;
     this->item_id = (this->material_id << 12) | (slot << 8) | (this->shape_id << 5) | (uint8_t)this->itemDataID;
 }
 
@@ -1091,7 +1091,7 @@ Weapon::Weapon() {
     this->imbued_spell = nullptr;
     this->special_flag = 0;
 
-    const int slot = 1;
+    const int slot = item_slot::weapon;
     this->item_id = (uint16_t)((this->material_id << 12) | (slot << 8) | (this->shape_id << 5) | (uint8_t)this->itemDataID);
 }
 
@@ -1157,7 +1157,7 @@ void Weapon::LoadInfo() {
     this->LoadEquipInfo(this->world_equip);
     this->CalcValue();
 
-    const int slot = 1;
+    const int slot = item_slot::weapon;
     this->item_id = (this->material_id << 12) | (slot << 8) | (this->shape_id << 5) | (uint8_t)this->itemDataID;
 }
 

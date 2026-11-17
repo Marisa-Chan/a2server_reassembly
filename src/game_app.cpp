@@ -1195,7 +1195,7 @@ Item* __cdecl RollItemInPriceRange(CString category, int32_t min_price, int32_t 
     if (category == "Potion" && max_price >= 500) {
         while (true) {
             delete item;
-            item = new Item(0xE, Random0N(12) + 1);
+            item = new Item(item_slot::magic_item, Random0N(12) + 1);
 
             if (attempts++ > 20) {
                 return item;

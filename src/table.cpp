@@ -814,7 +814,7 @@ Item* GameDataRes::FindItemTemplate(CString* name) {
 
     for (int32_t i = this->magic_items.GetSize() - 1; i >= 1; i--) {
         if (base_name == this->magic_items[i].name) {
-            Item* item = new Item(0xE, (uint8_t)i);
+            Item* item = new Item(item_slot::magic_item, (uint8_t)i);
             if (extra.GetLength() > 0) {
                 item->_effects.RemoveAll();
                 item->ApplyPropertyString(extra);
@@ -829,17 +829,17 @@ Item* GameDataRes::FindItemTemplate(CString* name) {
 
 // 510F88
 Item* GameDataRes::CreateItem(uint8_t slot, uint8_t shape_id, uint8_t material_id, uint8_t item_data_id) {
-    if (slot == 1) {
+    if (slot == item_slot::weapon) {
         return new Weapon(shape_id, material_id, item_data_id);
     }
-    if (slot == 2) {
+    if (slot == item_slot::shield) {
         return new Shield(shape_id, material_id, item_data_id);
     }
-    if (slot >= 3 && slot <= 0x0D) {
+    if (slot >= item_slot::unused_3 && slot <= item_slot::extra_13) {
         return new Armor(shape_id, material_id, item_data_id);
     }
-    if (slot == 0x0E) {
-        return new Item(0x0E, item_data_id);
+    if (slot == item_slot::magic_item) {
+        return new Item(item_slot::magic_item, item_data_id);
     }
     return nullptr;
 }
@@ -848,7 +848,7 @@ Item* GameDataRes::CreateItem(uint8_t slot, uint8_t shape_id, uint8_t material_i
 Item* GameDataRes::CreateItemById(uint16_t item_id) {
     uint8_t slot = (item_id >> 8) & 0x0F;
 
-    if (slot == 0x0E) {
+    if (slot == item_slot::magic_item) {
         return this->CreateItem(slot, 0, 0, item_id);
     }
 

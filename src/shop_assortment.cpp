@@ -386,9 +386,9 @@ void ShopAssortment::AddMagicItems(CArray<MagicItem>* items) {
     for (int32_t spell_id = 1; spell_id <= spell::max_spell_id; spell_id++) {
         Item* item = nullptr;
         if (Random1N(2) == 1) {
-            item = new Item(0xE, (uint8_t)(spell_id + 5));
+            item = new Item(item_slot::magic_item, (uint8_t)(spell_id + 5));
         } else {
-            item = new Item(0xE, (uint8_t)(spell_id + 34));
+            item = new Item(item_slot::magic_item, (uint8_t)(spell_id + 34));
         }
         item->CalcValue();
 

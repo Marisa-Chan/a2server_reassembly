@@ -4696,11 +4696,11 @@ void Server::ProcessClientPacket(Packet* pkt) {
                     break;
                 }
                 int32_t slot = (int16_t)packet_transfer->param1 + 1;
-                if (slot == 1) {
+                if (slot == item_slot::weapon) {
                     item = human->Unequip(human->weapon);
-                } else if (slot == 2) {
+                } else if (slot == item_slot::shield) {
                     item = human->Unequip(human->shield);
-                } else if (slot >= 3 && slot <= 12) {
+                } else if (slot >= item_slot::unused_3 && slot <= item_slot::max_armor) {
                     if (human->IsHumanoid() == 0) {
                         LogMessage("Error - Trying to takeoff armor from non humanoid ");
                     } else {

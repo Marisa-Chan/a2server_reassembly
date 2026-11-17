@@ -24,6 +24,28 @@ void LoadItemNames(); //475988 (client: 4796d8)
 void ParseEffectString(const CString& effect_str, CList<Effect*>* effects); // 540DAA (client: 52845f): parse effect string into effects list
 int32_t TotalEffectPrice(Item* item); // 54F176: total EffectPrice() of all effects
 
+namespace item_slot {
+    enum : uint8_t {
+        none       = 0,
+        weapon     = 1,
+        shield     = 2,
+        unused_3   = 3,
+        ring       = 4,
+        amulet     = 5,
+        helm       = 6,  // Warrior: helm, Mage: hat
+        mail       = 7,  // Warrior: mail, Mage: robe
+        cuirass    = 8,  // Warrior: cuirass, Mage: cloak
+        bracers    = 9,
+        gauntlets  = 10, // Warrior: gauntlets, Mage: gloves
+        unused_11  = 11,
+        boots      = 12, // Warrior: boots, Mage: shoes
+        max_armor  = 12,
+        count      = 13,
+        extra_13   = 13, // 0x0D: accepted in GameDataRes::CreateItem, rejected in Armor::LoadInfo
+        magic_item = 14, // 0x0E: books, scrolls, potions, quest items
+    };
+}
+
 class Item : public Token {
 public:
     DECLARE_SERIAL(Item); // Runtime class definition at 6372b8.

@@ -855,7 +855,7 @@ void Unit::ProcessEffects() {
                         }
 
                         if (this->some_item != nullptr) {
-                            if (((this->some_item->item_id >> 8) & 0xF) == 0xE) {
+                            if (((this->some_item->item_id >> 8) & 0xF) == item_slot::magic_item) {
                                 delete this->some_item;
                                 #ifdef A2SERVER_PATCH
                                 // bug_0005: some_spell can be a zombie (zeroed

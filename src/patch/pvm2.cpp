@@ -97,9 +97,8 @@ uint32_t QueryScrolls(Unit* character, uint32_t level, bool elven) {
         uint16_t item_option = (uint8_t)item->value1;
         uint8_t item_slot = static_cast<Armor*>(item)->slot;
 
-        if (item_slot == 0 && item_class == 0 && item_material == 0 && item->weight == 1) {
-            // that is, slot = 14
-            item_slot = 14;
+        if (item_slot == item_slot::none && item_class == 0 && item_material == 0 && item->weight == 1) {
+            item_slot = item_slot::magic_item;
         }
 
         uint16_t iid = item_material & 0xF;
@@ -152,12 +151,11 @@ bool CheckItemLevel(Item* item, uint32_t level) {
         return false;
     }
 
-    if (item_slot == 0 && item_class == 0 && item_material == 0 && item->weight == 1) {
-        // that is, slot = 14
-        item_slot = 14;
+    if (item_slot == item_slot::none && item_class == 0 && item_material == 0 && item->weight == 1) {
+        item_slot = item_slot::magic_item;
     }
 
-    if (item_slot == 14) {
+    if (item_slot == item_slot::magic_item) {
         return false; // don't check scrolls here
     }
 
