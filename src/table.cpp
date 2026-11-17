@@ -719,7 +719,7 @@ uint8_t GameDataRes::FindShapeIndex(CString* name, CString* out) {
     if (out != nullptr) {
         *out = *name;
     }
-    return 0;
+    return item_shape::common;
 }
 
 // 50DA04

@@ -67,6 +67,19 @@ namespace material {
     };
 }
 
+namespace item_shape {
+    enum : uint8_t {
+        common    = 0,
+        uncommon  = 1,
+        rare      = 2,
+        very_rare = 3,
+        elven     = 4,
+        bad       = 5,
+        good      = 6,
+        count     = 7,
+    };
+}
+
 class Item : public Token {
 public:
     DECLARE_SERIAL(Item); // Runtime class definition at 6372b8.

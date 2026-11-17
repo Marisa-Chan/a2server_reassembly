@@ -301,7 +301,7 @@ void ShopAssortment::AddItems(CArray<WorldEquip>* items, int32_t shape, int32_t 
         Item* item = nullptr;
         switch (item_type) {
         case 1:
-            if ((shape != 0 || mat != material::iron || i != 2) && (shape != 0 || mat != material::bronze || i != 2) && (shape != 6 || mat != material::gold || i != 6)) {
+            if ((shape != item_shape::common || mat != material::iron || i != 2) && (shape != item_shape::common || mat != material::bronze || i != 2) && (shape != item_shape::good || mat != material::gold || i != 6)) {
                 item = new Armor(shape, mat, i);
             }
             break;
