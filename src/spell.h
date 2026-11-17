@@ -6,6 +6,7 @@
 
 #include <afx.h>
 #include "assert_offset.h"
+#include "constants.h"
 #include <afxtempl.h>
 #include "table.h"
 
@@ -40,42 +41,43 @@ public:
 
 
     uint8_t GetSpeed(uint8_t v) const { //539926 (client: 52362d)
-        if (this->spell_id != 21) { //HASTE
+        if (this->spell_id != spell::haste) {
             return 0;
         }
         return (v / 15) + 1;
     }
 
     uint8_t GetResistance(uint8_t v) const { //53985f (client: 523566)
-        if (this->spell_id == 4 || this->spell_id == 8 || this->spell_id == 13 || this->spell_id == 19) {
+        if (this->spell_id == spell::protection_from_fire || this->spell_id == spell::protection_from_water ||
+            this->spell_id == spell::protection_from_air || this->spell_id == spell::protection_from_earth) {
             return v / 2;
         }
         return 0;
     }
 
     int16_t GetSight(uint8_t v) const { //5398e2 (client: 5235e9)
-        if (this->spell_id == 15 || this->spell_id == 14) {
+        if (this->spell_id == spell::light || this->spell_id == spell::darkness) {
             return -(v / 30) - 1;
         }
         return 0;
     }
 
     uint8_t GetMaximumDamageProbability(uint8_t v) const { //5397f7 (client: 5234fe)
-        if (this->spell_id == 20) {
+        if (this->spell_id == spell::bless) {
             return (v * 4 / 5) + 20;
         }
         return 0;
     }
 
     uint8_t GetMinimumDamageProbability(uint8_t v) const { //53982b (client: 523532)
-        if (this->spell_id == 28) {
+        if (this->spell_id == spell::curse) {
             return (v * 4 / 5) + 20;
         }
         return 0;
     }
 
     uint8_t GetRays(uint8_t v) const { //5397a3 (client: 5234aa)
-        if (this->spell_id == 11) {
+        if (this->spell_id == spell::prismatic_spray) {
             uint8_t r = v / 20 + 2;
             if (r > 7) {
                 r = 7;
@@ -86,7 +88,7 @@ public:
     }
 
     uint8_t GetBonusType5(uint8_t v) const { //5397a3 (client: 5234aa)
-        if (this->spell_id == 27) {
+        if (this->spell_id == spell::shield) {
             return v / 10 + 3;
         }
         return 0;

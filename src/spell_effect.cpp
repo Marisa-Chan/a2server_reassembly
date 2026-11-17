@@ -252,11 +252,11 @@ void AreaEffect::ExpireOnUnit(Unit* unit) {
 
 // 53831D
 void AreaEffect::DamageUnit(Unit* unit) {
-	if (unit == nullptr || this->itemDataID == 0x11) {
+	if (unit == nullptr || this->itemDataID == spell::wall_of_earth) {
 		return;
 	}
 
-	if (this->itemDataID == 2) {
+	if (this->itemDataID == spell::fire_ball) {
 		DirectDamage local_dd(static_cast<DirectDamage*>(this->effect));
 		int32_t size = (uint8_t)unit->GetTokenSize();
 		int32_t size_sq = size * size;
@@ -267,7 +267,7 @@ void AreaEffect::DamageUnit(Unit* unit) {
 		this->effect->RemoveFromUnit(unit);
 	}
 
-	if (this->itemDataID == 0xF) {
+	if (this->itemDataID == spell::light) {
 		return;
 	}
 
@@ -282,9 +282,9 @@ void AreaEffect::DamageUnit(Unit* unit) {
 	#ifdef A2SERVER_PATCH
 	// prevent_suicide_area_effect hook (538473): self-damage must not
 	// overwrite the kill attribution
-	} else if (this->itemDataID != 0xE && unit != this->caster) {
+	} else if (this->itemDataID != spell::darkness && unit != this->caster) {
 	#else
-	} else if (this->itemDataID != 0xE) {
+	} else if (this->itemDataID != spell::darkness) {
 	#endif
 		unit->last_hit_by = this->caster;
 		unit->last_hit_spell_id = this->effect->itemDataID;
