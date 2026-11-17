@@ -963,10 +963,10 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
         ae->duration = info.area_duration * 16;
         if (ae->duration != 0) {
             ae->duration += power * 16 / 10;
-            ae->TokenID = 1;
+            ae->TokenID = AreaEffect::MODE_PERSISTENT;
         }
         if (info.distribution == Spell::DIST_PHASED_WAVE) {
-            ae->TokenID = 2;
+            ae->TokenID = AreaEffect::MODE_PHASED_WAVE;
             ae->duration = 0;
         }
         ae->wave_pattern = MapStuff_Instance->GetFacingFor(caster, local_pos.GetYX()) / 32;

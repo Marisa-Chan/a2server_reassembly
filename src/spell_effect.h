@@ -69,6 +69,12 @@ public:
         LAYER_COUNT           = 6,
     };
 
+    enum ModeFlags : uint8_t {
+        MODE_INSTANT     = 0,
+        MODE_PERSISTENT  = 1,
+        MODE_PHASED_WAVE = 2,
+    };
+
     DECLARE_SERIAL(AreaEffect); // Runtime class definition at 6364B8.
 
 public: // VTable at 60f1f0.

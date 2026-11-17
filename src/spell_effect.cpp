@@ -562,11 +562,11 @@ void AreaEffect::Serialize(CArchive& ar) {
 
 // 537964
 void AreaEffect::ProcessEffects() {
-	if (this->TokenID & 2) {
+	if (this->TokenID & AreaEffect::MODE_PHASED_WAVE) {
 		this->TickAcidBlizzard();
 		return;
 	}
-	if (!(this->TokenID & 1)) {
+	if (!(this->TokenID & AreaEffect::MODE_PERSISTENT)) {
 		this->BroadcastAndApply();
 		return;
 	}
