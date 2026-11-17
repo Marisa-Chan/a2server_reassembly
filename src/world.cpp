@@ -2038,45 +2038,45 @@ void World::DoScriptInstID(int32_t script_id) {
     }
 
     switch (action.type) {
-        case 0x01: this->ScriptOP_0x01(&action); break;
-        case 0x02: this->ScriptOP_0x02(&action); break;
-        case 0x03: this->ScriptOP_0x03(&action); break;
-        case 0x04: this->ScriptOP_0x04(&action); break;
-        case 0x05: this->ScriptOP_0x05(&action); break;
-        case 0x06: this->ScriptOP_0x06(&action); break;
-        case 0x07: this->ScriptOP_0x07(&action); break;
-        case 0x08: this->ScriptOP_0x08(&action); break;
-        case 0x09: break;  // No-op.
-        case 0x0a: this->ScriptOP_0x0a(&action); break;
-        case 0x0b: this->ScriptOP_0x0b(&action); break;
-        case 0x0c: this->ScriptOP_0x0c(&action); break;
-        case 0x0d: this->ScriptOP_0x0d(&action); break;
-        case 0x0e: this->ScriptOP_0x0e(&action); break;
-        case 0x0f: this->ScriptOP_0x0f(&action); break;
-        case 0x10: this->ScriptOP_0x10(&action); break;
-        case 0x11: this->ScriptOP_0x11(&action); break;
-        case 0x12: this->ScriptOP_0x12(&action); break;
-        case 0x13: this->ScriptOP_0x13(&action); break;
-        case 0x14: this->ScriptOP_0x14(&action); break;
-        case 0x15: this->ScriptOP_0x15(&action); break;
-        case 0x16: this->ScriptOP_0x16(&action); break;
-        case 0x17: this->ScriptOP_0x17(&action); break;
-        case 0x18: this->ScriptOP_0x18(&action); break;
-        case 0x19: this->ScriptOP_0x19(&action); break;
-        case 0x1a: this->ScriptOP_0x1a(&action); break;
-        case 0x1b: this->ScriptOP_0x1b(&action); break;
-        case 0x1c: this->ScriptOP_0x1c(&action); break;
-        case 0x1d: this->ScriptOP_0x1d(&action); break;
-        case 0x1e: this->ScriptOP_0x1e(&action); break;
-        case 0x1f: this->ScriptOP_0x1f(&action); break;
-        case 0x20: this->ScriptOP_0x20(&action); break;
-        case 0x21: this->ScriptOP_0x21(&action); break;
-        case 0x22: this->ScriptOP_0x22(&action); break;
-        case 0x23: this->ScriptOP_0x23(&action); break;
-        case 0x24: this->ScriptOP_0x24(&action); break;
+        case script_action_op::increment_mission_stage: this->ScriptOP_0x01(&action); break;
+        case script_action_op::send_game_event:         this->ScriptOP_0x02(&action); break;
+        case script_action_op::set_variable:            this->ScriptOP_0x03(&action); break;
+        case script_action_op::mission_complete:        this->ScriptOP_0x04(&action); break;
+        case script_action_op::mission_fail:            this->ScriptOP_0x05(&action); break;
+        case script_action_op::group_command:           this->ScriptOP_0x06(&action); break;
+        case script_action_op::set_formation:           this->ScriptOP_0x07(&action); break;
+        case script_action_op::increment_variable:      this->ScriptOP_0x08(&action); break;
+        case script_action_op::noop_09:                 break;  // No-op.
+        case script_action_op::change_diplomacy:        this->ScriptOP_0x0a(&action); break;
+        case script_action_op::transfer_item:           this->ScriptOP_0x0b(&action); break;
+        case script_action_op::give_item:               this->ScriptOP_0x0c(&action); break;
+        case script_action_op::remove_item:             this->ScriptOP_0x0d(&action); break;
+        case script_action_op::kill_unit:               this->ScriptOP_0x0e(&action); break;
+        case script_action_op::kill_unit_alt:           this->ScriptOP_0x0f(&action); break;
+        case script_action_op::phase_out_unit:          this->ScriptOP_0x10(&action); break;
+        case script_action_op::phase_in_unit:           this->ScriptOP_0x11(&action); break;
+        case script_action_op::polymorph_unit:          this->ScriptOP_0x12(&action); break;
+        case script_action_op::change_unit_owner:       this->ScriptOP_0x13(&action); break;
+        case script_action_op::drop_all_items:          this->ScriptOP_0x14(&action); break;
+        case script_action_op::cast_area_spell:         this->ScriptOP_0x15(&action); break;
+        case script_action_op::change_group_owner:      this->ScriptOP_0x16(&action); break;
+        case script_action_op::give_money:              this->ScriptOP_0x17(&action); break;
+        case script_action_op::cast_unit_spell:         this->ScriptOP_0x18(&action); break;
+        case script_action_op::set_trap:                this->ScriptOP_0x19(&action); break;
+        case script_action_op::set_building_health:     this->ScriptOP_0x1a(&action); break;
+        case script_action_op::teleport_unit:           this->ScriptOP_0x1b(&action); break;
+        case script_action_op::transfer_all_items:      this->ScriptOP_0x1c(&action); break;
+        case script_action_op::set_tile_spell_duration: this->ScriptOP_0x1d(&action); break;
+        case script_action_op::set_unit_spell_duration: this->ScriptOP_0x1e(&action); break;
+        case script_action_op::set_repop_delay:         this->ScriptOP_0x1f(&action); break;
+        case script_action_op::phase_out_group:         this->ScriptOP_0x20(&action); break;
+        case script_action_op::phase_in_group:          this->ScriptOP_0x21(&action); break;
+        case script_action_op::set_unit_param:          this->ScriptOP_0x22(&action); break;
+        case script_action_op::set_scenario_variable:   this->ScriptOP_0x23(&action); break;
+        case script_action_op::set_subobjective:        this->ScriptOP_0x24(&action); break;
         // no 0x25
-        case 0x26: this->ScriptOP_0x26(&action); break;
-        case 0x27: this->ScriptOP_0x27(&action); break;
+        case script_action_op::remove_item_from_all:    this->ScriptOP_0x26(&action); break;
+        case script_action_op::suspend_group:           this->ScriptOP_0x27(&action); break;
         default: {
             if (g_Server->script_settings->turn_tracing != 0) {
                 char buf[100];

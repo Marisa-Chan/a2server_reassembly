@@ -75,6 +75,50 @@ enum : uint32_t {
 };
 } // namespace trigger_check_op
 
+namespace script_action_op {
+enum : uint32_t {
+    increment_mission_stage = 0x01,
+    send_game_event         = 0x02,
+    set_variable            = 0x03,
+    mission_complete        = 0x04,
+    mission_fail            = 0x05,
+    group_command           = 0x06,
+    set_formation           = 0x07,
+    increment_variable      = 0x08,
+    noop_09                 = 0x09,
+    change_diplomacy        = 0x0A,
+    transfer_item           = 0x0B,
+    give_item               = 0x0C,
+    remove_item             = 0x0D,
+    kill_unit               = 0x0E,
+    kill_unit_alt           = 0x0F,
+    phase_out_unit          = 0x10,
+    phase_in_unit           = 0x11,
+    polymorph_unit          = 0x12,
+    change_unit_owner       = 0x13,
+    drop_all_items          = 0x14,
+    cast_area_spell         = 0x15,
+    change_group_owner      = 0x16,
+    give_money              = 0x17,
+    cast_unit_spell         = 0x18,
+    set_trap                = 0x19,
+    set_building_health     = 0x1A,
+    teleport_unit           = 0x1B,
+    transfer_all_items      = 0x1C,
+    set_tile_spell_duration = 0x1D,
+    set_unit_spell_duration = 0x1E,
+    set_repop_delay         = 0x1F,
+    phase_out_group         = 0x20,
+    phase_in_group          = 0x21,
+    set_unit_param          = 0x22,
+    set_scenario_variable   = 0x23,
+    set_subobjective        = 0x24,
+    remove_item_from_all    = 0x26,
+    suspend_group           = 0x27,
+    drop_location           = 0x10002,
+};
+} // namespace script_action_op
+
 struct Diplomacy {
 public:
     uint8_t flags[4];

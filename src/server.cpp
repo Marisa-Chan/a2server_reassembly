@@ -658,7 +658,7 @@ void Srv1::CreateBuildings(MapAlm* alm) {
                     int32_t script_count = 0;
                     for (int32_t k = 0; k < pd->instance_id; k++) {
                         MapLogicData* logic_data = alm->logic_instances.GetNext(pos2);
-                        if (logic_data->type_id < 0x10002) {
+                        if (logic_data->type_id < script_action_op::drop_location) {
                             script_count++;
                         }
                     }
@@ -1131,7 +1131,7 @@ void Srv1::LoadTriggers(MapAlm* alm, int flag) {
     while (instance_iter != nullptr) {
         MapLogicData* action_data = alm->logic_instances.GetNext(instance_iter);
 
-        if (action_data->type_id < 0x10002) {
+        if (action_data->type_id < script_action_op::drop_location) {
             // The retail release build indexed the array for every instance
             // (including type_id >= 0x10002) and silently read out of bounds
             // once all slots were consumed; take the reference only for the
@@ -1253,7 +1253,7 @@ void Srv1::LoadTriggers(MapAlm* alm, int flag) {
                 message.Format("Failed to create instant %d %s",action_data->index, action_data->name);
                 LogMessage(message);
             }
-        } else if (action_data->type_id == 0x10002) {
+        } else if (action_data->type_id == script_action_op::drop_location) {
             const uint16_t val = (action_data->argument_values[0] & 0xFF) | ((action_data->argument_values[1] & 0xFF) << 8);
             this->drop_locations.Add(val);
         }
