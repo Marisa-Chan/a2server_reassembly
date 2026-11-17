@@ -988,12 +988,12 @@ void World::ExecuteTriggerActions() {
             int32_t left = this->trigger_variables[check.arg1];
             int32_t right = this->trigger_variables[check.arg2];
             switch (check.compare) {
-                case 0: all_pass = all_pass && (left == right); break;
-                case 1: all_pass = all_pass && (left != right); break;
-                case 2: all_pass = all_pass && (left > right); break;
-                case 3: all_pass = all_pass && (left < right); break;
-                case 4: all_pass = all_pass && (left >= right); break;
-                case 5: all_pass = all_pass && (left <= right); break;
+                case Check::CMP_EQ: all_pass = all_pass && (left == right); break;
+                case Check::CMP_NE: all_pass = all_pass && (left != right); break;
+                case Check::CMP_GT: all_pass = all_pass && (left > right); break;
+                case Check::CMP_LT: all_pass = all_pass && (left < right); break;
+                case Check::CMP_GE: all_pass = all_pass && (left >= right); break;
+                case Check::CMP_LE: all_pass = all_pass && (left <= right); break;
                 default: all_pass = false; break;
             }
         }

@@ -10,12 +10,18 @@
 
 struct Check {
 public:
+    enum CompareOp : uint32_t {
+        CMP_EQ = 0,
+        CMP_NE = 1,
+        CMP_GT = 2,
+        CMP_LT = 3,
+        CMP_GE = 4,
+        CMP_LE = 5,
+    };
+
     uint32_t arg1;
     uint32_t arg2;
     uint32_t compare;
-
-public:
-
 };
 
 class Building;
