@@ -627,11 +627,11 @@ void Srv1::CreateBuildings(MapAlm* alm) {
                     continue;
                 }
                 for (int32_t k = 0; k < 4; k++) {
-                    inn->delivery_item_id = (td->flags & 2) ? td->delivery_item_id : 0;
-                    inn->has_kill_all_humans = (td->flags & 0x10) != 0;
-                    inn->has_kill_all_monsters = (td->flags & 0x20) != 0;
-                    inn->has_kill_all_undead = (td->flags & 0x40) != 0;
-                    inn->has_raise_dead = (td->flags & 4) != 0;
+                    inn->delivery_item_id = (td->flags & MapInnData::FLAG_DELIVERY_ITEM) ? td->delivery_item_id : 0;
+                    inn->has_kill_all_humans = (td->flags & MapInnData::FLAG_KILL_HUMANS) != 0;
+                    inn->has_kill_all_monsters = (td->flags & MapInnData::FLAG_KILL_MONSTERS) != 0;
+                    inn->has_kill_all_undead = (td->flags & MapInnData::FLAG_KILL_UNDEAD) != 0;
+                    inn->has_raise_dead = (td->flags & MapInnData::FLAG_RAISE_DEAD) != 0;
                 }
             }
         } else if (0x46 <= type_id && type_id <= 0x4B) {

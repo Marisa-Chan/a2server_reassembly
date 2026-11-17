@@ -162,6 +162,14 @@ struct MapShopData {
 ASSERT_SIZE(MapShopData, 0x54);
 
 struct MapInnData {
+    enum Flags : uint32_t {
+        FLAG_DELIVERY_ITEM = 0x02,
+        FLAG_RAISE_DEAD    = 0x04,
+        FLAG_KILL_HUMANS   = 0x10,
+        FLAG_KILL_MONSTERS = 0x20,
+        FLAG_KILL_UNDEAD   = 0x40,
+    };
+
     uint32_t inn_id;
     uint32_t flags;
     uint32_t delivery_item_id;
