@@ -120,6 +120,11 @@ ASSERT_SIZE(MapEffectModifier, 6);
 #pragma pack(push, 2)
 struct MapEffectData {
 public:
+    enum Kind : uint16_t {
+        KIND_BUILDING_CASTER = 0x04,
+        KIND_UNIT_SPELLBOOK  = 0x08,
+    };
+
     uint32_t effect_id;
     MapSackData* sack;
     uint32_t trap_x;

@@ -1477,7 +1477,7 @@ void Srv1::LoadSacks(MapAlm* alm) {
         MapEffectData* effect_data = alm->effects[effect_idx];
 
         // Trap.
-        if ((effect_data->trap_x != 0 || effect_data->trap_y != 0) && effect_data->values[0] < 4) {
+        if ((effect_data->trap_x != 0 || effect_data->trap_y != 0) && effect_data->values[0] < MapEffectData::KIND_BUILDING_CASTER) {
             uint8_t data[6];
             data[0] = effect_data->type_id;
             data[1] = effect_data->spell_strength;
@@ -1491,7 +1491,7 @@ void Srv1::LoadSacks(MapAlm* alm) {
         }
 
         // Process spellbook entries for units
-        if (effect_data->sack == nullptr && (effect_data->values[0] & 8)) {
+        if (effect_data->sack == nullptr && (effect_data->values[0] & MapEffectData::KIND_UNIT_SPELLBOOK)) {
             Unit* unit = units_map[effect_data->values[1]];
             if (unit == nullptr) {
                 CString msg;
@@ -1512,7 +1512,7 @@ void Srv1::LoadSacks(MapAlm* alm) {
             // Add spell to spellbook
             Spell* spell = new Spell(effect_data->type_id);
             unit->spell_book->SetSpell(effect_data->type_id, spell);
-        } else if ((effect_data->trap_x != 0 || effect_data->trap_y != 0) && effect_data->sack == nullptr && (effect_data->values[0] & 4)) {
+        } else if ((effect_data->trap_x != 0 || effect_data->trap_y != 0) && effect_data->sack == nullptr && (effect_data->values[0] & MapEffectData::KIND_BUILDING_CASTER)) {
             Building* building = buildings_map[effect_data->values[1]];
             if (building == nullptr) {
                 CString msg;
