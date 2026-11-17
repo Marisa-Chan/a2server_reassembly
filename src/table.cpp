@@ -164,27 +164,27 @@ void WorldEquip::ParseValue(CString str, int32_t type_id, int32_t* out_value, do
         *out_value = 0;
     } else if (type_id == 6) {
         if (str == "blade") {
-            *out_value = 1;
+            *out_value = weapon_attack::blade;
         } else if (str == "axe") {
-            *out_value = 2;
+            *out_value = weapon_attack::axe;
         } else if (str == "crush") {
-            *out_value = 3;
+            *out_value = weapon_attack::bludgeon;
         } else if (str == "pike") {
-            *out_value = 4;
+            *out_value = weapon_attack::pike;
         } else if (str == "shoot") {
-            *out_value = 5;
+            *out_value = weapon_attack::shooting;
         } else if (str == "fire") {
-            *out_value = 11;
+            *out_value = weapon_attack::staff_fire;
         } else if (str == "water") {
-            *out_value = 12;
+            *out_value = weapon_attack::staff_water;
         } else if (str == "air") {
-            *out_value = 13;
+            *out_value = weapon_attack::staff_air;
         } else if (str == "earth") {
-            *out_value = 14;
+            *out_value = weapon_attack::staff_earth;
         } else if (str == "astral") {
-            *out_value = 15;
+            *out_value = weapon_attack::staff_astral;
         } else {
-            *out_value = 0;
+            *out_value = weapon_attack::unarmed;
         }
     } else {
         TableLine::ParseValue(str, type_id, out_value, out_double);

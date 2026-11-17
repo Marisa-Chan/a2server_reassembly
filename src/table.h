@@ -165,6 +165,23 @@ namespace equip_suitable {
     };
 }
 
+namespace weapon_attack {
+    enum : uint8_t {
+        unarmed         = 0,
+        blade           = 1,
+        axe             = 2,
+        bludgeon        = 3,
+        pike            = 4,
+        shooting        = 5,
+        staff_threshold = 10,
+        staff_fire      = 11,
+        staff_water     = 12,
+        staff_air       = 13,
+        staff_earth     = 14,
+        staff_astral    = 15,
+    };
+}
+
 struct EquipData {
     int32_t shape;
     int32_t material;

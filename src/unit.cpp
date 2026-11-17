@@ -170,7 +170,7 @@ void __cdecl ExecuteMeleeAttack(Unit* self, Unit* target) {
     }
 
     // Melee humanoid fighters cannot hit flying targets.
-    if (self->IsHumanoid() && (self->unit_attrs & 4) == 0 && self->hit_values.physical_damage_type != 5 && target->movement_type == 3) {
+    if (self->IsHumanoid() && (self->unit_attrs & 4) == 0 && self->hit_values.physical_damage_type != weapon_attack::shooting && target->movement_type == 3) {
         return;
     }
 
@@ -2823,9 +2823,9 @@ void Humanoid::AddExperience(uint32_t new_exp, Unit* target, int32_t sphere) {
     if ((this->unit_attrs & 4) == 0) {
         // Fighter: physical attack XP goes to the weapon combat sphere.
         int phys_sphere = this->hit_values.physical_damage_type;
-        if (sphere == 0 && phys_sphere != 0 && this->hit_values.skill_levels[phys_sphere] < max_skill) {
+        if (sphere == 0 && phys_sphere != weapon_attack::unarmed && this->hit_values.skill_levels[phys_sphere] < max_skill) {
             // Secondary spheres gain XP at 1/8 the normal rate.
-            if (phys_sphere != this->main_sphere && phys_sphere != 5) {
+            if (phys_sphere != this->main_sphere && phys_sphere != weapon_attack::shooting) {
                 new_exp = (new_exp + 7) / 8;
             }
 

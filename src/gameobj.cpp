@@ -1460,11 +1460,11 @@ void CUnit::CopyFromUnit(const Unit& uni) { //46b0d7
     this->carrying_weight_100g = uni.carrying_weight_100g;
 
     if (((Unit&)uni).IsHumanoid() == 0) { //FIXME when this method become const
-        this->skill_levels[0] = uni.protections.weapon_protections[1];
-        this->skill_levels[1] = uni.protections.weapon_protections[2];
-        this->skill_levels[2] = uni.protections.weapon_protections[3];
-        this->skill_levels[3] = uni.protections.weapon_protections[4];
-        this->skill_levels[4] = uni.protections.weapon_protections[5];
+        this->skill_levels[0] = uni.protections.weapon_protections[weapon_attack::blade];
+        this->skill_levels[1] = uni.protections.weapon_protections[weapon_attack::axe];
+        this->skill_levels[2] = uni.protections.weapon_protections[weapon_attack::bludgeon];
+        this->skill_levels[3] = uni.protections.weapon_protections[weapon_attack::pike];
+        this->skill_levels[4] = uni.protections.weapon_protections[weapon_attack::shooting];
     } else {
         Humanoid& hum = (Humanoid&)uni;
         this->skill_levels[0] = hum.hit_values.skill_levels[1];

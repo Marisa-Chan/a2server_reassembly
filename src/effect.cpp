@@ -8,6 +8,7 @@
 #include "game_app.h"
 #include "net.h"
 #include "spell.h"
+#include "table.h"
 #include "unit.h"
 #if defined(A2SERVER_PATCH) || defined(A2TANGAR_HAT)
 #include "patch/config_new.h"
@@ -439,36 +440,36 @@ void Effect::ApplyStatDelta(Unit* unit, int32_t stack_delta) {
             break;
         case modifier::fighterskill0:
             if (!(unit->unit_attrs & 4)) {
-                unit->equipment_extra.hit_values.skill_levels[0] += value;
+                unit->equipment_extra.hit_values.skill_levels[weapon_attack::unarmed] += value;
             }
             break;
         case modifier::skillblade:
             if (!(unit->unit_attrs & 4)) {
-                unit->equipment_extra.hit_values.skill_levels[1] += value;
+                unit->equipment_extra.hit_values.skill_levels[weapon_attack::blade] += value;
             }
             unit->item_op_dirty_flags |= (UNIT_UPD_SKILL_LEVELS | UNIT_UPD_HAND_DAMAGE);
             break;
         case modifier::skillaxe:
             if (!(unit->unit_attrs & 4)) {
-                unit->equipment_extra.hit_values.skill_levels[2] += value;
+                unit->equipment_extra.hit_values.skill_levels[weapon_attack::axe] += value;
             }
             unit->item_op_dirty_flags |= (UNIT_UPD_SKILL_LEVELS | UNIT_UPD_HAND_DAMAGE);
             break;
         case modifier::skillbludgeon:
             if (!(unit->unit_attrs & 4)) {
-                unit->equipment_extra.hit_values.skill_levels[3] += value;
+                unit->equipment_extra.hit_values.skill_levels[weapon_attack::bludgeon] += value;
             }
             unit->item_op_dirty_flags |= (UNIT_UPD_SKILL_LEVELS | UNIT_UPD_HAND_DAMAGE);
             break;
         case modifier::skillpike:
             if (!(unit->unit_attrs & 4)) {
-                unit->equipment_extra.hit_values.skill_levels[4] += value;
+                unit->equipment_extra.hit_values.skill_levels[weapon_attack::pike] += value;
             }
             unit->item_op_dirty_flags |= (UNIT_UPD_SKILL_LEVELS | UNIT_UPD_HAND_DAMAGE);
             break;
         case modifier::skillshooting:
             if (!(unit->unit_attrs & 4)) {
-                unit->equipment_extra.hit_values.skill_levels[5] += value;
+                unit->equipment_extra.hit_values.skill_levels[weapon_attack::shooting] += value;
             }
             unit->item_op_dirty_flags |= (UNIT_UPD_SKILL_LEVELS | UNIT_UPD_HAND_DAMAGE);
             break;

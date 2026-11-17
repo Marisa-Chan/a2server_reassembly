@@ -1232,7 +1232,7 @@ Item* Weapon::Equip(Unit* unit) {
 
     unit->weapon = this;
     int32_t attack_type = this->world_equip->Values()[0].attack_type;
-    if (attack_type < 10) {
+    if (attack_type < weapon_attack::staff_threshold) {
         unit->equipment_extra.hit_values.hand_damage_min += this->hit_values.hand_damage_min;
         unit->equipment_extra.hit_values.hand_damage_spread += this->hit_values.hand_damage_spread;
         unit->equipment_extra.protections.defense += this->protections.defense;
@@ -1242,17 +1242,17 @@ Item* Weapon::Equip(Unit* unit) {
         unit->equipment_extra.hit_values.attack += this->hit_values.attack;
         unit->hit_values.physical_damage_type = (uint8_t)attack_type;
     } else {
-        if (attack_type == 11) {
+        if (attack_type == weapon_attack::staff_fire) {
             unit->equipment_extra.hit_values.some_damage2_min += this->hit_values.hand_damage_min;
             unit->equipment_extra.hit_values.some_damage2_spread += this->hit_values.hand_damage_spread;
             unit->equipment_extra.hit_values.spell_id = spell::fire_arrow;
-        } else if (attack_type == 12) {
+        } else if (attack_type == weapon_attack::staff_water) {
             unit->equipment_extra.hit_values.some_damage2_min += this->hit_values.hand_damage_min;
             unit->equipment_extra.hit_values.some_damage2_spread += this->hit_values.hand_damage_spread;
             unit->equipment_extra.hit_values.spell_id = spell::fire_ball;
         }
-        unit->equipment_extra.hit_values.attack = unit->hit_values.skill_levels[0];
-        unit->hit_values.physical_damage_type = 0;
+        unit->equipment_extra.hit_values.attack = unit->hit_values.skill_levels[weapon_attack::unarmed];
+        unit->hit_values.physical_damage_type = weapon_attack::unarmed;
     }
     unit->RecalcStats();
     if (unit->IsHumanoid() != 0) {
@@ -1274,20 +1274,20 @@ Item* Weapon::Equip(Unit* unit) {
 void Weapon::Unequip(Unit* unit) {
     this->RemoveEffects(unit);
     int32_t attack_type = this->world_equip->Values()[0].attack_type;
-    if (attack_type < 10) {
+    if (attack_type < weapon_attack::staff_threshold) {
         unit->equipment_extra.hit_values.hand_damage_min -= this->hit_values.hand_damage_min;
         unit->equipment_extra.hit_values.hand_damage_spread -= this->hit_values.hand_damage_spread;
         unit->equipment_extra.protections.defense -= this->protections.defense;
         unit->equipment_extra.hit_values.spell_id = 0;
         unit->equipment_extra.hit_values.some_damage2_min = 0;
         unit->equipment_extra.hit_values.some_damage2_spread = 0;
-    } else if (attack_type == 11 || attack_type == 12) {
+    } else if (attack_type == weapon_attack::staff_fire || attack_type == weapon_attack::staff_water) {
         unit->equipment_extra.hit_values.some_damage2_min -= this->hit_values.hand_damage_min;
         unit->equipment_extra.hit_values.some_damage2_spread -= this->hit_values.hand_damage_spread;
         unit->equipment_extra.hit_values.spell_id = 0;
     }
     unit->equipment_extra.hit_values.attack -= this->hit_values.attack;
-    unit->hit_values.physical_damage_type = 0;
+    unit->hit_values.physical_damage_type = weapon_attack::unarmed;
     unit->RecalcStats();
     unit->max_range -= (uint8_t)(this->range - 1);
     unit->charge = 8;
