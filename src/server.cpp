@@ -6563,17 +6563,17 @@ void Server::ServerTic() {
             Player* p = g_PlayersList->FindById(k);
             if (v != 0 && p != nullptr) {
                 g_NetStru1_main.SendSrvStru1State(&g_QuestMap, p, 0);
-                if ((v & 0x10) != 0) {
-                    g_NetStru1_main.SendTeamNotify(0x10, 0, p);
+                if ((v & QuestMap::FLAG_ACCEPTED) != 0) {
+                    g_NetStru1_main.SendTeamNotify(QuestMap::FLAG_ACCEPTED, 0, p);
                 }
-                if ((v & 0x20) != 0) {
-                    g_NetStru1_main.SendTeamNotify(0x20, 0, p);
+                if ((v & QuestMap::FLAG_COMPLETED) != 0) {
+                    g_NetStru1_main.SendTeamNotify(QuestMap::FLAG_COMPLETED, 0, p);
                 }
-                if ((v & 0x40) != 0) {
-                    g_NetStru1_main.SendTeamNotify(0x40, 0, p);
+                if ((v & QuestMap::FLAG_FAILED) != 0) {
+                    g_NetStru1_main.SendTeamNotify(QuestMap::FLAG_FAILED, 0, p);
                 }
-                if ((v & 0x80) != 0) {
-                    g_NetStru1_main.SendTeamNotify(0x80, 0, p);
+                if ((v & QuestMap::FLAG_KILLED_BY_OTHER) != 0) {
+                    g_NetStru1_main.SendTeamNotify(QuestMap::FLAG_KILLED_BY_OTHER, 0, p);
                 }
             }
         }

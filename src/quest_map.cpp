@@ -106,7 +106,7 @@ void QuestMap::RegisterQuest(Quest* quest) {
 
 // 55E5FB
 void QuestMap::UnregisterQuest(Quest* quest) {
-	this->flags[quest->quest_data.player_id] |= 1;
+	this->flags[quest->quest_data.player_id] |= QuestMap::FLAG_UNREGISTERED;
 	this->quests_map.RemoveKey(quest->quest_data.quest_id);
 	quest->quest_map = nullptr;
 

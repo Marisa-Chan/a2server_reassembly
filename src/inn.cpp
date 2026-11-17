@@ -1401,7 +1401,7 @@ void Inn::RemoveUnit(Humanoid* humanoid, int32_t id) {
                 this->active_quest->quest_data.state = Quest::STATE_IN_WORK;
                 g_QuestMap.RegisterQuest(this->active_quest);
                 g_NetStru1_main.SendSrvStru1State(&g_QuestMap, humanoid->pOwner, 0);
-                g_NetStru1_main.SendTeamNotify(0x10, 0, humanoid->pOwner);
+                g_NetStru1_main.SendTeamNotify(QuestMap::FLAG_ACCEPTED, 0, humanoid->pOwner);
 
                 int32_t kind = this->active_quest->Kind();
                 switch (kind) {

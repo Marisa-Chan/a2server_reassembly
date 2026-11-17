@@ -65,14 +65,14 @@ int32_t Quest::OnEvent(int32_t event_type, int32_t a, int32_t b) {
             this->MarkCompleted();
             uint32_t old_flags = 0;
             this->quest_map->flags.Lookup(this->quest_data.player_id, old_flags);
-            this->quest_map->flags[this->quest_data.player_id] = old_flags | 0x20;
+            this->quest_map->flags[this->quest_data.player_id] = old_flags | QuestMap::FLAG_COMPLETED;
         }
     } else if (event_type == Quest::EVENT_FORCE_FAIL) {
         if (a == this->quest_data.quest_id && this->quest_data.state == Quest::STATE_IN_WORK) {
             this->MarkFailed();
             uint32_t old_flags = 0;
             this->quest_map->flags.Lookup(this->quest_data.player_id, old_flags);
-            this->quest_map->flags[this->quest_data.player_id] = old_flags | 0x40;
+            this->quest_map->flags[this->quest_data.player_id] = old_flags | QuestMap::FLAG_FAILED;
         }
     } else if (event_type == Quest::EVENT_QUERY_PLAYER_INN_QUEST) {
         if (a == this->quest_data.player_id && b == this->quest_data.building_id && this->quest_data.state == Quest::STATE_IN_WORK) {
@@ -382,7 +382,7 @@ int32_t QuestInterceptUnit::OnEvent(int32_t event_type, int32_t a, int32_t b) {
         if (a == this->quest_data.obj && this->quest_data.state != Quest::STATE_COMPLETED && this->quest_data.state != Quest::STATE_FAILED) {
             if ((b & 0xffff) != this->quest_data.player_id) {
                 this->quest_map->UnregisterQuest(this);
-                this->quest_map->flags[this->quest_data.player_id] = 0x80;
+                this->quest_map->flags[this->quest_data.player_id] = QuestMap::FLAG_KILLED_BY_OTHER;
                 return 0;
             }
             this->quest_map->QueueEvent(Quest::EVENT_FORCE_COMPLETE, this->quest_data.quest_id, 0);
@@ -423,7 +423,7 @@ int32_t QuestInterceptGroup::OnEvent(int32_t event_type, int32_t a, int32_t b) {
         if (a == this->quest_data.obj && this->quest_data.state != Quest::STATE_COMPLETED && this->quest_data.state != Quest::STATE_FAILED) {
             if ((b & 0xffff) != this->quest_data.player_id) {
                 this->quest_map->UnregisterQuest(this);
-                this->quest_map->flags[this->quest_data.player_id] = 0x80;
+                this->quest_map->flags[this->quest_data.player_id] = QuestMap::FLAG_KILLED_BY_OTHER;
                 return 0;
             }
             this->quest_map->QueueEvent(Quest::EVENT_FORCE_COMPLETE, this->quest_data.quest_id, 0);

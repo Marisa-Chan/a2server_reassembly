@@ -1727,7 +1727,7 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 				}
 				break;
 
-			case 0x10:
+			case QuestMap::FLAG_ACCEPTED:
 				this->msglog.Add(txt_patch.GetLine(0x58), clr_log_sblack, 5000);
 
 				if ((wnd->dialogsMask & DIALOG_MASK_INGAME) != 0) {
@@ -1735,7 +1735,7 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 				}
 				break;
 
-			case 0x20:
+			case QuestMap::FLAG_COMPLETED:
 				this->msglog.Add(txt_patch.GetLine(0x59), clr_log_sblack, 5000);
 				this->msglog.Add(txt_patch.GetLine(0x5a), clr_log_sblack, 5000);
 
@@ -1744,7 +1744,7 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 				}
 				break;
 
-			case 0x40:
+			case QuestMap::FLAG_FAILED:
 				this->msglog.Add(txt_patch.GetLine(0x5b), clr_log_sblack, 5000);
 
 				if ((wnd->dialogsMask & DIALOG_MASK_INGAME) != 0) {
@@ -1752,7 +1752,7 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 				}
 				break;
 
-			case 0x80:
+			case QuestMap::FLAG_KILLED_BY_OTHER:
 				this->msglog.Add(txt_patch.GetLine(0x5c), clr_log_sblack, 5000);
 
 				if ((wnd->dialogsMask & DIALOG_MASK_INGAME) != 0) {
