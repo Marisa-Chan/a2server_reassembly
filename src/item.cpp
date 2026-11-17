@@ -1364,12 +1364,12 @@ void Weapon::WriteState(PacketUnitStateVec* pkt, uint8_t* slot) {
     }
     if (this->hit_values.some_damage2_spread != 0) {
         uint8_t damage_sphere = 0;
-        switch (this->hit_values.spell_id) { // Mmm, maybe it's not `spell_id` but some kind of damage type?
-        case 1: damage_sphere = modifier::damagefire; break;
-        case 2: damage_sphere = modifier::damagewater; break;
-        case 3: damage_sphere = modifier::damageair; break;
-        case 4: damage_sphere = modifier::damageearth; break;
-        case 5: damage_sphere = modifier::damageastral; break;
+        switch (this->hit_values.spell_id) {
+        case magic_sphere::fire:   damage_sphere = modifier::damagefire; break;
+        case magic_sphere::water:  damage_sphere = modifier::damagewater; break;
+        case magic_sphere::air:    damage_sphere = modifier::damageair; break;
+        case magic_sphere::earth:  damage_sphere = modifier::damageearth; break;
+        case magic_sphere::astral: damage_sphere = modifier::damageastral; break;
         }
         pkt->AppendByteByte(damage_sphere, this->hit_values.some_damage2_min, slot);
         pkt->AppendByteByte(modifier::damagemax, this->hit_values.some_damage2_spread, slot);

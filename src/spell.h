@@ -16,6 +16,18 @@ class Unit;
 
 extern const std::array<uint32_t, 32> SpellBtB;
 
+namespace magic_sphere {
+    enum : uint8_t {
+        none   = 0,
+        fire   = 1,
+        water  = 2,
+        air    = 3,
+        earth  = 4,
+        astral = 5,
+        count  = 6,
+    };
+}
+
 class Spell : public CObject {
 public:
     DECLARE_SERIAL(Spell);

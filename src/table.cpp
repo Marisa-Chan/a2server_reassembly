@@ -12,6 +12,7 @@
 #include "file.h"
 #include "item.h"
 #include "resource.h"
+#include "spell.h"
 
 CStringArray g_SpellDisplayNames;
 CStringArray g_ArmorDisplayNames;
@@ -489,26 +490,26 @@ void SpellInfo::ParseValue(CString str, int32_t type_id, int32_t* out_value, dou
         return;
     case 3:
         if (str.IsEmpty()) {
-            *out_value = 0;
+            *out_value = magic_sphere::none;
         } else {
             switch (str[0]) {
             case 'A':
-                *out_value = 3;
+                *out_value = magic_sphere::air;
                 break;
             case 'F':
-                *out_value = 1;
+                *out_value = magic_sphere::fire;
                 break;
             case 'G':
-                *out_value = 4;
+                *out_value = magic_sphere::earth;
                 break;
             case 'I':
-                *out_value = 5;
+                *out_value = magic_sphere::astral;
                 break;
             case 'W':
-                *out_value = 2;
+                *out_value = magic_sphere::water;
                 break;
             default:
-                *out_value = 0;
+                *out_value = magic_sphere::none;
                 break;
             }
         }

@@ -500,7 +500,7 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
         direct_damage = dd;
         dd->itemDataID = this->spell_id;
         dd->caster = (caster->monster_info != nullptr) ? caster : nullptr;
-        if (1 <= sphere && sphere <= 5) {
+        if (magic_sphere::fire <= sphere && sphere <= magic_sphere::astral) {
             dd->unit_to_hit.some_damage2_min = this->damage_min;
             dd->unit_to_hit.some_damage2_spread = this->damage_spread;
             dd->unit_to_hit.spell_id = sphere;
@@ -594,7 +594,7 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
 #endif
             }
             if (target->IsUnit() != 0) {
-                int32_t earth_protection = target->protections.magic_protections[4];
+                int32_t earth_protection = target->protections.magic_protections[magic_sphere::earth];
                 int32_t max_duration = effect->spell_value * (100 - earth_protection) / 100;
 #ifdef A2TANGAR_HAT
                 // srv_pvm.xck + verify_damage hook (53C390 -> 5040D2)
@@ -817,7 +817,7 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
                 unit->ReleaseObjects();
 
                 int32_t roll = Random1N(3);
-                int32_t tier = caster->hit_values.skill_levels[5] / 25 + 1;
+                int32_t tier = caster->hit_values.skill_levels[magic_sphere::astral] / 25 + 1;
                 if (tier < 1) {
                     tier = 1;
                 }
@@ -867,7 +867,7 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
                     return;
                 }
                 int32_t drain = this->damage_min + Random1N(this->damage_spread);
-                int32_t astral_protection = target->protections.magic_protections[5];
+                int32_t astral_protection = target->protections.magic_protections[magic_sphere::astral];
                 drain = drain * (100 - astral_protection) / 100;
                 int32_t till_corpse = target->hp + 10;
                 if (drain >= till_corpse) {

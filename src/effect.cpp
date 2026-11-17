@@ -21,8 +21,8 @@ IMPLEMENT_SERIAL(Effect, Token, 1); // 637098.
 void Effect::ApplyToUnit(Unit* unit) {
     if (this->itemDataID == spell::poison_cloud) {
         int32_t damage = -this->spell_or_damage;
-        if (unit->protections.magic_protections[2] != 0) {
-            damage = (int32_t)((damage * (100 - unit->protections.magic_protections[2])) / 100.0 + 0.5);
+        if (unit->protections.magic_protections[magic_sphere::water] != 0) {
+            damage = (int32_t)((damage * (100 - unit->protections.magic_protections[magic_sphere::water])) / 100.0 + 0.5);
         }
         if (damage != 0) {
 #ifdef A2TANGAR_HAT
@@ -396,44 +396,44 @@ void Effect::ApplyStatDelta(Unit* unit, int32_t stack_delta) {
             unit->item_op_dirty_flags |= UNIT_UPD_SCAN_RANGE;
             break;
         case modifier::protection0:
-            unit->equipment_extra.protections.magic_protections[0] += value;
-            if (unit->equipment_extra.protections.magic_protections[0] < 0) {
-                unit->equipment_extra.protections.magic_protections[0] = 0;
+            unit->equipment_extra.protections.magic_protections[magic_sphere::none] += value;
+            if (unit->equipment_extra.protections.magic_protections[magic_sphere::none] < 0) {
+                unit->equipment_extra.protections.magic_protections[magic_sphere::none] = 0;
             }
             unit->item_op_dirty_flags |= UNIT_UPD_MAGIC_PROTECT;
             break;
         case modifier::protectionfire:
-            unit->equipment_extra.protections.magic_protections[1] += value;
-            if (unit->equipment_extra.protections.magic_protections[1] < 0) {
-                unit->equipment_extra.protections.magic_protections[1] = 0;
+            unit->equipment_extra.protections.magic_protections[magic_sphere::fire] += value;
+            if (unit->equipment_extra.protections.magic_protections[magic_sphere::fire] < 0) {
+                unit->equipment_extra.protections.magic_protections[magic_sphere::fire] = 0;
             }
             unit->item_op_dirty_flags |= UNIT_UPD_MAGIC_PROTECT;
             break;
         case modifier::protectionwater:
-            unit->equipment_extra.protections.magic_protections[2] += value;
-            if (unit->equipment_extra.protections.magic_protections[2] < 0) {
-                unit->equipment_extra.protections.magic_protections[2] = 0;
+            unit->equipment_extra.protections.magic_protections[magic_sphere::water] += value;
+            if (unit->equipment_extra.protections.magic_protections[magic_sphere::water] < 0) {
+                unit->equipment_extra.protections.magic_protections[magic_sphere::water] = 0;
             }
             unit->item_op_dirty_flags |= UNIT_UPD_MAGIC_PROTECT;
             break;
         case modifier::protectionair:
-            unit->equipment_extra.protections.magic_protections[3] += value;
-            if (unit->equipment_extra.protections.magic_protections[3] < 0) {
-                unit->equipment_extra.protections.magic_protections[3] = 0;
+            unit->equipment_extra.protections.magic_protections[magic_sphere::air] += value;
+            if (unit->equipment_extra.protections.magic_protections[magic_sphere::air] < 0) {
+                unit->equipment_extra.protections.magic_protections[magic_sphere::air] = 0;
             }
             unit->item_op_dirty_flags |= UNIT_UPD_MAGIC_PROTECT;
             break;
         case modifier::protectionearth:
-            unit->equipment_extra.protections.magic_protections[4] += value;
-            if (unit->equipment_extra.protections.magic_protections[4] < 0) {
-                unit->equipment_extra.protections.magic_protections[4] = 0;
+            unit->equipment_extra.protections.magic_protections[magic_sphere::earth] += value;
+            if (unit->equipment_extra.protections.magic_protections[magic_sphere::earth] < 0) {
+                unit->equipment_extra.protections.magic_protections[magic_sphere::earth] = 0;
             }
             unit->item_op_dirty_flags |= UNIT_UPD_MAGIC_PROTECT;
             break;
         case modifier::protectionastral:
-            unit->equipment_extra.protections.magic_protections[5] += value;
-            if (unit->equipment_extra.protections.magic_protections[5] < 0) {
-                unit->equipment_extra.protections.magic_protections[5] = 0;
+            unit->equipment_extra.protections.magic_protections[magic_sphere::astral] += value;
+            if (unit->equipment_extra.protections.magic_protections[magic_sphere::astral] < 0) {
+                unit->equipment_extra.protections.magic_protections[magic_sphere::astral] = 0;
             }
             unit->item_op_dirty_flags |= UNIT_UPD_MAGIC_PROTECT;
             break;
@@ -474,36 +474,36 @@ void Effect::ApplyStatDelta(Unit* unit, int32_t stack_delta) {
             break;
         case modifier::mageskill0:
             if (unit->unit_attrs & 4) {
-                unit->equipment_extra.hit_values.skill_levels[0] += value;
+                unit->equipment_extra.hit_values.skill_levels[magic_sphere::none] += value;
             }
             break;
         case modifier::skillfire:
             if (unit->unit_attrs & 4) {
-                unit->equipment_extra.hit_values.skill_levels[1] += value;
+                unit->equipment_extra.hit_values.skill_levels[magic_sphere::fire] += value;
             }
             unit->item_op_dirty_flags |= UNIT_UPD_SKILL_LEVELS;
             break;
         case modifier::skillwater:
             if (unit->unit_attrs & 4) {
-                unit->equipment_extra.hit_values.skill_levels[2] += value;
+                unit->equipment_extra.hit_values.skill_levels[magic_sphere::water] += value;
             }
             unit->item_op_dirty_flags |= UNIT_UPD_SKILL_LEVELS;
             break;
         case modifier::skillair:
             if (unit->unit_attrs & 4) {
-                unit->equipment_extra.hit_values.skill_levels[3] += value;
+                unit->equipment_extra.hit_values.skill_levels[magic_sphere::air] += value;
             }
             unit->item_op_dirty_flags |= UNIT_UPD_SKILL_LEVELS;
             break;
         case modifier::skillearth:
             if (unit->unit_attrs & 4) {
-                unit->equipment_extra.hit_values.skill_levels[4] += value;
+                unit->equipment_extra.hit_values.skill_levels[magic_sphere::earth] += value;
             }
             unit->item_op_dirty_flags |= UNIT_UPD_SKILL_LEVELS;
             break;
         case modifier::skillastral:
             if (unit->unit_attrs & 4) {
-                unit->equipment_extra.hit_values.skill_levels[5] += value;
+                unit->equipment_extra.hit_values.skill_levels[magic_sphere::astral] += value;
             }
             unit->item_op_dirty_flags |= UNIT_UPD_SKILL_LEVELS;
             break;
@@ -524,31 +524,31 @@ void Effect::ApplyStatDelta(Unit* unit, int32_t stack_delta) {
             unit->item_op_dirty_flags |= UNIT_UPD_SPELLS;
             break;
         case modifier::damagefire:
-            unit->equipment_extra.hit_values.spell_id = 1;
+            unit->equipment_extra.hit_values.spell_id = magic_sphere::fire;
             unit->equipment_extra.hit_values.some_damage2_min = this->damage_min;
             unit->equipment_extra.hit_values.some_damage2_spread = this->damage_spread;
             unit->item_op_dirty_flags |= UNIT_UPD_HAND_DAMAGE;
             break;
         case modifier::damagewater:
-            unit->equipment_extra.hit_values.spell_id = 2;
+            unit->equipment_extra.hit_values.spell_id = magic_sphere::water;
             unit->equipment_extra.hit_values.some_damage2_min = this->damage_min;
             unit->equipment_extra.hit_values.some_damage2_spread = this->damage_spread;
             unit->item_op_dirty_flags |= UNIT_UPD_HAND_DAMAGE;
             break;
         case modifier::damageair:
-            unit->equipment_extra.hit_values.spell_id = 3;
+            unit->equipment_extra.hit_values.spell_id = magic_sphere::air;
             unit->equipment_extra.hit_values.some_damage2_min = this->damage_min;
             unit->equipment_extra.hit_values.some_damage2_spread = this->damage_spread;
             unit->item_op_dirty_flags |= UNIT_UPD_HAND_DAMAGE;
             break;
         case modifier::damageearth:
-            unit->equipment_extra.hit_values.spell_id = 4;
+            unit->equipment_extra.hit_values.spell_id = magic_sphere::earth;
             unit->equipment_extra.hit_values.some_damage2_min = this->damage_min;
             unit->equipment_extra.hit_values.some_damage2_spread = this->damage_spread;
             unit->item_op_dirty_flags |= UNIT_UPD_HAND_DAMAGE;
             break;
         case modifier::damageastral:
-            unit->equipment_extra.hit_values.spell_id = 5;
+            unit->equipment_extra.hit_values.spell_id = magic_sphere::astral;
             unit->equipment_extra.hit_values.some_damage2_min = this->damage_min;
             unit->equipment_extra.hit_values.some_damage2_spread = this->damage_spread;
             unit->item_op_dirty_flags |= UNIT_UPD_HAND_DAMAGE;
