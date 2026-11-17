@@ -36,12 +36,12 @@ void QuestInnGlue::ProcessQuests() {
         this->current_quest_key = key;
         this->current_quest = quest;
         switch (quest->GetGlueEvent()) {
-        case 6:  this->ProcessEscortTarget(this->current_quest); break;
-        case 7:  this->ProcessDeliverItem(this->current_quest); break;
-        case 8:  this->SpawnZombieMobs(this->current_quest); break;
-        case 9:  this->SpawnSkeletonMobs(this->current_quest); break;
-        case 10: this->SpawnGhostMobs(this->current_quest); break;
-        case 11: this->ProcessInterceptGroup(this->current_quest); break;
+        case Quest::EVENT_UNIT_REACHED_INN:  this->ProcessEscortTarget(this->current_quest); break;
+        case Quest::EVENT_ITEM_DELIVERED:    this->ProcessDeliverItem(this->current_quest); break;
+        case Quest::EVENT_ZOMBIES_RAISED:    this->SpawnZombieMobs(this->current_quest); break;
+        case Quest::EVENT_SKELETONS_RAISED:  this->SpawnSkeletonMobs(this->current_quest); break;
+        case Quest::EVENT_GHOSTS_RAISED:     this->SpawnGhostMobs(this->current_quest); break;
+        case Quest::EVENT_INTERCEPT_ESCAPED: this->ProcessInterceptGroup(this->current_quest); break;
         }
     }
 }
@@ -69,7 +69,7 @@ void QuestInnGlue::ProcessEscortTarget(Quest* quest) {
             g_NetStru1_main.TransferUnitOwnership(unit, building->pOwner);
         }
     }
-    this->quest_map->QueueEvent(6, inn_id, this->building_id << 16);
+    this->quest_map->QueueEvent(Quest::EVENT_UNIT_REACHED_INN, inn_id, this->building_id << 16);
 }
 
 // 5BAA38
@@ -102,7 +102,7 @@ void QuestInnGlue::ProcessDeliverItem(Quest* quest) {
 
     if (found) {
         int32_t item_id = quest->GetGlueParam();
-        this->quest_map->QueueEvent(7, item_id, (this->building_id << 16) | player_id);
+        this->quest_map->QueueEvent(Quest::EVENT_ITEM_DELIVERED, item_id, (this->building_id << 16) | player_id);
     }
 }
 
@@ -146,7 +146,7 @@ void QuestInnGlue::ProcessInterceptGroup(Quest* quest) {
     }
 
     if (found) {
-        this->quest_map->QueueEvent(11, group_id, this->building_id << 16);
+        this->quest_map->QueueEvent(Quest::EVENT_INTERCEPT_ESCAPED, group_id, this->building_id << 16);
     }
 }
 
@@ -185,7 +185,7 @@ void QuestInnGlue::SpawnZombieMobs(Quest* quest) {
         return;
     }
 
-    this->quest_map->QueueEvent(8, (hp_sum << 16) | count, (this->building_id << 16) | player_id);
+    this->quest_map->QueueEvent(Quest::EVENT_ZOMBIES_RAISED, (hp_sum << 16) | count, (this->building_id << 16) | player_id);
 
     for (POSITION gpos = player->group_list->groups.GetHeadPosition(); gpos != nullptr;) {
         Group* group = player->group_list->groups.GetNext(gpos);
@@ -254,7 +254,7 @@ void QuestInnGlue::SpawnSkeletonMobs(Quest* quest) {
             }
         }
     }
-    this->quest_map->QueueEvent(9, (hp_sum << 16) | count, (this->building_id << 16) | player_id);
+    this->quest_map->QueueEvent(Quest::EVENT_SKELETONS_RAISED, (hp_sum << 16) | count, (this->building_id << 16) | player_id);
 }
 
 // 5BB10A
@@ -308,7 +308,7 @@ void QuestInnGlue::SpawnGhostMobs(Quest* quest) {
         }
     }
 
-    this->quest_map->QueueEvent(10, (hp_sum << 16) | count, (this->building_id << 16) | player_id);
+    this->quest_map->QueueEvent(Quest::EVENT_GHOSTS_RAISED, (hp_sum << 16) | count, (this->building_id << 16) | player_id);
 }
 
 // 5BB310

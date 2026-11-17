@@ -688,7 +688,7 @@ void VisTavLeftPanel::DrawUnitPanel(CUnit* unit) {
         }
     }
 
-    uint32_t quest_result = main_wnd->vis_map_context->quest_map->OnEvent(0x11, main_wnd->vis_map_context->my_main_unit->index, this->vis_tav->inn_id);
+    uint32_t quest_result = main_wnd->vis_map_context->quest_map->OnEvent(Quest::EVENT_QUERY_PLAYER_INN_QUEST, main_wnd->vis_map_context->my_main_unit->index, this->vis_tav->inn_id);
     Quest* quest;
     int32_t quest_found;
     if (quest_result != 0) {
@@ -920,7 +920,7 @@ int32_t VisTavRightPanel::OnLButtonUp(uint32_t wparam, CPoint pos) {
             }
         } else {
             if (button == 0) {
-                if (main_wnd->vis_map_context->quest_map->OnEvent(0x11, main_wnd->vis_map_context->my_main_unit->index, this->vis_tav->inn_id) != 0) {
+                if (main_wnd->vis_map_context->quest_map->OnEvent(Quest::EVENT_QUERY_PLAYER_INN_QUEST, main_wnd->vis_map_context->my_main_unit->index, this->vis_tav->inn_id) != 0) {
                     this->vis_tav->quest_alt_close = (this->vis_tav->quest_alt_close == 0);
                 } else {
                     if (this->vis_tav->quest_map->GetQuestCount() != 0 || this->vis_tav->rewards.GetSize() != 0) {
@@ -1134,7 +1134,7 @@ void VisTavRightPanel::UpdateButtonLabels() {
                 this->texts[0] = TxtFile::AllLines[0x164];
                 this->texts[1] = TxtFile::AllLines[0x165];
             } else {
-                if (main_wnd->vis_map_context->quest_map->OnEvent(0x11, main_wnd->vis_map_context->my_main_unit->index, this->vis_tav->inn_id) != 0) {
+                if (main_wnd->vis_map_context->quest_map->OnEvent(Quest::EVENT_QUERY_PLAYER_INN_QUEST, main_wnd->vis_map_context->my_main_unit->index, this->vis_tav->inn_id) != 0) {
                     this->texts[0] = txt_patch.GetLine(0x60);
                     this->texts[1] = " ";
                 } else {
@@ -1528,7 +1528,7 @@ int32_t VisTavScene::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
     if (main_wnd->sessionMode != SESSION_LOCAL_BATTLE) {
-        if (main_wnd->vis_map_context->quest_map->OnEvent(0x11, main_wnd->vis_map_context->my_main_unit->index, this->vis_tav->inn_id) != 0) {
+        if (main_wnd->vis_map_context->quest_map->OnEvent(Quest::EVENT_QUERY_PLAYER_INN_QUEST, main_wnd->vis_map_context->my_main_unit->index, this->vis_tav->inn_id) != 0) {
             this->vis_tav->quest_alt_close = (this->vis_tav->quest_alt_close == 0) ? 1 : 0;
             return 1;
         }
@@ -1618,7 +1618,7 @@ void VisTavScene::DrawQuestRoster() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     CPoint tav_topleft = this->vis_tav->rect.TopLeft();
 
-    int32_t quest_found = main_wnd->vis_map_context->quest_map->OnEvent(0x11, main_wnd->vis_map_context->my_main_unit->index, this->vis_tav->inn_id);
+    int32_t quest_found = main_wnd->vis_map_context->quest_map->OnEvent(Quest::EVENT_QUERY_PLAYER_INN_QUEST, main_wnd->vis_map_context->my_main_unit->index, this->vis_tav->inn_id);
     if (quest_found != 0) {
         Quest* quest = nullptr;
         main_wnd->vis_map_context->quest_map->FindQuest(quest_found, &quest);

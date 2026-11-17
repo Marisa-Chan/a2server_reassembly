@@ -103,7 +103,7 @@ void Inn::InnCreateQuests(Player* player) {
     if (g_ServerConfig.gameType == GAME_TYPE_ARENA) {
         return;
     }
-    if (g_QuestMap.OnEvent(0x11, player->player_id, this->building_id) != 0) {
+    if (g_QuestMap.OnEvent(Quest::EVENT_QUERY_PLAYER_INN_QUEST, player->player_id, this->building_id) != 0) {
         return;
     }
     if (this->HasQuest(player)) {
@@ -372,7 +372,7 @@ void Inn::InnCreateQuests(Player* player) {
                     if (this->position->Distance(u->position) >= dist_threshold) {
                         continue;
                     }
-                    if (g_QuestMap.OnEvent(0xd, grp->group_id, 0)) {
+                    if (g_QuestMap.OnEvent(Quest::EVENT_QUERY_GROUP_ACTIVE, grp->group_id, 0)) {
                         continue;
                     }
 #ifdef A2TANGAR_HAT
@@ -472,7 +472,7 @@ void Inn::InnCreateQuests(Player* player) {
                 if (def <= def_min || def >= def_max) {
                     continue;
                 }
-                if (g_QuestMap.OnEvent(0xc, u->building_id, 0)) {
+                if (g_QuestMap.OnEvent(Quest::EVENT_QUERY_UNIT_ACTIVE, u->building_id, 0)) {
                     continue;
                 }
 
@@ -531,7 +531,7 @@ void Inn::InnCreateQuests(Player* player) {
                     if (this->position->Distance(u->position) >= dist_threshold2) {
                         continue;
                     }
-                    if (g_QuestMap.OnEvent(0xd, grp->group_id, 0)) {
+                    if (g_QuestMap.OnEvent(Quest::EVENT_QUERY_GROUP_ACTIVE, grp->group_id, 0)) {
                         continue;
                     }
                     candidates.push_back(grp);
@@ -578,7 +578,7 @@ void Inn::InnCreateQuests(Player* player) {
                 if (!u->quest_escort_mark || u->decay != 0) {
                     continue;
                 }
-                if (g_QuestMap.OnEvent(0xc, u->building_id, 0)) {
+                if (g_QuestMap.OnEvent(Quest::EVENT_QUERY_UNIT_ACTIVE, u->building_id, 0)) {
                     continue;
                 }
                 candidates.push_back(u);
@@ -1378,8 +1378,8 @@ void Inn::RemoveUnit(Humanoid* humanoid, int32_t id) {
 
     // Special cancel sentinel?
     if (id == 0xAAAAAAAA) {
-        int32_t result = g_QuestMap.OnEvent(0x11, humanoid->pOwner->player_id, this->building_id);
-        g_QuestMap.OnEvent(2, result, 0);
+        int32_t result = g_QuestMap.OnEvent(Quest::EVENT_QUERY_PLAYER_INN_QUEST, humanoid->pOwner->player_id, this->building_id);
+        g_QuestMap.OnEvent(Quest::EVENT_FORCE_FAIL, result, 0);
         return;
     }
 

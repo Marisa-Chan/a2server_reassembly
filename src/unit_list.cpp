@@ -6,6 +6,7 @@
 #include "item.h"
 #include "game_app.h"
 #include "players_list.h"
+#include "quest.h"
 #include "quest_map.h"
 #ifdef A2TANGAR_HAT
 #include "patch/config_new.h"
@@ -317,17 +318,17 @@ void UnitList::ProcessTick() {
 
 			// Quest event: unit death
 			if (unit->summon_id == 0) {
-				g_QuestMap.QueueEvent(4, unit->building_id, (static_cast<int32_t>(MonsterTypeFace::Make(unit->typeId, unit->face).raw) << 16) | killer_pid);
+				g_QuestMap.QueueEvent(Quest::EVENT_UNIT_KILLED, unit->building_id, (static_cast<int32_t>(MonsterTypeFace::Make(unit->typeId, unit->face).raw) << 16) | killer_pid);
 
 			// Quest event: group death
 			}
 			if (group_id != 0) {
-				g_QuestMap.QueueEvent(5, group_id, killer_pid);
+				g_QuestMap.QueueEvent(Quest::EVENT_GROUP_WIPED, group_id, killer_pid);
 			}
 
 			// Quest event: player has no more units alive
 			if (unit->pOwner != NULL && unit->pOwner->quest_ai != 0 && unit->pOwner->unit_list->unit_list.GetCount() == 0) {
-				g_QuestMap.QueueEvent(15, unit->pOwner->player_id, killer_pid);
+				g_QuestMap.QueueEvent(Quest::EVENT_INN_DEFENDERS_WIPED, unit->pOwner->player_id, killer_pid);
 
 			// Clear pathfinding tracking
 			}

@@ -50,6 +50,25 @@ public: // VTable at 60F6F8. Sub-classes have their own vtables, see CreateQuest
         STATE_INN_CANDIDATE = 3,
     };
 
+    enum Event : int32_t {
+        EVENT_FORCE_COMPLETE         = 1,
+        EVENT_FORCE_FAIL             = 2,
+        EVENT_UNIT_KILLED            = 4,
+        EVENT_GROUP_WIPED            = 5,
+        EVENT_UNIT_REACHED_INN       = 6,
+        EVENT_ITEM_DELIVERED         = 7,
+        EVENT_ZOMBIES_RAISED         = 8,
+        EVENT_SKELETONS_RAISED       = 9,
+        EVENT_GHOSTS_RAISED          = 10,
+        EVENT_INTERCEPT_ESCAPED      = 11,
+        EVENT_QUERY_UNIT_ACTIVE      = 12,
+        EVENT_QUERY_GROUP_ACTIVE     = 13,
+        EVENT_QUERY_ITEM_ACTIVE      = 14,
+        EVENT_INN_DEFENDERS_WIPED    = 15,
+        EVENT_START_MAIL_TIMER       = 16,
+        EVENT_QUERY_PLAYER_INN_QUEST = 17,
+    };
+
     virtual ~Quest();                                      // 57FF50 (client: 550a40)
     virtual int32_t OnEvent(int32_t event_type, int32_t a, int32_t b); // 55D25D (client: 537a42)
     virtual void MarkFailed();                             // 55D23F (client: 537a24)
