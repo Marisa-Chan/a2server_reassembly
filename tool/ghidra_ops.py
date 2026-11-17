@@ -27,6 +27,7 @@ TYPE_ALIASES = {
     "PatchedSpellRange": "int",
     "AssortFlags": "uint",
     "MonsterTypeFace": "ushort",
+    "QuestId": "uint",
 }
 GAME_CATEGORY = "/Game"
 

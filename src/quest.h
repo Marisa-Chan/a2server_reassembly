@@ -11,10 +11,29 @@
 
 class QuestMap;
 
+struct QuestId {
+    union {
+        uint32_t raw;
+        struct {
+            uint32_t kind        : 8;  // Quest::KindId
+            uint32_t player_id   : 8;  // Player::player_id
+            uint32_t building_id : 16; // Originating Inn::building_id
+        };
+    };
+
+    constexpr QuestId(uint32_t v = 0) : raw(v) {}
+    constexpr operator uint32_t() const { return this->raw; }
+
+    static constexpr QuestId Make(uint16_t bld_id, uint8_t pid, uint8_t k) {
+        return QuestId((static_cast<uint32_t>(bld_id) << 16) | (static_cast<uint32_t>(pid) << 8) | k);
+    }
+};
+ASSERT_SIZE(QuestId, 4);
+
 
 // These fields are copied in Quest::CopyFields.
 struct QuestData {
-    uint32_t quest_id;
+    QuestId quest_id;
     uint32_t player_id;
     uint32_t building_id;
     uint32_t state; // 0: started, 1: completed, 2: failed. (3: presented candidate in the inn?)
@@ -81,7 +100,7 @@ public: // VTable at 60F6F8. Sub-classes have their own vtables, see CreateQuest
 
     int32_t IsInWork() { return this->quest_data.state == STATE_IN_WORK; } // 41eb90 (client: 420f40)
     uint32_t GetObj() { return this->quest_data.obj; }         // 41eb70 (client: 420f20)
-    uint32_t GetQuestId() { return this->quest_data.quest_id; }         // 41eb10 (client: 420ec0)
+    QuestId GetQuestId() { return this->quest_data.quest_id; }          // 41eb10 (client: 420ec0)
     uint32_t GetBuildingId() { return this->quest_data.building_id; }   // 41eb30 (client: 420ee0)
     uint32_t GetLandmarkId() { return this->quest_data.landmark_id; }   // 41eb50 (client: 420f00)
     uint32_t GetLimit(); //4a4780 (client: 4a7e70) in asm
