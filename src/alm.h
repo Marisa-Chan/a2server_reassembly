@@ -205,6 +205,10 @@ struct MapBuildingData {
 ASSERT_SIZE(MapBuildingData, 0x14);
 
 struct MapUnitData {
+    enum Flags1 : uint32_t {
+        FLAG_IS_HUMAN = 0x10,
+    };
+
     uint32_t x;
     uint32_t y;
     uint32_t type_id;

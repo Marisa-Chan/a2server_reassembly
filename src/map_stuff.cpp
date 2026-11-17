@@ -3037,7 +3037,7 @@ Scenario::Scenario(const char* fname) {
 
         Unit* temp_unit = nullptr;
         CUnit* unit = nullptr;
-        if ((unit_data->flags1 & 0x10) == 0) {
+        if ((unit_data->flags1 & MapUnitData::FLAG_IS_HUMAN) == 0) {
             temp_unit = new Unit();
             temp_unit->itemDataID = (int16_t)g_GameDataRes.FindMonsterByServerId(unit_data->server_id);
             temp_unit->monster_info = &g_GameDataRes.monsters[(uint16_t)temp_unit->itemDataID];

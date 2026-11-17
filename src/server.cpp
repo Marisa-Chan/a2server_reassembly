@@ -869,7 +869,7 @@ void Srv1::CreateUnits(MapAlm* alm) {
         }
 
         Unit* unit;
-        if ((unit_data->flags1 & 0x10) == 0) {
+        if ((unit_data->flags1 & MapUnitData::FLAG_IS_HUMAN) == 0) {
             int32_t idx = g_GameDataRes.FindMonsterByServerId(unit_data->server_id);
             unit = new Unit(g_GameDataRes.monsters[idx].name);
 
@@ -906,7 +906,7 @@ void Srv1::CreateUnits(MapAlm* alm) {
 
         unit->RecalcStats();
 
-        if ((unit_data->flags1 & 0x10) != 0 && (int16_t)unit_data->max_hp != -1 && unit_data->max_hp == unit_data->hp) {
+        if ((unit_data->flags1 & MapUnitData::FLAG_IS_HUMAN) != 0 && (int16_t)unit_data->max_hp != -1 && unit_data->max_hp == unit_data->hp) {
             unit_data->hp = -1;
             unit_data->max_hp = -1;
         }
