@@ -72,6 +72,13 @@ ASSERT_SIZE(AssortGenParams, 0x14);
 
 
 struct ShopAssortment {
+    enum AddCategory : int32_t {
+        ADD_ARMOR          = 1,
+        ADD_WARRIOR_WEAPON = 2,
+        ADD_SHIELD         = 7,
+        ADD_MAGE_WEAPON    = 8,
+    };
+
     CArray<double> arr;
     uint8_t gap_0x14[4];
     double edge_weight;

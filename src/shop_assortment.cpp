@@ -36,12 +36,12 @@ static int32_t __cdecl CompareItemsForSort(const void* a, const void* b) {
     Item* item_b = *(Item**)b;
 
     int32_t warrior_a = 0;
-    if (item_a->item_type == Item::WEAPON || item_a->item_type == Item::EQUIPMENT || item_a->item_type == 7) {
+    if (item_a->item_type == Item::WEAPON || item_a->item_type == Item::EQUIPMENT || item_a->item_type == ShopAssortment::ADD_SHIELD) {
         warrior_a = item_a->world_equip->Values()[0].suitable_for & equip_suitable::warrior;
     }
 
     int32_t warrior_b = 0;
-    if (item_b->item_type == Item::WEAPON || item_b->item_type == Item::EQUIPMENT || item_b->item_type == 7) {
+    if (item_b->item_type == Item::WEAPON || item_b->item_type == Item::EQUIPMENT || item_b->item_type == ShopAssortment::ADD_SHIELD) {
         warrior_b = item_b->world_equip->Values()[0].suitable_for & equip_suitable::warrior;
     }
 
@@ -267,16 +267,16 @@ void ShopAssortment::AddItemsFlags(CArray<WorldEquip>* items, AssortFlags flags)
     for (int32_t i = 0; i < shape_ids.GetSize(); i++) {
         for (int32_t j = 0; j < material_ids.GetSize(); j++) {
             if (flags.allow_warrior_weapons) {
-                this->AddItems(items, shape_ids[i], material_ids[j], 2, 0);
+                this->AddItems(items, shape_ids[i], material_ids[j], ShopAssortment::ADD_WARRIOR_WEAPON, 0);
             }
             if (flags.allow_armors) {
-                this->AddItems(items, shape_ids[i], material_ids[j], 1, is_magic);
+                this->AddItems(items, shape_ids[i], material_ids[j], ShopAssortment::ADD_ARMOR, is_magic);
             }
             if (flags.allow_shields) {
-                this->AddItems(items, shape_ids[i], material_ids[j], 7, 0);
+                this->AddItems(items, shape_ids[i], material_ids[j], ShopAssortment::ADD_SHIELD, 0);
             }
             if (flags.allow_mage_weapons && is_magic) {
-                this->AddItems(items, shape_ids[i], material_ids[j], 8, is_magic);
+                this->AddItems(items, shape_ids[i], material_ids[j], ShopAssortment::ADD_MAGE_WEAPON, is_magic);
             }
         }
     }
@@ -299,12 +299,12 @@ void ShopAssortment::AddItems(CArray<WorldEquip>* items, int32_t shape, int32_t 
 
         Item* item = nullptr;
         switch (item_type) {
-        case 1:
+        case ShopAssortment::ADD_ARMOR:
             if ((shape != item_shape::common || mat != material::iron || i != 2) && (shape != item_shape::common || mat != material::bronze || i != 2) && (shape != item_shape::good || mat != material::gold || i != 6)) {
                 item = new Armor(shape, mat, i);
             }
             break;
-        case 2: {
+        case ShopAssortment::ADD_WARRIOR_WEAPON: {
                 Weapon* weapon = new Weapon(shape, mat, i);
                 if ((weapon->world_equip->Values()[0].suitable_for & equip_suitable::warrior) == 0) {
                     delete weapon;
@@ -313,10 +313,10 @@ void ShopAssortment::AddItems(CArray<WorldEquip>* items, int32_t shape, int32_t 
                 }
                 break;
             }
-        case 7:
+        case ShopAssortment::ADD_SHIELD:
             item = new Shield(shape, mat, i);
             break;
-        case 8: {
+        case ShopAssortment::ADD_MAGE_WEAPON: {
                 Weapon* weapon = new Weapon(shape, mat, i);
                 if ((weapon->world_equip->Values()[0].suitable_for & equip_suitable::warrior) != 0) {
                     delete weapon;
