@@ -169,10 +169,10 @@ struct EquipData {
     int32_t defense;
     int32_t absorption;
     int32_t range;
+    int32_t charge;
     int32_t relax;
     int32_t two_handed;
     int32_t suitable_for;
-    int32_t other_param;
     int32_t shapes_allowed;
 };
 ASSERT_SIZE(EquipData, 0x44);

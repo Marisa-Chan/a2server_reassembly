@@ -1578,8 +1578,8 @@ void Unit::Die() {
             this->inventory->PutItemIntoBagAtDefault(this->Unequip(this->shield));
         }
 
-        // Unequip weapon if it has a non-zero 'other_param' (why?).
-        if (this->weapon != nullptr && this->weapon->world_equip->Values().GetData()[0].other_param != 0) {
+        // Unequip weapon only if it is player-equippable (natural monster weapons have suitable_for == 0).
+        if (this->weapon != nullptr && this->weapon->world_equip->Values().GetData()[0].suitable_for != 0) {
             this->inventory->PutItemIntoBagAtDefault(this->Unequip(this->weapon));
         }
 
@@ -2457,11 +2457,11 @@ void Humanoid::ReleaseObjects() {
 // 5303e3
 Item* Humanoid::UseItem(Item* item) {
     if (item->IsKindOf(RUNTIME_CLASS(Armor)) || item->IsKindOf(RUNTIME_CLASS(Weapon)) || item->IsKindOf(RUNTIME_CLASS(Shield))) {
-        int32_t other_param = item->world_equip->Values().GetData()->other_param;
-        if ((other_param & 1) == 0 && (this->unit_attrs & 4) == 0) {
+        int32_t suitable_for = item->world_equip->Values().GetData()->suitable_for;
+        if ((suitable_for & 1) == 0 && (this->unit_attrs & 4) == 0) {
             return item;
         }
-        if ((other_param & 2) == 0 && (this->unit_attrs & 4) != 0) {
+        if ((suitable_for & 2) == 0 && (this->unit_attrs & 4) != 0) {
             return item;
         }
     }

@@ -921,7 +921,7 @@ void Inn::InnReward(Player* player) {
     for (int i = 0; i < temp_shelf.GetSize(); i++) {
         Item* item = temp_shelf[i];
         EquipData* equip_data = &item->world_equip->Values()[0];
-        if (equip_data->other_param & item_type_filter) {
+        if (equip_data->suitable_for & item_type_filter) {
             filtered_by_class.Add(item);
         } else {
             delete item;
@@ -939,7 +939,7 @@ void Inn::InnReward(Player* player) {
     for (int i = 0; i < temp_shelf.GetSize(); i++) {
         Item* item = temp_shelf[i];
         EquipData* equip_data = &item->world_equip->Values()[0];
-        if (equip_data->other_param & item_type_filter) {
+        if (equip_data->suitable_for & item_type_filter) {
             temp_candidates.Add(item);
         } else {
             delete item;

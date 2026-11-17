@@ -882,11 +882,11 @@ int32_t Armor::CalcValue() {
 void Armor::WriteState(PacketUnitStateVec* pkt, uint8_t* slot) {
     pkt->AppendByteInt(1, this->_exp, slot);
     slot[4] = 0;
-    int32_t other_param = this->world_equip->Values()[0].other_param;
-    if (other_param & 1) {
+    int32_t suitable_for = this->world_equip->Values()[0].suitable_for;
+    if (suitable_for & 1) {
         slot[4] |= 2;
     }
-    if (other_param & 2) {
+    if (suitable_for & 2) {
         slot[4] |= 4;
     }
     pkt->AppendByteByte(modifier::defence, this->protections.defense, slot);
@@ -1004,7 +1004,7 @@ Item* Shield::Equip(Unit* unit) {
         old_shield->Unequip(unit);
     }
     if (unit->weapon != nullptr) {
-        if (unit->weapon->world_equip->Values()[0].suitable_for == 2) {
+        if (unit->weapon->world_equip->Values()[0].two_handed == 2) {
             Item* tmp = unit->Unequip(unit->weapon);
             unit->inventory->PutItemIntoBagAtDefault(tmp);
         }
@@ -1068,11 +1068,11 @@ int32_t Shield::CalcValue() {
 void Shield::WriteState(PacketUnitStateVec* pkt, uint8_t* slot) {
     pkt->AppendByteInt(1, this->_exp, slot);
     slot[4] = 0;
-    int32_t other_param = this->world_equip->Values()[0].other_param;
-    if (other_param & 1) {
+    int32_t suitable_for = this->world_equip->Values()[0].suitable_for;
+    if (suitable_for & 1) {
         slot[4] |= 2;
     }
-    if (other_param & 2) {
+    if (suitable_for & 2) {
         slot[4] |= 4;
     }
     pkt->AppendByteByte(modifier::defence, this->protections.defense, slot);
@@ -1225,7 +1225,7 @@ Item* Weapon::Equip(Unit* unit) {
         unit->weapon->Unequip(unit);
     }
 
-    if (this->world_equip->Values()[0].suitable_for == 2 && unit->shield != nullptr) {
+    if (this->world_equip->Values()[0].two_handed == 2 && unit->shield != nullptr) {
         Item* tmp = unit->Unequip(unit->shield);
         unit->inventory->PutItemIntoBagAtDefault(tmp);
     }
@@ -1256,11 +1256,11 @@ Item* Weapon::Equip(Unit* unit) {
     }
     unit->RecalcStats();
     if (unit->IsHumanoid() != 0) {
-        if (this->world_equip->Values()[0].relax != -1) {
-            unit->charge = (uint8_t)this->world_equip->Values()[0].relax;
+        if (this->world_equip->Values()[0].charge != -1) {
+            unit->charge = (uint8_t)this->world_equip->Values()[0].charge;
         }
-        if (this->world_equip->Values()[0].two_handed != -1) {
-            unit->relax = (uint8_t)this->world_equip->Values()[0].two_handed;
+        if (this->world_equip->Values()[0].relax != -1) {
+            unit->relax = (uint8_t)this->world_equip->Values()[0].relax;
         }
     }
     unit->max_range += (uint8_t)(this->range - 1);
@@ -1344,8 +1344,8 @@ int32_t Weapon::CalcValue() {
 void Weapon::WriteState(PacketUnitStateVec* pkt, uint8_t* slot) {
     pkt->AppendByteInt(1, this->_exp, slot);
     slot[4] = 0;
-    int32_t other_param = this->world_equip->Values()[0].other_param;
-    if (other_param & 1) {
+    int32_t suitable_for = this->world_equip->Values()[0].suitable_for;
+    if (suitable_for & 1) {
         slot[4] |= 2;
         pkt->AppendByteByte(modifier::damagemin, this->hit_values.hand_damage_min, slot);
         pkt->AppendByteByte(modifier::damagemax, this->hit_values.hand_damage_spread, slot);
@@ -1359,7 +1359,7 @@ void Weapon::WriteState(PacketUnitStateVec* pkt, uint8_t* slot) {
             pkt->AppendByteByte(modifier::itemlore, this->range, slot); // Don't know why it uses `itemlore`. Maybe it's a reused property?
         }
     }
-    if (other_param & 2) {
+    if (suitable_for & 2) {
         slot[4] |= 4;
     }
     if (this->hit_values.some_damage2_spread != 0) {
