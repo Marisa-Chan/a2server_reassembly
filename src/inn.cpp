@@ -914,7 +914,7 @@ void Inn::InnReward(Player* player) {
     params.min_cost = reward;
     params.max_count = 100;
     params.max_same_count = 1;
-    params.flags = 0x1b7fffff;
+    params.flags = AssortFlags::INN_NON_MAGIC_EQUIP;
     assortment.GenerateAssortment(&params);
     assortment.ArrangeShelfs(100, 1, params.min_cost, params.max_cost, &temp_shelf);
 
@@ -932,7 +932,7 @@ void Inn::InnReward(Player* player) {
     // --- Phase 2: Magic item ---
     params.max_cost = (reward * 3) / 2;
     params.min_cost = (reward * 3) / 4;
-    params.flags = 0x2bffffff;
+    params.flags = AssortFlags::INN_MAGIC_EQUIP;
     assortment.GenerateAssortment(&params);
     assortment.ArrangeShelfs(100, 1, params.min_cost, params.max_cost, &temp_shelf);
 

@@ -307,22 +307,22 @@ int32_t CMultiShopInstance::StowItemInShelf(Item* item, int32_t dst_slot) {
 
         uint32_t type_flag = 0;
         if (item->item_type == Item::BOOK || item->item_type == Item::SCROLL || item->item_type == Item::POTION) {
-            type_flag = 0x4000000;
+            type_flag = AssortFlags::ALLOW_CONSUMABLES;
         } else if (item->item_type == Item::WEAPON) {
-            type_flag = 0x400000;
+            type_flag = AssortFlags::ALLOW_WARRIOR_WEAPONS;
         } else if (item->item_type == Item::EQUIPMENT) {
-            type_flag = 0x1000000;
+            type_flag = AssortFlags::ALLOW_ARMORS;
         }
 
         if (item->IsSimpleItem() == 0 && item->item_type != Item::BOOK) {
-            while ((params[shelf_id].flags & 0x20000000) == 0 && shelf_id < 3) {
+            while (!params[shelf_id].flags.generate_magic && shelf_id < 3) {
                 shelf_id++;
             }
         } else {
-            while (((params[shelf_id].flags & type_flag) == 0 || (params[shelf_id].flags & 0x20000000) != 0) && shelf_id < 3) {
+            while (((params[shelf_id].flags & type_flag) == 0 || params[shelf_id].flags.generate_magic) && shelf_id < 3) {
                 shelf_id++;
             }
-            if ((params[shelf_id].flags & type_flag) == 0 || (params[shelf_id].flags & 0x20000000) != 0) {
+            if ((params[shelf_id].flags & type_flag) == 0 || params[shelf_id].flags.generate_magic) {
                 shelf_id = 0;
                 while ((params[shelf_id].flags & type_flag) == 0 && shelf_id < 3) {
                     shelf_id++;

@@ -199,19 +199,19 @@ void ShopAssortment::GenerateAssortment(AssortGenParams* params) {
     this->min_cost = params->min_cost;
     this->max_cost = params->max_cost;
     this->flags = params->flags;
-    if ((this->flags & 0x400000) != 0) {
-        this->AddItemsFlags(&g_GameDataRes.weapons, (this->flags & 0xF23FFFFF) | 0x400000);
+    if (this->flags.allow_warrior_weapons) {
+        this->AddItemsFlags(&g_GameDataRes.weapons, (this->flags.raw & AssortFlags::EQUIP_TYPES_CLEAR_MASK) | AssortFlags::ALLOW_WARRIOR_WEAPONS);
     }
-    if ((this->flags & 0x8000000) != 0) {
-        this->AddItemsFlags(&g_GameDataRes.weapons, (this->flags & 0xF23FFFFF) | 0x8000000);
+    if (this->flags.allow_mage_weapons) {
+        this->AddItemsFlags(&g_GameDataRes.weapons, (this->flags.raw & AssortFlags::EQUIP_TYPES_CLEAR_MASK) | AssortFlags::ALLOW_MAGE_WEAPONS);
     }
-    if ((this->flags & 0x1000000) != 0) {
-        this->AddItemsFlags(&g_GameDataRes.armors, (this->flags & 0xF23FFFFF) | 0x1000000);
+    if (this->flags.allow_armors) {
+        this->AddItemsFlags(&g_GameDataRes.armors, (this->flags.raw & AssortFlags::EQUIP_TYPES_CLEAR_MASK) | AssortFlags::ALLOW_ARMORS);
     }
-    if ((this->flags & 0x800000) != 0) {
-        this->AddItemsFlags(&g_GameDataRes.shields, (this->flags & 0xF23FFFFF) | 0x800000);
+    if (this->flags.allow_shields) {
+        this->AddItemsFlags(&g_GameDataRes.shields, (this->flags.raw & AssortFlags::EQUIP_TYPES_CLEAR_MASK) | AssortFlags::ALLOW_SHIELDS);
     }
-    if ((this->flags & 0x4000000) != 0) {
+    if (this->flags.allow_consumables) {
         this->AddMagicItems(&g_GameDataRes.magic_items);
     }
 }
@@ -235,11 +235,10 @@ void ShopAssortment::Reset() {
 }
 
 // 54ACCB
-void ShopAssortment::AddItemsFlags(CArray<WorldEquip>* items, uint32_t flags) {
-    uint32_t is_magic = (flags & 0x20000000) != 0;
-    uint32_t material_flags = flags & 0x7FFF;
-    uint32_t shape_flags = (flags & 0x3F8000) >> 0xF;
-    uint32_t type_flags = flags & 0xFC00000;
+void ShopAssortment::AddItemsFlags(CArray<WorldEquip>* items, AssortFlags flags) {
+    uint32_t is_magic = flags.generate_magic;
+    uint32_t material_flags = flags.material_mask;
+    uint32_t shape_flags = flags.shape_mask;
 
     CArray<uint32_t> shape_ids;
     CArray<uint32_t> material_ids;
@@ -267,16 +266,16 @@ void ShopAssortment::AddItemsFlags(CArray<WorldEquip>* items, uint32_t flags) {
 
     for (int32_t i = 0; i < shape_ids.GetSize(); i++) {
         for (int32_t j = 0; j < material_ids.GetSize(); j++) {
-            if ((type_flags & 0x400000) != 0) {
+            if (flags.allow_warrior_weapons) {
                 this->AddItems(items, shape_ids[i], material_ids[j], 2, 0);
             }
-            if ((type_flags & 0x1000000) != 0) {
+            if (flags.allow_armors) {
                 this->AddItems(items, shape_ids[i], material_ids[j], 1, is_magic);
             }
-            if ((type_flags & 0x800000) != 0) {
+            if (flags.allow_shields) {
                 this->AddItems(items, shape_ids[i], material_ids[j], 7, 0);
             }
-            if ((type_flags & 0x8000000) != 0 && is_magic) {
+            if (flags.allow_mage_weapons && is_magic) {
                 this->AddItems(items, shape_ids[i], material_ids[j], 8, is_magic);
             }
         }
@@ -411,7 +410,7 @@ Inventory* ShopAssortment::ArrangeShelfs(int32_t max_count, int32_t max_same, in
         return nullptr;
     }
 
-    if ((this->flags & 0x4000000) != 0) {
+    if (this->flags.allow_consumables) {
         for (int32_t i = 0; i < this->items.GetSize(); i++) {
             if (this->items[i]->item_type == Item::BOOK) {
                 this->items[i]->count = 2;
@@ -522,9 +521,9 @@ Inventory* ShopAssortment::ArrangeShelfs(int32_t max_count, int32_t max_same, in
         this->items[pick]->count = 2;
         Item* item = this->items[pick]->TakeOne();
 
-        if ((this->flags & 0x20000000) != 0) {
+        if (this->flags.generate_magic) {
             int32_t ok;
-            if ((this->flags & 0x10000000) != 0) {
+            if (this->flags.mixed_magic_50pct) {
                 if (Random0N(100) > 50) {
                     ok = this->AddMagicToItem(item);
                 } else {

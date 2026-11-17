@@ -1,4 +1,5 @@
 #include "game_app.h"
+#include "item.h"
 #include "map_stuff.h"
 
 ScenarioState g_scenarioState; // 10036028
@@ -619,7 +620,7 @@ int32_t ScenarioOnCompleted(int32_t* loc, int32_t id) {
 
         g_ShopsAssortment[3][0].flags = 0x13c7d318;
         g_ShopsAssortment[3][1].flags = 0x2bc7d318;
-        g_ShopsAssortment[3][2].flags = 0x4000000;
+        g_ShopsAssortment[3][2].flags = AssortFlags::ALLOW_CONSUMABLES;
         g_ShopsAssortment[3][3].flags = 0x2bc042f0;
         g_scenarioState.locationEntryStates[2] = 1;
         g_scenarioState.locationEntryLocationIds[2] = 3;
@@ -865,7 +866,7 @@ void __stdcall ScenarioNewGame() { //100033be
     g_ShopsAssortment[1][0].flags = 0x1381cc03;
     g_ShopsAssortment[1][1].flags = 0x10418103;
     g_ShopsAssortment[1][2].flags = 0x28018100;
-    g_ShopsAssortment[1][3].flags = 0x4000000;
+    g_ShopsAssortment[1][3].flags = AssortFlags::ALLOW_CONSUMABLES;
 
     for (int i = 0; i < 4; i++) {
         g_ShopsAssortment[2][i].min_cost = 0;
@@ -886,7 +887,7 @@ void __stdcall ScenarioNewGame() { //100033be
 
     g_ShopsAssortment[2][0].flags = 0x1383c305;
     g_ShopsAssortment[2][1].flags = 0x2bc3c304;
-    g_ShopsAssortment[2][2].flags = 0x4000000;
+    g_ShopsAssortment[2][2].flags = AssortFlags::ALLOW_CONSUMABLES;
     g_ShopsAssortment[2][3].flags = 0x10438305;
 }
 
@@ -909,7 +910,7 @@ void __stdcall ScenarioTalkTo(uint32_t t) { //100032c0
 
         if (entry == 675 && id == 78) {
             g_scenarioState.specialDialogStateLowConfidence = 2;
-            g_ShopsAssortment[3][3].flags |= 0x80000;
+            g_ShopsAssortment[3][3].flags.shape_mask |= (1u << item_shape::elven);
         }
     } else if (kind == 1) {
         g_scenarioState.locationEntrySelectionFlags[entry - 1] = g_scenarioState.locationEntrySelectionFlags[entry - 1] == 0 ? 1 : 0;

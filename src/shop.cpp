@@ -17,7 +17,7 @@ Shop::Shop() {
     this->gen_params[0].max_cost = 10000000;
     this->gen_params[0].max_count = 1;
     this->gen_params[0].max_same_count = 1;
-    this->gen_params[0].flags = 0x2FFFFFFF;
+    this->gen_params[0].flags = AssortFlags::ALL_SHOP_DEFAULT;
     this->gen_params[1] = this->gen_params[0];
     this->gen_params[2] = this->gen_params[0];
     this->gen_params[3] = this->gen_params[0];
