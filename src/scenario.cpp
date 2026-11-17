@@ -1,6 +1,7 @@
 #include "game_app.h"
 #include "item.h"
 #include "map_stuff.h"
+#include "vis_tavern.h"
 
 ScenarioState g_scenarioState; // 10036028
 ScenarioLocation* g_currentScenarioLocation; //10037560
@@ -897,11 +898,12 @@ void __stdcall ScenarioSetVar(int32_t id, int32_t value) { //10001d0e
 }
 
 void __stdcall ScenarioTalkTo(uint32_t t) { //100032c0
-    uint32_t entry = t & 0xffff;
-    uint32_t id = (t >> 16) & 0xfff;
-    uint32_t kind = (t >> 28) & 7;
+    ScenarioTavernEntryId talk(t);
+    uint32_t entry = talk.entry_id;
+    uint32_t id = talk.talk_or_mission_id;
+    uint32_t kind = talk.kind;
 
-    if (kind == 0) {
+    if (kind == ScenarioTavernEntryId::KIND_DIALOG_NPC) {
         if (entry == 5) {
             g_scenarioState.locationEntryStates[4] = 1;
             g_scenarioState.locationEntryLocationIds[4] = 3;
@@ -912,9 +914,9 @@ void __stdcall ScenarioTalkTo(uint32_t t) { //100032c0
             g_scenarioState.specialDialogStateLowConfidence = 2;
             g_ShopsAssortment[3][3].flags.shape_mask |= (1u << item_shape::elven);
         }
-    } else if (kind == 1) {
+    } else if (kind == ScenarioTavernEntryId::KIND_HIREABLE_ALLY) {
         g_scenarioState.locationEntrySelectionFlags[entry - 1] = g_scenarioState.locationEntrySelectionFlags[entry - 1] == 0 ? 1 : 0;
-    } else if (kind == 3) {
+    } else if (kind == ScenarioTavernEntryId::KIND_UNLOCK_MISSION) {
         ScenarioMakeMissionAvailable(id);
 
         if (id == g_scenarioLocationMission10.GetId()) {

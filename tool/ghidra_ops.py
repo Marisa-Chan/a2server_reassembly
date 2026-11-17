@@ -29,6 +29,7 @@ TYPE_ALIASES = {
     "MonsterTypeFace": "ushort",
     "QuestId": "uint",
     "QuestLandmarkId": "uint",
+    "ScenarioTavernEntryId": "uint",
 }
 GAME_CATEGORY = "/Game"
 

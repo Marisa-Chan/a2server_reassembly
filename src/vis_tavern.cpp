@@ -112,12 +112,11 @@ void VisTav::VMethod28() {
     this->avail_entries.RemoveAll();
     this->reserved_entries.RemoveAll();
     for (int32_t i = 0; i < this->entrie_id.GetSize(); i++) {
-        uint32_t unit_id = this->entrie_id[i] & 0xFFFF;
-        uint32_t category = (this->entrie_id[i] >> 0x1C) & 7;
-        if (category == 1 || category == 2) {
-            this->avail_entries.Add(this->map_context->FindOrCreateUnitByServerId(unit_id));
+        ScenarioTavernEntryId entry_info(this->entrie_id[i]);
+        if (entry_info.kind == ScenarioTavernEntryId::KIND_HIREABLE_ALLY || entry_info.kind == ScenarioTavernEntryId::KIND_FIXED_ALLY) {
+            this->avail_entries.Add(this->map_context->FindOrCreateUnitByServerId(entry_info.entry_id));
         } else {
-            this->reserved_entries.Add(this->map_context->FindOrCreateUnitByServerId(unit_id));
+            this->reserved_entries.Add(this->map_context->FindOrCreateUnitByServerId(entry_info.entry_id));
         }
     }
 
@@ -394,13 +393,14 @@ void VisTav::SelectNextPartyUnit() {
 void VisTav::ShowHireResponseDialog() {
     CUnit* unit = this->avail_entries[this->selection_index];
     int32_t entry = this->FindEntryIndexForUnit(unit);
-    uint32_t npc_id = this->entrie_id[entry] & 0xFFFF;
+    ScenarioTavernEntryId entry_info(this->entrie_id[entry]);
+    uint32_t npc_id = entry_info.entry_id;
 
     CString text;
-    if ((this->entrie_id[entry] & 0x70000000) == 0x10000000) {
+    if (entry_info.kind == ScenarioTavernEntryId::KIND_HIREABLE_ALLY) {
         text.Format("npc%daccept%d", npc_id, ScenarioGetVar(0x300));
         ShowRoleKeyDialog(text);
-        this->entrie_id[entry] |= 0x80000000;
+        this->entrie_id[entry] |= ScenarioTavernEntryId::HIRED_FLAG;
         ScenarioTalkTo(this->entrie_id[entry]);
     } else {
         text.Format("npc%dreject%d", npc_id, ScenarioGetVar(0x300));
@@ -415,10 +415,10 @@ void VisTav::ShowHireResponseDialog() {
 void VisTav::ShowReservedNpcTalk() {
     CUnit* unit = this->reserved_entries[this->selection_index - this->avail_entries.GetSize()];
     int32_t entry = this->FindEntryIndexForUnit(unit);
-    uint32_t v = this->entrie_id[entry];
+    ScenarioTavernEntryId v(this->entrie_id[entry]);
 
     CString text;
-    text.Format("npc%dtalk%d", v & 0xFFFF, (v >> 0x10) & 0xFFF);
+    text.Format("npc%dtalk%d", v.entry_id, v.talk_or_mission_id);
     ShowRoleKeyDialog(text);
     ScenarioTalkTo(this->entrie_id[entry]);
 
@@ -430,7 +430,7 @@ void VisTav::ShowReservedNpcTalk() {
 void VisTav::RetalkAvailNpc() {
     CUnit* unit = this->avail_entries[this->selection_index];
     int32_t entry = this->FindEntryIndexForUnit(unit);
-    this->entrie_id[entry] &= 0x7FFFFFFF;
+    this->entrie_id[entry] &= ~ScenarioTavernEntryId::HIRED_FLAG;
 
     unit = this->avail_entries[this->selection_index];
     entry = this->FindEntryIndexForUnit(unit);
@@ -443,7 +443,7 @@ void VisTav::RetalkAvailNpc() {
 // 49E2E3
 int32_t VisTav::FindEntryIndexForUnit(CUnit* unit) {
     for (int32_t i = 0; i < this->entrie_id.GetSize(); i++) {
-        if (unit->serverId == (this->entrie_id[i] & 0xFFFF)) {
+        if (unit->serverId == ScenarioTavernEntryId(this->entrie_id[i]).entry_id) {
             return i;
         }
     }
@@ -897,7 +897,7 @@ int32_t VisTavRightPanel::OnLButtonUp(uint32_t wparam, CPoint pos) {
             if (button == 0) {
                 if (this->vis_tav->selection_index < this->vis_tav->avail_entries.GetSize()) {
                     CUnit* unit = this->vis_tav->avail_entries[this->vis_tav->selection_index];
-                    if (this->vis_tav->entrie_id[this->vis_tav->FindEntryIndexForUnit(unit)] & 0x80000000) {
+                    if (this->vis_tav->entrie_id[this->vis_tav->FindEntryIndexForUnit(unit)] & ScenarioTavernEntryId::HIRED_FLAG) {
                         this->vis_tav->RetalkAvailNpc();
                     } else {
                         this->vis_tav->ShowHireResponseDialog();
@@ -1119,7 +1119,7 @@ void VisTavRightPanel::UpdateButtonLabels() {
             this->texts[0] = "";
         } else {
             CUnit* unit = this->vis_tav->avail_entries[this->vis_tav->selection_index];
-            if (this->vis_tav->entrie_id[this->vis_tav->FindEntryIndexForUnit(unit)] & 0x80000000) {
+            if (this->vis_tav->entrie_id[this->vis_tav->FindEntryIndexForUnit(unit)] & ScenarioTavernEntryId::HIRED_FLAG) {
                 this->texts[0] = TxtFile::AllLines[0x103];
             } else {
                 this->texts[0] = TxtFile::AllLines[0x102];
@@ -1368,7 +1368,7 @@ void VisTavScene::VMethod7() {
 
             CUnit* unit = this->vis_tav->avail_entries[i];
             int32_t entry = this->vis_tav->FindEntryIndexForUnit(unit);
-            if (this->vis_tav->entrie_id[entry] & 0x80000000) {
+            if (this->vis_tav->entrie_id[entry] & ScenarioTavernEntryId::HIRED_FLAG) {
                 CRect& r = this->roster_rects[row][col];
                 g_font2->DrawTextWithShadow(tav_topleft.x + r.left + r.Width() / 2, tav_topleft.y + r.top + r.Height() / 2, TxtFile::AllLines[0x101], 10, clrsh_CoralRed, 1);
             }
@@ -1543,7 +1543,7 @@ int32_t VisTavScene::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
         if (this->vis_tav->selection_index < this->vis_tav->avail_entries.GetSize()) {
             CUnit* unit = this->vis_tav->avail_entries[this->vis_tav->selection_index];
             int32_t entry = this->vis_tav->FindEntryIndexForUnit(unit);
-            if (this->vis_tav->entrie_id[entry] & 0x80000000) {
+            if (this->vis_tav->entrie_id[entry] & ScenarioTavernEntryId::HIRED_FLAG) {
                 this->vis_tav->RetalkAvailNpc();
             } else {
                 this->vis_tav->ShowHireResponseDialog();
@@ -1927,7 +1927,7 @@ void VisTavSceneDruid::VMethod7() {
 
             CUnit* unit = this->vis_tav->avail_entries[i];
             int32_t entry = this->vis_tav->FindEntryIndexForUnit(unit);
-            if (this->vis_tav->entrie_id[entry] & 0x80000000) {
+            if (this->vis_tav->entrie_id[entry] & ScenarioTavernEntryId::HIRED_FLAG) {
                 CRect& r = this->roster_rects[row][col];
                 g_font2->DrawTextWithShadow(tav_topleft.x + r.left + r.Width() / 2, tav_topleft.y + r.top + r.Height() / 2, TxtFile::AllLines[0x101], 10, clrsh_CoralRed, 1);
             }
@@ -2188,7 +2188,7 @@ void VisTavSceneKaarg::VMethod7() {
 
             CUnit* unit = this->vis_tav->avail_entries[i];
             int32_t entry = this->vis_tav->FindEntryIndexForUnit(unit);
-            if (this->vis_tav->entrie_id[entry] & 0x80000000) {
+            if (this->vis_tav->entrie_id[entry] & ScenarioTavernEntryId::HIRED_FLAG) {
                 CRect& r = this->roster_rects[row][col];
                 g_font2->DrawTextWithShadow(tav_topleft.x + r.left + r.Width() / 2, tav_topleft.y + r.top + r.Height() / 2, TxtFile::AllLines[0x101], 10, clrsh_CoralRed, 1);
             }
@@ -2377,12 +2377,11 @@ void VisTavDruid::VMethod28() {
     this->avail_entries.RemoveAll();
     this->reserved_entries.RemoveAll();
     for (int32_t i = 0; i < this->entrie_id.GetSize(); i++) {
-        uint32_t unit_id = this->entrie_id[i] & 0xFFFF;
-        uint32_t category = (this->entrie_id[i] >> 0x1C) & 7;
-        if (category == 1 || category == 2) {
-            this->avail_entries.Add(this->map_context->FindOrCreateUnitByServerId(unit_id));
+        ScenarioTavernEntryId entry_info(this->entrie_id[i]);
+        if (entry_info.kind == ScenarioTavernEntryId::KIND_HIREABLE_ALLY || entry_info.kind == ScenarioTavernEntryId::KIND_FIXED_ALLY) {
+            this->avail_entries.Add(this->map_context->FindOrCreateUnitByServerId(entry_info.entry_id));
         } else {
-            this->reserved_entries.Add(this->map_context->FindOrCreateUnitByServerId(unit_id));
+            this->reserved_entries.Add(this->map_context->FindOrCreateUnitByServerId(entry_info.entry_id));
         }
     }
 
@@ -2636,12 +2635,11 @@ void VisTavKaarg::VMethod28() {
     this->avail_entries.RemoveAll();
     this->reserved_entries.RemoveAll();
     for (int32_t i = 0; i < this->entrie_id.GetSize(); i++) {
-        uint32_t unit_id = this->entrie_id[i] & 0xFFFF;
-        uint32_t category = (this->entrie_id[i] >> 0x1C) & 7;
-        if (category == 1 || category == 2) {
-            this->avail_entries.Add(this->map_context->FindOrCreateUnitByServerId(unit_id));
+        ScenarioTavernEntryId entry_info(this->entrie_id[i]);
+        if (entry_info.kind == ScenarioTavernEntryId::KIND_HIREABLE_ALLY || entry_info.kind == ScenarioTavernEntryId::KIND_FIXED_ALLY) {
+            this->avail_entries.Add(this->map_context->FindOrCreateUnitByServerId(entry_info.entry_id));
         } else {
-            this->reserved_entries.Add(this->map_context->FindOrCreateUnitByServerId(unit_id));
+            this->reserved_entries.Add(this->map_context->FindOrCreateUnitByServerId(entry_info.entry_id));
         }
     }
 

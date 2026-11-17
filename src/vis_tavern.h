@@ -4,6 +4,33 @@
 #pragma once
 #include "vis_core.h"
 
+struct ScenarioTavernEntryId {
+	enum Kind : uint32_t {
+		KIND_DIALOG_NPC     = 0,
+		KIND_HIREABLE_ALLY  = 1,
+		KIND_FIXED_ALLY     = 2,
+		KIND_UNLOCK_MISSION = 3,
+	};
+
+	enum : uint32_t {
+		HIRED_FLAG = 0x80000000u,
+	};
+
+	union {
+		uint32_t raw;
+		struct {
+			uint32_t entry_id           : 16;
+			uint32_t talk_or_mission_id : 12;
+			uint32_t kind               : 3;
+			uint32_t is_hired           : 1;
+		};
+	};
+
+	constexpr ScenarioTavernEntryId(uint32_t v = 0) : raw(v) {}
+	constexpr operator uint32_t() const { return this->raw; }
+};
+ASSERT_SIZE(ScenarioTavernEntryId, 4);
+
 class VisTavSceneAnim {
 public:
 	void LoadAnimFrames(CStringArray* names); //4010ee (client: 4010ee) in asm

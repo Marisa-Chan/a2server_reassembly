@@ -21,6 +21,7 @@
 #include "buildings_list.h"
 #include "packet.h"
 #include "vis_shop.h"
+#include "vis_tavern.h"
 #include "vis_menu.h"
 #include "vis_char.h"
 #include "vis_inventory.h"
@@ -597,7 +598,7 @@ void VisShop::VMethod28() {
     }
 
     if (this->scenario_talk_target != 0) {
-        int32_t npc_id = (this->scenario_talk_target >> 16) & 0xFFF;
+        int32_t npc_id = ScenarioTavernEntryId(this->scenario_talk_target).talk_or_mission_id;
         CString npc_name;
         npc_name.Format("shop\\npc31m%d", npc_id);
         ShowRoleKeyDialog(npc_name);
@@ -2425,7 +2426,7 @@ void VisShopDruid::VMethod28() {
     }
 
     if (this->scenario_talk_target != 0) {
-        int32_t npc_id = (this->scenario_talk_target >> 16) & 0xFFF;
+        int32_t npc_id = ScenarioTavernEntryId(this->scenario_talk_target).talk_or_mission_id;
         CString npc_name;
         npc_name.Format("shop\\npc31m%d", npc_id);
         ShowRoleKeyDialog(npc_name);
@@ -2714,7 +2715,7 @@ void VisShopKaarg::VMethod28() {
     }
 
     if (this->scenario_talk_target != 0) {
-        int32_t npc_id = (this->scenario_talk_target >> 16) & 0xFFF;
+        int32_t npc_id = ScenarioTavernEntryId(this->scenario_talk_target).talk_or_mission_id;
         CString npc_name;
         npc_name.Format("shop\\npc31m%d", npc_id);
         ShowRoleKeyDialog(npc_name);
