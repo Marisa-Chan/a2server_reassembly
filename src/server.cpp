@@ -840,7 +840,7 @@ void Srv1::CreatePlayers(MapAlm* alm) {
         if (g_Server->multiplayer == 0 && i == 1) {
             player->is_ai = 0;
         }
-        player->quest_ai = (player_data->flags & 2) ? 1 : 0;
+        player->quest_ai = (player_data->flags & MapPlayerData::FLAG_QUEST_AI) ? 1 : 0;
     }
 }
 

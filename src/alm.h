@@ -46,6 +46,10 @@ enum : uint32_t {
 class MapPlayerData : public CObject {
     DECLARE_DYNAMIC(MapPlayerData); // original RTTI name: "CPlayer"
 public:
+    enum Flags : uint32_t {
+        FLAG_QUEST_AI = 0x02,
+    };
+
     uint32_t index;
     uint32_t token_id;
     uint32_t color;
