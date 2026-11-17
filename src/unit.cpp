@@ -938,7 +938,7 @@ void Unit::ProcessEffects() {
                     }
                     break;
                 }
-                if (building->typeId == 0x42 && g_CLlDriver.provider == PROVIDER_HAT_TCP) {
+                if (building->typeId == Building::TYPE_HAT_PORTAL && g_CLlDriver.provider == PROVIDER_HAT_TCP) {
                     NetStru2* ns2 = g_NetStru1_main.GetClientByPlayerID(this->pOwner->player_id);
                     if (ns2) {
                         g_NetStru1_main.DisconnectClient(ns2);
@@ -947,7 +947,7 @@ void Unit::ProcessEffects() {
                     this->pOwner->drop_deadline_tick16 = (uint32_t)g_Server->tick16;
                 }
                 // Toggles.
-                if (building->typeId == 0x1c || building->typeId == 0x1d || building->typeId == 0x4c || building->typeId == 0x4d) {
+                if (building->typeId == Building::TYPE_GATE_A || building->typeId == Building::TYPE_GATE_B || building->typeId == Building::TYPE_GATE_C || building->typeId == Building::TYPE_GATE_D) {
                     building->hp = (building->hp == 0) ? 1 : 0;
                     g_NetStru1_main.BroadcastTokenState(building, nullptr, 0);
                 }
@@ -956,11 +956,11 @@ void Unit::ProcessEffects() {
             // Use the clicked building if available, otherwise retail behavior - first building within 2 tiles of the unit.
             Building* near_building = clicked != nullptr ? clicked : building_list->FindNearbyExact(this->position);
             if (near_building) {
-                if (near_building->object_info_id == 0x0f && near_building->hp > 0) {
+                if (near_building->object_info_id == Building::TYPE_MAGIC_WELL_HP && near_building->hp > 0) {
                     near_building->hp--;
                     g_NetStru1_main.BroadcastTokenState(near_building, nullptr, 0);
                     this->UseItemOrStash(new Item(CString("Potion Big Healing")));
-                } else if (near_building->object_info_id == 0x10 && near_building->hp > 0) {
+                } else if (near_building->object_info_id == Building::TYPE_MAGIC_WELL_MP && near_building->hp > 0) {
                     near_building->hp--;
                     g_NetStru1_main.BroadcastTokenState(near_building, nullptr, 0);
                     this->UseItemOrStash(new Item(CString("Potion Big Mana")));

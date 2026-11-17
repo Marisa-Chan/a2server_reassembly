@@ -22,6 +22,7 @@
 #include "packet.h"
 #include "player.h"
 #include "unit.h"
+#include "building.h"
 #include "buildings_list.h"
 #include "resource.h"
 #include "map_stuff.h"
@@ -5067,20 +5068,20 @@ void MainWindow::ShowShopDialog(uint32_t id) { //48cdce
         locid = ScenarioGetCurrentLocation()->GetId();
     } else {
         switch (id) {
-        case 0x22:
-        case 0x23:
+        case Building::TYPE_SHOP_PLAGAT_1:
+        case Building::TYPE_SHOP_PLAGAT_2:
             locid = 1;
             break;
 
-        case 0x5d:
-        case 0x5e:
-        case 0x5f:
+        case Building::TYPE_SHOP_KAARG_1:
+        case Building::TYPE_SHOP_KAARG_2:
+        case Building::TYPE_SHOP_KAARG_3:
             locid = 2;
             break;
 
-        case 0x69:
-        case 0x6a:
-        case 0x6b:
+        case Building::TYPE_SHOP_DRUID_1:
+        case Building::TYPE_SHOP_DRUID_2:
+        case Building::TYPE_SHOP_DRUID_3:
             locid = 3;
             break;
         }
@@ -5125,21 +5126,21 @@ void MainWindow::ShowInnDialog(uint32_t id, int32_t interact_target) { //48d4da
         locid = ScenarioGetCurrentLocation()->GetId();
     } else {
         switch (id) {
-        case 0x43:
-        case 0x44:
-        case 0x45:
+        case Building::TYPE_INN_PLAGAT_1:
+        case Building::TYPE_INN_PLAGAT_2:
+        case Building::TYPE_INN_PLAGAT_3:
             locid = 1;
             break;
 
-        case 0x63:
-        case 0x64:
-        case 0x65:
+        case Building::TYPE_INN_KAARG_1:
+        case Building::TYPE_INN_KAARG_2:
+        case Building::TYPE_INN_KAARG_3:
             locid = 2;
             break;
 
-        case 0x6f:
-        case 0x70:
-        case 0x71:
+        case Building::TYPE_INN_DRUID_1:
+        case Building::TYPE_INN_DRUID_2:
+        case Building::TYPE_INN_DRUID_3:
             locid = 3;
             break;
         }

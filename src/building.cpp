@@ -132,7 +132,7 @@ void Building::RegenTick() {
         return;
     }
     // 15 is "Magic Well 2" (restores health), 16 is "Magic Well 3" (restores mana).
-    if (this->object_info_id != 15 && this->object_info_id != 16) {
+    if (this->object_info_id != TYPE_MAGIC_WELL_HP && this->object_info_id != TYPE_MAGIC_WELL_MP) {
         return;
     }
     if (this->hp >= this->hp_max || this->hp < 0) {

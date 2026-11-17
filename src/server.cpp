@@ -574,8 +574,16 @@ int Srv1::LoadMap(CString map_name) {
 
 // 59C56E
 void Srv1::CreateBuildings(MapAlm* alm) {
-    static std::set<int16_t> shop_type_ids = {0x22, 0x23, 0x5D, 0x5E, 0x5F, 0x69, 0x6A, 0x6B};
-    static std::set<int16_t> inn_type_ids = {0x43, 0x44, 0x45, 0x63, 0x64, 0x65, 0x6F, 0x70, 0x71};
+    static std::set<int16_t> shop_type_ids = {
+        Building::TYPE_SHOP_PLAGAT_1, Building::TYPE_SHOP_PLAGAT_2,
+        Building::TYPE_SHOP_KAARG_1, Building::TYPE_SHOP_KAARG_2, Building::TYPE_SHOP_KAARG_3,
+        Building::TYPE_SHOP_DRUID_1, Building::TYPE_SHOP_DRUID_2, Building::TYPE_SHOP_DRUID_3,
+    };
+    static std::set<int16_t> inn_type_ids = {
+        Building::TYPE_INN_PLAGAT_1, Building::TYPE_INN_PLAGAT_2, Building::TYPE_INN_PLAGAT_3,
+        Building::TYPE_INN_KAARG_1, Building::TYPE_INN_KAARG_2, Building::TYPE_INN_KAARG_3,
+        Building::TYPE_INN_DRUID_1, Building::TYPE_INN_DRUID_2, Building::TYPE_INN_DRUID_3,
+    };
 
     if (MapStuff_Instance == nullptr) {
         return;
@@ -634,7 +642,7 @@ void Srv1::CreateBuildings(MapAlm* alm) {
                     inn->has_raise_dead = (td->flags & MapInnData::FLAG_RAISE_DEAD) != 0;
                 }
             }
-        } else if (0x46 <= type_id && type_id <= 0x4B) {
+        } else if (Building::TYPE_SIGNPOST_FIRST <= type_id && type_id <= Building::TYPE_SIGNPOST_LAST) {
             // Pointer
             TokenPos pos(bd->x, bd->y, MapStuff_Instance);
             Pointer* pointer = new Pointer(bd->type_id, &pos, bd->bridge_width, bd->bridge_height);

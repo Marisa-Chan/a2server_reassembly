@@ -18,6 +18,37 @@ class Building : public Token {
 public:
     DECLARE_SERIAL(Building);
 
+    enum TypeId : uint8_t {
+        TYPE_MAGIC_WELL_HP  = 0x0F,
+        TYPE_MAGIC_WELL_MP  = 0x10,
+        TYPE_GATE_A         = 0x1C,
+        TYPE_GATE_B         = 0x1D,
+        TYPE_BRIDGE_VERT    = 0x21,
+        TYPE_SHOP_PLAGAT_1  = 0x22,
+        TYPE_SHOP_PLAGAT_2  = 0x23,
+        TYPE_BRIDGE_HORIZ   = 0x25,
+        TYPE_HAT_PORTAL     = 0x42,
+        TYPE_INN_PLAGAT_1   = 0x43,
+        TYPE_INN_PLAGAT_2   = 0x44,
+        TYPE_INN_PLAGAT_3   = 0x45,
+        TYPE_SIGNPOST_FIRST = 0x46,
+        TYPE_SIGNPOST_LAST  = 0x4B,
+        TYPE_GATE_C         = 0x4C,
+        TYPE_GATE_D         = 0x4D,
+        TYPE_SHOP_KAARG_1   = 0x5D,
+        TYPE_SHOP_KAARG_2   = 0x5E,
+        TYPE_SHOP_KAARG_3   = 0x5F,
+        TYPE_INN_KAARG_1    = 0x63,
+        TYPE_INN_KAARG_2    = 0x64,
+        TYPE_INN_KAARG_3    = 0x65,
+        TYPE_SHOP_DRUID_1   = 0x69,
+        TYPE_SHOP_DRUID_2   = 0x6A,
+        TYPE_SHOP_DRUID_3   = 0x6B,
+        TYPE_INN_DRUID_1    = 0x6F,
+        TYPE_INN_DRUID_2    = 0x70,
+        TYPE_INN_DRUID_3    = 0x71,
+    };
+
 public: // VTable at 60f378
     virtual ~Building();  // client: 529d8e
     virtual void RegenTick() override;  // client: 529e08

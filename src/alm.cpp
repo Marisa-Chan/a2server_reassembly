@@ -1,5 +1,6 @@
 ﻿#include "alm.h"
 
+#include "building.h"
 #include "file.h"
 #include "world.h"
 #include <stdio.h>
@@ -223,7 +224,7 @@ MapAlm::MapAlm(const char* filename) {
                 building->player_id = (uint16_t)player_id;
                 building->building_id = building_id;
 
-                if (type_flags == 0x21 || (type_flags & MapBuildingData::FLAG_BRIDGE_DIMS) != 0) {
+                if (type_flags == Building::TYPE_BRIDGE_VERT || (type_flags & MapBuildingData::FLAG_BRIDGE_DIMS) != 0) {
                     uint16_t bridge[4];
                     file->Read(bridge, 8);
                     building->bridge_width = bridge[0];

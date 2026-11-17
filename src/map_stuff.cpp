@@ -2994,9 +2994,9 @@ Scenario::Scenario(const char* fname) {
         MapBuildingData* bld = alm->map_buildings[i];
 
         CGameObject* structure;
-        if ((int16_t)bld->type_id == 0x21) {
+        if ((int16_t)bld->type_id == Building::TYPE_BRIDGE_VERT) {
             structure = new CVerticalWoodenBridge((int16_t)bld->bridge_width, (int16_t)bld->bridge_height);
-        } else if ((int16_t)bld->type_id == 0x25) {
+        } else if ((int16_t)bld->type_id == Building::TYPE_BRIDGE_HORIZ) {
             structure = new CHorisontalWoodenBridge((int16_t)bld->bridge_width, (int16_t)bld->bridge_height);
         } else {
             structure = new CStructure();
