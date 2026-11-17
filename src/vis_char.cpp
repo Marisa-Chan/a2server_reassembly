@@ -2519,7 +2519,7 @@ const char* VisCharInfo::GetHint() {
 
     CUnit* unit = (CUnit*)sel;
     if (unit->map_player != nullptr && unit->map_player->index != 0) {
-        if (map->my_main_unit->IsVisibleTo(unit->map_player->index) == 0) {
+        if (map->my_main_unit->SharesVisionWithUs(unit->map_player->index) == 0) {
             if (this->info_mode != 0) {
                 return nullptr;
             }

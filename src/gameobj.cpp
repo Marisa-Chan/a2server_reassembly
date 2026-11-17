@@ -446,14 +446,14 @@ void CGameObject::UpdateLight() { //46f4f0
 
 
 void CGameObject::UpdateOccupancy() { //462190
-    if (this->pMapObject->my_main_unit->IsVisibleTo(this->map_player->index) != 0 && this->scan_range != 0 && (this->screenX & 0x1f) == 0x10 && (this->screenY & 0x1f) == 0x10 && (this->x_pos != this->occupiedLocation.x || this->y_pos != this->occupiedLocation.y)) {
+    if (this->pMapObject->my_main_unit->SharesVisionWithUs(this->map_player->index) != 0 && this->scan_range != 0 && (this->screenX & 0x1f) == 0x10 && (this->screenY & 0x1f) == 0x10 && (this->x_pos != this->occupiedLocation.x || this->y_pos != this->occupiedLocation.y)) {
         this->MarkOccupancy();
     }
 }
 
 
 void CGameObject::MarkOccupancy() { //462226
-    if (this->pMapObject->my_main_unit->IsVisibleTo(this->map_player->index) != 0 && this->scan_range != 0) {
+    if (this->pMapObject->my_main_unit->SharesVisionWithUs(this->map_player->index) != 0 && this->scan_range != 0) {
         this->pMapObject->minimap_dirty = 1;
 
         uint16_t* land = this->pMapObject->scenario->GetLandscape();
@@ -1732,7 +1732,7 @@ void CUnit::DrawHealthBar(int32_t tile_x, int32_t tile_y, int32_t hgt) { // 466a
 
     VisPlayingArea* map = this->pMapObject;
 
-    if (this->FindEffectTimer(0x20) >= 0 && map->my_main_unit->IsVisibleTo(this->map_player->index) == 0) {
+    if (this->FindEffectTimer(0x20) >= 0 && map->my_main_unit->SharesVisionWithUs(this->map_player->index) == 0) {
         return;
     }
 
@@ -2067,7 +2067,7 @@ void CUnit::Draw(int32_t tile_x, int32_t tile_y, int32_t light) { // 464974
         if (this->FindEffectTimer(0x20) < 0) {
             this->sprite->DrawWithPalette(x, y, frame, light, palette, flip);
         } else {
-            if (map->my_main_unit->IsVisibleTo(this->map_player->index) == 0) {
+            if (map->my_main_unit->SharesVisionWithUs(this->map_player->index) == 0) {
                 return;
             }
             this->sprite->DrawWithPaletteBlend(x, y, frame, light, palette, flip);
@@ -2089,7 +2089,7 @@ void CUnit::Draw(int32_t tile_x, int32_t tile_y, int32_t light) { // 464974
         if (this->FindEffectTimer(0x20) < 0) {
             gfx_file->GetSprite()->DrawWithPalette(x, y, frame, light, palette, flip);
         } else {
-            if (map->my_main_unit->IsVisibleTo(this->map_player->index) == 0) {
+            if (map->my_main_unit->SharesVisionWithUs(this->map_player->index) == 0) {
                 return;
             }
             gfx_file->GetSprite()->DrawWithPaletteBlend(x, y, frame, light, palette, flip);
@@ -2257,7 +2257,7 @@ void CUnit::DrawShadow(int32_t tile_x, int32_t tile_y, int32_t light) { // 465b5
         if (this->FindEffectTimer(0x20) < 0) {
             this->sprite->DrawShadowed(x, y, frame, g_DeltaCLR.shade_delta, sun_angle, flip);
         } else {
-            if (map->my_main_unit->IsVisibleTo(this->map_player->index) == 0) {
+            if (map->my_main_unit->SharesVisionWithUs(this->map_player->index) == 0) {
                 return;
             }
             this->sprite->DrawShadowed(x, y, frame, g_DeltaCLR.lit_delta, sun_angle, flip);
@@ -2284,7 +2284,7 @@ void CUnit::DrawShadow(int32_t tile_x, int32_t tile_y, int32_t light) { // 465b5
                 gfx_file->GetSprite()->DrawShadowed(x, y, frame, g_DeltaCLR.shade_delta, sun_angle, flip);
             }
         } else {
-            if (map->my_main_unit->IsVisibleTo(this->map_player->index) == 0) {
+            if (map->my_main_unit->SharesVisionWithUs(this->map_player->index) == 0) {
                 return;
             }
             if (is_air) {
@@ -3264,7 +3264,7 @@ void CUnit::DrawMinimapRect(int32_t x, int32_t y, int32_t zoom) {
 
     VisPlayingArea* map = this->pMapObject;
 
-    if (this->FindEffectTimer(0x20) >= 0 && map->my_main_unit->IsVisibleTo(this->map_player->index) == 0) {
+    if (this->FindEffectTimer(0x20) >= 0 && map->my_main_unit->SharesVisionWithUs(this->map_player->index) == 0) {
         return;
     }
 
@@ -3306,7 +3306,7 @@ int32_t CUnit::UpdateBlockedState() {
         return 1;
     }
 
-    if (map->my_main_unit->IsVisibleTo(this->map_player->index) != 0) {
+    if (map->my_main_unit->SharesVisionWithUs(this->map_player->index) != 0) {
         this->bIsBlocked = 0;
         return 0;
     }
@@ -3587,7 +3587,7 @@ void CUnit::DrawStatsPanel(CRect* rect) {
     }
     if (this->map_player->index == 0) {
         view_level = 7;
-    } else if (map->my_main_unit->IsVisibleTo(this->map_player->index) != 0) {
+    } else if (map->my_main_unit->SharesVisionWithUs(this->map_player->index) != 0) {
         view_level = 7;
     }
 #ifndef A2CLIENT_PATCH
@@ -3603,7 +3603,7 @@ void CUnit::DrawStatsPanel(CRect* rect) {
 
     if (strlen(this->str1) == 0) {
         if ((this->unitFlags & (UNIT_FLAG_PLAYER_CLASS | UNIT_FLAG_CREATURE)) != 0) {
-            if (map->my_main_unit->IsAllied(this->map_player->index) == 0) {
+            if (map->my_main_unit->IsHostile(this->map_player->index) == 0) {
                 g_font2->DrawTextWithShadow(rect->right - 0x58, rect->top + 0x12, TxtFile::AllLines[0x54], 2, label_color, 1);
             } else if (this->typeId < 0x40) {
                 g_font2->DrawTextWithShadow(rect->right - 0x58, rect->top + 0x12, TxtFile::AllLines[0x53], 2, label_color, 1);
@@ -3755,7 +3755,7 @@ const char* CUnit::GetStatsHint(int32_t x, int32_t y) {
     }
     if (this->map_player->index == 0) {
         view_level = 7;
-    } else if (map->my_main_unit->IsVisibleTo(this->map_player->index) != 0) {
+    } else if (map->my_main_unit->SharesVisionWithUs(this->map_player->index) != 0) {
         view_level = 7;
     }
 #ifndef A2CLIENT_PATCH
@@ -4254,7 +4254,7 @@ void CStructure::DrawMinimapRect(int32_t x, int32_t y, int32_t zoom) {
 int32_t CStructure::UpdateBlockedState() {
     VisPlayingArea* map = this->pMapObject;
 
-    if (map->my_main_unit->IsVisibleTo(this->map_player->index) != 0) {
+    if (map->my_main_unit->SharesVisionWithUs(this->map_player->index) != 0) {
         this->bIsBlocked = 0;
         return 0;
     }

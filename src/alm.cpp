@@ -1,6 +1,7 @@
 ﻿#include "alm.h"
 
 #include "file.h"
+#include "world.h"
 #include <stdio.h>
 
 //GetRuntimeClass 43C030
@@ -45,18 +46,18 @@ void MapPlayerData::Dump(CDumpContext& dc) const {
 }
 
 // 41EDF0
-int32_t MapPlayerData::KnowsPlayer(int32_t idx) {
-    return this->diplomacy[idx] & 4;
+int32_t MapPlayerData::IsMuted(int32_t idx) {
+    return this->diplomacy[idx] & DIPLO_MUTE;
 }
 
 // 41EE20
-uint32_t MapPlayerData::IsAllied(int32_t idx) {
-    return this->diplomacy[idx] & 1;
+uint32_t MapPlayerData::IsHostile(int32_t idx) {
+    return this->diplomacy[idx] & DIPLO_WAR;
 }
 
 // 41EE50
-int32_t MapPlayerData::IsVisibleTo(int32_t idx) {
-    return this->diplomacy[idx] & 8;
+int32_t MapPlayerData::SharesVisionWithUs(int32_t idx) {
+    return this->diplomacy[idx] & DIPLO_SHARED_VISION;
 }
 
 // 56E910

@@ -45,9 +45,9 @@ public:
 
     virtual void Dump(CDumpContext& dc) const override; // 43c225 (client: 43e635)
 
-    uint32_t IsAllied(int32_t idx);  // client: 420640
-    int32_t KnowsPlayer(int32_t idx);  // client: 420660
-    int32_t IsVisibleTo(int32_t idx);  // client: 420610
+    uint32_t IsHostile(int32_t idx);  // client: 420640
+    int32_t IsMuted(int32_t idx);  // client: 420660
+    int32_t SharesVisionWithUs(int32_t idx);  // client: 420610
 };
 ASSERT_SIZE(MapPlayerData, 0x4c);
 

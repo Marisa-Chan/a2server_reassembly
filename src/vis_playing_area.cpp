@@ -782,7 +782,7 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 								this->msglog.Add(txt_patch.GetLine(0x45), clr_log_sblack, 10000);
 							}
 
-							if (sval < 2 && this->my_main_unit->IsAllied(ct->map_player->index) != 0) {
+							if (sval < 2 && this->my_main_unit->IsHostile(ct->map_player->index) != 0) {
 								wnd->m_FameHall.AddDifficultyPoint();
 							}
 
@@ -1582,7 +1582,7 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 		case CHAT: {
 			if (packet_join->player_id == 0 || packet_join->player_id >= this->map_players.GetSize() || this->map_players[packet_join->player_id] == nullptr) {
 				this->msglog.Add(packet_join->name, clr_log_sblack, 10000);
-			} else if (this->my_main_unit->KnowsPlayer(packet_join->player_id) == 0 || packet_join->token_id == CHAT_TYPE_GLOBAL) {
+			} else if (this->my_main_unit->IsMuted(packet_join->player_id) == 0 || packet_join->token_id == CHAT_TYPE_GLOBAL) {
 				MapPlayerData* dat = this->map_players[packet_join->player_id];
 
 				CString chat_text = CString(dat->name) + ": " + packet_join->name;
@@ -4517,7 +4517,7 @@ uint32_t VisPlayingArea::UpdateMouseHover() {
 			}
 			avail |= 0x20;
 		}
-		if (this->my_main_unit->IsAllied(obj->map_player->index) != 0) {
+		if (this->my_main_unit->IsHostile(obj->map_player->index) != 0) {
 			avail |= 4;
 		}
 		this->hovered_unit = (CUnit*)obj;
@@ -5376,7 +5376,7 @@ void VisPlayingArea::RenderWorldFrame() {
 					}
 				}
 				if (unit != nullptr && unit->IsBlocked() == 0 &&
-					(unit->FindEffectTimer(0x20) < 0 || this->my_main_unit->IsVisibleTo(unit->map_player->index) != 0)) {
+					(unit->FindEffectTimer(0x20) < 0 || this->my_main_unit->SharesVisionWithUs(unit->map_player->index) != 0)) {
 					UnitVFXUnfo* vfx = g_VFX_info[unit->typeId];
 					CRect sel = vfx->selection;
 					sel.OffsetRect(unit->centerScreenX - vfx->center_x,
