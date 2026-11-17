@@ -9,6 +9,7 @@
 #include "mouse.h"
 #include "file.h"
 #include "game_app.h"
+#include "inn.h"
 #include "quest_map.h"
 #include "quest.h"
 #include "ingame.h"
@@ -211,7 +212,7 @@ void VisTav::DoClose(uint32_t code) {
     }
 
     if (this->quest_alt_close != 0) {
-        main_wnd->vis_map_context->LeaveInn(0xAAAAAAAA);
+        main_wnd->vis_map_context->LeaveInn(Inn::EXIT_CANCEL_QUEST);
     } else {
         main_wnd->vis_map_context->LeaveInn(this->quest_selection);
     }
@@ -1671,13 +1672,13 @@ void VisTavScene::DrawQuestRoster() {
         } else if (entry->item_id == ItemId::REWARD_EXP) {
             g_font2->DrawTextWithShadow(tav_topleft.x + pt.x + 0x28, tav_topleft.y + pt.y + 0x23, TxtFile::AllLines[0x2E], 2, clrsh_DullGold, 1);
             CString text;
-            text.Format("%d", entry->count * 250);
+            text.Format("%d", entry->count * Inn::REWARD_GOLD_UNIT);
             InsertThousandsSeparators(&text);
             g_font2->DrawTextWithShadow(tav_topleft.x + pt.x + 3, tav_topleft.y + pt.y + 0x42, text, 0, clrsh_DullGold, 1);
         } else if (entry->item_id == ItemId::REWARD_GOLD) {
             g_ca16_money->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, 0, 0, 0);
             CString text;
-            text.Format("%d", entry->count * 250);
+            text.Format("%d", entry->count * Inn::REWARD_GOLD_UNIT);
             InsertThousandsSeparators(&text);
             g_font2->DrawTextWithShadow(tav_topleft.x + pt.x + 3, tav_topleft.y + pt.y + 0x42, text, 0, clrsh_DullGold, 1);
         } else {
@@ -2470,7 +2471,7 @@ void VisTavDruid::DoClose(uint32_t code) {
     }
 
     if (this->quest_alt_close != 0) {
-        main_wnd->vis_map_context->LeaveInn(0xAAAAAAAA);
+        main_wnd->vis_map_context->LeaveInn(Inn::EXIT_CANCEL_QUEST);
     } else {
         main_wnd->vis_map_context->LeaveInn(this->quest_selection);
     }
@@ -2747,7 +2748,7 @@ void VisTavKaarg::DoClose(uint32_t code) {
     }
 
     if (this->quest_alt_close != 0) {
-        main_wnd->vis_map_context->LeaveInn(0xAAAAAAAA);
+        main_wnd->vis_map_context->LeaveInn(Inn::EXIT_CANCEL_QUEST);
     } else {
         main_wnd->vis_map_context->LeaveInn(this->quest_selection);
     }

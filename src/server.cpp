@@ -291,7 +291,7 @@ void Server::ProcessPlayers() {
 
                 Inn* inn = this->FindInnAt(player->main_unit->position);
                 if (inn != nullptr) {
-                    inn->RemoveUnit(player->main_unit, -1);
+                    inn->RemoveUnit(player->main_unit, Inn::EXIT_LEAVE_NONE);
                 }
 
                 if (player->main_unit->decay != 0 && g_Server->multiplayer != 0) {

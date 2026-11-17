@@ -732,7 +732,7 @@ void Inn::RegenTick() {
         }
 #endif
         if (unit->pOwner->is_active == 0) {
-            this->RemoveUnit(static_cast<Humanoid*>(unit), 0xFFFF);
+            this->RemoveUnit(static_cast<Humanoid*>(unit), Inn::EXIT_DISCONNECT);
         }
     }
 
@@ -744,7 +744,7 @@ void Inn::RegenTick() {
 #ifdef A2SERVER_PATCH
     roll_interval = Config::QuestRollInterval;
 #else
-    roll_interval = 120;
+    roll_interval = Inn::DEFAULT_ROLL_INTERVAL;
 #endif;
 
     if (this->quest_roll_counter > roll_interval && this->unit_list.unit_list.IsEmpty()) {
@@ -871,8 +871,8 @@ void Inn::InnReward(Player* player) {
 
     // The reward can't be much higher: gold is sent in a uint16_t multiple of 250,
     // and 65535 * 250 = 16_383_750, so the max reward is just below that.
-    int max_quest_reward = 16383000;
-    int min_quest_reward = 250;
+    int max_quest_reward = Inn::MAX_QUEST_REWARD;
+    int min_quest_reward = Inn::MIN_QUEST_REWARD;
 
 #ifdef A2TANGAR_HAT
     // bound_quest_reward hook (565406): configurable reward bounds
@@ -1096,7 +1096,7 @@ void Inn::InnReward(Player* player) {
     {
         Item* gold = new Item();
         gold->item_id = ItemId::REWARD_GOLD;
-        gold->count = reward / 250;
+        gold->count = reward / Inn::REWARD_GOLD_UNIT;
         result_items.Add(gold);
     }
 
@@ -1109,7 +1109,7 @@ void Inn::InnReward(Player* player) {
 #endif
         Item* experience = new Item();
         experience->item_id = ItemId::REWARD_EXP;
-        experience->count = reward / 250;
+        experience->count = reward / Inn::REWARD_GOLD_UNIT;
         result_items.Add(experience);
     }
 
@@ -1377,13 +1377,13 @@ void Inn::RemoveUnit(Humanoid* humanoid, int32_t id) {
     }
 
     // Special cancel sentinel?
-    if (id == 0xAAAAAAAA) {
+    if (id == Inn::EXIT_CANCEL_QUEST) {
         int32_t result = g_QuestMap.OnEvent(Quest::EVENT_QUERY_PLAYER_INN_QUEST, humanoid->pOwner->player_id, this->building_id);
         g_QuestMap.OnEvent(Quest::EVENT_FORCE_FAIL, result, 0);
         return;
     }
 
-    if (id >= 0x100) { // Accepting quest.
+    if (id >= Inn::REWARD_SLOT_LIMIT) { // Accepting quest.
         int32_t player_id = humanoid->pOwner->player_id;
 
         // Look up QuestMap for this player
@@ -1510,7 +1510,7 @@ void Inn::RemoveUnit(Humanoid* humanoid, int32_t id) {
                     }
                 } else if (item_hash == ItemId::REWARD_EXP) {
                     // ---- Experience reward ----
-                    uint32_t base_exp = ((uint32_t)item->count) * 250;
+                    uint32_t base_exp = ((uint32_t)item->count) * Inn::REWARD_GOLD_UNIT;
                     int32_t carry = 0;
 #ifdef A2TANGAR_HAT
                     // imp_Experience7 hook (5610DC): raise skill XP cap to MAX_SKILL.
@@ -1562,7 +1562,7 @@ void Inn::RemoveUnit(Humanoid* humanoid, int32_t id) {
                     g_NetStru1_main.SendUnitUpdate(humanoid, nullptr, UNIT_UPD_ALL_STATS, EQUIP_SLOTS_ALL, 0, 0);
                 } else if (item_hash == ItemId::REWARD_GOLD) {
                     // ---- Money reward ----
-                    humanoid->pOwner->AddMoney(((uint32_t)item->count) * 250, 0);
+                    humanoid->pOwner->AddMoney(((uint32_t)item->count) * Inn::REWARD_GOLD_UNIT, 0);
                 } else {
                     // ---- Regular item ----
                     bool is_item_improvement = (id >= inv_count - 1);

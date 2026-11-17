@@ -17,6 +17,20 @@ class QuestMap;
 
 class Inn : public Building {
 public:
+    enum ExitCode : int32_t {
+        EXIT_LEAVE_NONE   = -1,
+        EXIT_DISCONNECT   = 0xFFFF,
+        EXIT_CANCEL_QUEST = static_cast<int32_t>(0xAAAAAAAAu),
+    };
+
+    enum : int32_t {
+        REWARD_SLOT_LIMIT     = 0x100,
+        REWARD_GOLD_UNIT      = 250,
+        MIN_QUEST_REWARD      = 250,
+        MAX_QUEST_REWARD      = 16383000,
+        DEFAULT_ROLL_INTERVAL = 120,
+    };
+
     DECLARE_SERIAL(Inn); // Runtime class definition at 637330.
 
 public:
