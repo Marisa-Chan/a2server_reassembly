@@ -366,6 +366,26 @@ struct Rle16Cmd {
 };
 ASSERT_SIZE(Rle16Cmd, 2);
 
+struct Rle16Pixel {
+	union {
+		uint16_t raw;
+		struct {
+			uint16_t unused_lsb  : 1; // [0]     0 (word byte-offset alignment)
+			uint16_t color_index : 8; // [8:1]   palette entry (0..255)
+			uint16_t alpha_level : 4; // [12:9]  0x1E00: destination shade/alpha level (0..15)
+			uint16_t unused_high : 3; // [15:13]
+		};
+		struct {
+			uint16_t align_bit   : 1;  // [0]
+			uint16_t clut_index  : 15; // [15:1]  (alpha_level << 8) | color_index == raw / 2
+		};
+	};
+
+	constexpr Rle16Pixel(uint16_t v = 0) : raw(v) {}
+	constexpr operator uint16_t() const { return this->raw; }
+};
+ASSERT_SIZE(Rle16Pixel, 2);
+
 
 class CGameBitmap : public CObject {
 	DECLARE_DYNAMIC(CGameBitmap);

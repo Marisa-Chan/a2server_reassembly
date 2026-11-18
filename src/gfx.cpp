@@ -1754,8 +1754,8 @@ void __cdecl BlitRle16(int32_t x, int32_t y, int32_t w, int32_t h, uint16_t* src
 						if (g_isLowMemory == 0) {
 							while (count) {
 								if (xx >= g_clipRect.left && xx < g_clipRect.right) {
-									const uint16_t px = *src;
-									*dst = clr[px / 2] + g_brightnessLookup[g_brightnessLookupCount + ((px & 0x1e00) << (8 - 1)) + *dst];
+									const Rle16Pixel px = *src;
+									*dst = clr[px.clut_index] + g_brightnessLookup[g_brightnessLookupCount + (static_cast<uint32_t>(px.alpha_level) << 16) + *dst];
 								}
 								src++;
 								dst++;
@@ -1765,8 +1765,8 @@ void __cdecl BlitRle16(int32_t x, int32_t y, int32_t w, int32_t h, uint16_t* src
 						} else {
 							while (count) {
 								if (xx >= g_clipRect.left && xx < g_clipRect.right) {
-									const uint16_t px = *src;
-									*dst = clr[px / 2] + g_brightnessLookup[((px & 0x1e00) << (8 - 1 - 3)) + (*dst >> 3)];
+									const Rle16Pixel px = *src;
+									*dst = clr[px.clut_index] + g_brightnessLookup[(static_cast<uint32_t>(px.alpha_level) << 13) + (*dst >> 3)];
 								}
 								src++;
 								dst++;
@@ -1805,15 +1805,15 @@ void __cdecl BlitRle16(int32_t x, int32_t y, int32_t w, int32_t h, uint16_t* src
 					xx += count;
 					if (g_isLowMemory == 0) {
 						for (int i = count; i > 0; i--) {
-							const uint16_t px = *src;
-							*dst = clr[px / 2] + g_brightnessLookup[g_brightnessLookupCount + ((px & 0x1e00) << (8 - 1)) + *dst];
+							const Rle16Pixel px = *src;
+							*dst = clr[px.clut_index] + g_brightnessLookup[g_brightnessLookupCount + (static_cast<uint32_t>(px.alpha_level) << 16) + *dst];
 							src++;
 							dst++;
 						}
 					} else {
 						for (int i = count; i > 0; i--) {
-							const uint16_t px = *src;
-							*dst = clr[px / 2] + g_brightnessLookup[((px & 0x1e00) << (8 - 1 - 3)) + (*dst >> 3)];
+							const Rle16Pixel px = *src;
+							*dst = clr[px.clut_index] + g_brightnessLookup[(static_cast<uint32_t>(px.alpha_level) << 13) + (*dst >> 3)];
 							src++;
 							dst++;
 						}
@@ -1871,8 +1871,8 @@ void __cdecl BlitRle16FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint16_t
 						if (g_isLowMemory == 0) {
 							while (count) {
 								if (xx >= g_clipRect.left && xx < g_clipRect.right) {
-									const uint16_t px = *src;
-									*dst = clr[px / 2] + g_brightnessLookup[g_brightnessLookupCount + ((px & 0x1e00) << (8 - 1)) + *dst];
+									const Rle16Pixel px = *src;
+									*dst = clr[px.clut_index] + g_brightnessLookup[g_brightnessLookupCount + (static_cast<uint32_t>(px.alpha_level) << 16) + *dst];
 								}
 								src++;
 								dst--;
@@ -1882,8 +1882,8 @@ void __cdecl BlitRle16FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint16_t
 						} else {
 							while (count) {
 								if (xx >= g_clipRect.left && xx < g_clipRect.right) {
-									const uint16_t px = *src;
-									*dst = clr[px / 2] + g_brightnessLookup[((px & 0x1e00) << (8 - 1 - 3)) + (*dst >> 3)];
+									const Rle16Pixel px = *src;
+									*dst = clr[px.clut_index] + g_brightnessLookup[(static_cast<uint32_t>(px.alpha_level) << 13) + (*dst >> 3)];
 								}
 								src++;
 								dst--;
@@ -1922,15 +1922,15 @@ void __cdecl BlitRle16FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint16_t
 					xx += count;
 					if (g_isLowMemory == 0) {
 						for (int i = count; i > 0; i--) {
-							const uint16_t px = *src;
-							*dst = clr[px / 2] + g_brightnessLookup[g_brightnessLookupCount + ((px & 0x1e00) << (8 - 1)) + *dst];
+							const Rle16Pixel px = *src;
+							*dst = clr[px.clut_index] + g_brightnessLookup[g_brightnessLookupCount + (static_cast<uint32_t>(px.alpha_level) << 16) + *dst];
 							src++;
 							dst--;
 						}
 					} else {
 						for (int i = count; i > 0; i--) {
-							const uint16_t px = *src;
-							*dst = clr[px / 2] + g_brightnessLookup[((px & 0x1e00) << (8 - 1 - 3)) + (*dst >> 3)];
+							const Rle16Pixel px = *src;
+							*dst = clr[px.clut_index] + g_brightnessLookup[(static_cast<uint32_t>(px.alpha_level) << 13) + (*dst >> 3)];
 							src++;
 							dst--;
 						}

@@ -38,6 +38,7 @@ TYPE_ALIASES = {
     "SpriteTrailer": "uint",
     "Rle8Cmd": "uchar",
     "Rle16Cmd": "ushort",
+    "Rle16Pixel": "ushort",
 }
 GAME_CATEGORY = "/Game"
 
