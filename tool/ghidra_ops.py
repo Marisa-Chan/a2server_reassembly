@@ -32,6 +32,7 @@ TYPE_ALIASES = {
     "ScenarioTavernEntryId": "uint",
     "LandscapeTile": "ushort",
     "CharacterClassCode": "uchar",
+    "UnitSaveFlags": "uint",
 }
 GAME_CATEGORY = "/Game"
 

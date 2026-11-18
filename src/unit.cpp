@@ -353,10 +353,11 @@ void Unit::Serialize(CArchive& ar) {
         ar << this->attack_ready;
         ar << this->last_action_tick;
         ar << this->decay;
-        uint32_t packed = this->server_id
-            | ((this->ownership_changed & 0xFF) << 16)
-            | ((this->summoned & 0xFF) << 24);
-        ar << packed;
+        UnitSaveFlags packed;
+        packed.server_id = this->server_id;
+        packed.ownership_changed = static_cast<uint8_t>(this->ownership_changed);
+        packed.summoned = static_cast<uint8_t>(this->summoned);
+        ar << packed.raw;
         ar << this->enchantments;
         ar.WriteObject(this->some_item);
         if (this->inventory != nullptr) {
@@ -415,8 +416,8 @@ void Unit::Serialize(CArchive& ar) {
         ar >> this->attack_ready;
         ar.Read(&this->last_action_tick, 4);
         ar >> this->decay;
-        uint32_t packed;
-        ar.Read(&packed, 4);
+        UnitSaveFlags packed;
+        ar.Read(&packed.raw, 4);
         ar.Read(&this->enchantments, 4);
         this->some_item = (Item*)ar.ReadObject(RUNTIME_CLASS(Item));
         uint8_t has_inventory;
@@ -435,9 +436,9 @@ void Unit::Serialize(CArchive& ar) {
         ar.Read(&this->spell, 4);
         ar.Read(&this->last_hit_by, 4);
         ar.Read(&this->last_hit_spell_id, 1);
-        this->server_id = (uint16_t)(packed & 0xFFFF);
-        this->ownership_changed = (packed & 0xFF0000) != 0 ? 1 : 0;
-        this->summoned = (packed & 0xFF000000) != 0 ? 1 : 0;
+        this->server_id = packed.server_id;
+        this->ownership_changed = packed.ownership_changed != 0 ? 1 : 0;
+        this->summoned = packed.summoned != 0 ? 1 : 0;
         if (!this->IsHumanoid()) {
             this->monster_info = &g_GameDataRes.monsters[this->itemDataID];
         } else {

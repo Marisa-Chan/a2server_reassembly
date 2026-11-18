@@ -61,6 +61,21 @@ struct SessionMobKill {
 };
 ASSERT_SIZE(SessionMobKill, 0x4);
 
+struct UnitSaveFlags {
+    union {
+        uint32_t raw;
+        struct {
+            uint32_t server_id         : 16; // [15:0]
+            uint32_t ownership_changed : 8;  // [23:16]
+            uint32_t summoned          : 8;  // [31:24]
+        };
+    };
+
+    constexpr UnitSaveFlags(uint32_t v = 0) : raw(v) {}
+    constexpr operator uint32_t() const { return this->raw; }
+};
+ASSERT_SIZE(UnitSaveFlags, 4);
+
 namespace unit_type {
 enum : uint16_t {
     cavalry_a           = 0x13, // 19: Horse-rider with sword
