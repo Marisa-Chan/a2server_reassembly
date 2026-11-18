@@ -33,6 +33,7 @@ TYPE_ALIASES = {
     "LandscapeTile": "ushort",
     "CharacterClassCode": "uchar",
     "UnitSaveFlags": "uint",
+    "SackVisualType": "uchar",
 }
 GAME_CATEGORY = "/Game"
 

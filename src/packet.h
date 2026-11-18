@@ -372,6 +372,21 @@ ASSERT_SIZE(PacketUnitAction, 0xE);
 // Generic 8-byte payload packet; fields not initialised by ctor.
 // Copy ctor: 526FE6 (copies 9 bytes: id + 8 payload bytes).
 // ---------------------------------------------------------------------------
+struct SackVisualType {
+    union {
+        uint8_t raw;
+        struct {
+            uint8_t gold_tier  : 6; // [5:0] (uint8_t)log10(sack->_exp)
+            uint8_t has_rune_f : 1; // [6]   0x40 ("Quest RuneF")
+            uint8_t has_rune_a : 1; // [7]   0x80 ("Quest RuneA")
+        };
+    };
+
+    constexpr SackVisualType(uint8_t v = 0) : raw(v) {}
+    constexpr operator uint8_t() const { return this->raw; }
+};
+ASSERT_SIZE(SackVisualType, 1);
+
 __pragma(pack(push, 1))
 class PacketSack : public Packet {
 public:
@@ -386,7 +401,7 @@ public:
 public:
     uint16_t unit_id; // 0xa
     uint8_t gap_c;
-    uint8_t type_id; // 0xd
+    SackVisualType type_id; // 0xd
     int16_t xpos; // 0xe
     int16_t ypos; // 0x10
 };

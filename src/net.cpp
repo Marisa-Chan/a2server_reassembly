@@ -4921,18 +4921,19 @@ void NetStru1::BroadcastTokenState(Token* token, Player* player, uint8_t flag) {
         packet.xpos = sack->position->GetXx();
         packet.ypos = sack->position->GetYy();
         packet.unit_id = (uint16_t)sack->building_id;
-        packet.type_id = (uint8_t)log10(sack->_exp);
+        SackVisualType sack_type((uint8_t)log10(sack->_exp));
 
 #ifndef A2CLIENT
         if (g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY) {
             if (sack->inventory->FindItemByName("Quest RuneF")) {
-                packet.type_id |= 0x40;
+                sack_type.has_rune_f = 1;
             }
             if (sack->inventory->FindItemByName("Quest RuneA")) {
-                packet.type_id |= 0x80;
+                sack_type.has_rune_a = 1;
             }
         }
 #endif
+        packet.type_id = sack_type;
 
         if (g_Server->multiplayer != 0) {
             if (!IsVisibleTo(sack->position, player)) {
