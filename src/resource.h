@@ -17,17 +17,69 @@ struct FatInfo {
 
 #define FATINFO_T1   ((FatInfo*)1)
 
+enum : uint32_t {
+    RES_ARCHIVE_MAGIC = 0x31415926u,
+};
+
+struct FatEntryFlags {
+    enum ValueType : uint32_t {
+        TYPE_STRING       = 0,
+        TYPE_INT          = 1,
+        TYPE_DOUBLE       = 2,
+        TYPE_INT_ARRAY    = 3,
+        TYPE_STRING_ARRAY = 4,
+        TYPE_DOUBLE_ARRAY = 5,
+    };
+
+    enum Mask : uint32_t {
+        FLAG_DIRECTORY      = 0x00000001u,
+        VALUE_TYPE_MASK     = 0x0000000Eu,
+        FLAG_SORTED         = 0x00000010u,
+        FLAG_NAME_TRUNCATED = 0x10000000u,
+        FLAG_SUBSTITUTED    = 0x20000000u,
+        FLAG_DELETED        = 0x40000000u,
+        FLAG_FAT_INLINE     = 0x80000000u,
+        DIR_OR_DELETED_MASK = FLAG_DIRECTORY | FLAG_DELETED, // 0x40000001u
+    };
+
+    union {
+        uint32_t raw;
+        struct {
+            uint32_t is_directory   : 1;  // [0]     0x00000001
+            uint32_t value_type     : 3;  // [3:1]   0x0000000E (ValueType in RegFile)
+            uint32_t is_sorted      : 1;  // [4]     0x00000010 (children sorted for bsearch)
+            uint32_t reserved       : 23; // [27:5]
+            uint32_t name_truncated : 1;  // [28]    0x10000000 (name > 15 chars)
+            uint32_t is_substituted : 1;  // [29]    0x20000000 (substituted by loose file)
+            uint32_t is_deleted     : 1;  // [30]    0x40000000 (marked removed in RegFile)
+            uint32_t fat_inline     : 1;  // [31]    0x80000000 (root: FAT immediately follows header)
+        };
+    };
+
+    FatEntryFlags() = default;
+    constexpr FatEntryFlags(uint32_t v) : raw(v) {}
+    constexpr operator uint32_t() const { return this->raw; }
+    FatEntryFlags& operator|=(uint32_t v) { this->raw |= v; return *this; }
+    FatEntryFlags& operator&=(uint32_t v) { this->raw &= v; return *this; }
+
+    static constexpr FatEntryFlags MakeValue(ValueType vt) {
+        return FatEntryFlags(static_cast<uint32_t>(vt) << 1);
+    }
+};
+ASSERT_SIZE(FatEntryFlags, 4);
+
 struct FatEntry {
     uint32_t magic;
     uint32_t offset;
     uint32_t size;
-    uint32_t flags;
+    FatEntryFlags flags;
     char name[16];
 
     void SetName(const char* resname);  // client: 4ec460
     static int NameCompare(const void* key, const void* datum);  // client: 4f21da
     static int SortCompare(const void* a, const void* b);  // client: 4f2181
 };
+ASSERT_SIZE(FatEntry, 0x20);
 
 struct ResBase {
     FatEntry root;

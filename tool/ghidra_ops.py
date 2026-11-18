@@ -39,6 +39,7 @@ TYPE_ALIASES = {
     "Rle8Cmd": "uchar",
     "Rle16Cmd": "ushort",
     "Rle16Pixel": "ushort",
+    "FatEntryFlags": "uint",
 }
 GAME_CATEGORY = "/Game"
 

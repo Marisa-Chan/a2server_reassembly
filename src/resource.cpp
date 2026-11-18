@@ -236,7 +236,7 @@ void Resources::MarkFileSubstituted(const char* fname) {
     for (int i = 0; i < this->res_files.GetSize(); i++) {
         FatEntry *fat = this->res_files[i]->FindEntry(fname);
         if (fat) {
-            fat->flags |= 0x20000000;
+            fat->flags.is_substituted = 1;
             break;
         }
     }
@@ -305,7 +305,7 @@ ResFile::ResFile(const char* fpath) {
 
     this->file->Read(&this->root.magic, 4);
 
-    if (this->root.magic != 0x31415926) {
+    if (this->root.magic != RES_ARCHIVE_MAGIC) {
         AfxThrowFileException(CFileException::genericException);
     }
     
@@ -337,7 +337,7 @@ ResFile::ResFile(const char* fpath) {
         }
     }
 
-    if ((this->root.flags & 0x80000000) == 0) {
+    if (this->root.flags.fat_inline == 0) {
         this->file->Seek(this->fat_offset, 0);
     }
 
@@ -381,10 +381,10 @@ RegFile::RegFile() {
 
     this->fat_size = 0;
     this->root.SetName("");
-    this->root.magic = 0x31415926;
+    this->root.magic = RES_ARCHIVE_MAGIC;
     this->root.offset = 0;
     this->root.size = 0;
-    this->root.flags = 1;
+    this->root.flags = FatEntryFlags::FLAG_DIRECTORY;
     this->content_size = 0;
 }
 
@@ -458,7 +458,7 @@ FatEntry* ResBase::Find(FatEntry* node, const char* fname) {
 
     FatEntry* searchBase = this->fat_data + node->offset;
 
-    if ((node->flags & 0x10) != 0 && node->size != 0) {
+    if (node->flags.is_sorted != 0 && node->size != 0) {
         FatEntry tmp;
         tmp.SetName(fname);
         return (FatEntry*)bsearch(&tmp, searchBase, node->size, sizeof(FatEntry), FatEntry::NameCompare);
@@ -526,7 +526,7 @@ FatEntry* ResBase::TracePath(const char* fpath) {
             break;
         }
 
-        if ((node->flags & 0x40000001) != 1) {
+        if ((node->flags & FatEntryFlags::DIR_OR_DELETED_MASK) != FatEntryFlags::FLAG_DIRECTORY) {
             return nullptr;
         }
 
@@ -551,15 +551,15 @@ void ResBase::AccumulateSize(FatEntry* node) {
     //4ecc05
     static int s_FatWalkAbort = 0;
 
-    if ((node->flags & 0x40000001) == 0) {
-        node->flags |= 0x40000000;
+    if ((node->flags & FatEntryFlags::DIR_OR_DELETED_MASK) == 0) {
+        node->flags.is_deleted = 1;
 
-        int8_t tmp = (node->flags & 0xe) >> 1;
-        if (tmp != 1 && tmp != 2) {
+        int8_t tmp = node->flags.value_type;
+        if (tmp != FatEntryFlags::TYPE_INT && tmp != FatEntryFlags::TYPE_DOUBLE) {
             this->content_size += node->size;
         }
-    } else if ((node->flags & 0x40000001) == 1) {
-        node->flags |= 0x40000000;
+    } else if ((node->flags & FatEntryFlags::DIR_OR_DELETED_MASK) == FatEntryFlags::FLAG_DIRECTORY) {
+        node->flags.is_deleted = 1;
         
         uint32_t cnt = 0;
         while (cnt < node->size) {
@@ -589,11 +589,11 @@ void ResBase::CopyFatExcluding(FatEntry* newFat, int* pCount, const FatEntry* sr
 
     dstRoot->offset = fatOffset;
     dstRoot->SetName(srcRoot->name);
-    dstRoot->flags = srcRoot->flags & (~0x10);
+    dstRoot->flags = srcRoot->flags & (~FatEntryFlags::FLAG_SORTED);
     dstRoot->magic = srcRoot->magic;
 
     for (uint32_t i = 0; i < srcRoot->size; i++) {
-        if ((srcFat[srcOffset + i].flags & 0x40000001) == 0) {
+        if ((srcFat[srcOffset + i].flags & FatEntryFlags::DIR_OR_DELETED_MASK) == 0) {
             newFat[fatOffset] = srcFat[srcOffset + i];
 
             fatOffset++;
@@ -602,7 +602,7 @@ void ResBase::CopyFatExcluding(FatEntry* newFat, int* pCount, const FatEntry* sr
     }
 
     for (uint32_t i = 0; i < srcRoot->size; i++) {
-        if ((srcFat[srcOffset + i].flags & 0x40000001) == 1) {
+        if ((srcFat[srcOffset + i].flags & FatEntryFlags::DIR_OR_DELETED_MASK) == FatEntryFlags::FLAG_DIRECTORY) {
             newSize++;
         }
     }
@@ -612,7 +612,7 @@ void ResBase::CopyFatExcluding(FatEntry* newFat, int* pCount, const FatEntry* sr
     }
 
     for (uint32_t i = 0; i < srcRoot->size; i++) {
-        if ((srcFat[srcOffset + i].flags & 0x40000001) == 1) {
+        if ((srcFat[srcOffset + i].flags & FatEntryFlags::DIR_OR_DELETED_MASK) == FatEntryFlags::FLAG_DIRECTORY) {
             this->CopyFatExcluding(newFat, pCount, srcFat, srcFat + srcOffset + i, node, newFat + fatOffset);
             fatOffset++;
         }
@@ -681,7 +681,7 @@ FatEntry* ResBase::AppendEntry(FatEntry** pOldNode, const char* fname) {
     FatEntry *node = this->fat_data + (*pOldNode)->offset + (*pOldNode)->size;
 
     (*pOldNode)->size++;
-    (*pOldNode)->flags &= ~0x10;
+    (*pOldNode)->flags.is_sorted = 0;
 
     node->SetName(fname);
     node->magic = 0;
@@ -692,13 +692,13 @@ FatEntry* ResBase::AppendEntry(FatEntry** pOldNode, const char* fname) {
 void ResBase::SortTree(FatEntry* root) {
     //4ec736
     for (uint32_t i = 0; i < root->size; i++) {
-        if ((this->fat_data[root->offset + root->size].flags & 0x40000001) == 1) {
+        if ((this->fat_data[root->offset + root->size].flags & FatEntryFlags::DIR_OR_DELETED_MASK) == FatEntryFlags::FLAG_DIRECTORY) {
             this->SortTree(this->fat_data + root->offset + root->size);
         }
     }
     if (root->size != 0) {
         qsort(this->fat_data + root->offset, root->size, sizeof(FatEntry), FatEntry::NameCompare);
-        root->flags |= 0x10;
+        root->flags.is_sorted = 1;
     }
 }
 
@@ -729,7 +729,7 @@ void ResBase::ReadFromFile(CFile* cfile, int32_t offset) {
     
     cfile->Read(&this->root.magic, 4);
 
-    if (this->root.magic != 0x31415926) {
+    if (this->root.magic != RES_ARCHIVE_MAGIC) {
         throw std::runtime_error("bad signature");
     }
 
@@ -800,7 +800,7 @@ FatEntry* ResBase::RecreateEntry(const char* fpath, const char* fname) {
     FatEntry* node = this->CreateEntry(fpath, fname);
     node->offset = this->fat_size;
     node->size = 0;
-    node->flags = 1;
+    node->flags = FatEntryFlags::FLAG_DIRECTORY;
     return node;
 }
 
@@ -811,7 +811,7 @@ FatEntry* ResBase::RequireFileEntry(const char* fpath) {
         AfxThrowFileException(CFileException::fileNotFound);
     }
 
-    if ((node->flags & 0x40000001) == 0) {
+    if ((node->flags & FatEntryFlags::DIR_OR_DELETED_MASK) == 0) {
         AfxThrowFileException(CFileException::badPath);
     }
 
@@ -822,7 +822,7 @@ FatEntry* ResBase::FindEntry(const char* fpath) {
     //4eca63
     FatEntry* node = this->TracePath(fpath);
 
-    if (node != nullptr && (node->flags & 0x40000010) != 0) {
+    if (node != nullptr && (node->flags & (FatEntryFlags::FLAG_DELETED | FatEntryFlags::FLAG_SORTED)) != 0) {
         return nullptr;
     }
 
@@ -836,7 +836,7 @@ FatInfo* ResBase::GetFatInfo(const char* fpath) {
         return nullptr;
     }
     
-    if ((node->flags & 0x20000000) != 0) {
+    if (node->flags.is_substituted != 0) {
         return FATINFO_T1;
     }
 
@@ -869,9 +869,9 @@ int ResBase::GetSizedString(const char* fpath, const char* fname, const char* de
 
     char buf[32];
 
-    int ntype = (node->flags & 0xe) >> 1;
+    int ntype = node->flags.value_type;
     switch (ntype) {
-    case 0:
+    case FatEntryFlags::TYPE_STRING:
         if (sz < node->size) {
             strncpy(out, (char *)this->pdata + node->offset, sz);
         } else {
@@ -879,19 +879,19 @@ int ResBase::GetSizedString(const char* fpath, const char* fname, const char* de
         }
         break;
 
-    case 1:
+    case FatEntryFlags::TYPE_INT:
         _itoa(node->offset, buf, 10);
         strncpy(out, buf, sz);
         break;
 
-    case 2:
+    case FatEntryFlags::TYPE_DOUBLE:
         sprintf(buf, "%f", *(double *)&node->offset);
         // Vanilla overwrites buf with the decimal form of node->offset; the sprintf result is dead.
         _itoa(node->offset, buf, 10);
         strncpy(out, buf, sz);
         break;
 
-    case 3: {
+    case FatEntryFlags::TYPE_INT_ARRAY: {
         char *pout = out;
         for (uint32_t i = 0; i < node->size / 4; i++) {
             _itoa(*((int *)(this->pdata + node->offset) + i), buf, 10);
@@ -913,7 +913,7 @@ int ResBase::GetSizedString(const char* fpath, const char* fname, const char* de
     }
         break;
 
-    case 4:
+    case FatEntryFlags::TYPE_STRING_ARRAY:
         if (sz - 2 < node->size - 4) {
             memcpy(out, (uint8_t *)this->pdata + 4 + node->offset, sz - 2);
         } else {
@@ -923,7 +923,7 @@ int ResBase::GetSizedString(const char* fpath, const char* fname, const char* de
         out[sz - 1] = 0;
         break;
 
-    case 5: {
+    case FatEntryFlags::TYPE_DOUBLE_ARRAY: {
         char *pout = out;
         for (uint32_t i = 0; i < node->size / 8; i++) {
             sprintf(buf, "%f", *((double*)(this->pdata + node->offset) + i));
@@ -974,9 +974,9 @@ void ResBase::RebuildFat() {
     uint32_t idx = 0;
     uint32_t n = 1;
     for ( idx = 0; idx < this->fat_size; idx++) {
-        if ((this->fat_data[idx].flags & 0x40000001) == 0) {
-            int tp = (this->fat_data[idx].flags & 0xe) >> 1;
-            if (tp != 1 && tp != 2) {
+        if ((this->fat_data[idx].flags & FatEntryFlags::DIR_OR_DELETED_MASK) == 0) {
+            int tp = this->fat_data[idx].flags.value_type;
+            if (tp != FatEntryFlags::TYPE_INT && tp != FatEntryFlags::TYPE_DOUBLE) {
                 pnodes[n] = this->fat_data + idx;
                 n++;
             }
@@ -1046,12 +1046,12 @@ void ResBase::SetString(const char* fpath, const char* fname, const char* str) {
 
         node = this->RemoveEntry(nodePath);
         node = this->AppendEntry(&node, fname);
-        node->flags = 0;
+        node->flags = FatEntryFlags::MakeValue(FatEntryFlags::TYPE_STRING);
         node->size = 0;
         node->offset = this->pdata - this->AllocData(node->size); //??? BUG
     }
 
-    if ((node->flags & 0xe) != 0) {
+    if (node->flags.value_type != FatEntryFlags::TYPE_STRING) {
         throw std::runtime_error("not a string associated with specified key");
     }
     
@@ -1080,11 +1080,11 @@ void ResBase::SetInt(const char* fpath, const char* fname, int32_t val) {
 
         node = this->RemoveEntry(nodePath);
         node = this->AppendEntry(&node, fname);
-        node->flags = 1 << 1;
+        node->flags = FatEntryFlags::MakeValue(FatEntryFlags::TYPE_INT);
         node->size = 0;
         node->offset = val;
     } else {
-        if ((node->flags & 0xe) >> 1 != 1) {
+        if (node->flags.value_type != FatEntryFlags::TYPE_INT) {
             throw std::runtime_error("not an int associated with specified key");
         }
         node->offset = val;
@@ -1103,11 +1103,11 @@ void ResBase::SetDouble(const char* fpath, const char* fname, double val) {
 
         node = this->RemoveEntry(nodePath);
         node = this->AppendEntry(&node, fname);
-        node->flags = 2 << 1;
+        node->flags = FatEntryFlags::MakeValue(FatEntryFlags::TYPE_DOUBLE);
         //node->size = 0;
         *(double *)&node->offset = val;
     } else {
-        if ((node->flags & 0xe) >> 1 != 2) {
+        if (node->flags.value_type != FatEntryFlags::TYPE_DOUBLE) {
             throw std::runtime_error("not an double associated with specified key");
 
         //node->size = 0;
@@ -1129,12 +1129,12 @@ void ResBase::SetInt8Array(const char* fpath, const char* fname, CArray<uint8_t>
 
         node = this->RemoveEntry(nodePath);
         node = this->AppendEntry(&node, fname);
-        node->flags = 3 << 1;
+        node->flags = FatEntryFlags::MakeValue(FatEntryFlags::TYPE_INT_ARRAY);
         node->size = 0;
         node->offset = this->AllocData(node->size) - this->pdata;
     }
 
-    if ((node->flags & 0xe) >> 1 != 3) {
+    if (node->flags.value_type != FatEntryFlags::TYPE_INT_ARRAY) {
         throw std::runtime_error("not an int array associated with specified key");
     }
 
@@ -1165,12 +1165,12 @@ void ResBase::SetInt16Array(const char* fpath, const char* fname, CArray<uint16_
 
         node = this->RemoveEntry(nodePath);
         node = this->AppendEntry(&node, fname);
-        node->flags = 3 << 1;
+        node->flags = FatEntryFlags::MakeValue(FatEntryFlags::TYPE_INT_ARRAY);
         node->size = 0;
         node->offset = this->AllocData(node->size) - this->pdata;
     }
 
-    if ((node->flags & 0xe) >> 1 != 3) {
+    if (node->flags.value_type != FatEntryFlags::TYPE_INT_ARRAY) {
         throw std::runtime_error("not an int array associated with specified key");
     }
 
@@ -1201,12 +1201,12 @@ void ResBase::SetInt32Array(const char* fpath, const char* fname, CArray<uint32_
 
         node = this->RemoveEntry(nodePath);
         node = this->AppendEntry(&node, fname);
-        node->flags = 3 << 1;
+        node->flags = FatEntryFlags::MakeValue(FatEntryFlags::TYPE_INT_ARRAY);
         node->size = 0;
         node->offset = this->AllocData(node->size) - this->pdata;
     }
 
-    if ((node->flags & 0xe) >> 1 != 3) {
+    if (node->flags.value_type != FatEntryFlags::TYPE_INT_ARRAY) {
         throw std::runtime_error("not an int array associated with specified key");
     }
 
@@ -1243,7 +1243,7 @@ int32_t ResBase::GetInt(const char* fpath, const char* fname, int32_t defval) {
         return defval;
     }
 
-    if ((node->flags & 0xe) >> 1 != 1) {
+    if (node->flags.value_type != FatEntryFlags::TYPE_INT) {
         throw std::runtime_error("not an int associated with specified key");
     }
 
@@ -1260,7 +1260,7 @@ double ResBase::GetDouble(const char* fpath, const char* fname, double defval) {
         return defval;
     }
 
-    if ((node->flags & 0xe) >> 1 != 2) {
+    if (node->flags.value_type != FatEntryFlags::TYPE_DOUBLE) {
         throw std::runtime_error("not an double associated with specified key");
     }
 
@@ -1303,8 +1303,8 @@ int ResBase::GetInt8Array(const char* fpath, const char* fname, CArray<uint8_t>*
         return 0;
     }
 
-    int tp = (node->flags & 0xe) >> 1;
-    if (tp == 3) {
+    int tp = node->flags.value_type;
+    if (tp == FatEntryFlags::TYPE_INT_ARRAY) {
         array->SetSize(node->size / 4);
         for (int i = 0; i < node->size / 4; i++) {
             array->SetAt(i, *(int32_t*)(this->pdata + node->offset + i * 4));
@@ -1313,7 +1313,7 @@ int ResBase::GetInt8Array(const char* fpath, const char* fname, CArray<uint8_t>*
         return 1;
     }
 
-    if (tp == 1) {
+    if (tp == FatEntryFlags::TYPE_INT) {
         array->SetSize(1);
         array->SetAt(0, node->offset);
         return 1;
@@ -1332,8 +1332,8 @@ int ResBase::GetInt16Array(const char* fpath, const char* fname, CArray<uint16_t
         return 0;
     }
 
-    int tp = (node->flags & 0xe) >> 1;
-    if (tp == 3) {
+    int tp = node->flags.value_type;
+    if (tp == FatEntryFlags::TYPE_INT_ARRAY) {
         array->SetSize(node->size / 4);
         for (int i = 0; i < node->size / 4; i++) {
             array->SetAt(i, *(int32_t*)(this->pdata + node->offset + i * 4));
@@ -1342,7 +1342,7 @@ int ResBase::GetInt16Array(const char* fpath, const char* fname, CArray<uint16_t
         return 1;
     }
 
-    if (tp == 1) {
+    if (tp == FatEntryFlags::TYPE_INT) {
         array->SetSize(1);
         array->SetAt(0, node->offset);
         return 1;
@@ -1362,8 +1362,8 @@ int ResBase::GetInt32Array(const char* fpath, const char* fname, CArray<uint32_t
         return 0;
     }
 
-    int tp = (node->flags & 0xe) >> 1;
-    if (tp == 3) {
+    int tp = node->flags.value_type;
+    if (tp == FatEntryFlags::TYPE_INT_ARRAY) {
         array->SetSize(node->size / 4);
         for (int i = 0; i < node->size / 4; i++) {
             array->SetAt(i, *(uint32_t*)(this->pdata + node->offset + i * 4));
@@ -1372,13 +1372,13 @@ int ResBase::GetInt32Array(const char* fpath, const char* fname, CArray<uint32_t
         return 1;
     }
 
-    if (tp == 1) {
+    if (tp == FatEntryFlags::TYPE_INT) {
         array->SetSize(1);
         array->SetAt(0, node->offset);
         return 1;
     }
 
-    if (tp == 0 && node->size <= 1) {
+    if (tp == FatEntryFlags::TYPE_STRING && node->size <= 1) {
         array->RemoveAll();
         return 1;
     }
@@ -1397,8 +1397,8 @@ int ResBase::GetInt32Array(const char* fpath, const char* fname, CArray<int32_t>
         return 0;
     }
 
-    int tp = (node->flags & 0xe) >> 1;
-    if (tp == 3) {
+    int tp = node->flags.value_type;
+    if (tp == FatEntryFlags::TYPE_INT_ARRAY) {
         array->SetSize(node->size / 4);
         for (int i = 0; i < node->size / 4; i++) {
             array->SetAt(i, *(int32_t*)(this->pdata + node->offset + i * 4));
@@ -1407,13 +1407,13 @@ int ResBase::GetInt32Array(const char* fpath, const char* fname, CArray<int32_t>
         return 1;
     }
 
-    if (tp == 1) {
+    if (tp == FatEntryFlags::TYPE_INT) {
         array->SetSize(1);
         array->SetAt(0, node->offset);
         return 1;
     }
 
-    if (tp == 0 && node->size <= 1) {
+    if (tp == FatEntryFlags::TYPE_STRING && node->size <= 1) {
         array->RemoveAll();
         return 1;
     }
@@ -1432,9 +1432,9 @@ int ResBase::GetStringArray(const char* fpath, const char* fname, CStringArray* 
         return 0;
     }
 
-    int tp = (node->flags & 0xe) >> 1;
+    int tp = node->flags.value_type;
 
-    if (tp != 4 && tp != 0) {
+    if (tp != FatEntryFlags::TYPE_STRING_ARRAY && tp != FatEntryFlags::TYPE_STRING) {
         throw std::runtime_error("not an string array associated with specified key");
         return 0;
     }
@@ -1442,7 +1442,7 @@ int ResBase::GetStringArray(const char* fpath, const char* fname, CStringArray* 
     int32_t count = 0;
     char* dat = (char *)this->pdata + node->offset;
     char* datstart = dat;
-    if (tp == 0) {
+    if (tp == FatEntryFlags::TYPE_STRING) {
         array->SetSize(1);
         count = 1;
     } else {
@@ -1477,7 +1477,7 @@ void FatEntry::SetName(const char* resname) {
     if (resname != this->name) {
         size_t len = strlen(resname);
         if (len > 15) {
-            this->flags |= 0x10000000;
+            this->flags.name_truncated = 1;
         }
 
         if (len + 1 > 15) {
