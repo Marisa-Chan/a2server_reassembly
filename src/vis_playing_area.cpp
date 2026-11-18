@@ -2288,7 +2288,7 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 				g_NetStru1_local.ProcessConnections();
 			}
 			else {
-				wnd->PostMessage(MAIN_MSG_SHOW_MISSION_END, packet_dword->value, packet_2dwords->param2);
+				wnd->PostMessage(MAIN_MSG_SHOW_MISSION_END, packet_2dwords->param1, packet_2dwords->param2);
 				g_CLlDriver.Close();
 				g_NetStru1_local.ProcessConnections();
 			}
