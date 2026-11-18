@@ -3486,8 +3486,8 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
             CRect local_8c0(local_8d0.Width() / 8, local_8d0.Height() - 120, local_8d0.Width() * 7 / 8, local_8d0.Height() - 96);
             this->vis_2action = new Vis2Action(1, local_8d0.left, local_8d0.top, local_8d0.right, local_8d0.bottom, TxtFile::AllLines[140], local_8c0);
             this->PopUpScreen(this->vis_2action);
-            if (!g_SfxArray[14]->FindPlayingChannel()) {
-                g_SfxArray[14]->Play(g_SoundSettings.sfx_pos, 0, 0, 220);
+            if (!g_SfxArray[sfx_id::victory]->FindPlayingChannel()) {
+                g_SfxArray[sfx_id::victory]->Play(g_SoundSettings.sfx_pos, 0, 0, 220);
             }
         } else {
             this->in_famehall_mission = 1;
@@ -3501,8 +3501,8 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
             this->vis_missionfailed = new VisMissionFailed(1, 32, 100, 608, 380, g_MissionFailures[wParam - 2]);
             this->PopUpScreen(this->vis_missionfailed);
 
-            if (!g_SfxArray[16]->FindPlayingChannel()) {
-                g_SfxArray[16]->Play(g_SoundSettings.sfx_pos, 0, 0, 220);
+            if (!g_SfxArray[sfx_id::defeat]->FindPlayingChannel()) {
+                g_SfxArray[sfx_id::defeat]->Play(g_SoundSettings.sfx_pos, 0, 0, 220);
             }
         }
         break;
@@ -3517,16 +3517,16 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         if (this->last_event_id == 255) {
             PostMessage(MAIN_MSG_SHOW_MISSION_FAILED, lParam, 0);
         } else if (this->last_event_id == 254) {
-            if (!g_SfxArray[16]->FindPlayingChannel()) {
-                g_SfxArray[16]->Play(g_SoundSettings.sfx_pos, 0, 0, 220);
+            if (!g_SfxArray[sfx_id::defeat]->FindPlayingChannel()) {
+                g_SfxArray[sfx_id::defeat]->Play(g_SoundSettings.sfx_pos, 0, 0, 220);
             }
         } else if (this->last_event_id == 253) {
-            if (!g_SfxArray[14]->FindPlayingChannel()) {
-                g_SfxArray[14]->Play(g_SoundSettings.sfx_pos, 0, 0, 220);
+            if (!g_SfxArray[sfx_id::victory]->FindPlayingChannel()) {
+                g_SfxArray[sfx_id::victory]->Play(g_SoundSettings.sfx_pos, 0, 0, 220);
             }
         } else if (this->last_event_id == 250) {
-            if (!g_SfxArray[14]->FindPlayingChannel()) {
-                g_SfxArray[14]->Play(g_SoundSettings.sfx_pos, 0, 0, 220);
+            if (!g_SfxArray[sfx_id::victory]->FindPlayingChannel()) {
+                g_SfxArray[sfx_id::victory]->Play(g_SoundSettings.sfx_pos, 0, 0, 220);
             }
             this->vis_map_context->msglog.Add(txt_patch.GetLine(97), clr_log_sblack, 30000);
         } else if ((this->dialogsMask & DIALOG_MASK_POPUP) == 0) {

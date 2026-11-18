@@ -1514,7 +1514,7 @@ int32_t SoundPreferencesDialogVisualObject::MsgProc(uint32_t msg, uint32_t wpara
 
     case VIS_MSG_SFX_TEST:
         if (wparam == 7) {
-            g_SfxArray[100]->Play(this->settings->sfx_pos, 0, 0, 220, 0);
+            g_SfxArray[sfx_id::volume_test]->Play(this->settings->sfx_pos, 0, 0, 220, 0);
         } else if (wparam == 8) {
             SoundBank_fighter[0].select[1]->Play(this->settings->sfx_pos, 0, 0, 220, 0);
         }

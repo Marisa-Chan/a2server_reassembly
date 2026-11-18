@@ -1413,7 +1413,7 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 				this->projectiles[this->next_projectile_id] = pj;
 				this->next_projectile_id++;
 
-				SfxSample* snd = g_SfxArray[packet_move->type_id + 500];
+				SfxSample* snd = g_SfxArray[packet_move->type_id + sfx_id::projectile_base];
 				if (packet_move->type_id != 23 && snd) {
 					int32_t vol = 0;
 					int32_t pan = 0;
@@ -1524,7 +1524,7 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 			this->projectiles[this->next_projectile_id] = pj;
 			this->next_projectile_id++;
 
-			SfxSample* snd = g_SfxArray[packet_move->type_id + 500];
+			SfxSample* snd = g_SfxArray[packet_move->type_id + sfx_id::projectile_base];
 			if (packet_move->type_id != 23 && snd) {
 				int32_t vol = 0;
 				int32_t pan = 0;
@@ -1566,7 +1566,7 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 			this->projectiles[this->next_projectile_id] = pj;
 			this->next_projectile_id++;
 
-			SfxSample* snd = g_SfxArray[pj->typeId + 500];
+			SfxSample* snd = g_SfxArray[pj->typeId + sfx_id::projectile_base];
 			if (pj->typeId != 23 && snd) {
 				int32_t vol = 0;
 				int32_t pan = 0;
@@ -1629,7 +1629,7 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 					this->msglog.Add(chat_text, clr, 10000);
 				}
 
-				g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
+				g_SfxArray[sfx_id::notify_chime]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
 				
 			}
 			wnd->vis_root->MsgProc(VIS_MSG_NETMAP_CHAT_SYNC, 0, 0);
@@ -1670,7 +1670,7 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 				this->msglog.Add(txt, clr_log_sblack, 3000);
 
 				if ((wnd->dialogsMask & DIALOG_MASK_INGAME) != 0) {
-					g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
+					g_SfxArray[sfx_id::notify_chime]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
 				}
 			}
 				break;
@@ -1696,7 +1696,7 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 				this->msglog.Add(buf, clr_log_sblack, 5000);
 
 				if ((wnd->dialogsMask & DIALOG_MASK_INGAME) != 0) {
-					g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
+					g_SfxArray[sfx_id::notify_chime]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
 				}
 				break;
 
@@ -1705,7 +1705,7 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 				this->msglog.Add(buf, clr_log_sblack, 5000);
 
 				if ((wnd->dialogsMask & DIALOG_MASK_INGAME) != 0) {
-					g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
+					g_SfxArray[sfx_id::notify_chime]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
 				}
 				break;
 
@@ -1714,7 +1714,7 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 				this->msglog.Add(buf, clr_log_sblack, 5000);
 
 				if ((wnd->dialogsMask & DIALOG_MASK_INGAME) != 0) {
-					g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
+					g_SfxArray[sfx_id::notify_chime]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
 				}
 				break;
 
@@ -1723,7 +1723,7 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 				this->msglog.Add(buf, clr_log_sblack, 5000);
 
 				if ((wnd->dialogsMask & DIALOG_MASK_INGAME) != 0) {
-					g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
+					g_SfxArray[sfx_id::notify_chime]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
 				}
 				break;
 
@@ -1731,7 +1731,7 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 				this->msglog.Add(txt_patch.GetLine(0x58), clr_log_sblack, 5000);
 
 				if ((wnd->dialogsMask & DIALOG_MASK_INGAME) != 0) {
-					g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
+					g_SfxArray[sfx_id::notify_chime]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
 				}
 				break;
 
@@ -1740,7 +1740,7 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 				this->msglog.Add(txt_patch.GetLine(0x5a), clr_log_sblack, 5000);
 
 				if ((wnd->dialogsMask & DIALOG_MASK_INGAME) != 0) {
-					g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
+					g_SfxArray[sfx_id::notify_chime]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
 				}
 				break;
 
@@ -1748,7 +1748,7 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 				this->msglog.Add(txt_patch.GetLine(0x5b), clr_log_sblack, 5000);
 
 				if ((wnd->dialogsMask & DIALOG_MASK_INGAME) != 0) {
-					g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
+					g_SfxArray[sfx_id::notify_chime]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
 				}
 				break;
 
@@ -1756,7 +1756,7 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 				this->msglog.Add(txt_patch.GetLine(0x5c), clr_log_sblack, 5000);
 
 				if ((wnd->dialogsMask & DIALOG_MASK_INGAME) != 0) {
-					g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
+					g_SfxArray[sfx_id::notify_chime]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
 				}
 				break;
 			}
@@ -1765,7 +1765,7 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 
 		case PLAYER_ANNOUNCED: {
 			this->msglog.Add(txt_patch.GetLine(0x4e) + CString(" ") + packet_join->name + CString(" ") + txt_patch.GetLine(0x4f), clr_log_sblack, 5000);
-			g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
+			g_SfxArray[sfx_id::notify_chime]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
 
 			if (packet_join->__as_dword == this->my_main_unit->index) {
 				if ((wnd->dialogsMask & DIALOG_MASK_INGAME) == 0) {
@@ -2058,7 +2058,7 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 
 					if (buf[0] != 0) {
 						this->msglog.Add(buf, clr_log_sblack, 3000);
-						g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
+						g_SfxArray[sfx_id::notify_chime]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
 					}
 
 					buf[0] = 0;
@@ -2071,7 +2071,7 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 
 					if (buf[0] != 0) {
 						this->msglog.Add(buf, clr_log_sblack, 3000);
-						g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
+						g_SfxArray[sfx_id::notify_chime]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
 					}
 
 					buf[0] = 0;
@@ -2084,7 +2084,7 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 
 					if (buf[0] != 0) {
 						this->msglog.Add(buf, clr_log_sblack, 3000);
-						g_SfxArray[15]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
+						g_SfxArray[sfx_id::notify_chime]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
 					}
 				}
 			}
@@ -2796,12 +2796,12 @@ void VisPlayingArea::ResetWorldState(int32_t arg) { // 41d2da
 		}
 	}
 
-	if (g_SfxArray[14]) {
-		g_SfxArray[14]->Release();
+	if (g_SfxArray[sfx_id::victory]) {
+		g_SfxArray[sfx_id::victory]->Release();
 	}
 
-	if (g_SfxArray[16]) {
-		g_SfxArray[16]->Release();
+	if (g_SfxArray[sfx_id::defeat]) {
+		g_SfxArray[sfx_id::defeat]->Release();
 	}
 
 	for (int i = 0; i < g_mapmusicinfos.GetSize(); i++) {
@@ -2847,8 +2847,8 @@ void VisPlayingArea::SendDiplomacyState() { //41a735
 void VisPlayingArea::StopAmbientSounds() { //41c39c
 	this->ambient_view_x = -1;
 	this->ambient_view_y = -1;
-	SoundChannel* ch1 = g_SfxArray[50]->FindPlayingChannel();
-	SoundChannel* ch2 = g_SfxArray[90]->FindPlayingChannel();
+	SoundChannel* ch1 = g_SfxArray[sfx_id::water_loop]->FindPlayingChannel();
+	SoundChannel* ch2 = g_SfxArray[sfx_id::fire_loop]->FindPlayingChannel();
 	if (ch1) {
 		ch1->Stop();
 	}
@@ -2926,12 +2926,12 @@ void VisPlayingArea::CleanupCompletedMissionMapState() { //41ce5a
 		}
 	}
 
-	if (g_SfxArray[14]) {
-		g_SfxArray[14]->Release();
+	if (g_SfxArray[sfx_id::victory]) {
+		g_SfxArray[sfx_id::victory]->Release();
 	}
 
-	if (g_SfxArray[16]) {
-		g_SfxArray[16]->Release();
+	if (g_SfxArray[sfx_id::defeat]) {
+		g_SfxArray[sfx_id::defeat]->Release();
 	}
 
 	this->UpdateSelectionState();
@@ -3266,7 +3266,7 @@ void VisPlayingArea::CloseSpellBook() { //41b636
 		mwnd->vis_root->FindChild(1000)->RemoveChild(mwnd->vis_spellbook);
 	}
 
-	g_SfxArray[7]->Play(g_SoundSettings.sfx_pos, 0, 0, 220, 0);
+	g_SfxArray[sfx_id::bag_toggle]->Play(g_SoundSettings.sfx_pos, 0, 0, 220, 0);
 
 	mwnd->vis_right_panel->MsgProc(VIS_MSG_DATA_REFRESH, 0, 0);
 
@@ -3291,7 +3291,7 @@ void VisPlayingArea::OpenSpellBook() { // 41b509
 		mwnd->vis_root->FindChild(1000)->AddChild(mwnd->vis_spellbook);
 	}
 
-	g_SfxArray[7]->Play(g_SoundSettings.sfx_pos, 0, 0, 220, 0);
+	g_SfxArray[sfx_id::bag_toggle]->Play(g_SoundSettings.sfx_pos, 0, 0, 220, 0);
 
 	mwnd->vis_right_panel->MsgProc(VIS_MSG_DATA_REFRESH, 0, 0);
 
@@ -3307,7 +3307,7 @@ void VisPlayingArea::CloseBag() { //41b40e
 
 	this->RemoveChild(mwnd->vis_invtype1);
 
-	g_SfxArray[7]->Play(g_SoundSettings.sfx_pos, 0, 0, 220, 0);
+	g_SfxArray[sfx_id::bag_toggle]->Play(g_SoundSettings.sfx_pos, 0, 0, 220, 0);
 
 	this->RecalcVisibleMapHeight();
 }
@@ -3321,7 +3321,7 @@ void VisPlayingArea::OpenBag() { // 41b381
 	
 	this->AddChild(mwnd->vis_invtype1);
 
-	g_SfxArray[7]->Play(g_SoundSettings.sfx_pos, 0, 0, 220, 0);
+	g_SfxArray[sfx_id::bag_toggle]->Play(g_SoundSettings.sfx_pos, 0, 0, 220, 0);
 	this->RecalcVisibleMapHeight();
 }
 
@@ -6979,7 +6979,7 @@ int32_t VisPlayingArea::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) 
 		result = 1;
 		break;
 	case VIS_MSG_ORDER_MODE_CHANGED:
-		g_SfxArray[8]->Play(g_SoundSettings.sfx_pos, 0, 0, 0xDC, 0);
+		g_SfxArray[sfx_id::order_select]->Play(g_SoundSettings.sfx_pos, 0, 0, 0xDC, 0);
 		this->SetOrderMode(wparam + 1);
 		result = 1;
 		break;
@@ -7564,8 +7564,8 @@ void VisPlayingArea::UpdateAmbientSounds() { //41b8d0
 			this->ambient_view_y = view_y;
 		}
 
-		SfxSample* smpl_50 = g_SfxArray[50];
-		SfxSample* smpl_90 = g_SfxArray[90];
+		SfxSample* smpl_50 = g_SfxArray[sfx_id::water_loop];
+		SfxSample* smpl_90 = g_SfxArray[sfx_id::fire_loop];
 		SoundChannel* channel_50 = smpl_50->FindPlayingChannel();
 		SoundChannel* channel_90 = smpl_90->FindPlayingChannel();
 
@@ -7745,7 +7745,7 @@ void VisPlayingArea::UpdateAmbientSounds() { //41b8d0
 			local_28 /= local_34 + local_58 + local_44;
 			int32_t iVar4 = Random0N(local_34 + local_58 + local_44 - 1);
 			
-			int32_t base_idx = 600;
+			int32_t base_idx = sfx_id::ambient_prop_base;
 
 			if (local_34 <= iVar4) {
 				base_idx += 20;

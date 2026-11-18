@@ -3935,7 +3935,7 @@ void CUnit::PlayPickupVoice() {
 
 // 469499
 void CUnit::PlayCastSound() {
-    SfxSample* sample = g_SfxArray[this->action_spell + 500];
+    SfxSample* sample = g_SfxArray[this->action_spell + sfx_id::projectile_base];
     VisPlayingArea* map = this->pMapObject;
     int32_t vol;
     int32_t pan;

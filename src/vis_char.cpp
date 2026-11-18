@@ -2725,18 +2725,18 @@ int32_t VisCharInfo::OnLButtonUp(uint32_t wparam, CPoint pos) {
 
     if ((main_wnd->dialogsMask & (DIALOG_MASK_CHARGEN | 0x20 | DIALOG_MASK_TAVERN | DIALOG_MASK_SHOP)) != 0) {
         if (ar1_rect.PtInRect(pos)) {
-            g_SfxArray[1]->Play(g_SoundSettings.sfx_pos, 0, 0, 0xDC, 0);
+            g_SfxArray[sfx_id::ui_small_click]->Play(g_SoundSettings.sfx_pos, 0, 0, 0xDC, 0);
             main_wnd->vis_root->MsgProc(VIS_MSG_SELECT_PREV, 0, 0);
         }
         if (ar2_rect.PtInRect(pos)) {
-            g_SfxArray[1]->Play(g_SoundSettings.sfx_pos, 0, 0, 0xDC, 0);
+            g_SfxArray[sfx_id::ui_small_click]->Play(g_SoundSettings.sfx_pos, 0, 0, 0xDC, 0);
             main_wnd->vis_root->MsgProc(VIS_MSG_SELECT_NEXT, 0, 0);
         }
     }
 
     if ((main_wnd->dialogsMask & DIALOG_MASK_INGAME) != 0) {
         if (diskette_rect.PtInRect(pos)) {
-            g_SfxArray[1]->Play(g_SoundSettings.sfx_pos, 0, 0, 0xDC, 0);
+            g_SfxArray[sfx_id::ui_small_click]->Play(g_SoundSettings.sfx_pos, 0, 0, 0xDC, 0);
             main_wnd->PostMessageA(MAIN_MSG_SHOW_INGAME_MENU, 0, 0);
         }
     }
@@ -2973,7 +2973,7 @@ int32_t VisCharInfo::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
             break;
         case VIS_MSG_TOGGLE_INFO_MODE:
             if (moved_up == 0) {
-                g_SfxArray[1]->Play(g_SoundSettings.sfx_pos, 0, 0, 0xDC, 0);
+                g_SfxArray[sfx_id::ui_small_click]->Play(g_SoundSettings.sfx_pos, 0, 0, 0xDC, 0);
                 this->info_mode = (this->info_mode == 0);
                 this->dirty = 1;
             }

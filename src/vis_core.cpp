@@ -1045,7 +1045,7 @@ void VisButton::SetDowned(bool down) {
 
         this->VMethod9();
     } else {
-        g_SfxArray[2]->Play(g_SoundSettings.sfx_pos, 0, 0, 0xdc, 0);
+        g_SfxArray[sfx_id::ui_button]->Play(g_SoundSettings.sfx_pos, 0, 0, 0xdc, 0);
 
         this->downed = 1;
         if (this->TestFlags(FLAG_OVERCURSOR) == 0) {

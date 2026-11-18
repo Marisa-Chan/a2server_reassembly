@@ -26,6 +26,23 @@ extern SfxBank SoundBank_mage[2]; //665dd8
 extern SfxBank SoundBank_peasant[2]; //6663d8
 extern SfxBank SoundBank_other[12]; //665ec8
 
+namespace sfx_id {
+enum : int32_t {
+	ui_small_click    = 1,
+	ui_button         = 2,
+	bag_toggle        = 7,
+	order_select      = 8,
+	victory           = 14,
+	notify_chime      = 15,
+	defeat            = 16,
+	water_loop        = 50,
+	fire_loop         = 90,
+	volume_test       = 100,
+	projectile_base   = 500,
+	ambient_prop_base = 600,
+};
+} // namespace sfx_id
+
 int InitSound(HWND hwnd, int channels); //45c489 (client: 4600b7)
 void FreeDSound(); //45c7c5 (client: 4603f3)
 void LoadGameSounds(); //4c8217 (client: 4ccbb7)
