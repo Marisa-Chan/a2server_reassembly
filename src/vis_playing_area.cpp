@@ -3033,13 +3033,13 @@ void VisPlayingArea::UpdateSelectionState() { //416cf7
 	}
 	
 	if (this->selected_object_count == 0 || (this->selection_flags & 0x24) != 0) {
-		mwnd->vis_right_panel->MsgProc(CVisualObject::MSG_40a, 0, 0);
+		mwnd->vis_right_panel->MsgProc(VIS_MSG_ORDERS_DISABLE, 0, 0);
 	} else {
-		mwnd->vis_right_panel->MsgProc(CVisualObject::MSG_409, this->AvailableOrderMask(), 0);
+		mwnd->vis_right_panel->MsgProc(VIS_MSG_ORDERS_ENABLE, this->AvailableOrderMask(), 0);
 	}
 
-	mwnd->vis_charinfo->MsgProc(CVisualObject::MSG_410, 0, 0);
-	mwnd->vis_sidestatus->MsgProc(CVisualObject::MSG_410, 0, 0);
+	mwnd->vis_charinfo->MsgProc(VIS_MSG_STATUS_REFRESH, 0, 0);
+	mwnd->vis_sidestatus->MsgProc(VIS_MSG_STATUS_REFRESH, 0, 0);
 	if (this->selected_object_count == 1 && (this->selection_flags & 8) != 0) {
 		mwnd->vis_invtype1->VMethod33(this->primary_selected_object);
 	} else {

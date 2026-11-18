@@ -169,19 +169,13 @@ enum MapChildId {
 
 class CVisualObject : public CObject {
 public:
-	enum {
-		MSG_409 = 0x409,
-		MSG_40a = 0x40a,
-		MSG_410 = 0x410,
-	};
-
-	enum {
-		FLAG_ENABLED = 1,
-		FLAG_NOTFOCUS = 2,
-		FLAG_FOCUS = 4,
-		FLAG_OVERCURSOR = 8,
-		FLAG_10 = 0x10,
-		FLAG_20 = 0x20,
+	enum Flags : uint32_t {
+		FLAG_ENABLED        = 0x01,
+		FLAG_CAN_FOCUS      = 0x02,
+		FLAG_FOCUS          = 0x04,
+		FLAG_OVERCURSOR     = 0x08,
+		FLAG_DEFAULT_BUTTON = 0x10,
+		FLAG_HIDDEN         = 0x20,
 	};
 public:
 	~CVisualObject();  // client: 4db98a

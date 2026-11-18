@@ -123,7 +123,7 @@ void CVisualObject::Dump(CDumpContext& dc) const {
 const char* CVisualObject::GetHint() {
     //4d7c15
 
-    if (this->TestFlags(FLAG_20)) {
+    if (this->TestFlags(FLAG_HIDDEN)) {
         return nullptr;
     }
 
@@ -219,13 +219,13 @@ void CVisualObject::SetFocus(bool isFocus) {
 void CVisualObject::VMethod7() {
     //4d7c40
 
-    if (this->TestFlags(FLAG_20)) {
+    if (this->TestFlags(FLAG_HIDDEN)) {
         return;
     }
 
     for (uint32_t i = 0; i < this->childs.GetSize(); i++) {
         CVisualObject* obj = this->childs[i];
-        if (!obj->TestFlags(FLAG_20)) {
+        if (!obj->TestFlags(FLAG_HIDDEN)) {
             obj->VMethod7();
         }
     }
@@ -239,7 +239,7 @@ void CVisualObject::VMethod8(CRect* rect) {
 
 void CVisualObject::VMethod9() {
     //4d7cc8
-    if (this->TestFlags(FLAG_20)) {
+    if (this->TestFlags(FLAG_HIDDEN)) {
         return;
     }
 
@@ -714,7 +714,7 @@ void CVisualObject::TabFocus(bool forward, bool update) {
         }
 
         CVisualObject* obj = this->childs[next_indx];
-        if (obj->TestFlags(FLAG_ENABLED | FLAG_NOTFOCUS) == (FLAG_ENABLED | FLAG_NOTFOCUS)) {
+        if (obj->TestFlags(FLAG_ENABLED | FLAG_CAN_FOCUS) == (FLAG_ENABLED | FLAG_CAN_FOCUS)) {
             if (this->focus_obj) {
                 CVisualObject* old_focus = this->focus_obj;
                 this->focus_obj->SetFocus(false);
@@ -1007,7 +1007,7 @@ VisButton::VisButton(int32_t _id, const RECT& r, const char* _caption, CGameFont
 
     this->mouse_on = 0;
     this->downed = 0;
-    this->flags |= FLAG_NOTFOCUS;
+    this->flags |= FLAG_CAN_FOCUS;
 }
 
 VisButton::VisButton(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const char* _caption, CGameFont* _font, uint16_t* _clr, int32_t _msgid, int32_t _charid, const char* hint)
@@ -1032,7 +1032,7 @@ VisButton::VisButton(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, co
 
     this->mouse_on = 0;
     this->downed = 0;
-    this->flags |= FLAG_NOTFOCUS;
+    this->flags |= FLAG_CAN_FOCUS;
 }
 
 void VisButton::SetDowned(bool down) {
@@ -1473,7 +1473,7 @@ void VisScrollBar::UpdateRects() {
         this->btn_minus = CRect(rt.left, rt.top, rt.left + rt.Height() - 4, rt.bottom);
         this->btn_plus = CRect(rt.right - rt.Height() + 4, rt.top, rt.right, rt.bottom);
 
-        this->flags |= FLAG_NOTFOCUS;
+        this->flags |= FLAG_CAN_FOCUS;
     }
     this->UpdateHBoxes();
 }
@@ -1801,7 +1801,7 @@ VisListBox::VisListBox(int32_t _id, const RECT& r, CGameFont* _font, uint16_t* _
     this->entry_height = _font->GetHeight();
     this->entry_height_full = this->entry_height + 4;
 
-    this->flags |= FLAG_NOTFOCUS;
+    this->flags |= FLAG_CAN_FOCUS;
 
     this->selected_index = -1;
     this->vis_start_index = 0;
@@ -1823,7 +1823,7 @@ VisListBox::VisListBox(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, 
     this->entry_height = _font->GetHeight();
     this->entry_height_full = this->entry_height + 4;
 
-    this->flags |= FLAG_NOTFOCUS;
+    this->flags |= FLAG_CAN_FOCUS;
 
     this->selected_index = -1;
     this->vis_start_index = 0;
@@ -2261,7 +2261,7 @@ VisTextBox::VisTextBox(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, 
     this->select_end = 0;
     this->cursor_pos = 0;
 
-    this->flags |= FLAG_NOTFOCUS;
+    this->flags |= FLAG_CAN_FOCUS;
 
     this->cursor_blink = 1;
 #ifdef A2CLIENT
@@ -2280,7 +2280,7 @@ VisTextBox::VisTextBox(int32_t _id, const RECT& r, CGameFont* _font, uint16_t* _
     this->select_end = 0;
     this->cursor_pos = 0;
 
-    this->flags |= FLAG_NOTFOCUS;
+    this->flags |= FLAG_CAN_FOCUS;
 
     this->cursor_blink = 1;
 #ifdef A2CLIENT
@@ -2424,7 +2424,7 @@ VisRadioBase::VisRadioBase(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t
     this->font = _font;
     this->clr = _clr;
     this->selection = 0;
-    this->flags |= FLAG_NOTFOCUS;
+    this->flags |= FLAG_CAN_FOCUS;
     this->selected = 0;
 }
 
@@ -2980,7 +2980,7 @@ VisComboBox::VisComboBox(int32_t _id, CRect r, const char* hint)
     this->AddChild(this->textbox);
 
     this->listbox = new VisComboBoxList(2, 0, 24, (r.right - r.left), (r.bottom - r.top), g_font1, clrsh_TechBlack, clrsh_ShockingBlack, 10, hint);
-    this->listbox->ChangeFlags(FLAG_20, true);
+    this->listbox->ChangeFlags(FLAG_HIDDEN, true);
 
     this->AddChild(this->listbox);
 
@@ -2989,7 +2989,7 @@ VisComboBox::VisComboBox(int32_t _id, CRect r, const char* hint)
 
     this->isEmpty = 1;
     this->list_showed = 0;
-    this->flags |= FLAG_NOTFOCUS;
+    this->flags |= FLAG_CAN_FOCUS;
 }
 
 void VisComboBox::AddItem(const char* str) {
@@ -3015,7 +3015,7 @@ void VisComboBox::ToggleList() {
         this->SetCursorOver(true);
     }
 
-    this->listbox->ChangeFlags(FLAG_20, false);
+    this->listbox->ChangeFlags(FLAG_HIDDEN, false);
     this->listbox->SetFocus(true);
 
     this->rect.bottom = this->rect.top + 24 + this->listbox->GetRect().Height();
@@ -3033,7 +3033,7 @@ void VisComboBox::HideList() {
 
     this->list_showed = 0;
 
-    this->listbox->ChangeFlags(FLAG_20, true);
+    this->listbox->ChangeFlags(FLAG_HIDDEN, true);
     this->listbox->SetFocus(false);
 
     this->rect.bottom = this->rect.top + 24;
@@ -3050,7 +3050,7 @@ void VisComboBox::ProcSelectList() {
     }
 
     this->listbox->SetFocus(false);
-    this->listbox->ChangeFlags(FLAG_20, true);
+    this->listbox->ChangeFlags(FLAG_HIDDEN, true);
 
     this->textbox->ReadData( this->listbox->GetItem(this->listbox->GetSelectedIndex()) );
 
@@ -3898,7 +3898,7 @@ void VisMessageBox::VMethod26() {
         //ok
         VisButton* btn = new VisButton(4, local_20, txt_dialogs.GetLine(0), g_font1, nullptr, 0x445, 0, "");
         this->AddChild(btn);
-        btn->ChangeFlags(FLAG_10, true);
+        btn->ChangeFlags(FLAG_DEFAULT_BUTTON, true);
     }
         break;
 
@@ -3906,7 +3906,7 @@ void VisMessageBox::VMethod26() {
         //ok cancel
         VisButton* btn = new VisButton(4, local_44, txt_dialogs.GetLine(0), g_font1, nullptr, 0x445, 0, "");
         this->AddChild(btn);
-        btn->ChangeFlags(FLAG_10, true);
+        btn->ChangeFlags(FLAG_DEFAULT_BUTTON, true);
 
         VisButton* btn2 = new VisButton(5, local_54, txt_dialogs.GetLine(1), g_font1, nullptr, 0x446, 0, "");
         this->AddChild(btn2);
@@ -3922,7 +3922,7 @@ void VisMessageBox::VMethod26() {
 
         VisButton* btn2 = new VisButton(5, local_74, txt_dialogs.GetLine(3), g_font1, nullptr, 0x44a, 0, "");
         this->AddChild(btn2);
-        btn2->ChangeFlags(FLAG_10, true);
+        btn2->ChangeFlags(FLAG_DEFAULT_BUTTON, true);
 
         VisButton* btn3 = new VisButton(6, local_84, txt_dialogs.GetLine(4), g_font1, nullptr, 0x44b, 0, "");
         this->AddChild(btn3);
@@ -3936,7 +3936,7 @@ void VisMessageBox::VMethod26() {
         //yes no cancel
         VisButton* btn = new VisButton(4, local_64, txt_main.GetLine(75), g_font1, nullptr, 0x447, 0, "");
         this->AddChild(btn);
-        btn->ChangeFlags(FLAG_10, true);
+        btn->ChangeFlags(FLAG_DEFAULT_BUTTON, true);
 
         VisButton* btn2 = new VisButton(5, local_74, txt_main.GetLine(76), g_font1, nullptr, 0x448, 0, "");
         this->AddChild(btn2);
@@ -3953,7 +3953,7 @@ void VisMessageBox::VMethod26() {
         //yes no
         VisButton* btn = new VisButton(4, local_44, txt_main.GetLine(75), g_font1, nullptr, 0x447, 0, "");
         this->AddChild(btn);
-        btn->ChangeFlags(FLAG_10, true);
+        btn->ChangeFlags(FLAG_DEFAULT_BUTTON, true);
 
         VisButton* btn2 = new VisButton(5, local_54, txt_main.GetLine(76), g_font1, nullptr, 0x448, 0, "");
         this->AddChild(btn2);
@@ -3966,7 +3966,7 @@ void VisMessageBox::VMethod26() {
         //repeat cancel
         VisButton* btn = new VisButton(4, local_44, txt_dialogs.GetLine(3), g_font1, nullptr, 0x44a, 0, "");
         this->AddChild(btn);
-        btn->ChangeFlags(FLAG_10, true);
+        btn->ChangeFlags(FLAG_DEFAULT_BUTTON, true);
 
         VisButton* btn2 = new VisButton(5, local_54, txt_dialogs.GetLine(1), g_font1, nullptr, 0x446, 0, "");
         this->AddChild(btn2);
@@ -3980,7 +3980,7 @@ void VisMessageBox::VMethod26() {
         //ok
         VisButton* btn = new VisButton(4, local_20, txt_dialogs.GetLine(0), g_font1, nullptr, 0x447, 0, "");
         this->AddChild(btn);
-        btn->ChangeFlags(FLAG_10, true);
+        btn->ChangeFlags(FLAG_DEFAULT_BUTTON, true);
     }
         break;
 

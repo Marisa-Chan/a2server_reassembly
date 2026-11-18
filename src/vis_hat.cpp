@@ -462,7 +462,7 @@ void VisHatBrowserDlg::VMethod26() {
 
     VisButton* ok_btn = new VisButton(0x14, btn_rect, txt_dialogs.GetLine(0), g_font1, nullptr, 0x445, 0, "");
     this->AddChild(ok_btn);
-    ok_btn->ChangeFlags(1, false);
+    ok_btn->ChangeFlags(FLAG_ENABLED, false);
 
     btn_rect.OffsetRect(0x90, 0);
     VisButton* cancel_btn = new VisButton(0x15, btn_rect, txt_dialogs.GetLine(1), g_font1, nullptr, 0x446, 0, "");
@@ -487,7 +487,7 @@ int32_t VisHatBrowserDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam
         }
         // fallthrough
     case VIS_MSG_HIDE_SCREEN: {
-        if (this->FindChild(0x14)->TestFlags(1) != 0) {
+        if (this->FindChild(0x14)->TestFlags(FLAG_ENABLED) != 0) {
             VisHatBrowserList* list = (VisHatBrowserList*)this->FindChild(1);
             CString item = list->GetItem(list->GetSelectedIndex());
             int32_t field_pos = GetFieldPos(item, 7);
@@ -527,7 +527,7 @@ int32_t VisHatBrowserDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam
             if ((int32_t)lparam >= 0) {
                 VisHatBrowserList* list = (VisHatBrowserList*)this->FindChild(1);
                 list->VMethod9();
-                this->FindChild(0x14)->ChangeFlags(1, list->IsItemEnabled(list->GetSelectedIndex()));
+                this->FindChild(0x14)->ChangeFlags(FLAG_ENABLED, list->IsItemEnabled(list->GetSelectedIndex()));
                 this->FindChild(0x14)->VMethod9();
 #ifdef A2CLIENT
                 if (this->browser) {
@@ -855,14 +855,14 @@ int32_t VisHatServerListDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lpa
     }
 
     CVisualObject* store_child = this->FindChild(9);
-    if (store_child->TestFlags(1) == lparam || (int32_t)lparam > 1 || (int32_t)lparam < 0) {
+    if (store_child->TestFlags(FLAG_ENABLED) == lparam || (int32_t)lparam > 1 || (int32_t)lparam < 0) {
         return 1;
     }
 
-    store_child->ChangeFlags(1, lparam != 0);
-    this->FindChild(3)->ChangeFlags(1, lparam != 0);
-    this->FindChild(6)->ChangeFlags(1, lparam != 0);
-    this->FindChild(8)->ChangeFlags(1, lparam != 0);
+    store_child->ChangeFlags(FLAG_ENABLED, lparam != 0);
+    this->FindChild(3)->ChangeFlags(FLAG_ENABLED, lparam != 0);
+    this->FindChild(6)->ChangeFlags(FLAG_ENABLED, lparam != 0);
+    this->FindChild(8)->ChangeFlags(FLAG_ENABLED, lparam != 0);
 
     char buffer[256];
     this->FindChild(2)->WriteData(buffer);
@@ -891,7 +891,7 @@ CVisualObject* VisHatServerListDlg::VMethod30(const void* data, const RECT& r) {
     VisTextBox* ip_box = new VisTextBox(2, r.left, r.top, r.right, r.top + 0x18, g_font1, clrsh_TechBlack, txt_patch.GetLine(0x70));
 #ifdef A2CLIENT_PATCH
     // p10lck.xck (44caad -> 6e215b): disable/unfocus the HAT IP text box (flags = 2)
-    ip_box->flags = CVisualObject::FLAG_NOTFOCUS;
+    ip_box->flags = CVisualObject::FLAG_CAN_FOCUS;
 #endif
     this->AddChild(ip_box);
     if (hat->ishat == 0) {
@@ -928,7 +928,7 @@ CVisualObject* VisHatServerListDlg::VMethod30(const void* data, const RECT& r) {
     }
     deathmatch_radio->ReadData(&dm_display);
     if (hat->ishat == 0) {
-        deathmatch_radio->ChangeFlags(1, false);
+        deathmatch_radio->ChangeFlags(FLAG_ENABLED, false);
     }
 #else
     VisRadioType2* deathmatch_radio = new VisRadioType2(3, r.left, 0x6c, r.right, 0x9c + dy, g_font1, p_clrsh_Black, nullptr);
@@ -950,7 +950,7 @@ CVisualObject* VisHatServerListDlg::VMethod30(const void* data, const RECT& r) {
 
     deathmatch_radio->ReadData(&dm_display);
     if (hat->ishat == 0) {
-        deathmatch_radio->ChangeFlags(1, false);
+        deathmatch_radio->ChangeFlags(FLAG_ENABLED, false);
     }
 #endif
 
@@ -976,7 +976,7 @@ CVisualObject* VisHatServerListDlg::VMethod30(const void* data, const RECT& r) {
     this->AddChild(login_box);
     login_box->ReadData(hat->login);
     if (hat->ishat == 0) {
-        login_box->ChangeFlags(1, false);
+        login_box->ChangeFlags(FLAG_ENABLED, false);
     }
 
     this->AddChild(new VisLabel(7, r.left, 0x12c + dy, r.right, 0x144 + dy, txt_patch.GetLine(0x6f), g_font1, p_clrsh_Black, 0));
@@ -988,7 +988,7 @@ CVisualObject* VisHatServerListDlg::VMethod30(const void* data, const RECT& r) {
     password_box->is_password = 1;
 #endif
     if (hat->ishat == 0) {
-        password_box->ChangeFlags(1, false);
+        password_box->ChangeFlags(FLAG_ENABLED, false);
     }
 
     VisRadioType1* store_radio = new VisRadioType1(9, r.left, 0x168 + dy, r.right, 0x180 + dy, g_font1, p_clrsh_Black, txt_patch.GetLine(0x7b));
@@ -996,7 +996,7 @@ CVisualObject* VisHatServerListDlg::VMethod30(const void* data, const RECT& r) {
     this->AddChild(store_radio);
     store_radio->ReadData(&hat->store);
     if (hat->ishat == 0) {
-        store_radio->ChangeFlags(1, false);
+        store_radio->ChangeFlags(FLAG_ENABLED, false);
     }
 
     return password_box;

@@ -251,7 +251,7 @@ void VisMissionFailed::VMethod26() {
 
     this->SetUpObj(this->FindChild(4));
     if (AppHasAnySaveFile() == 0) {
-        load_btn->ChangeFlags(1, false);
+        load_btn->ChangeFlags(FLAG_ENABLED, false);
     }
 }
 
@@ -860,7 +860,7 @@ void LoadGameWindow::VMethod26() { //43ed94
     VisButton* btn = new VisButton(4, local_17c, txt_dialogs.GetLine(0), g_font1, nullptr, 0x479, 0, txt_dialogs.GetLine(26));
     this->AddChild(btn);
 
-    btn->ChangeFlags(FLAG_10, true);
+    btn->ChangeFlags(FLAG_DEFAULT_BUTTON, true);
 
     if (this->file_names.GetSize() == 0) {
         btn->ChangeFlags(FLAG_ENABLED, false);
@@ -1069,7 +1069,7 @@ void SaveGameWindow::VMethod26() { //43fb2c
     VisButton* btn = new VisButton(4, local_17c, txt_dialogs.GetLine(0), g_font1, nullptr, 0x479, 0, txt_dialogs.GetLine(32));
     this->AddChild(btn);
 
-    btn->ChangeFlags(FLAG_10, true);
+    btn->ChangeFlags(FLAG_DEFAULT_BUTTON, true);
 
     if (this->file_names.GetSize() == 0) {
         btn->ChangeFlags(FLAG_ENABLED, false);
@@ -1398,7 +1398,7 @@ void GameOptionsWindow::VMethod26() { //442646
 
     VisButton* acpt = new VisButton(10, local_30, txt_dialogs.GetLine(0), g_font1, nullptr, 0x445, 0, "");
     this->AddChild(acpt);
-    acpt->ChangeFlags(FLAG_10, true);
+    acpt->ChangeFlags(FLAG_DEFAULT_BUTTON, true);
 
     VisButton* cncl = new VisButton(11, local_40, txt_dialogs.GetLine(1), g_font1, nullptr, 0x446, 0, "");
     this->AddChild(cncl);
@@ -1571,7 +1571,7 @@ void SoundPreferencesDialogVisualObject::VMethod26() { //43d959
     this->AddChild(lbl_melodies);
 
     VisButton* btn_acpt = new VisButton(1, 40, 290, 252, 314, txt_dialogs.GetLine(0), g_font1, nullptr, 0x476, 0, txt_dialogs.GetLine(8)); //Accept
-    btn_acpt->ChangeFlags(FLAG_10, true);
+    btn_acpt->ChangeFlags(FLAG_DEFAULT_BUTTON, true);
     this->AddChild(btn_acpt);
 
     VisRadioType1* btn_raport = new VisRadioType1(40, 40, 190, 252, 214, g_font1, p_clrsh_Black, txt_dialogs.GetLine(165)); //Raports
@@ -3655,10 +3655,10 @@ void VisListBoxDiplomacy::UpdateRadioPositions(int32_t vis_start_index) {
             hidden = false;
         }
 
-        this->enemy_radios->ElementAt(i)->ChangeFlags(FLAG_20, hidden);
-        this->ally_radios->ElementAt(i)->ChangeFlags(FLAG_20, hidden);
-        this->see_radios->ElementAt(i)->ChangeFlags(FLAG_20, hidden);
-        this->mute_radios->ElementAt(i)->ChangeFlags(FLAG_20, hidden);
+        this->enemy_radios->ElementAt(i)->ChangeFlags(FLAG_HIDDEN, hidden);
+        this->ally_radios->ElementAt(i)->ChangeFlags(FLAG_HIDDEN, hidden);
+        this->see_radios->ElementAt(i)->ChangeFlags(FLAG_HIDDEN, hidden);
+        this->mute_radios->ElementAt(i)->ChangeFlags(FLAG_HIDDEN, hidden);
 
         int32_t top = (i - vis_start_index) * this->entry_height_full;
         int32_t bottom = top + 0x18;

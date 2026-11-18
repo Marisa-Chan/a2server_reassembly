@@ -239,7 +239,7 @@ void VisNetMapSelection::VMethod26() {
     VisButton* ok_btn = new VisButton(0x14, btn_rc, txt_dialogs.GetLine(0), g_font1, nullptr, 0x445, 0, "");
     this->AddChild(ok_btn);
     if (this->mode == 0) {
-        ok_btn->ChangeFlags(1, 0);
+        ok_btn->ChangeFlags(FLAG_ENABLED, 0);
     }
 
     list_rc.top = list_rc.bottom + 0xC;
@@ -291,7 +291,7 @@ int32_t VisNetMapSelection::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lpar
         }
         // fallthrough
     case VIS_MSG_HIDE_SCREEN:
-        if (this->FindChild(0x14)->TestFlags(1)) {
+        if (this->FindChild(0x14)->TestFlags(FLAG_ENABLED)) {
             this->StopThread();
             this->VisScreen::MsgProc(VIS_MSG_HIDE_SCREEN, 0, 0);
             VisListBox* map_list = (VisListBox*)this->FindChild(1);
@@ -377,7 +377,7 @@ int32_t VisNetMapSelection::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lpar
                 }
                 bool can_join = (level + 1 >= main_wnd->m_GameSession.GetSkillTier1())
                     && (main_wnd->m_GameSession.GetSkillTier2() >= level + 1);
-                this->FindChild(0x14)->ChangeFlags(1, can_join);
+                this->FindChild(0x14)->ChangeFlags(FLAG_ENABLED, can_join);
                 this->FindChild(0x14)->VMethod9();
             }
             return 1;
@@ -573,7 +573,7 @@ void VisServerScreenRadio::VMethod7() {
         y += gfx_radiob->GetHeight(4);
     }
 
-    if (!this->TestFlags(1)) {
+    if (!this->TestFlags(FLAG_ENABLED)) {
         CRect r2;
         this->ClientRectToScreen(&r2, this->rect);
         ShadowRect(CRect(r2.left - 1, r2.top - 1, r2.right + 1, r2.bottom + 1), 3);
@@ -650,15 +650,15 @@ void VisNetDlg::CreateSessionList() {
     this->AddChild(refresh_btn);
 
     VisButton* join_btn = new VisButton(0xF, rc_join, txt_dialogs.GetLine(0x57), g_font1, nullptr, 0x44F, 0, "");
-    join_btn->ChangeFlags(0x10, true);
+    join_btn->ChangeFlags(FLAG_DEFAULT_BUTTON, true);
     this->AddChild(join_btn);
-    join_btn->ChangeFlags(1, false);
+    join_btn->ChangeFlags(FLAG_ENABLED, false);
     join_btn->SetLeftObj(this->FindChild(0x11));
 
     VisButton* create_btn = new VisButton(0xE, rc_create, txt_dialogs.GetLine(0x56), g_font1, nullptr, 0x44E, 0, "");
     this->AddChild(create_btn);
     if (g_IsCdPresent == 0) {
-        create_btn->ChangeFlags(1, false);
+        create_btn->ChangeFlags(FLAG_ENABLED, false);
     }
     create_btn->SetLeftObj(this->FindChild(0xF));
 
@@ -737,10 +737,10 @@ void VisNetDlg::FillServerList() {
 
     VisButton* join_btn = (VisButton*)this->FindChild(0xF);
     if (num_sessions == 0) {
-        join_btn->ChangeFlags(1, false);
+        join_btn->ChangeFlags(FLAG_ENABLED, false);
         join_btn->SetDowned(false);
     } else {
-        join_btn->ChangeFlags(1, true);
+        join_btn->ChangeFlags(FLAG_ENABLED, true);
     }
     join_btn->VMethod9();
     server_list->VMethod9();
@@ -791,7 +791,7 @@ int32_t VisNetDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
 
     switch (msg) {
     case VIS_MSG_LIST_ACTIVATE:
-        if (this->FindChild(0xF)->TestFlags(1) == 0) {
+        if (this->FindChild(0xF)->TestFlags(FLAG_ENABLED) == 0) {
             return 0;
         }
         // fall through
@@ -1219,7 +1219,7 @@ int32_t VisNetPhoneBook::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
         return 1;
     case VIS_MSG_PHONE_CONNECT: {
         CVisualObject* connect_btn = this->FindChild(10);
-        if (connect_btn->TestFlags(1) == 0) {
+        if (connect_btn->TestFlags(FLAG_ENABLED) == 0) {
             return 1;
         }
         char string[64];
@@ -1324,7 +1324,7 @@ void VisNetPhoneBook::VMethod26() {
     VisButton* connect_btn = new VisButton(0xa, rc3, txt_dialogs.GetLine(0x78), g_font1, nullptr, 0x47d, 0, txt_dialogs.GetLine(0x7e));
     this->AddChild(connect_btn);
     if (g_IsCdPresent == 0 || this->enum_addresses_num == 0) {
-        connect_btn->ChangeFlags(1, false);
+        connect_btn->ChangeFlags(FLAG_ENABLED, false);
     }
 
     rc3.OffsetRect(0, rc3.Height() + 4);
@@ -1332,7 +1332,7 @@ void VisNetPhoneBook::VMethod26() {
     VisButton* host_btn = new VisButton(0xb, rc3, txt_dialogs.GetLine(0x79), g_font1, nullptr, 0x47e, 0, txt_dialogs.GetLine(0x7f));
     this->AddChild(host_btn);
     if (g_IsCdPresent == 0 || this->enum_addresses_num == 0) {
-        host_btn->ChangeFlags(1, false);
+        host_btn->ChangeFlags(FLAG_ENABLED, false);
     }
 
     rc3.OffsetRect(0, rc3.Height() + 4);
@@ -1390,9 +1390,9 @@ int32_t VisListBoxPhoneBook::OnKeyDown(uint32_t wparam) {
 void VisNetPhoneBook::UpdateConnectButton(const char* str) {
     VisButton* connect_btn = (VisButton*)this->FindChild(10);
     if (str != nullptr && this->enum_addresses_num != 0) {
-        connect_btn->ChangeFlags(1, true);
+        connect_btn->ChangeFlags(FLAG_ENABLED, true);
     } else {
-        connect_btn->ChangeFlags(1, false);
+        connect_btn->ChangeFlags(FLAG_ENABLED, false);
         connect_btn->SetDowned(false);
     }
     connect_btn->VMethod9();
@@ -1579,7 +1579,7 @@ void VisNetSerialSettings::VMethod26() {
         txt_dialogs.GetLine(0x81));
     this->AddChild(host_btn);
     if (g_IsCdPresent == 0) {
-        host_btn->ChangeFlags(1, false);
+        host_btn->ChangeFlags(FLAG_ENABLED, false);
     }
     btn_rc.OffsetRect(0, 0x1e);
 

@@ -275,7 +275,7 @@ void VisCharSellectButtons::Init() {
     this->captions[1] = TxtFile::AllLines[0xF0];
     this->captions[2] = TxtFile::AllLines[0xF1];
     this->captions[3] = TxtFile::AllLines[0x4E];
-    this->flags |= FLAG_NOTFOCUS;
+    this->flags |= FLAG_CAN_FOCUS;
 }
 
 
@@ -1833,7 +1833,7 @@ void VisCharGenAction::Init() {
     this->texts.ElementAt(0) = TxtFile::AllLines[0xEE];
     this->texts.ElementAt(1) = TxtFile::AllLines[0xEF];
     this->texts.ElementAt(2) = TxtFile::AllLines[0x104];
-    this->flags |= FLAG_NOTFOCUS;
+    this->flags |= FLAG_CAN_FOCUS;
 }
 
 
