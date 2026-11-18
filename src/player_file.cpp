@@ -36,7 +36,7 @@ uint32_t __cdecl CalcChecksum(uint8_t* data, int32_t size) { //4f5308
 
 namespace {
 
-constexpr uint32_t kPlayerFileMagic = 0x04507989;
+constexpr uint32_t kPlayerFileMagic = player_file::A2C_MAGIC;
 constexpr int32_t kKillStatsSize = 0x0A00;
 
 
@@ -74,7 +74,7 @@ void MaybeWriteRandomByte(CFile& file, uint16_t key, uint16_t mask) {
 
 void WriteStatsSection(CFile& file, FileSectionStats* stats) {
 	PlayerFileSectionHeader header = {};
-	header.tag = 0x41392521;
+	header.tag = player_file::SEC_STATS;
 	header.key = GetRandS16(0x7FFF);
 	header.size = sizeof(FileSectionStats);
 	for (int32_t bit = 0; bit < 16; bit++) {
@@ -307,7 +307,7 @@ void WriteKillStatsSection(CFile& file, uint8_t* kill_stats) {
 	}
 
 	uint32_t compressed_size = static_cast<uint32_t>(write_ptr - buffer);
-	WriteEncryptedSection(file, 0x55555555, buffer, compressed_size);
+	WriteEncryptedSection(file, player_file::SEC_KILL_STATS, buffer, compressed_size);
 	delete[] buffer;
 }
 
@@ -376,18 +376,18 @@ int32_t __cdecl WritePlayerFile(const char* filename, FileSectionBasicInfo* basi
 
 	file.Write(&kPlayerFileMagic, sizeof(kPlayerFileMagic));
 
-	WriteEncryptedSection(file, 0xAAAAAAAA, reinterpret_cast<uint8_t*>(merged_basic_info), sizeof(FileSectionBasicInfo));
+	WriteEncryptedSection(file, player_file::SEC_BASIC_INFO, reinterpret_cast<uint8_t*>(merged_basic_info), sizeof(FileSectionBasicInfo));
 
 	if (merged_kill_stats != nullptr) {
 		WriteKillStatsSection(file, merged_kill_stats);
 	}
 
 	if (merged_param7 != nullptr) {
-		WriteEncryptedSection(file, 0x40A40A40, merged_param7, merged_param8);
+		WriteEncryptedSection(file, player_file::SEC_UNKNOWN_40A, merged_param7, merged_param8);
 	}
 
 	if (merged_equip != nullptr) {
-		WriteEncryptedSection(file, 0xDE0DE0DE, GetPacketPayload(merged_equip), GetPacketPayloadSize(merged_equip));
+		WriteEncryptedSection(file, player_file::SEC_EQUIPMENT, GetPacketPayload(merged_equip), GetPacketPayloadSize(merged_equip));
 	}
 
 	if (merged_stats != nullptr) {
@@ -395,7 +395,7 @@ int32_t __cdecl WritePlayerFile(const char* filename, FileSectionBasicInfo* basi
 	}
 
 	if (merged_inventory != nullptr) {
-		WriteEncryptedSection(file, 0x3A5A3A5A, GetPacketPayload(merged_inventory), GetPacketPayloadSize(merged_inventory));
+		WriteEncryptedSection(file, player_file::SEC_INVENTORY, GetPacketPayload(merged_inventory), GetPacketPayloadSize(merged_inventory));
 	}
 
 #ifdef A2TANGAR_HAT
@@ -434,14 +434,14 @@ int32_t __cdecl ParsePlayerFile(CFile* file, FileSectionBasicInfo** basic_info, 
 		file->Read(&header, sizeof(header));
 
 		switch (header.tag) {
-            case 0xAAAAAAAA: {
+            case player_file::SEC_BASIC_INFO: {
                 if (!ReadDecryptAndVerify(*file, header, reinterpret_cast<uint8_t*>(&s_basic_info_buf))) {
                     return 0;
                 }
                 *basic_info = &s_basic_info_buf;
                 break;
             }
-            case 0x41392521: {
+            case player_file::SEC_STATS: {
                 if (!ReadStatsSection(*file, header)) {
                     return 0;
                 }
@@ -459,21 +459,21 @@ int32_t __cdecl ParsePlayerFile(CFile* file, FileSectionBasicInfo** basic_info, 
                 *stats = &s_stats_buf;
                 break;
             }
-            case 0x55555555: {
+            case player_file::SEC_KILL_STATS: {
                 if (!ReadCompressedKillStats(*file, header)) {
                     return 0;
                 }
                 *kill_stats = s_kill_stats_buf;
                 break;
             }
-            case 0x3A5A3A5A: {
+            case player_file::SEC_INVENTORY: {
                 if (!ReadDecryptAndVerify(*file, header, GetPacketPayload(&s_inv_packet))) {
                     return 0;
                 }
                 *inventory = &s_inv_packet;
                 break;
             }
-            case 0x40A40A40: {
+            case player_file::SEC_UNKNOWN_40A: {
                 if (!ReadDecryptAndVerify(*file, header, s_section_40a_buf)) {
                     return 0;
                 }
@@ -482,7 +482,7 @@ int32_t __cdecl ParsePlayerFile(CFile* file, FileSectionBasicInfo** basic_info, 
                 *size_40a = s_section_40a_size;
                 break;
             }
-            case 0xDE0DE0DE: {
+            case player_file::SEC_EQUIPMENT: {
                 if (!ReadDecryptAndVerify(*file, header, GetPacketPayload(&s_equip_packet))) {
                     return 0;
                 }

@@ -12,6 +12,18 @@ class CFile;
 class PacketUnitStateVec;
 
 
+namespace player_file {
+enum : uint32_t {
+    A2C_MAGIC       = 0x04507989,
+    SEC_BASIC_INFO  = 0xAAAAAAAA,
+    SEC_KILL_STATS  = 0x55555555,
+    SEC_UNKNOWN_40A = 0x40A40A40,
+    SEC_EQUIPMENT   = 0xDE0DE0DE,
+    SEC_STATS       = 0x41392521,
+    SEC_INVENTORY   = 0x3A5A3A5A,
+};
+} // namespace player_file
+
 struct CharacterClassCode {
     enum ClassIndex : uint8_t {
         CLASS_WARRIOR_MALE   = 0, // 0x00
