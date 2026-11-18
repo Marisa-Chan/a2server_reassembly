@@ -1697,7 +1697,7 @@ void NetStru1::QueuePacketSend(Packet* pkt) {
         //DAT_0070b410 += (GetTickCount() - stime);
     }
 
-    if (this->make_statistics == 0 && pkt->id != 0x64) {
+    if (this->make_statistics == 0 && pkt->id != SERVER_TICK) {
         this->SendPacket_64(1, 0);
     }
 }

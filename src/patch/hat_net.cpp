@@ -147,7 +147,7 @@ bool NetCmdUpdateInfo() {
         return SOCK_SendPacket(Socket, pack, Config::ProtocolVersion) == 0;
     } else {
         Packet pack;
-        pack.WriteUInt8(0xD2);
+        pack.WriteUInt8(HAT_LOBBY_INFO);
         pack.WriteUInt8((uint8_t)Info.PlayerCount);
         pack.WriteUInt8((uint8_t)Info.MapLevel);
         pack.WriteUInt8((uint8_t)Info.GameMode);

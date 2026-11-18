@@ -4,6 +4,7 @@
 
 #include "hat_packet.h"
 
+#include "../net.h"
 #include "netlog.h"
 
 #include <cstdlib>
@@ -58,7 +59,7 @@ void PACKET_XorByKey(uint8_t* data, uint32_t size, uint32_t protover) {
 }
 
 int SOCK_SendMsg(SOCKET sock, int ver, const uint8_t* msg, size_t len, int timeout) {
-    static const uint8_t end[] = {0x64, 0x01, 0x00, 0x00, 0x00};
+    static const uint8_t end[] = {SERVER_TICK, 0x01, 0x00, 0x00, 0x00};
     int ret_code = 0;
     uint32_t idx = 0;
     uint8_t pack[0x96];

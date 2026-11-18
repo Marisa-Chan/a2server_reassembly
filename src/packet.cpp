@@ -286,16 +286,16 @@ void PacketUnitUpdate::WriteTo(NetStru2* net) {
 void PacketUnitUpdate::ReadFrom(NetStru2* net) {
     // 527A6C
     switch (this->id) {
-    case 0x6c:
+    case UNIT_CHANGE_4:
         this->flags_size = 4;
         break;
-    case 0x6e:
+    case UNIT_CHANGE_1:
         this->flags_size = 1;
         break;
-    case 0x6f:
+    case UNIT_CHANGE_2:
         this->flags_size = 2;
         break;
-    case 0x70:
+    case UNIT_CHANGE_3:
         this->flags_size = 3;
         break;
     }
@@ -590,7 +590,7 @@ PacketMoveBroadcast PacketMoveBroadcast::Inst;
 
 PacketMoveBroadcast::PacketMoveBroadcast() {
     // 52701F  id = 0x86
-    this->id         = 0x86;
+    this->id         = EFFECT_MOVE;
     this->type_id  = 0;
     this->x  = 0;
     this->y  = 0;
@@ -650,7 +650,7 @@ PacketAoeZone PacketAoeZone::Inst;
 
 PacketAoeZone::PacketAoeZone() {
     // 5270F2  id = 0x87
-    this->id         = 0x87;
+    this->id         = AOE_ZONE;
     this->width  = 0;
     this->height  = 0;
 }
@@ -798,7 +798,7 @@ PacketUnitStateVec PacketUnitStateVec::Inst;
 
 PacketUnitStateVec::PacketUnitStateVec() {
     // 527415  id = 0x76
-    this->id          = 0x76;
+    this->id          = ITEM_LIST;
     this->entry_count = 0;
     this->start_index   = 0;
     this->data_size   = 0;

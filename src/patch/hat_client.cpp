@@ -23,6 +23,7 @@
 #include "../lib/lodepng.h"
 #include "../main_window.h"
 #include "../mouse.h"
+#include "../net.h"
 #include "../packet.h"
 #include "../vis_core.h"
 
@@ -648,7 +649,7 @@ int RecvClientFramed(SOCKET s, char* buf, int len, int flags) {
         // CLlDriver::RecvThreadTcp sees a valid non-empty game packet.
         *reinterpret_cast<uint32_t*>(buf) = 5;
         *reinterpret_cast<uint32_t*>(buf + 4) = 0x01000000u;
-        *reinterpret_cast<uint8_t*>(buf + 8) = 0x64;
+        *reinterpret_cast<uint8_t*>(buf + 8) = SERVER_TICK;
         *reinterpret_cast<uint32_t*>(buf + 9) = 1;
         tangar_hat::PACKET_XorByKey(reinterpret_cast<uint8_t*>(buf + 8), 5, PROTO_VER);
         return 8 + 5;

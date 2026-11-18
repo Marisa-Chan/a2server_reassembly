@@ -2554,7 +2554,7 @@ int32_t VisPlayingArea::SendEnterGameAndWait() {
 
 	PacketEnterGame *pkt = &PacketEnterGame::Inst;
 
-	pkt->id = 2;
+	pkt->id = ENTER_GAME;
 	strcpy(pkt->text, wnd->m_GameSession.character_name);
 	memcpy(&pkt->value1, &wnd->m_GameSession.sessionKeyPart1, 8);
 
@@ -2821,7 +2821,7 @@ int32_t VisPlayingArea::IsBagOpen() { // 41b495
 
 void VisPlayingArea::SendPlayerName(CString str) { //41afcf
 	PacketJoin* pkt = &PacketJoin::Inst;
-	pkt->id = 7;
+	pkt->id = REQUEST_SAVE_GAME;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	strcpy(pkt->name, str);
@@ -3180,7 +3180,7 @@ uint32_t VisPlayingArea::AvailableOrderMask() const {
 
 void VisPlayingArea::SendGameMode(int32_t m) { //41cad0
 	Packet2Dwords *pkt = &Packet2Dwords::Inst;
-	pkt->id = 4;
+	pkt->id = JOIN_MISSION;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
 	pkt->param1 = m;

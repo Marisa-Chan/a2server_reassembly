@@ -155,7 +155,7 @@ void Effect::TickOnUnit(Unit* unit) {
         }
         unit->enchantments &= ~(1u << (this->itemDataID & 0x1f));
         if (this->itemDataID != 0) {
-            g_NetStru1_main.BroadcastEffect(this, unit, 0x89);
+            g_NetStru1_main.BroadcastEffect(this, unit, EFFECT_GONE);
         }
         this->usage_type |= USAGE_EXPIRED;
     }
@@ -181,7 +181,7 @@ void Effect::RemoveFromUnit(Unit* unit) {
         if (counterpart != nullptr) {
             unit->enchantments &= ~(1u << (counterpart->itemDataID & 0x1f));
             counterpart->ModifyVision(unit);
-            g_NetStru1_main.BroadcastEffect(counterpart, unit, 0x89);
+            g_NetStru1_main.BroadcastEffect(counterpart, unit, EFFECT_GONE);
             POSITION found_pos = nullptr;
             for (POSITION pos = unit->_effects.GetHeadPosition(); pos != nullptr; ) {
                 POSITION cur_pos = pos;

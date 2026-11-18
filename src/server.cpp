@@ -1676,7 +1676,7 @@ void Server::SendWorldState(Player* player, int32_t enter_world) {
     // Broadcast a PacketJoin for the new player to all existing players.
     {
         PacketJoin* pkt = new PacketJoin(this->current_map_name);
-        pkt->id = 6;
+        pkt->id = START_GAME;
         // [pkt+0xA] = Server::map_code.  Offset 0xA within PacketJoin is
         // the first uint32_t after the base Packet (Packet = 0xA bytes, pkt+0xA =
         // player_id of PacketJoin, but the ASM stores map_code there as a dword).
@@ -7135,7 +7135,7 @@ void Server::AddArenaFrags(CString* name, int32_t flag) {
     for (int32_t i = 0; i < this->arena_names.GetSize(); i++) {
         if (this->arena_names[i] == *name) {
             this->arena_scores[i] += flag;
-            g_NetStru1_main.SendArenaScore(this->arena_names[i], this->arena_scores[i], '[', nullptr);
+            g_NetStru1_main.SendArenaScore(this->arena_names[i], this->arena_scores[i], HAT_SCORE_UPDATE, nullptr);
             return;
         }
     }
@@ -7147,7 +7147,7 @@ void Server::AddArenaFrags(CString* name, int32_t flag) {
     this->arena_scores.SetSize(idx_23c + 1, -1);
     this->arena_scores[idx_23c] = flag;
 
-    g_NetStru1_main.SendArenaScore(this->arena_names[idx], this->arena_scores[idx_23c], '[', nullptr);
+    g_NetStru1_main.SendArenaScore(this->arena_names[idx], this->arena_scores[idx_23c], HAT_SCORE_UPDATE, nullptr);
     SendFragLimit(nullptr);
 }
 
@@ -7287,7 +7287,7 @@ void Server::ProcessHatPacket(Packet* pkt) {
 // 4FA551
 void Server::HandleArenaPlayer(Player* player) {
     for (int32_t i = 0; i < this->arena_names.GetSize(); i++) {
-        g_NetStru1_main.SendArenaScore(this->arena_names[i], this->arena_scores[i], '[', player);
+        g_NetStru1_main.SendArenaScore(this->arena_names[i], this->arena_scores[i], HAT_SCORE_UPDATE, player);
     }
     SendFragLimit(player);
 }
