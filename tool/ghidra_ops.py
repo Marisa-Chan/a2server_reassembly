@@ -34,6 +34,7 @@ TYPE_ALIASES = {
     "CharacterClassCode": "uchar",
     "UnitSaveFlags": "uint",
     "SackVisualType": "uchar",
+    "EnterGameParams": "uint",
 }
 GAME_CATEGORY = "/Game"
 

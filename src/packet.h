@@ -296,6 +296,22 @@ ASSERT_SIZE(PacketItemTransfer, 0x14);
 // Three uint32_t fields followed by one uint8_t; all zeroed in ctor.
 // Uses inherited Packet VMethod3/VMethod4 serialisation.
 // ---------------------------------------------------------------------------
+struct EnterGameParams {
+    union {
+        uint32_t raw;
+        struct {
+            uint32_t cd_flag    : 8; // [7:0]   g_IsCdPresent
+            uint32_t color_slot : 8; // [15:8]  1..16 (or 0 = auto)
+            uint32_t min_level  : 8; // [23:16] GetSkillTier1() / min_server_level
+            uint32_t max_level  : 8; // [31:24] GetSkillTier2() / max_server_level
+        };
+    };
+
+    constexpr EnterGameParams(uint32_t v = 0) : raw(v) {}
+    constexpr operator uint32_t() const { return this->raw; }
+};
+ASSERT_SIZE(EnterGameParams, 4);
+
 __pragma(pack(push, 1))
 class PacketEnterGame : public Packet {
 public:
@@ -309,7 +325,7 @@ public:
 public:
     uint32_t value1;  // +0xA (= 0 in ctor)
     uint32_t value2;  // +0xE (= 0 in ctor)
-    uint32_t value3; // +0x12 (= 0 in ctor)
+    EnterGameParams value3; // +0x12 (= 0 in ctor)
     char  text[32]; // +0x16 (= 0 in ctor)
 };
 __pragma(pack(pop))

@@ -1930,7 +1930,7 @@ void Server::AssignPlayerSlot(Player* player, int32_t slot_data) {
         return;
     }
 
-    int slot = (slot_data >> 8) & 0xFF;
+    int slot = EnterGameParams(static_cast<uint32_t>(slot_data)).color_slot;
     player->drop_deadline_tick16 = 0;
     player->is_logged_in = 1;
 
@@ -4258,9 +4258,9 @@ void Server::ProcessClientPacket(Packet* pkt) {
     }
     if (pkt->id == ENTER_GAME) {
         PacketEnterGame* enter_pkt = reinterpret_cast<PacketEnterGame*>(pkt);
-        uint8_t color_slot = static_cast<uint8_t>((enter_pkt->value3 >> 8) & 0xFF);
+        uint8_t color_slot = enter_pkt->value3.color_slot;
         if (color_slot >= 0x11 && color_slot != 0xE1) {
-            enter_pkt->value3 &= ~0xFF00u;
+            enter_pkt->value3.color_slot = 0;
             Player* crasher = g_PlayersList ? g_PlayersList->FindById(pkt->from_player_id) : nullptr;
             if (crasher != nullptr) {
 #ifdef A2TANGAR_HAT
@@ -5717,10 +5717,11 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
         }
     }
 
-    uint8_t cd_flag = params & 0xff;
-    uint8_t some_id = (params >> 8) & 0xff;
-    uint8_t strong = (params >> 16) & 0xff;
-    uint8_t weak = (params >> 24) & 0xff;
+    EnterGameParams enter_params(params);
+    uint8_t cd_flag = enter_params.cd_flag;
+    uint8_t some_id = enter_params.color_slot;
+    uint8_t strong = enter_params.min_level;
+    uint8_t weak = enter_params.max_level;
 
     bool player_not_exist = false;
 

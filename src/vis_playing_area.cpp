@@ -2558,7 +2558,12 @@ int32_t VisPlayingArea::SendEnterGameAndWait() {
 	strcpy(pkt->text, wnd->m_GameSession.character_name);
 	memcpy(&pkt->value1, &wnd->m_GameSession.sessionKeyPart1, 8);
 
-	pkt->value3 = g_IsCdPresent | (wnd->m_GameSession.color << 8) | (wnd->m_GameSession.GetSkillTier1() << 0x10) | (wnd->m_GameSession.GetSkillTier2() << 0x18);
+	EnterGameParams enter_params;
+	enter_params.cd_flag = static_cast<uint8_t>(g_IsCdPresent);
+	enter_params.color_slot = static_cast<uint8_t>(wnd->m_GameSession.color);
+	enter_params.min_level = static_cast<uint8_t>(wnd->m_GameSession.GetSkillTier1());
+	enter_params.max_level = static_cast<uint8_t>(wnd->m_GameSession.GetSkillTier2());
+	pkt->value3 = enter_params;
 	pkt->to_player_id = 0;
 
 	this->objects.RemoveAll();
