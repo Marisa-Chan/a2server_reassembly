@@ -1162,7 +1162,7 @@ int32_t VisServerScreen::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
         }
         return this->VisScreen::MsgProc(msg, wparam, lparam);
 
-    case 0x100:  // WM_KEYDOWN
+    case WM_KEYDOWN:
         this->OnKeyDown(wparam);
         return 1;
 

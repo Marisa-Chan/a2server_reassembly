@@ -159,6 +159,7 @@ enum MainMsg : uint32_t {
     MAIN_MSG_LEAVE_BUILDING          = 0x45d, // leave building interior (singleplayer)
     MAIN_MSG_SHOW_FAME_HALL_DOC      = 0x463, // ShowFameHallDocDlg
     MAIN_MSG_CD_CHECK_FAILED         = 0x464, // "Incorrect CD..." prompt (no sender left in tree)
+    MAIN_MSG_SERVER_RETURN           = 0x465, // return to main menu or quit prompt
     MAIN_MSG_TOGGLE_QUEST_STATUS     = 0x466, // show/hide VisQuestStatus / VisHatSession
     MAIN_MSG_ENTER_SCENARIO_LOCATION = 0x468, // enter town/location after a mission
     MAIN_MSG_LOG_MESSAGE             = 0x472, // log line (wParam = malloc'd string, freed by handler)

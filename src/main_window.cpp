@@ -427,7 +427,7 @@ const AFX_MSGMAP_ENTRY MainWindow::_messageEntries[] =
 void MainWindow::OnSysKeyDown(UINT key, UINT repeat, UINT flags) {
     if (this->input_locked == 0) {
         if (key == 0x79) {
-            this->vis_root->MsgProc(0x100, key, 0);
+            this->vis_root->MsgProc(WM_KEYDOWN, key, 0);
             this->Default();
             g_mousept.ForceDisableHint();
             return;
@@ -440,10 +440,10 @@ void MainWindow::OnSysKeyDown(UINT key, UINT repeat, UINT flags) {
         if ((flags & 0x2000) != 0) {
             if (key >= 0x31 && key <= 0x39) {
                 g_kbMenuState = 1;
-                this->vis_root->MsgProc(0x100, key, 0);
+                this->vis_root->MsgProc(WM_KEYDOWN, key, 0);
             } else if (key >= 0x60 && key <= 0x69) {
                 g_kbMenuState = 1;
-                this->vis_root->MsgProc(0x100, key - 0x30, 0);
+                this->vis_root->MsgProc(WM_KEYDOWN, key - 0x30, 0);
             } else if (key == 0x53) {
                 SaveScreenshot();
             } else if (key > 0x41 && key < 0x5A && (this->dialogsMask & DIALOG_MASK_INGAME) != 0) {
@@ -543,7 +543,7 @@ int32_t MainWindow::WaitHatConnection() {
     while (true) {
         MSG msg;
         if (PeekMessageA(&msg, nullptr, 0, 0, PM_REMOVE) != 0) {
-            if (msg.message == 0x12) { // WM_QUIT
+            if (msg.message == WM_QUIT) {
                 return 0;
             }
             TranslateMessage(&msg);
@@ -557,7 +557,7 @@ int32_t MainWindow::WaitHatConnection() {
         if (g_CmdTimeout < timeGetTime() - start_time) {
             VisMessageBoxWithList* mbox = new VisMessageBoxWithList(1, 0x40, 100, 0x17c, 0x252, txt_patch.GetLine(0x12), nullptr, 0);
             this->ModalScreen(mbox);
-            this->PostMessage(0x10, 0, 0);
+            this->PostMessage(WM_CLOSE, 0, 0);
             return 0;
         }
 
@@ -597,7 +597,7 @@ int32_t MainWindow::WaitHatConnection() {
     if (this->vis_map_context->ProcessPackets(SERVER_TICK) == 0) {
         VisMessageBoxWithList* mbox = new VisMessageBoxWithList(1, 0x40, 100, 0x17c, 0x252, txt_patch.GetLine(0x11), nullptr, 0);
         this->ModalScreen(mbox);
-        this->PostMessage(0x10, 0, 0);
+        this->PostMessage(WM_CLOSE, 0, 0);
         return 0;
     }
 #endif
@@ -636,7 +636,7 @@ int32_t MainWindow::WaitConnectionCharacterJoin() {
         this->ModalScreen(mbox);
 
 #ifndef A2CLIENT
-        this->PostMessage(0x10, 0, 0);
+        this->PostMessage(WM_CLOSE, 0, 0);
 #endif
         return 0;
     }
@@ -645,7 +645,7 @@ int32_t MainWindow::WaitConnectionCharacterJoin() {
         VisMessageBoxWithList* mbox = new VisMessageBoxWithList(1, 0x40, 100, 0x1ac, 0x252, TxtFile::AllLines[0xD2], nullptr, 4);
         this->ModalScreen(mbox);
         if (mbox->GetCloseCode() != VIS_MSG_BOX_OK) {
-            this->PostMessage(0x10, 0, 0);
+            this->PostMessage(WM_CLOSE, 0, 0);
             return 0;
         }
     }
@@ -721,7 +721,7 @@ int32_t MainWindow::ConnectToServerAddress() {
         VisMessageBoxWithList* mbox = new VisMessageBoxWithList(1, 0x40, 100, 0x17c, 0x252, txt_patch.GetLine(3), nullptr, 0);
         this->ModalScreen(mbox);
 #ifndef A2CLIENT
-        this->PostMessage(0x10, 0, 0);
+        this->PostMessage(WM_CLOSE, 0, 0);
 #endif
         return 0;
     }
@@ -736,7 +736,7 @@ int32_t MainWindow::ConnectToServerAddress() {
     while (true) {
         MSG msg;
         if (PeekMessageA(&msg, nullptr, 0, 0, PM_REMOVE) != 0) {
-            if (msg.message == 0x12) { // WM_QUIT
+            if (msg.message == WM_QUIT) {
                 return 0;
             }
             TranslateMessage(&msg);
@@ -748,7 +748,7 @@ int32_t MainWindow::ConnectToServerAddress() {
                 VisMessageBoxWithList* mbox = new VisMessageBoxWithList(1, 0x40, 100, 0x17c, 0x252, txt_patch.GetLine(g_GameStatusCode & 0xff), nullptr, 0);
                 this->ModalScreen(mbox);
 #ifndef A2CLIENT
-                this->PostMessage(0x10, 0, 0);
+                this->PostMessage(WM_CLOSE, 0, 0);
 #endif
                 return 0;
             }
@@ -764,7 +764,7 @@ int32_t MainWindow::ConnectToServerAddress() {
     VisMessageBoxWithList* mbox = new VisMessageBoxWithList(1, 0x40, 100, 0x17c, 0x252, txt_patch.GetLine(0), nullptr, 0);
     this->ModalScreen(mbox);
 #ifndef A2CLIENT
-    this->PostMessage(0x10, 0, 0);
+    this->PostMessage(WM_CLOSE, 0, 0);
 #endif
     return 0;
 }
@@ -793,7 +793,7 @@ void MainWindow::OnKeyDown(UINT key, UINT repeat, UINT flags) {
         {
             int32_t dispatch = tangar_hotkeys::TopLevelKeyDispatch((int32_t)key);
             if (dispatch == -1) {
-                this->vis_root->MsgProc(0x100, key, 0);
+                this->vis_root->MsgProc(WM_KEYDOWN, key, 0);
                 return;
             }
             if (dispatch == 0x70) {
@@ -850,7 +850,7 @@ void MainWindow::OnKeyDown(UINT key, UINT repeat, UINT flags) {
         case 0x7a:
         case 0x7b:
         case 0xc0:
-            this->vis_root->MsgProc(0x100, key, 0);
+            this->vis_root->MsgProc(WM_KEYDOWN, key, 0);
             break;
 
         case 0x10:
@@ -876,12 +876,12 @@ void MainWindow::OnKeyDown(UINT key, UINT repeat, UINT flags) {
                 }
             } else if (this->dialogsMask == 0) {
                 if (!this->net_session.key_capture_str.IsEmpty()) {
-                    this->vis_root->MsgProc(0x100, key, 0);
+                    this->vis_root->MsgProc(WM_KEYDOWN, key, 0);
                 } else if (this->sessionMode == SESSION_LOCAL_BATTLE) {
                     this->PostMessage(MAIN_MSG_SHOW_TOWN_MENU, 0, 0);
                 }
             } else {
-                this->vis_root->MsgProc(0x100, key, 0);
+                this->vis_root->MsgProc(WM_KEYDOWN, key, 0);
             }
             break;
 
@@ -895,7 +895,7 @@ void MainWindow::OnKeyDown(UINT key, UINT repeat, UINT flags) {
         case 0x67:
         case 0x68:
         case 0x69:
-            this->vis_root->MsgProc(0x100, key - 0x30, 0);
+            this->vis_root->MsgProc(WM_KEYDOWN, key - 0x30, 0);
             break;
 
         case 0x6b:
@@ -963,7 +963,7 @@ void MainWindow::OnKeyDown(UINT key, UINT repeat, UINT flags) {
 
         default:
             if (key > 0x40 && key < 0x5b) {
-                this->vis_root->MsgProc(0x100, key, 0);
+                this->vis_root->MsgProc(WM_KEYDOWN, key, 0);
             }
             break;
         }
@@ -1055,7 +1055,7 @@ void MainWindow::OnSysKeyUp(UINT key, UINT repeat, UINT flags) {
 
 // 48a35f
 void MainWindow::OnChar(UINT ch, UINT repeat, UINT flags) {
-    this->vis_root->MsgProc(0x102, ch, 0);
+    this->vis_root->MsgProc(WM_CHAR, ch, 0);
     this->Default();
 }
 
@@ -3965,7 +3965,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
     }
         break;
 
-    case 0x465: {
+    case MAIN_MSG_SERVER_RETURN: {
         VisMessageBoxWithList* msgbox = new VisMessageBoxWithList(1, 100, 100, 540, 380, TxtFile::AllLines[181], nullptr, 1);
         this->ModalScreen(msgbox);
 
