@@ -13,6 +13,19 @@
 
 namespace tangar_hat {
 
+namespace hat_ctrl_cmd {
+enum : uint8_t {
+    auth            = 0x10,
+    shutdown        = 0x11,
+    update_info     = 0x12,
+    broadcast       = 0x13,
+    unlock_login    = 0x14,
+    recv_broadcast  = 0x63,
+    recv_screenshot = 0x64,
+    recv_mute       = 0x65,
+};
+} // namespace hat_ctrl_cmd
+
 struct ServerInfo {
     uint32_t PlayerCount;
     uint32_t MapLevel;

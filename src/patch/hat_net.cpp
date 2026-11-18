@@ -48,7 +48,7 @@ uint32_t LastUpdate = 0;
 
 bool NetCmdHatAuth() {
     Packet pack;
-    pack.WriteUInt8(0x10);
+    pack.WriteUInt8(hat_ctrl_cmd::auth);
     pack.WriteUInt32(Config::ServerCaps);
 
     return SOCK_SendPacket(Socket, pack, Config::ProtocolVersion) == 0;
@@ -58,7 +58,7 @@ bool NetCmdShutdown() {
     ShuttingDown = true;
 
     Packet pack;
-    pack.WriteUInt8(0x11);
+    pack.WriteUInt8(hat_ctrl_cmd::shutdown);
 
     if (SOCK_SendPacket(Socket, pack, Config::ProtocolVersion) != 0) {
         Connected = false;
@@ -70,7 +70,7 @@ bool NetCmdShutdown() {
 bool NetCmdUpdateInfo() {
     if (Config::ServerCaps & SVC_DETAILED_INFO) {
         Packet pack;
-        pack.WriteUInt8(0x12);
+        pack.WriteUInt8(hat_ctrl_cmd::update_info);
         // base information
         if (Info.PlayerCount == 0xFF && Info.MapLevel == 0xFF &&
             Info.GameMode == 0xFF && Info.MapSize == 0xFF) { // shutdown
@@ -160,7 +160,7 @@ bool NetCmdUpdateInfo() {
 
 bool NetCmdBroadcast(const std::string& what) {
     Packet pack;
-    pack.WriteUInt8(0x13);
+    pack.WriteUInt8(hat_ctrl_cmd::broadcast);
     pack.WriteString(what);
 
     if (SOCK_SendPacket(Socket, pack, Config::ProtocolVersion) != 0) {
@@ -172,7 +172,7 @@ bool NetCmdBroadcast(const std::string& what) {
 
 bool NetCmdUnlockLogin(const std::string& login) {
     Packet pack;
-    pack.WriteUInt8(0x14);
+    pack.WriteUInt8(hat_ctrl_cmd::unlock_login);
     pack.WriteString(login);
 
     return SOCK_SendPacket(Socket, pack, Config::ProtocolVersion) == 0;
@@ -266,12 +266,12 @@ bool NetHatProcess() {
         uint8_t packet_id = pack.ReadUInt8();
 
         switch (packet_id) {
-            case 0x63: { // broadcast from hat
+            case hat_ctrl_cmd::recv_broadcast: { // broadcast from hat
                 std::string message = pack.ReadString();
                 g_NetStru1_main.AnnouncePlayerName(message.c_str(), nullptr);
                 break;
             }
-            case 0x64: { // screenshot information
+            case hat_ctrl_cmd::recv_screenshot: { // screenshot information
                 std::string login = pack.ReadString();
                 pack.ReadUInt8(); // ????
                 uint32_t uid = pack.ReadUInt32();
@@ -316,7 +316,7 @@ bool NetHatProcess() {
                 }
                 break;
             }
-            case 0x65: { // mute player packet
+            case hat_ctrl_cmd::recv_mute: { // mute player packet
                 std::string login = pack.ReadString();
                 time_t unmutedate = pack.ReadUInt32();
                 struct tm parsedTime;
