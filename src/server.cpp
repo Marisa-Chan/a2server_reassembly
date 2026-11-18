@@ -5216,7 +5216,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
             int32_t param_type  = packet_2dwords->param1;
             int32_t param_value = packet_2dwords->param2;
 
-            if (param_type >= 0x80) {
+            if (param_type >= set_param_op::hotkey_broadcast) {
                 CString msg;
                 msg.Format("Request to set unknown parameter %d unprocessed", param_type);
                 LogMessage(msg);
@@ -5226,21 +5226,21 @@ void Server::ProcessClientPacket(Packet* pkt) {
             int32_t val;
 
             switch (param_type) {
-            case 1:
+            case set_param_op::wimpy_mode:
                 val = (param_value == 1) ? 10 : (param_value == 2) ? 30 : 0;
                 g_World->SetWithdrawThresholds(0, val * 2, val * 3, player);
                 g_World->SetWimpyThresholds(val, val, val, player);
                 break;
-            case 2:
+            case set_param_op::formation:
                 val = (param_value == 0) ? 0 : (param_value == 1) ? 2 : 1;
                 g_World->SetFormation(player, val);
                 break;
-            case 3: // Autobuff mask
+            case set_param_op::autobuff: // Autobuff mask
                 if (player->settings) {
                     player->settings->autobuff_mask = static_cast<uint8_t>(param_value);
                 }
                 break;
-            case 4: {
+            case set_param_op::active_spell: {
                     Unit* unit = this->FindPlayerUnit(packet_2dwords->from_player_id, static_cast<uint16_t>(param_value));
                     if (unit && unit->eye2) {
                         uint8_t new_spell_id = static_cast<uint8_t>(param_value >> 16);

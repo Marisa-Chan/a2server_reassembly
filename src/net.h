@@ -231,6 +231,17 @@ enum ChatType : uint8_t {
     CHAT_TYPE_GLOBAL  = 4, // global broadcast, no cooldown
 };
 
+// Packet2Dwords::param1 for SET_PARAMETER (0x46).
+namespace set_param_op {
+enum : int32_t {
+    wimpy_mode       = 1,    // withdraw / wimpy retreat thresholds
+    formation        = 2,    // group movement formation mode
+    autobuff         = 3,    // AutoCastSettings mask
+    active_spell     = 4,    // toggle default/active spell on unit (param2 = unit_id | spell_id << 16)
+    hotkey_broadcast = 0x80, // client hotkey broadcast (>= 0x80 rejected by retail server)
+};
+} // namespace set_param_op
+
 
 
 // TEAM_NOTIFY param1 (SendTeamNotify msg_type). The client switch also has

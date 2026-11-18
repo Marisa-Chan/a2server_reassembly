@@ -3198,7 +3198,7 @@ void VisPlayingArea::SendWimpyMode(int32_t wim) { //41aaaa
 	pkt->id = SET_PARAMETER;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
-	pkt->param1 = 1;
+	pkt->param1 = set_param_op::wimpy_mode;
 	pkt->param2 = wim;
 
 	g_NetStru1_local.QueuePacketSend(pkt);
@@ -3209,7 +3209,7 @@ void VisPlayingArea::SendFormationMode(int32_t form) { // 41abd2
 	pkt->id = SET_PARAMETER;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
-	pkt->param1 = 2;
+	pkt->param1 = set_param_op::formation;
 	pkt->param2 = form;
 
 	g_NetStru1_local.QueuePacketSend(pkt);
@@ -3220,7 +3220,7 @@ void VisPlayingArea::SendAutoCastSetting() { //41ab74
 	pkt->id = SET_PARAMETER;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
-	pkt->param1 = 3;
+	pkt->param1 = set_param_op::autobuff;
 	pkt->param2 = g_settings.AutoCasting;
 
 	g_NetStru1_local.QueuePacketSend(pkt);
@@ -4196,7 +4196,7 @@ void VisPlayingArea::SendHotkeyBroadcast(int32_t id) {
 	pkt->id = SET_PARAMETER;
 	pkt->from_player_id = this->my_main_unit->index;
 	pkt->to_player_id = 0;
-	pkt->param1 = 0x80;
+	pkt->param1 = set_param_op::hotkey_broadcast;
 	pkt->param2 = id;
 	g_NetStru1_local.QueuePacketSend(pkt);
 }
@@ -7979,7 +7979,7 @@ void VisPlayingArea::SendAutoSpellSelect(int32_t spell_id) {
 			pkt->id = SET_PARAMETER;
 			pkt->from_player_id = this->my_main_unit->index;
 			pkt->to_player_id = 0;
-			pkt->param1 = 4;
+			pkt->param1 = set_param_op::active_spell;
 			pkt->param2 = key | (spell_id << 16);
 			g_NetStru1_local.QueuePacketSend(pkt);
 			obj->active_spell = spell_id;
