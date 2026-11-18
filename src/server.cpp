@@ -1511,9 +1511,9 @@ void Srv1::LoadSacks(MapAlm* alm) {
             // Ensure unit has a spellbook
             if (unit->spell_book == nullptr) {
                 unit->spell_book = new SpellBook();
-                unit->unit_attrs |= 2;
+                unit->unit_attrs |= Unit::ATTR_HAS_SPELLBOOK;
                 if (unit->mp_max != 0) {
-                    unit->unit_attrs |= 4;
+                    unit->unit_attrs |= Unit::ATTR_MAGE;
                 }
             }
 
@@ -1935,7 +1935,7 @@ void Server::AssignPlayerSlot(Player* player, int32_t slot_data) {
     player->is_logged_in = 1;
 
     auto main_unit = player->main_unit;
-    int phased_in = ((main_unit->unit_attrs & 8) != 0) ? 1 : 0;
+    int phased_in = ((main_unit->unit_attrs & Unit::ATTR_PHASED_OUT) != 0) ? 1 : 0;
     if (slot == 0 && phased_in != 0) {
         // Vanilla only scans for a free slot when slot_data gave none and the unit is phased in.
         for (slot = 1; slot < 0x10; slot++) {
@@ -2370,8 +2370,8 @@ int Server::JoinPlayer(uint32_t pkt_word0, uint32_t pkt_word1,
     // Add character unit to map.
     MapStuff_Instance->AddUnitToMap(player->main_unit);
 
-    // Set unit_attrs |= 8 (phased in).
-    player->main_unit->unit_attrs |= 8;
+    // Set unit_attrs |= ATTR_PHASED_OUT.
+    player->main_unit->unit_attrs |= Unit::ATTR_PHASED_OUT;
 
     // Remove player->main_unit from g_ServerUnits->unit_list.
     {
@@ -2658,7 +2658,7 @@ Human* Server::LoadCharacter(void* data, int32_t size, Player* player) {
     unit->RecalcStats();
 
     if (unit->mp_max > 0) {
-        unit->unit_attrs |= 6;
+        unit->unit_attrs |= Unit::ATTR_HAS_SPELLBOOK | Unit::ATTR_MAGE;
         if (unit->spell_book != nullptr) {
             delete unit->spell_book;
         }
@@ -2760,7 +2760,7 @@ Human* Server::LoadCharacter(void* data, int32_t size, Player* player) {
     unit->mp = unit->mp_max;
     unit->decay = 0;
     unit->RecalcStats();
-    unit->unit_attrs &= ~0x08;
+    unit->unit_attrs &= ~Unit::ATTR_PHASED_OUT;
     unit->sent_to_mask = 0;
     unit->seen_by_mask = player->vision_sharing_id;
 
@@ -4497,7 +4497,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 {
                     Effect* head_eff = item->_effects.GetHead();
                     if (!tangar_items::IsScroll(item) || head_eff == nullptr || head_eff->effect_id != 0x29 ||
-                        (player->main_unit->unit_attrs & 4) != 0) {
+                        (player->main_unit->unit_attrs & Unit::ATTR_MAGE) != 0) {
                         player->main_unit->inventory->PutItemIntoBag(packet_order->slot, item);
                         g_NetStru1_main.SendUnitUpdate(player->main_unit, player, 0xFFFFFFFF, EQUIP_SLOTS_ALL, 0, 0);
                         break;
@@ -4532,7 +4532,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
             if (player && g_ServerConfig.gameType == GAME_TYPE_COOPERATIVE) {
 #ifdef A2TANGAR_HAT
                 // camp hook (50512E, superseding SRV_CMP.xck): forbid camping from inside buildings.
-                if ((unit->unit_attrs & 8) == 0) {
+                if ((unit->unit_attrs & Unit::ATTR_PHASED_OUT) == 0) {
                     player->StartAfkTimer();
                     if (Config::LogMode & SVL_CAMPING) {
                         if (Player* p = g_PlayersList->FindById(packet_order->from_player_id)) {
@@ -4548,7 +4548,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 }
 #elif defined(A2SERVER_PATCH)
                 // SRV_CMP.xck (505158 -> 50411E): forbid camping while phased out in a building.
-                if ((unit->unit_attrs & 8) == 0) {
+                if ((unit->unit_attrs & Unit::ATTR_PHASED_OUT) == 0) {
                     player->StartAfkTimer();
                 }
 #else
@@ -5294,7 +5294,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
             }
 #endif
 
-            if (g_ServerConfig.gameType == GAME_TYPE_COOPERATIVE && (player->main_unit->unit_attrs & 8) != 0) {
+            if (g_ServerConfig.gameType == GAME_TYPE_COOPERATIVE && (player->main_unit->unit_attrs & Unit::ATTR_PHASED_OUT) != 0) {
 #ifdef A2TANGAR_HAT
                 // imp_CheckShield hook (506A53): only grant JOIN_MAP spawn buffs once per map session.
                 bool allow_join_buffs = false;
@@ -5376,7 +5376,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
 #else
             g_NetStru1_main.SendUnitUpdate(player->main_unit, player, UNIT_UPD_ALL, EQUIP_SLOTS_ALL, 0, 0);
 #endif
-            if ((player->main_unit->unit_attrs & 8) != 0) {
+            if ((player->main_unit->unit_attrs & Unit::ATTR_PHASED_OUT) != 0) {
                 player->main_unit->ReturnToMap();
             }
             g_NetStru1_main.SendGameInfo(g_ServerConfig.game_speed, player);
@@ -5524,7 +5524,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
 #ifdef A2SERVER_PATCH
                     // public_chat_2 hook: don't deliver to AI players, players
                     // without a main unit, or phased-out units (attrs bit 8)
-                    if (other->is_ai || other->main_unit == nullptr || (other->main_unit->unit_attrs & 8) != 0) {
+                    if (other->is_ai || other->main_unit == nullptr || (other->main_unit->unit_attrs & Unit::ATTR_PHASED_OUT) != 0) {
                         continue;
                     }
 #endif
@@ -5541,7 +5541,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
 #ifdef A2SERVER_PATCH
                     // private_chat_2 hook: don't deliver to AI players, players
                     // without a main unit, or phased-out units (attrs bit 8)
-                    if (other->is_ai || other->main_unit == nullptr || (other->main_unit->unit_attrs & 8) != 0) {
+                    if (other->is_ai || other->main_unit == nullptr || (other->main_unit->unit_attrs & Unit::ATTR_PHASED_OUT) != 0) {
                         continue;
                     }
 #endif
@@ -5565,7 +5565,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 // private_chat_3 hook: don't deliver to a recipient whose
                 // unit is missing or phased out (the sender CC stands)
                 Player* recipient = g_PlayersList->FindById(recipient_id);
-                if (recipient == nullptr || recipient->main_unit == nullptr || (recipient->main_unit->unit_attrs & 8) != 0) {
+                if (recipient == nullptr || recipient->main_unit == nullptr || (recipient->main_unit->unit_attrs & Unit::ATTR_PHASED_OUT) != 0) {
                     break;
                 }
 #endif
@@ -6190,7 +6190,7 @@ void Server::SaveCharacter(Humanoid* humanoid) {
     if (humanoid->typeId == 0x22 || humanoid->typeId == 0x24) {
         flags |= 0x80;
     }
-    if (humanoid->unit_attrs & 4) {
+    if (humanoid->unit_attrs & Unit::ATTR_MAGE) {
         flags |= 0x40;
     }
 
@@ -6471,7 +6471,7 @@ void Server::ServerTic() {
             continue;
         }
         if (g_PlayerInfo[i].ShouldReturn && GetTickCount() - g_PlayerInfo[i].LastReturn > 5000) {
-            if ((g_PlayerInfo[i].Class->main_unit->unit_attrs & 0x08) == 0 ||
+            if ((g_PlayerInfo[i].Class->main_unit->unit_attrs & Unit::ATTR_PHASED_OUT) == 0 ||
                 g_PlayerInfo[i].Class->main_unit->ReturnToMap() != 0) {
                 g_PlayerInfo[i].ShouldReturn = false;
             }
@@ -8183,7 +8183,7 @@ void Server::SerializeGame(CArchive& ar) {
                 POSITION unit_it = player->unit_list->unit_list.GetHeadPosition();
                 while (unit_it != nullptr) {
                     Unit* unit = player->unit_list->unit_list.GetNext(unit_it);
-                    if ((unit->unit_attrs & 8) == 0) {
+                    if ((unit->unit_attrs & Unit::ATTR_PHASED_OUT) == 0) {
                         g_ServerUnits->AddTail(unit);
                     }
                 }

@@ -47,7 +47,7 @@ bool CanEat(Unit* unit, Item* item) {
         return false;
     }
 
-    if ((unit->unit_attrs & 4) == 0) { // warrior
+    if ((unit->unit_attrs & Unit::ATTR_MAGE) == 0) { // warrior
         if (forbidden_warrior_items.count(item->item_id) != 0) {
             return false;
         }

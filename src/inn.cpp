@@ -602,7 +602,7 @@ void Inn::InnCreateQuests(Player* player) {
     //  Raise undeads (Ghosts / Skeletons / Zombies)
     //  vtables: Ghosts=60F838, Skeletons=60F870, Zombies=60F8A8
     // =====================================================================
-    if ((player->main_unit->unit_attrs & 4) != 0 && this->has_raise_dead != 0) {
+    if ((player->main_unit->unit_attrs & Unit::ATTR_MAGE) != 0 && this->has_raise_dead != 0) {
         SpellBook* sb = player->main_unit->spell_book;
         if (sb && (sb->CalcSpellMask() & (1 << spell::animate_dead)) != 0) {
             int raise = Random0N(2);
@@ -901,7 +901,7 @@ void Inn::InnReward(Player* player) {
 
     // Determine player class filter: warrior or mage.
     uint8_t item_type_filter;
-    if (player->main_unit->unit_attrs & 4) {
+    if (player->main_unit->unit_attrs & Unit::ATTR_MAGE) {
         item_type_filter = equip_suitable::mage;
     } else {
         item_type_filter = equip_suitable::warrior;
@@ -1000,7 +1000,7 @@ void Inn::InnReward(Player* player) {
     PickOneRandom(temp_candidates, result_items);
 
     // --- Phase 6: Spell books (wizards only) ---
-    if (player->main_unit->unit_attrs & 4) {
+    if (player->main_unit->unit_attrs & Unit::ATTR_MAGE) {
         temp_candidates.SetSize(0, -1);
         for (int i = 0; i < TeachSpellIDs.size(); i++) {
             int32_t known_spells = player->main_unit->spell_book->CalcSpellMask();
@@ -1029,7 +1029,7 @@ void Inn::InnReward(Player* player) {
 #else
         {
 #endif
-        bool is_fighter = (player->main_unit->unit_attrs & 4) == 0;
+        bool is_fighter = (player->main_unit->unit_attrs & Unit::ATTR_MAGE) == 0;
         bool is_female = (player->main_unit->typeId == 0x22 || player->main_unit->typeId == 0x24);
 
         uint8_t max_body, max_reaction, max_mind, max_spirit;

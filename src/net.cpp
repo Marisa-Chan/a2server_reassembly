@@ -1074,8 +1074,8 @@ void NetStru1::SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t
         }
     }
 
-    if ((needs_refresh && (unit->unit_attrs & 8) != 0) || (mask & 0x40000000) != 0) {
-        g_NetStru1_main.SendUnitVisibility(unit, (unit->unit_attrs & 8) ? 1 : 0, player);
+    if ((needs_refresh && (unit->unit_attrs & Unit::ATTR_PHASED_OUT) != 0) || (mask & 0x40000000) != 0) {
+        g_NetStru1_main.SendUnitVisibility(unit, (unit->unit_attrs & Unit::ATTR_PHASED_OUT) ? 1 : 0, player);
     }
 
     // Mark unit as not needing the refresh in the "field_x18" bitmask.

@@ -330,14 +330,14 @@ void Effect::ApplyStatDelta(Unit* unit, int32_t stack_delta) {
             unit->item_op_dirty_flags |= UNIT_UPD_MP;
             break;
         case modifier::manamax:
-            if (unit->unit_attrs & 4) { // mage-only
+            if (unit->unit_attrs & Unit::ATTR_MAGE) { // mage-only
                 unit->mp += value;
                 unit->equipment_extra.mp_max += value;
                 unit->item_op_dirty_flags |= (UNIT_UPD_MP | UNIT_UPD_HP_MP_MAX);
             }
             break;
         case modifier::manaregeneration: 
-            if (unit->unit_attrs & 4) { // mage-only
+            if (unit->unit_attrs & Unit::ATTR_MAGE) { // mage-only
                 unit->equipment_extra.mp_regen += value;
             }
             break;
@@ -439,71 +439,71 @@ void Effect::ApplyStatDelta(Unit* unit, int32_t stack_delta) {
             unit->item_op_dirty_flags |= UNIT_UPD_MAGIC_PROTECT;
             break;
         case modifier::fighterskill0:
-            if (!(unit->unit_attrs & 4)) {
+            if (!(unit->unit_attrs & Unit::ATTR_MAGE)) {
                 unit->equipment_extra.hit_values.skill_levels[weapon_attack::unarmed] += value;
             }
             break;
         case modifier::skillblade:
-            if (!(unit->unit_attrs & 4)) {
+            if (!(unit->unit_attrs & Unit::ATTR_MAGE)) {
                 unit->equipment_extra.hit_values.skill_levels[weapon_attack::blade] += value;
             }
             unit->item_op_dirty_flags |= (UNIT_UPD_SKILL_LEVELS | UNIT_UPD_HAND_DAMAGE);
             break;
         case modifier::skillaxe:
-            if (!(unit->unit_attrs & 4)) {
+            if (!(unit->unit_attrs & Unit::ATTR_MAGE)) {
                 unit->equipment_extra.hit_values.skill_levels[weapon_attack::axe] += value;
             }
             unit->item_op_dirty_flags |= (UNIT_UPD_SKILL_LEVELS | UNIT_UPD_HAND_DAMAGE);
             break;
         case modifier::skillbludgeon:
-            if (!(unit->unit_attrs & 4)) {
+            if (!(unit->unit_attrs & Unit::ATTR_MAGE)) {
                 unit->equipment_extra.hit_values.skill_levels[weapon_attack::bludgeon] += value;
             }
             unit->item_op_dirty_flags |= (UNIT_UPD_SKILL_LEVELS | UNIT_UPD_HAND_DAMAGE);
             break;
         case modifier::skillpike:
-            if (!(unit->unit_attrs & 4)) {
+            if (!(unit->unit_attrs & Unit::ATTR_MAGE)) {
                 unit->equipment_extra.hit_values.skill_levels[weapon_attack::pike] += value;
             }
             unit->item_op_dirty_flags |= (UNIT_UPD_SKILL_LEVELS | UNIT_UPD_HAND_DAMAGE);
             break;
         case modifier::skillshooting:
-            if (!(unit->unit_attrs & 4)) {
+            if (!(unit->unit_attrs & Unit::ATTR_MAGE)) {
                 unit->equipment_extra.hit_values.skill_levels[weapon_attack::shooting] += value;
             }
             unit->item_op_dirty_flags |= (UNIT_UPD_SKILL_LEVELS | UNIT_UPD_HAND_DAMAGE);
             break;
         case modifier::mageskill0:
-            if (unit->unit_attrs & 4) {
+            if (unit->unit_attrs & Unit::ATTR_MAGE) {
                 unit->equipment_extra.hit_values.skill_levels[magic_sphere::none] += value;
             }
             break;
         case modifier::skillfire:
-            if (unit->unit_attrs & 4) {
+            if (unit->unit_attrs & Unit::ATTR_MAGE) {
                 unit->equipment_extra.hit_values.skill_levels[magic_sphere::fire] += value;
             }
             unit->item_op_dirty_flags |= UNIT_UPD_SKILL_LEVELS;
             break;
         case modifier::skillwater:
-            if (unit->unit_attrs & 4) {
+            if (unit->unit_attrs & Unit::ATTR_MAGE) {
                 unit->equipment_extra.hit_values.skill_levels[magic_sphere::water] += value;
             }
             unit->item_op_dirty_flags |= UNIT_UPD_SKILL_LEVELS;
             break;
         case modifier::skillair:
-            if (unit->unit_attrs & 4) {
+            if (unit->unit_attrs & Unit::ATTR_MAGE) {
                 unit->equipment_extra.hit_values.skill_levels[magic_sphere::air] += value;
             }
             unit->item_op_dirty_flags |= UNIT_UPD_SKILL_LEVELS;
             break;
         case modifier::skillearth:
-            if (unit->unit_attrs & 4) {
+            if (unit->unit_attrs & Unit::ATTR_MAGE) {
                 unit->equipment_extra.hit_values.skill_levels[magic_sphere::earth] += value;
             }
             unit->item_op_dirty_flags |= UNIT_UPD_SKILL_LEVELS;
             break;
         case modifier::skillastral:
-            if (unit->unit_attrs & 4) {
+            if (unit->unit_attrs & Unit::ATTR_MAGE) {
                 unit->equipment_extra.hit_values.skill_levels[magic_sphere::astral] += value;
             }
             unit->item_op_dirty_flags |= UNIT_UPD_SKILL_LEVELS;

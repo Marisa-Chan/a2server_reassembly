@@ -170,7 +170,7 @@ void __cdecl ExecuteMeleeAttack(Unit* self, Unit* target) {
     }
 
     // Melee humanoid fighters cannot hit flying targets.
-    if (self->IsHumanoid() && (self->unit_attrs & 4) == 0 && self->hit_values.physical_damage_type != weapon_attack::shooting && target->movement_type == 3) {
+    if (self->IsHumanoid() && (self->unit_attrs & Unit::ATTR_MAGE) == 0 && self->hit_values.physical_damage_type != weapon_attack::shooting && target->movement_type == 3) {
         return;
     }
 
@@ -179,7 +179,7 @@ void __cdecl ExecuteMeleeAttack(Unit* self, Unit* target) {
     target->hp -= damage;
 
     // On a hit, non-mage units trigger the weapon's imbued spell.
-    if (self->weapon != nullptr && self->weapon->imbued_spell != nullptr && (self->unit_attrs & 4) == 0) {
+    if (self->weapon != nullptr && self->weapon->imbued_spell != nullptr && (self->unit_attrs & Unit::ATTR_MAGE) == 0) {
         if ((damage > 0 && target->hp > 0) || self->weapon->imbued_spell->spell_id == spell::fire_ball) {
             self->some_spell = self->weapon->imbued_spell;
             self->some_item = self->weapon;
@@ -798,7 +798,7 @@ void Unit::ProcessEffects() {
             if (this->some_state2 == 0) {
                 int32_t charge_extra = 0;
                 if (this->some_state == 3) {
-                    if (!this->weapon || !this->weapon->imbued_spell || !(this->unit_attrs & 4)) {
+                    if (!this->weapon || !this->weapon->imbued_spell || !(this->unit_attrs & Unit::ATTR_MAGE)) {
                         CalcAttackCharge(this, this->cast_target, &charge_extra);
                     } else {
                         this->some_spell = this->weapon->imbued_spell;
@@ -829,7 +829,7 @@ void Unit::ProcessEffects() {
                 this->charge_countdown--;
                 if (this->charge_countdown == 0) {
                     if (this->some_state == 3) {
-                        if (!this->weapon || !this->weapon->imbued_spell || !(this->unit_attrs & 4)) {
+                        if (!this->weapon || !this->weapon->imbued_spell || !(this->unit_attrs & Unit::ATTR_MAGE)) {
                             ExecuteAttack(this, this->cast_target);
                         } else {
                             this->some_spell = this->weapon->imbued_spell;
@@ -1080,17 +1080,17 @@ uint32_t Unit::RollDamage(UnitToHit* unit_to_hit, Unit* attacker) {
         this->pOwner->ResetAfkTimer();
     }
 
-    if (unit_to_hit == nullptr || (this->unit_attrs & 8)) {
+    if (unit_to_hit == nullptr || (this->unit_attrs & ATTR_PHASED_OUT)) {
         return 0;
     }
 
     int32_t dmg_min = unit_to_hit->hand_damage_min;
     int32_t dmg_spread = unit_to_hit->hand_damage_spread;
 
-    // If top bit of `hand_damage_min` is set and target is not a humanoid -> damage x15??
-    if ((dmg_min & 0x80) && attacker->IsHumanoid() == 0) {
-        dmg_min = (dmg_min & 0x7F) * 15;
-        dmg_spread = dmg_spread * 15;
+    // Top bit of `hand_damage_min` marks 15x scaled monster physical damage.
+    if ((dmg_min & HAND_DAMAGE_15X_FLAG) && attacker->IsHumanoid() == 0) {
+        dmg_min = (dmg_min & HAND_DAMAGE_VALUE_MASK) * HAND_DAMAGE_15X_MULT;
+        dmg_spread = dmg_spread * HAND_DAMAGE_15X_MULT;
     }
 
     // Target has bless AND is a humanoid -> damage x4??
@@ -1147,7 +1147,7 @@ uint32_t Unit::RollDamage(UnitToHit* unit_to_hit, Unit* attacker) {
 
     // Check if attack hits.
     int32_t damage = 0;
-    if (attack_roll > defense || (attacker != nullptr && (attacker->unit_attrs & 0x10))) {
+    if (attack_roll > defense || (attacker != nullptr && (attacker->unit_attrs & ATTR_PIERCING))) {
         damage = preliminary_damage;
     } else if (rand_roll >= 90) {
         damage = preliminary_damage;
@@ -1161,7 +1161,7 @@ uint32_t Unit::RollDamage(UnitToHit* unit_to_hit, Unit* attacker) {
 
     // Absorption and weapon-type resistance.
     if (damage > 0) {
-        if (attacker == nullptr || !(attacker->unit_attrs & 0x10)) {
+        if (attacker == nullptr || !(attacker->unit_attrs & ATTR_PIERCING)) {
             damage -= this->protections.absorption;
             if (damage < 0) {
                 damage = 0;
@@ -1233,7 +1233,7 @@ uint32_t Unit::RollDamage(UnitToHit* unit_to_hit, Unit* attacker) {
         } else {
 #endif
             this->last_hit_by = attacker;
-            if (attacker->unit_attrs & 4) {
+            if (attacker->unit_attrs & Unit::ATTR_MAGE) {
                 this->last_hit_spell_id = (int8_t)unit_to_hit->spell_id;
             } else {
                 this->last_hit_spell_id = 0;
@@ -1323,7 +1323,7 @@ void Unit::InitDefaultStats() {
     this->carrying_body_100g = this->body * 10;
 #ifdef A2TANGAR_HAT
     // replace_unit_carrying_body_with_reaction hook (52A29E): circle witches carry by reaction, not body
-    if (this->pOwner != nullptr && circle::Circle(this) > 0 && (this->unit_attrs & 4) != 0 && (this->typeId == 0x22 || this->typeId == 0x24)) {
+    if (this->pOwner != nullptr && circle::Circle(this) > 0 && (this->unit_attrs & Unit::ATTR_MAGE) != 0 && (this->typeId == 0x22 || this->typeId == 0x24)) {
         this->carrying_body_100g = this->reaction * 10;
     }
 #endif
@@ -1344,7 +1344,7 @@ int32_t Unit::ReturnToMap() {
 #ifdef A2TANGAR_HAT
     // add_player_to_map hook (52C409): skip if already on the map ((unit_attrs & 8) == 0)
     // to prevent duplicate g_ServerUnits insertions (speed-hack exploit).
-    if ((this->unit_attrs & 0x08) == 0) {
+    if ((this->unit_attrs & ATTR_PHASED_OUT) == 0) {
         return 0;
     }
 #endif
@@ -1380,7 +1380,7 @@ int32_t Unit::ReturnToMap() {
     }
 #endif
     g_ServerUnits->AddTail(this);
-    this->unit_attrs &= ~0x08;
+    this->unit_attrs &= ~ATTR_PHASED_OUT;
     g_NetStru1_main.BroadcastUnitState(this);
     g_NetStru1_main.SendUnitUpdate(this, nullptr, UNIT_UPD_DIR_POS, EQUIP_SLOTS_ALL, 0, 0);
     g_NetStru1_main.SendUnitVisibility(this, 0, nullptr);
@@ -1746,7 +1746,7 @@ int32_t Unit::MovementType() {
 
 // 5B6FB0
 int32_t Unit::IsMage() {
-    return this->unit_attrs & 4;
+    return this->unit_attrs & ATTR_MAGE;
 }
 
 // 528725
@@ -1980,12 +1980,12 @@ void Unit::CreateSackFromInventory(Inventory* inventory, int32_t money, int32_t 
 
 // 52C163
 void Unit::RemoveFromMap() {
-    if ((this->unit_attrs & 8) != 0) {
+    if ((this->unit_attrs & ATTR_PHASED_OUT) != 0) {
         return;
     }
 
     MapStuff_Instance->AddUnitToMap(this);
-    this->unit_attrs |= 8;
+    this->unit_attrs |= ATTR_PHASED_OUT;
     POSITION pos = g_ServerUnits->unit_list.Find(this);
     if (pos != nullptr) {
         g_ServerUnits->unit_list.RemoveAt(pos);
@@ -2002,7 +2002,7 @@ void Unit::AddToMap(uint8_t x, uint8_t y, uint8_t flags) {
         return;
     }
     g_ServerUnits->AddTail(this);
-    this->unit_attrs &= ~8;
+    this->unit_attrs &= ~ATTR_PHASED_OUT;
     g_NetStru1_main.SendUnitUpdate(this, nullptr, UNIT_UPD_DIR_POS, EQUIP_SLOTS_ALL, 0, 0);
     g_NetStru1_main.SendUnitVisibility(this, 0, nullptr);
 }
@@ -2134,8 +2134,8 @@ void Unit::ApplyMonsterInfo(const CArray<MonsterInfoData>& values) {
             this->hit_values.hand_damage_min = (uint8_t)attack_min;
             this->hit_values.hand_damage_spread = (uint8_t)attack_delta;
         } else {
-            this->hit_values.hand_damage_min = (uint8_t)(attack_min / 15 < 0x7f ? attack_min / 15 : 0x7f) | 0x80;
-            this->hit_values.hand_damage_spread = (uint8_t)(attack_delta / 15 < 0xff ? attack_delta / 15 : 0xff);
+            this->hit_values.hand_damage_min = (uint8_t)(attack_min / HAND_DAMAGE_15X_MULT < HAND_DAMAGE_VALUE_MASK ? attack_min / HAND_DAMAGE_15X_MULT : HAND_DAMAGE_VALUE_MASK) | HAND_DAMAGE_15X_FLAG;
+            this->hit_values.hand_damage_spread = (uint8_t)(attack_delta / HAND_DAMAGE_15X_MULT < 0xff ? attack_delta / HAND_DAMAGE_15X_MULT : 0xff);
         }
     } else if (attack_type == 1) {
         this->hit_values.some_damage_min = (uint8_t)attack_min;
@@ -2144,7 +2144,7 @@ void Unit::ApplyMonsterInfo(const CArray<MonsterInfoData>& values) {
         this->hit_values.some_damage2_min = (uint8_t)(-attack_min);
         this->hit_values.some_damage2_spread = (uint8_t)(-attack_delta);
     } else if (attack_type == 3) {
-        this->unit_attrs |= 0x10;
+        this->unit_attrs |= ATTR_PIERCING;
         this->hit_values.hand_damage_min = (uint8_t)attack_min;
         this->hit_values.hand_damage_spread = (uint8_t)attack_delta;
     }
@@ -2268,7 +2268,7 @@ void Unit::InitFromMonsterName(const CString& name) {
     // Create spell book and add known spells
     const MonsterInfoData& data = this->monster_info->Values()[0];
     if (data.spell1_id > 0) {
-        this->unit_attrs |= 2;
+        this->unit_attrs |= ATTR_HAS_SPELLBOOK;
         this->spell_book = new SpellBook();
     }
 
@@ -2293,7 +2293,7 @@ void Unit::InitFromMonsterName(const CString& name) {
     if (this->monster_info->Values().GetSize() > 56) {
         uint32_t spell_mask = (uint32_t)data.known_spells_mask;
         if (spell_mask != 0 && spell_mask != 0xFFFFFFFF) {
-            this->unit_attrs |= 6;
+            this->unit_attrs |= ATTR_HAS_SPELLBOOK | ATTR_MAGE;
             this->spell_book = new SpellBook();
 
             // Add all spells matching bitmask
@@ -2458,10 +2458,10 @@ void Humanoid::ReleaseObjects() {
 Item* Humanoid::UseItem(Item* item) {
     if (item->IsKindOf(RUNTIME_CLASS(Armor)) || item->IsKindOf(RUNTIME_CLASS(Weapon)) || item->IsKindOf(RUNTIME_CLASS(Shield))) {
         int32_t suitable_for = item->world_equip->Values().GetData()->suitable_for;
-        if ((suitable_for & equip_suitable::warrior) == 0 && (this->unit_attrs & 4) == 0) {
+        if ((suitable_for & equip_suitable::warrior) == 0 && (this->unit_attrs & Unit::ATTR_MAGE) == 0) {
             return item;
         }
-        if ((suitable_for & equip_suitable::mage) == 0 && (this->unit_attrs & 4) != 0) {
+        if ((suitable_for & equip_suitable::mage) == 0 && (this->unit_attrs & Unit::ATTR_MAGE) != 0) {
             return item;
         }
     }
@@ -2510,7 +2510,7 @@ void Humanoid::AwardKillMoney(Unit* unit) {
 
 void Humanoid::RecalcStats() {
     // 005315ec
-    const bool fighter = (this->unit_attrs & 4) == 0;
+    const bool fighter = (this->unit_attrs & Unit::ATTR_MAGE) == 0;
     const bool female = (this->typeId == 0x22 || this->typeId == 0x24);
 
     uint16_t max_body, max_reaction, max_mind, max_spirit;
@@ -2587,7 +2587,7 @@ void Humanoid::RecalcStats() {
     this->carrying_body_100g = static_cast<uint16_t>(this->body * 10 + 1);
 #ifdef A2TANGAR_HAT
     // replace_human_carrying_body_with_reaction hook (531A0B): circle witches carry by reaction, not body
-    if (this->pOwner != nullptr && circle::Circle(this) > 0 && (this->unit_attrs & 4) != 0 && (this->typeId == 0x22 || this->typeId == 0x24)) {
+    if (this->pOwner != nullptr && circle::Circle(this) > 0 && (this->unit_attrs & Unit::ATTR_MAGE) != 0 && (this->typeId == 0x22 || this->typeId == 0x24)) {
         this->carrying_body_100g = static_cast<uint16_t>(this->reaction * 10 + 1);
     }
 #endif
@@ -2777,7 +2777,7 @@ void Humanoid::AddExperience(uint32_t new_exp, Unit* target, int32_t sphere) {
     // for circle members
     {
         int eff_sphere = sphere;
-        if ((this->unit_attrs & 4) == 0) {
+        if ((this->unit_attrs & Unit::ATTR_MAGE) == 0) {
             eff_sphere = this->hit_values.physical_damage_type;
         }
         if (eff_sphere != this->main_sphere && eff_sphere != 5 && eff_sphere != 0 && circle::Circle(this) != 0) {
@@ -2820,7 +2820,7 @@ void Humanoid::AddExperience(uint32_t new_exp, Unit* target, int32_t sphere) {
     const int16_t max_skill = 100;
 #endif
 
-    if ((this->unit_attrs & 4) == 0) {
+    if ((this->unit_attrs & Unit::ATTR_MAGE) == 0) {
         // Fighter: physical attack XP goes to the weapon combat sphere.
         int phys_sphere = this->hit_values.physical_damage_type;
         if (sphere == 0 && phys_sphere != weapon_attack::unarmed && this->hit_values.skill_levels[phys_sphere] < max_skill) {
@@ -2903,11 +2903,11 @@ void Humanoid::AddExperience(uint32_t new_exp, Unit* target, int32_t sphere) {
 
 // 530e52   
 void Humanoid::AwardKillExperience(Unit* unit, int32_t spell_id) {
-    if (spell_id != 0 && (this->unit_attrs & 4) == 0) {
+    if (spell_id != 0 && (this->unit_attrs & Unit::ATTR_MAGE) == 0) {
         return;
     }
     int32_t sphere = 0;
-    if (spell_id != 0 && (this->unit_attrs & 4) != 0) {
+    if (spell_id != 0 && (this->unit_attrs & Unit::ATTR_MAGE) != 0) {
         sphere = g_GameDataRes.spells[spell_id].Values().GetData()->sphere;
     }
     this->AddExperience((int32_t)(unit->_exp * 0.5), unit, sphere);
@@ -2935,11 +2935,11 @@ void Humanoid::AwardKillExperience(Unit* unit, int32_t spell_id) {
 
 // 530fc1
 void Humanoid::AwardDamageExperience(Unit* unit, uint32_t damage, int32_t spell_id) {
-    if (spell_id != 0 && (this->unit_attrs & 4) == 0) {
+    if (spell_id != 0 && (this->unit_attrs & Unit::ATTR_MAGE) == 0) {
         return;
     }
     int32_t sphere = 0;
-    if (spell_id != 0 && (this->unit_attrs & 4) != 0) {
+    if (spell_id != 0 && (this->unit_attrs & Unit::ATTR_MAGE) != 0) {
         sphere = g_GameDataRes.spells[spell_id].Values().GetData()->sphere;
     }
     if (unit != nullptr && unit->pOwner != nullptr && unit->pOwner->is_ai) {
@@ -2951,7 +2951,7 @@ void Humanoid::AwardDamageExperience(Unit* unit, uint32_t damage, int32_t spell_
 // 531090
 void Humanoid::AwardCastExperience(Unit*, int32_t spell_id) {
     int32_t sphere = 0;
-    if (spell_id != 0 && (this->unit_attrs & 4) != 0) {
+    if (spell_id != 0 && (this->unit_attrs & Unit::ATTR_MAGE) != 0) {
         sphere = g_GameDataRes.spells[spell_id].Values().GetData()->sphere;
     }
     if (sphere == 0) {
@@ -3084,7 +3084,7 @@ void Humanoid::InitCreationSkills(int8_t main_skill, int8_t skill_level) {
 #ifdef A2TANGAR_HAT
     // skip_new_character_weapon hook (533421): instead of the initial
     // weapon/staff, give mages their sphere spell directly
-    if (this->unit_attrs & 4) {
+    if (this->unit_attrs & Unit::ATTR_MAGE) {
         if (this->spell_book != nullptr) {
             int32_t spell_id = 0;
             switch (main_skill) {
@@ -3100,7 +3100,7 @@ void Humanoid::InitCreationSkills(int8_t main_skill, int8_t skill_level) {
         return; // skip the weapon creation entirely
     }
 #endif
-    if (this->unit_attrs & 4) {
+    if (this->unit_attrs & Unit::ATTR_MAGE) {
         // Mage: create a staff with cast spell.
         CString spell_name;
         switch (main_skill) {
@@ -3298,7 +3298,7 @@ void Human::InitFromName(CString hname, int32_t is_hero, const char* unk) {
         }
 
         if (this->mp_max > 0) {
-            this->unit_attrs |= 6;
+            this->unit_attrs |= ATTR_HAS_SPELLBOOK | ATTR_MAGE;
         }
 
         if (load_equipment) {
@@ -3321,7 +3321,7 @@ void Human::InitFromName(CString hname, int32_t is_hero, const char* unk) {
     }
 
     if (this->mp_max > 0) {
-        this->unit_attrs |= 6;
+        this->unit_attrs |= ATTR_HAS_SPELLBOOK | ATTR_MAGE;
         this->spell_book = new SpellBook();
         const HumanInfoData& data = reinterpret_cast<HumanInfo*>(this->monster_info)->Values()[0];
         int32_t known_spells_mask = data.known_spells_mask;
@@ -3340,7 +3340,7 @@ void Human::InitFromName(CString hname, int32_t is_hero, const char* unk) {
     if (is_hero == 0) {
         this->face = static_cast<int8_t>(this->face | (is_female << 7));
     } else {
-        if ((this->unit_attrs & 4) == 0) {
+        if ((this->unit_attrs & Unit::ATTR_MAGE) == 0) {
             this->typeId = static_cast<uint16_t>(is_female + 33);
         } else {
             this->typeId = static_cast<uint16_t>(is_female + 35);

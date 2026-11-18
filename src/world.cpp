@@ -1865,7 +1865,7 @@ void World::DoAutobuff(Unit* unit) {
 
             // Bless: requires fighter, no matching enchantment.
             spell = this->GetAutobuffSpell(unit, spell::bless);
-            if (spell != nullptr && (other->unit_attrs & 4) == 0 && (other->enchantments & (1 << spell::bless)) == 0) {
+            if (spell != nullptr && (other->unit_attrs & Unit::ATTR_MAGE) == 0 && (other->enchantments & (1 << spell::bless)) == 0) {
                 if (other->eye2->autobuff_spell_id != 20 || autobuff_backoff > 20) {
                     if (this->IsSpellInRange(unit, other, spell) != 0) {
                         unit->eye2->action_done = 1;
@@ -2601,7 +2601,7 @@ void World::DoAttackTarget(Unit* unit, Unit* target) {
     Unit* chosen_target = target;
     int32_t chosen_spell = 0;
 
-    if ((target->unit_attrs & 8) != 0) {
+    if ((target->unit_attrs & Unit::ATTR_PHASED_OUT) != 0) {
         this->SetIdleOrRetreat(unit, 0);
         return;
     }

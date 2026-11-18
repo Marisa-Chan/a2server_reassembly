@@ -273,7 +273,7 @@ uint32_t __cdecl CalcWalkDist(TokenPos* a, TokenPos* b);
 
 // 539958
 int32_t Spell::StartCast(Unit* caster, Unit* target, int8_t x, int8_t y) {
-    if ((caster->unit_attrs & 4) && caster->some_item == nullptr) {
+    if ((caster->unit_attrs & Unit::ATTR_MAGE) && caster->some_item == nullptr) {
         if (this->mana_cost > caster->mp) {
             return 0;
 		}
@@ -299,7 +299,7 @@ int32_t Spell::StartCast(Unit* caster, Unit* target, int8_t x, int8_t y) {
         }
     }
 
-    if (!(caster->unit_attrs & 4) && caster->weapon != nullptr && caster->weapon == (Weapon*)caster->some_item) {
+    if (!(caster->unit_attrs & Unit::ATTR_MAGE) && caster->weapon != nullptr && caster->weapon == (Weapon*)caster->some_item) {
         return 1;
     }
 
@@ -462,7 +462,7 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
         }
     }
 
-    if ((caster->unit_attrs & 2) != 0 && caster->some_item == nullptr) {
+    if ((caster->unit_attrs & Unit::ATTR_HAS_SPELLBOOK) != 0 && caster->some_item == nullptr) {
         caster->AwardCastExperience(target, this->spell_id);
     }
 
@@ -475,7 +475,7 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
         if (target->GetTokenSize() > 1) {
             local_pos.SetCoords2(target->GetRightXx() - 1, target->GetBottomYy() - 1);
         }
-        if (target->IsUnit() != 0 && (target->unit_attrs & 8)) {
+        if (target->IsUnit() != 0 && (target->unit_attrs & Unit::ATTR_PHASED_OUT)) {
             return;
         }
     }

@@ -3645,9 +3645,9 @@ void CUnit::DrawStatsPanel(CRect* rect) {
             g_font2->DrawTextWithShadow(rect->left + 6, rect->top + 0x62, TxtFile::AllLines[0x19], 0, label_color, 1);
             uint32_t dmg_min = this->hand_dmg_min;
             uint32_t dmg_spread = this->hand_dmg_spread;
-            if ((this->hand_dmg_min & 0x80) != 0 && (this->unitFlags & (UNIT_FLAG_PLAYER_CLASS | UNIT_FLAG_CREATURE)) == 0) {
-                dmg_min = (dmg_min & 0x7f) * 0xf;
-                dmg_spread = dmg_spread * 0xf;
+            if ((this->hand_dmg_min & Unit::HAND_DAMAGE_15X_FLAG) != 0 && (this->unitFlags & (UNIT_FLAG_PLAYER_CLASS | UNIT_FLAG_CREATURE)) == 0) {
+                dmg_min = (dmg_min & Unit::HAND_DAMAGE_VALUE_MASK) * Unit::HAND_DAMAGE_15X_MULT;
+                dmg_spread = dmg_spread * Unit::HAND_DAMAGE_15X_MULT;
             }
             sprintf(buf1, "%d", this->attack);
             sprintf(buf2, "%d-%d", dmg_min, dmg_min + dmg_spread);

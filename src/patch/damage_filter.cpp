@@ -71,7 +71,7 @@ int32_t TangarOnDamage(Unit* attacker, Unit* victim, int16_t damage) {
         return 0;
     }
 
-    if (victim != nullptr && (victim->unit_attrs & 8) != 0) {
+    if (victim != nullptr && (victim->unit_attrs & Unit::ATTR_PHASED_OUT) != 0) {
         return 0;
     }
 
@@ -90,7 +90,7 @@ int32_t TangarOnDamage(Unit* attacker, Unit* victim, int16_t damage) {
     if (attacker_player != nullptr && victim_player != nullptr &&
         attacker_player->is_ai == 0 && victim_player->is_ai == 0 &&
         attacker_player != victim_player) { // Ensure it's not self-inflicted damage
-        if ((attacker->unit_attrs & 4) != 0) { // if mage or witch
+        if ((attacker->unit_attrs & Unit::ATTR_MAGE) != 0) { // if mage or witch
             // This method is being called twice, so it needs to reduce the
             // factor like shown below. If the method would be called once, it
             // would be unnecessary: factor*x = k*(k*x) => k = sqrt(factor)

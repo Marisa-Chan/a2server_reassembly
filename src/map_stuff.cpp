@@ -3096,7 +3096,7 @@ Scenario::Scenario(const char* fname) {
                 human->hp = unit_data->hp;
             }
             if (0 < human->mp_max) {
-                human->unit_attrs |= 4;
+                human->unit_attrs |= Unit::ATTR_MAGE;
             }
             for (int32_t j = 0; j < 10; j++) {
                 HumanInfo* info = &g_GameDataRes.humans[(uint16_t)human->itemDataID];

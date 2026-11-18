@@ -261,7 +261,7 @@ void UnitList::ProcessTick() {
 						LogMessage(msg);
 						uint32_t kill_sphere = 0;
 						if (g_ServerConfig.gameType != GAME_TYPE_COOPERATIVE) {
-							if ((unit->last_hit_by->unit_attrs & 4) == 0) {
+							if ((unit->last_hit_by->unit_attrs & Unit::ATTR_MAGE) == 0) {
 								kill_sphere = unit->last_hit_by->hit_values.physical_damage_type;
 							} else if (unit->last_hit_spell_id != 0) {
 								kill_sphere = g_GameDataRes.spells.ElementAt(unit->last_hit_spell_id).Values().GetData()->sphere + 5;

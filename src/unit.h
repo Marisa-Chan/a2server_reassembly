@@ -65,6 +65,19 @@ class Unit : public Token {
 public:
     DECLARE_SERIAL(Unit); // Runtime class definition at 6363e8.
 
+    enum Attr : uint8_t {
+        ATTR_HAS_SPELLBOOK = 0x02,
+        ATTR_MAGE          = 0x04,
+        ATTR_PHASED_OUT    = 0x08,
+        ATTR_PIERCING      = 0x10,
+    };
+
+    enum : uint8_t {
+        HAND_DAMAGE_VALUE_MASK = 0x7F,
+        HAND_DAMAGE_15X_FLAG   = 0x80,
+        HAND_DAMAGE_15X_MULT   = 15,
+    };
+
 public: // VTable at 60efc0.
     virtual ~Unit() override;
     virtual void Serialize(CArchive& ar) override;  // client: 53633a

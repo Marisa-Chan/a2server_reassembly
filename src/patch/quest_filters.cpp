@@ -226,7 +226,7 @@ std::vector<std::string> QuestStateNMonsters(Player* player) {
 
 // 565B27
 uint32_t InnScrollsReward(Player* player, uint32_t reward) {
-    if (player != nullptr && player->main_unit != nullptr && (player->main_unit->unit_attrs & 4) == 0) {
+    if (player != nullptr && player->main_unit != nullptr && (player->main_unit->unit_attrs & Unit::ATTR_MAGE) == 0) {
         // Note: max reward is 16383000, so this doesn't overflow.
         return static_cast<uint32_t>(reward * 1.5);
     }

@@ -53,7 +53,7 @@ std::string FormatStr(const char* fmt, ...) {
 }
 
 bool IsWarrior(const Unit* unit) {
-    return (unit->unit_attrs & 4) == 0;
+    return (unit->unit_attrs & Unit::ATTR_MAGE) == 0;
 }
 
 bool IsFemale(const Unit* unit) {
