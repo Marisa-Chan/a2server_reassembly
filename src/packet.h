@@ -706,6 +706,7 @@ public:
 public:
     virtual ~PacketUnitEquipment();  // client: 54bc10
     virtual Packet* Duplicate() override; // 57AD00 (client: 54bb90)
+    virtual void ReadFrom(NetStru2* net) override;
     virtual uint32_t GetDataSize() override; // 5278CE  variable (5..29) (client: 51689e)
 public:
     uint16_t unit_id;       // +0xA

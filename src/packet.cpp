@@ -894,6 +894,14 @@ Packet* PacketUnitEquipment::Duplicate() {
     return new PacketUnitEquipment(this);
 }
 
+void PacketUnitEquipment::ReadFrom(NetStru2* net) {
+    net->ReadData(&this->unit_id, 4);
+    uint32_t sz = this->GetDataSize();
+    if (sz > 5) {
+        net->ReadData(this->prop, sz - 5);
+    }
+}
+
 uint32_t PacketUnitEquipment::GetDataSize() {
     // 5278CE  variable: 0x1D - (12 - popcount(flags)) * 2
     int popcount = 0;
