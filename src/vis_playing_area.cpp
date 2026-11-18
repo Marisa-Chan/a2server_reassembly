@@ -1869,7 +1869,7 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 				TakeDamage::RemoveDamagesFor(&this->damage_labels, (CUnit*)obj);
 #endif
 				if (obj->IsSelected() != 0) {
-					this->order_mode = 0;
+					this->order_mode = ORDER_MODE_NONE;
 					wnd->vis_spellbook->ClearSpellSelection();
 					wnd->vis_ordertoolbar->MsgProc(VIS_MSG_ORDERS_CLEAR, 0, 0);
 				}
@@ -3529,12 +3529,12 @@ void VisPlayingArea::SelectAllOwnUnits() {
 // 4168BD
 void VisPlayingArea::CancelOrderMode() {
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
-	if (this->order_mode != 0) {
-		if (this->order_mode == 5 && this->IsBookOpen()) {
+	if (this->order_mode != ORDER_MODE_NONE) {
+		if (this->order_mode == ORDER_MODE_CAST && this->IsBookOpen()) {
 			this->CloseSpellBook();
 		}
 		wnd->vis_spellbook->ClearSpellSelection();
-		this->order_mode = 0;
+		this->order_mode = ORDER_MODE_NONE;
 		wnd->vis_ordertoolbar->MsgProc(VIS_MSG_ORDERS_CLEAR, 0, 0);
 	} else {
 		for (POSITION it = this->objects.GetStartPosition(); it != nullptr;) {
@@ -3582,36 +3582,36 @@ void VisPlayingArea::SetOrderMode(int32_t arg) {
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 	uint32_t avail = this->AvailableOrderMask();
 	int32_t mode = arg;
-	if (arg == 9) {
-		mode = 5;
+	if (arg == ORDER_MODE_SHORTCUT_CAST) {
+		mode = ORDER_MODE_CAST;
 	}
-	if (arg == 0xA) {
-		mode = 5;
+	if (arg == ORDER_MODE_SCROLL_CAST) {
+		mode = ORDER_MODE_CAST;
 	}
-	if (this->order_mode == 5 && mode != 5 && this->IsBookOpen()) {
+	if (this->order_mode == ORDER_MODE_CAST && mode != ORDER_MODE_CAST && this->IsBookOpen()) {
 		this->CloseSpellBook();
 		wnd->vis_spellbook->ClearSpellSelection();
 	}
-	if ((avail & (1 << (mode - 1))) != 0 || arg == 0xA) {
+	if ((avail & (1 << (mode - 1))) != 0 || arg == ORDER_MODE_SCROLL_CAST) {
 		this->order_mode = mode;
 		wnd->vis_ordertoolbar->MsgProc(VIS_MSG_TOOLBAR_ORDER_SELECT, mode - 1, 0);
 		switch (arg) {
-		case 3:
+		case ORDER_MODE_GUARD:
 			this->SendGroupGuard();
-			this->order_mode = 0;
+			this->order_mode = ORDER_MODE_NONE;
 			wnd->vis_ordertoolbar->MsgProc(VIS_MSG_ORDERS_CLEAR, 0, 0);
 			break;
-		case 7:
+		case ORDER_MODE_AGGRESSIVE:
 			this->SendGroupAggressive();
-			this->order_mode = 0;
+			this->order_mode = ORDER_MODE_NONE;
 			wnd->vis_ordertoolbar->MsgProc(VIS_MSG_ORDERS_CLEAR, 0, 0);
 			break;
-		case 8:
+		case ORDER_MODE_RETREAT:
 			this->SendGroupGoHome();
-			this->order_mode = 0;
+			this->order_mode = ORDER_MODE_NONE;
 			wnd->vis_ordertoolbar->MsgProc(VIS_MSG_ORDERS_CLEAR, 0, 0);
 			break;
-		case 5:
+		case ORDER_MODE_CAST:
 			if (!this->IsBookOpen()) {
 				this->OpenSpellBook();
 			}
@@ -4643,24 +4643,24 @@ void VisPlayingArea::UpdateMapCursor() {
 			cursor = g_Cursors[CURSOR_ARROW0];
 		} else if (g_mousept.GetY() < g_ScreenSize.bottom - 2) {
 			if (screen_rect.PtInRect(mouse_pt)) {
-				if (this->order_mode != 0) {
+				if (this->order_mode != ORDER_MODE_NONE) {
 					switch (this->order_mode) {
-					case 1:
+					case ORDER_MODE_ATTACK:
 						cursor = g_Cursors[CURSOR_ATTACK];
 						break;
-					case 2:
+					case ORDER_MODE_MOVE:
 						cursor = g_Cursors[CURSOR_MOVE];
 						break;
-					case 4:
+					case ORDER_MODE_DEFEND:
 						cursor = g_Cursors[CURSOR_DEFEND];
 						break;
-					case 5:
+					case ORDER_MODE_CAST:
 						cursor = g_Cursors[CURSOR_CAST];
 						break;
-					case 6:
+					case ORDER_MODE_SWARM:
 						cursor = g_Cursors[CURSOR_SWARM];
 						break;
-					case 8:
+					case ORDER_MODE_RETREAT:
 						cursor = g_Cursors[CURSOR_PATROL];
 						break;
 					}
@@ -5836,7 +5836,7 @@ VisPlayingArea::VisPlayingArea(int32_t l, int32_t t, int32_t r, int32_t b) : CVi
 	this->hit_unit_ids.SetSize(0x40, 0x20);
 	this->hit_count = 0;
 	this->selected_object_count = 0;
-	this->order_mode = 0;
+	this->order_mode = ORDER_MODE_NONE;
 	this->anim_tick = 0;
 	this->anim_redraw_tick = 0;
 	this->gap_0xa90 = 0;
@@ -6418,9 +6418,9 @@ void VisPlayingArea::TangarHandleHotkey(uint32_t key) {
 	}
 	if (shortcut->kind == 1) {
 		if (this->IsBookOpen() == 0 && wnd->vis_spellbook->IsSpellAvailable(shortcut->item_id) != 0) {
-			this->SetOrderMode(9);
+			this->SetOrderMode(ORDER_MODE_SHORTCUT_CAST);
 		} else if (this->IsBookOpen() == 0 && wnd->vis_spellbook->IsSpellEffectActive(shortcut->item_id) != 0) {
-			this->SetOrderMode(10);
+			this->SetOrderMode(ORDER_MODE_SCROLL_CAST);
 		}
 	}
 }
@@ -6513,9 +6513,9 @@ int32_t VisPlayingArea::OnKeyDown(uint32_t wparam) {
 			}
 			if (shortcut.kind == 1) {
 				if (this->IsBookOpen() == 0 && wnd->vis_spellbook->IsSpellAvailable(shortcut.item_id) != 0) {
-					this->SetOrderMode(9);
+					this->SetOrderMode(ORDER_MODE_SHORTCUT_CAST);
 				} else if (this->IsBookOpen() == 0 && wnd->vis_spellbook->IsSpellEffectActive(shortcut.item_id) != 0) {
-					this->SetOrderMode(10);
+					this->SetOrderMode(ORDER_MODE_SCROLL_CAST);
 				}
 			}
 #endif
@@ -6526,36 +6526,36 @@ int32_t VisPlayingArea::OnKeyDown(uint32_t wparam) {
 				if (g_kbControlState == 0 && this->selected_object_count != 0 && (this->selection_flags & SEL_NON_CONTROLLABLE) == 0) {
 					switch (wparam) {
 					case 0x41:
-						this->SetOrderMode(1);
+						this->SetOrderMode(ORDER_MODE_ATTACK);
 						return 1;
 					case 0x43:
 						if (this->IsBookOpen() == 0) {
-							this->SetOrderMode(5);
+							this->SetOrderMode(ORDER_MODE_CAST);
 						}
 						return 1;
 					case 0x44:
-						this->SetOrderMode(4);
+						this->SetOrderMode(ORDER_MODE_DEFEND);
 						return 1;
 					case 0x47:
-						this->SetOrderMode(3);
+						this->SetOrderMode(ORDER_MODE_GUARD);
 						return 1;
 					case 0x4C:
 						this->SendGroupStop();
 						return 1;
 					case 0x4D:
-						this->SetOrderMode(2);
+						this->SetOrderMode(ORDER_MODE_MOVE);
 						return 1;
 					case 0x50:
 						this->SendGroupGather();
 						return 1;
 					case 0x52:
-						this->SetOrderMode(8);
+						this->SetOrderMode(ORDER_MODE_RETREAT);
 						return 1;
 					case 0x53:
-						this->SetOrderMode(6);
+						this->SetOrderMode(ORDER_MODE_SWARM);
 						return 1;
 					case 0x54:
-						this->SetOrderMode(7);
+						this->SetOrderMode(ORDER_MODE_AGGRESSIVE);
 						return 1;
 					}
 				}
@@ -6722,7 +6722,7 @@ void VisPlayingArea::UpdateWorld() {
 		TakeDamage::RemoveDamagesFor(&this->damage_labels, (CUnit*)obj);
 #endif
 		if (obj->IsSelected() != 0) {
-			this->order_mode = 0;
+			this->order_mode = ORDER_MODE_NONE;
 			wnd->vis_spellbook->ClearSpellSelection();
 			wnd->vis_ordertoolbar->MsgProc(VIS_MSG_ORDERS_CLEAR, 0, 0);
 		}
@@ -6815,13 +6815,13 @@ void VisPlayingArea::IssueOrderAtCursor(CPoint* pt) {
 			} else if (wnd->vis_spellbook->NeedsUnitTarget() == 0) {
 				this->SendGroupCastAtPosition(this->last_mouse_tile_x, this->last_mouse_tile_y, spell_pos + 1);
 			}
-			if (this->order_mode == 5 && this->IsBookOpen() != 0) {
+			if (this->order_mode == ORDER_MODE_CAST && this->IsBookOpen() != 0) {
 				this->CloseSpellBook();
 			}
 		}
 	}
-	if (this->order_mode != 0) {
-		this->order_mode = 0;
+	if (this->order_mode != ORDER_MODE_NONE) {
+		this->order_mode = ORDER_MODE_NONE;
 		wnd->vis_spellbook->ClearSpellSelection();
 		wnd->vis_ordertoolbar->MsgProc(VIS_MSG_ORDERS_CLEAR, 0, 0);
 	}
@@ -6911,7 +6911,7 @@ void VisPlayingArea::SelectUnitsInRect(CRect* rect) {
 	if (g_kbMenuState != 0 && this->selected_object_count == 1 && this->primary_selected_object->GetControlGroup() >= 0) {
 		this->SelectControlGroup(this->primary_selected_object->GetControlGroup());
 	}
-	this->order_mode = 0;
+	this->order_mode = ORDER_MODE_NONE;
 	wnd->vis_spellbook->ClearSpellSelection();
 	wnd->vis_ordertoolbar->MsgProc(VIS_MSG_ORDERS_CLEAR, 0, 0);
 	if (g_kbShiftState == 0 && this->selected_object_count != 0 && (this->selection_flags & SEL_GROUND_UNIT) != 0 && (this->selection_flags & SEL_FOREIGN) == 0) {

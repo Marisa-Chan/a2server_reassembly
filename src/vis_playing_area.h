@@ -35,6 +35,20 @@ public:
 		HOVER_USABLE_BUILDING   = 0x800,
 	};
 
+	enum OrderMode : int32_t {
+		ORDER_MODE_NONE          = 0,
+		ORDER_MODE_ATTACK        = 1,  // 'A': attack unit / move
+		ORDER_MODE_MOVE          = 2,  // 'M': move
+		ORDER_MODE_GUARD         = 3,  // 'G': immediate SendGroupGuard
+		ORDER_MODE_DEFEND        = 4,  // 'D': defend / attack target
+		ORDER_MODE_CAST          = 5,  // 'C': open spellbook & cast
+		ORDER_MODE_SWARM         = 6,  // 'S': attack-move
+		ORDER_MODE_AGGRESSIVE    = 7,  // 'T': immediate SendGroupAggressive
+		ORDER_MODE_RETREAT       = 8,  // 'R': immediate SendGroupGoHome (legacy patrol slot)
+		ORDER_MODE_SHORTCUT_CAST = 9,  // spell shortcut cast without opening spellbook
+		ORDER_MODE_SCROLL_CAST   = 10, // scroll/item cast bypassing spell availability mask
+	};
+
 	VisPlayingArea(int32_t l, int32_t t, int32_t r, int32_t b); // 402af6 (client: 402af6)
 	~VisPlayingArea(); // 403395 (client: 403418)
 

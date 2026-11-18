@@ -2603,7 +2603,7 @@ int32_t VisCharInfo::VMethod27(int32_t a) {
     if ((token->flg & 0x10) != 0 && (token->flg & 1) != 0) {
         int32_t removed = main_wnd->vis_invtype1->VMethod37(main_wnd->drag_src_slot);
         main_wnd->vis_spellbook->SelectScrollEntry(removed);
-        map->SetOrderMode(0xA);
+        map->SetOrderMode(VisPlayingArea::ORDER_MODE_SCROLL_CAST);
         return 0;
     }
 

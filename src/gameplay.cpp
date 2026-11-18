@@ -504,19 +504,19 @@ void VisMiniMap::UpdateCursor() {
                 } else {
                     new_cursor = g_Cursors[0x12];
                     switch (mc->order_mode) {
-                    case 1:
-                    case 6:
+                    case VisPlayingArea::ORDER_MODE_ATTACK:
+                    case VisPlayingArea::ORDER_MODE_SWARM:
                         new_cursor = g_Cursors[0x13];
                         break;
-                    case 2:
+                    case VisPlayingArea::ORDER_MODE_MOVE:
                         break;
-                    case 4:
+                    case VisPlayingArea::ORDER_MODE_DEFEND:
                         new_cursor = g_Cursors[0x14];
                         break;
-                    case 5:
+                    case VisPlayingArea::ORDER_MODE_CAST:
                         new_cursor = g_Cursors[0x16];
                         break;
-                    case 8:
+                    case VisPlayingArea::ORDER_MODE_RETREAT:
                         new_cursor = g_Cursors[0x15];
                         break;
                     }
@@ -666,7 +666,7 @@ int32_t VisMiniMap::OnLButtonDown(uint32_t wparam, CPoint pos) {
             mc->SendGroupPatrol((uint16_t)x, (uint16_t)y);
         }
     }
-    mc->order_mode = 0;
+    mc->order_mode = VisPlayingArea::ORDER_MODE_NONE;
     main_wnd->vis_ordertoolbar->MsgProc(VIS_MSG_ORDERS_CLEAR, 0, 0);
     return 0;
 }
