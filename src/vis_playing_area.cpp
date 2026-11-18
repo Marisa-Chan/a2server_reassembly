@@ -260,7 +260,7 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 
 		case HAT_SCORE_LIST:
 			// client: 41745c — show the hat DM player list / close overlays
-			this->hat_player_count = packet_dword->value;
+			this->hat_player_count = packet_2dwords->param1;
 			if (packet_2dwords->param2 != 0) {
 				this->CloseHatOverlays();
 				// client: 417624-4176a9
