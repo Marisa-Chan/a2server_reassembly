@@ -576,7 +576,7 @@ void VisServerScreenRadio::VMethod7() {
     if (!this->TestFlags(FLAG_ENABLED)) {
         CRect r2;
         this->ClientRectToScreen(&r2, this->rect);
-        ShadowRect(CRect(r2.left - 1, r2.top - 1, r2.right + 1, r2.bottom + 1), 3);
+        ShadowRect(CRect(r2.left - 1, r2.top - 1, r2.right + 1, r2.bottom + 1), shadow_level::disabled);
     }
 
     UnlockSurface2();

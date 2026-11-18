@@ -996,7 +996,7 @@ void VisShopCompass::VMethod7() {
     if (this->state & 0x80) {
         CPoint pt(g_mousept.GetX(), g_mousept.GetY());
         CRect dlg_rect(pt.x + this->confirm_rect.left, pt.y + this->confirm_rect.top, pt.x + this->confirm_rect.right, pt.y + this->confirm_rect.bottom);
-        ShadowRect(dlg_rect, 8);
+        ShadowRect(dlg_rect, shadow_level::char_selected);
         g_font2->DrawTxt(pt.x + this->confirm_rect.left + this->confirm_rect.Width() / 2, pt.y + this->confirm_rect.top + 5, TxtFile::AllLines[0x4F], CGameFont::ALIGN_HCENTER, clrsh_ShockingBlack);
         g_font2->DrawTxt(pt.x + this->confirm_rect.left + this->confirm_rect.Width() / 2, pt.y + this->confirm_rect.top + 0xF, TxtFile::AllLines[0x50], CGameFont::ALIGN_HCENTER, clrsh_ShockingBlack);
         CRect yes_rect = this->confirm_yes_rect + this->confirm_rect.TopLeft() + pt;

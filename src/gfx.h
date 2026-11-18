@@ -162,6 +162,15 @@ inline uint32_t GetColorRGB(uint8_t r, uint8_t g, uint8_t b) {
 
 
 
+namespace shadow_level {
+enum : int32_t {
+	disabled      = 3,
+	char_selected = 8,
+	list_selected = 10,
+	text_select   = 12,
+};
+} // namespace shadow_level
+
 void __cdecl SetPixelColor(int32_t x, int32_t y, uint32_t clr); //4586a4 (client: 45c2d2)
 void __cdecl FillRectColor(int32_t l, int32_t t, int32_t r, int32_t b, uint32_t clr); //457dcc (client: 45ba0c)
 void __cdecl FillRectColorSimple(int32_t l, int32_t t, int32_t r, int32_t b, uint32_t clr); //4579d8 (client: 45b618)

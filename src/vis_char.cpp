@@ -322,7 +322,7 @@ void VisCharSellectList::VMethod7() {
                          top_left.y + this->list_area.top + this->row_rect.Height() * ((i - this->top_row) + 1) - 4,
                          top_left.x + this->list_area.right,
                          top_left.y + this->list_area.top + this->row_rect.Height() * ((i - this->top_row) + 2));
-                ShadowRect(rc, 8);
+                ShadowRect(rc, shadow_level::char_selected);
             }
             if (this->selected_row != i || this->renaming == 0) {
                 g_font4->DrawTextWithShadow(top_left.x + this->list_area.left + this->list_area.Width() / 2,

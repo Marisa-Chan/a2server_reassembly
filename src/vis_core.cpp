@@ -885,7 +885,7 @@ void VisButton::VMethod7() {
 
     if (this->TestFlags(FLAG_ENABLED) == 0) {
         CRect t = this->ClientRectToScreen(this->rect);
-        ShadowRect(t, 3);
+        ShadowRect(t, shadow_level::disabled);
     }
     UnlockSurface2();
 }
@@ -1147,7 +1147,7 @@ void VisScrollBar::VMethod7() {
         tr = this->ClientRectToScreen(this->rect);
         tr.InflateRect(CRect(1, 1, 1, 1));
 
-        ShadowRect(tr, 3);
+        ShadowRect(tr, shadow_level::disabled);
     }
     UnlockSurface2();
 }
@@ -1790,7 +1790,7 @@ void VisListBox::VMethod30(CPoint pos, const CRect& r) {
     rt.right = r.right - 4;
     rt.bottom = pos.y - 3 + this->entry_height_full;
 
-    ShadowRect(rt, 10);
+    ShadowRect(rt, shadow_level::list_selected);
 }
 
 
@@ -1954,7 +1954,7 @@ void VisTextBox::VMethod7() {
 
         rshd.left = rt.left + 4 + this->font->GetStrWidth(s.Left(this->select_start));
 
-        ShadowRect(rshd, 12);
+        ShadowRect(rshd, shadow_level::text_select);
     }
 
     this->font->DrawTextWithShadow(rt.left + 4, rt.top + rt.Height() / 2, s, CGameFont::ALIGN_VCENTER, this->clr, 1);
@@ -1969,7 +1969,7 @@ void VisTextBox::VMethod7() {
     }
 #ifdef A2CLIENT
     if (this->TestFlags(FLAG_ENABLED) == 0) {
-        ShadowRect(rt, 3);
+        ShadowRect(rt, shadow_level::disabled);
     }
 #endif
     UnlockSurface2();
@@ -2476,7 +2476,7 @@ void VisRadioType1::VMethod7() {
     if (this->TestFlags(FLAG_ENABLED) == 0) {
         rt = this->ClientRectToScreen(this->rect);
         rt.InflateRect(CRect(1, 1, 1, 1));
-        ShadowRect(rt, 3);
+        ShadowRect(rt, shadow_level::disabled);
     }
 
     UnlockSurface2();
@@ -2642,7 +2642,7 @@ void VisRadioType2::VMethod7() {
     if (this->TestFlags(FLAG_ENABLED) == 0) {
         rt = this->ClientRectToScreen(this->rect);
         rt.InflateRect(CRect(1, 1, 1, 1));
-        ShadowRect(rt, 3);
+        ShadowRect(rt, shadow_level::disabled);
     }
 
     UnlockSurface2();

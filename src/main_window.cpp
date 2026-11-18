@@ -4161,7 +4161,7 @@ void MainWindow::PopUpScreen(VisScreen* screen) { //48d26a
 
     LockSurface2();
 
-    ShadowRect(g_ScreenSize, 3);
+    ShadowRect(g_ScreenSize, shadow_level::disabled);
 
     UnlockSurface2();
 

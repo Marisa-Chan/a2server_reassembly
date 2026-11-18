@@ -1691,7 +1691,7 @@ void CUnit::ReloadSprite() { // 46b91c
 void CGameObject::DrawBarFill(int32_t left, int32_t right, int32_t y, int32_t fill_width, uint16_t color_lo, uint16_t color_mid, uint16_t color_hi) { // 46246B
     VisPlayingArea* map = this->pMapObject;
     if (map->show_hp != 0 && this->IsSelected() == 0) {
-        ShadowRect(CRect(left + 4, y - 2, left + fill_width + 4, y + 2), 8);
+        ShadowRect(CRect(left + 4, y - 2, left + fill_width + 4, y + 2), shadow_level::char_selected);
         FillRectClipped(left + 4, y - 2, left + fill_width + 4, y - 1, color_hi);
         FillRectClipped(left + 4, y - 1, left + fill_width + 4, y, color_lo);
         FillRectClipped(left + 4, y, left + fill_width + 4, y + 1, color_mid);
