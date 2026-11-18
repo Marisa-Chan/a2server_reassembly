@@ -1742,11 +1742,10 @@ void __cdecl BlitRle16(int32_t x, int32_t y, int32_t w, int32_t h, uint16_t* src
 		int32_t xx = x;
 		while (h != 0) {
 			while (xx - x < w) {
-				const uint16_t b = *src;
+				const Rle16Cmd cmd = *src;
 				src++;
-				const uint16_t flags = b & 0xc000;
-				uint16_t count = b & 0x3fff;
-				if (flags == 0) {
+				uint16_t count = cmd.count;
+				if (cmd.op == Rle16Cmd::OP_PIXELS) {
 					if (yy < g_clipRect.top || yy >= g_clipRect.bottom) {
 						src += count;
 						dst += count;
@@ -1776,7 +1775,7 @@ void __cdecl BlitRle16(int32_t x, int32_t y, int32_t w, int32_t h, uint16_t* src
 							}
 						}
 					}
-				} else if (flags == 0x4000) {
+				} else if (cmd.op == Rle16Cmd::OP_SKIP_LINES) {
 					yy += count;
 					if (h <= count) {
 						return;
@@ -1784,7 +1783,7 @@ void __cdecl BlitRle16(int32_t x, int32_t y, int32_t w, int32_t h, uint16_t* src
 
 					dst = (uint16_t*)((uint8_t*)dst + count * dstpitch);
 					h -= count;
-				} else if (flags == 0x8000) {
+				} else if (cmd.op == Rle16Cmd::OP_SKIP_PIXELS) {
 					dst += count;
 					xx += count;
 				}
@@ -1799,11 +1798,10 @@ void __cdecl BlitRle16(int32_t x, int32_t y, int32_t w, int32_t h, uint16_t* src
 		while (h > 0) {
 			int32_t xx = 0;
 			while (xx < w) {
-				const uint16_t b = *src;
+				const Rle16Cmd cmd = *src;
 				src++;
-				const uint16_t flags = b & 0xc000;
-				const uint16_t count = b & 0x3fff;
-				if (flags == 0) {
+				const uint16_t count = cmd.count;
+				if (cmd.op == Rle16Cmd::OP_PIXELS) {
 					xx += count;
 					if (g_isLowMemory == 0) {
 						for (int i = count; i > 0; i--) {
@@ -1820,14 +1818,14 @@ void __cdecl BlitRle16(int32_t x, int32_t y, int32_t w, int32_t h, uint16_t* src
 							dst++;
 						}
 					}
-				} else if (flags == 0x4000) {
+				} else if (cmd.op == Rle16Cmd::OP_SKIP_LINES) {
 					if (h <= count) {
 						return;
 					}
 
 					dst = (uint16_t*)((uint8_t*)dst + count * dstpitch);
 					h -= count;
-				} else if (flags == 0x8000) {
+				} else if (cmd.op == Rle16Cmd::OP_SKIP_PIXELS) {
 					dst += count;
 					xx += count;
 				}
@@ -1861,11 +1859,10 @@ void __cdecl BlitRle16FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint16_t
 		int32_t xx = x + w - 1;
 		while (h != 0) {
 			while (xx >= x) {
-				const uint16_t b = *src;
+				const Rle16Cmd cmd = *src;
 				src++;
-				const uint16_t flags = b & 0xc000;
-				uint16_t count = b & 0x3fff;
-				if (flags == 0) {
+				uint16_t count = cmd.count;
+				if (cmd.op == Rle16Cmd::OP_PIXELS) {
 					if (yy < g_clipRect.top || yy >= g_clipRect.bottom) {
 						src += count;
 						dst -= count;
@@ -1895,7 +1892,7 @@ void __cdecl BlitRle16FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint16_t
 							}
 						}
 					}
-				} else if (flags == 0x4000) {
+				} else if (cmd.op == Rle16Cmd::OP_SKIP_LINES) {
 					yy += count;
 					if (h <= count) {
 						return;
@@ -1903,7 +1900,7 @@ void __cdecl BlitRle16FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint16_t
 
 					dst = (uint16_t*)((uint8_t*)dst + count * dstpitch);
 					h -= count;
-				} else if (flags == 0x8000) {
+				} else if (cmd.op == Rle16Cmd::OP_SKIP_PIXELS) {
 					dst -= count;
 					xx -= count;
 				}
@@ -1918,11 +1915,10 @@ void __cdecl BlitRle16FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint16_t
 		while (h > 0) {
 			int32_t xx = 0;
 			while (xx < w) {
-				const uint16_t b = *src;
+				const Rle16Cmd cmd = *src;
 				src++;
-				const uint16_t flags = b & 0xc000;
-				const uint16_t count = b & 0x3fff;
-				if (flags == 0) {
+				const uint16_t count = cmd.count;
+				if (cmd.op == Rle16Cmd::OP_PIXELS) {
 					xx += count;
 					if (g_isLowMemory == 0) {
 						for (int i = count; i > 0; i--) {
@@ -1939,14 +1935,14 @@ void __cdecl BlitRle16FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint16_t
 							dst--;
 						}
 					}
-				} else if (flags == 0x4000) {
+				} else if (cmd.op == Rle16Cmd::OP_SKIP_LINES) {
 					if (h <= count) {
 						return;
 					}
 
 					dst = (uint16_t*)((uint8_t*)dst + count * dstpitch);
 					h -= count;
-				} else if(flags == 0x8000) {
+				} else if (cmd.op == Rle16Cmd::OP_SKIP_PIXELS) {
 					dst -= count;
 					xx += count;
 				}

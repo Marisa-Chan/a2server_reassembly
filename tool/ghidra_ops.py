@@ -37,6 +37,7 @@ TYPE_ALIASES = {
     "EnterGameParams": "uint",
     "SpriteTrailer": "uint",
     "Rle8Cmd": "uchar",
+    "Rle16Cmd": "ushort",
 }
 GAME_CATEGORY = "/Game"
 

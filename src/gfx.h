@@ -346,6 +346,26 @@ struct Rle8Cmd {
 };
 ASSERT_SIZE(Rle8Cmd, 1);
 
+struct Rle16Cmd {
+	enum Op : uint16_t {
+		OP_PIXELS      = 0, // 0x0000: run of `count` Rle16Pixel entries
+		OP_SKIP_LINES  = 1, // 0x4000: advance down `count` scanlines
+		OP_SKIP_PIXELS = 2, // 0x8000: skip `count` transparent pixels horizontally
+	};
+
+	union {
+		uint16_t raw;
+		struct {
+			uint16_t count : 14; // [13:0]  0x3FFF
+			uint16_t op    : 2;  // [15:14] 0xC000 (Op)
+		};
+	};
+
+	constexpr Rle16Cmd(uint16_t v = 0) : raw(v) {}
+	constexpr operator uint16_t() const { return this->raw; }
+};
+ASSERT_SIZE(Rle16Cmd, 2);
+
 
 class CGameBitmap : public CObject {
 	DECLARE_DYNAMIC(CGameBitmap);
