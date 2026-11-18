@@ -4621,7 +4621,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
         }
 
     case REQUEST_LOAD_GAME:
-        CheckPacketType(pkt, "Packet");
+        CheckPacketType(pkt, "PacketJoin");
         LogMessage("Loading not suppported now.");
         break;
 
