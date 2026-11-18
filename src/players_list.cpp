@@ -421,7 +421,7 @@ void PlayersList::ProcessPlayerTimeouts() {
 
 			if (!player->login.IsEmpty()) {
 				char buf[260];
-				sprintf(buf, "%schr\\%s\\lockflag", g_ServerConfig.chr_base, player->login);
+				sprintf(buf, "%schr\\%s\\lockflag", (const char*)g_ServerConfig.chr_base, (const char*)player->login);
 
 				CFileStatus st;
 				if (CFile::GetStatus(buf, st))
