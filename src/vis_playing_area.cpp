@@ -2183,7 +2183,7 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 					FillRectColorSimple(0, 0, g_ScreenSize.right, g_ScreenSize.bottom, 0);
 
 					CString cstr = CString(TxtFile::AllLines[0x16b]) + " " + (const char*)packet_file->preamble;
-					g_font1->DrawTxt(g_ScreenSize.right / 2, g_ScreenSize.bottom / 2, cstr, 8 | 2, clrsh_ShockingBlack);
+					g_font1->DrawTxt(g_ScreenSize.right / 2, g_ScreenSize.bottom / 2, cstr, CGameFont::ALIGN_CENTER, clrsh_ShockingBlack);
 
 					UnlockSurface2();
 
@@ -2203,7 +2203,7 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 				LockSurface2();
 				FillRectColorSimple(0, g_ScreenSize.bottom / 2 + 20, g_ScreenSize.right, g_ScreenSize.bottom / 2 + 40, 0);
 
-				g_font1->DrawTxt(g_ScreenSize.right / 2, g_ScreenSize.bottom / 2 + 20, TxtFile::AllLines[0x16c], 2, clrsh_ShockingBlack);
+				g_font1->DrawTxt(g_ScreenSize.right / 2, g_ScreenSize.bottom / 2 + 20, TxtFile::AllLines[0x16c], CGameFont::ALIGN_HCENTER, clrsh_ShockingBlack);
 
 				UnlockSurface2();
 
@@ -5724,8 +5724,8 @@ void VisPlayingArea::RenderWorldFrame() {
 		if (tangar_cfg::r_fps) {
 			char fps_buf[32];
 			sprintf(fps_buf, "%3.1f", this->fps);
-			g_font1->DrawTextWithShadow(local_rect.right - 136, info_top, "fps:", 0, clrsh_TechBlack, 1);
-			g_font1->DrawTextWithShadow(local_rect.right - 86, info_top, fps_buf, 0, clrsh_ShockingBlack, 1);
+			g_font1->DrawTextWithShadow(local_rect.right - 136, info_top, "fps:", CGameFont::ALIGN_LEFT_TOP, clrsh_TechBlack, 1);
+			g_font1->DrawTextWithShadow(local_rect.right - 86, info_top, fps_buf, CGameFont::ALIGN_LEFT_TOP, clrsh_ShockingBlack, 1);
 			info_top += 16;
 		}
 		if (tangar_cfg::r_time) {
@@ -5734,8 +5734,8 @@ void VisPlayingArea::RenderWorldFrame() {
 			if (localtime_s(&tmv, &now) == 0) {
 				char time_buf[32];
 				sprintf(time_buf, "%02u:%02u:%02u", tmv.tm_hour, tmv.tm_min, tmv.tm_sec);
-				g_font1->DrawTextWithShadow(local_rect.right - 136, info_top, "time:", 0, clrsh_TechBlack, 1);
-				g_font1->DrawTextWithShadow(local_rect.right - 86, info_top, time_buf, 0, clrsh_ShockingBlack, 1);
+				g_font1->DrawTextWithShadow(local_rect.right - 136, info_top, "time:", CGameFont::ALIGN_LEFT_TOP, clrsh_TechBlack, 1);
+				g_font1->DrawTextWithShadow(local_rect.right - 86, info_top, time_buf, CGameFont::ALIGN_LEFT_TOP, clrsh_ShockingBlack, 1);
 			}
 			info_top += 16;
 		}
@@ -5747,7 +5747,7 @@ void VisPlayingArea::RenderWorldFrame() {
 			if (gmtime_s(&td, &elapsed) == 0) {
 				char sw_buf[32];
 				sprintf(sw_buf, "%02u:%02u:%02u", td.tm_hour, td.tm_min, td.tm_sec);
-				g_font1->DrawTextWithShadow(local_rect.right - 86, info_top, sw_buf, 0, clrsh_ShockingBlack, 1);
+				g_font1->DrawTextWithShadow(local_rect.right - 86, info_top, sw_buf, CGameFont::ALIGN_LEFT_TOP, clrsh_ShockingBlack, 1);
 			}
 		}
 	}
@@ -5757,7 +5757,7 @@ void VisPlayingArea::RenderWorldFrame() {
 			GetColorRGB(8, 8, 8));
 		char buf[32];
 		sprintf(buf, "%3.1f fps", this->fps);
-		g_font1->DrawTextWithShadow(local_rect.right - 0x26, local_rect.top, buf, 1, clrsh_ShockingBlack, 1);
+		g_font1->DrawTextWithShadow(local_rect.right - 0x26, local_rect.top, buf, CGameFont::ALIGN_RIGHT, clrsh_ShockingBlack, 1);
 	}
 #endif
 	if (wnd->sessionMode == SESSION_SINGLEPLAYER && g_ShowNetStats != 0) {
@@ -5768,18 +5768,18 @@ void VisPlayingArea::RenderWorldFrame() {
 			if (g_NetStru1_local.client_stat.Lookup(uid, stat)) {
 				FillRectColorSimple(local_rect.right - 0xb4, local_rect.top + 0x1e, local_rect.right - 0x1e, local_rect.top + 0x69,
 					GetColorRGB(8, 8, 8));
-				g_font1->DrawTextWithShadow(local_rect.right - 0x69, local_rect.top + 0x23, txt_patch.GetLine(74), 2, clrsh_ShockingBlack, 1);
+				g_font1->DrawTextWithShadow(local_rect.right - 0x69, local_rect.top + 0x23, txt_patch.GetLine(74), CGameFont::ALIGN_HCENTER, clrsh_ShockingBlack, 1);
 				CString str;
 				int32_t speed = 0;
 				if (stat->time != 0) {
 					speed = (int32_t)stat->total_bytes / (int32_t)stat->time;
 				}
 				str.Format("%s %d %s", txt_patch.GetLine(75), stat->cur_bs, txt_patch.GetLine(61));
-				g_font1->DrawTextWithShadow(local_rect.right - 0xaf, local_rect.top + 0x34, (const char*)str, 0, clrsh_ShockingBlack, 1);
+				g_font1->DrawTextWithShadow(local_rect.right - 0xaf, local_rect.top + 0x34, (const char*)str, CGameFont::ALIGN_LEFT_TOP, clrsh_ShockingBlack, 1);
 				str.Format("%s %d %s", txt_patch.GetLine(76), speed, txt_patch.GetLine(61));
-				g_font1->DrawTextWithShadow(local_rect.right - 0xaf, local_rect.top + 0x45, (const char*)str, 0, clrsh_ShockingBlack, 1);
+				g_font1->DrawTextWithShadow(local_rect.right - 0xaf, local_rect.top + 0x45, (const char*)str, CGameFont::ALIGN_LEFT_TOP, clrsh_ShockingBlack, 1);
 				str.Format("%s %d %s", txt_patch.GetLine(77), stat->max_bs, txt_patch.GetLine(61));
-				g_font1->DrawTextWithShadow(local_rect.right - 0xaf, local_rect.top + 0x56, (const char*)str, 0, clrsh_ShockingBlack, 1);
+				g_font1->DrawTextWithShadow(local_rect.right - 0xaf, local_rect.top + 0x56, (const char*)str, CGameFont::ALIGN_LEFT_TOP, clrsh_ShockingBlack, 1);
 			}
 		}
 	}

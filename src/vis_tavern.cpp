@@ -639,8 +639,8 @@ void VisTavLeftPanel::DrawUnitPanel(CUnit* unit) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     if (main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
         if (unit == nullptr) {
-            g_font2->DrawTextWithShadow(screen_rect.left + 0x58, screen_rect.top + 0x36, TxtFile::AllLines[0x2F], 2, clrsh_DullGold, 1);
-            g_font2->DrawTextWithShadow(screen_rect.left + 0x58, screen_rect.top + 0x42, TxtFile::AllLines[0x30], 2, clrsh_DullGold, 1);
+            g_font2->DrawTextWithShadow(screen_rect.left + 0x58, screen_rect.top + 0x36, TxtFile::AllLines[0x2F], CGameFont::ALIGN_HCENTER, clrsh_DullGold, 1);
+            g_font2->DrawTextWithShadow(screen_rect.left + 0x58, screen_rect.top + 0x42, TxtFile::AllLines[0x30], CGameFont::ALIGN_HCENTER, clrsh_DullGold, 1);
         } else {
             if ((unit->unitFlags & UNIT_FLAG_REMOTE_HERO) == 0) {
                 CRect unit_rect = rect_1C + screen_rect.TopLeft();
@@ -1167,10 +1167,10 @@ void VisTavRightPanel::VMethod7() {
 
     if (this->hovered_btn < 0 || this->pressed_btn != this->hovered_btn || this->hovered_btn != 1) {
         this->bmp_btn_off[1]->Draw(tav_topleft.x + this->btn_rects[1].left, tav_topleft.y + this->btn_rects[1].top, 0, 0, 0);
-        g_font4->DrawTxt(tav_topleft.x + this->btn_rects[1].left + this->btn_rects[1].Width() / 2, tav_topleft.y + this->btn_rects[1].top + this->btn_rects[1].Height() / 2, this->texts[1], 10, pal);
+        g_font4->DrawTxt(tav_topleft.x + this->btn_rects[1].left + this->btn_rects[1].Width() / 2, tav_topleft.y + this->btn_rects[1].top + this->btn_rects[1].Height() / 2, this->texts[1], CGameFont::ALIGN_CENTER, pal);
     } else {
         this->bmp_btn_on[1]->Draw(tav_topleft.x + this->btn_rects[1].left, tav_topleft.y + this->btn_rects[1].top, 0, 0, 0);
-        g_font4->DrawTxt(tav_topleft.x + this->btn_rects[1].left + this->btn_rects[1].Width() / 2, tav_topleft.y + this->btn_rects[1].top + 1 + this->btn_rects[1].Height() / 2, this->texts[1], 10, pal);
+        g_font4->DrawTxt(tav_topleft.x + this->btn_rects[1].left + this->btn_rects[1].Width() / 2, tav_topleft.y + this->btn_rects[1].top + 1 + this->btn_rects[1].Height() / 2, this->texts[1], CGameFont::ALIGN_CENTER, pal);
     }
 
     for (int32_t i = 0; i < 3; i++) {
@@ -1184,10 +1184,10 @@ void VisTavRightPanel::VMethod7() {
         }
         if (this->hovered_btn < 0 || this->pressed_btn != this->hovered_btn || this->hovered_btn != i) {
             this->bmp_btn_off[i]->Draw(tav_topleft.x + this->btn_rects[i].left, tav_topleft.y + this->btn_rects[i].top, 0, 0, 0);
-            g_font4->DrawTxt(tav_topleft.x + this->btn_rects[i].left + this->btn_rects[i].Width() / 2, tav_topleft.y + this->btn_rects[i].top + this->btn_rects[i].Height() / 2, this->texts[i], 10, pal);
+            g_font4->DrawTxt(tav_topleft.x + this->btn_rects[i].left + this->btn_rects[i].Width() / 2, tav_topleft.y + this->btn_rects[i].top + this->btn_rects[i].Height() / 2, this->texts[i], CGameFont::ALIGN_CENTER, pal);
         } else {
             this->bmp_btn_on[i]->Draw(tav_topleft.x + this->btn_rects[i].left, tav_topleft.y + this->btn_rects[i].top, 0, 0, 0);
-            g_font4->DrawTxt(tav_topleft.x + this->btn_rects[i].left + this->btn_rects[i].Width() / 2, tav_topleft.y + this->btn_rects[i].top + 1 + this->btn_rects[i].Height() / 2, this->texts[i], 10, pal);
+            g_font4->DrawTxt(tav_topleft.x + this->btn_rects[i].left + this->btn_rects[i].Width() / 2, tav_topleft.y + this->btn_rects[i].top + 1 + this->btn_rects[i].Height() / 2, this->texts[i], CGameFont::ALIGN_CENTER, pal);
         }
     }
 
@@ -1370,7 +1370,7 @@ void VisTavScene::VMethod7() {
             int32_t entry = this->vis_tav->FindEntryIndexForUnit(unit);
             if (this->vis_tav->entrie_id[entry] & ScenarioTavernEntryId::HIRED_FLAG) {
                 CRect& r = this->roster_rects[row][col];
-                g_font2->DrawTextWithShadow(tav_topleft.x + r.left + r.Width() / 2, tav_topleft.y + r.top + r.Height() / 2, TxtFile::AllLines[0x101], 10, clrsh_CoralRed, 1);
+                g_font2->DrawTextWithShadow(tav_topleft.x + r.left + r.Width() / 2, tav_topleft.y + r.top + r.Height() / 2, TxtFile::AllLines[0x101], CGameFont::ALIGN_CENTER, clrsh_CoralRed, 1);
             }
         }
 
@@ -1628,7 +1628,7 @@ void VisTavScene::DrawQuestRoster() {
         this->quest_bmps[kind - 1]->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, 0, 0, 0);
         if (this->vis_tav->quest_alt_close == 0) {
             CRect& r = this->roster_rects[0][0];
-            g_font2->DrawTextWithShadow(tav_topleft.x + r.left + r.Width() / 2, tav_topleft.y + r.top + r.Height() / 2, TxtFile::AllLines[0x158], 10, clrsh_CoralRed, 1);
+            g_font2->DrawTextWithShadow(tav_topleft.x + r.left + r.Width() / 2, tav_topleft.y + r.top + r.Height() / 2, TxtFile::AllLines[0x158], CGameFont::ALIGN_CENTER, clrsh_CoralRed, 1);
         }
         return;
     }
@@ -1647,7 +1647,7 @@ void VisTavScene::DrawQuestRoster() {
             this->quest_bmps[kind - 1]->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, 0, 0, 0);
             if (this->vis_tav->quest_selection == key) {
                 CRect& r = this->roster_rects[row][col];
-                g_font2->DrawTextWithShadow(tav_topleft.x + r.left + r.Width() / 2, tav_topleft.y + r.top + r.Height() / 2, TxtFile::AllLines[0x158], 10, clrsh_CoralRed, 1);
+                g_font2->DrawTextWithShadow(tav_topleft.x + r.left + r.Width() / 2, tav_topleft.y + r.top + r.Height() / 2, TxtFile::AllLines[0x158], CGameFont::ALIGN_CENTER, clrsh_CoralRed, 1);
             }
             i++;
         }
@@ -1668,19 +1668,19 @@ void VisTavScene::DrawQuestRoster() {
 
         TokenEntry* entry = this->vis_tav->rewards[i];
         if (entry->item_id == ItemId::REWARD_ALLY) {
-            g_font2->DrawTextWithShadow(tav_topleft.x + pt.x + 0x28, tav_topleft.y + pt.y + 0x23, TxtFile::AllLines[0x166], 2, clrsh_DullGold, 1);
+            g_font2->DrawTextWithShadow(tav_topleft.x + pt.x + 0x28, tav_topleft.y + pt.y + 0x23, TxtFile::AllLines[0x166], CGameFont::ALIGN_HCENTER, clrsh_DullGold, 1);
         } else if (entry->item_id == ItemId::REWARD_EXP) {
-            g_font2->DrawTextWithShadow(tav_topleft.x + pt.x + 0x28, tav_topleft.y + pt.y + 0x23, TxtFile::AllLines[0x2E], 2, clrsh_DullGold, 1);
+            g_font2->DrawTextWithShadow(tav_topleft.x + pt.x + 0x28, tav_topleft.y + pt.y + 0x23, TxtFile::AllLines[0x2E], CGameFont::ALIGN_HCENTER, clrsh_DullGold, 1);
             CString text;
             text.Format("%d", entry->count * Inn::REWARD_GOLD_UNIT);
             InsertThousandsSeparators(&text);
-            g_font2->DrawTextWithShadow(tav_topleft.x + pt.x + 3, tav_topleft.y + pt.y + 0x42, text, 0, clrsh_DullGold, 1);
+            g_font2->DrawTextWithShadow(tav_topleft.x + pt.x + 3, tav_topleft.y + pt.y + 0x42, text, CGameFont::ALIGN_LEFT_TOP, clrsh_DullGold, 1);
         } else if (entry->item_id == ItemId::REWARD_GOLD) {
             g_ca16_money->Draw(tav_topleft.x + pt.x, tav_topleft.y + pt.y, 0, 0, 0);
             CString text;
             text.Format("%d", entry->count * Inn::REWARD_GOLD_UNIT);
             InsertThousandsSeparators(&text);
-            g_font2->DrawTextWithShadow(tav_topleft.x + pt.x + 3, tav_topleft.y + pt.y + 0x42, text, 0, clrsh_DullGold, 1);
+            g_font2->DrawTextWithShadow(tav_topleft.x + pt.x + 3, tav_topleft.y + pt.y + 0x42, text, CGameFont::ALIGN_LEFT_TOP, clrsh_DullGold, 1);
         } else {
             if (this->roster_sprites[i] == nullptr) {
                 if (this->roster_sprites.GetSize() <= i) {
@@ -1694,7 +1694,7 @@ void VisTavScene::DrawQuestRoster() {
             if (entry->count > 1) {
                 char buf[80];
                 sprintf(buf, "%d", entry->count);
-                g_font2->DrawTextWithShadow(tav_topleft.x + pt.x + 3, tav_topleft.y + pt.y + 0x42, buf, 0, clrsh_DullGold, 1);
+                g_font2->DrawTextWithShadow(tav_topleft.x + pt.x + 3, tav_topleft.y + pt.y + 0x42, buf, CGameFont::ALIGN_LEFT_TOP, clrsh_DullGold, 1);
             }
 
             if (entry->flg & ItemWireFlags::FLAG_MAGIC_EFFECTS) {
@@ -1713,13 +1713,13 @@ void VisTavScene::DrawQuestRoster() {
             }
 
             if (i > 1 && this->vis_tav->rewards[i - 1]->item_id >= ItemId::REWARD_ALLY) {
-                g_font2->DrawTextWithShadow(tav_topleft.x + pt.x + 0x28, tav_topleft.y + pt.y + 0x23, TxtFile::AllLines[0x161], 2, clrsh_DullGold, 1);
-                g_font2->DrawTextWithShadow(tav_topleft.x + pt.x + 0x28, tav_topleft.y + pt.y + 0x2D, TxtFile::AllLines[0x162], 2, clrsh_DullGold, 1);
+                g_font2->DrawTextWithShadow(tav_topleft.x + pt.x + 0x28, tav_topleft.y + pt.y + 0x23, TxtFile::AllLines[0x161], CGameFont::ALIGN_HCENTER, clrsh_DullGold, 1);
+                g_font2->DrawTextWithShadow(tav_topleft.x + pt.x + 0x28, tav_topleft.y + pt.y + 0x2D, TxtFile::AllLines[0x162], CGameFont::ALIGN_HCENTER, clrsh_DullGold, 1);
             }
         }
 
         if (this->vis_tav->quest_selection == i) {
-            g_font2->DrawTextWithShadow(tav_topleft.x + pt.x + 0x28, tav_topleft.y + pt.y + 0xF, TxtFile::AllLines[0x163], 2, clrsh_TechBlack, 1);
+            g_font2->DrawTextWithShadow(tav_topleft.x + pt.x + 0x28, tav_topleft.y + pt.y + 0xF, TxtFile::AllLines[0x163], CGameFont::ALIGN_HCENTER, clrsh_TechBlack, 1);
         }
     }
 }
@@ -1929,7 +1929,7 @@ void VisTavSceneDruid::VMethod7() {
             int32_t entry = this->vis_tav->FindEntryIndexForUnit(unit);
             if (this->vis_tav->entrie_id[entry] & ScenarioTavernEntryId::HIRED_FLAG) {
                 CRect& r = this->roster_rects[row][col];
-                g_font2->DrawTextWithShadow(tav_topleft.x + r.left + r.Width() / 2, tav_topleft.y + r.top + r.Height() / 2, TxtFile::AllLines[0x101], 10, clrsh_CoralRed, 1);
+                g_font2->DrawTextWithShadow(tav_topleft.x + r.left + r.Width() / 2, tav_topleft.y + r.top + r.Height() / 2, TxtFile::AllLines[0x101], CGameFont::ALIGN_CENTER, clrsh_CoralRed, 1);
             }
         }
 
@@ -2190,7 +2190,7 @@ void VisTavSceneKaarg::VMethod7() {
             int32_t entry = this->vis_tav->FindEntryIndexForUnit(unit);
             if (this->vis_tav->entrie_id[entry] & ScenarioTavernEntryId::HIRED_FLAG) {
                 CRect& r = this->roster_rects[row][col];
-                g_font2->DrawTextWithShadow(tav_topleft.x + r.left + r.Width() / 2, tav_topleft.y + r.top + r.Height() / 2, TxtFile::AllLines[0x101], 10, clrsh_CoralRed, 1);
+                g_font2->DrawTextWithShadow(tav_topleft.x + r.left + r.Width() / 2, tav_topleft.y + r.top + r.Height() / 2, TxtFile::AllLines[0x101], CGameFont::ALIGN_CENTER, clrsh_CoralRed, 1);
             }
         }
 

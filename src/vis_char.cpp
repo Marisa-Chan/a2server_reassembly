@@ -173,13 +173,13 @@ void VisCharSellectButtons::VMethod7() {
             if (this->mouse_over_box < 0 || this->mouse_down_box != this->mouse_over_box || this->mouse_over_box != i) {
                 g_font4->DrawTxt(top_left.x + this->areas[i].left + this->areas[i].Width() / 2,
                                  top_left.y + this->areas[i].top + this->areas[i].Height() / 2,
-                                 this->captions[i], 10, pal);
+                                 this->captions[i], CGameFont::ALIGN_CENTER, pal);
             } else {
                 this->buttons_bmp[i]->DrawSubRectMasked(top_left.x + this->areas[i].left, top_left.y + this->areas[i].top,
                                                 0, 0, this->areas[i].Width(), this->areas[i].Height());
                 g_font4->DrawTxt(top_left.x + this->areas[i].left + this->areas[i].Width() / 2,
                                  top_left.y + this->areas[i].top + 1 + this->areas[i].Height() / 2,
-                                 this->captions[i], 10, pal);
+                                 this->captions[i], CGameFont::ALIGN_CENTER, pal);
             }
         }
         UnlockSurface2();
@@ -327,7 +327,7 @@ void VisCharSellectList::VMethod7() {
             if (this->selected_row != i || this->renaming == 0) {
                 g_font4->DrawTextWithShadow(top_left.x + this->list_area.left + this->list_area.Width() / 2,
                                             top_left.y + this->list_area.top + this->row_rect.Height() * ((i - this->top_row) + 1),
-                                            this->parent_screen->session->characterRosterNames[i], 2, pal, 1);
+                                            this->parent_screen->session->characterRosterNames[i], CGameFont::ALIGN_HCENTER, pal, 1);
             }
         }
         UnlockSurface2();
@@ -672,23 +672,23 @@ void VisCharSellectStats::VMethod7() {
 
         str.Format("%d", this->parent_screen->session->money);
         g_font4->DrawTxt(center_x, top_left.y + 0x35 + g_font2->GetHeight() + g_font4->GetHeight() / 2,
-                         str, 10, pal);
-        g_font2->DrawTextWithShadow(center_x, top_left.y + 0x35, TxtFile::AllLines[0x59], 10, clrsh_DullGold, 1);
+                         str, CGameFont::ALIGN_CENTER, pal);
+        g_font2->DrawTextWithShadow(center_x, top_left.y + 0x35, TxtFile::AllLines[0x59], CGameFont::ALIGN_CENTER, clrsh_DullGold, 1);
 
         str.Format("%d", this->parent_screen->session->monster_killed);
         g_font4->DrawTxt(center_x, top_left.y + 0x57 + g_font2->GetHeight() + g_font4->GetHeight() / 2,
-                         str, 10, pal);
-        g_font2->DrawTextWithShadow(center_x, top_left.y + 0x57, TxtFile::AllLines[0xF4], 10, clrsh_DullGold, 1);
+                         str, CGameFont::ALIGN_CENTER, pal);
+        g_font2->DrawTextWithShadow(center_x, top_left.y + 0x57, TxtFile::AllLines[0xF4], CGameFont::ALIGN_CENTER, clrsh_DullGold, 1);
 
         str.Format("%d", this->parent_screen->session->player_killed);
         g_font4->DrawTxt(center_x, top_left.y + 0x79 + g_font2->GetHeight() + g_font4->GetHeight() / 2,
-                         str, 10, pal);
-        g_font2->DrawTextWithShadow(center_x, top_left.y + 0x79, TxtFile::AllLines[0xF5], 10, clrsh_DullGold, 1);
+                         str, CGameFont::ALIGN_CENTER, pal);
+        g_font2->DrawTextWithShadow(center_x, top_left.y + 0x79, TxtFile::AllLines[0xF5], CGameFont::ALIGN_CENTER, clrsh_DullGold, 1);
 
         str.Format("%d", this->parent_screen->session->death_count);
         g_font4->DrawTxt(center_x, top_left.y + 0x9B + g_font2->GetHeight() + g_font4->GetHeight() / 2,
-                         str, 10, pal);
-        g_font2->DrawTextWithShadow(center_x, top_left.y + 0x9B, TxtFile::AllLines[0xF6], 10, clrsh_DullGold, 1);
+                         str, CGameFont::ALIGN_CENTER, pal);
+        g_font2->DrawTextWithShadow(center_x, top_left.y + 0x9B, TxtFile::AllLines[0xF6], CGameFont::ALIGN_CENTER, clrsh_DullGold, 1);
 
         CRect rc = this->rect + top_left;
         OffsetRect(&rc, 0xC, 0);
@@ -1405,7 +1405,7 @@ void VisCharGenStats::VMethod7() {
         uint16_t* pal = palette_husk->GetPalette(0);
         g_font4->DrawTextWithShadow(screen_rect.left + this->areas[i][0].left + 2,
                                     screen_rect.top + this->areas[i][0].top + 4,
-                                    str, 0, pal, 1);
+                                    str, CGameFont::ALIGN_LEFT_TOP, pal, 1);
         CBmp64* plus_bmp = this->stat_btn_pairs[i][0];
         plus_bmp->DrawSubRectMasked(screen_rect.left + this->areas[i][1].left,
                             screen_rect.top + this->areas[i][1].top,
@@ -1420,7 +1420,7 @@ void VisCharGenStats::VMethod7() {
         g_font4->DrawTextWithShadow(
             screen_rect.left + this->points_rect.left + this->points_rect.Width() / 2,
             screen_rect.top + this->points_rect.top + this->points_rect.Height() / 2 + 2,
-            str, 10, pal, 1);
+            str, CGameFont::ALIGN_CENTER, pal, 1);
     }
     UnlockSurface2();
 }
@@ -1692,12 +1692,12 @@ void VisCharGenAction::VMethod7() {
             this->btn_off[i]->Draw(topleft.x + this->areas[i].left, topleft.y + this->areas[i].top, 0, 0, 0);
             g_font4->DrawTxt(topleft.x + this->areas[i].left + this->areas[i].Width() / 2,
                              topleft.y + this->areas[i].top + this->areas[i].Height() / 2,
-                             this->texts.ElementAt(i), 10, pal);
+                             this->texts.ElementAt(i), CGameFont::ALIGN_CENTER, pal);
         } else {
             this->btn_on[i]->Draw(topleft.x + this->areas[i].left, topleft.y + this->areas[i].top, 0, 0, 0);
             g_font4->DrawTxt(topleft.x + this->areas[i].left + this->areas[i].Width() / 2,
                              topleft.y + this->areas[i].top + 1 + this->areas[i].Height() / 2,
-                             this->texts.ElementAt(i), 10, pal);
+                             this->texts.ElementAt(i), CGameFont::ALIGN_CENTER, pal);
         }
     }
     UnlockSurface2();
@@ -2335,11 +2335,11 @@ void VisCharInfo::VMethod7() {
 
     if (structure != nullptr) {
         if (this->info_mode == 0) {
-            g_font2->DrawTextWithShadow(screen_rect.right - 0x58, screen_rect.top + 0x1C, txt_building.GetLine(structure->typeId - 1), 2, clrsh_DullGold, 1);
-            g_font2->DrawTextWithShadow(screen_rect.right - 0x58, screen_rect.top + 0x2C, TxtFile::AllLines[0x13], 2, clrsh_DullGold, 1);
+            g_font2->DrawTextWithShadow(screen_rect.right - 0x58, screen_rect.top + 0x1C, txt_building.GetLine(structure->typeId - 1), CGameFont::ALIGN_HCENTER, clrsh_DullGold, 1);
+            g_font2->DrawTextWithShadow(screen_rect.right - 0x58, screen_rect.top + 0x2C, TxtFile::AllLines[0x13], CGameFont::ALIGN_HCENTER, clrsh_DullGold, 1);
             char hp_text[0x10];
             sprintf(hp_text, "%d/%d", structure->hp, structure->hp_max);
-            g_font2->DrawTextWithShadow(screen_rect.right - 0x58, screen_rect.top + 0x36, hp_text, 2, clrsh_Oxley, 1);
+            g_font2->DrawTextWithShadow(screen_rect.right - 0x58, screen_rect.top + 0x36, hp_text, CGameFont::ALIGN_HCENTER, clrsh_Oxley, 1);
         } else {
             if (strcmp(this->picturename, g_StructuresInfo[structure->typeId]->picture) != 0) {
                 strcpy(this->picturename, g_StructuresInfo[structure->typeId]->picture);
@@ -2351,13 +2351,13 @@ void VisCharInfo::VMethod7() {
             this->bitmap->DrawSubRectMasked(screen_rect.left, screen_rect.top + 2, 0, 0, 0xA0, 0xF0);
             int32_t text_y = 0x36;
             if (map->quest_landmark_some_id != 0) {
-                g_font2->DrawTextWithShadow(screen_rect.left + 0x48, screen_rect.top + text_y, TxtFile::AllLines[0x15B], 2, clrsh_DullGold, 1);
-                g_font2->DrawTextWithShadow(screen_rect.left + 0x48, screen_rect.top + text_y + 0xC, TxtFile::AllLines[0x15C], 2, clrsh_DullGold, 1);
+                g_font2->DrawTextWithShadow(screen_rect.left + 0x48, screen_rect.top + text_y, TxtFile::AllLines[0x15B], CGameFont::ALIGN_HCENTER, clrsh_DullGold, 1);
+                g_font2->DrawTextWithShadow(screen_rect.left + 0x48, screen_rect.top + text_y + 0xC, TxtFile::AllLines[0x15C], CGameFont::ALIGN_HCENTER, clrsh_DullGold, 1);
                 text_y += 0x20;
             }
             if (map->quest_building_some_id != 0) {
-                g_font2->DrawTextWithShadow(screen_rect.left + 0x48, screen_rect.top + text_y, TxtFile::AllLines[0x15D], 2, clrsh_DullGold, 1);
-                g_font2->DrawTextWithShadow(screen_rect.left + 0x48, screen_rect.top + text_y + 0xC, TxtFile::AllLines[0x15E], 2, clrsh_DullGold, 1);
+                g_font2->DrawTextWithShadow(screen_rect.left + 0x48, screen_rect.top + text_y, TxtFile::AllLines[0x15D], CGameFont::ALIGN_HCENTER, clrsh_DullGold, 1);
+                g_font2->DrawTextWithShadow(screen_rect.left + 0x48, screen_rect.top + text_y + 0xC, TxtFile::AllLines[0x15E], CGameFont::ALIGN_HCENTER, clrsh_DullGold, 1);
             }
         }
     } else if (unit != nullptr) {
@@ -2405,20 +2405,20 @@ void VisCharInfo::VMethod7() {
             }
             this->bitmap->DrawSubRectMasked(screen_rect.left, screen_rect.top + 2, 0, 0, 0xA0, 0xF0);
             if (map->quest_some_id_2 != 0 || map->quest_some_id != 0) {
-                g_font2->DrawTextWithShadow(screen_rect.left + 0x48, screen_rect.top + 0x36, TxtFile::AllLines[0x159], 2, clrsh_DullGold, 1);
-                g_font2->DrawTextWithShadow(screen_rect.left + 0x48, screen_rect.top + 0x42, TxtFile::AllLines[0x15A], 2, clrsh_DullGold, 1);
+                g_font2->DrawTextWithShadow(screen_rect.left + 0x48, screen_rect.top + 0x36, TxtFile::AllLines[0x159], CGameFont::ALIGN_HCENTER, clrsh_DullGold, 1);
+                g_font2->DrawTextWithShadow(screen_rect.left + 0x48, screen_rect.top + 0x42, TxtFile::AllLines[0x15A], CGameFont::ALIGN_HCENTER, clrsh_DullGold, 1);
             }
         }
     } else {
         if (map->selected_object_count > 1) {
-            g_font2->DrawTextWithShadow(screen_rect.left + 0x48, screen_rect.top + 0x36, TxtFile::AllLines[0x31], 2, clrsh_DullGold, 1);
-            g_font2->DrawTextWithShadow(screen_rect.left + 0x48, screen_rect.top + 0x42, TxtFile::AllLines[0x32], 2, clrsh_DullGold, 1);
+            g_font2->DrawTextWithShadow(screen_rect.left + 0x48, screen_rect.top + 0x36, TxtFile::AllLines[0x31], CGameFont::ALIGN_HCENTER, clrsh_DullGold, 1);
+            g_font2->DrawTextWithShadow(screen_rect.left + 0x48, screen_rect.top + 0x42, TxtFile::AllLines[0x32], CGameFont::ALIGN_HCENTER, clrsh_DullGold, 1);
             char count_text[0x10];
             sprintf(count_text, "%d", map->selected_object_count);
-            g_font2->DrawTextWithShadow(screen_rect.left + 0x48, screen_rect.top + 0x4E, count_text, 2, clrsh_DullGold, 1);
+            g_font2->DrawTextWithShadow(screen_rect.left + 0x48, screen_rect.top + 0x4E, count_text, CGameFont::ALIGN_HCENTER, clrsh_DullGold, 1);
         } else if (map->selected_object_count == 0) {
-            g_font2->DrawTextWithShadow(screen_rect.left + 0x48, screen_rect.top + 0x36, TxtFile::AllLines[0x2F], 2, clrsh_DullGold, 1);
-            g_font2->DrawTextWithShadow(screen_rect.left + 0x48, screen_rect.top + 0x42, TxtFile::AllLines[0x30], 2, clrsh_DullGold, 1);
+            g_font2->DrawTextWithShadow(screen_rect.left + 0x48, screen_rect.top + 0x36, TxtFile::AllLines[0x2F], CGameFont::ALIGN_HCENTER, clrsh_DullGold, 1);
+            g_font2->DrawTextWithShadow(screen_rect.left + 0x48, screen_rect.top + 0x42, TxtFile::AllLines[0x30], CGameFont::ALIGN_HCENTER, clrsh_DullGold, 1);
         }
     }
 

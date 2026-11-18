@@ -997,14 +997,14 @@ void VisShopCompass::VMethod7() {
         CPoint pt(g_mousept.GetX(), g_mousept.GetY());
         CRect dlg_rect(pt.x + this->confirm_rect.left, pt.y + this->confirm_rect.top, pt.x + this->confirm_rect.right, pt.y + this->confirm_rect.bottom);
         ShadowRect(dlg_rect, 8);
-        g_font2->DrawTxt(pt.x + this->confirm_rect.left + this->confirm_rect.Width() / 2, pt.y + this->confirm_rect.top + 5, TxtFile::AllLines[0x4F], 2, clrsh_ShockingBlack);
-        g_font2->DrawTxt(pt.x + this->confirm_rect.left + this->confirm_rect.Width() / 2, pt.y + this->confirm_rect.top + 0xF, TxtFile::AllLines[0x50], 2, clrsh_ShockingBlack);
+        g_font2->DrawTxt(pt.x + this->confirm_rect.left + this->confirm_rect.Width() / 2, pt.y + this->confirm_rect.top + 5, TxtFile::AllLines[0x4F], CGameFont::ALIGN_HCENTER, clrsh_ShockingBlack);
+        g_font2->DrawTxt(pt.x + this->confirm_rect.left + this->confirm_rect.Width() / 2, pt.y + this->confirm_rect.top + 0xF, TxtFile::AllLines[0x50], CGameFont::ALIGN_HCENTER, clrsh_ShockingBlack);
         CRect yes_rect = this->confirm_yes_rect + this->confirm_rect.TopLeft() + pt;
         uint16_t* color = yes_rect.PtInRect(pt) ? clrsh_DullGold : clrsh_ShockingBlack;
-        g_font2->DrawTxt(yes_rect.left + yes_rect.Width() / 2, yes_rect.top + 1, "Yes", 2, color);
+        g_font2->DrawTxt(yes_rect.left + yes_rect.Width() / 2, yes_rect.top + 1, "Yes", CGameFont::ALIGN_HCENTER, color);
         CRect no_rect = this->confirm_no_rect + this->confirm_rect.TopLeft() + pt;
         color = no_rect.PtInRect(pt) ? clrsh_DullGold : clrsh_ShockingBlack;
-        g_font2->DrawTxt(no_rect.left + no_rect.Width() / 2, no_rect.top + 1, "No", 2, color);
+        g_font2->DrawTxt(no_rect.left + no_rect.Width() / 2, no_rect.top + 1, "No", CGameFont::ALIGN_HCENTER, color);
     }
     UnlockSurface2();
     CVisualObject::VMethod7();
@@ -2031,40 +2031,40 @@ void VisShopButtons::VMethod7() {
         pal = palette_husk->GetPalette(0);
     }
     str = TxtFile::AllLines[0x48];
-    g_font4->DrawTxt(topleft.x + this->outer_rects[0].left + this->outer_rects[0].Width() / 2, topleft.y + this->outer_rects[0].top + 6 + this->outer_rects[0].Height() / 4, str, 10, pal);
+    g_font4->DrawTxt(topleft.x + this->outer_rects[0].left + this->outer_rects[0].Width() / 2, topleft.y + this->outer_rects[0].top + 6 + this->outer_rects[0].Height() / 4, str, CGameFont::ALIGN_CENTER, pal);
     str.Format("%d", this->shop->current_gold);
     InsertThousandsSeparators(&str);
-    g_font4->DrawTxt(topleft.x + this->outer_rects[0].left + this->outer_rects[0].Width() / 2, topleft.y + this->outer_rects[0].top - 2 + this->outer_rects[0].Height() * 3 / 4, str, 10, pal);
+    g_font4->DrawTxt(topleft.x + this->outer_rects[0].left + this->outer_rects[0].Width() / 2, topleft.y + this->outer_rects[0].top - 2 + this->outer_rects[0].Height() * 3 / 4, str, CGameFont::ALIGN_CENTER, pal);
     if (this->hovered_btn == 1) {
         pal = palette_paris_daisy->GetPalette(0);
     } else {
         pal = palette_husk->GetPalette(0);
     }
     str = TxtFile::AllLines[0x46];
-    g_font4->DrawTxt(topleft.x + this->outer_rects[1].left + this->outer_rects[1].Width() / 2, topleft.y + this->outer_rects[1].top + 6 + this->outer_rects[1].Height() / 4, str, 10, pal);
+    g_font4->DrawTxt(topleft.x + this->outer_rects[1].left + this->outer_rects[1].Width() / 2, topleft.y + this->outer_rects[1].top + 6 + this->outer_rects[1].Height() / 4, str, CGameFont::ALIGN_CENTER, pal);
     str.Format("%d", this->shop->buy_gold);
     InsertThousandsSeparators(&str);
-    g_font4->DrawTxt(topleft.x + this->outer_rects[1].left + this->outer_rects[1].Width() / 2, topleft.y + this->outer_rects[1].top - 2 + this->outer_rects[1].Height() * 3 / 4, str, 10, pal);
+    g_font4->DrawTxt(topleft.x + this->outer_rects[1].left + this->outer_rects[1].Width() / 2, topleft.y + this->outer_rects[1].top - 2 + this->outer_rects[1].Height() * 3 / 4, str, CGameFont::ALIGN_CENTER, pal);
     if (this->hovered_btn == 2) {
         pal = palette_paris_daisy->GetPalette(0);
     } else {
         pal = palette_husk->GetPalette(0);
     }
     str = TxtFile::AllLines[0x47];
-    g_font4->DrawTxt(topleft.x + this->outer_rects[2].left + this->outer_rects[2].Width() / 2, topleft.y + this->outer_rects[2].top + 8 + this->outer_rects[2].Height() / 4, str, 10, pal);
+    g_font4->DrawTxt(topleft.x + this->outer_rects[2].left + this->outer_rects[2].Width() / 2, topleft.y + this->outer_rects[2].top + 8 + this->outer_rects[2].Height() / 4, str, CGameFont::ALIGN_CENTER, pal);
     str.Format("%d", this->shop->sell_gold);
     InsertThousandsSeparators(&str);
-    g_font4->DrawTxt(topleft.x + this->outer_rects[2].left + this->outer_rects[2].Width() / 2, topleft.y + this->outer_rects[2].top + this->outer_rects[2].Height() * 3 / 4, str, 10, pal);
+    g_font4->DrawTxt(topleft.x + this->outer_rects[2].left + this->outer_rects[2].Width() / 2, topleft.y + this->outer_rects[2].top + this->outer_rects[2].Height() * 3 / 4, str, CGameFont::ALIGN_CENTER, pal);
     if (this->hovered_btn == 3) {
         pal = palette_paris_daisy->GetPalette(0);
     } else {
         pal = palette_husk->GetPalette(0);
     }
     str = TxtFile::AllLines[0x49];
-    g_font4->DrawTxt(topleft.x + this->outer_rects[3].left + this->outer_rects[3].Width() / 2, topleft.y + this->outer_rects[3].top + 6 + this->outer_rects[3].Height() / 4, str, 10, pal);
+    g_font4->DrawTxt(topleft.x + this->outer_rects[3].left + this->outer_rects[3].Width() / 2, topleft.y + this->outer_rects[3].top + 6 + this->outer_rects[3].Height() / 4, str, CGameFont::ALIGN_CENTER, pal);
     str.Format("%d", this->shop->result_gold);
     InsertThousandsSeparators(&str);
-    g_font4->DrawTxt(topleft.x + this->outer_rects[3].left + this->outer_rects[3].Width() / 2, topleft.y + this->outer_rects[3].top - 2 + this->outer_rects[3].Height() * 3 / 4, str, 10, pal);
+    g_font4->DrawTxt(topleft.x + this->outer_rects[3].left + this->outer_rects[3].Width() / 2, topleft.y + this->outer_rects[3].top - 2 + this->outer_rects[3].Height() * 3 / 4, str, CGameFont::ALIGN_CENTER, pal);
     if (this->hovered_btn >= 0 && this->pressed_btn >= 0 && this->pressed_btn == this->hovered_btn) {
         CRect& rect = this->outer_rects[this->hovered_btn];
         this->button_bmps[this->hovered_btn]->DrawSubRectMasked(topleft.x + rect.left, topleft.y + rect.top, 0, 0, rect.Width(), rect.Height());
@@ -2072,31 +2072,31 @@ void VisShopButtons::VMethod7() {
         switch (this->hovered_btn) {
         case 0:
             str = TxtFile::AllLines[0x48];
-            g_font4->DrawTxt(topleft.x + rect.left + rect.Width() / 2, topleft.y + rect.top + 7 + rect.Height() / 4, str, 10, pal);
+            g_font4->DrawTxt(topleft.x + rect.left + rect.Width() / 2, topleft.y + rect.top + 7 + rect.Height() / 4, str, CGameFont::ALIGN_CENTER, pal);
             str.Format("%d", this->shop->current_gold);
             InsertThousandsSeparators(&str);
-            g_font4->DrawTxt(topleft.x + rect.left + rect.Width() / 2, topleft.y + rect.top - 1 + rect.Height() * 3 / 4, str, 10, pal);
+            g_font4->DrawTxt(topleft.x + rect.left + rect.Width() / 2, topleft.y + rect.top - 1 + rect.Height() * 3 / 4, str, CGameFont::ALIGN_CENTER, pal);
             break;
         case 1:
             str = TxtFile::AllLines[0x46];
-            g_font4->DrawTxt(topleft.x + rect.left + rect.Width() / 2, topleft.y + rect.top + 7 + rect.Height() / 4, str, 10, pal);
+            g_font4->DrawTxt(topleft.x + rect.left + rect.Width() / 2, topleft.y + rect.top + 7 + rect.Height() / 4, str, CGameFont::ALIGN_CENTER, pal);
             str.Format("%d", this->shop->buy_gold);
             InsertThousandsSeparators(&str);
-            g_font4->DrawTxt(topleft.x + rect.left + rect.Width() / 2, topleft.y + rect.top - 1 + rect.Height() * 3 / 4, str, 10, pal);
+            g_font4->DrawTxt(topleft.x + rect.left + rect.Width() / 2, topleft.y + rect.top - 1 + rect.Height() * 3 / 4, str, CGameFont::ALIGN_CENTER, pal);
             break;
         case 2:
             str = TxtFile::AllLines[0x47];
-            g_font4->DrawTxt(topleft.x + rect.left + rect.Width() / 2, topleft.y + rect.top + 9 + rect.Height() / 4, str, 10, pal);
+            g_font4->DrawTxt(topleft.x + rect.left + rect.Width() / 2, topleft.y + rect.top + 9 + rect.Height() / 4, str, CGameFont::ALIGN_CENTER, pal);
             str.Format("%d", this->shop->sell_gold);
             InsertThousandsSeparators(&str);
-            g_font4->DrawTxt(topleft.x + rect.left + rect.Width() / 2, topleft.y + rect.top + 1 + rect.Height() * 3 / 4, str, 10, pal);
+            g_font4->DrawTxt(topleft.x + rect.left + rect.Width() / 2, topleft.y + rect.top + 1 + rect.Height() * 3 / 4, str, CGameFont::ALIGN_CENTER, pal);
             break;
         case 3:
             str = TxtFile::AllLines[0x49];
-            g_font4->DrawTxt(topleft.x + rect.left + rect.Width() / 2, topleft.y + rect.top + 7 + rect.Height() / 4, str, 10, pal);
+            g_font4->DrawTxt(topleft.x + rect.left + rect.Width() / 2, topleft.y + rect.top + 7 + rect.Height() / 4, str, CGameFont::ALIGN_CENTER, pal);
             str.Format("%d", this->shop->result_gold);
             InsertThousandsSeparators(&str);
-            g_font4->DrawTxt(topleft.x + rect.left + rect.Width() / 2, topleft.y + rect.top - 1 + rect.Height() * 3 / 4, str, 10, pal);
+            g_font4->DrawTxt(topleft.x + rect.left + rect.Width() / 2, topleft.y + rect.top - 1 + rect.Height() * 3 / 4, str, CGameFont::ALIGN_CENTER, pal);
             break;
         }
     }

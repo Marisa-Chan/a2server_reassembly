@@ -70,7 +70,7 @@ int TakeDamage::Draw() {
 	}
 
 	if (this->cunit->bIsBlocked == 0) {
-		g_font2->DrawTextWithShadow(this->cunit->centerScreenX + this->dx, this->cunit->centerScreenY + this->dy - this->cunit->terrainHeightOffset, this->txt, 0, this->color, 1);
+		g_font2->DrawTextWithShadow(this->cunit->centerScreenX + this->dx, this->cunit->centerScreenY + this->dy - this->cunit->terrainHeightOffset, this->txt, CGameFont::ALIGN_LEFT_TOP, this->color, 1);
 	}
 	return 1;
 }

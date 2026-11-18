@@ -698,7 +698,7 @@ int32_t MainWindow::ConnectToServerAddress() {
 #endif
     LockSurface2();
     FillRectColorSimple(0, 0, g_ScreenSize.right, g_ScreenSize.bottom, 0);
-    g_font1->DrawTextWithShadow(g_ScreenSize.right / 2, g_ScreenSize.bottom / 2, txt_patch.GetLine(0x7e), 10, clrsh_ShockingBlack, 1);
+    g_font1->DrawTextWithShadow(g_ScreenSize.right / 2, g_ScreenSize.bottom / 2, txt_patch.GetLine(0x7e), CGameFont::ALIGN_CENTER, clrsh_ShockingBlack, 1);
     UnlockSurface2();
     FlushScreen();
 
@@ -5499,7 +5499,7 @@ int32_t MainWindow::RunModalLoopServer() { //49057b
     LockSurface2();
     FillRectColorSimple(0, 0, g_ScreenSize.right, g_ScreenSize.bottom, 0);
     //Connection to hat in process...
-    g_font1->DrawTextWithShadow(g_ScreenSize.right / 2, g_ScreenSize.bottom / 2, txt_patch.GetLine(124), 2, clrsh_ShockingBlack, 1);
+    g_font1->DrawTextWithShadow(g_ScreenSize.right / 2, g_ScreenSize.bottom / 2, txt_patch.GetLine(124), CGameFont::ALIGN_HCENTER, clrsh_ShockingBlack, 1);
     UnlockSurface2();
     FlushScreen();
 
@@ -5564,7 +5564,7 @@ int32_t MainWindow::RunModalLoopServer() { //49057b
 
     LockSurface2();
     FillRectColorSimple(0, 0, g_ScreenSize.right, g_ScreenSize.bottom, 0);
-    g_font1->DrawTextWithShadow(g_ScreenSize.right / 2, g_ScreenSize.bottom / 2, txt_patch.GetLine(125), 2, clrsh_ShockingBlack, 1);
+    g_font1->DrawTextWithShadow(g_ScreenSize.right / 2, g_ScreenSize.bottom / 2, txt_patch.GetLine(125), CGameFont::ALIGN_HCENTER, clrsh_ShockingBlack, 1);
     UnlockSurface2();
     FlushScreen();
 
@@ -5619,7 +5619,7 @@ int32_t MainWindow::RunModalLoopServer() { //49057b
 
         CString local_260;
         local_260.Format("%d / %d", j, this->m_GameSession.hat_char_ids.GetSize());
-        g_font1->DrawTextWithShadow(g_ScreenSize.right / 2, g_ScreenSize.bottom / 2 + 20, local_260, 2, clrsh_ShockingBlack, 1);
+        g_font1->DrawTextWithShadow(g_ScreenSize.right / 2, g_ScreenSize.bottom / 2 + 20, local_260, CGameFont::ALIGN_HCENTER, clrsh_ShockingBlack, 1);
         UnlockSurface2();
         FlushScreen();
     }
@@ -5638,7 +5638,7 @@ int32_t MainWindow::RunModalLoopClient() { //client 4949cd
     LockSurface2();
     FillRectColorSimple(0, 0, g_ScreenSize.right, g_ScreenSize.bottom, 0);
     //Connection to hat in process...
-    g_font1->DrawTextWithShadow(g_ScreenSize.right / 2, g_ScreenSize.bottom / 2, txt_patch.GetLine(124), 2, clrsh_ShockingBlack, 1);
+    g_font1->DrawTextWithShadow(g_ScreenSize.right / 2, g_ScreenSize.bottom / 2, txt_patch.GetLine(124), CGameFont::ALIGN_HCENTER, clrsh_ShockingBlack, 1);
     UnlockSurface2();
     FlushScreen();
 
@@ -5732,7 +5732,7 @@ int32_t MainWindow::ClientRefreshUpdateCharacters() { // client 494f53
     LockSurface2();
     FillRectColorSimple(0, 0, g_ScreenSize.right, g_ScreenSize.bottom, 0);
     //Update chars in process...
-    g_font1->DrawTextWithShadow(g_ScreenSize.right / 2, g_ScreenSize.bottom / 2, txt_patch.GetLine(125), 2, clrsh_ShockingBlack, 1);
+    g_font1->DrawTextWithShadow(g_ScreenSize.right / 2, g_ScreenSize.bottom / 2, txt_patch.GetLine(125), CGameFont::ALIGN_HCENTER, clrsh_ShockingBlack, 1);
     UnlockSurface2();
     FlushScreen();
 
@@ -5779,7 +5779,7 @@ int32_t MainWindow::ClientRefreshUpdateCharacters() { // client 494f53
         CString str;
         str.Format("%d / %d", i, m_GameSession.hat_char_ids.GetSize());
 
-        g_font1->DrawTextWithShadow(g_ScreenSize.right / 2, g_ScreenSize.bottom / 2 + 20, str, 2, clrsh_ShockingBlack, 1);
+        g_font1->DrawTextWithShadow(g_ScreenSize.right / 2, g_ScreenSize.bottom / 2 + 20, str, CGameFont::ALIGN_HCENTER, clrsh_ShockingBlack, 1);
         UnlockSurface2();
         FlushScreen();
     }

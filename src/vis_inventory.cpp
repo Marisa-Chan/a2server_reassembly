@@ -512,7 +512,7 @@ void VisInvType1::VMethod7() {
 
     if (this->grid_source == nullptr) {
         g_font2->DrawTextWithShadow(edge_width + (screen_rect.left + screen_rect.right - 0x10) / 2, (screen_rect.top + screen_rect.bottom) / 2,
-            TxtFile::AllLines[0x33], 10, clrsh_DullGold, 1);
+            TxtFile::AllLines[0x33], CGameFont::ALIGN_CENTER, clrsh_DullGold, 1);
         return;
     }
 
@@ -551,7 +551,7 @@ void VisInvType1::VMethod7() {
             CString text;
             text.Format("%d", main_wnd->vis_map_context->my_main_unit->gold);
             InsertThousandsSeparators(&text);
-            g_font2->DrawTextWithShadow(cell_x + 3, screen_rect.bottom - 0xe, text, 0, clrsh_DullGold, 1);
+            g_font2->DrawTextWithShadow(cell_x + 3, screen_rect.bottom - 0xe, text, CGameFont::ALIGN_LEFT_TOP, clrsh_DullGold, 1);
             continue;
         }
 
@@ -563,7 +563,7 @@ void VisInvType1::VMethod7() {
         if (entry->count > 1) {
             char buf[0x50];
             sprintf(buf, "%d", entry->count);
-            g_font2->DrawTextWithShadow(cell_x + 3, screen_rect.bottom - 0xe, buf, 0, clrsh_DullGold, 1);
+            g_font2->DrawTextWithShadow(cell_x + 3, screen_rect.bottom - 0xe, buf, CGameFont::ALIGN_LEFT_TOP, clrsh_DullGold, 1);
         }
 
         entry = this->grid_source->GetAt(i + *this->visible_startref);
@@ -582,7 +582,7 @@ void VisInvType1::VMethod7() {
             if (main_wnd->m_GameSession.shortcuts[j].MatchesItem(entry) != 0) {
                 char key_buf[0x50];
                 sprintf(key_buf, "F%d", j + 4);
-                g_font3->DrawTextWithShadow(cell_x + 3, screen_rect.top + 8, key_buf, 0, clrsh_ShockingBlack, 1);
+                g_font3->DrawTextWithShadow(cell_x + 3, screen_rect.top + 8, key_buf, CGameFont::ALIGN_LEFT_TOP, clrsh_ShockingBlack, 1);
                 break;
             }
         }
@@ -1027,7 +1027,7 @@ void VisInvExtBase::VMethod7() {
             CString text;
             text.Format("%d", entry->count);
             InsertThousandsSeparators(&text);
-            g_font2->DrawTextWithShadow(pos.x + 10, bottom_right.y - 15, text, 0, clrsh_DullGold, 1);
+            g_font2->DrawTextWithShadow(pos.x + 10, bottom_right.y - 15, text, CGameFont::ALIGN_LEFT_TOP, clrsh_DullGold, 1);
         }
 
         entry = this->grid_source->GetAt(i + *this->visible_startref);
@@ -1059,7 +1059,7 @@ void VisInvExtBase::VMethod7() {
             CString cost_text;
             cost_text.Format("%d", amount);
             InsertThousandsSeparators(&cost_text);
-            g_font2->DrawTextWithShadow(cost_pos.x - 6 + cost_bmp->GetWidth(0), cost_pos.y, cost_text, 1, clrsh_DullGold, 1);
+            g_font2->DrawTextWithShadow(cost_pos.x - 6 + cost_bmp->GetWidth(0), cost_pos.y, cost_text, CGameFont::ALIGN_RIGHT, clrsh_DullGold, 1);
         }
     }
 
@@ -2752,7 +2752,7 @@ void VisSpellBook::VMethod7() {
                     off = 2;
                 }
                 g_font3->DrawTextWithShadow(left + rc.left + 8 + off + (i % 0xC) * 0x26,
-                    rc.top + 8 + off + (i / 0xC) * 0x26, buf, 0, clrsh_TechBlack, 1);
+                    rc.top + 8 + off + (i / 0xC) * 0x26, buf, CGameFont::ALIGN_LEFT_TOP, clrsh_TechBlack, 1);
             }
 #endif
         }
@@ -2764,7 +2764,7 @@ void VisSpellBook::VMethod7() {
                 off = 2;
             }
             g_font3->DrawTextWithShadow(left + rc.left + 8 + off + (i % 0xC) * 0x26,
-                rc.top + 0x22 + off + (i / 0xC) * 0x26, buf, 0, clrsh_TechBlack, 1);
+                rc.top + 0x22 + off + (i / 0xC) * 0x26, buf, CGameFont::ALIGN_LEFT_TOP, clrsh_TechBlack, 1);
         }
     }
     UnlockSurface2();

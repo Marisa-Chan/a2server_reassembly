@@ -611,7 +611,7 @@ void DrawItemHotkeyLabels(int x1, int y, int bag_position, TokenEntry* entry) {
     for (auto it = custom_hotkeys.begin(); it != custom_hotkeys.end(); ++it) {
         UserShortcut* hotkey = it->second.get();
         if (hotkey != nullptr && hotkey->kind == 2 && hotkey->MatchesItem(entry) != 0) {
-            g_font2->DrawTextWithShadow(x1 + 35 + bag_position * 80, y + 8, Label(it->first), 0, clrsh_ShockingBlack, 1);
+            g_font2->DrawTextWithShadow(x1 + 35 + bag_position * 80, y + 8, Label(it->first), CGameFont::ALIGN_LEFT_TOP, clrsh_ShockingBlack, 1);
         }
     }
 }
@@ -624,7 +624,7 @@ void DrawSpellHotkeyLabel(int x1, int y, int spell_number, int pressed) {
         if (hotkey != nullptr && hotkey->kind == 1 && hotkey->item_id == (uint16_t)spell_number) {
             int32_t offset = (pressed == spell_number) ? 2 : 0;
             g_font2->DrawTextWithShadow(x1 + 8 + offset + (spell_number % 0xC) * 0x26,
-                y + 8 + offset + (spell_number / 0xC) * 0x26, Label(it->first), 0, clrsh_ShockingBlack, 1);
+                y + 8 + offset + (spell_number / 0xC) * 0x26, Label(it->first), CGameFont::ALIGN_LEFT_TOP, clrsh_ShockingBlack, 1);
         }
     }
 }

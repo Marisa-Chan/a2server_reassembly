@@ -199,12 +199,12 @@ void GM_a28::Draw() {
 			int rpos = s.Find('\r');
 
 			if (rpos < 0) {
-				fnt->DrawTextWithShadow(out_x, out_y, s, 0, (uint16_t*)this->color[i], 1);
+				fnt->DrawTextWithShadow(out_x, out_y, s, CGameFont::ALIGN_LEFT_TOP, (uint16_t*)this->color[i], 1);
 				out_y += 2 + fnt->GetHeight();
 				break;
 			}
 			
-			fnt->DrawTextWithShadow(out_x, out_y, s.Left(rpos), 0, (uint16_t*)this->color[i], 1);
+			fnt->DrawTextWithShadow(out_x, out_y, s.Left(rpos), CGameFont::ALIGN_LEFT_TOP, (uint16_t*)this->color[i], 1);
 			out_y += 2 + fnt->GetHeight();
 			s = s.Mid(rpos + 1);
 		}
@@ -349,11 +349,11 @@ void VisSideStatus::VMethod7() {
         }
 
         if (structure != nullptr) {
-            g_font2->DrawTextWithShadow(screen_rect.right - 0x58, screen_rect.top + 0x1C, txt_building.GetLine(structure->typeId - 1), 2, clrsh_DullGold, 1);
-            g_font2->DrawTextWithShadow(screen_rect.right - 0x58, screen_rect.top + 0x2C, TxtFile::AllLines[0x13], 2, clrsh_DullGold, 1);
+            g_font2->DrawTextWithShadow(screen_rect.right - 0x58, screen_rect.top + 0x1C, txt_building.GetLine(structure->typeId - 1), CGameFont::ALIGN_HCENTER, clrsh_DullGold, 1);
+            g_font2->DrawTextWithShadow(screen_rect.right - 0x58, screen_rect.top + 0x2C, TxtFile::AllLines[0x13], CGameFont::ALIGN_HCENTER, clrsh_DullGold, 1);
             char hp_text[0x10];
             sprintf(hp_text, "%d/%d", structure->hp, structure->hp_max);
-            g_font2->DrawTextWithShadow(screen_rect.right - 0x58, screen_rect.top + 0x36, hp_text, 2, clrsh_Oxley, 1);
+            g_font2->DrawTextWithShadow(screen_rect.right - 0x58, screen_rect.top + 0x36, hp_text, CGameFont::ALIGN_HCENTER, clrsh_Oxley, 1);
         } else if (unit != nullptr) {
             unit->DrawStatsPanel(&screen_rect);
         }
@@ -999,7 +999,7 @@ void Vis1200obj::VMethod7() {
         if (i == 0) {
             this->DrawInputLine(&this->history[0]);
         } else {
-            this->font->DrawTxt(screen_rect.left, screen_rect.bottom - this->font->GetHeight() * (this->history.GetSize() - i + 1), this->history[i], 0, this->clr);
+            this->font->DrawTxt(screen_rect.left, screen_rect.bottom - this->font->GetHeight() * (this->history.GetSize() - i + 1), this->history[i], CGameFont::ALIGN_LEFT_TOP, this->clr);
         }
     }
 
@@ -1012,7 +1012,7 @@ void Vis1200obj::VMethod7() {
     if (this->history.GetSize() == 0) {
         this->DrawInputLine(&line);
     } else {
-        this->font->DrawTxt(screen_rect.left, screen_rect.bottom - this->font->GetHeight(), line, 0, this->clr);
+        this->font->DrawTxt(screen_rect.left, screen_rect.bottom - this->font->GetHeight(), line, CGameFont::ALIGN_LEFT_TOP, this->clr);
     }
 }
 
@@ -1282,9 +1282,9 @@ void Vis1200obj::DrawInputLine(CString* str) {
     // CHAT_tilde0 hook (43D976): double tildes in the chat input line so
     // the font renderer shows a literal tilde instead of a color-code escape
     this->font->DrawTxt(screen_rect.left, screen_rect.bottom - this->font->GetHeight() * (this->history.GetSize() + 1),
-                          TangarDoubleTilde((const char*)*str), 0, this->clr);
+                          TangarDoubleTilde((const char*)*str), CGameFont::ALIGN_LEFT_TOP, this->clr);
 #else
-    this->font->DrawTxt(screen_rect.left, screen_rect.bottom - this->font->GetHeight() * (this->history.GetSize() + 1), *str, 0, this->clr);
+    this->font->DrawTxt(screen_rect.left, screen_rect.bottom - this->font->GetHeight() * (this->history.GetSize() + 1), *str, CGameFont::ALIGN_LEFT_TOP, this->clr);
 #endif
     if (!str->IsEmpty() && (*str)[0] == '-') {
         CString name_part = str->Mid(1);

@@ -210,9 +210,9 @@ void VisNetMapSelection::VMethod26() {
     this->mode = (main_wnd->sessionMode != SESSION_SINGLEPLAYER);
 
     this->AddChild(new VisLabel(0x19, 0x28, 0x16, this->rect.Width() - 0x28, 0x38,
-                                txt_dialogs.GetLine(0x8A), g_font1, p_clrsh_Black, 2));
+                                txt_dialogs.GetLine(0x8A), g_font1, p_clrsh_Black, CGameFont::ALIGN_HCENTER));
     this->AddChild(new VisLabel(0x1A, 0x28, 0x2C, this->rect.Width() - 0x28, 0x44,
-                                txt_dialogs.GetLine(0x8B), g_font1, p_clrsh_Black, 0));
+                                txt_dialogs.GetLine(0x8B), g_font1, p_clrsh_Black, CGameFont::ALIGN_LEFT_TOP));
     VisNetMapList* map_list = new VisNetMapList(1, 0x28, 0x44, this->rect.Width() - 0x40, this->rect.Height() / 2,
                                                 g_font1, p_clrsh_Black, p_clrsh_ShockingBlack, 0xA,
                                                 txt_dialogs.GetLine(0x76), &this->selected_map_index);
@@ -225,7 +225,7 @@ void VisNetMapSelection::VMethod26() {
     list_rc.bottom = 0x180;
     list_rc.right = 0x15E;
     this->AddChild(new VisLabel(0x1B, list_rc.left, list_rc.top - 0x18, list_rc.right, list_rc.top - 6,
-                                txt_dialogs.GetLine(0x8C), g_font1, p_clrsh_Black, 0));
+                                txt_dialogs.GetLine(0x8C), g_font1, p_clrsh_Black, CGameFont::ALIGN_LEFT_TOP));
     VisNetChatList* chat_list = new VisNetChatList(3, list_rc, g_font1, p_clrsh_Black, p_clrsh_ShockingBlack, 0xB,
                                                    txt_dialogs.GetLine(0x84));
     this->AddChild(chat_list);
@@ -254,7 +254,7 @@ void VisNetMapSelection::VMethod26() {
     list_rc.top = 0x11C;
     list_rc.bottom = 0x1A4;
     this->AddChild(new VisLabel(0x1C, list_rc.left, list_rc.top - 0x18, list_rc.right, list_rc.top - 6,
-                                txt_dialogs.GetLine(0x8D), g_font1, p_clrsh_Black, 0));
+                                txt_dialogs.GetLine(0x8D), g_font1, p_clrsh_Black, CGameFont::ALIGN_LEFT_TOP));
     VisNetPlayerList* player_list = new VisNetPlayerList(5, list_rc, g_font1, p_clrsh_Black, p_clrsh_Black, 0xC,
                                                          txt_dialogs.GetLine(0x89));
     this->AddChild(player_list);
@@ -424,7 +424,7 @@ void VisNetChatList::DrawItem(int32_t idx, CPoint pos, uint16_t* clr) {
     CRect clip(pos.x, pos.y, client.right - 6, pos.y + this->font->GetHeight() + 2);
     SetClipRect(clip);
 
-    this->font->DrawTextWithShadow(pos.x, pos.y, txt, 0, (uint16_t*)this->colors[idx], 1);
+    this->font->DrawTextWithShadow(pos.x, pos.y, txt, CGameFont::ALIGN_LEFT_TOP, (uint16_t*)this->colors[idx], 1);
 
     SetClipRect(saved);
 }
@@ -442,7 +442,7 @@ void VisNetPlayerList::DrawItem(int32_t idx, CPoint pos, uint16_t* clr) {
     }
 
     const char* txt = this->entries[idx];
-    this->font->DrawTextWithShadow(pos.x, pos.y, txt, 0, (uint16_t*)this->colors[idx], 1);
+    this->font->DrawTextWithShadow(pos.x, pos.y, txt, CGameFont::ALIGN_LEFT_TOP, (uint16_t*)this->colors[idx], 1);
 }
 
 
@@ -484,14 +484,14 @@ void VisNetMapList::DrawItem(int32_t idx, CPoint pos, uint16_t* clr) {
     char* field = txt;
     char* sep = strchr(field, '#');
     *sep = '\0';
-    this->font->DrawTextWithShadow(pos.x, pos.y, field, 0, clr, 1);
+    this->font->DrawTextWithShadow(pos.x, pos.y, field, CGameFont::ALIGN_LEFT_TOP, clr, 1);
     *sep = '#';
 
     pos.x += 0x10E;
     field = sep + 1;
     sep = strchr(field, '#');
     *sep = '\0';
-    this->font->DrawTextWithShadow(pos.x, pos.y, field, 0, clr, 1);
+    this->font->DrawTextWithShadow(pos.x, pos.y, field, CGameFont::ALIGN_LEFT_TOP, clr, 1);
     *sep = '#';
 
     pos.x += 0x54;
@@ -499,7 +499,7 @@ void VisNetMapList::DrawItem(int32_t idx, CPoint pos, uint16_t* clr) {
     sep = strchr(field, '#');
     *sep = '\0';
     *sep = '#';
-    this->font->DrawTextWithShadow(pos.x, pos.y, txt_patch.GetLine(level + 0x62), 0, clr, 1);
+    this->font->DrawTextWithShadow(pos.x, pos.y, txt_patch.GetLine(level + 0x62), CGameFont::ALIGN_LEFT_TOP, clr, 1);
 }
 
 // 44b2bf
@@ -568,7 +568,7 @@ void VisServerScreenRadio::VMethod7() {
             this->clr = clrsh_DullGold;
         }
 
-        this->font->DrawTextWithShadow(txt_x, y + 3, this->entries[i], 0, this->clr, 1);
+        this->font->DrawTextWithShadow(txt_x, y + 3, this->entries[i], CGameFont::ALIGN_LEFT_TOP, this->clr, 1);
 
         y += gfx_radiob->GetHeight(4);
     }
@@ -617,7 +617,7 @@ void VisNetDlg::CreateSessionList() {
     int32_t y = this->rect.Height() - 0x90;
     CRect rc_list(0x28, 0x50, x + 0x28, y + 0x30);
 
-    this->AddChild(new VisLabel(0x19, 0x28, 0x20, this->rect.Width() - 0x28, 0x38, txt_dialogs.GetLine(0x8E), g_font1, p_clrsh_Black, 2));
+    this->AddChild(new VisLabel(0x19, 0x28, 0x20, this->rect.Width() - 0x28, 0x38, txt_dialogs.GetLine(0x8E), g_font1, p_clrsh_Black, CGameFont::ALIGN_HCENTER));
 
     VisListBox* server_list = new VisListBox(1, rc_list, g_font1, p_clrsh_Black, p_clrsh_ShockingBlack, 2, txt_dialogs.GetLine(0x52));
     this->AddChild(server_list);
@@ -625,14 +625,14 @@ void VisNetDlg::CreateSessionList() {
     VisScrollBar* server_scroll = new VisScrollBar(2, server_list->GetRect().left, server_list->GetRect().top, server_list->GetRect().right + 0x18, server_list->GetRect().bottom, nullptr);
     this->AddChild(server_scroll);
 
-    this->AddChild(new VisLabel(4, server_list->GetRect().left, server_list->GetRect().top - 0x18, server_list->GetRect().right, server_list->GetRect().top, txt_dialogs.GetLine(0x53), g_font1, p_clrsh_Black, 0));
+    this->AddChild(new VisLabel(4, server_list->GetRect().left, server_list->GetRect().top - 0x18, server_list->GetRect().right, server_list->GetRect().top, txt_dialogs.GetLine(0x53), g_font1, p_clrsh_Black, CGameFont::ALIGN_LEFT_TOP));
     server_list->SetCaptionLabel((VisLabel*)this->FindChild(4));
 
     CRect rc_players(server_scroll->GetRect().right + 0x18, server_list->GetRect().top, server_scroll->GetRect().right + x + 0x18, server_list->GetRect().bottom);
     VisListBox* player_list = new VisListBox(7, rc_players, g_font1, p_clrsh_Black, p_clrsh_ShockingBlack, 8, txt_dialogs.GetLine(0x54));
     this->AddChild(player_list);
 
-    this->AddChild(new VisLabel(6, player_list->GetRect().left, player_list->GetRect().top - 0x18, player_list->GetRect().right, player_list->GetRect().top, txt_dialogs.GetLine(0x55), g_font1, p_clrsh_Black, 0));
+    this->AddChild(new VisLabel(6, player_list->GetRect().left, player_list->GetRect().top - 0x18, player_list->GetRect().right, player_list->GetRect().top, txt_dialogs.GetLine(0x55), g_font1, p_clrsh_Black, CGameFont::ALIGN_LEFT_TOP));
     player_list->SetCaptionLabel((VisLabel*)this->FindChild(6));
 
     VisScrollBar* player_scroll = new VisScrollBar(8, player_list->GetRect().left, player_list->GetRect().top, player_list->GetRect().right + 0x18, player_list->GetRect().bottom, nullptr);
@@ -869,7 +869,7 @@ int32_t VisNetDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
             if (this->sessions->num_sessions == 0) {
                 this->RemoveAllChilds();
 
-                this->AddChild(new VisLabel(1, 0x28, 0x30, 0xDC, 0x4A, txt_dialogs.GetLine(0x7C), g_font1, clrsh_TechBlack, 0));
+                this->AddChild(new VisLabel(1, 0x28, 0x30, 0xDC, 0x4A, txt_dialogs.GetLine(0x7C), g_font1, clrsh_TechBlack, CGameFont::ALIGN_LEFT_TOP));
 
                 int32_t h = this->rect.Height();
                 int32_t w = this->rect.Width();
@@ -910,9 +910,9 @@ void VisNetDlg::VMethod26() {
         this->UpdateWinRect();
 
         if (g_CLlDriver.GetProvider() == PROVIDER_MODEM) {
-            this->AddChild(new VisLabel(1, 0x28, 0x30, 0xDC, 0x4A, txt_dialogs.GetLine(0x77), g_font1, p_clrsh_Black, 0));
+            this->AddChild(new VisLabel(1, 0x28, 0x30, 0xDC, 0x4A, txt_dialogs.GetLine(0x77), g_font1, p_clrsh_Black, CGameFont::ALIGN_LEFT_TOP));
         } else {
-            this->AddChild(new VisLabel(1, 0x28, 0x30, 0xDC, 0x4A, txt_dialogs.GetLine(0xA3), g_font1, p_clrsh_Black, 0));
+            this->AddChild(new VisLabel(1, 0x28, 0x30, 0xDC, 0x4A, txt_dialogs.GetLine(0xA3), g_font1, p_clrsh_Black, CGameFont::ALIGN_LEFT_TOP));
         }
 
         int32_t h = this->rect.Height();
@@ -971,7 +971,7 @@ void VisServerScreen::VMethod7() {
     LockSurface2();
     FillRectColorSimple(0, 0, g_ScreenSize.right, g_ScreenSize.bottom, 0);
     this->CVisualObject::VMethod7();
-    g_font2->DrawTextWithShadow(0, 0, txt_patch.GetLine(0x39), 0, clrsh_ShockingBlack, 1);
+    g_font2->DrawTextWithShadow(0, 0, txt_patch.GetLine(0x39), CGameFont::ALIGN_LEFT_TOP, clrsh_ShockingBlack, 1);
     FillRectColorSimple(0, 0x10, this->rect.right, 0x11, 0xffff);
     FillRectColorSimple(0, 0x20, this->rect.right, 0x21, 0xffff);
     FillRectColorSimple(0, 0xC8, this->rect.right, 0xC9, 0xffff);
@@ -1006,64 +1006,64 @@ void VisServerScreen::VMethod7() {
             FillRectColor(x, row_top, x, row_bottom, 0xffff);
         }
         x += 0xC;
-        g_font2->DrawTxt(x, 0x14, txt_patch.GetLine(0x3A), 2, clrsh_ShockingBlack);
+        g_font2->DrawTxt(x, 0x14, txt_patch.GetLine(0x3A), CGameFont::ALIGN_HCENTER, clrsh_ShockingBlack);
         str.Format("%d", (int16_t)player->player_id);
-        g_font2->DrawTxt(x, y, str, 2, colosh);
+        g_font2->DrawTxt(x, y, str, CGameFont::ALIGN_HCENTER, colosh);
         x += 0xC;
         if (i == this->scroll_pos) {
             FillRectColor(x, row_top, x, row_bottom, 0xffff);
         }
         x += 0x30;
-        g_font2->DrawTxt(x, 0x14, txt_patch.GetLine(0x3B), 2, clrsh_ShockingBlack);
-        g_font2->DrawTxt(x, y, player->name, 2, colosh);
+        g_font2->DrawTxt(x, 0x14, txt_patch.GetLine(0x3B), CGameFont::ALIGN_HCENTER, clrsh_ShockingBlack);
+        g_font2->DrawTxt(x, y, player->name, CGameFont::ALIGN_HCENTER, colosh);
         x += 0x30;
         if (i == this->scroll_pos) {
             FillRectColor(x, row_top, x, row_bottom, 0xffff);
         }
         x += 0x24;
-        g_font2->DrawTxt(x, 0x14, txt_patch.GetLine(0x3C), 2, clrsh_ShockingBlack);
+        g_font2->DrawTxt(x, 0x14, txt_patch.GetLine(0x3C), CGameFont::ALIGN_HCENTER, clrsh_ShockingBlack);
         str.Format("%d:%02d:%02d", stat->time / 0xE10, (stat->time % 0xE10) / 0x3C, stat->time % 0x3C);
-        g_font2->DrawTxt(x, y, str, 2, colosh);
+        g_font2->DrawTxt(x, y, str, CGameFont::ALIGN_HCENTER, colosh);
         x += 0x24;
         if (i == this->scroll_pos) {
             FillRectColor(x, row_top, x, row_bottom, 0xffff);
         }
         x += 0x18;
-        g_font2->DrawTxt(x, 0x14, txt_patch.GetLine(0x3D), 2, clrsh_ShockingBlack);
+        g_font2->DrawTxt(x, 0x14, txt_patch.GetLine(0x3D), CGameFont::ALIGN_HCENTER, clrsh_ShockingBlack);
         str.Format("%d", stat->cur_bs);
-        g_font2->DrawTxt(x, y, str, 2, colosh);
+        g_font2->DrawTxt(x, y, str, CGameFont::ALIGN_HCENTER, colosh);
         x += 0x18;
         if (i == this->scroll_pos) {
             FillRectColor(x, row_top, x, row_bottom, 0xffff);
         }
         x += 0x18;
-        g_font2->DrawTxt(x, 0x14, txt_patch.GetLine(0x3E), 2, clrsh_ShockingBlack);
+        g_font2->DrawTxt(x, 0x14, txt_patch.GetLine(0x3E), CGameFont::ALIGN_HCENTER, clrsh_ShockingBlack);
         str.Format("%d", bytes_per_sec);
-        g_font2->DrawTxt(x, y, str, 2, colosh);
+        g_font2->DrawTxt(x, y, str, CGameFont::ALIGN_HCENTER, colosh);
         x += 0x18;
         if (i == this->scroll_pos) {
             FillRectColor(x, row_top, x, row_bottom, 0xffff);
         }
         x += 0x18;
-        g_font2->DrawTxt(x, 0x14, txt_patch.GetLine(0x3F), 2, clrsh_ShockingBlack);
+        g_font2->DrawTxt(x, 0x14, txt_patch.GetLine(0x3F), CGameFont::ALIGN_HCENTER, clrsh_ShockingBlack);
         str.Format("%d", stat->max_bs);
-        g_font2->DrawTxt(x, y, str, 2, colosh);
+        g_font2->DrawTxt(x, y, str, CGameFont::ALIGN_HCENTER, colosh);
         x += 0x18;
         if (i == this->scroll_pos) {
             FillRectColor(x, row_top, x, row_bottom, 0xffff);
         }
         x += 0x18;
-        g_font2->DrawTxt(x, 0x14, txt_patch.GetLine(0x40), 2, clrsh_ShockingBlack);
+        g_font2->DrawTxt(x, 0x14, txt_patch.GetLine(0x40), CGameFont::ALIGN_HCENTER, clrsh_ShockingBlack);
         str.Format("%d", player->monster_kills);
-        g_font2->DrawTxt(x, y, str, 2, colosh);
+        g_font2->DrawTxt(x, y, str, CGameFont::ALIGN_HCENTER, colosh);
         x += 0x18;
         if (i == this->scroll_pos) {
             FillRectColor(x, row_top, x, row_bottom, 0xffff);
         }
         x += 0xC;
-        g_font2->DrawTxt(x, 0x14, txt_patch.GetLine(0x41), 2, clrsh_ShockingBlack);
+        g_font2->DrawTxt(x, 0x14, txt_patch.GetLine(0x41), CGameFont::ALIGN_HCENTER, clrsh_ShockingBlack);
         str.Format("%d", player->player_kills);
-        g_font2->DrawTxt(x, y, str, 2, colosh);
+        g_font2->DrawTxt(x, y, str, CGameFont::ALIGN_HCENTER, colosh);
         if (i == this->scroll_pos) {
             FillRectColor(this->rect.right - 1, row_top, this->rect.right - 1, row_bottom, 0xffff);
         }
@@ -1084,7 +1084,7 @@ void VisServerScreen::VMethod7() {
                    g_Server->srv_stru1->sack_list->list.GetCount(),
                    g_Server->last_window_ms / 10,
                    avg_units_per_10_ticks);
-        g_font2->DrawTxt(0, row_bottom + 4, str, 0, clrsh_ShockingBlack);
+        g_font2->DrawTxt(0, row_bottom + 4, str, CGameFont::ALIGN_LEFT_TOP, clrsh_ShockingBlack);
     }
     this->msg_log->Draw();
     UnlockSurface2();
@@ -1274,7 +1274,7 @@ void VisNetPhoneBook::VMethod26() {
     g_CLlDriver.EnumAddresses(&this->enum_addresses, &this->enum_addresses_num);
 
     VisLabel* title = new VisLabel(-1, 0x28, 0x14, this->rect.Width() - 0x28, 0x2c,
-        txt_dialogs.GetLine(0x93), g_font1, p_clrsh_Black, 2);
+        txt_dialogs.GetLine(0x93), g_font1, p_clrsh_Black, CGameFont::ALIGN_HCENTER);
     this->AddChild(title);
 
     int32_t third_width = this->rect.Width() / 3;
@@ -1294,13 +1294,13 @@ void VisNetPhoneBook::VMethod26() {
     this->AddChild(scrollbar);
 
     VisLabel* phone_caption = new VisLabel(4, rc2.left + 0xa, rc2.top - 0x1e, rc2.right + 0xa, rc2.top - 0xa,
-        txt_dialogs.GetLine(0x5c), g_font1, p_clrsh_Black, 2);
+        txt_dialogs.GetLine(0x5c), g_font1, p_clrsh_Black, CGameFont::ALIGN_HCENTER);
     this->AddChild(phone_caption);
 
     phone_list->SetCaptionLabel((VisLabel*)this->FindChild(4));
 
     VisLabel* addr_caption = new VisLabel(-2, rc2.right + 0x30, rc2.top - 0x1e, rc2.right + third_width * 3, rc2.top - 0xa,
-        txt_dialogs.GetLine(0x98), g_font1, p_clrsh_Black, 0);
+        txt_dialogs.GetLine(0x98), g_font1, p_clrsh_Black, CGameFont::ALIGN_LEFT_TOP);
     this->AddChild(addr_caption);
 
     VisTextBox* edit = new VisTextBox(3, rc2.right + 0x30, rc2.top, rc2.right + (third_width * 3) / 2, rc2.top + 0x18,
@@ -1458,28 +1458,28 @@ void VisNetSerialSettings::SaveComSettings() {
 // 448d15
 void VisNetSerialSettings::VMethod26() {
     VisLabel* title = new VisLabel(-1, 0x28, 0x14, this->rect.Width() - 0x28, 0x2c,
-        txt_dialogs.GetLine(0x94), g_font1, p_clrsh_Black, 2);
+        txt_dialogs.GetLine(0x94), g_font1, p_clrsh_Black, CGameFont::ALIGN_HCENTER);
     this->AddChild(title);
 
     CRect rc(0x28, 0x38, 0xd0, 0x3c);
 
-    VisLabel* com_label = new VisLabel(0x1e, rc, txt_dialogs.GetLine(0x6a), g_font1, p_clrsh_Black, 0);
+    VisLabel* com_label = new VisLabel(0x1e, rc, txt_dialogs.GetLine(0x6a), g_font1, p_clrsh_Black, CGameFont::ALIGN_LEFT_TOP);
     this->AddChild(com_label);
     rc.OffsetRect(0, 0x28);
 
-    VisLabel* speed_label = new VisLabel(0x1f, rc, txt_dialogs.GetLine(0x6b), g_font1, p_clrsh_Black, 0);
+    VisLabel* speed_label = new VisLabel(0x1f, rc, txt_dialogs.GetLine(0x6b), g_font1, p_clrsh_Black, CGameFont::ALIGN_LEFT_TOP);
     this->AddChild(speed_label);
     rc.OffsetRect(0, 0x28);
 
-    VisLabel* parity_label = new VisLabel(0x20, rc, txt_dialogs.GetLine(0x6c), g_font1, p_clrsh_Black, 0);
+    VisLabel* parity_label = new VisLabel(0x20, rc, txt_dialogs.GetLine(0x6c), g_font1, p_clrsh_Black, CGameFont::ALIGN_LEFT_TOP);
     this->AddChild(parity_label);
     rc.OffsetRect(0, 0x28);
 
-    VisLabel* flow_label = new VisLabel(0x21, rc, txt_dialogs.GetLine(0x6d), g_font1, p_clrsh_Black, 0);
+    VisLabel* flow_label = new VisLabel(0x21, rc, txt_dialogs.GetLine(0x6d), g_font1, p_clrsh_Black, CGameFont::ALIGN_LEFT_TOP);
     this->AddChild(flow_label);
     rc.OffsetRect(0, 0x28);
 
-    VisLabel* stop_label = new VisLabel(0x22, rc, txt_dialogs.GetLine(0x6e), g_font1, p_clrsh_Black, 0);
+    VisLabel* stop_label = new VisLabel(0x22, rc, txt_dialogs.GetLine(0x6e), g_font1, p_clrsh_Black, CGameFont::ALIGN_LEFT_TOP);
     this->AddChild(stop_label);
 
     VisComboBox* com_combo = new VisComboBox(1, CRect(0xe4, 0x38, this->rect.Width() - 0x2c, 0xb0),

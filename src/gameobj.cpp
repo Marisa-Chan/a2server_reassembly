@@ -1721,7 +1721,7 @@ void CGameObject::DrawControlGroupNumber(int32_t x, int32_t y) { // 4627BB
     if (map->show_hp != 0 && this->IsSelected() == 0) {
         shadow = clrsh_TechBlack;
     }
-    g_font3->DrawTextWithShadow(x, y, buf, 0, shadow, 1);
+    g_font3->DrawTextWithShadow(x, y, buf, CGameFont::ALIGN_LEFT_TOP, shadow, 1);
 }
 
 void CUnit::DrawHealthBar(int32_t tile_x, int32_t tile_y, int32_t hgt) { // 466a78
@@ -1852,16 +1852,16 @@ void CUnit::DrawHealthBar(int32_t tile_x, int32_t tile_y, int32_t hgt) { // 466a
             }
 
             if (quest_flag != 0) {
-                g_font2->DrawTxt((left + right) / 2, y - 0xF, TxtFile::AllLines[0x15A], 2, g_colors_human_pals[this->map_player->color]);
-                g_font2->DrawTxt((left + right) / 2, y - 0x19, TxtFile::AllLines[0x159], 2, g_colors_human_pals[this->map_player->color]);
+                g_font2->DrawTxt((left + right) / 2, y - 0xF, TxtFile::AllLines[0x15A], CGameFont::ALIGN_HCENTER, g_colors_human_pals[this->map_player->color]);
+                g_font2->DrawTxt((left + right) / 2, y - 0x19, TxtFile::AllLines[0x159], CGameFont::ALIGN_HCENTER, g_colors_human_pals[this->map_player->color]);
             }
         }
         return;
     }
 
     if (this->str2[0] != 0) {
-        g_font2->DrawTxt((left + right) / 2, y - 0xF, this->str2, 2, g_colors_human_pals[this->map_player->color]);
-        g_font2->DrawTxt((left + right) / 2, y - 0x19, this->str1, 2, g_colors_human_pals[this->map_player->color]);
+        g_font2->DrawTxt((left + right) / 2, y - 0xF, this->str2, CGameFont::ALIGN_HCENTER, g_colors_human_pals[this->map_player->color]);
+        g_font2->DrawTxt((left + right) / 2, y - 0x19, this->str1, CGameFont::ALIGN_HCENTER, g_colors_human_pals[this->map_player->color]);
     } else {
 #ifdef A2CLIENT_PATCH
         // Admin nicknames ("Administrator <char>" etc.) draw as a
@@ -1883,12 +1883,12 @@ void CUnit::DrawHealthBar(int32_t tile_x, int32_t tile_y, int32_t hgt) { // 466a
             char_name = mp_name + 13;
         }
         if (title != nullptr) {
-            g_font2->DrawTxt((left + right) / 2, y - 0xF, char_name, 2, g_colors_human_pals[this->map_player->color]);
-            g_font2->DrawTxt((left + right) / 2, y - 0x19, title, 2, g_colors_human_pals[this->map_player->color]);
+            g_font2->DrawTxt((left + right) / 2, y - 0xF, char_name, CGameFont::ALIGN_HCENTER, g_colors_human_pals[this->map_player->color]);
+            g_font2->DrawTxt((left + right) / 2, y - 0x19, title, CGameFont::ALIGN_HCENTER, g_colors_human_pals[this->map_player->color]);
             return;
         }
 #endif
-        g_font2->DrawTxt((left + right) / 2, y - 0xF, this->str1, 2, g_colors_human_pals[this->map_player->color]);
+        g_font2->DrawTxt((left + right) / 2, y - 0xF, this->str1, CGameFont::ALIGN_HCENTER, g_colors_human_pals[this->map_player->color]);
     }
 }
 
@@ -3604,45 +3604,45 @@ void CUnit::DrawStatsPanel(CRect* rect) {
     if (strlen(this->str1) == 0) {
         if ((this->unitFlags & (UNIT_FLAG_PLAYER_CLASS | UNIT_FLAG_CREATURE)) != 0) {
             if (map->my_main_unit->IsHostile(this->map_player->index) == 0) {
-                g_font2->DrawTextWithShadow(rect->right - 0x58, rect->top + 0x12, TxtFile::AllLines[0x54], 2, label_color, 1);
+                g_font2->DrawTextWithShadow(rect->right - 0x58, rect->top + 0x12, TxtFile::AllLines[0x54], CGameFont::ALIGN_HCENTER, label_color, 1);
             } else if (this->typeId < unit_type::monster_first) {
-                g_font2->DrawTextWithShadow(rect->right - 0x58, rect->top + 0x12, TxtFile::AllLines[0x53], 2, label_color, 1);
+                g_font2->DrawTextWithShadow(rect->right - 0x58, rect->top + 0x12, TxtFile::AllLines[0x53], CGameFont::ALIGN_HCENTER, label_color, 1);
             }
         }
-        g_font2->DrawTextWithShadow(rect->right - 0x58, rect->top + 0x1c, txt_unitname.GetLine(this->typeId), 2, label_color, 1);
+        g_font2->DrawTextWithShadow(rect->right - 0x58, rect->top + 0x1c, txt_unitname.GetLine(this->typeId), CGameFont::ALIGN_HCENTER, label_color, 1);
     } else {
-        g_font2->DrawTextWithShadow(rect->right - 0x58, rect->top + 0x12, this->str1, 2, label_color, 1);
-        g_font2->DrawTextWithShadow(rect->right - 0x58, rect->top + 0x1c, this->str2, 2, label_color, 1);
+        g_font2->DrawTextWithShadow(rect->right - 0x58, rect->top + 0x12, this->str1, CGameFont::ALIGN_HCENTER, label_color, 1);
+        g_font2->DrawTextWithShadow(rect->right - 0x58, rect->top + 0x1c, this->str2, CGameFont::ALIGN_HCENTER, label_color, 1);
     }
 
     if (view_level > 4) {
-        g_font2->DrawTextWithShadow(rect->left + 6, rect->top + 0x2c, TxtFile::AllLines[0xf], 0, label_color, 1);
-        g_font2->DrawTextWithShadow(rect->left + 6, rect->top + 0x36, TxtFile::AllLines[0x10], 0, label_color, 1);
-        g_font2->DrawTextWithShadow(rect->left + 6, rect->top + 0x40, TxtFile::AllLines[0x11], 0, label_color, 1);
-        g_font2->DrawTextWithShadow(rect->left + 6, rect->top + 0x4a, TxtFile::AllLines[0x12], 0, label_color, 1);
+        g_font2->DrawTextWithShadow(rect->left + 6, rect->top + 0x2c, TxtFile::AllLines[0xf], CGameFont::ALIGN_LEFT_TOP, label_color, 1);
+        g_font2->DrawTextWithShadow(rect->left + 6, rect->top + 0x36, TxtFile::AllLines[0x10], CGameFont::ALIGN_LEFT_TOP, label_color, 1);
+        g_font2->DrawTextWithShadow(rect->left + 6, rect->top + 0x40, TxtFile::AllLines[0x11], CGameFont::ALIGN_LEFT_TOP, label_color, 1);
+        g_font2->DrawTextWithShadow(rect->left + 6, rect->top + 0x4a, TxtFile::AllLines[0x12], CGameFont::ALIGN_LEFT_TOP, label_color, 1);
         sprintf(buf1, "%d", this->body);
         sprintf(buf2, "%d", this->reaction);
-        g_font2->DrawTextWithShadow(rect->left + 0x50, rect->top + 0x2c, buf1, 1, value_color, 1);
-        g_font2->DrawTextWithShadow(rect->left + 0x50, rect->top + 0x36, buf2, 1, value_color, 1);
+        g_font2->DrawTextWithShadow(rect->left + 0x50, rect->top + 0x2c, buf1, CGameFont::ALIGN_RIGHT, value_color, 1);
+        g_font2->DrawTextWithShadow(rect->left + 0x50, rect->top + 0x36, buf2, CGameFont::ALIGN_RIGHT, value_color, 1);
         sprintf(buf1, "%d", this->mind);
         sprintf(buf2, "%d", this->spirit);
-        g_font2->DrawTextWithShadow(rect->left + 0x50, rect->top + 0x40, buf1, 1, value_color, 1);
-        g_font2->DrawTextWithShadow(rect->left + 0x50, rect->top + 0x4a, buf2, 1, value_color, 1);
+        g_font2->DrawTextWithShadow(rect->left + 0x50, rect->top + 0x40, buf1, CGameFont::ALIGN_RIGHT, value_color, 1);
+        g_font2->DrawTextWithShadow(rect->left + 0x50, rect->top + 0x4a, buf2, CGameFont::ALIGN_RIGHT, value_color, 1);
     }
 
     if (view_level > 0) {
-        g_font2->DrawTextWithShadow(rect->left + 0x73, rect->top + 0x2c, TxtFile::AllLines[0x13], 2, label_color, 1);
-        g_font2->DrawTextWithShadow(rect->left + 0x73, rect->top + 0x40, TxtFile::AllLines[0x14], 2, label_color, 1);
+        g_font2->DrawTextWithShadow(rect->left + 0x73, rect->top + 0x2c, TxtFile::AllLines[0x13], CGameFont::ALIGN_HCENTER, label_color, 1);
+        g_font2->DrawTextWithShadow(rect->left + 0x73, rect->top + 0x40, TxtFile::AllLines[0x14], CGameFont::ALIGN_HCENTER, label_color, 1);
         sprintf(buf1, "%d/%d", this->hp, this->hp_max);
         sprintf(buf2, "%d/%d", this->mp, this->mp_max);
-        g_font2->DrawTextWithShadow(rect->left + 0x73, rect->top + 0x36, buf1, 2, value_color, 1);
-        g_font2->DrawTextWithShadow(rect->left + 0x73, rect->top + 0x4a, buf2, 2, value_color, 1);
+        g_font2->DrawTextWithShadow(rect->left + 0x73, rect->top + 0x36, buf1, CGameFont::ALIGN_HCENTER, value_color, 1);
+        g_font2->DrawTextWithShadow(rect->left + 0x73, rect->top + 0x4a, buf2, CGameFont::ALIGN_HCENTER, value_color, 1);
     }
 
     if (view_level > 2) {
         if ((this->unitFlags & UNIT_FLAG_MAGE) == 0) {
-            g_font2->DrawTextWithShadow(rect->left + 6, rect->top + 0x58, TxtFile::AllLines[0x17], 0, label_color, 1);
-            g_font2->DrawTextWithShadow(rect->left + 6, rect->top + 0x62, TxtFile::AllLines[0x19], 0, label_color, 1);
+            g_font2->DrawTextWithShadow(rect->left + 6, rect->top + 0x58, TxtFile::AllLines[0x17], CGameFont::ALIGN_LEFT_TOP, label_color, 1);
+            g_font2->DrawTextWithShadow(rect->left + 6, rect->top + 0x62, TxtFile::AllLines[0x19], CGameFont::ALIGN_LEFT_TOP, label_color, 1);
             uint32_t dmg_min = this->hand_dmg_min;
             uint32_t dmg_spread = this->hand_dmg_spread;
             if ((this->hand_dmg_min & Unit::HAND_DAMAGE_15X_FLAG) != 0 && (this->unitFlags & (UNIT_FLAG_PLAYER_CLASS | UNIT_FLAG_CREATURE)) == 0) {
@@ -3651,8 +3651,8 @@ void CUnit::DrawStatsPanel(CRect* rect) {
             }
             sprintf(buf1, "%d", this->attack);
             sprintf(buf2, "%d-%d", dmg_min, dmg_min + dmg_spread);
-            g_font2->DrawTextWithShadow(rect->left + 0x46, rect->top + 0x62, buf1, 1, value_color, 1);
-            g_font2->DrawTextWithShadow(rect->left + 0x46, rect->top + 0x58, buf2, 1, value_color, 1);
+            g_font2->DrawTextWithShadow(rect->left + 0x46, rect->top + 0x62, buf1, CGameFont::ALIGN_RIGHT, value_color, 1);
+            g_font2->DrawTextWithShadow(rect->left + 0x46, rect->top + 0x58, buf2, CGameFont::ALIGN_RIGHT, value_color, 1);
         } else if (this->equipmentTokens[0] != nullptr && this->equipmentTokens[0]->mods_count != 0) {
             Spell spell((uint8_t)this->equipmentTokens[0]->GetCastSpellId());
 #ifdef A2CLIENT_PATCH
@@ -3665,79 +3665,79 @@ void CUnit::DrawStatsPanel(CRect* rect) {
                 if (spell.damage_min + spell.damage_spread != 0) {
                     // NB: the binary formats this string but never draws it
                     str.Format("#%s: %d-%d", TxtFile::AllLines[0x76], spell.damage_min, spell.damage_min + spell.damage_spread);
-                    g_font2->DrawTextWithShadow(rect->left + 6, rect->top + 0x58, TxtFile::AllLines[0x17], 0, label_color, 1);
+                    g_font2->DrawTextWithShadow(rect->left + 6, rect->top + 0x58, TxtFile::AllLines[0x17], CGameFont::ALIGN_LEFT_TOP, label_color, 1);
                     sprintf(buf2, "%d-%d", spell.damage_min, spell.damage_min + spell.damage_spread);
-                    g_font2->DrawTextWithShadow(rect->left + 0x46, rect->top + 0x58, buf2, 1, value_color, 1);
+                    g_font2->DrawTextWithShadow(rect->left + 0x46, rect->top + 0x58, buf2, CGameFont::ALIGN_RIGHT, value_color, 1);
                 }
             }
         }
     }
 
     if (view_level > 3) {
-        g_font2->DrawTextWithShadow(rect->left + 0x4a, rect->top + 0x58, TxtFile::AllLines[0x18], 0, label_color, 1);
-        g_font2->DrawTextWithShadow(rect->left + 0x4a, rect->top + 0x62, TxtFile::AllLines[0x1a], 0, label_color, 1);
+        g_font2->DrawTextWithShadow(rect->left + 0x4a, rect->top + 0x58, TxtFile::AllLines[0x18], CGameFont::ALIGN_LEFT_TOP, label_color, 1);
+        g_font2->DrawTextWithShadow(rect->left + 0x4a, rect->top + 0x62, TxtFile::AllLines[0x1a], CGameFont::ALIGN_LEFT_TOP, label_color, 1);
         sprintf(buf1, "%d", this->absorb);
         sprintf(buf2, "%d", this->defence);
-        g_font2->DrawTextWithShadow(rect->left + 0x8c, rect->top + 0x58, buf1, 1, value_color, 1);
-        g_font2->DrawTextWithShadow(rect->left + 0x8c, rect->top + 0x62, buf2, 1, value_color, 1);
+        g_font2->DrawTextWithShadow(rect->left + 0x8c, rect->top + 0x58, buf1, CGameFont::ALIGN_RIGHT, value_color, 1);
+        g_font2->DrawTextWithShadow(rect->left + 0x8c, rect->top + 0x62, buf2, CGameFont::ALIGN_RIGHT, value_color, 1);
     }
 
     if (view_level > 1) {
-        g_font2->DrawTextWithShadow(rect->left + 0x28, rect->top + 200, TxtFile::AllLines[0x15], 0, label_color, 1);
-        g_font2->DrawTextWithShadow(rect->left + 0x28, rect->top + 0xd2, TxtFile::AllLines[0x16], 0, label_color, 1);
+        g_font2->DrawTextWithShadow(rect->left + 0x28, rect->top + 200, TxtFile::AllLines[0x15], CGameFont::ALIGN_LEFT_TOP, label_color, 1);
+        g_font2->DrawTextWithShadow(rect->left + 0x28, rect->top + 0xd2, TxtFile::AllLines[0x16], CGameFont::ALIGN_LEFT_TOP, label_color, 1);
         sprintf(buf1, "%d.%d", this->scan_range >> 8, ((this->scan_range & 0xff) * 10) >> 8);
         sprintf(buf2, "%d", this->speed);
-        g_font2->DrawTextWithShadow(rect->left + 0x6a, rect->top + 200, buf1, 1, value_color, 1);
-        g_font2->DrawTextWithShadow(rect->left + 0x6a, rect->top + 0xd2, buf2, 1, value_color, 1);
+        g_font2->DrawTextWithShadow(rect->left + 0x6a, rect->top + 200, buf1, CGameFont::ALIGN_RIGHT, value_color, 1);
+        g_font2->DrawTextWithShadow(rect->left + 0x6a, rect->top + 0xd2, buf2, CGameFont::ALIGN_RIGHT, value_color, 1);
     }
 
     if (view_level > 6) {
         if ((this->unitFlags & (UNIT_FLAG_PLAYER_CLASS | UNIT_FLAG_CREATURE)) == 0) {
-            g_font2->DrawTextWithShadow(rect->left + 6, rect->top + 0x70, TxtFile::AllLines[0x1c], 0, section_color, 1);
+            g_font2->DrawTextWithShadow(rect->left + 6, rect->top + 0x70, TxtFile::AllLines[0x1c], CGameFont::ALIGN_LEFT_TOP, section_color, 1);
         } else {
-            g_font2->DrawTextWithShadow(rect->left + 6, rect->top + 0x70, TxtFile::AllLines[0x1b], 0, section_color, 1);
+            g_font2->DrawTextWithShadow(rect->left + 6, rect->top + 0x70, TxtFile::AllLines[0x1b], CGameFont::ALIGN_LEFT_TOP, section_color, 1);
         }
         for (int32_t i = 0; i < 5; i++) {
             if (this->typeId == unit_type::npc_druid || this->typeId == unit_type::npc_mage
                 || ((this->unitFlags & UNIT_FLAG_PLAYER_CLASS) != 0 && (this->unitFlags & UNIT_FLAG_MAGE) != 0)) {
-                g_font2->DrawTextWithShadow(rect->left + 6, rect->top + 0x7a + i * 10, TxtFile::AllLines[i + 0x24], 0, label_color, 1);
+                g_font2->DrawTextWithShadow(rect->left + 6, rect->top + 0x7a + i * 10, TxtFile::AllLines[i + 0x24], CGameFont::ALIGN_LEFT_TOP, label_color, 1);
             } else {
-                g_font2->DrawTextWithShadow(rect->left + 6, rect->top + 0x7a + i * 10, TxtFile::AllLines[i + 0x1e], 0, label_color, 1);
+                g_font2->DrawTextWithShadow(rect->left + 6, rect->top + 0x7a + i * 10, TxtFile::AllLines[i + 0x1e], CGameFont::ALIGN_LEFT_TOP, label_color, 1);
             }
             sprintf(buf1, "%d", this->skill_levels[i]);
-            g_font2->DrawTextWithShadow(rect->left + 0x46, rect->top + 0x7a + i * 10, buf1, 1, value_color, 1);
+            g_font2->DrawTextWithShadow(rect->left + 0x46, rect->top + 0x7a + i * 10, buf1, CGameFont::ALIGN_RIGHT, value_color, 1);
         }
     }
 
     if (view_level > 5) {
-        g_font2->DrawTextWithShadow(rect->left + 0x4a, rect->top + 0x70, TxtFile::AllLines[0x1c], 0, section_color, 1);
+        g_font2->DrawTextWithShadow(rect->left + 0x4a, rect->top + 0x70, TxtFile::AllLines[0x1c], CGameFont::ALIGN_LEFT_TOP, section_color, 1);
         for (int32_t i = 0; i < 5; i++) {
-            g_font2->DrawTextWithShadow(rect->left + 0x4a, rect->top + 0x7a + i * 10, TxtFile::AllLines[i + 0x29], 0, label_color, 1);
+            g_font2->DrawTextWithShadow(rect->left + 0x4a, rect->top + 0x7a + i * 10, TxtFile::AllLines[i + 0x29], CGameFont::ALIGN_LEFT_TOP, label_color, 1);
             sprintf(buf1, "%d", this->magic_protect[i]);
-            g_font2->DrawTextWithShadow(rect->left + 0x8c, rect->top + 0x7a + i * 10, buf1, 1, value_color, 1);
+            g_font2->DrawTextWithShadow(rect->left + 0x8c, rect->top + 0x7a + i * 10, buf1, CGameFont::ALIGN_RIGHT, value_color, 1);
         }
     }
 
     if ((this->unitFlags & UNIT_FLAG_PLAYER_CLASS) != 0 && view_level == 7) {
         sprintf(buf1, "%d.%d", this->carrying_weight_100g / 10, this->carrying_weight_100g % 10);
-        g_font2->DrawTextWithShadow(rect->left + 0x10, rect->top + 0xae, TxtFile::AllLines[0x23], 0, label_color, 1);
-        g_font2->DrawTextWithShadow(rect->left + 0x7f, rect->top + 0xae, buf1, 1, value_color, 1);
+        g_font2->DrawTextWithShadow(rect->left + 0x10, rect->top + 0xae, TxtFile::AllLines[0x23], CGameFont::ALIGN_LEFT_TOP, label_color, 1);
+        g_font2->DrawTextWithShadow(rect->left + 0x7f, rect->top + 0xae, buf1, CGameFont::ALIGN_RIGHT, value_color, 1);
 #ifdef A2CLIENT_PATCH
         // Tangar info_experience_spaces (470D13).
         TangarFormatWithSpaces(this->exp_summary, buf1, sizeof(buf1));
 #else
         sprintf(buf1, "%d", this->exp_summary);
 #endif
-        g_font2->DrawTextWithShadow(rect->left + 0x10, rect->top + 0xba, TxtFile::AllLines[0x2e], 0, label_color, 1);
-        g_font2->DrawTextWithShadow(rect->left + 0x7f, rect->top + 0xba, buf1, 1, value_color, 1);
+        g_font2->DrawTextWithShadow(rect->left + 0x10, rect->top + 0xba, TxtFile::AllLines[0x2e], CGameFont::ALIGN_LEFT_TOP, label_color, 1);
+        g_font2->DrawTextWithShadow(rect->left + 0x7f, rect->top + 0xba, buf1, CGameFont::ALIGN_RIGHT, value_color, 1);
     }
 
     if ((this->unitFlags & UNIT_FLAG_PLAYER_CLASS) == 0 && this->spells != 0 && view_level == 7) {
-        g_font2->DrawTextWithShadow(rect->left + 0x4a, rect->top + 0xae, TxtFile::AllLines[0xbe], 2, label_color, 1);
+        g_font2->DrawTextWithShadow(rect->left + 0x4a, rect->top + 0xae, TxtFile::AllLines[0xbe], CGameFont::ALIGN_HCENTER, label_color, 1);
     }
 
     if ((this->unitFlags & (UNIT_FLAG_PLAYER_CLASS | UNIT_FLAG_CREATURE)) == 0 && this->special_stat_kind != 0 && view_level == 7) {
-        g_font2->DrawTextWithShadow(rect->left + 0x4a, rect->top + 0xba, TxtFile::AllLines[0xbf], 2, label_color, 1);
+        g_font2->DrawTextWithShadow(rect->left + 0x4a, rect->top + 0xba, TxtFile::AllLines[0xbf], CGameFont::ALIGN_HCENTER, label_color, 1);
     }
 }
 

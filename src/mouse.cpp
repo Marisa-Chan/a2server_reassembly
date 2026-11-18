@@ -199,14 +199,14 @@ void CMousePointer::PaintHint() {
             break;
         }
 
-        g_font2->DrawTextWithShadow(this->hint_rect.left + 5, this->hint_rect.top + 4 + line * 14, ht.Left(fpos), 0, clrsh_LuxorGold, 1);
+        g_font2->DrawTextWithShadow(this->hint_rect.left + 5, this->hint_rect.top + 4 + line * 14, ht.Left(fpos), CGameFont::ALIGN_LEFT_TOP, clrsh_LuxorGold, 1);
 
         ht = ht.Mid(fpos + 1);
 
         line++;
     }
 
-    g_font2->DrawTextWithShadow(this->hint_rect.left + 5, this->hint_rect.top + 4 + line * 14, ht, 0, clrsh_LuxorGold, 1);
+    g_font2->DrawTextWithShadow(this->hint_rect.left + 5, this->hint_rect.top + 4 + line * 14, ht, CGameFont::ALIGN_LEFT_TOP, clrsh_LuxorGold, 1);
 }
 
 void CMousePointer::PaintSelectFrame() {

@@ -794,17 +794,17 @@ void VisLabel::VMethod7() {
         int32_t outx = 0;
         int32_t outy = 0;
 
-        if (this->align_flags & 1) {
+        if (this->align_flags & CGameFont::ALIGN_RIGHT) {
             outx = res.right;
-        } else if (this->align_flags & 2) {
+        } else if (this->align_flags & CGameFont::ALIGN_HCENTER) {
             outx = (res.left + res.right) / 2;
         } else {
             outx = res.left;
         }
 
-        if (this->align_flags & 4) {
+        if (this->align_flags & CGameFont::ALIGN_BOTTOM) {
             outy = res.bottom;
-        } else if (this->align_flags & 8) {
+        } else if (this->align_flags & CGameFont::ALIGN_VCENTER) {
             outy = (res.top + res.bottom) / 2;
         } else {
             outy = res.top;
@@ -863,14 +863,14 @@ void VisButton::VMethod7() {
 
     if (!this->clr) {
         if ((this->mouse_on == 0 && this->TestFlags(FLAG_FOCUS) == 0) || this->TestFlags(FLAG_ENABLED) == 0) {
-            this->font->DrawTextWithShadow(r2.left + 1 + r2.Width() / 2, r2.top + r2.Height() / 2, this->caption, 8 | 2, p_clrsh_Black, dd);
+            this->font->DrawTextWithShadow(r2.left + 1 + r2.Width() / 2, r2.top + r2.Height() / 2, this->caption, CGameFont::ALIGN_CENTER, p_clrsh_Black, dd);
         } else {
-            this->font->DrawTextWithShadow(r2.left + 1 + r2.Width() / 2, r2.top + r2.Height() / 2, this->caption, 8 | 2, p_clrsh_Gold, dd);
+            this->font->DrawTextWithShadow(r2.left + 1 + r2.Width() / 2, r2.top + r2.Height() / 2, this->caption, CGameFont::ALIGN_CENTER, p_clrsh_Gold, dd);
         }
     } else if (this->mouse_on == 0) {
-        this->font->DrawTextWithShadow(r2.left + 1 + r2.Width() / 2, r2.top + r2.Height() / 2, this->caption, 8 | 2, clrsh_DullGold, dd);
+        this->font->DrawTextWithShadow(r2.left + 1 + r2.Width() / 2, r2.top + r2.Height() / 2, this->caption, CGameFont::ALIGN_CENTER, clrsh_DullGold, dd);
     } else {
-        this->font->DrawTextWithShadow(r2.left + 1 + r2.Width() / 2, r2.top + r2.Height() / 2, this->caption, 8 | 2, clrsh_CharlieBrown, dd);
+        this->font->DrawTextWithShadow(r2.left + 1 + r2.Width() / 2, r2.top + r2.Height() / 2, this->caption, CGameFont::ALIGN_CENTER, clrsh_CharlieBrown, dd);
     }
 
     FillRectColor(r2.right, r2.top + 2, r2.right, r2.bottom - 2, clr2);
@@ -1740,7 +1740,7 @@ void VisListBox::DrawItem(int32_t idx, CPoint pos, uint16_t* clr) {
     CRect clip(pos.x, pos.y, rt.right - 6, pos.y + 2 + this->font->GetHeight());
     SetClipRect(clip);
 
-    this->font->DrawTextWithShadow(pos.x, pos.y, this->entries[idx], 0, clr, 1);
+    this->font->DrawTextWithShadow(pos.x, pos.y, this->entries[idx], CGameFont::ALIGN_LEFT_TOP, clr, 1);
 
     SetClipRect(tmp);
 }
@@ -1957,7 +1957,7 @@ void VisTextBox::VMethod7() {
         ShadowRect(rshd, 12);
     }
 
-    this->font->DrawTextWithShadow(rt.left + 4, rt.top + rt.Height() / 2, s, 8, this->clr, 1);
+    this->font->DrawTextWithShadow(rt.left + 4, rt.top + rt.Height() / 2, s, CGameFont::ALIGN_VCENTER, this->clr, 1);
 
     if (this->TestFlags(FLAG_FOCUS) != 0 && this->cursor_blink != 0) {
         CRect blink;
@@ -2468,7 +2468,7 @@ void VisRadioType1::VMethod7() {
             this->clr = p_clrsh_Gold;
         }
 
-        this->font->DrawTextWithShadow(x, y + 5, this->entries[i], 0, this->clr, 1);
+        this->font->DrawTextWithShadow(x, y + 5, this->entries[i], CGameFont::ALIGN_LEFT_TOP, this->clr, 1);
 
         y += gfx_radiob->GetHeight(0);
     }
@@ -2634,7 +2634,7 @@ void VisRadioType2::VMethod7() {
             this->clr = p_clrsh_Black;
         }
 
-        this->font->DrawTextWithShadow(x, y + 5, this->entries[i], 0, this->clr, 1);
+        this->font->DrawTextWithShadow(x, y + 5, this->entries[i], CGameFont::ALIGN_LEFT_TOP, this->clr, 1);
 
         y += gfx_radiob->GetHeight(0);
     }
@@ -2816,7 +2816,7 @@ void VisComboBoxText::VMethod7() {
         clr = p_clrsh_Black;
     }
 
-    this->font->DrawTextWithShadow(rt.left + 4, rt.top + rt.Height() / 2, this->text, 8, clr, 1);
+    this->font->DrawTextWithShadow(rt.left + 4, rt.top + rt.Height() / 2, this->text, CGameFont::ALIGN_VCENTER, clr, 1);
 
     UnlockSurface2();
 }
@@ -3849,7 +3849,7 @@ void VisMessageBox::VMethod26() {
 
             r2 = CRect(40, 116, this->rect.Width() - 40, this->rect.Height() - 112);
         } else {
-            VisLabel* lbl = new VisLabel(1, 40, 32, this->rect.Width() - 40, 56, this->text, g_font1, p_clrsh_Black, 2);
+            VisLabel* lbl = new VisLabel(1, 40, 32, this->rect.Width() - 40, 56, this->text, g_font1, p_clrsh_Black, CGameFont::ALIGN_HCENTER);
 
             this->AddChild(lbl);
 
@@ -3867,7 +3867,7 @@ void VisMessageBox::VMethod26() {
     if (this->title && strlen(this->title) > 0) {
         r2.OffsetRect(0, 12);
         
-        this->AddChild( new VisLabel(-1, r2.left, r2.top - 20, r2.right, r2.top - 4, this->title, g_font1, p_clrsh_Black, 0) );
+        this->AddChild( new VisLabel(-1, r2.left, r2.top - 20, r2.right, r2.top - 4, this->title, g_font1, p_clrsh_Black, CGameFont::ALIGN_LEFT_TOP) );
     }
 
     CVisualObject* obj = this->VMethod30(this->payload, r2);

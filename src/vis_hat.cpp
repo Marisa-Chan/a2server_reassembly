@@ -297,12 +297,12 @@ VisHatBrowserList::~VisHatBrowserList() {
 // 44b60c
 void VisHatBrowserList::DrawItem(int32_t idx, CPoint pos, uint16_t* clr) {
     if (this->state == 0 && idx == 0) {
-        this->font->DrawTextWithShadow(pos.x + 5, pos.y, txt_patch.GetLine(0x71), 0, clrsh_ShockingBlack, 1);
+        this->font->DrawTextWithShadow(pos.x + 5, pos.y, txt_patch.GetLine(0x71), CGameFont::ALIGN_LEFT_TOP, clrsh_ShockingBlack, 1);
         return;
     }
 
     if (this->state == -1 && idx == 0) {
-        this->font->DrawTextWithShadow(pos.x + 5, pos.y, txt_patch.GetLine(0x72), 0, clrsh_ShockingBlack, 1);
+        this->font->DrawTextWithShadow(pos.x + 5, pos.y, txt_patch.GetLine(0x72), CGameFont::ALIGN_LEFT_TOP, clrsh_ShockingBlack, 1);
         return;
     }
 
@@ -327,20 +327,20 @@ void VisHatBrowserList::DrawItem(int32_t idx, CPoint pos, uint16_t* clr) {
 
     CString text = item.Mid(GetFieldPos(item, 1));
     text = text.Left(text.Find('|'));
-    this->font->DrawTextWithShadow(pos.x, pos.y, text, 0, clr, 1);
+    this->font->DrawTextWithShadow(pos.x, pos.y, text, CGameFont::ALIGN_LEFT_TOP, clr, 1);
 
     text = item.Mid(GetFieldPos(item, 3));
     text = text.Left(text.Find('|'));
     clip.right = vis_scr_rect.left + 0x160;
     pos.x = vis_scr_rect.left + 0xDC;
     SetClipRect(clip);
-    this->font->DrawTextWithShadow(pos.x, pos.y, text, 0, clr, 1);
+    this->font->DrawTextWithShadow(pos.x, pos.y, text, CGameFont::ALIGN_LEFT_TOP, clr, 1);
 
     text = item.Mid(GetFieldPos(item, 4));
     text = text.Left(text.Find('|'));
     SetClipRect(saved_clip);
     pos.x = vis_scr_rect.left + 0x163;
-    this->font->DrawTextWithShadow(pos.x, pos.y, text, 0, clr, 1);
+    this->font->DrawTextWithShadow(pos.x, pos.y, text, CGameFont::ALIGN_LEFT_TOP, clr, 1);
 
     int32_t level = item[GetFieldPos(item, 5)] - '1';
     if (level < 0) {
@@ -351,12 +351,12 @@ void VisHatBrowserList::DrawItem(int32_t idx, CPoint pos, uint16_t* clr) {
     }
     text = txt_patch.GetLine(level + 0x62);
     pos.x = vis_scr_rect.left + 0x1AE;
-    this->font->DrawTextWithShadow(pos.x, pos.y, text, 0, clr, 1);
+    this->font->DrawTextWithShadow(pos.x, pos.y, text, CGameFont::ALIGN_LEFT_TOP, clr, 1);
 
     text = item.Mid(GetFieldPos(item, 6));
     text = text.Left(text.Find('|'));
     pos.x = vis_scr_rect.left + 0x203;
-    this->font->DrawTextWithShadow(pos.x, pos.y, text, 0, clr, 1);
+    this->font->DrawTextWithShadow(pos.x, pos.y, text, CGameFont::ALIGN_LEFT_TOP, clr, 1);
 }
 
 
@@ -374,7 +374,7 @@ void VisHatBrowserDlg::VMethod26() {
     int32_t ip_top = 0x2c;
 #endif
 
-    VisLabel* title_label = new VisLabel(0x19, 0x28, title_top, this->rect.Width() - 0x28, 0x38, txt_patch.GetLine(0x6a), g_font1, p_clrsh_Black, 2);
+    VisLabel* title_label = new VisLabel(0x19, 0x28, title_top, this->rect.Width() - 0x28, 0x38, txt_patch.GetLine(0x6a), g_font1, p_clrsh_Black, CGameFont::ALIGN_HCENTER);
     this->AddChild(title_label);
 
     const char* ip_text = main_wnd->hat_settings.hatip;
@@ -383,7 +383,7 @@ void VisHatBrowserDlg::VMethod26() {
         ip_text = main_wnd->hat_settings.hatprogip;
     }
 #endif
-    VisLabel* ip_label = new VisLabel(0x7e, 0x28, ip_top, this->rect.Width() - 0x28, 0x44, ip_text, g_font1, p_clrsh_Black, 2);
+    VisLabel* ip_label = new VisLabel(0x7e, 0x28, ip_top, this->rect.Width() - 0x28, 0x44, ip_text, g_font1, p_clrsh_Black, CGameFont::ALIGN_HCENTER);
     this->AddChild(ip_label);
 
 #ifdef A2CLIENT
@@ -394,7 +394,7 @@ void VisHatBrowserDlg::VMethod26() {
     int32_t cap_bottom = 0x5c;
 #endif
 
-    VisLabel* caption_label = new VisLabel(0x1a, 0x28, cap_top, this->rect.Width() - 0x28, cap_bottom, txt_patch.GetLine(0x6b), g_font1, p_clrsh_Black, 0);
+    VisLabel* caption_label = new VisLabel(0x1a, 0x28, cap_top, this->rect.Width() - 0x28, cap_bottom, txt_patch.GetLine(0x6b), g_font1, p_clrsh_Black, CGameFont::ALIGN_LEFT_TOP);
     this->AddChild(caption_label);
 
     VisHatBrowserList* list = nullptr;
@@ -436,9 +436,9 @@ void VisHatBrowserDlg::VMethod26() {
             store_radio->ReadData(&main_wnd->hat_settings.store);
         }
     
-        VisLabel* status1 = new VisLabel(0x2d, 0x28, this->rect.Height() - 0x64, this->rect.Width() - 0x28, this->rect.Height() - 0x50, " ", g_font1, p_clrsh_Black, 2);
+        VisLabel* status1 = new VisLabel(0x2d, 0x28, this->rect.Height() - 0x64, this->rect.Width() - 0x28, this->rect.Height() - 0x50, " ", g_font1, p_clrsh_Black, CGameFont::ALIGN_HCENTER);
         this->AddChild(status1);
-        VisLabel* status2 = new VisLabel(0x2e, 0x28, this->rect.Height() - 0x54, this->rect.Width() - 0x28, this->rect.Height() - 0x40, " ", g_font1, p_clrsh_Black, 2);
+        VisLabel* status2 = new VisLabel(0x2e, 0x28, this->rect.Height() - 0x54, this->rect.Width() - 0x28, this->rect.Height() - 0x40, " ", g_font1, p_clrsh_Black, CGameFont::ALIGN_HCENTER);
         this->AddChild(status2);
     }
 #endif
@@ -739,11 +739,11 @@ void HatPlayerScoreList::DrawItem(int32_t idx, CPoint pos, uint16_t* clr) {
 
     CString str;
     str.Format("%d. %s", idx + 1, (const char*)this->entries[idx]);
-    this->font->DrawTextWithShadow(pos.x + 5, pos.y, str, 0, color, 1);
+    this->font->DrawTextWithShadow(pos.x + 5, pos.y, str, CGameFont::ALIGN_LEFT_TOP, color, 1);
 
     str.Format("%d", this->scores[idx]);
     int w = this->font->GetStrWidth(str);
-    this->font->DrawTextWithShadow(pos.x + this->rect.Width() - 10 - w, pos.y, str, 1, color, 1);
+    this->font->DrawTextWithShadow(pos.x + this->rect.Width() - 10 - w, pos.y, str, CGameFont::ALIGN_RIGHT, color, 1);
 }
 #endif
 
@@ -970,7 +970,7 @@ CVisualObject* VisHatServerListDlg::VMethod30(const void* data, const RECT& r) {
     ishat_radio->flags = 0;
 #endif
 
-    this->AddChild(new VisLabel(5, r.left, 0xe4 + dy, r.right, 0xfc + dy, txt_patch.GetLine(0x6e), g_font1, p_clrsh_Black, 0));
+    this->AddChild(new VisLabel(5, r.left, 0xe4 + dy, r.right, 0xfc + dy, txt_patch.GetLine(0x6e), g_font1, p_clrsh_Black, CGameFont::ALIGN_LEFT_TOP));
 
     VisTextBox* login_box = new VisTextBox(6, r.left, 0xfc + dy, r.right, 0x114 + dy, g_font1, p_clrsh_Black, nullptr);
     this->AddChild(login_box);
@@ -979,7 +979,7 @@ CVisualObject* VisHatServerListDlg::VMethod30(const void* data, const RECT& r) {
         login_box->ChangeFlags(FLAG_ENABLED, false);
     }
 
-    this->AddChild(new VisLabel(7, r.left, 0x12c + dy, r.right, 0x144 + dy, txt_patch.GetLine(0x6f), g_font1, p_clrsh_Black, 0));
+    this->AddChild(new VisLabel(7, r.left, 0x12c + dy, r.right, 0x144 + dy, txt_patch.GetLine(0x6f), g_font1, p_clrsh_Black, CGameFont::ALIGN_LEFT_TOP));
 
     VisTextBox* password_box = new VisTextBox(8, r.left, 0x144 + dy, r.right, 0x15c + dy, g_font1, p_clrsh_Black, nullptr);
     this->AddChild(password_box);
@@ -1102,15 +1102,15 @@ void VisHatSession::VMethod7() { // 4e8545
     int32_t yoff = rect.top + 32;
     LockSurface2();
     if (mwnd->vis_map_context->hat_item_slot12 == 0) {
-        g_font2->DrawTextWithShadow(rect.left + rect.Width() / 2, yoff, txt_patch.GetLine(181), 2, clrsh_TechBlack, 1);
+        g_font2->DrawTextWithShadow(rect.left + rect.Width() / 2, yoff, txt_patch.GetLine(181), CGameFont::ALIGN_HCENTER, clrsh_TechBlack, 1);
     }
     else if (mwnd->vis_map_context->hat_player_count < 0x7fffffff) {
         CString local_88;
         local_88.Format(txt_patch.GetLine(186), mwnd->vis_map_context->hat_player_count);
-        g_font2->DrawTextWithShadow(rect.left + rect.Width() / 2, yoff, local_88, 2, clrsh_TechBlack, 1);
+        g_font2->DrawTextWithShadow(rect.left + rect.Width() / 2, yoff, local_88, CGameFont::ALIGN_HCENTER, clrsh_TechBlack, 1);
     }
     else {
-        g_font2->DrawTextWithShadow(rect.left + rect.Width() / 2, yoff, txt_patch.GetLine(180), 2, clrsh_TechBlack, 1);
+        g_font2->DrawTextWithShadow(rect.left + rect.Width() / 2, yoff, txt_patch.GetLine(180), CGameFont::ALIGN_HCENTER, clrsh_TechBlack, 1);
     }
 
     yoff += 20;
@@ -1132,14 +1132,14 @@ void VisHatSession::VMethod7() { // 4e8545
             vy2 = yoff + 11;
         }
 
-        g_font2->DrawTextWithShadow(xoff, vy1, txt_patch.GetLine(184), 0, g_colors_human_pals[2], 1);
-        g_font2->DrawTextWithShadow(xoff, vy2, txt_patch.GetLine(185), 0, g_colors_human_pals[0], 1);
-        g_font2->DrawTextWithShadow(rect.right - 32, vy1, local_8c, 1, g_colors_human_pals[2], 1);
-        g_font2->DrawTextWithShadow(rect.right - 32, vy2, local_90, 1, g_colors_human_pals[0], 1);
+        g_font2->DrawTextWithShadow(xoff, vy1, txt_patch.GetLine(184), CGameFont::ALIGN_LEFT_TOP, g_colors_human_pals[2], 1);
+        g_font2->DrawTextWithShadow(xoff, vy2, txt_patch.GetLine(185), CGameFont::ALIGN_LEFT_TOP, g_colors_human_pals[0], 1);
+        g_font2->DrawTextWithShadow(rect.right - 32, vy1, local_8c, CGameFont::ALIGN_RIGHT, g_colors_human_pals[2], 1);
+        g_font2->DrawTextWithShadow(rect.right - 32, vy2, local_90, CGameFont::ALIGN_RIGHT, g_colors_human_pals[0], 1);
     }
 
     for (int i = 0; i < num; i++) {
-        g_font2->DrawTextWithShadow(xoff, yoff, names[i], 0, g_colors_human_pals[colors[i]], 1);
+        g_font2->DrawTextWithShadow(xoff, yoff, names[i], CGameFont::ALIGN_LEFT_TOP, g_colors_human_pals[colors[i]], 1);
         CString st;
         if (mwnd->vis_map_context->hat_item_slot12 == 0) {
             st = txt_patch.GetLine(183 - scores[i]);
@@ -1147,7 +1147,7 @@ void VisHatSession::VMethod7() { // 4e8545
         else {
             st.Format("%d", scores[i]);
         }
-        g_font2->DrawTextWithShadow(rect.right - 32, yoff, st, 1, g_colors_human_pals[colors[i]], 1);
+        g_font2->DrawTextWithShadow(rect.right - 32, yoff, st, CGameFont::ALIGN_RIGHT, g_colors_human_pals[colors[i]], 1);
 
         yoff += 11;
     }

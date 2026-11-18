@@ -4097,9 +4097,9 @@ void CGameFont::DrawTextLinesShadow(const CRect& r, int32_t first, int32_t last,
 
 		if ((flags & 2) == 0) {
 			if ((flags & 1) == 0) {
-				this->DrawTextWithShadow(r.left, r.top + (i - first) * dy, line, 0, clr, 1);
+				this->DrawTextWithShadow(r.left, r.top + (i - first) * dy, line, ALIGN_LEFT_TOP, clr, 1);
 			} else {
-				this->DrawTextWithShadow(r.left + this->char_widths[' '], r.top + (i - first) * dy, line, 0, clr, 1);
+				this->DrawTextWithShadow(r.left + this->char_widths[' '], r.top + (i - first) * dy, line, ALIGN_LEFT_TOP, clr, 1);
 			}
 		} else if ((flags & 1) == 0) {
 			this->DrawTextJustifyShadow(r.left, r.top + (i - first) * dy, r.Width(), line, clr);
@@ -4156,9 +4156,9 @@ void CGameFont::DrawTextLines(const CRect& r, int32_t first, int32_t last, const
 
 		if ((flags & 2) == 0) {
 			if ((flags & 1) == 0) {
-				this->DrawTxt(r.left, r.top + (i - first) * dy, line, 0, clr);
+				this->DrawTxt(r.left, r.top + (i - first) * dy, line, ALIGN_LEFT_TOP, clr);
 			} else {
-				this->DrawTxt(r.left + this->char_widths[' '], r.top + (i - first) * dy, line, 0, clr);
+				this->DrawTxt(r.left + this->char_widths[' '], r.top + (i - first) * dy, line, ALIGN_LEFT_TOP, clr);
 			}
 		} else if ((flags & 1) == 0) {
 			this->DrawTextJustify(r.left, r.top + (i - first) * dy, r.Width(), line, clr);
@@ -4202,7 +4202,7 @@ void CGameFont::DrawTextJustifyShadow(int32_t x, int32_t y, int32_t w, CString t
 
 	double xx = (double)x;
 	for (int i = 0; i < words.GetSize(); i++) {
-		this->DrawTextWithShadow((int32_t)xx, y, words[i], 0, clr, 1);
+		this->DrawTextWithShadow((int32_t)xx, y, words[i], ALIGN_LEFT_TOP, clr, 1);
 		xx += word_space + this->GetStrWidth(words[i]);
 	}
 }
@@ -4240,7 +4240,7 @@ void CGameFont::DrawTextJustify(int32_t x, int32_t y, int32_t w, CString txt, ui
 
 	double xx = (double)x;
 	for (int i = 0; i < words.GetSize(); i++) {
-		this->DrawTxt((int32_t)xx, y, words[i], 0, clr);
+		this->DrawTxt((int32_t)xx, y, words[i], ALIGN_LEFT_TOP, clr);
 		xx += word_space + this->GetStrWidth(words[i]);
 	}
 }
@@ -5085,19 +5085,19 @@ CSpriteFont16::CSpriteFont16(const char* fname, int32_t _space) { //45fa44
 }
 
 void CSpriteFont16::DrawTxt(int32_t x, int32_t y, const char* txt, uint32_t align, uint16_t* clr) { //45fbd7
-	if ((align & 1) != 0) {
+	if ((align & ALIGN_RIGHT) != 0) {
 		x -= this->GetStrWidth(txt);
 	}
 
-	if ((align & 2) != 0) {
+	if ((align & ALIGN_HCENTER) != 0) {
 		x -= this->GetStrWidth(txt) / 2;
 	}
 
-	if ((align & 4) != 0) {
+	if ((align & ALIGN_BOTTOM) != 0) {
 		y -= this->bitmap->GetWidth();
 	}
 
-	if ((align & 8) != 0) {
+	if ((align & ALIGN_VCENTER) != 0) {
 		y -= this->bitmap->GetWidth() / 2;
 	}
 
@@ -5156,19 +5156,19 @@ CSpriteFont16a::~CSpriteFont16a() { // 461000
 }
 
 void CSpriteFont16a::DrawTxt(int32_t x, int32_t y, const char* txt, uint32_t align, uint16_t* clr) { // 45ffa9
-	if ((align & 1) != 0) {
+	if ((align & ALIGN_RIGHT) != 0) {
 		x -= this->GetStrWidth(txt);
 	}
 
-	if ((align & 2) != 0) {
+	if ((align & ALIGN_HCENTER) != 0) {
 		x -= this->GetStrWidth(txt) / 2;
 	}
 
-	if ((align & 4) != 0) {
+	if ((align & ALIGN_BOTTOM) != 0) {
 		y -= this->bitmap->GetWidth();
 	}
 
-	if ((align & 8) != 0) {
+	if ((align & ALIGN_VCENTER) != 0) {
 		y -= this->bitmap->GetWidth() / 2;
 	}
 

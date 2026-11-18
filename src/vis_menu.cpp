@@ -395,9 +395,9 @@ void VisQuestStatus::VMethod7() {
     int32_t row_y = this->rect.top + 0x28;
 
     if (quest_map->GetQuestCount() != 0) {
-        g_font2->DrawTextWithShadow(this->rect.left + this->rect.Width() / 2, row_y - 0xE, TxtFile::AllLines[0x156], 2, clrsh_TechBlack, 1);
+        g_font2->DrawTextWithShadow(this->rect.left + this->rect.Width() / 2, row_y - 0xE, TxtFile::AllLines[0x156], CGameFont::ALIGN_HCENTER, clrsh_TechBlack, 1);
     } else {
-        g_font2->DrawTextWithShadow(this->rect.left + this->rect.Width() / 2, row_y - 0xE, TxtFile::AllLines[0x157], 2, clrsh_TechBlack, 1);
+        g_font2->DrawTextWithShadow(this->rect.left + this->rect.Width() / 2, row_y - 0xE, TxtFile::AllLines[0x157], CGameFont::ALIGN_HCENTER, clrsh_TechBlack, 1);
     }
 
     POSITION quest_it = quest_map->quests_map.GetStartPosition();
@@ -798,9 +798,9 @@ int32_t LoadGameWindow::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) 
 
 void LoadGameWindow::VMethod26() { //43ed94
 
-    this->AddChild(new VisLabel(1, 40, 32, this->rect.Width() - 40, 56, txt_dialogs.GetLine(151), g_font1, p_clrsh_Black, 2)); //restore saved game
+    this->AddChild(new VisLabel(1, 40, 32, this->rect.Width() - 40, 56, txt_dialogs.GetLine(151), g_font1, p_clrsh_Black, CGameFont::ALIGN_HCENTER)); //restore saved game
 
-    VisLabel* caption = new VisLabel(2, 40, 68, this->rect.Width() - 40, 92, txt_dialogs.GetLine(24), g_font1, p_clrsh_Black, 0);//saved games
+    VisLabel* caption = new VisLabel(2, 40, 68, this->rect.Width() - 40, 92, txt_dialogs.GetLine(24), g_font1, p_clrsh_Black, CGameFont::ALIGN_LEFT_TOP);//saved games
     this->AddChild(caption); 
 
     HintedListBox* list = new HintedListBox(3, 40, 92, this->rect.Width() - 64, 284, g_font1, p_clrsh_Black, p_clrsh_ShockingBlack, 10, txt_dialogs.GetLine(25)); //select game for restore
@@ -976,9 +976,9 @@ int __cdecl SaveGameWindow::Compare(void const* a, void const* b) { //43faf4
 
 void SaveGameWindow::VMethod26() { //43fb2c
 
-    this->AddChild(new VisLabel(2, 40, 32, this->rect.Width() - 40, 56, txt_dialogs.GetLine(29), g_font1, p_clrsh_Black, 2));
+    this->AddChild(new VisLabel(2, 40, 32, this->rect.Width() - 40, 56, txt_dialogs.GetLine(29), g_font1, p_clrsh_Black, CGameFont::ALIGN_HCENTER));
 
-    VisLabel* caption = new VisLabel(0, 40, 104, this->rect.Width() - 40, 128, txt_dialogs.GetLine(144), g_font1, p_clrsh_Black, 0);//saved games
+    VisLabel* caption = new VisLabel(0, 40, 104, this->rect.Width() - 40, 128, txt_dialogs.GetLine(144), g_font1, p_clrsh_Black, CGameFont::ALIGN_LEFT_TOP);//saved games
     this->AddChild(caption);
 
     VisTextBox* textbox = new VisTextBox(1, 40, 68, this->rect.Width() - 40, 92, g_font1, p_clrsh_Black, txt_dialogs.GetLine(30));
@@ -1202,9 +1202,9 @@ void GameOptionsWindow::VMethod26() { //442646
     
     MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 
-    this->AddChild( new VisLabel(-1, 40, 20, this->rect.Width() - 40, 40, txt_dialogs.GetLine(150), g_font1, p_clrsh_Black, 2) );
+    this->AddChild( new VisLabel(-1, 40, 20, this->rect.Width() - 40, 40, txt_dialogs.GetLine(150), g_font1, p_clrsh_Black, CGameFont::ALIGN_HCENTER) );
 
-    VisLabel* caption = new VisLabel(1, 40, 56, 232, 80, txt_dialogs.GetLine(50), g_font1, p_clrsh_Black, 2);
+    VisLabel* caption = new VisLabel(1, 40, 56, 232, 80, txt_dialogs.GetLine(50), g_font1, p_clrsh_Black, CGameFont::ALIGN_HCENTER);
     this->AddChild(caption);
 
     VisScrollBar* scrl = new VisScrollBar(2, 40, 84, 232, 108, txt_dialogs.GetLine(51));
@@ -1301,7 +1301,7 @@ void GameOptionsWindow::VMethod26() { //442646
     altclr->SetUpObj(clantips);
 
     
-    this->AddChild(new VisLabel(15, 280, caption->GetRect().bottom + 74, 472, caption->GetRect().bottom + 98, txt_dialogs.GetLine(166), g_font1, p_clrsh_Black, 0));
+    this->AddChild(new VisLabel(15, 280, caption->GetRect().bottom + 74, 472, caption->GetRect().bottom + 98, txt_dialogs.GetLine(166), g_font1, p_clrsh_Black, CGameFont::ALIGN_LEFT_TOP));
 
 
     VisRadioType1* ochar = new VisRadioType1(131, scr.right + 48, scr.bottom + 68, scr.right + 264, scr.bottom + 92, g_font1, p_clrsh_Black, nullptr);
@@ -1334,7 +1334,7 @@ void GameOptionsWindow::VMethod26() { //442646
     neutral->SetUpObj(alli);
 
 
-    VisLabel* lbl = new VisLabel(6, 40, scr.bottom + 156, 208, scr.bottom + 180, txt_dialogs.GetLine(58), g_font1, p_clrsh_Black, 0);
+    VisLabel* lbl = new VisLabel(6, 40, scr.bottom + 156, 208, scr.bottom + 180, txt_dialogs.GetLine(58), g_font1, p_clrsh_Black, CGameFont::ALIGN_LEFT_TOP);
     this->AddChild(lbl);
 
     CRect* lr = &lbl->GetRect();
@@ -1352,7 +1352,7 @@ void GameOptionsWindow::VMethod26() { //442646
 
     lr = &lbl->GetRect();
 
-    lbl = new VisLabel(8, lr->right, lr->top, lr->right + 168, lr->bottom, txt_dialogs.GetLine(63), g_font1, p_clrsh_Black, 0);
+    lbl = new VisLabel(8, lr->right, lr->top, lr->right + 168, lr->bottom, txt_dialogs.GetLine(63), g_font1, p_clrsh_Black, CGameFont::ALIGN_LEFT_TOP);
     this->AddChild(lbl);
 
 
@@ -1372,7 +1372,7 @@ void GameOptionsWindow::VMethod26() { //442646
     neutral->SetDownObj(retreat);
 
     lr = &lbl->GetRect();
-    lbl = new VisLabel(151, lr->right, lr->top, lr->right + 168, lr->bottom, txt_dialogs.GetLine(170), g_font1, p_clrsh_Black, 0);
+    lbl = new VisLabel(151, lr->right, lr->top, lr->right + 168, lr->bottom, txt_dialogs.GetLine(170), g_font1, p_clrsh_Black, CGameFont::ALIGN_LEFT_TOP);
     this->AddChild(lbl);
 
     lr = &retreat->GetRect();
@@ -1565,9 +1565,9 @@ void SoundPreferencesDialogVisualObject::VMethod26() { //43d959
     this->music_player = mwnd->music_player;
     this->track_index = 0;
 
-    this->AddChild(new VisLabel(555, 40, 20, this->rect.Width() - 40, 45, txt_dialogs.GetLine(7), g_font1, p_clrsh_Black, 2)); //Sound options
+    this->AddChild(new VisLabel(555, 40, 20, this->rect.Width() - 40, 45, txt_dialogs.GetLine(7), g_font1, p_clrsh_Black, CGameFont::ALIGN_HCENTER)); //Sound options
 
-    VisLabel* lbl_melodies = new VisLabel(557, 40, 60, this->rect.Width() - 40, 78, txt_dialogs.GetLine(143), g_font1, p_clrsh_Black, 0); //melodies
+    VisLabel* lbl_melodies = new VisLabel(557, 40, 60, this->rect.Width() - 40, 78, txt_dialogs.GetLine(143), g_font1, p_clrsh_Black, CGameFont::ALIGN_LEFT_TOP); //melodies
     this->AddChild(lbl_melodies);
 
     VisButton* btn_acpt = new VisButton(1, 40, 290, 252, 314, txt_dialogs.GetLine(0), g_font1, nullptr, 0x476, 0, txt_dialogs.GetLine(8)); //Accept
@@ -1636,7 +1636,7 @@ void SoundPreferencesDialogVisualObject::VMethod26() { //43d959
 
     btn_play->SetRightObj(btn_stop);
 
-    VisLabel* lbl_mvol = new VisLabel(26, 258, 175, this->rect.Width() - 40, 190, txt_dialogs.GetLine(16), g_font1, p_clrsh_Black, 2);
+    VisLabel* lbl_mvol = new VisLabel(26, 258, 175, this->rect.Width() - 40, 190, txt_dialogs.GetLine(16), g_font1, p_clrsh_Black, CGameFont::ALIGN_HCENTER);
     this->AddChild(lbl_mvol);
 
     VisScrollBar* scrl_mvol = new VisScrollBar(6, 258, 190, this->rect.Width() - 40, 214, txt_dialogs.GetLine(19));
@@ -1660,7 +1660,7 @@ void SoundPreferencesDialogVisualObject::VMethod26() { //43d959
     }
 
 
-    VisLabel* lbl_efvol = new VisLabel(27, 258, 224, this->rect.Width() - 40, 239, txt_dialogs.GetLine(17), g_font1, p_clrsh_Black, 2); //effects vol
+    VisLabel* lbl_efvol = new VisLabel(27, 258, 224, this->rect.Width() - 40, 239, txt_dialogs.GetLine(17), g_font1, p_clrsh_Black, CGameFont::ALIGN_HCENTER); //effects vol
     this->AddChild(lbl_efvol);
 
     VisScrollBar* scrl_efvol = new VisScrollBar(7, 258, 240, this->rect.Width() - 40, 264, txt_dialogs.GetLine(20));
@@ -1673,7 +1673,7 @@ void SoundPreferencesDialogVisualObject::VMethod26() { //43d959
     scrl_efvol->SetCaptionLabel(lbl_efvol);
 
 
-    VisLabel* lbl_svol = new VisLabel(28, 258, 275, this->rect.Width() - 40, 290, txt_dialogs.GetLine(18), g_font1, p_clrsh_Black, 2); //speech vol
+    VisLabel* lbl_svol = new VisLabel(28, 258, 275, this->rect.Width() - 40, 290, txt_dialogs.GetLine(18), g_font1, p_clrsh_Black, CGameFont::ALIGN_HCENTER); //speech vol
     this->AddChild(lbl_svol);
 
     VisScrollBar* scrl_svol = new VisScrollBar(8, 258, 290, this->rect.Width() - 40, 314, txt_dialogs.GetLine(21));
@@ -1975,12 +1975,12 @@ void VisStartGame::VMethod7() {
     CVisualObject* obj = this->FindChild(0x464);
     if (obj != nullptr) {
         CPoint pt = obj->GetRect().TopLeft();
-        g_font4->DrawTxt(screen_x + pt.x - 10, screen_y + pt.y, TxtFile::AllLines.GetAt(0x16D), 1, palette_husk->GetPalette(0));
+        g_font4->DrawTxt(screen_x + pt.x - 10, screen_y + pt.y, TxtFile::AllLines.GetAt(0x16D), CGameFont::ALIGN_RIGHT, palette_husk->GetPalette(0));
     }
     obj = this->FindChild(0x465);
     if (obj != nullptr) {
         CPoint pt = obj->GetRect().TopLeft();
-        g_font4->DrawTxt(screen_x + pt.x - 10, screen_y + pt.y, TxtFile::AllLines.GetAt(0x16E), 1, palette_husk->GetPalette(0));
+        g_font4->DrawTxt(screen_x + pt.x - 10, screen_y + pt.y, TxtFile::AllLines.GetAt(0x16E), CGameFont::ALIGN_RIGHT, palette_husk->GetPalette(0));
     }
 
     this->torchFrameTick = this->torchFrameTick + 1;
@@ -3214,7 +3214,7 @@ VisMainMenu::~VisMainMenu() {
 
 // 44f0e8
 void Vis2Action::VMethod26() {
-    VisLabel* label = new VisLabel(1, 0x28, 0x20, 0xE8, 0x50, this->txt, g_font1, p_clrsh_Black, 2);
+    VisLabel* label = new VisLabel(1, 0x28, 0x20, 0xE8, 0x50, this->txt, g_font1, p_clrsh_Black, CGameFont::ALIGN_HCENTER);
     this->AddChild(label);
 
     CRect ok_rect(
@@ -3304,12 +3304,12 @@ void VisCredits::VMethod7() {
                 bmp->Draw(left + 0x140 - width / 2, top + this->scroll + i * line_height, 0, 0, 0);
             }
         } else if (i == 0) {
-            g_font1->DrawTxt(left + 0x140, top + this->scroll + i * line_height, this->text.GetLine(0), 2, clrsh_ShockingBlack);
+            g_font1->DrawTxt(left + 0x140, top + this->scroll + i * line_height, this->text.GetLine(0), CGameFont::ALIGN_HCENTER, clrsh_ShockingBlack);
         } else {
             if (strlen(this->text.GetLine(i - 1)) == 0) {
-                g_font1->DrawTxt(left + 0x140, top + this->scroll + i * line_height, this->text.GetLine(i), 2, clrsh_ShockingBlack);
+                g_font1->DrawTxt(left + 0x140, top + this->scroll + i * line_height, this->text.GetLine(i), CGameFont::ALIGN_HCENTER, clrsh_ShockingBlack);
             } else {
-                g_font1->DrawTxt(left + 0x140, top + this->scroll + i * line_height, this->text.GetLine(i), 2, clrsh_TechBlack);
+                g_font1->DrawTxt(left + 0x140, top + this->scroll + i * line_height, this->text.GetLine(i), CGameFont::ALIGN_HCENTER, clrsh_TechBlack);
             }
         }
     }
@@ -3431,10 +3431,10 @@ void VisDropGold::VMethod26() {
     VisButton* btn_cancel = new VisButton(10000002, 158, this->rect.Height() - 50, 228, this->rect.Height() - 30, txt_dialogs.GetLine(1), g_font1, clrsh_TechBlack, 0x446, 0, txt_dialogs.GetLine(0x2f));
     this->AddChild(btn_cancel);
 
-    VisLabel* lbl_title = new VisLabel(10000003, 20, 20, 276, 40, txt_dialogs.GetLine(0x30), g_font1, clrsh_TechBlack, 2);
+    VisLabel* lbl_title = new VisLabel(10000003, 20, 20, 276, 40, txt_dialogs.GetLine(0x30), g_font1, clrsh_TechBlack, CGameFont::ALIGN_HCENTER);
     this->AddChild(lbl_title);
 
-    VisLabel* lbl_subtitle = new VisLabel(10000004, 20, 40, 276, 60, txt_dialogs.GetLine(0x31), g_font1, clrsh_TechBlack, 2);
+    VisLabel* lbl_subtitle = new VisLabel(10000004, 20, 40, 276, 60, txt_dialogs.GetLine(0x31), g_font1, clrsh_TechBlack, CGameFont::ALIGN_HCENTER);
     this->AddChild(lbl_subtitle);
 }
 
@@ -3533,7 +3533,7 @@ void VisStartGameTextBox::VMethod7() {
         str = this->text;
     }
 
-    g_font4->DrawTxt(tl.x + this->rect.left, tl.y + this->rect.bottom - g_font4->GetHeight(), str, 0, this->clr);
+    g_font4->DrawTxt(tl.x + this->rect.left, tl.y + this->rect.bottom - g_font4->GetHeight(), str, CGameFont::ALIGN_LEFT_TOP, this->clr);
 
     if ((now - this->ts) > 500) {
         this->ts = now;
@@ -3673,7 +3673,7 @@ void VisListBoxDiplomacy::UpdateRadioPositions(int32_t vis_start_index) {
 void VisListBoxDiplomacy::DrawItem(int32_t idx, CPoint pos, uint16_t* clr) {
     if (this->IsValidIndex(idx)) {
         DiplomacyEntry* entry = this->diplomacy->GetAt(idx);
-        this->font->DrawTextWithShadow(pos.x, pos.y + (this->entry_height_full - this->entry_height) / 2, entry->name, 0, clr, 1);
+        this->font->DrawTextWithShadow(pos.x, pos.y + (this->entry_height_full - this->entry_height) / 2, entry->name, CGameFont::ALIGN_LEFT_TOP, clr, 1);
 
         this->enemy_radios->ElementAt(idx)->VMethod7();
         this->ally_radios->ElementAt(idx)->VMethod7();

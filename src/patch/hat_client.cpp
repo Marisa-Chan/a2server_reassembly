@@ -1191,7 +1191,7 @@ bool RunAutoUpdater(MainWindow* wnd) {
             g_ScreenSize.right / 2,
             g_ScreenSize.bottom / 2,
             GetUpdaterPatchLine(227, "Checking for updates..."),
-            2,
+            CGameFont::ALIGN_HCENTER,
             clrsh_ShockingBlack,
             0);
         UnlockSurface2();
@@ -1236,7 +1236,7 @@ bool RunAutoUpdater(MainWindow* wnd) {
 
             LockSurface2();
             FillRectColorSimple(0, 0, wd, ht, 0);
-            g_font1->DrawTextWithShadow(wd / 2, y, header_str, 2, clrsh_ShockingBlack, 0);
+            g_font1->DrawTextWithShadow(wd / 2, y, header_str, CGameFont::ALIGN_HCENTER, clrsh_ShockingBlack, 0);
             y += 16;
 
             int32_t total_old = static_cast<int32_t>(completed_snapshot.size());
@@ -1247,20 +1247,20 @@ bool RunAutoUpdater(MainWindow* wnd) {
                 }
                 std::string full_line = file_prefix + " " + completed_snapshot[static_cast<size_t>(i)];
                 if (g_font1->GetStrWidth(full_line.c_str()) >= wd / 2) {
-                    g_font1->DrawTextWithShadow(wd / 2, y, full_line.c_str(), 2, clrsh_TechBlack, 0);
+                    g_font1->DrawTextWithShadow(wd / 2, y, full_line.c_str(), CGameFont::ALIGN_HCENTER, clrsh_TechBlack, 0);
                 } else {
-                    g_font1->DrawTextWithShadow(startx, y, file_prefix.c_str(), 0, clrsh_TechBlack, 0);
-                    g_font1->DrawTextWithShadow(wd - startx, y, completed_snapshot[static_cast<size_t>(i)].c_str(), 1, clrsh_TechBlack, 0);
+                    g_font1->DrawTextWithShadow(startx, y, file_prefix.c_str(), CGameFont::ALIGN_LEFT_TOP, clrsh_TechBlack, 0);
+                    g_font1->DrawTextWithShadow(wd - startx, y, completed_snapshot[static_cast<size_t>(i)].c_str(), CGameFont::ALIGN_RIGHT, clrsh_TechBlack, 0);
                 }
                 y += 16;
             }
 
             std::string cur_line = file_prefix + " " + snapshot.filename;
             if (g_font1->GetStrWidth(cur_line.c_str()) >= wd / 2) {
-                g_font1->DrawTextWithShadow(wd / 2, y, cur_line.c_str(), 2, clrsh_TechBlack, 0);
+                g_font1->DrawTextWithShadow(wd / 2, y, cur_line.c_str(), CGameFont::ALIGN_HCENTER, clrsh_TechBlack, 0);
             } else {
-                g_font1->DrawTextWithShadow(startx, y, file_prefix.c_str(), 0, clrsh_ShockingBlack, 0);
-                g_font1->DrawTextWithShadow(wd - startx, y, snapshot.filename.c_str(), 1, clrsh_ShockingBlack, 0);
+                g_font1->DrawTextWithShadow(startx, y, file_prefix.c_str(), CGameFont::ALIGN_LEFT_TOP, clrsh_ShockingBlack, 0);
+                g_font1->DrawTextWithShadow(wd - startx, y, snapshot.filename.c_str(), CGameFont::ALIGN_RIGHT, clrsh_ShockingBlack, 0);
             }
             y += 16;
 
@@ -1276,7 +1276,7 @@ bool RunAutoUpdater(MainWindow* wnd) {
                 snapshot.speed_string.c_str(),
                 snapshot.fnow,
                 snapshot.ftotal);
-            g_font1->DrawTextWithShadow(wd - startx, y, status_line, 1, clrsh_ShockingBlack, 0);
+            g_font1->DrawTextWithShadow(wd - startx, y, status_line, CGameFont::ALIGN_RIGHT, clrsh_ShockingBlack, 0);
 
             UnlockSurface2();
             FlushScreen();

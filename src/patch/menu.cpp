@@ -91,7 +91,7 @@ void Draw() {
 			col = palette_paris_daisy->GetPalette(0);
 		}
 
-		g_font4->DrawTextWithShadow(tx, ty, ButtonLabel(i), 2 /* FONT_ALIGN_CENTER */, col, 1);
+		g_font4->DrawTextWithShadow(tx, ty, ButtonLabel(i), CGameFont::ALIGN_HCENTER, col, 1);
 	}
 
 	UnlockSurface2();

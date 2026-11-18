@@ -226,6 +226,15 @@ extern ColorThing g_DeltaCLR; //660e28
 
 class CGameFont : public CObject {
 public:
+	enum AlignFlags : uint32_t {
+		ALIGN_LEFT_TOP = 0,
+		ALIGN_RIGHT    = 0x01,
+		ALIGN_HCENTER  = 0x02,
+		ALIGN_BOTTOM   = 0x04,
+		ALIGN_VCENTER  = 0x08,
+		ALIGN_CENTER   = ALIGN_HCENTER | ALIGN_VCENTER,
+	};
+
 	virtual ~CGameFont();  // client: 461d19
 
 	virtual void DrawTxt(int32_t x, int32_t y, const char* txt, uint32_t align, uint16_t* colosh);  // client: 464b40
