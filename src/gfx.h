@@ -326,6 +326,26 @@ struct SpriteTrailer {
 };
 ASSERT_SIZE(SpriteTrailer, 4);
 
+struct Rle8Cmd {
+	enum Op : uint8_t {
+		OP_PIXELS      = 0, // 0x00: run of `count` source pixels (or nibble pairs in Rle4)
+		OP_SKIP_LINES  = 1, // 0x40: advance down `count` scanlines
+		OP_SKIP_PIXELS = 2, // 0x80: skip `count` transparent pixels horizontally
+	};
+
+	union {
+		uint8_t raw;
+		struct {
+			uint8_t count : 6; // [5:0] 0x3F
+			uint8_t op    : 2; // [7:6] 0xC0 (Op)
+		};
+	};
+
+	constexpr Rle8Cmd(uint8_t v = 0) : raw(v) {}
+	constexpr operator uint8_t() const { return this->raw; }
+};
+ASSERT_SIZE(Rle8Cmd, 1);
+
 
 class CGameBitmap : public CObject {
 	DECLARE_DYNAMIC(CGameBitmap);

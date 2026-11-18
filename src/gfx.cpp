@@ -474,11 +474,10 @@ void __cdecl BlitRle8(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, 
 		int32_t xx = x;
 		while (h != 0) {
 			while (xx - x < w) {
-				const uint8_t b = *src;
+				const Rle8Cmd cmd = *src;
 				src++;
-				const uint8_t flags = b & 0xc0;
-				uint8_t count = b & 0x3f;
-				if (flags == 0) {
+				uint8_t count = cmd.count;
+				if (cmd.op == Rle8Cmd::OP_PIXELS) {
 					if (yy < g_clipRect.top || yy >= g_clipRect.bottom) {
 						src += count;
 						dst += count;
@@ -494,7 +493,7 @@ void __cdecl BlitRle8(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, 
 							count--;
 						}
 					}
-				} else if (flags == 0x40) {
+				} else if (cmd.op == Rle8Cmd::OP_SKIP_LINES) {
 					yy += count;
 					if (h <= count) {
 						return;
@@ -517,11 +516,10 @@ void __cdecl BlitRle8(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, 
 		while (h > 0) {
 			int32_t xx = 0;
 			while (xx < w) {
-				const uint8_t b = *src;
+				const Rle8Cmd cmd = *src;
 				src++;
-				const uint8_t flags = b & 0xc0;
-				const uint8_t count = b & 0x3f;
-				if (flags == 0) {
+				const uint8_t count = cmd.count;
+				if (cmd.op == Rle8Cmd::OP_PIXELS) {
 					xx += count;
 					for (int i = count / 2; i > 0; i--) {
 						*(uint32_t*)dst = (clr[src[1]] << 16) | clr[src[0]];
@@ -533,7 +531,7 @@ void __cdecl BlitRle8(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, 
 						src++;
 						dst++;
 					}
-				} else if (flags == 0x40) {
+				} else if (cmd.op == Rle8Cmd::OP_SKIP_LINES) {
 					if (h <= count) {
 						return;
 					}
@@ -575,11 +573,10 @@ void __cdecl BlitRle8FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* 
 		int32_t xx = x + w - 1;
 		while (h != 0) {
 			while (xx >= x) {
-				const uint8_t b = *src;
+				const Rle8Cmd cmd = *src;
 				src++;
-				const uint8_t flags = b & 0xc0;
-				uint8_t count = b & 0x3f;
-				if (flags == 0) {
+				uint8_t count = cmd.count;
+				if (cmd.op == Rle8Cmd::OP_PIXELS) {
 					if (yy < g_clipRect.top || yy >= g_clipRect.bottom) {
 						src += count;
 						dst -= count;
@@ -595,7 +592,7 @@ void __cdecl BlitRle8FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* 
 							count--;
 						}
 					}
-				} else if (flags == 0x40) {
+				} else if (cmd.op == Rle8Cmd::OP_SKIP_LINES) {
 					yy += count;
 					if (h <= count) {
 						return;
@@ -618,18 +615,17 @@ void __cdecl BlitRle8FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* 
 		while (h > 0) {
 			int32_t xx = 0;
 			while (xx < w) {
-				const uint8_t b = *src;
+				const Rle8Cmd cmd = *src;
 				src++;
-				const uint8_t flags = b & 0xc0;
-				const uint8_t count = b & 0x3f;
-				if (flags == 0) {
+				const uint8_t count = cmd.count;
+				if (cmd.op == Rle8Cmd::OP_PIXELS) {
 					xx += count;
 					for (int i = count; i > 0; i--) {
 						*dst = clr[ *src ];
 						src++;
 						dst--;
 					}
-				} else if (flags == 0x40) {
+				} else if (cmd.op == Rle8Cmd::OP_SKIP_LINES) {
 					if (h <= count) {
 						return;
 					}
@@ -672,11 +668,10 @@ void __cdecl BlitLightRle8(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* 
 		int32_t xx = x;
 		while (h != 0) {
 			while (xx - x < w) {
-				const uint8_t b = *src;
+				const Rle8Cmd cmd = *src;
 				src++;
-				const uint8_t flags = b & 0xc0;
-				uint8_t count = b & 0x3f;
-				if (flags == 0) {
+				uint8_t count = cmd.count;
+				if (cmd.op == Rle8Cmd::OP_PIXELS) {
 					if (yy < g_clipRect.top || yy >= g_clipRect.bottom) {
 						src += count;
 						dst += count;
@@ -692,7 +687,7 @@ void __cdecl BlitLightRle8(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* 
 							count--;
 						}
 					}
-				} else if (flags == 0x40) {
+				} else if (cmd.op == Rle8Cmd::OP_SKIP_LINES) {
 					yy += count;
 					if (h <= count) {
 						return;
@@ -715,18 +710,17 @@ void __cdecl BlitLightRle8(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* 
 		while (h > 0) {
 			int32_t xx = 0;
 			while (xx < w) {
-				const uint8_t b = *src;
+				const Rle8Cmd cmd = *src;
 				src++;
-				const uint8_t flags = b & 0xc0;
-				const uint8_t count = b & 0x3f;
-				if (flags == 0) {
+				const uint8_t count = cmd.count;
+				if (cmd.op == Rle8Cmd::OP_PIXELS) {
 					xx += count;
 					src += count;
 					for (int i = count; i > 0; i--) {
 						*dst = g_brightnessLookup[bl + *dst];
 						dst++;
 					}
-				} else if (flags == 0x40) {
+				} else if (cmd.op == Rle8Cmd::OP_SKIP_LINES) {
 					if (h <= count) {
 						return;
 					}
@@ -769,11 +763,10 @@ void __cdecl BlitLightRle8Low(int32_t x, int32_t y, int32_t w, int32_t h, uint8_
 		int32_t xx = x;
 		while (h != 0) {
 			while (xx - x < w) {
-				const uint8_t b = *src;
+				const Rle8Cmd cmd = *src;
 				src++;
-				const uint8_t flags = b & 0xc0;
-				uint8_t count = b & 0x3f;
-				if (flags == 0) {
+				uint8_t count = cmd.count;
+				if (cmd.op == Rle8Cmd::OP_PIXELS) {
 					if (yy < g_clipRect.top || yy >= g_clipRect.bottom) {
 						src += count;
 						dst += count;
@@ -789,7 +782,7 @@ void __cdecl BlitLightRle8Low(int32_t x, int32_t y, int32_t w, int32_t h, uint8_
 							count--;
 						}
 					}
-				} else if (flags == 0x40) {
+				} else if (cmd.op == Rle8Cmd::OP_SKIP_LINES) {
 					yy += count;
 					if (h <= count) {
 						return;
@@ -812,18 +805,17 @@ void __cdecl BlitLightRle8Low(int32_t x, int32_t y, int32_t w, int32_t h, uint8_
 		while (h > 0) {
 			int32_t xx = 0;
 			while (xx < w) {
-				const uint8_t b = *src;
+				const Rle8Cmd cmd = *src;
 				src++;
-				const uint8_t flags = b & 0xc0;
-				const uint8_t count = b & 0x3f;
-				if (flags == 0) {
+				const uint8_t count = cmd.count;
+				if (cmd.op == Rle8Cmd::OP_PIXELS) {
 					xx += count;
 					src += count;
 					for (int i = count; i > 0; i--) {
 						*dst = g_brightnessLookup[bl + (*dst >> 3)];
 						dst++;
 					}
-				} else if (flags == 0x40) {
+				} else if (cmd.op == Rle8Cmd::OP_SKIP_LINES) {
 					if (h <= count) {
 						return;
 					}
@@ -865,11 +857,10 @@ void __cdecl BlitLightRle8FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint
 		int32_t xx = x + w - 1;
 		while (h != 0) {
 			while (xx >= x) {
-				const uint8_t b = *src;
+				const Rle8Cmd cmd = *src;
 				src++;
-				const uint8_t flags = b & 0xc0;
-				uint8_t count = b & 0x3f;
-				if (flags == 0) {
+				uint8_t count = cmd.count;
+				if (cmd.op == Rle8Cmd::OP_PIXELS) {
 					if (yy < g_clipRect.top || yy >= g_clipRect.bottom) {
 						src += count;
 						dst -= count;
@@ -885,7 +876,7 @@ void __cdecl BlitLightRle8FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint
 							count--;
 						}
 					}
-				} else if (flags == 0x40) {
+				} else if (cmd.op == Rle8Cmd::OP_SKIP_LINES) {
 					yy += count;
 					if (h <= count) {
 						return;
@@ -908,18 +899,17 @@ void __cdecl BlitLightRle8FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint
 		while (h > 0) {
 			int32_t xx = 0;
 			while (xx < w) {
-				const uint8_t b = *src;
+				const Rle8Cmd cmd = *src;
 				src++;
-				const uint8_t flags = b & 0xc0;
-				const uint8_t count = b & 0x3f;
-				if (flags == 0) {
+				const uint8_t count = cmd.count;
+				if (cmd.op == Rle8Cmd::OP_PIXELS) {
 					xx += count;
 					src += count;
 					for (int i = count; i > 0; i--) {
 						*dst = g_brightnessLookup[bl + *dst];
 						dst--;
 					}
-				} else if (flags == 0x40) {
+				} else if (cmd.op == Rle8Cmd::OP_SKIP_LINES) {
 					if (h <= count) {
 						return;
 					}
@@ -961,11 +951,10 @@ void __cdecl BlitLightRle8FlipXLow(int32_t x, int32_t y, int32_t w, int32_t h, u
 		int32_t xx = x + w - 1;
 		while (h != 0) {
 			while (xx >= x) {
-				const uint8_t b = *src;
+				const Rle8Cmd cmd = *src;
 				src++;
-				const uint8_t flags = b & 0xc0;
-				uint8_t count = b & 0x3f;
-				if (flags == 0) {
+				uint8_t count = cmd.count;
+				if (cmd.op == Rle8Cmd::OP_PIXELS) {
 					if (yy < g_clipRect.top || yy >= g_clipRect.bottom) {
 						src += count;
 						dst -= count;
@@ -981,7 +970,7 @@ void __cdecl BlitLightRle8FlipXLow(int32_t x, int32_t y, int32_t w, int32_t h, u
 							count--;
 						}
 					}
-				} else if (flags == 0x40) {
+				} else if (cmd.op == Rle8Cmd::OP_SKIP_LINES) {
 					yy += count;
 					if (h <= count) {
 						return;
@@ -1004,18 +993,17 @@ void __cdecl BlitLightRle8FlipXLow(int32_t x, int32_t y, int32_t w, int32_t h, u
 		while (h > 0) {
 			int32_t xx = 0;
 			while (xx < w) {
-				const uint8_t b = *src;
+				const Rle8Cmd cmd = *src;
 				src++;
-				const uint8_t flags = b & 0xc0;
-				const uint8_t count = b & 0x3f;
-				if (flags == 0) {
+				const uint8_t count = cmd.count;
+				if (cmd.op == Rle8Cmd::OP_PIXELS) {
 					xx += count;
 					src += count;
 					for (int i = count; i > 0; i--) {
 						*dst = g_brightnessLookup[bl + (*dst >> 3)];
 						dst--;
 					}
-				} else if (flags == 0x40) {
+				} else if (cmd.op == Rle8Cmd::OP_SKIP_LINES) {
 					if (h <= count) {
 						return;
 					}
@@ -1057,11 +1045,10 @@ void __cdecl BlitRle8Blend(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* 
 		int32_t xx = x;
 		while (h != 0) {
 			while (xx - x < w) {
-				const uint8_t b = *src;
+				const Rle8Cmd cmd = *src;
 				src++;
-				const uint8_t flags = b & 0xc0;
-				uint8_t count = b & 0x3f;
-				if (flags == 0) {
+				uint8_t count = cmd.count;
+				if (cmd.op == Rle8Cmd::OP_PIXELS) {
 					if (yy < g_clipRect.top || yy >= g_clipRect.bottom) {
 						src += count;
 						dst += count;
@@ -1077,7 +1064,7 @@ void __cdecl BlitRle8Blend(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* 
 							count--;
 						}
 					}
-				} else if (flags == 0x40) {
+				} else if (cmd.op == Rle8Cmd::OP_SKIP_LINES) {
 					yy += count;
 					if (h <= count) {
 						return;
@@ -1100,18 +1087,17 @@ void __cdecl BlitRle8Blend(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* 
 		while (h > 0) {
 			int32_t xx = 0;
 			while (xx < w) {
-				const uint8_t b = *src;
+				const Rle8Cmd cmd = *src;
 				src++;
-				const uint8_t flags = b & 0xc0;
-				const uint8_t count = b & 0x3f;
-				if (flags == 0) {
+				const uint8_t count = cmd.count;
+				if (cmd.op == Rle8Cmd::OP_PIXELS) {
 					xx += count;
 					for (int i = count; i > 0; i--) {
 						*dst = ((clr[*src] >> 1) & g_ColorAddMask) + ((*dst >> 1) & g_ColorAddMask);
 						src++;
 						dst++;
 					}
-				} else if (flags == 0x40) {
+				} else if (cmd.op == Rle8Cmd::OP_SKIP_LINES) {
 					if (h <= count) {
 						return;
 					}
@@ -1153,11 +1139,10 @@ void __cdecl BlitRle8BlendFlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint
 		int32_t xx = x + w - 1;
 		while (h != 0) {
 			while (xx >= x) {
-				const uint8_t b = *src;
+				const Rle8Cmd cmd = *src;
 				src++;
-				const uint8_t flags = b & 0xc0;
-				uint8_t count = b & 0x3f;
-				if (flags == 0) {
+				uint8_t count = cmd.count;
+				if (cmd.op == Rle8Cmd::OP_PIXELS) {
 					if (yy < g_clipRect.top || yy >= g_clipRect.bottom) {
 						src += count;
 						dst -= count;
@@ -1173,7 +1158,7 @@ void __cdecl BlitRle8BlendFlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint
 							count--;
 						}
 					}
-				} else if (flags == 0x40) {
+				} else if (cmd.op == Rle8Cmd::OP_SKIP_LINES) {
 					yy += count;
 					if (h <= count) {
 						return;
@@ -1196,18 +1181,17 @@ void __cdecl BlitRle8BlendFlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint
 		while (h > 0) {
 			int32_t xx = 0;
 			while (xx < w) {
-				const uint8_t b = *src;
+				const Rle8Cmd cmd = *src;
 				src++;
-				const uint8_t flags = b & 0xc0;
-				const uint8_t count = b & 0x3f;
-				if (flags == 0) {
+				const uint8_t count = cmd.count;
+				if (cmd.op == Rle8Cmd::OP_PIXELS) {
 					xx += count;
 					for (int i = count; i > 0; i--) {
 						*dst = ((clr[*src] >> 1) & g_ColorAddMask) + ((*dst >> 1) & g_ColorAddMask);
 						src++;
 						dst--;
 					}
-				} else if (flags == 0x40) {
+				} else if (cmd.op == Rle8Cmd::OP_SKIP_LINES) {
 					if (h <= count) {
 						return;
 					}
@@ -1256,11 +1240,10 @@ void __cdecl BlitLightRle8Tilt(int32_t x, int32_t y, int32_t w, int32_t h, uint8
 		int32_t xx = x;
 		while (h != 0) {
 			while (xx - x < w) {
-				const uint8_t b = *src;
+				const Rle8Cmd cmd = *src;
 				src++;
-				const uint8_t flags = b & 0xc0;
-				uint8_t count = b & 0x3f;
-				if (flags == 0) {
+				uint8_t count = cmd.count;
+				if (cmd.op == Rle8Cmd::OP_PIXELS) {
 					if (yy < g_clipRect.top || yy >= g_clipRect.bottom) {
 						src += count;
 						dst += count;
@@ -1276,7 +1259,7 @@ void __cdecl BlitLightRle8Tilt(int32_t x, int32_t y, int32_t w, int32_t h, uint8
 							count--;
 						}
 					}
-				} else if (flags == 0x40) {
+				} else if (cmd.op == Rle8Cmd::OP_SKIP_LINES) {
 					yy += count;
 					if (h <= count) {
 						return;
@@ -1310,18 +1293,17 @@ void __cdecl BlitLightRle8Tilt(int32_t x, int32_t y, int32_t w, int32_t h, uint8
 		while (h > 0) {
 			int32_t xx = 0;
 			while (xx < w) {
-				const uint8_t b = *src;
+				const Rle8Cmd cmd = *src;
 				src++;
-				const uint8_t flags = b & 0xc0;
-				const uint8_t count = b & 0x3f;
-				if (flags == 0) {
+				const uint8_t count = cmd.count;
+				if (cmd.op == Rle8Cmd::OP_PIXELS) {
 					xx += count;
 					src += count;
 					for (int i = count; i > 0; i--) {
 						*dst = g_brightnessLookup[bl + *dst];
 						dst++;
 					}
-				} else if (flags == 0x40) {
+				} else if (cmd.op == Rle8Cmd::OP_SKIP_LINES) {
 					if (h <= count) {
 						return;
 					}
@@ -1375,11 +1357,10 @@ void __cdecl BlitLightRle8TiltLow(int32_t x, int32_t y, int32_t w, int32_t h, ui
 		int32_t xx = x;
 		while (h != 0) {
 			while (xx - x < w) {
-				const uint8_t b = *src;
+				const Rle8Cmd cmd = *src;
 				src++;
-				const uint8_t flags = b & 0xc0;
-				uint8_t count = b & 0x3f;
-				if (flags == 0) {
+				uint8_t count = cmd.count;
+				if (cmd.op == Rle8Cmd::OP_PIXELS) {
 					if (yy < g_clipRect.top || yy >= g_clipRect.bottom) {
 						src += count;
 						dst += count;
@@ -1395,7 +1376,7 @@ void __cdecl BlitLightRle8TiltLow(int32_t x, int32_t y, int32_t w, int32_t h, ui
 							count--;
 						}
 					}
-				} else if (flags == 0x40) {
+				} else if (cmd.op == Rle8Cmd::OP_SKIP_LINES) {
 					yy += count;
 					if (h <= count) {
 						return;
@@ -1429,18 +1410,17 @@ void __cdecl BlitLightRle8TiltLow(int32_t x, int32_t y, int32_t w, int32_t h, ui
 		while (h > 0) {
 			int32_t xx = 0;
 			while (xx < w) {
-				const uint8_t b = *src;
+				const Rle8Cmd cmd = *src;
 				src++;
-				const uint8_t flags = b & 0xc0;
-				const uint8_t count = b & 0x3f;
-				if (flags == 0) {
+				const uint8_t count = cmd.count;
+				if (cmd.op == Rle8Cmd::OP_PIXELS) {
 					xx += count;
 					src += count;
 					for (int i = count; i > 0; i--) {
 						*dst = g_brightnessLookup[bl + (*dst >> 3)];
 						dst++;
 					}
-				} else if (flags == 0x40) {
+				} else if (cmd.op == Rle8Cmd::OP_SKIP_LINES) {
 					if (h <= count) {
 						return;
 					}
@@ -1495,11 +1475,10 @@ void __cdecl BlitLightRle8TiltFlipX(int32_t x, int32_t y, int32_t w, int32_t h, 
 		int32_t xx = x + w - 1;
 		while (h != 0) {
 			while (xx >= x) {
-				const uint8_t b = *src;
+				const Rle8Cmd cmd = *src;
 				src++;
-				const uint8_t flags = b & 0xc0;
-				uint8_t count = b & 0x3f;
-				if (flags == 0) {
+				uint8_t count = cmd.count;
+				if (cmd.op == Rle8Cmd::OP_PIXELS) {
 					if (yy < g_clipRect.top || yy >= g_clipRect.bottom) {
 						src += count;
 						dst -= count;
@@ -1515,7 +1494,7 @@ void __cdecl BlitLightRle8TiltFlipX(int32_t x, int32_t y, int32_t w, int32_t h, 
 							count--;
 						}
 					}
-				} else if (flags == 0x40) {
+				} else if (cmd.op == Rle8Cmd::OP_SKIP_LINES) {
 					yy += count;
 					if (h <= count) {
 						return;
@@ -1549,18 +1528,17 @@ void __cdecl BlitLightRle8TiltFlipX(int32_t x, int32_t y, int32_t w, int32_t h, 
 		while (h > 0) {
 			int32_t xx = 0;
 			while (xx < w) {
-				const uint8_t b = *src;
+				const Rle8Cmd cmd = *src;
 				src++;
-				const uint8_t flags = b & 0xc0;
-				const uint8_t count = b & 0x3f;
-				if (flags == 0) {
+				const uint8_t count = cmd.count;
+				if (cmd.op == Rle8Cmd::OP_PIXELS) {
 					xx += count;
 					src += count;
 					for (int i = count; i > 0; i--) {
 						*dst = g_brightnessLookup[bl + *dst];
 						dst--;
 					}
-				} else if (flags == 0x40) {
+				} else if (cmd.op == Rle8Cmd::OP_SKIP_LINES) {
 					if (h <= count) {
 						return;
 					}
@@ -1614,11 +1592,10 @@ void __cdecl BlitLightRle8TiltFlipXLow(int32_t x, int32_t y, int32_t w, int32_t 
 		int32_t xx = x + w - 1;
 		while (h != 0) {
 			while (xx >= x) {
-				const uint8_t b = *src;
+				const Rle8Cmd cmd = *src;
 				src++;
-				const uint8_t flags = b & 0xc0;
-				uint8_t count = b & 0x3f;
-				if (flags == 0) {
+				uint8_t count = cmd.count;
+				if (cmd.op == Rle8Cmd::OP_PIXELS) {
 					if (yy < g_clipRect.top || yy >= g_clipRect.bottom) {
 						src += count;
 						dst -= count;
@@ -1634,7 +1611,7 @@ void __cdecl BlitLightRle8TiltFlipXLow(int32_t x, int32_t y, int32_t w, int32_t 
 							count--;
 						}
 					}
-				} else if (flags == 0x40) {
+				} else if (cmd.op == Rle8Cmd::OP_SKIP_LINES) {
 					yy += count;
 					if (h <= count) {
 						return;
@@ -1668,18 +1645,17 @@ void __cdecl BlitLightRle8TiltFlipXLow(int32_t x, int32_t y, int32_t w, int32_t 
 		while (h > 0) {
 			int32_t xx = 0;
 			while (xx < w) {
-				const uint8_t b = *src;
+				const Rle8Cmd cmd = *src;
 				src++;
-				const uint8_t flags = b & 0xc0;
-				const uint8_t count = b & 0x3f;
-				if (flags == 0) {
+				const uint8_t count = cmd.count;
+				if (cmd.op == Rle8Cmd::OP_PIXELS) {
 					xx += count;
 					src += count;
 					for (int i = count; i > 0; i--) {
 						*dst = g_brightnessLookup[bl + (*dst >> 3)];
 						dst--;
 					}
-				} else if (flags == 0x40) {
+				} else if (cmd.op == Rle8Cmd::OP_SKIP_LINES) {
 					if (h <= count) {
 						return;
 					}
@@ -1714,11 +1690,10 @@ void __cdecl BlitRle8IndexMask(int32_t x, int32_t y, int32_t w, int32_t h, uint8
 	while (h > 0) {
 		int32_t xx = 0;
 		while (xx < w) {
-			const uint8_t b = *src;
+			const Rle8Cmd cmd = *src;
 			src++;
-			const uint8_t flags = b & 0xc0;
-			const uint8_t count = b & 0x3f;
-			if (flags == 0) {
+			const uint8_t count = cmd.count;
+			if (cmd.op == Rle8Cmd::OP_PIXELS) {
 				xx += count;
 				src += count;
 
@@ -1726,7 +1701,7 @@ void __cdecl BlitRle8IndexMask(int32_t x, int32_t y, int32_t w, int32_t h, uint8
 					*dst = mv;
 					dst++;
 				}
-			} else if (flags == 0x40) {
+			} else if (cmd.op == Rle8Cmd::OP_SKIP_LINES) {
 				if (h <= count) {
 					return;
 				}
@@ -2005,11 +1980,10 @@ void __cdecl BlitRle4(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, 
 		int32_t xx = x;
 		while (h != 0) {
 			while (xx - x < w) {
-				const uint8_t b = *src;
+				const Rle8Cmd cmd = *src;
 				src++;
-				const uint8_t flags = b & 0xc0;
-				uint8_t count = b & 0x3f;
-				if (flags == 0) {
+				uint8_t count = cmd.count;
+				if (cmd.op == Rle8Cmd::OP_PIXELS) {
 					if (yy < g_clipRect.top || yy >= g_clipRect.bottom) {
 						src += count;
 						dst += count * 2;
@@ -2043,7 +2017,7 @@ void __cdecl BlitRle4(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, 
 							count--;
 						}
 					}
-				} else if (flags == 0x40) {
+				} else if (cmd.op == Rle8Cmd::OP_SKIP_LINES) {
 					yy += count;
 					if (h <= count) {
 						return;
@@ -2066,11 +2040,10 @@ void __cdecl BlitRle4(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, 
 		while (h > 0) {
 			int32_t xx = 0;
 			while (xx < w) {
-				const uint8_t b = *src;
+				const Rle8Cmd cmd = *src;
 				src++;
-				const uint8_t flags = b & 0xc0;
-				const uint8_t count = b & 0x3f;
-				if (flags == 0) {
+				const uint8_t count = cmd.count;
+				if (cmd.op == Rle8Cmd::OP_PIXELS) {
 					for (int i = count; i > 0; i--) {
 						uint8_t bb = *src;
 						src++;
@@ -2087,7 +2060,7 @@ void __cdecl BlitRle4(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, 
 						dst++;
 						xx++;
 					}
-				} else if (flags == 0x40) {
+				} else if (cmd.op == Rle8Cmd::OP_SKIP_LINES) {
 					if (h <= count) {
 						return;
 					}

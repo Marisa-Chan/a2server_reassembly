@@ -36,6 +36,7 @@ TYPE_ALIASES = {
     "SackVisualType": "uchar",
     "EnterGameParams": "uint",
     "SpriteTrailer": "uint",
+    "Rle8Cmd": "uchar",
 }
 GAME_CATEGORY = "/Game"
 
