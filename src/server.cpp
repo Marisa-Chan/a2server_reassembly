@@ -5107,7 +5107,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
         }
 
     case CHEAT_SHOP:
-        CheckPacketType(pkt, "Packet");
+        CheckPacketType(pkt, "Packet2Dwords");
         if (this->multiplayer == 0) {
             g_DefaultShop.GenerateAssortment();
         }
