@@ -31,6 +31,7 @@ TYPE_ALIASES = {
     "QuestLandmarkId": "uint",
     "ScenarioTavernEntryId": "uint",
     "LandscapeTile": "ushort",
+    "CharacterClassCode": "uchar",
 }
 GAME_CATEGORY = "/Game"
 

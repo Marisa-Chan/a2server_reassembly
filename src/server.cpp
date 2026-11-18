@@ -2482,20 +2482,21 @@ Human* Server::CreatePlayerCharacter(Player* player, uint8_t body, uint8_t react
 
     // Create a new character.
     // Build file extension: ".f5" (default), or ".f"/".m" + (class & 0x3F)
+    CharacterClassCode cls(character_class);
     CString filename;
-    if (character_class == 0) {
+    if (cls.raw == 0) {
         filename = ".f5";
     } else {
         #ifdef A2SERVER_PATCH
-        character_class = FilterAllowedCharacterPicture(character_class);
+        cls = FilterAllowedCharacterPicture(cls.raw);
         #endif
-        const char* ext = (character_class & 0x80) ? ".f" : ".m";
-        filename.Format("%s%u", ext, character_class & 0x3F);
+        const char* ext = cls.is_female ? ".f" : ".m";
+        filename.Format("%s%u", ext, static_cast<unsigned>(cls.portrait_index));
     }
 
     // Pick "Start_XX" prefix: bit6 = is_mage, bit7 = is_female
-    bool is_mage   = (character_class & 0x40) != 0;
-    bool is_female = (character_class & 0x80) != 0;
+    bool is_mage   = cls.is_mage != 0;
+    bool is_female = cls.is_female != 0;
     const char* prefix = (!is_mage && !is_female) ? "Start_MF"
                        : (!is_mage &&  is_female) ? "Start_FF"
                        : ( is_mage && !is_female) ? "Start_MM"
@@ -2595,17 +2596,17 @@ Human* Server::LoadCharacter(void* data, int32_t size, Player* player) {
     }
 
     Human* unit = nullptr;
-    switch (basic_info->character_class & 0xC0) {
-    case 0x00:
+    switch (basic_info->character_class.class_index) {
+    case CharacterClassCode::CLASS_WARRIOR_MALE:
         unit = new Human("Start_MF", 1, nullptr);
         break;
-    case 0x40:
+    case CharacterClassCode::CLASS_MAGE_MALE:
         unit = new Human("Start_MM", 1, nullptr);
         break;
-    case 0x80:
+    case CharacterClassCode::CLASS_WARRIOR_FEMALE:
         unit = new Human("Start_FF", 1, nullptr);
         break;
-    case 0xC0:
+    case CharacterClassCode::CLASS_MAGE_FEMALE:
         unit = new Human("Start_FM", 1, nullptr);
         break;
     }
@@ -6186,12 +6187,12 @@ void Server::SaveCharacter(Humanoid* humanoid) {
     PacketUnitStateVec inv_pkt;
 
     // Gather type/attr flags
-    uint8_t flags = 0;
+    CharacterClassCode cls;
     if (humanoid->typeId == unit_type::hero_fighter_female || humanoid->typeId == unit_type::hero_mage_female) {
-        flags |= 0x80;
+        cls.is_female = 1;
     }
     if (humanoid->unit_attrs & Unit::ATTR_MAGE) {
-        flags |= 0x40;
+        cls.is_mage = 1;
     }
 
     // Build basic info block
@@ -6200,7 +6201,7 @@ void Server::SaveCharacter(Humanoid* humanoid) {
     basic_info.id2 = player->flags;
     basic_info.hat_id = this->hat_id;
     strcpy(basic_info.nick, (const char*)player->name);
-    basic_info.character_class = flags;
+    basic_info.character_class = cls;
     basic_info.picture = humanoid->face;
     basic_info.main_sphere = humanoid->main_sphere;
     basic_info.flags = 4;

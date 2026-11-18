@@ -12,12 +12,38 @@ class CFile;
 class PacketUnitStateVec;
 
 
+struct CharacterClassCode {
+    enum ClassIndex : uint8_t {
+        CLASS_WARRIOR_MALE   = 0, // 0x00
+        CLASS_MAGE_MALE      = 1, // 0x40
+        CLASS_WARRIOR_FEMALE = 2, // 0x80 (Amazon)
+        CLASS_MAGE_FEMALE    = 3, // 0xC0 (Sorceress / Witch)
+    };
+
+    union {
+        uint8_t raw;
+        struct {
+            uint8_t portrait_index : 6; // [5:0] 0..63
+            uint8_t is_mage        : 1; // [6]   0x40
+            uint8_t is_female      : 1; // [7]   0x80
+        };
+        struct {
+            uint8_t portrait_low   : 6; // [5:0]
+            uint8_t class_index    : 2; // [7:6] ClassIndex
+        };
+    };
+
+    constexpr CharacterClassCode(uint8_t v = 0) : raw(v) {}
+    constexpr operator uint8_t() const { return this->raw; }
+};
+ASSERT_SIZE(CharacterClassCode, 1);
+
 struct FileSectionBasicInfo {
     uint32_t id1;
     uint32_t id2;
     uint32_t hat_id;
     char nick[32];
-    uint8_t character_class;
+    CharacterClassCode character_class;
     uint8_t picture;
     uint8_t main_sphere;
     uint8_t flags;

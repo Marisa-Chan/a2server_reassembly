@@ -2401,8 +2401,9 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
                 this->vis_map_context->ConnectAndJoinSession();
                 this->m_GameSession.SubmitCharacterSetupAndWaitForSelectedUnit();
 
-                ScenarioSetVar(0x308, (this->m_GameSession.type & 0x40) != 0);
-                ScenarioSetVar(0x30d, (this->m_GameSession.type & 0x80) != 0);
+                CharacterClassCode cls(static_cast<uint8_t>(this->m_GameSession.type));
+                ScenarioSetVar(0x308, cls.is_mage != 0);
+                ScenarioSetVar(0x30d, cls.is_female != 0);
 
                 if (g_Server) {
                     g_Server->SetDifficulty(this->m_FameHall.GetDifficulty() + 1);
@@ -2488,7 +2489,9 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
 
                 this->m_FameHall.SetDifficulty(this->vis_startgame->GetSelectedDifficulty());
 
-                this->m_GameSession.type = this->vis_startgame->GetSelectedPortraitPlayerType() << 6; // 0x40 and 0x80 bits
+                CharacterClassCode cls;
+                cls.class_index = static_cast<uint8_t>(this->vis_startgame->GetSelectedPortraitPlayerType());
+                this->m_GameSession.type = cls.raw;
 
                 name = this->vis_startgame->GetName();
                 strncpy(this->vis_map_context->GetUnit_3f6c()->str1, name, 12);
@@ -4947,13 +4950,14 @@ void MainWindow::InitNewCampaignSession() { //48dd3a
     this->sessionMode = SESSION_LOCAL_BATTLE;
 
     if (this->StartServerSession(this->sessionMode) == 0) {
-        this->m_GameSession.type = 0;
+        CharacterClassCode cls;
         if (strstr(afxCurrentWinApp->m_lpCmdLine, "-female") != nullptr) {
-            this->m_GameSession.type |= 0x80;
+            cls.is_female = 1;
         }
         if (strstr(afxCurrentWinApp->m_lpCmdLine, "-mage") != nullptr) {
-            this->m_GameSession.type |= 0x40;
+            cls.is_mage = 1;
         }
+        this->m_GameSession.type = cls.raw;
         const char* nm = strstr(afxCurrentWinApp->m_lpCmdLine, "-name");
 
         if (!nm) {
@@ -4986,7 +4990,7 @@ void MainWindow::ShowStartGameSetupForNewSession() { //491b3e
     this->vis_startgame->SetCharName(this->m_GameSession.character_name);
 
     this->vis_startgame->SetSelectedDifficulty(this->m_FameHall.GetDifficulty());
-    this->vis_startgame->SetSelectedPortraitPlayerType(this->m_GameSession.type >> 6);
+    this->vis_startgame->SetSelectedPortraitPlayerType(CharacterClassCode(static_cast<uint8_t>(this->m_GameSession.type)).class_index);
     this->vis_startgame->VMethod28();
     this->vis_root->VMethod9();
 
@@ -6143,21 +6147,21 @@ void CGameSession::RecreateCUnit() { //4941c0
     CUnit* cu = mwnd->vis_map_context->GetUnit_3f6c();
     if (cu) {
         Human* hm = nullptr;
-        switch (this->type & 0xc0) {
+        switch (CharacterClassCode(static_cast<uint8_t>(this->type)).class_index) {
         default:
-        case 0:
+        case CharacterClassCode::CLASS_WARRIOR_MALE:
             hm = new Human("Start_MF", 1, nullptr);
             break;
 
-        case 0x40:
+        case CharacterClassCode::CLASS_MAGE_MALE:
             hm = new Human("Start_MM", 1, nullptr);
             break;
             
-        case 0x80:
+        case CharacterClassCode::CLASS_WARRIOR_FEMALE:
             hm = new Human("Start_FF", 1, nullptr);
             break;
             
-        case 0xc0:
+        case CharacterClassCode::CLASS_MAGE_FEMALE:
             hm = new Human("Start_FM", 1, nullptr);
             break;
         }
@@ -6244,18 +6248,18 @@ void CGameSession::LoadCharacterRosterEntry(int32_t idx) { //492c66
             this->fragCount = stats->frags;
 
             Human* hum;
-            switch (this->type & 0xc0) {
+            switch (CharacterClassCode(static_cast<uint8_t>(this->type)).class_index) {
             default:
-            case 0:
+            case CharacterClassCode::CLASS_WARRIOR_MALE:
                 hum = new Human("Start_MF", 1, nullptr);
                 break;
-            case 0x40:
+            case CharacterClassCode::CLASS_MAGE_MALE:
                 hum = new Human("Start_MM", 1, nullptr);
                 break;
-            case 0x80:
+            case CharacterClassCode::CLASS_WARRIOR_FEMALE:
                 hum = new Human("Start_FF", 1, nullptr);
                 break;
-            case 0xc0:
+            case CharacterClassCode::CLASS_MAGE_FEMALE:
                 hum = new Human("Start_FM", 1, nullptr);
                 break;
             }
