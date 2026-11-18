@@ -133,7 +133,7 @@ uint32_t unitupd_datalen(uint32_t flags) {
 }
 
 // Returns the total length of the packet starting at data[0], or 0 if unknown.
-uint32_t packet_len(const uint8_t* d, size_t avail) {
+uint32_t packet_len(const uint8_t* d, size_t avail, const char* dir) {
     if (avail < 1) {
         return 0;
     }
@@ -152,10 +152,15 @@ uint32_t packet_len(const uint8_t* d, size_t avail) {
         case 0xdc:
             return 1;
         case 0x04: case 0x0b: case 0x39: case 0x3b: case 0x5c: case 0xca: case 0xcc:
-        case 0xd0: case 0xd5: case 0xd8: case 0xe1: case 0x23: case 0x3a: case 0x3d: case 0x3e:
+        case 0xd0: case 0xd5: case 0xd8: case 0x23: case 0x3a: case 0x3d: case 0x3e:
         case 0x3f: case 0x40: case 0x46: case 0x48: case 0x83: case 0x84: case 0x92:
         case 0x94: case 0xaa: case 0xc3: case 0x65: case 0x67: case 0x97: case 0xab:
         case 0xac: case 0xad: case 0xb4: case 0xb5: case 0xb6:
+            return 9;
+        case 0xe1:
+            if (dir != nullptr && strcmp(dir, "SRV->HAT") == 0) {
+                return 5 + u32(1);
+            }
             return 9;
         case 0x0e: case 0x10: case 0xb3: case 0xc1: case 0xdf: case 0x64:
             return 5;
@@ -310,7 +315,7 @@ void frame(const char* dir, long peer_port, const void* framedata, size_t len, c
         fprintf(g_file, "             ids:");
         size_t off = 0;
         while (off < plen) {
-            uint32_t l = packet_len(plain + off, plen - off);
+            uint32_t l = packet_len(plain + off, plen - off, dir);
             if (l == 0) {
                 fprintf(g_file, " 0x%02x?", plain[off]);
                 break;
