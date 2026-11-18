@@ -449,7 +449,7 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 						Unit* uni = nullptr;
 
 						if (packet_unit->flags_mask & UNIT_UPD_TYPE_FACE) {
-							if (g_CUnitStatic.typeId >= 0x20 && g_CUnitStatic.typeId < 0x40) {
+							if (g_CUnitStatic.typeId >= unit_type::hero_sprite_base && g_CUnitStatic.typeId < unit_type::monster_first) {
 								groundunit = true;
 							}
 						} else if (packet_unit->flags_mask & UNIT_UPD_SERVER_ID) {
@@ -3002,7 +3002,7 @@ void VisPlayingArea::UpdateSelectionState() { //416cf7
 
 				this->selection_flags |= 1;
 
-				if ((unit->typeId == 0x17 || unit->typeId == 0x18) && unit->availableSpellMask != 0) {
+				if ((unit->typeId == unit_type::npc_mage || unit->typeId == unit_type::npc_druid) && unit->availableSpellMask != 0) {
 					this->selection_flags |= 0x200;
 					this->UpdateSpellModifiers(unit);
 				}
@@ -6249,8 +6249,8 @@ CGameBitmap* VisPlayingArea::BuildUnitPortrait(int32_t serv_id) {
 		result->SelectBitmapForDraw();
 		memset(g_selDrawBitmap.lpSurface, 0, 0x4a40);
 		CRect rect(-1, -1, -1, -1);
-		if (unit->typeId >= 0x40 && unit->typeId <= 0x66) {
-			rect.TopLeft() = projectile_portrait_pos[unit->typeId - 0x40];
+		if (unit->typeId >= unit_type::monster_first && unit->typeId <= unit_type::merc_troll) {
+			rect.TopLeft() = projectile_portrait_pos[unit->typeId - unit_type::monster_first];
 		}
 		g_bmp_t_back->FlipVertical();
 		if (rect.top == -1) {

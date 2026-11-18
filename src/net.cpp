@@ -832,7 +832,7 @@ void NetStru1::SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t
                     }
                 }
 
-                if (unit->hp_max == max_hp && unit->typeId != 0x1A && unit->typeId != 0x1B) {
+                if (unit->hp_max == max_hp && unit->typeId != unit_type::boss_a && unit->typeId != unit_type::boss_b) {
                     mask &= 0xc08000f3;
                 }
             }
@@ -840,7 +840,7 @@ void NetStru1::SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t
     } else { // Humanoid units
         if (unit->pOwner != player) {
             uint16_t tid = unit->typeId;
-            if (tid < 0x21 || tid > 0x3F) {
+            if (tid < unit_type::hero_fighter_male || tid > unit_type::humanoid_last) {
                 mask &= 0xc0c000fb;
             }
             #ifdef A2SERVER_PATCH
@@ -4668,7 +4668,7 @@ void NetStru1::SendHatPlayerCheck(int32_t a, int32_t b, uint8_t status, int16_t 
 
 // 51A6D5
 void NetStru1::SendMonsterInventory(Unit* unit, Player* player, int32_t start_index, int32_t end_index) {
-    if (unit->typeId < 0x21 || unit->typeId >= 0x40) {
+    if (unit->typeId < unit_type::hero_fighter_male || unit->typeId >= unit_type::monster_first) {
         return;
     }
 
@@ -4730,7 +4730,7 @@ void NetStru1::SendHumanoidProps(Unit* unit, Player* player, int32_t flags) {
         return;
     }
 
-    if (unit->typeId < 0x21 || unit->typeId >= 0x40) {
+    if (unit->typeId < unit_type::hero_fighter_male || unit->typeId >= unit_type::monster_first) {
         if (unit->sent_to_mask & player->vision_sharing_id) {
             return;
         }

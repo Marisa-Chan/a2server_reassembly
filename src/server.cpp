@@ -379,7 +379,7 @@ void Server::ProcessPlayers() {
                 POSITION unit_it = unit_list.GetHeadPosition();
                 while (unit_it != nullptr) {
                     Unit* unit = unit_list.GetNext(unit_it);
-                    if (unit->typeId < 0x21 || unit->typeId > 0x3f) {
+                    if (unit->typeId < unit_type::hero_fighter_male || unit->typeId > unit_type::humanoid_last) {
                         player->RemoveUnit(unit);
                     } else {
                         unit->hp = unit->hp_max;
@@ -6187,7 +6187,7 @@ void Server::SaveCharacter(Humanoid* humanoid) {
 
     // Gather type/attr flags
     uint8_t flags = 0;
-    if (humanoid->typeId == 0x22 || humanoid->typeId == 0x24) {
+    if (humanoid->typeId == unit_type::hero_fighter_female || humanoid->typeId == unit_type::hero_mage_female) {
         flags |= 0x80;
     }
     if (humanoid->unit_attrs & Unit::ATTR_MAGE) {

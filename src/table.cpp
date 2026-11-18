@@ -13,6 +13,7 @@
 #include "item.h"
 #include "resource.h"
 #include "spell.h"
+#include "unit.h"
 
 CStringArray g_SpellDisplayNames;
 CStringArray g_ArmorDisplayNames;
@@ -869,7 +870,7 @@ void GameDataRes::StripMaterialPrefix(int material_id, CString* name) {
 
 // 50DDAE
 int GameDataRes::GetMonsterDataIndex(uint8_t type_id, uint8_t face) {
-    if (type_id < 0x40 && type_id != 0x1A && type_id != 0x1B) {
+    if (type_id < unit_type::monster_first && type_id != unit_type::boss_a && type_id != unit_type::boss_b) {
         for (int32_t i = 1; i < this->humans.GetSize(); i++) {
             if (this->humans[i].name.GetLength() != 0 && this->humans[i].Values()[0].type_id == type_id) {
                 return i;
@@ -906,29 +907,29 @@ int GameDataRes::GetRandomRecruitIndex(int experience) {
         // longer exclusion list (ghosts, flyers, casters, campaign mercs);
         // on quest maps only turtles (type 76) are allowed
         static const int excluded_type_ids[] = {
-            69,  // Ghosts
-            70,  // Bats
-            71,  // Dragons
-            72,  // Urd
-            73,  // Bees
-            81,  // Shamans
-            82,  // F_Zombie.1
-            89,  // F_Skeleton.1
-            97,  // M_Skeleton.3
-            98,  // M_Skeleton.4
-            99,  // Necromancers
-            100, // Druids
-            101, // Mercenary orc (campaign)
-            102, // Mercenary troll (campaign)
-            104, // Spider
-            105, // Succubi
+            unit_type::ghost,
+            unit_type::bat,
+            unit_type::dragon,
+            unit_type::urd,
+            unit_type::bee,
+            unit_type::orc_shaman,
+            unit_type::zombie,
+            unit_type::skeleton,
+            unit_type::skeleton_mage_a,
+            unit_type::skeleton_mage_b,
+            unit_type::necromancer,
+            unit_type::druid,
+            unit_type::catapult,
+            unit_type::merc_troll,
+            unit_type::spider,
+            unit_type::succubus,
         };
         if (Config::ServerID >= QUEST_T1) {
-            if (data->type_id != 76) {
+            if (data->type_id != unit_type::summon_turtle) {
                 continue;
             }
         } else {
-            if (data->type_id <= 63 || data->type_id >= 108) {
+            if (data->type_id <= unit_type::humanoid_last || data->type_id > unit_type::monster_last) {
                 continue;
             }
             bool excluded = false;
@@ -944,17 +945,17 @@ int GameDataRes::GetRandomRecruitIndex(int experience) {
         }
 #else
         // type_id must be in range [0x40, 0x62]
-        if (data->type_id < 0x40 || data->type_id > 0x62) {
+        if (data->type_id < unit_type::monster_first || data->type_id > unit_type::skeleton_mage_b) {
             continue;
         }
 
         // Skip type_id 0x45 with face == 1 (Ghost.1)
-        if (data->type_id == 0x45 && data->face == 1) {
+        if (data->type_id == unit_type::ghost && data->face == 1) {
             continue;
         }
 
         // Skip type_id 0x52 and 0x59 (F_Zombie.1 and F_Skeleton.1)
-        if (data->type_id == 0x52 || data->type_id == 0x59) {
+        if (data->type_id == unit_type::zombie || data->type_id == unit_type::skeleton) {
             continue;
         }
 #endif

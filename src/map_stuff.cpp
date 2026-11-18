@@ -3117,7 +3117,7 @@ Scenario::Scenario(const char* fname) {
         unit->unit_id = (uint16_t)(unit_data->unit_id + 0x6000);
         unit->questFlags = unit_data->group_id;
         if (0x15 <= temp_unit->server_id && temp_unit->server_id <= 0x17) {
-            temp_unit->typeId = (uint16_t)(temp_unit->monster_info->values[0x12] + (0 < temp_unit->mp_max) * 2 + 0x21);
+            temp_unit->typeId = (uint16_t)(temp_unit->monster_info->values[0x12] + (0 < temp_unit->mp_max) * 2 + unit_type::hero_fighter_male);
             temp_unit->face &= 0x3F;
         }
         unit->CopyFromUnit(*temp_unit);

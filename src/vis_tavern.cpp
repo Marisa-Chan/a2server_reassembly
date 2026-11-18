@@ -755,7 +755,7 @@ void VisTavLeftPanel::DrawUnitPanel(CUnit* unit) {
                         this->portrait_bmp->LoadFile(path, nullptr);
                         memset(this->hitmap->GetData(), 0, this->hitmap->GetWidth() * this->hitmap->GetHeight());
                     }
-                    if (obj->typeId >= 0x52 && obj->typeId <= 0x66) {
+                    if (obj->typeId >= unit_type::zombie && obj->typeId <= unit_type::merc_troll) {
                         unit_name.Format("%s", txt_unitname.GetLine(obj->typeId));
                     } else {
                         unit_name.Format("%s[%d]", txt_unitname.GetLine(obj->typeId), target->face);
@@ -773,7 +773,7 @@ void VisTavLeftPanel::DrawUnitPanel(CUnit* unit) {
             if (mob.face > 1) {
                 strcat(picture, suffix);
             }
-            if (mob.type_id >= 0x52 && mob.type_id <= 0x66) {
+            if (mob.type_id >= unit_type::zombie && mob.type_id <= unit_type::merc_troll) {
                 unit_name.Format("%s", txt_unitname.GetLine(mob.type_id));
             } else {
                 unit_name.Format("%s[%d]", txt_unitname.GetLine(mob.type_id), mob.face);

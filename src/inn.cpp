@@ -293,9 +293,9 @@ void Inn::InnCreateQuests(Player* player) {
                 uint8_t tid = (uint8_t)u->typeId;
 
                 // Type ID filter
-                if (0x3f < u->typeId && u->typeId < 0x52 && this->has_kill_all_monsters) {
-                } else if (0x66 < u->typeId && u->typeId < 0x6b && this->has_kill_all_monsters) {
-                } else if (0x51 < u->typeId && u->typeId < 0x64 && this->has_kill_all_undead) {
+                if (unit_type::humanoid_last < u->typeId && u->typeId < unit_type::zombie && this->has_kill_all_monsters) {
+                } else if (unit_type::merc_troll < u->typeId && u->typeId < unit_type::monster_last && this->has_kill_all_monsters) {
+                } else if (unit_type::orc_shaman < u->typeId && u->typeId <= unit_type::necromancer && this->has_kill_all_undead) {
                 } else {
                     continue;
                 }
@@ -457,9 +457,9 @@ void Inn::InnCreateQuests(Player* player) {
                     continue;
                 }
 
-                if (0x3f < u->typeId && u->typeId < 0x52 && this->has_kill_all_monsters) {
-                } else if (0x66 < u->typeId && u->typeId < 0x6b && this->has_kill_all_monsters) {
-                } else if (0x51 < u->typeId && u->typeId < 0x64 && this->has_kill_all_undead) {
+                if (unit_type::humanoid_last < u->typeId && u->typeId < unit_type::zombie && this->has_kill_all_monsters) {
+                } else if (unit_type::merc_troll < u->typeId && u->typeId < unit_type::monster_last && this->has_kill_all_monsters) {
+                } else if (unit_type::orc_shaman < u->typeId && u->typeId <= unit_type::necromancer && this->has_kill_all_undead) {
                 } else {
                     continue;
                 }
@@ -1030,7 +1030,7 @@ void Inn::InnReward(Player* player) {
         {
 #endif
         bool is_fighter = (player->main_unit->unit_attrs & Unit::ATTR_MAGE) == 0;
-        bool is_female = (player->main_unit->typeId == 0x22 || player->main_unit->typeId == 0x24);
+        bool is_female = (player->main_unit->typeId == unit_type::hero_fighter_female || player->main_unit->typeId == unit_type::hero_mage_female);
 
         uint8_t max_body, max_reaction, max_mind, max_spirit;
 

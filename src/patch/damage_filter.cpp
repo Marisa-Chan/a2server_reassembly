@@ -27,7 +27,7 @@ uint32_t GetDamageBonus(Unit* unit) {
     }
 
     // only humans wear equipment with stats
-    if (unit->typeId <= 0x20 || unit->typeId >= 0x40) {
+    if (unit->typeId < unit_type::hero_fighter_male || unit->typeId >= unit_type::monster_first) {
         return 0;
     }
 

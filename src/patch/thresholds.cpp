@@ -90,7 +90,7 @@ bool IsGigaPlayer(const Unit* unit) {
 }
 
 bool IsFemale(const Unit* unit) {
-    return unit->typeId == 34 || unit->typeId == 36;
+    return unit->typeId == unit_type::hero_fighter_female || unit->typeId == unit_type::hero_mage_female;
 }
 
 ServerIDType ServerType(const std::string& value) {

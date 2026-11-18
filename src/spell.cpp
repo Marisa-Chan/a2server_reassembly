@@ -669,7 +669,7 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
                         }
                         uint16_t type_id = u->typeId;
                         // 0x52--0x62: undeads. 0x21--0x24 don't seem to exist in `data.xml` though?
-                        if (type_id >= 0x52 && type_id <= 0x62 || type_id >= 0x21 && type_id <= 0x24) {
+                        if (type_id >= unit_type::zombie && type_id <= unit_type::skeleton_mage_b || type_id >= unit_type::hero_fighter_male && type_id <= unit_type::hero_mage_female) {
                             continue;
                         }
                         if (u->position->IsSameYX(&local_pos)) {

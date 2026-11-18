@@ -56,11 +56,11 @@ void InitializeMobNames() {
         // Add necros share the same type_id=99. Same with druids (100) and
         // catapults (101).
         std::string name = (const char*)m.name;
-        if (d.type_id == 99) {
+        if (d.type_id == unit_type::necromancer) {
             name = "Necro";
-        } else if (d.type_id == 100) {
+        } else if (d.type_id == unit_type::druid) {
             name = "Druid";
-        } else if (d.type_id == 101) {
+        } else if (d.type_id == unit_type::catapult) {
             name = "Catapult";
         }
 

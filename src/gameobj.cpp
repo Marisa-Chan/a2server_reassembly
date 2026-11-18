@@ -1532,7 +1532,7 @@ void CUnit::CopyFromUnit(const Unit& uni) { //46b0d7
     this->magic_protect[3] = uni.protections.magic_protections[4];
     this->magic_protect[4] = uni.protections.magic_protections[5];
 
-    if (this->typeId == 0x49 || this->typeId == 0x68 || this->typeId == 0x46) {
+    if (this->typeId == unit_type::bee || this->typeId == unit_type::spider || this->typeId == unit_type::bat) {
         this->special_stat_kind = 2;
     } else {
         this->special_stat_kind = 0;
@@ -1545,11 +1545,11 @@ void CUnit::ApplyFace(int32_t _face) { //46b7d2
 
     this->face = _face;
 
-    if (this->typeId > 0x1f && this->typeId < 0x40) {
+    if (this->typeId >= unit_type::hero_sprite_base && this->typeId < unit_type::monster_first) {
         this->unitFlags &= UNIT_FLAG_HIDDEN;
         this->unitFlags |=(UNIT_FLAG_PLAYER_CLASS | UNIT_FLAG_EQUIP_CHANGED);
 
-        this->typeId -= 0x21;
+        this->typeId -= unit_type::hero_fighter_male;
 
         if ((this->typeId & 1) != 0) {
             this->unitFlags |= UNIT_FLAG_FEMALE;
@@ -1560,7 +1560,7 @@ void CUnit::ApplyFace(int32_t _face) { //46b7d2
         }
 
         this->typeId = 1;
-    } else if (this->typeId < 0x1a) {
+    } else if (this->typeId < unit_type::boss_a) {
         this->unitFlags &= UNIT_FLAG_HIDDEN;
         this->unitFlags |=(UNIT_FLAG_CREATURE | UNIT_FLAG_EQUIP_CHANGED);
 
@@ -1570,7 +1570,7 @@ void CUnit::ApplyFace(int32_t _face) { //46b7d2
 
         this->face &= ~0x80;
 
-        if (this->typeId > 0x16 && this->typeId < 0x19) {
+        if (this->typeId == unit_type::npc_mage || this->typeId == unit_type::npc_druid) {
             this->unitFlags |= UNIT_FLAG_MAGE;
         }
     }
@@ -1680,9 +1680,9 @@ void CUnit::ReloadSprite() { // 46b91c
             } else if (strcmp(this->heroSpritePictureName, "xbowman") == 0) {
                 this->typeId = 15;
             } else if (strcmp(this->heroSpritePictureName, "mage") == 0) {
-                this->typeId = 23;
+                this->typeId = unit_type::npc_mage;
             } else if (strcmp(this->heroSpritePictureName, "mage_st") == 0) {
-                this->typeId = 24;
+                this->typeId = unit_type::npc_druid;
             }
         }
     }
@@ -2098,7 +2098,7 @@ void CUnit::Draw(int32_t tile_x, int32_t tile_y, int32_t light) { // 464974
         cy = draw_vfx->center_y - draw_vfx->height / 2 + gfx_file->GetSpriteB()->GetHeight(frame) / 2;
         x = this->centerScreenX - cx;
         y = this->centerScreenY - cy - this->terrainHeightOffset - this->z_pos;
-        if (g_settings.Smoothing != 0 || this->typeId == 0x45) {
+        if (g_settings.Smoothing != 0 || this->typeId == unit_type::ghost) {
             gfx_file->GetSpriteB()->DrawWithPaletteBlend(x, y, frame, light, palette, flip);
         }
     }
@@ -3605,7 +3605,7 @@ void CUnit::DrawStatsPanel(CRect* rect) {
         if ((this->unitFlags & (UNIT_FLAG_PLAYER_CLASS | UNIT_FLAG_CREATURE)) != 0) {
             if (map->my_main_unit->IsHostile(this->map_player->index) == 0) {
                 g_font2->DrawTextWithShadow(rect->right - 0x58, rect->top + 0x12, TxtFile::AllLines[0x54], 2, label_color, 1);
-            } else if (this->typeId < 0x40) {
+            } else if (this->typeId < unit_type::monster_first) {
                 g_font2->DrawTextWithShadow(rect->right - 0x58, rect->top + 0x12, TxtFile::AllLines[0x53], 2, label_color, 1);
             }
         }
@@ -3698,7 +3698,7 @@ void CUnit::DrawStatsPanel(CRect* rect) {
             g_font2->DrawTextWithShadow(rect->left + 6, rect->top + 0x70, TxtFile::AllLines[0x1b], 0, section_color, 1);
         }
         for (int32_t i = 0; i < 5; i++) {
-            if (this->typeId == 0x18 || this->typeId == 0x17
+            if (this->typeId == unit_type::npc_druid || this->typeId == unit_type::npc_mage
                 || ((this->unitFlags & UNIT_FLAG_PLAYER_CLASS) != 0 && (this->unitFlags & UNIT_FLAG_MAGE) != 0)) {
                 g_font2->DrawTextWithShadow(rect->left + 6, rect->top + 0x7a + i * 10, TxtFile::AllLines[i + 0x24], 0, label_color, 1);
             } else {
@@ -3783,7 +3783,7 @@ const char* CUnit::GetStatsHint(int32_t x, int32_t y) {
     }
 
     if (view_level > 6) {
-        if (this->typeId == 0x18 || this->typeId == 0x17) {
+        if (this->typeId == unit_type::npc_druid || this->typeId == unit_type::npc_mage) {
             if (x < 0x50 && y > 0x79 && y < 0xac) {
                 return TxtFile::AllLines[(y - 0x7a) / 10 + 0xb0];
             }

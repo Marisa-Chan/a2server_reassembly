@@ -1323,7 +1323,7 @@ void Unit::InitDefaultStats() {
     this->carrying_body_100g = this->body * 10;
 #ifdef A2TANGAR_HAT
     // replace_unit_carrying_body_with_reaction hook (52A29E): circle witches carry by reaction, not body
-    if (this->pOwner != nullptr && circle::Circle(this) > 0 && (this->unit_attrs & Unit::ATTR_MAGE) != 0 && (this->typeId == 0x22 || this->typeId == 0x24)) {
+    if (this->pOwner != nullptr && circle::Circle(this) > 0 && (this->unit_attrs & Unit::ATTR_MAGE) != 0 && (this->typeId == unit_type::hero_fighter_female || this->typeId == unit_type::hero_mage_female)) {
         this->carrying_body_100g = this->reaction * 10;
     }
 #endif
@@ -1567,7 +1567,7 @@ void Unit::Die() {
     this->position->y_subcell = 0x80;
 
 #ifndef A2CLIENT
-    if (g_ServerConfig.gameType == GAME_TYPE_COOPERATIVE || (g_ServerConfig.gameType == GAME_TYPE_ARENA && this->typeId >= 0x40)) {
+    if (g_ServerConfig.gameType == GAME_TYPE_COOPERATIVE || (g_ServerConfig.gameType == GAME_TYPE_ARENA && this->typeId >= unit_type::monster_first)) {
 #else
     {
 #endif
@@ -1591,7 +1591,7 @@ void Unit::Die() {
         bool should_drop = false;
 
 #ifndef A2CLIENT
-        if (this->typeId >= 0x40) {
+        if (this->typeId >= unit_type::monster_first) {
             int roll = Random0N(99); // [0, 99]
             should_drop = (roll < 100 - g_ServerConfig.treasure_probability);
         }
@@ -1605,7 +1605,7 @@ void Unit::Die() {
 
         int32_t gold = 0;
 
-        if (this->typeId >= 0x40 && this->summoned == 0) {
+        if (this->typeId >= unit_type::monster_first && this->summoned == 0) {
             MonsterInfoData& monster_data = this->monster_info->Values().GetData()[0];
 
             // Gold drop.
@@ -1726,7 +1726,7 @@ void Unit::Die() {
     }
 
     // Respawn notification for player character types (typeId 0x21-0x3F).
-    if (!g_Server->multiplayer && this->pOwner != nullptr && !this->pOwner->is_ai && 0x21 <= this->typeId && this->typeId <= 0x3F) {
+    if (!g_Server->multiplayer && this->pOwner != nullptr && !this->pOwner->is_ai && unit_type::hero_fighter_male <= this->typeId && this->typeId <= unit_type::humanoid_last) {
         this->pOwner->mission_result = (uint8_t)(this->server_id - 0x13);
         g_NetStru1_main.SendInfoPacket(MISSION_RESULT, this->pOwner->mission_result, 0, this->pOwner);
     }
@@ -1850,13 +1850,13 @@ void Unit::DecayTick() {
     uint8_t old_decay = this->decay;
 
     // Clamp HP for player character types (typeId 0x21-0x24) to leave dried bones forever.
-    if (0x21 <= this->typeId && this->typeId <= 0x24 && this->hp < -61) {
+    if (unit_type::hero_fighter_male <= this->typeId && this->typeId <= unit_type::hero_mage_female && this->hp < -61) {
         this->hp = -61;
     }
 
     // Decrement HP on every even tick16.
     if ((g_Server->tick16 & 1) == 0) {
-        if (0x21 <= this->typeId && this->typeId <= 0x24) {
+        if (unit_type::hero_fighter_male <= this->typeId && this->typeId <= unit_type::hero_mage_female) {
             if (this->hp > -61) {
                 this->hp -= 1;
             }
@@ -2511,7 +2511,7 @@ void Humanoid::AwardKillMoney(Unit* unit) {
 void Humanoid::RecalcStats() {
     // 005315ec
     const bool fighter = (this->unit_attrs & Unit::ATTR_MAGE) == 0;
-    const bool female = (this->typeId == 0x22 || this->typeId == 0x24);
+    const bool female = (this->typeId == unit_type::hero_fighter_female || this->typeId == unit_type::hero_mage_female);
 
     uint16_t max_body, max_reaction, max_mind, max_spirit;
 
@@ -2587,13 +2587,13 @@ void Humanoid::RecalcStats() {
     this->carrying_body_100g = static_cast<uint16_t>(this->body * 10 + 1);
 #ifdef A2TANGAR_HAT
     // replace_human_carrying_body_with_reaction hook (531A0B): circle witches carry by reaction, not body
-    if (this->pOwner != nullptr && circle::Circle(this) > 0 && (this->unit_attrs & Unit::ATTR_MAGE) != 0 && (this->typeId == 0x22 || this->typeId == 0x24)) {
+    if (this->pOwner != nullptr && circle::Circle(this) > 0 && (this->unit_attrs & Unit::ATTR_MAGE) != 0 && (this->typeId == unit_type::hero_fighter_female || this->typeId == unit_type::hero_mage_female)) {
         this->carrying_body_100g = static_cast<uint16_t>(this->reaction * 10 + 1);
     }
 #endif
 
     this->speed = (this->reaction < 12) ? this->reaction : this->reaction / 5 + 12;
-    if (this->typeId == 0x13 || this->typeId == 0x15) { // Horse-riders, with sword and with lance.
+    if (this->typeId == unit_type::cavalry_a || this->typeId == unit_type::cavalry_b) { // Horse-riders, with sword and with lance.
         this->speed += 10;
     }
 
@@ -2763,7 +2763,7 @@ void Humanoid::AddExperience(uint32_t new_exp, Unit* target, int32_t sphere) {
         return;
     }
 
-    if (this->typeId <= 0x20 || this->typeId >= 0x40) {
+    if (this->typeId < unit_type::hero_fighter_male || this->typeId >= unit_type::monster_first) {
         return;
     }
 
@@ -3112,7 +3112,7 @@ void Humanoid::InitCreationSkills(int8_t main_skill, int8_t skill_level) {
         }
 
         CString weapon_name;
-        if (this->typeId == 0x22 || this->typeId == 0x24) {
+        if (this->typeId == unit_type::hero_fighter_female || this->typeId == unit_type::hero_mage_female) {
             weapon_name = "Wood Staff {castSpell=" + spell_name + ":20}";
         } else {
             weapon_name = "Uncommon Wood Staff {castSpell=" + spell_name + ":20}";
@@ -3341,9 +3341,9 @@ void Human::InitFromName(CString hname, int32_t is_hero, const char* unk) {
         this->face = static_cast<int8_t>(this->face | (is_female << 7));
     } else {
         if ((this->unit_attrs & Unit::ATTR_MAGE) == 0) {
-            this->typeId = static_cast<uint16_t>(is_female + 33);
+            this->typeId = static_cast<uint16_t>(is_female + unit_type::hero_fighter_male);
         } else {
-            this->typeId = static_cast<uint16_t>(is_female + 35);
+            this->typeId = static_cast<uint16_t>(is_female + unit_type::hero_mage_male);
         }
     }
 
@@ -3365,7 +3365,7 @@ Human::~Human()
 void Human::Serialize(CArchive& ar) {
     Humanoid::Serialize(ar);
     if (!ar.IsStoring()) {
-        if (this->typeId < 0x21) {
+        if (this->typeId < unit_type::hero_fighter_male) {
             this->monster_info = reinterpret_cast<MonsterInfo*>(&g_GameDataRes.humans[this->itemDataID]);
         } else {
             this->monster_info = reinterpret_cast<MonsterInfo*>(&g_GameDataRes.humans[5]);

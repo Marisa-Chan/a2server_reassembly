@@ -61,6 +61,44 @@ struct SessionMobKill {
 };
 ASSERT_SIZE(SessionMobKill, 0x4);
 
+namespace unit_type {
+enum : uint16_t {
+    cavalry_a           = 0x13, // 19: Horse-rider with sword
+    cavalry_b           = 0x15, // 21: Horse-rider with lance
+    npc_mage            = 0x17, // 23: NPC mage
+    npc_druid           = 0x18, // 24: NPC druid
+    boss_a              = 0x1A, // 26: Special boss creature
+    boss_b              = 0x1B, // 27: Special boss creature
+    hero_sprite_base    = 0x20, // 32: Hero class range base (< 0x21 is non-hero)
+    hero_fighter_male   = 0x21, // 33
+    hero_fighter_female = 0x22, // 34 (Amazon)
+    hero_mage_male      = 0x23, // 35
+    hero_mage_female    = 0x24, // 36 (Sorceress / Witch)
+    humanoid_last       = 0x3F, // 63: Last humanoid / hero typeId
+    monster_first       = 0x40, // 64: First monster typeId
+    ghost               = 0x45, // 69
+    bat                 = 0x46, // 70
+    dragon              = 0x47, // 71
+    urd                 = 0x48, // 72
+    bee                 = 0x49, // 73
+    summon_squirrel     = 0x4A, // 74
+    summon_snake        = 0x4B, // 75
+    summon_turtle       = 0x4C, // 76
+    orc_shaman          = 0x51, // 81
+    zombie              = 0x52, // 82: First undead typeId (F_Zombie)
+    skeleton            = 0x59, // 89: F_Skeleton
+    skeleton_mage_a     = 0x61, // 97: M_Skeleton.3
+    skeleton_mage_b     = 0x62, // 98: M_Skeleton.4 (last classic undead)
+    necromancer         = 0x63, // 99
+    druid               = 0x64, // 100
+    catapult            = 0x65, // 101: Catapult / campaign mercenary orc
+    merc_troll          = 0x66, // 102: Campaign mercenary troll
+    spider              = 0x68, // 104
+    succubus            = 0x69, // 105
+    monster_last        = 0x6B, // 107
+};
+} // namespace unit_type
+
 class Unit : public Token {
 public:
     DECLARE_SERIAL(Unit); // Runtime class definition at 6363e8.

@@ -221,7 +221,7 @@ void TangarFixSummonedUnit(Unit* unit, int level) {
     // because the server checks unit type by `face << 8 | type_id`.
     unit->face = 0;
 
-    if (unit->typeId != 74 && unit->typeId != 75 && unit->typeId != 76) {
+    if (unit->typeId != unit_type::summon_squirrel && unit->typeId != unit_type::summon_snake && unit->typeId != unit_type::summon_turtle) {
         Printf("[summon] unhandled unit type_id: %d", unit->typeId);
         return;
     }
@@ -231,7 +231,7 @@ void TangarFixSummonedUnit(Unit* unit, int level) {
     }
 
     const auto& changes_block = unit_changes[Config::ServerID];
-    const auto& changes = unit->typeId == 74 ? changes_block.squirrel : unit->typeId == 75 ? changes_block.snake : changes_block.turtle;
+    const auto& changes = unit->typeId == unit_type::summon_squirrel ? changes_block.squirrel : unit->typeId == unit_type::summon_snake ? changes_block.snake : changes_block.turtle;
 
     unit->hp_max = changes.hp_max[level-1];
     unit->hp = changes.hp_max[level-1];
@@ -252,7 +252,7 @@ void TangarFixSummonedUnit(Unit* unit, int level) {
 
     unit->scan_range = changes.scan_range << 8;
 
-    const auto& type_changes = unit->typeId == 74 ? squirrel_type_changes : unit->typeId == 75 ? snake_type_changes : turtle_type_changes;
+    const auto& type_changes = unit->typeId == unit_type::summon_squirrel ? squirrel_type_changes : unit->typeId == unit_type::summon_snake ? snake_type_changes : turtle_type_changes;
 
     unit->body = type_changes.body;
     unit->reaction = type_changes.reaction;

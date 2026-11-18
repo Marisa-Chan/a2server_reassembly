@@ -180,9 +180,9 @@ void UnitList::ProcessTick() {
 			#else
 			if (unit->last_hit_by != NULL) {
 			#endif
-				if (unit->last_hit_by->typeId < 0x21 || unit->last_hit_by->typeId > 0x3f) {
+				if (unit->last_hit_by->typeId < unit_type::hero_fighter_male || unit->last_hit_by->typeId > unit_type::humanoid_last) {
 					// Killer is NOT a monster type
-					if (0x20 < unit->typeId && unit->typeId < 0x40 && unit->last_hit_by->IsUnit() != 0 && unit->last_hit_by->monster_info != NULL) {
+					if (unit_type::hero_sprite_base < unit->typeId && unit->typeId < unit_type::monster_first && unit->last_hit_by->IsUnit() != 0 && unit->last_hit_by->monster_info != NULL) {
 						#ifdef A2TANGAR_HAT
 						// player_killed hook (557005)
 						TangarApplyDeathExpPenalty(static_cast<Humanoid*>(unit), Config::KilledExpMult);
@@ -242,7 +242,7 @@ void UnitList::ProcessTick() {
 					// Normal pkill --- killer (a monster) is alive
 					unit->last_hit_by->AwardKillMoney(unit);
 					unit->last_hit_by->AwardKillExperience(unit, unit->last_hit_spell_id);
-					if (unit->typeId < 0x21 || unit->typeId > 0x3f) {
+					if (unit->typeId < unit_type::hero_fighter_male || unit->typeId > unit_type::humanoid_last) {
 						// Victim is a monster
 						unit->last_hit_by->pOwner->monster_kills++;
 					} else {
@@ -312,7 +312,7 @@ void UnitList::ProcessTick() {
 
 			// Compute killer player ID for quest events
 			uint32_t killer_pid = 0;
-			if (unit->last_hit_by != NULL && unit->last_hit_by->pOwner != NULL && 0x21 <= unit->last_hit_by->typeId && unit->last_hit_by->typeId <= 0x3f) {
+			if (unit->last_hit_by != NULL && unit->last_hit_by->pOwner != NULL && unit_type::hero_fighter_male <= unit->last_hit_by->typeId && unit->last_hit_by->typeId <= unit_type::humanoid_last) {
 				killer_pid = unit->last_hit_by->pOwner->player_id;
 			}
 
@@ -476,9 +476,9 @@ int UnitList::CountKillableMonsters() {
 	int32_t count = 0;
 	for (POSITION it = this->unit_list.GetHeadPosition(); it != NULL; ) {
 		Unit* unit = this->unit_list.GetNext(it);
-		if (unit->summon_id == 0 && unit->hp > -10 && 0x40 <= unit->typeId && unit->typeId <= 0x62) {
+		if (unit->summon_id == 0 && unit->hp > -10 && unit_type::monster_first <= unit->typeId && unit->typeId <= unit_type::skeleton_mage_b) {
 			// Ghost.1, F_Zombie.1 and F_Skeleton.1 are excluded. They can be "summoned" via "raise dead".
-			if ((unit->typeId != 0x45 || unit->face != 1) && unit->typeId != 0x52 && unit->typeId != 0x59) {
+			if ((unit->typeId != unit_type::ghost || unit->face != 1) && unit->typeId != unit_type::zombie && unit->typeId != unit_type::skeleton) {
 				count++;
 			}
 		}

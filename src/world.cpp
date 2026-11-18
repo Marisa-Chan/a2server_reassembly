@@ -3546,7 +3546,7 @@ void World::DoScriptedPatrol(Unit* unit) {
     uint8_t v14 = this->waypoint_table[1];
     bool nearby = false;
 
-    if (unit->typeId == 0x18) {
+    if (unit->typeId == unit_type::npc_druid) {
         this->patrol_unit = unit;
         unit->scan_range = (unit->scan_range & 0x00FF) | 0x0500;
         unit->max_range = 5;

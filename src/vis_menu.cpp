@@ -425,7 +425,7 @@ void VisQuestStatus::VMethod7() {
             if (main_wnd->vis_map_context->objects.Lookup((uint16_t)quest->GetObj(), obj)) {
                 CUnit* unit = (CUnit*)obj;
                 if ((unit->unitFlags & (UNIT_FLAG_PLAYER_CLASS | UNIT_FLAG_CREATURE)) == 0) {
-                    if (unit->typeId < 0x52 || unit->typeId > 0x66) {
+                    if (unit->typeId < unit_type::zombie || unit->typeId > unit_type::merc_troll) {
                         unit_name.Format("%s[%d]", txt_unitname.GetLine(unit->typeId), unit->face);
                     } else {
                         unit_name.Format("%s", txt_unitname.GetLine(unit->typeId));
