@@ -735,7 +735,7 @@ void Unit::ProcessEffects() {
     }
 #endif
     if (this->hp < 1) {
-        this->state = 0;
+        this->state = ORDER_IDLE;
         this->some_state = 0;
         if (this->decay == 0) {
             this->decay = 1;
@@ -1309,7 +1309,7 @@ Effect* Unit::FindEnchantment(uint16_t effect_id) {
 
 // 52A215
 void Unit::InitDefaultStats() {
-    this->state = 0x0B;
+    this->state = ORDER_GUARD_POSITION;
     this->body = 30;
     this->reaction = 30;
     this->mind = 20;
@@ -1558,7 +1558,7 @@ void Unit::Die() {
     }
 
     this->some_state = 0x10;
-    this->state = 0x10;
+    this->state = ORDER_DEAD;
 
     MapStuff_Instance->AddUnitToMap(this);
 
@@ -1839,7 +1839,7 @@ void Unit::ResetActionState() {
     this->some_state2 = 0;
     this->attack_ready = 1;
     this->some_state = 0;
-    this->state = 0;
+    this->state = ORDER_IDLE;
 }
 
 // 52E7FA
@@ -1911,7 +1911,7 @@ void Unit::InitDefaults(const CString& str) {
     this->eye->facing = Random0N(0x80) + 0x40;
     this->eye->target_facing = this->eye->facing;
     this->group = nullptr;
-    this->state = 0;
+    this->state = ORDER_IDLE;
     this->some_state = 0;
     this->some_state2 = 0;
     this->attack_ready = 1;

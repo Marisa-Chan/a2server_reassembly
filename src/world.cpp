@@ -1306,7 +1306,7 @@ void World::OrderSwarmTo(Unit* unit, uint8_t x, uint8_t y) {
     // solo_pickup_sack hook (5A9977)
     SoloPickup(unit, y, x);
 #else
-    unit->state = 2;
+    unit->state = Unit::ORDER_PICKUP;
 #endif
     unit->eye2->command_to = ((uint16_t)y << 8) + x;
     unit->eye->target_reached = 0;
@@ -1320,7 +1320,7 @@ void World::OrderGatherLoot(Unit* unit) {
     // solo_pick_all_sacks hook (5A99DD)
     SoloPickupAll(unit);
 #else
-    unit->state = 26;
+    unit->state = Unit::ORDER_LOOT_NEARBY;
 #endif
     unit->eye->target_reached = 0;
     unit->eye2->cast_action = 0;
@@ -1365,9 +1365,9 @@ void World::ChaseOrCast(Unit* unit) {
     // imp_distance_bug_fix hook (5AAA8D): state 13 is "cast point spell from
     // the book onto an enemy that is too far" - if the queued spell is not
     // defensive, stop instead of casting
-    if (unit->state == 13) {
+    if (unit->state == Unit::ORDER_CAST_UNIT) {
         if (unit->eye2 == nullptr || unit->eye2->spell == nullptr || unit->eye2->spell->is_defensive == 0) {
-            unit->state = 12;
+            unit->state = Unit::ORDER_HOLD_POSITION;
         }
     }
 #endif
@@ -1505,10 +1505,10 @@ void World::MonsterAiTick(Unit* unit) {
 
     if (unit->eye->order_arrived != 0) {
         unit->eye->order_arrived = 0;
-        if (unit->state == 1) {
+        if (unit->state == Unit::ORDER_MOVE) {
             this->PrepareUnitOrder(unit);
             this->ResetUnitToHold(unit);
-        } else if (unit->state == 0xA) {
+        } else if (unit->state == Unit::ORDER_PATROL_STEP) {
             unit->eye2->patrol_reanchor = 1;
             unit->eye2->cast_action = 0;
             uint8_t x2 = unit->eye2->position2.x;
@@ -1529,7 +1529,7 @@ void World::MonsterAiTick(Unit* unit) {
                     }
                 }
             }
-        } else if (unit->state == 0x18) {
+        } else if (unit->state == Unit::ORDER_SCRIPT_PATROL) {
             unit->eye2->ai_state = 0xFF;
         } else {
             unit->eye2->cast_action = 0;
@@ -2760,7 +2760,7 @@ int32_t World::IsSpellInRange(Unit* unit, Unit* other, Spell* spell) {
 // 5A92AF
 void World::OrderCastAtUnit(Unit* unit, Unit* target, Spell* spell) {
     this->BeginUnitOrder(unit);
-    unit->state = 0xD;
+    unit->state = Unit::ORDER_CAST_UNIT;
     unit->eye2->unit5 = target;
     unit->eye2->spell = spell;
     unit->eye2->max_range = spell->max_range;
@@ -2792,7 +2792,7 @@ void World::BeginUnitOrder(Unit* unit) { //5a9ac4
 
 void World::OrderHoldPosition(Unit* unit) { //5a93f4
     this->BeginUnitOrder(unit);
-    unit->state = 0xc;
+    unit->state = Unit::ORDER_HOLD_POSITION;
     unit->eye2->position1 = unit->position->GetYX();
     unit->eye2->cast_action = 0;
 }
@@ -3001,7 +3001,7 @@ void World::OrderEngageTarget(Unit* unit, Unit* target) {
         this->ResetUnitToHold(unit);
     } else {
         this->BeginUnitOrder(unit);
-        unit->state = 3;
+        unit->state = Unit::ORDER_ATTACK_UNIT;
         unit->eye2->unit = target;
         unit->eye2->max_range = this->UnitMaxRange(unit);
         unit->eye2->cast_action = 0;
@@ -3011,7 +3011,7 @@ void World::OrderEngageTarget(Unit* unit, Unit* target) {
 // 5A930F — order `unit` to area-cast `spell` at (x, y).
 void World::OrderAreaCast(Unit* unit, uint8_t x, uint8_t y, Spell* spell) {
     this->BeginUnitOrder(unit);
-    unit->state = 0xE;
+    unit->state = Unit::ORDER_CAST_POS;
     unit->eye2->cast_pos = PosYX(x, y).val;
     unit->eye2->spell = spell;
     unit->eye2->max_range = spell->max_range;
@@ -3021,7 +3021,7 @@ void World::OrderAreaCast(Unit* unit, uint8_t x, uint8_t y, Spell* spell) {
 // 5A943B — helper used by GroupStopCommand: set unit to retreat/evade state.
 void World::OrderStandGround(Unit* unit) {
     this->BeginUnitOrder(unit);
-    unit->state = 0x17;
+    unit->state = Unit::ORDER_STAND_GROUND;
     unit->eye2->position1 = unit->position->CompatGetYX();
     unit->eye2->cast_action = 0;
 }
@@ -3032,7 +3032,7 @@ void World::OrderAttackTarget(Unit* unit, Unit* target, uint8_t range) {
     if (unit == target) {
         this->ResetUnitToHold(unit);
     } else {
-        unit->state = 8;
+        unit->state = Unit::ORDER_DEFEND_TARGET;
         unit->eye2->unit2 = target;
         unit->eye2->cast_action = 0;
         unit->eye2->range = (range != 0) ? range : 3;
@@ -3045,7 +3045,7 @@ void World::OrderFollowTarget(Unit* unit, Unit* target, uint8_t range) {
     if (unit == target) {
         this->ResetUnitToHold(unit);
     } else {
-        unit->state = 0x11;
+        unit->state = Unit::ORDER_FOLLOW;
         unit->eye2->unit2 = target;
         unit->eye2->cast_action = 0;
         unit->eye2->range = (range != 0) ? range : 3;
@@ -3055,7 +3055,7 @@ void World::OrderFollowTarget(Unit* unit, Unit* target, uint8_t range) {
 // 5A9580 — order `unit` to move to (x, y) using path-list.
 void World::OrderPatrolTo(Unit* unit, uint8_t x, uint8_t y) {
     this->BeginUnitOrder(unit);
-    unit->state = 10;
+    unit->state = Unit::ORDER_PATROL_STEP;
     unit->eye2->position1 = unit->position->CompatGetYX();
     unit->eye2->positions_list->RemoveAll();
     unit->eye2->positions_list->AddHead(unit->position->CompatGetYX());
@@ -3069,7 +3069,7 @@ void World::OrderPatrolTo(Unit* unit, uint8_t x, uint8_t y) {
 // 5A9918 — helper used by GroupGoHomeCommand: set unit to idle/wander state 0x16.
 void World::OrderTeleportHome(Unit* unit) {
     this->BeginUnitOrder(unit);
-    unit->state = 0x16;
+    unit->state = Unit::ORDER_RETURN_HOME;
     unit->eye2->cast_action = 0;
 }
 
@@ -3115,7 +3115,7 @@ void World::StartAreaCast(Unit* unit) {
 // 5A90F4
 void World::OrderEnterBuilding(Unit* unit, Building* building) {
     this->BeginUnitOrder(unit);
-    unit->state = 0xF;
+    unit->state = Unit::ORDER_ENTER_BUILDING;
     unit->eye2->enter_building = building;
     unit->eye2->max_range = 1;
     unit->eye2->cast_action = 0;
@@ -3218,7 +3218,7 @@ void World::OrderMoveTo(Unit* unit, uint8_t x, uint8_t y) {
         y = this->map_stuff->map_max_y;
     }
 
-    unit->state = 1;
+    unit->state = Unit::ORDER_MOVE;
     unit->eye2->command_to = PosYX(x, y).val;
     unit->eye->target_reached = 0;
     unit->eye2->cast_action = 1;
@@ -3400,7 +3400,7 @@ void World::InitUnitCombatProfile(Unit* unit) {
 // 5A9383
 void World::OrderGuardPosition(Unit* unit) {
     this->BeginUnitOrder(unit);
-    unit->state = 0xB;
+    unit->state = Unit::ORDER_GUARD_POSITION;
     if (unit->position->IsAtCellCenter() == 0) {
         unit->eye2->position1 = unit->eye->position1;
     } else {
@@ -4023,7 +4023,7 @@ void World::DoGatherLootStep(Unit* unit) {
 // 5A925C
 void World::OrderWalkTo(Unit* unit, uint8_t a, uint8_t b) {
     this->BeginUnitOrder(unit);
-    unit->state = 4;
+    unit->state = Unit::ORDER_ATTACK_MOVE;
     unit->eye2->command_to = PosYX{a, b}.val;
     unit->eye2->cast_action = 0;
 }
@@ -4066,69 +4066,69 @@ void World::RunAiUnitState(Unit* unit) {
 
 // 5A51A1
 void World::ProcessUnitState(Unit* unit) {
-    if (unit->state == 3 && unit->eye2->unit != nullptr && unit->eye2->unit->some_state == 0x10) {
+    if (unit->state == Unit::ORDER_ATTACK_UNIT && unit->eye2->unit != nullptr && unit->eye2->unit->some_state == 0x10) {
         this->ResetUnitToIdle(unit);
     }
-    if ((unit->state == 8 || unit->state == 0x11) && unit->eye2->unit2 != nullptr && unit->eye2->unit2->some_state == 0x10) {
+    if ((unit->state == Unit::ORDER_DEFEND_TARGET || unit->state == Unit::ORDER_FOLLOW) && unit->eye2->unit2 != nullptr && unit->eye2->unit2->some_state == 0x10) {
         this->ResetUnitToIdle(unit);
     }
-    if (unit->state == 1 && unit->eye->target_reached != 0 && unit->eye->move_target.val == unit->position->CompatGetYX()) {
+    if (unit->state == Unit::ORDER_MOVE && unit->eye->target_reached != 0 && unit->eye->move_target.val == unit->position->CompatGetYX()) {
         this->ResetUnitToIdle(unit);
     }
 
     switch (unit->state) {
-    case 0:
+    case Unit::ORDER_IDLE:
         unit->some_state = 0;
         break;
-    case 1:
+    case Unit::ORDER_MOVE:
         this->DoMoveStep(unit, unit->eye2->command_to);
         break;
-    case 2:
+    case Unit::ORDER_PICKUP:
         this->DoSwarmMoveStep(unit, unit->eye2->command_to);
         break;
-    case 3:
+    case Unit::ORDER_ATTACK_UNIT:
         this->DoAttackTarget(unit, unit->eye2->unit);
         break;
-    case 4:
+    case Unit::ORDER_ATTACK_MOVE:
         this->DoAttackMove(unit, unit->eye2->command_to);
         break;
-    case 8:
+    case Unit::ORDER_DEFEND_TARGET:
         this->TickAttackTarget(unit, unit->eye2->unit2);
         break;
-    case 10:
+    case Unit::ORDER_PATROL_STEP:
         this->DoPatrolTick(unit);
         break;
-    case 11:
+    case Unit::ORDER_GUARD_POSITION:
         this->AdvancePatrolStep(unit);
         break;
-    case 12:
+    case Unit::ORDER_HOLD_POSITION:
         this->DoGuardScan(unit);
         break;
-    case 13:
+    case Unit::ORDER_CAST_UNIT:
         this->BeginAutobuffCast(unit, unit->eye2->unit5, unit->eye2->spell);
         break;
-    case 14:
+    case Unit::ORDER_CAST_POS:
         this->BeginPositionCast(unit, unit->eye2->cast_pos, unit->eye2->spell);
         break;
-    case 15:
+    case Unit::ORDER_ENTER_BUILDING:
         this->BeginEnterBuilding(unit, unit->eye2->enter_building);
         break;
-    case 17:
+    case Unit::ORDER_FOLLOW:
         this->TickFollowTarget(unit, unit->eye2->unit2);
         break;
-    case 22:
+    case Unit::ORDER_RETURN_HOME:
         this->DoTeleportHome(unit);
         break;
-    case 24:
+    case Unit::ORDER_SCRIPT_PATROL:
         this->DoScriptedPatrol(unit);
         break;
-    case 25:
+    case Unit::ORDER_SCRIPT_WALK:
         this->DoScriptedWalk(unit);
         break;
-    case 26:
+    case Unit::ORDER_LOOT_NEARBY:
         this->DoGatherLootStep(unit);
         break;
-    case 27:
+    case Unit::ORDER_SCRIPT_SPECIAL:
         unit->some_state = 0x1b;
         break;
     default:

@@ -211,7 +211,7 @@ void SoloPickup(Unit* unit, int y, int x)
     if (!IsSoloPlayer(unit)) {
         // Original logic for regular chars.
         if (unit != nullptr) {
-            unit->state = 2;
+            unit->state = Unit::ORDER_PICKUP;
         }
         return;
     }
@@ -235,9 +235,9 @@ void SoloPickup(Unit* unit, int y, int x)
                 return;
             }
 
-            unit->state = 2;
+            unit->state = Unit::ORDER_PICKUP;
         } else {
-            unit->state = 1;
+            unit->state = Unit::ORDER_MOVE;
         }
     }
 }
@@ -252,7 +252,7 @@ void SoloPickupAll(Unit* unit)
     if (!IsSoloPlayer(unit)) {
         // Original logic for regular chars.
         if (unit != nullptr) {
-            unit->state = 26;
+            unit->state = Unit::ORDER_LOOT_NEARBY;
         }
         return;
     }
@@ -271,7 +271,7 @@ void SoloPickupAll(Unit* unit)
             return;
         }
 
-        unit->state = 2;
+        unit->state = Unit::ORDER_PICKUP;
         unit->eye2->command_to = unit->position->YX.val;
     }
 }

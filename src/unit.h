@@ -78,6 +78,29 @@ public:
         HAND_DAMAGE_15X_MULT   = 15,
     };
 
+    enum OrderState : int32_t {
+        ORDER_IDLE           = 0,
+        ORDER_MOVE           = 1,
+        ORDER_PICKUP         = 2,
+        ORDER_ATTACK_UNIT    = 3,
+        ORDER_ATTACK_MOVE    = 4,
+        ORDER_DEFEND_TARGET  = 8,
+        ORDER_PATROL_STEP    = 10,
+        ORDER_GUARD_POSITION = 11,
+        ORDER_HOLD_POSITION  = 12,
+        ORDER_CAST_UNIT      = 13,
+        ORDER_CAST_POS       = 14,
+        ORDER_ENTER_BUILDING = 15,
+        ORDER_DEAD           = 16,
+        ORDER_FOLLOW         = 17,
+        ORDER_RETURN_HOME    = 22,
+        ORDER_STAND_GROUND   = 23,
+        ORDER_SCRIPT_PATROL  = 24,
+        ORDER_SCRIPT_WALK    = 25,
+        ORDER_LOOT_NEARBY    = 26,
+        ORDER_SCRIPT_SPECIAL = 27,
+    };
+
 public: // VTable at 60efc0.
     virtual ~Unit() override;
     virtual void Serialize(CArchive& ar) override;  // client: 53633a

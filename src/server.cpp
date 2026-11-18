@@ -4670,7 +4670,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
                     LogMessage("Invalid pickup order - no sack there.");
                 } else {
                     human->inventory->default_position = packet_transfer->param1;
-                    human->state = 2;
+                    human->state = Unit::ORDER_PICKUP;
                 }
                 break;
             }
