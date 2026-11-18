@@ -279,7 +279,14 @@ Item* Item::Equip(Unit* pUnit) {
             this->world_equip->name.Find("eaction") >= 0 ||
             this->world_equip->name.Find("pirit") >= 0;
 
+#ifdef A2CLIENT_PATCH
+    // Retail dereferences pOwner unconditionally. The client-side roster preview
+    // (CGameSession::LoadCharacterRosterEntry) equips save-file items on an ownerless
+    // Human, so a stat potion in the equipment stream crashes the client on login.
+    if (stat_bottle && pUnit->pOwner != nullptr && (GetTickCount() - pUnit->pOwner->last_save_tick > 15000)) {
+#else
     if (stat_bottle && (GetTickCount() - pUnit->pOwner->last_save_tick > 15000)) {
+#endif
         g_Server->SaveCharacter(static_cast<Humanoid*>(pUnit));
     }
 
