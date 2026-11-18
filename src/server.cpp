@@ -5094,14 +5094,14 @@ void Server::ProcessClientPacket(Packet* pkt) {
         }
 
     case CHEAT_MONEY:
-        CheckPacketType(pkt, "PacketDword");
+        CheckPacketType(pkt, "Packet2Dwords");
         {
             if (this->multiplayer != 0) {
                 break;
             }
-            player = this->FindPlayerById(packet_dword->from_player_id);
+            player = this->FindPlayerById(packet_2dwords->from_player_id);
             if (player) {
-                player->AddMoney(packet_dword->value, 1);
+                player->AddMoney(packet_2dwords->param1, 1);
             }
             break;
         }
