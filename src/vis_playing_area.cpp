@@ -231,17 +231,17 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 
 		case HAT_SCORE_UPDATE: {
 			// client: 4176c7 — update one hat DM name/score pair
-			CString name((char*)packet_data->data + 2);
+			CString name(packet_join->name);
 			int i = 0;
 			for (; i < this->hat_name_list.GetSize(); i++) {
 				if (this->hat_name_list[i] == name) {
-					this->hat_score_list[i] = packet_dword->value;
+					this->hat_score_list[i] = packet_join->__as_dword;
 					break;
 				}
 			}
 			if (i == this->hat_name_list.GetSize()) {
 				this->hat_name_list.Add(name);
-				this->hat_score_list.Add(packet_dword->value);
+				this->hat_score_list.Add(packet_join->__as_dword);
 			}
 			// client: 41ffe6 — sort pairs descending by score, keeping names in sync
 			for (int j = 0; j < this->hat_score_list.GetSize(); j++) {
