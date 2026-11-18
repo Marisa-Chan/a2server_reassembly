@@ -2231,7 +2231,7 @@ void MapStuff::FindPathInternal(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_
                 }
             }
 
-            if (unit->group->group_sub->order == 0x12 && unit->eye2->cast_action == 5) {
+            if (unit->group->group_sub->order == GroupSub::ORDER_DEFEND && unit->eye2->cast_action == 5) {
                 int32_t size = unit->GetTokenSize();
                 uint8_t range = this->BoxDistance(step, dest.val, size);
                 if (this->world->UnitMaxRange(unit) < range) {

@@ -9,6 +9,19 @@
 
 struct GroupSub {
 public:
+    enum Order : uint8_t {
+        ORDER_DEFAULT     = 0,
+        ORDER_GUARD       = 1,
+        ORDER_ATTACK_MOVE = 2,
+        ORDER_AGGRESSIVE  = 3,
+        ORDER_MOVE        = 4,
+        ORDER_SWARM       = 5,
+        ORDER_ROAM        = 0x11,
+        ORDER_DEFEND      = 0x12,
+        ORDER_STAND       = 0x13,
+        ORDER_IDLE_ALL    = 0xFF,
+    };
+
     GroupSub();  // client: 5730de
     ~GroupSub();  // client: 57317c
 
