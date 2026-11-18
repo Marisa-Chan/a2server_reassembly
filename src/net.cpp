@@ -1115,14 +1115,18 @@ Packet* NetStru1::DecodePacket(uint8_t cmd, NetStru2* ns2) {
         break;
 
     case START_GAME: case REQUEST_SAVE_GAME: case REQUEST_LOAD_GAME: case HAT_JOIN_NAME: case HAT_SCORE_UPDATE: case PLAYER_ANNOUNCED:
-#if defined(A2CLIENT_PATCH) || defined(A2SERVER_PATCH)
-    case MAP_INFO: case 0: case HAT_LOGIN: case HAT_LOBBY_INFO: case HAT_CHAR_RETURN:
-#else
     case MAP_INFO: case HAT_CREDENTIALS: case HAT_LOGIN: case HAT_LOBBY_INFO: case HAT_CHAR_RETURN:
-#endif
         pkt = &PacketJoin::Inst;
         pkt->ReadFrom(ns2);
         break;
+        
+#if defined(A2CLIENT_PATCH) || defined(A2SERVER_PATCH)
+    case HAT_AUTH:
+        pkt = &PacketJoin::Inst;
+        pkt->id = cmd;
+        pkt->ReadFrom(ns2);
+        break;
+#endif
 
     default:
         LogMessage(CString("Drv: unknown cmd type!"));
@@ -1137,6 +1141,7 @@ Packet* NetStru1::DecodePacket(uint8_t cmd, NetStru2* ns2) {
 
     case UNKNOWN_0F: case CHEAT_SUMMON: case CHAT: case PLAYER_INFO: case ANNOUNCEMENT:
         pkt = &PacketJoin::Inst;
+        pkt->id = cmd;
         pkt->ReadFrom(ns2);
         break;
 
@@ -5078,6 +5083,7 @@ void NetStru1::SendHatCredentials(const CString& login, const CString& password,
     // client: 50e48b
     PacketJoin* pkt = &PacketJoin::Inst;
 #ifdef A2CLIENT_PATCH
+    // v20 HAT_AUTH (0x00) is client-only; dedicated servers authenticate via SendHatLogin (0xD1).
     tangar_client::BuildAuthorizationPacket(pkt, login, password, flags);
 #else
     CString namepwd = login + password;

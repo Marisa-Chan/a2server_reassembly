@@ -145,6 +145,10 @@ uint32_t packet_len(const uint8_t* d, size_t avail, const char* dir) {
     };
 
     switch (id) {
+#if defined(A2CLIENT_PATCH) || defined(A2SERVER_PATCH)
+        case 0x00:
+            return 0x48 + u16(0x45);
+#endif
         case 0x02:
             return 45;
         case 0x03: case 0x05: case 0x09: case 0x0a: case 0xaf: case 0xb7: case 0xb8:
@@ -172,7 +176,10 @@ uint32_t packet_len(const uint8_t* d, size_t avail, const char* dir) {
         case 0x6a: case 0x74:
             return 3;
         case 0x06: case 0x07: case 0x08: case 0x0f: case 0x49: case 0x4e: case 0x5b:
-        case 0x91: case 0x93: case 0x96: case 0xae: case 0xbf: case 0xc9: case 0xd1:
+        case 0x91: case 0x93: case 0x96: case 0xae: case 0xbf: case 0xd1:
+#if !defined(A2CLIENT_PATCH) && !defined(A2SERVER_PATCH)
+        case 0xc9:
+#endif
         case 0xd2: case 0xd3:
             return 8 + u16(5);
         case 0x12: case 0x13: case 0x14: case 0x16: case 0x17: case 0x18: case 0x19:

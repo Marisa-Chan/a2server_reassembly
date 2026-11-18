@@ -232,7 +232,7 @@ uint32_t CalcCrc32(const void* data, size_t size) {
     return crc ^ 0xFFFFFFFFu;
 }
 
-// --------------------------------------------------------- Anticheat state
+// --------------------------------------------------------- File fingerprints state
 
 bool g_hashes_initialized = false;
 uint8_t g_sha1_exe[20] = {};
@@ -314,7 +314,7 @@ bool RecvExact(SOCKET s, uint8_t* dst, int32_t total) {
 
 } // namespace
 
-void EnsureAnticheatHashes() {
+void EnsureFileHashes() {
     if (g_hashes_initialized) {
         return;
     }
@@ -344,7 +344,7 @@ void EnsureAnticheatHashes() {
 
 // client: 50e48b (NETPROTO_createAuthorizationPacket)
 void BuildAuthorizationPacket(PacketJoin* pkt, const CString& login, const CString& password, uint32_t flags) {
-    EnsureAnticheatHashes();
+    EnsureFileHashes();
 
     uint8_t* raw = reinterpret_cast<uint8_t*>(pkt);
     memset(raw + 0x0A, 0, 0x46);
@@ -353,7 +353,7 @@ void BuildAuthorizationPacket(PacketJoin* pkt, const CString& login, const CStri
     strncpy(reinterpret_cast<char*>(raw + 0x50), static_cast<const char*>(namepwd), sizeof(pkt->name) - 0x41);
     raw[0x50 + sizeof(pkt->name) - 0x41] = '\0';
 
-    pkt->id = 0;
+    pkt->id = HAT_AUTH;
     pkt->to_player_id = 0;
 
     uint32_t packed_meta = (static_cast<uint32_t>(login.GetLength()) & 0xFFFFu)

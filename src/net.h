@@ -58,6 +58,7 @@ union HatCharId {
 // ---------------------------------------------------------------------------
 enum PacketId : uint8_t {
     // Session / join handshake
+    HAT_AUTH             = 0x00, // client->hat: v20 login + password + binary hashes for self-update
     ENTER_GAME           = 0x02, // client->server: join game (name, cd flag, hero params)
     MISSION_ENTERED      = 0x03, // server->client: bare "mission entered" event
     JOIN_MISSION         = 0x04, // client->server: player joins the running mission
@@ -897,4 +898,3 @@ extern CLlDriver g_HatLLDriver; //6cdbc0
 
 
 void SendWWWReport(const CString& surl, const CString& data, int val3); //client 4ea58f
-

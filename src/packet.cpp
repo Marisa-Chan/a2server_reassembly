@@ -72,7 +72,7 @@ PacketJoin::PacketJoin(const PacketJoin *src) {
     this->from_player_id = src->from_player_id;
 
 #if defined(A2CLIENT_PATCH) || defined(A2SERVER_PATCH)
-    if (src->id == 0) {
+    if (src->id == HAT_AUTH) {
         memcpy(&this->player_id, &src->player_id, 0x46);
         uint16_t auth_len = *reinterpret_cast<const uint16_t*>(src->name + 0x3E);
         memcpy(this->name + 0x40, src->name + 0x40, auth_len + 1);
@@ -114,7 +114,7 @@ void PacketJoin::WriteTo(NetStru2* net) {
     //526ede
     // client: 515d77
 #if defined(A2CLIENT_PATCH) || defined(A2SERVER_PATCH)
-    if (this->id == 0) {
+    if (this->id == HAT_AUTH) {
         uint16_t auth_len = static_cast<uint16_t>(strlen(this->name + 0x40));
         *reinterpret_cast<uint16_t*>(this->name + 0x3E) = auth_len;
         net->WriteData(&this->id, static_cast<uint32_t>(auth_len) + 0x48);
@@ -129,7 +129,7 @@ void PacketJoin::ReadFrom(NetStru2* net) {
     //526f1d
     // client: 515db6
 #if defined(A2CLIENT_PATCH) || defined(A2SERVER_PATCH)
-    if (this->id == 0) {
+    if (this->id == HAT_AUTH) {
         net->ReadData(&this->player_id, 0x46);
         uint16_t auth_len = *reinterpret_cast<uint16_t*>(this->name + 0x3E);
         if (auth_len >= sizeof(this->name) - 0x40) {
@@ -142,7 +142,7 @@ void PacketJoin::ReadFrom(NetStru2* net) {
     }
 #endif
     net->ReadData(&this->player_id, 6);
-#ifdef A2SERVER_PATCH
+#if defined(A2CLIENT_PATCH) || defined(A2SERVER_PATCH)
     if (this->name_len >= sizeof(this->name)) {
         this->name_len = static_cast<uint16_t>(sizeof(this->name) - 1);
     }
@@ -155,7 +155,7 @@ uint32_t PacketJoin::GetDataSize() {
     //57a410
     // client: 54b2c0
 #if defined(A2CLIENT_PATCH) || defined(A2SERVER_PATCH)
-    if (this->id == 0) {
+    if (this->id == HAT_AUTH) {
         uint16_t auth_len = *reinterpret_cast<uint16_t*>(this->name + 0x3E);
         return static_cast<uint32_t>(auth_len) + 0x48;
     }

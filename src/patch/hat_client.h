@@ -3,7 +3,7 @@
 // Tangar client-side v20 HAT authorization & extended-packet wire framing,
 // ported from a2mgr/network_protocol.cpp (crcmain,
 // NETPROTO_createAuthorizationPacket, recv_) and a2mgr/a2mgr.cpp (SHA1
-// anticheat fingerprint setup).
+// fingerprint setup for self-update).
 
 #include <cstdint>
 #ifndef _WINSOCKAPI_
@@ -28,7 +28,7 @@ bool RunAutoUpdater(MainWindow* wnd);
 
 // Lazily compute SHA-1 digests of executable, resources, and first volume UUID
 // used by the v20 HAT authorization fingerprint (a2mgr/a2mgr.cpp:107-174).
-void EnsureAnticheatHashes();
+void EnsureFileHashes();
 
 // Populate PacketJoin as a v20 HAT authorization packet (id = 0) and apply
 // the crcmain gamemode -> z_softcore side effect (client: 50e48b).

@@ -5632,7 +5632,7 @@ int32_t MainWindow::RunModalLoopClient() { //client 4949cd
 
 #ifdef A2CLIENT_PATCH
     // We can run auto-update here, `tangar_client::RunAutoUpdater`.
-    tangar_client::EnsureAnticheatHashes();
+    tangar_client::EnsureFileHashes();
 #endif
 
     LockSurface2();
