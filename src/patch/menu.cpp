@@ -32,7 +32,7 @@ static const char* ButtonLabel(int32_t i) {
 	static const char* labels_ru[3] = {
 		"\x88\xA3\xE0\xA0\xE2\xEC", // Играть
 		"\x80\xA2\xE2\xAE\xE0\xEB", // Авторы
-		"\x82\xEB\xE5\xAE\xE4",     // Выход
+		"\x82\xEB\xE5\xAE\xA4",     // Выход
 	};
 	return tangar_cfg::z_russian ? labels_ru[i] : labels_en[i];
 }
