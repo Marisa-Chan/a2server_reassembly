@@ -10,6 +10,17 @@
 
 class VisPlayingArea : public CVisualObject {
 public:
+	enum SelectionFlags : uint32_t {
+		SEL_NONE             = 0,
+		SEL_GROUND_UNIT      = 0x001,
+		SEL_AIR_UNIT         = 0x002,
+		SEL_FOREIGN          = 0x004,
+		SEL_HERO             = 0x008,
+		SEL_STRUCTURE        = 0x020,
+		SEL_NPC_CASTER       = 0x200,
+		SEL_NON_CONTROLLABLE = SEL_FOREIGN | SEL_STRUCTURE, // 0x024
+	};
+
 	VisPlayingArea(int32_t l, int32_t t, int32_t r, int32_t b); // 402af6 (client: 402af6)
 	~VisPlayingArea(); // 403395 (client: 403418)
 

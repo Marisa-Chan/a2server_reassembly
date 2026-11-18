@@ -425,7 +425,7 @@ bool IsUnitSelected() {
     }
 
     return g_kbControlState == 0 && key_handler_object->selected_object_count != 0
-        && (key_handler_object->selection_flags & 0x24) == 0;
+        && (key_handler_object->selection_flags & VisPlayingArea::SEL_NON_CONTROLLABLE) == 0;
 }
 
 bool IsTopLevelAction(Action action) {

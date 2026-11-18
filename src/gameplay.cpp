@@ -520,7 +520,7 @@ void VisMiniMap::UpdateCursor() {
                         new_cursor = g_Cursors[0x15];
                         break;
                     }
-                    if ((mc->selection_flags & 0x24) != 0) {
+                    if ((mc->selection_flags & VisPlayingArea::SEL_NON_CONTROLLABLE) != 0) {
                         new_cursor = g_Cursors[0x11];
                     }
                 }

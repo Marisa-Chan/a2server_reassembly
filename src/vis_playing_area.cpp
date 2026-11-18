@@ -2946,7 +2946,7 @@ void VisPlayingArea::UpdateSelectionState() { //416cf7
 
 	MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 	this->selected_object_count = 0;
-	this->selection_flags = 0;
+	this->selection_flags = SEL_NONE;
 	this->selected_available_spell_mask = 0;
 	this->active_spell_effect_mask = 0;
 	this->selected_active_spell_mask = 0;
@@ -3005,34 +3005,34 @@ void VisPlayingArea::UpdateSelectionState() { //416cf7
 			if (obj->GetRuntimeClass() == RUNTIME_CLASS(CUnit)) {
 				CUnit* unit = (CUnit*)obj;
 
-				this->selection_flags |= 1;
+				this->selection_flags |= SEL_GROUND_UNIT;
 
 				if ((unit->typeId == unit_type::npc_mage || unit->typeId == unit_type::npc_druid) && unit->availableSpellMask != 0) {
-					this->selection_flags |= 0x200;
+					this->selection_flags |= SEL_NPC_CASTER;
 					this->UpdateSpellModifiers(unit);
 				}
 
 				if (unit->unitFlags & UNIT_FLAG_PLAYER_CLASS) {
-					this->selection_flags |= 8;
+					this->selection_flags |= SEL_HERO;
 				}
 
 				this->UpdateSpellEffects(unit);
 			} else if (obj->GetRuntimeClass() == RUNTIME_CLASS(CAirUnit)) {
-				this->selection_flags |= 2;
+				this->selection_flags |= SEL_AIR_UNIT;
 			} else if (obj->GetRuntimeClass() == RUNTIME_CLASS(CStructure)) {
-				this->selection_flags |= 0x20;
+				this->selection_flags |= SEL_STRUCTURE;
 			}
 		}
 		else {
-			this->selection_flags = 8;
+			this->selection_flags = SEL_HERO;
 		}
 	}
 
 	if (this->selected_object_count > 0 && this->primary_selected_object->map_player != this->my_main_unit) {
-		this->selection_flags |= 4;
+		this->selection_flags |= SEL_FOREIGN;
 	}
 	
-	if (this->selected_object_count == 0 || (this->selection_flags & 0x24) != 0) {
+	if (this->selected_object_count == 0 || (this->selection_flags & SEL_NON_CONTROLLABLE) != 0) {
 		mwnd->vis_right_panel->MsgProc(VIS_MSG_ORDERS_DISABLE, 0, 0);
 	} else {
 		mwnd->vis_right_panel->MsgProc(VIS_MSG_ORDERS_ENABLE, this->AvailableOrderMask(), 0);
@@ -3040,7 +3040,7 @@ void VisPlayingArea::UpdateSelectionState() { //416cf7
 
 	mwnd->vis_charinfo->MsgProc(VIS_MSG_STATUS_REFRESH, 0, 0);
 	mwnd->vis_sidestatus->MsgProc(VIS_MSG_STATUS_REFRESH, 0, 0);
-	if (this->selected_object_count == 1 && (this->selection_flags & 8) != 0) {
+	if (this->selected_object_count == 1 && (this->selection_flags & SEL_HERO) != 0) {
 		mwnd->vis_invtype1->VMethod33(this->primary_selected_object);
 	} else {
 		mwnd->vis_invtype1->VMethod33(nullptr);
@@ -3172,7 +3172,7 @@ void VisPlayingArea::UpdateSpellModifiers(CUnit* unit) { //from 416cf7
 }
 
 uint32_t VisPlayingArea::AvailableOrderMask() const {
-	if ((this->selection_flags & 4) == 0) {
+	if ((this->selection_flags & SEL_FOREIGN) == 0) {
 		if (this->selected_available_spell_mask != 0 || this->active_spell_effect_mask != 0) {
 			return 0xff; // ~0
 		}
@@ -3448,7 +3448,7 @@ void VisPlayingArea::SelectControlGroup(int32_t digit) {
 
 // 416A02
 void VisPlayingArea::AssignControlGroup(int32_t digit) {
-	if (this->selection_flags & 4) {
+	if (this->selection_flags & SEL_FOREIGN) {
 		return;
 	}
 	for (POSITION it = this->objects.GetStartPosition(); it != nullptr;) {
@@ -3467,7 +3467,7 @@ void VisPlayingArea::AssignControlGroup(int32_t digit) {
 
 // 416AA6
 void VisPlayingArea::AddToControlGroup(int32_t digit) {
-	if (this->selection_flags & 4) {
+	if (this->selection_flags & SEL_FOREIGN) {
 		return;
 	}
 	for (POSITION it = this->objects.GetStartPosition(); it != nullptr;) {
@@ -4672,7 +4672,7 @@ void VisPlayingArea::UpdateMapCursor() {
 						cursor = g_Cursors[CURSOR_DEFAULT];
 					}
 				} else if (this->IsBookOpen() != 0 && wnd->vis_spellbook->GetActiveSlot() >= 0 &&
-					(this->selected_available_spell_mask != 0 || this->active_spell_effect_mask != 0) && (this->selection_flags & 4) == 0) {
+					(this->selected_available_spell_mask != 0 || this->active_spell_effect_mask != 0) && (this->selection_flags & SEL_FOREIGN) == 0) {
 					uint32_t avail = this->UpdateMouseHover();
 					cursor = g_Cursors[CURSOR_CAST];
 					if ((avail & 0x400) != 0) {
@@ -4681,7 +4681,7 @@ void VisPlayingArea::UpdateMapCursor() {
 					if ((avail & 3) == 0 && wnd->vis_spellbook->NeedsUnitTarget() != 0) {
 						cursor = g_Cursors[CURSOR_MOVE];
 					}
-					int32_t pickup_flag = (this->selected_object_count == 1 && (this->selection_flags & 1) != 0) ? 1 : 0;
+					int32_t pickup_flag = (this->selected_object_count == 1 && (this->selection_flags & SEL_GROUND_UNIT) != 0) ? 1 : 0;
 					int32_t town_flag = pickup_flag;
 					if (pickup_flag != 0) {
 						pickup_flag = ((CUnit*)this->primary_selected_object)->unitFlags & UNIT_FLAG_PLAYER_CLASS;
@@ -4726,14 +4726,14 @@ void VisPlayingArea::UpdateMapCursor() {
 						} else {
 							cursor = g_Cursors[CURSOR_DEFAULT];
 						}
-					} else if ((this->selection_flags & 0x24) != 0) {
+					} else if ((this->selection_flags & SEL_NON_CONTROLLABLE) != 0) {
 						if ((avail & 0x23) != 0) {
 							cursor = g_Cursors[CURSOR_SELECT];
 						} else {
 							cursor = g_Cursors[CURSOR_DEFAULT];
 						}
 					} else {
-						int32_t pickup_flag = (this->selected_object_count == 1 && (this->selection_flags & 1) != 0) ? 1 : 0;
+						int32_t pickup_flag = (this->selected_object_count == 1 && (this->selection_flags & SEL_GROUND_UNIT) != 0) ? 1 : 0;
 						int32_t town_flag = pickup_flag;
 						if (pickup_flag != 0) {
 							pickup_flag = ((CUnit*)this->primary_selected_object)->unitFlags & UNIT_FLAG_PLAYER_CLASS;
@@ -5665,7 +5665,7 @@ void VisPlayingArea::RenderWorldFrame() {
 		FillRectColorSimple(local_rect.left, child3->GetRect().bottom, local_rect.right, child3->GetRect().bottom + 4, 0);
 	}
 	g_bmp_crystall->DrawSubRectMasked(local_rect.right - 0x10, local_rect.top, 0, 0, 0x10, 0x9e);
-	uint32_t top_panel_kind = (uint32_t)(this->selected_object_count == 0) | (this->selection_flags & 0x24);
+	uint32_t top_panel_kind = (uint32_t)(this->selected_object_count == 0) | (this->selection_flags & SEL_NON_CONTROLLABLE);
 	if (top_panel_kind == 0) {
 		g_bmp_cmdbarl->DrawSubRectMasked(local_rect.right - 0x10, local_rect.top + 0x9e, 0, 0, 0x10, 0x50);
 	} else {
@@ -6523,7 +6523,7 @@ int32_t VisPlayingArea::OnKeyDown(uint32_t wparam) {
 		}
 		default:
 			if (wnd->dialogsMask == DIALOG_MASK_INGAME) {
-				if (g_kbControlState == 0 && this->selected_object_count != 0 && (this->selection_flags & 0x24) == 0) {
+				if (g_kbControlState == 0 && this->selected_object_count != 0 && (this->selection_flags & SEL_NON_CONTROLLABLE) == 0) {
 					switch (wparam) {
 					case 0x41:
 						this->SetOrderMode(1);
@@ -6893,7 +6893,7 @@ void VisPlayingArea::SelectUnitsInRect(CRect* rect) {
 			continue;
 		}
 		if (g_kbShiftState != 0) {
-			if (obj->map_player == this->my_main_unit && (this->selection_flags & 4) == 0) {
+			if (obj->map_player == this->my_main_unit && (this->selection_flags & SEL_FOREIGN) == 0) {
 				obj->SetSelected(obj->IsSelected() == 0);
 			}
 		} else if (small_rect == 0) {
@@ -6914,7 +6914,7 @@ void VisPlayingArea::SelectUnitsInRect(CRect* rect) {
 	this->order_mode = 0;
 	wnd->vis_spellbook->ClearSpellSelection();
 	wnd->vis_ordertoolbar->MsgProc(VIS_MSG_ORDERS_CLEAR, 0, 0);
-	if (g_kbShiftState == 0 && this->selected_object_count != 0 && (this->selection_flags & 1) != 0 && (this->selection_flags & 4) == 0) {
+	if (g_kbShiftState == 0 && this->selected_object_count != 0 && (this->selection_flags & SEL_GROUND_UNIT) != 0 && (this->selection_flags & SEL_FOREIGN) == 0) {
 		CUnit* unit = this->PickVoiceUnit();
 		if (unit != nullptr) {
 			unit->PlaySelectVoice();
