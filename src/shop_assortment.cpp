@@ -384,7 +384,7 @@ void ShopAssortment::AddMagicItems(CArray<MagicItem>* items) {
     // Second pass: scrolls and potions
     for (int32_t spell_id = 1; spell_id <= spell::max_spell_id; spell_id++) {
         Item* item = nullptr;
-    if (Random1N(2) == 1) {
+        if (Random1N(2) == 1) {
             item = new Item(item_slot::magic_item, (uint8_t)(spell_id + ItemId::SCROLL_OFFSET));
         } else {
             item = new Item(item_slot::magic_item, (uint8_t)(spell_id + ItemId::SUPERSCROLL_OFFSET));
