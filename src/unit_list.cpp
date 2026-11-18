@@ -126,7 +126,7 @@ void UnitList::ProcessTick() {
 		}
 
 		// Tick alive unit
-		if (unit->some_state != 0x10) {
+		if (unit->some_state != Unit::EXEC_DEAD) {
 			#ifdef A2SERVER_PATCH
 			// bug_0014: skip the virtual call for zombie units (zeroed vtable)
 			if (*reinterpret_cast<void**>(unit) != nullptr) {
@@ -138,7 +138,7 @@ void UnitList::ProcessTick() {
 		}
 
 		// Process dead unit
-		if (unit->some_state == 0x10) {
+		if (unit->some_state == Unit::EXEC_DEAD) {
 			// Capture group quest ID before removal
 			int32_t group_id = 0;
 			if (unit->group != NULL && unit->group->unit_list.GetCount() == 1 && (unit->group->has_quest_intercept != 0 || unit->group->has_quest_kill != 0)) {

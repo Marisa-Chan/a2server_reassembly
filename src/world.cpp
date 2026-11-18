@@ -235,7 +235,7 @@ void World::SplitTargetLists(Unit* unit, UnitList* pList) {
         Unit* u = src->GetNext(node);
 
         // Skip dead/decaying units.
-        if (u->some_state == 0x10) {
+        if (u->some_state == Unit::EXEC_DEAD) {
             continue;
         }
 
@@ -637,7 +637,7 @@ void Diplomacy::RecordHostility(Unit* attacker, Unit* target, int32_t hit_flag) 
         return;
     }
 
-    if (hit_flag == 0 || target->eye2->hits_taken > 10 || target->hp < target->hp_max / 2 || target->some_state == 0x10) {
+    if (hit_flag == 0 || target->eye2->hits_taken > 10 || target->hp < target->hp_max / 2 || target->some_state == Unit::EXEC_DEAD) {
         this->diplomacy[target_pid][attacker_pid] |= DIPLO_WAR;
         if (!target->pOwner->is_ai) {
 #if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
@@ -1373,7 +1373,7 @@ void World::ChaseOrCast(Unit* unit) {
 #endif
     if (unit != unit->eye2->unit5 && this->map_stuff->FacesTargetInRange(unit, unit->eye2->unit5, unit->eye2->max_range) == 0) {
         this->StepTowardUnit(unit, unit->eye2->unit5);
-        unit->some_state = 1;
+        unit->some_state = Unit::EXEC_STEP;
     } else {
         this->StartCastAtUnit(unit);
     }
@@ -1382,12 +1382,12 @@ void World::ChaseOrCast(Unit* unit) {
 // 5A9B6B — AI tick for a monster unit.
 void World::MonsterAiTick(Unit* unit) {
     if (this->skip_presence_grid == 0 && unit->group->group_sub->presence_detected == 0 && unit->eye2->ai_state == 0) {
-        unit->some_state = 0x1B;
+        unit->some_state = Unit::EXEC_SPECIAL;
         return;
     }
 
-    if (unit->some_state != 2 && unit->some_state != 0xF) {
-        unit->some_state = 0;
+    if (unit->some_state != Unit::EXEC_PICKUP && unit->some_state != Unit::EXEC_INTERACT_BUILDING) {
+        unit->some_state = Unit::EXEC_IDLE;
     }
 
     if (unit->enchantments != 0 && (unit->enchantments & (1 << spell::stone_curse)) != 0 && unit->eye2->ai_state == 0) {
@@ -1443,18 +1443,18 @@ void World::MonsterAiTick(Unit* unit) {
     } else {
         switch (unit->eye2->ai_state) {
         case 1:
-            unit->some_state = 3;
+            unit->some_state = Unit::EXEC_ATTACK;
             unit->eye2->counter++;
             if (unit->eye2->counter > 2 && unit->attack_ready != 0) {
                 unit->eye2->ai_state = 0;
-                unit->some_state = 0;
+                unit->some_state = Unit::EXEC_IDLE;
             }
             break;
         case 2:
             if (unit->eye2->cast_is_area == 0) {
-                unit->some_state = 0xE;
+                unit->some_state = Unit::EXEC_CAST_POS;
             } else {
-                unit->some_state = 0xD;
+                unit->some_state = Unit::EXEC_CAST_UNIT;
             }
             unit->eye2->counter++;
             if (unit->eye2->counter > 2) {
@@ -1475,30 +1475,30 @@ void World::MonsterAiTick(Unit* unit) {
                 }
                 if (unit->attack_ready != 0) {
                     unit->eye2->ai_state = 0;
-                    unit->some_state = 0;
+                    unit->some_state = Unit::EXEC_IDLE;
                 }
             }
             break;
         case 3:
             this->map_stuff->UpdateEyeMoveTime(unit);
-            unit->some_state = 1;
+            unit->some_state = Unit::EXEC_STEP;
             if (unit->position->IsAtCellCenter()) {
                 unit->eye2->ai_state = 0;
-                unit->some_state = 0;
+                unit->some_state = Unit::EXEC_IDLE;
             }
             break;
         case 4:
-            unit->some_state = 0x1B;
+            unit->some_state = Unit::EXEC_SPECIAL;
             if ((unit->enchantments & (1 << spell::stone_curse)) == 0) {
                 unit->eye2->ai_state = 0;
             }
             break;
         case 0xff:
-            unit->some_state = 0x1B;
+            unit->some_state = Unit::EXEC_SPECIAL;
             break;
         default:
             unit->eye2->ai_state = 0;
-            unit->some_state = 0x1B;
+            unit->some_state = Unit::EXEC_SPECIAL;
             break;
         }
     }
@@ -2782,7 +2782,7 @@ void World::PrepareUnitOrder(Unit* unit) { //5a9832
     unit->eye2->max_range = this->UnitMaxRange(unit);
     unit->eye2->action_done = 0;
     unit->eye->target_unit = 0;
-    unit->some_state = 0;
+    unit->some_state = Unit::EXEC_IDLE;
 }
 
 void World::BeginUnitOrder(Unit* unit) { //5a9ac4
@@ -2813,10 +2813,10 @@ void World::ResetUnitToIdle(Unit* unit) {
 // Toggle a unit between state 2 and a full idle reset.
 // 5AA8ED
 void World::FinishSwarmArrival(Unit* unit) {
-    if (unit->some_state == 2) {
+    if (unit->some_state == Unit::EXEC_PICKUP) {
         this->ResetUnitToIdle(unit);
     } else {
-        unit->some_state = 2;
+        unit->some_state = Unit::EXEC_PICKUP;
     }
 }
 
@@ -2828,7 +2828,7 @@ void World::StepTowardUnit(Unit* unit, Unit* target) {
         unit->eye2->ai_state = 3;
         unit->eye2->counter = 0;
     }
-    unit->some_state = 1;
+    unit->some_state = Unit::EXEC_STEP;
 }
 
 // Turn unit to face `facing`; if the facing changed, mark state as 1.
@@ -2837,7 +2837,7 @@ void World::TurnToFacing(Unit* unit, uint8_t facing) {
     uint8_t old_facing = unit->eye->facing;
     this->map_stuff->SetFacing(unit, facing);
     if (unit->eye->facing != old_facing) {
-        unit->some_state = 1;
+        unit->some_state = Unit::EXEC_STEP;
     }
 }
 
@@ -2938,7 +2938,7 @@ void World::Destroy() {
 void World::StartAttack(Unit* unit) {
     unit->eye2->ai_state = 1;
     unit->eye2->counter = 0;
-    unit->some_state = 3;
+    unit->some_state = Unit::EXEC_ATTACK;
     unit->cast_target = unit->eye2->unit;
 }
 
@@ -3077,10 +3077,10 @@ void World::OrderTeleportHome(Unit* unit) {
 void World::DoTurnTo(Unit* unit, uint8_t facing) {
     if (unit->eye->facing != facing) {
         this->map_stuff->SetFacing(unit, facing);
-        unit->some_state = 1;
+        unit->some_state = Unit::EXEC_STEP;
     } else {
         unit->eye2->cast_action = 0;
-        unit->some_state = 0;
+        unit->some_state = Unit::EXEC_IDLE;
     }
 }
 
@@ -3088,7 +3088,7 @@ void World::DoTurnTo(Unit* unit, uint8_t facing) {
 void World::StartCastAtUnit(Unit* unit) {
     unit->eye2->ai_state = 2;
     unit->eye2->counter = 0;
-    unit->some_state = 0xD;
+    unit->some_state = Unit::EXEC_CAST_UNIT;
     unit->cast_target = unit->eye2->unit5;
     unit->some_spell = unit->eye2->spell;
     unit->eye2->cast_is_area = 1;
@@ -3101,7 +3101,7 @@ void World::StartCastAtUnit(Unit* unit) {
 void World::StartAreaCast(Unit* unit) {
     unit->eye2->ai_state = 2;
     unit->eye2->counter = 0;
-    unit->some_state = 0xE;
+    unit->some_state = Unit::EXEC_CAST_POS;
     unit->area_cast_x = PosYX(unit->eye2->cast_pos).x;
     unit->area_cast_y = PosYX(unit->eye2->cast_pos).y;
     unit->some_spell = unit->eye2->spell;
@@ -3239,14 +3239,14 @@ void World::DoMoveStepTo(Unit* unit, PosYX yx, uint8_t max_range) {
         unit->eye2->counter = 0;
     }
 
-    unit->some_state = 1;
+    unit->some_state = Unit::EXEC_STEP;
 }
 
 // 5AA485 — pick a new random wander facing for a monster unit.
 void World::DoIdleFidget(Unit* unit) {
     if (unit->eye->facing == unit->eye->target_facing) {
         if (unit->eye2->engaged == 0 && RandInt() >= 205) {
-            unit->some_state = 0;
+            unit->some_state = Unit::EXEC_IDLE;
             return;
         }
 
@@ -3256,21 +3256,21 @@ void World::DoIdleFidget(Unit* unit) {
     }
 
     this->map_stuff->SetFacing(unit, unit->eye->target_facing);
-    unit->some_state = 1;
+    unit->some_state = Unit::EXEC_STEP;
 }
 
 // 5AAB85 — resume moving toward the unit's current command target.
 void World::ApproachBuilding(Unit* unit_same, Unit* unit) {
     int result = this->map_stuff->FacesPosInRange(unit, unit->eye2->command_to, unit->eye2->max_range);
     if (result != 0) {
-        if (unit->some_state == 0xF) {
+        if (unit->some_state == Unit::EXEC_INTERACT_BUILDING) {
             this->ResetUnitToIdle(unit);
         } else {
-            unit->some_state = 0xF;
+            unit->some_state = Unit::EXEC_INTERACT_BUILDING;
         }
     } else {
         this->DoMoveStepTo(unit, unit->eye2->command_to, unit->eye2->max_range);
-        unit->some_state = 1;
+        unit->some_state = Unit::EXEC_STEP;
     }
 }
 
@@ -3286,11 +3286,11 @@ void World::TickRangedApproach(Unit* unit) {
 
     if (this->map_stuff->FacesTargetInRange(unit, unit->eye2->unit, this->UnitMaxRange(unit))) {
         this->StartAttack(unit);
-        unit->some_state = 3;
+        unit->some_state = Unit::EXEC_ATTACK;
     } else {
         uint8_t facing = this->map_stuff->GetFacingTo(unit, unit->eye2->unit);
         this->TurnToFacing(unit, facing);
-        unit->some_state = 1;
+        unit->some_state = Unit::EXEC_STEP;
     }
 }
 
@@ -3413,25 +3413,25 @@ void World::OrderGuardPosition(Unit* unit) {
 void World::ChaseOrAttack(Unit* unit) {
     if (this->map_stuff->FacesTargetInRange(unit, unit->eye2->unit, this->UnitMaxRange(unit)) == 0) {
         this->StepTowardUnit(unit, unit->eye2->unit);
-        unit->some_state = 1;
+        unit->some_state = Unit::EXEC_STEP;
     } else {
         this->StartAttack(unit);
-        unit->some_state = 3;
+        unit->some_state = Unit::EXEC_ATTACK;
     }
 }
 
 // 5AA9F6
 void World::CheckMoveArrival(Unit* unit) {
     if (unit->position->CompatGetYX() == unit->eye2->command_to && unit->position->IsAtCellCenter() != 0) {
-        if (unit->some_state == 2) {
-            unit->some_state = 0;
+        if (unit->some_state == Unit::EXEC_PICKUP) {
+            unit->some_state = Unit::EXEC_IDLE;
             unit->eye2->cast_action = 0;
         } else {
-            unit->some_state = 2;
+            unit->some_state = Unit::EXEC_PICKUP;
         }
     } else {
         this->DoMoveStepTo(unit, unit->eye2->command_to, 0);
-        unit->some_state = 1;
+        unit->some_state = Unit::EXEC_STEP;
     }
 }
 
@@ -3439,7 +3439,7 @@ void World::CheckMoveArrival(Unit* unit) {
 void World::ChaseOrAreaCast(Unit* unit) {
     if (this->map_stuff->FacesPosInRange(unit, PosYX(unit->eye2->cast_pos), unit->eye2->max_range) == 0) {
         this->DoMoveStepTo(unit, PosYX(unit->eye2->cast_pos), unit->eye2->max_range);
-        unit->some_state = 1;
+        unit->some_state = Unit::EXEC_STEP;
     } else {
         this->StartAreaCast(unit);
     }
@@ -4066,10 +4066,10 @@ void World::RunAiUnitState(Unit* unit) {
 
 // 5A51A1
 void World::ProcessUnitState(Unit* unit) {
-    if (unit->state == Unit::ORDER_ATTACK_UNIT && unit->eye2->unit != nullptr && unit->eye2->unit->some_state == 0x10) {
+    if (unit->state == Unit::ORDER_ATTACK_UNIT && unit->eye2->unit != nullptr && unit->eye2->unit->some_state == Unit::EXEC_DEAD) {
         this->ResetUnitToIdle(unit);
     }
-    if ((unit->state == Unit::ORDER_DEFEND_TARGET || unit->state == Unit::ORDER_FOLLOW) && unit->eye2->unit2 != nullptr && unit->eye2->unit2->some_state == 0x10) {
+    if ((unit->state == Unit::ORDER_DEFEND_TARGET || unit->state == Unit::ORDER_FOLLOW) && unit->eye2->unit2 != nullptr && unit->eye2->unit2->some_state == Unit::EXEC_DEAD) {
         this->ResetUnitToIdle(unit);
     }
     if (unit->state == Unit::ORDER_MOVE && unit->eye->target_reached != 0 && unit->eye->move_target.val == unit->position->CompatGetYX()) {
@@ -4078,7 +4078,7 @@ void World::ProcessUnitState(Unit* unit) {
 
     switch (unit->state) {
     case Unit::ORDER_IDLE:
-        unit->some_state = 0;
+        unit->some_state = Unit::EXEC_IDLE;
         break;
     case Unit::ORDER_MOVE:
         this->DoMoveStep(unit, unit->eye2->command_to);
@@ -4129,10 +4129,10 @@ void World::ProcessUnitState(Unit* unit) {
         this->DoGatherLootStep(unit);
         break;
     case Unit::ORDER_SCRIPT_SPECIAL:
-        unit->some_state = 0x1b;
+        unit->some_state = Unit::EXEC_SPECIAL;
         break;
     default:
-        unit->some_state = 0;
+        unit->some_state = Unit::EXEC_IDLE;
         this->SetIdleOrRetreat(unit, 0);
         break;
     }
@@ -4657,7 +4657,7 @@ void World::CheckOP_4(TriggerCheck* check) {
 
 // 5B2EB8
 void World::CheckOP_5(TriggerCheck* check) {
-    if (check->unit->some_state == 0x10) {
+    if (check->unit->some_state == Unit::EXEC_DEAD) {
         this->trigger_variables[check->id] = 0;
     } else {
         this->trigger_variables[check->id] = 1;
@@ -4668,7 +4668,7 @@ void World::CheckOP_5(TriggerCheck* check) {
 void World::CheckOP_6(TriggerCheck* check) {
     Unit* other = static_cast<Unit*>(check->multi);
 
-    if (check->unit->some_state == 0x10 || check->multi == nullptr || other->some_state == 0x10) {
+    if (check->unit->some_state == Unit::EXEC_DEAD || check->multi == nullptr || other->some_state == Unit::EXEC_DEAD) {
         this->trigger_variables[check->id] = 0xFF;
     } else {
         TokenPos* pos = check->unit->position;
@@ -4764,7 +4764,7 @@ void World::CheckOP_17(TriggerCheck* check) {
 
 // 5B34C9
 void World::CheckOP_18(TriggerCheck* check) {
-    if (check->unit->some_state == 0x10) {
+    if (check->unit->some_state == Unit::EXEC_DEAD) {
         this->mission_fail += 1;
     }
 }

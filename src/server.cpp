@@ -7488,14 +7488,14 @@ Unit* SrvStru1::AddDummyUnitWithSpell(int32_t xpos, int32_t ypos, int32_t spellI
 
 void SrvStru1::MakeAreaSpellEffect(uint8_t from_x, uint8_t from_y, uint8_t to_x, uint8_t to_y, uint32_t spell_id, uint32_t power) { // 4FBB24
     Unit* unit = this->AddDummyUnitWithSpell(from_x, from_y, spell_id, power);
-    unit->some_state = 14;
+    unit->some_state = Unit::EXEC_CAST_POS;
     unit->area_cast_x = to_x;
     unit->area_cast_y = to_y;
 }
 
 void SrvStru1::MakeTargetSpellEffect(uint8_t a0, uint8_t a1, Unit* unit, uint32_t a3, uint32_t a4) { // 4FBAE3
     Unit* u = this->AddDummyUnitWithSpell(a0, a1, a3, a4);
-    u->some_state = 13;
+    u->some_state = Unit::EXEC_CAST_UNIT;
     u->cast_target = unit;
 }
 
@@ -7823,7 +7823,7 @@ Unit* Server::FindPlayerUnit(uint16_t player_ref, uint16_t unit_id) {
     if (!unit) {
         return nullptr;
     }
-    if (unit->some_state == 0x10) {
+    if (unit->some_state == Unit::EXEC_DEAD) {
         return nullptr;
     }
     return unit;

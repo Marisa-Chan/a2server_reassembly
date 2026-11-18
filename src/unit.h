@@ -101,6 +101,18 @@ public:
         ORDER_SCRIPT_SPECIAL = 27,
     };
 
+    enum ExecState : int32_t {
+        EXEC_IDLE              = 0,
+        EXEC_STEP              = 1,
+        EXEC_PICKUP            = 2,
+        EXEC_ATTACK            = 3,
+        EXEC_CAST_UNIT         = 13,
+        EXEC_CAST_POS          = 14,
+        EXEC_INTERACT_BUILDING = 15,
+        EXEC_DEAD              = 16,
+        EXEC_SPECIAL           = 27,
+    };
+
 public: // VTable at 60efc0.
     virtual ~Unit() override;
     virtual void Serialize(CArchive& ar) override;  // client: 53633a

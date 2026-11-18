@@ -653,7 +653,7 @@ void Unit::CopyFrom(Unit* unit) {
 
 // 52BAD9
 void Unit::RegenTick() {
-    if (this->some_state == 0x10) {
+    if (this->some_state == EXEC_DEAD) {
         return;
     }
 
@@ -707,7 +707,7 @@ void Unit::RegenTick() {
 
 // 52A857
 void Unit::ProcessEffects() {
-    if (this->some_state == 0x10) {
+    if (this->some_state == EXEC_DEAD) {
         return;
     }
 
@@ -736,7 +736,7 @@ void Unit::ProcessEffects() {
 #endif
     if (this->hp < 1) {
         this->state = ORDER_IDLE;
-        this->some_state = 0;
+        this->some_state = EXEC_IDLE;
         if (this->decay == 0) {
             this->decay = 1;
             this->CancelQueuedSpell();
@@ -748,7 +748,7 @@ void Unit::ProcessEffects() {
                 this->hp = -1000;
             }
             if (this->hp < -9) {
-                this->some_state = 0x10;
+                this->some_state = EXEC_DEAD;
                 this->Die(); // Kill the unit.
             }
         } else {
@@ -773,12 +773,12 @@ void Unit::ProcessEffects() {
     }
 
     switch (this->some_state) {
-    case 1: // Move?
+    case EXEC_STEP: // Move?
         this->ProcessMoveStep(x_wide, y_wide, eye_f0, eye_f1);
         this->some_state2 = 0;
         break;
 
-    case 2: { // Pick up sack.
+    case EXEC_PICKUP: { // Pick up sack.
             Sack* sack = MapStuff_Instance->GetSackAtPos(this->position);
             if (sack) {
                 g_Server->PrepareSackPickup(sack);
@@ -792,24 +792,24 @@ void Unit::ProcessEffects() {
             break;
         }
 
-    case 3: // Attack.
-    case 0xd: // Spell cast.
-    case 0xe: { // Area spell cast.
+    case EXEC_ATTACK: // Attack.
+    case EXEC_CAST_UNIT: // Spell cast.
+    case EXEC_CAST_POS: { // Area spell cast.
             if (this->some_state2 == 0) {
                 int32_t charge_extra = 0;
-                if (this->some_state == 3) {
+                if (this->some_state == EXEC_ATTACK) {
                     if (!this->weapon || !this->weapon->imbued_spell || !(this->unit_attrs & Unit::ATTR_MAGE)) {
                         CalcAttackCharge(this, this->cast_target, &charge_extra);
                     } else {
                         this->some_spell = this->weapon->imbued_spell;
                         this->some_item  = static_cast<Item*>(this->weapon);
-                        this->some_state = 0xd;
+                        this->some_state = EXEC_CAST_UNIT;
                     }
                 }
-                if (this->some_state == 0xd || this->some_state == 0xe) {
+                if (this->some_state == EXEC_CAST_UNIT || this->some_state == EXEC_CAST_POS) {
                     int32_t ok;
 
-                    if (this->some_state == 0xd) {
+                    if (this->some_state == EXEC_CAST_UNIT) {
                         ok = this->some_spell->StartCast(this, this->cast_target, 0, 0);
                     } else {
                         ok = this->some_spell->StartCast(this, nullptr, this->area_cast_x, this->area_cast_y);
@@ -828,16 +828,16 @@ void Unit::ProcessEffects() {
             } else if (this->some_state2 == 5) { // Countdown to attack or spell execution.
                 this->charge_countdown--;
                 if (this->charge_countdown == 0) {
-                    if (this->some_state == 3) {
+                    if (this->some_state == EXEC_ATTACK) {
                         if (!this->weapon || !this->weapon->imbued_spell || !(this->unit_attrs & Unit::ATTR_MAGE)) {
                             ExecuteAttack(this, this->cast_target);
                         } else {
                             this->some_spell = this->weapon->imbued_spell;
                             this->some_item  = static_cast<Item*>(this->weapon);
-                            this->some_state = 0xd;
+                            this->some_state = EXEC_CAST_UNIT;
                         }
                     }
-                    if (this->some_state == 0xd || this->some_state == 0xe) {
+                    if (this->some_state == EXEC_CAST_UNIT || this->some_state == EXEC_CAST_POS) {
                         SpellInfo* expected = &g_GameDataRes.spells[this->some_spell->spell_id];
                         if (this->some_spell->spell_info != expected) {
                             uint8_t sid = this->some_spell->spell_id;
@@ -848,7 +848,7 @@ void Unit::ProcessEffects() {
                             LogMessage(CString("Bad spell data, restoring spell"));
                             this->some_spell->spell_info = expected;
                         }
-                        if (this->some_state == 0xd) {
+                        if (this->some_state == EXEC_CAST_UNIT) {
                             this->some_spell->ExecuteOnTarget(this, this->cast_target);
                         } else {
                             this->some_spell->ExecuteAtArea(this, nullptr, this->area_cast_x, this->area_cast_y);
@@ -883,7 +883,7 @@ void Unit::ProcessEffects() {
                         }
                     }
                     this->charge_countdown = (int8_t)(this->relax + relax_extra + Random0N(3));
-                    if ((this->some_state == 0xd || this->some_state == 0xe) && this->some_spell != nullptr) {
+                    if ((this->some_state == EXEC_CAST_UNIT || this->some_state == EXEC_CAST_POS) && this->some_spell != nullptr) {
                         #ifdef A2SERVER_PATCH
                         // bug_0006: spell values array can be empty (null
                         // m_pData) - skip the add instead of crashing
@@ -905,7 +905,7 @@ void Unit::ProcessEffects() {
             break;
         }
 
-    case 0xf: { // Interact with building
+    case EXEC_INTERACT_BUILDING: { // Interact with building
             BuildingsList* building_list = g_Server->srv_stru1->building_list;
 
 #ifdef A2SERVER_PATCH
@@ -1557,7 +1557,7 @@ void Unit::Die() {
         this->summon_id = 0;
     }
 
-    this->some_state = 0x10;
+    this->some_state = EXEC_DEAD;
     this->state = ORDER_DEAD;
 
     MapStuff_Instance->AddUnitToMap(this);
@@ -1838,7 +1838,7 @@ void Unit::ResetActionState() {
     this->some_spell = nullptr;
     this->some_state2 = 0;
     this->attack_ready = 1;
-    this->some_state = 0;
+    this->some_state = EXEC_IDLE;
     this->state = ORDER_IDLE;
 }
 
@@ -1912,7 +1912,7 @@ void Unit::InitDefaults(const CString& str) {
     this->eye->target_facing = this->eye->facing;
     this->group = nullptr;
     this->state = ORDER_IDLE;
-    this->some_state = 0;
+    this->some_state = EXEC_IDLE;
     this->some_state2 = 0;
     this->attack_ready = 1;
     this->cast_target = nullptr;
@@ -1962,7 +1962,7 @@ void Unit::CancelQueuedSpell() {
         return;
     }
 
-    if ((this->some_state == 0xD || this->some_state == 0xE) && this->attack_ready == 0) {
+    if ((this->some_state == EXEC_CAST_UNIT || this->some_state == EXEC_CAST_POS) && this->attack_ready == 0) {
         return;
     }
 
