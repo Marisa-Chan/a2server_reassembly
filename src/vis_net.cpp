@@ -597,7 +597,7 @@ VisNetChatTextBox::VisNetChatTextBox(int32_t _id, const RECT& r, CGameFont* _fon
 
 // 4502c0
 int32_t VisNetChatTextBox::OnKeyDown(uint32_t wparam) {
-    if (wparam == 0xD) {
+    if (wparam == VK_RETURN) {
         char buf[256];
         this->WriteData(buf);
         this->ReadData(g_EmptyStrNetChatText);
@@ -929,7 +929,7 @@ void VisNetDlg::VMethod26() {
 
 // 4478E9
 int32_t VisNetDlg::OnKeyDown(uint32_t wparam) {
-    if (wparam == 0x1B) {
+    if (wparam == VK_ESCAPE) {
         return this->MsgProc(VIS_MSG_NET_NEW_SESSION, 0, 0);
     }
     return VisWindow::OnKeyDown(wparam);
@@ -1121,7 +1121,7 @@ void VisServerScreen::VMethod26() {
 
 // 44E6DE
 int32_t VisServerScreen::OnKeyDown(uint32_t wparam) {
-    if (wparam == 0x0D) {  // Enter: send the chat text box content
+    if (wparam == VK_RETURN) {  // Enter: send the chat text box content
         PacketJoin& pkt = PacketJoin::Inst;
         pkt.id = CHAT;
         pkt.to_player_id = 0;
@@ -1367,7 +1367,7 @@ VisListBoxPhoneBook::~VisListBoxPhoneBook() = default;
 
 // 44FB80
 int32_t VisListBoxPhoneBook::OnKeyDown(uint32_t wparam) {
-    if (wparam == 0x2E) {
+    if (wparam == VK_DELETE) {
         if (this->selected_index >= 0) {
             this->RemoveItem(this->selected_index);
             this->bound_entries->RemoveAt(this->selected_index, 1);

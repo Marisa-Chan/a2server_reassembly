@@ -154,10 +154,10 @@ void VisShop::CloseShopDialog() {
 // 4BA832
 int32_t VisShop::OnKeyDown(uint32_t wparam) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    if (wparam == 0xd) {
+    if (wparam == VK_RETURN) {
         return 1;
     }
-    if (wparam == 0x1b) {
+    if (wparam == VK_ESCAPE) {
         this->CloseShopDialog();
         if (main_wnd->dialogsMask == DIALOG_MASK_SHOP) {
             main_wnd->PostMessage(MAIN_MSG_SHOW_CURRENT_TOWN, 0, 0);

@@ -673,13 +673,13 @@ int32_t VisInvType1::OnMouseMove(uint32_t wparam, CPoint pos) {
 // VisInvType1::OnKeyDown - PageUp/PageDown page through the bags, one bag
 // column per step (page width = (screen width - 240) / 80 - 1).
 int32_t VisInvType1::OnKeyDown(uint32_t wparam) {
-    if (wparam == 0x21 || wparam == 0x22) {
+    if (wparam == VK_PRIOR || wparam == VK_NEXT) {
         int32_t page_steps = ((int32_t)g_ScreenSize.right - 240) / 80 - 1;
         if (page_steps <= 1) {
             page_steps = 1;
         }
         for (int32_t i = 0; i < page_steps; i++) {
-            if (wparam == 0x21) {
+            if (wparam == VK_PRIOR) {
                 this->ScrollCellsBack();
             } else {
                 this->ScrollCellsForward();
@@ -1617,7 +1617,7 @@ int32_t VisInvExtType1::OnKeyDown(uint32_t wparam) {
         return 0;
     }
 #endif
-    if (wparam == 0x21) {
+    if (wparam == VK_PRIOR) {
         this->ScrollCellsBack();
         this->ScrollCellsBack();
         this->ScrollCellsBack();
@@ -1628,7 +1628,7 @@ int32_t VisInvExtType1::OnKeyDown(uint32_t wparam) {
         CSound::Play(this->snd_scroll);
         return 1;
     }
-    if (wparam == 0x22) {
+    if (wparam == VK_NEXT) {
         this->ScrollCellsForward();
         this->ScrollCellsForward();
         this->ScrollCellsForward();
@@ -2604,7 +2604,7 @@ int32_t VisSpellBook::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
 
 // 4CAC9B
 int32_t VisSpellBook::OnKeyDown(uint32_t wparam) {
-    if (g_kbControlState != 0 && (wparam == 0x61 || wparam == 0x41)) {
+    if (g_kbControlState != 0 && (wparam == 'a' || wparam == 'A')) {
         MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
         VisPlayingArea* mc = main_wnd->vis_map_context;
         uint32_t spell_id = 0;

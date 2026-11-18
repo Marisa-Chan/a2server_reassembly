@@ -3477,12 +3477,12 @@ void VisDropGold::DoClose(uint32_t code) {
 int32_t VisDropGold::OnKeyDown(uint32_t wparam) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
-    if (wparam == 0xd) {
+    if (wparam == VK_RETURN) {
         main_wnd->PostMessage(0x445, 0, 0);
         return 1;
     }
 
-    if (wparam == 0x1b) {
+    if (wparam == VK_ESCAPE) {
         main_wnd->PostMessage(0x446, 0, 0);
         return 1;
     }

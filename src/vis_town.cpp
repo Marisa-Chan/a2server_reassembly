@@ -159,7 +159,7 @@ int32_t VisTown::OnMouseMove(uint32_t wparam, CPoint pos) {
 
 // 4CE4AF
 int32_t VisTown::OnKeyDown(uint32_t wparam) {
-    if (wparam == 0x0D || wparam == 0x1B) {
+    if (wparam == VK_RETURN || wparam == VK_ESCAPE) {
         return 1;
     }
     return this->VisScreen::OnKeyDown(wparam);

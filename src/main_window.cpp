@@ -426,28 +426,28 @@ const AFX_MSGMAP_ENTRY MainWindow::_messageEntries[] =
 // 486a2f
 void MainWindow::OnSysKeyDown(UINT key, UINT repeat, UINT flags) {
     if (this->input_locked == 0) {
-        if (key == 0x79) {
+        if (key == VK_F10) {
             this->vis_root->MsgProc(WM_KEYDOWN, key, 0);
             this->Default();
             g_mousept.ForceDisableHint();
             return;
         }
 
-        if (key == 0x12) {
+        if (key == VK_MENU) {
             g_kbMenuState = 1;
         }
 
         if ((flags & 0x2000) != 0) {
-            if (key >= 0x31 && key <= 0x39) {
+            if (key >= '1' && key <= '9') {
                 g_kbMenuState = 1;
                 this->vis_root->MsgProc(WM_KEYDOWN, key, 0);
-            } else if (key >= 0x60 && key <= 0x69) {
+            } else if (key >= VK_NUMPAD0 && key <= VK_NUMPAD9) {
                 g_kbMenuState = 1;
-                this->vis_root->MsgProc(WM_KEYDOWN, key - 0x30, 0);
-            } else if (key == 0x53) {
+                this->vis_root->MsgProc(WM_KEYDOWN, key - (VK_NUMPAD0 - '0'), 0);
+            } else if (key == 'S') {
                 SaveScreenshot();
-            } else if (key > 0x41 && key < 0x5A && (this->dialogsMask & DIALOG_MASK_INGAME) != 0) {
-                this->vis_map_context->SendHotkeyBroadcast(key - 0x41);
+            } else if (key > 'A' && key < 'Z' && (this->dialogsMask & DIALOG_MASK_INGAME) != 0) {
+                this->vis_map_context->SendHotkeyBroadcast(key - 'A');
             }
         }
     }
@@ -776,7 +776,7 @@ void MainWindow::OnKeyDown(UINT key, UINT repeat, UINT flags) {
         // Tangar INFO_fps stopwatch: a Right Shift keydown (VK_SHIFT while the right
         // shift is physically held) freezes the running stopwatch, or toggles it off/on
         // (restarting the timer). The key still falls through to the retail switch.
-        if (tangar_cfg::r_stopwatch && key == 0x10 && (GetAsyncKeyState(VK_RSHIFT) & 0x8000)) {
+        if (tangar_cfg::r_stopwatch && key == VK_SHIFT && (GetAsyncKeyState(VK_RSHIFT) & 0x8000)) {
             if (tangar_cfg::show_stopwatch && tangar_cfg::show_stopwatch_frozen == 0) {
                 tangar_cfg::show_stopwatch_frozen = (uint32_t)difftime(time(NULL), (time_t)tangar_cfg::stopwatch_start);
             } else {
@@ -796,11 +796,11 @@ void MainWindow::OnKeyDown(UINT key, UINT repeat, UINT flags) {
                 this->vis_root->MsgProc(WM_KEYDOWN, key, 0);
                 return;
             }
-            if (dispatch == 0x70) {
+            if (dispatch == VK_F1) {
                 this->PostMessage(MAIN_MSG_SHOW_HELP, 0, 0);
                 return;
             }
-            if (dispatch == 0x72) {
+            if (dispatch == VK_F3) {
                 if (this->sessionMode == SESSION_LOCAL_BATTLE) {
                     if (this->dialogsMask == DIALOG_MASK_INGAME || this->dialogsMask == 0) {
                         this->PostMessage(MAIN_MSG_SHOW_LOAD_GAME, 0, 0);
@@ -817,58 +817,58 @@ void MainWindow::OnKeyDown(UINT key, UINT repeat, UINT flags) {
         }
 #endif
         switch (key) {
-        case 0x08:
-        case 0x09:
-        case 0x0d:
-        case 0x20:
-        case 0x21:
-        case 0x22:
-        case 0x23:
-        case 0x24:
-        case 0x25:
-        case 0x26:
-        case 0x27:
-        case 0x28:
-        case 0x2d:
-        case 0x2e:
-        case 0x30:
-        case 0x31:
-        case 0x32:
-        case 0x33:
-        case 0x34:
-        case 0x35:
-        case 0x36:
-        case 0x37:
-        case 0x38:
-        case 0x39:
-        case 0x73:
-        case 0x74:
-        case 0x75:
-        case 0x76:
-        case 0x77:
-        case 0x78:
-        case 0x7a:
-        case 0x7b:
-        case 0xc0:
+        case VK_BACK:
+        case VK_TAB:
+        case VK_RETURN:
+        case VK_SPACE:
+        case VK_PRIOR:
+        case VK_NEXT:
+        case VK_END:
+        case VK_HOME:
+        case VK_LEFT:
+        case VK_UP:
+        case VK_RIGHT:
+        case VK_DOWN:
+        case VK_INSERT:
+        case VK_DELETE:
+        case '0':
+        case '1':
+        case '2':
+        case '3':
+        case '4':
+        case '5':
+        case '6':
+        case '7':
+        case '8':
+        case '9':
+        case VK_F4:
+        case VK_F5:
+        case VK_F6:
+        case VK_F7:
+        case VK_F8:
+        case VK_F9:
+        case VK_F11:
+        case VK_F12:
+        case VK_OEM_3:
             this->vis_root->MsgProc(WM_KEYDOWN, key, 0);
             break;
 
-        case 0x10:
+        case VK_SHIFT:
             g_kbShiftState = 1;
             break;
 
-        case 0x11:
+        case VK_CONTROL:
             g_kbControlState = 1;
             break;
 
-        case 0x13:
+        case VK_PAUSE:
             if (this->sessionMode == SESSION_LOCAL_BATTLE && this->dialogsMask == DIALOG_MASK_INGAME) {
                 VisMessageBoxWithList* mbox = new VisMessageBoxWithList(1, 0x20, 0x30, 0x260, 0x1b0, TxtFile::AllLines[0x77], nullptr, 0);
                 this->PopUpScreen(mbox);
             }
             break;
 
-        case 0x1b:
+        case VK_ESCAPE:
             if (this->dialogsMask == DIALOG_MASK_INGAME) {
                 this->PostMessage(MAIN_MSG_SHOW_INGAME_MENU, 0, 0);
                 if (this->sessionMode != SESSION_LOCAL_BATTLE) {
@@ -885,20 +885,20 @@ void MainWindow::OnKeyDown(UINT key, UINT repeat, UINT flags) {
             }
             break;
 
-        case 0x60:
-        case 0x61:
-        case 0x62:
-        case 0x63:
-        case 0x64:
-        case 0x65:
-        case 0x66:
-        case 0x67:
-        case 0x68:
-        case 0x69:
-            this->vis_root->MsgProc(WM_KEYDOWN, key - 0x30, 0);
+        case VK_NUMPAD0:
+        case VK_NUMPAD1:
+        case VK_NUMPAD2:
+        case VK_NUMPAD3:
+        case VK_NUMPAD4:
+        case VK_NUMPAD5:
+        case VK_NUMPAD6:
+        case VK_NUMPAD7:
+        case VK_NUMPAD8:
+        case VK_NUMPAD9:
+            this->vis_root->MsgProc(WM_KEYDOWN, key - (VK_NUMPAD0 - '0'), 0);
             break;
 
-        case 0x6b:
+        case VK_ADD:
             if (g_kbControlState == 0) {
                 if (this->sessionMode != SESSION_SINGLEPLAYER && this->dialogsMask == DIALOG_MASK_INGAME) {
                     if (this->SetSpeed(this->game_speed + 1) == 0) {
@@ -912,7 +912,7 @@ void MainWindow::OnKeyDown(UINT key, UINT repeat, UINT flags) {
             }
             break;
 
-        case 0x6d:
+        case VK_SUBTRACT:
             if (g_kbControlState == 0) {
                 if (this->sessionMode != SESSION_SINGLEPLAYER && this->dialogsMask == DIALOG_MASK_INGAME) {
                     if (this->SetSpeed(this->game_speed - 1) == 0) {
@@ -929,11 +929,11 @@ void MainWindow::OnKeyDown(UINT key, UINT repeat, UINT flags) {
             }
             break;
 
-        case 0x70:
+        case VK_F1:
             this->PostMessage(MAIN_MSG_SHOW_HELP, 0, 0);
             break;
 
-        case 0x71:
+        case VK_F2:
             if ((this->dialogsMask == DIALOG_MASK_INGAME || this->dialogsMask == 0) && this->sessionMode == SESSION_LOCAL_BATTLE) {
                 this->PostMessage(MAIN_MSG_SHOW_SAVE_GAME, 0, 0);
             }
@@ -945,7 +945,7 @@ void MainWindow::OnKeyDown(UINT key, UINT repeat, UINT flags) {
 #endif
             break;
 
-        case 0x72:
+        case VK_F3:
             if (g_kbShiftState == 0 || g_kbControlState == 0) {
                 if (this->sessionMode == SESSION_LOCAL_BATTLE) {
                     if (this->dialogsMask == DIALOG_MASK_INGAME || this->dialogsMask == 0) {
@@ -962,7 +962,7 @@ void MainWindow::OnKeyDown(UINT key, UINT repeat, UINT flags) {
             break;
 
         default:
-            if (key > 0x40 && key < 0x5b) {
+            if (key >= 'A' && key <= 'Z') {
                 this->vis_root->MsgProc(WM_KEYDOWN, key, 0);
             }
             break;
@@ -1046,7 +1046,7 @@ BOOL MainWindow::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message) {
 
 // 486c25
 void MainWindow::OnSysKeyUp(UINT key, UINT repeat, UINT flags) {
-    if (this->input_locked == 0 && key == 0x12) {
+    if (this->input_locked == 0 && key == VK_MENU) {
         g_kbMenuState = 0;
     }
     this->Default();
@@ -1081,11 +1081,11 @@ void MainWindow::UnloadTerrainTiles() {
 // 486bb0
 void MainWindow::OnKeyUp(UINT key, UINT repeat, UINT flags) {
     if (this->input_locked == 0) {
-        if (key == 0x10) {
+        if (key == VK_SHIFT) {
             g_kbShiftState = 0;
-        } else if (key == 0x11) {
+        } else if (key == VK_CONTROL) {
             g_kbControlState = 0;
-        } else if (key == 0x12) {
+        } else if (key == VK_MENU) {
             g_kbMenuState = 0;
         }
     }

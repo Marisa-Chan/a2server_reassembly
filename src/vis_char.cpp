@@ -534,13 +534,13 @@ int32_t VisCharSellectList::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
 // 431B95
 int32_t VisCharSellectList::OnKeyDown(uint32_t wparam) {
     switch (wparam) {
-    case 0x26:
+    case VK_UP:
         this->SelectPrevRow();
         return 1;
-    case 0x28:
+    case VK_DOWN:
         this->SelectNextRow();
         return 1;
-    case 0x0D:
+    case VK_RETURN:
         if (this->renaming != 0) {
             char buf[100];
             this->parent_screen->rename_txt->WriteData(buf);
@@ -550,7 +550,7 @@ int32_t VisCharSellectList::OnKeyDown(uint32_t wparam) {
             this->parent_screen->CloseOk();
         }
         return 1;
-    case 0x1B:
+    case VK_ESCAPE:
         if (this->renaming != 0) {
             this->parent_screen->CloseRenameWindow();
         }
@@ -1147,7 +1147,7 @@ int32_t VisCharGen::OnLButtonUp(uint32_t wparam, CPoint pos) {
 
 // 42EA4F
 int32_t VisCharGen::OnKeyDown(uint32_t wparam) {
-    if (wparam == 0xD) {
+    if (wparam == VK_RETURN) {
         this->OnClickFwd();
         return 1;
     }
@@ -2863,7 +2863,7 @@ int32_t VisCharInfo::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
 // 4B2AD5
 int32_t VisCharInfo::OnKeyDown(uint32_t wparam) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    if (wparam != 9) {
+    if (wparam != VK_TAB) {
         return 0;
     }
 

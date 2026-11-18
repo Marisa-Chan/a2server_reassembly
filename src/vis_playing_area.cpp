@@ -6411,10 +6411,10 @@ void VisPlayingArea::TangarHandleHotkey(uint32_t key) {
 	}
 
 	if ((shortcut->kind != 2 || g_kbControlState != 0) && g_kbShiftState == 0) {
-		wnd->vis_spellbook->MsgProc(VIS_MSG_SHORTCUT_KEY, key - 0x73, g_kbControlState);
+		wnd->vis_spellbook->MsgProc(VIS_MSG_SHORTCUT_KEY, key - VK_F4, g_kbControlState);
 	}
 	if ((shortcut->kind != 1 || g_kbShiftState != 0) && g_kbControlState == 0) {
-		wnd->vis_invtype1->MsgProc(VIS_MSG_SHORTCUT_KEY, key - 0x73, g_kbShiftState);
+		wnd->vis_invtype1->MsgProc(VIS_MSG_SHORTCUT_KEY, key - VK_F4, g_kbShiftState);
 	}
 	if (shortcut->kind == 1) {
 		if (this->IsBookOpen() == 0 && wnd->vis_spellbook->IsSpellAvailable(shortcut->item_id) != 0) {
@@ -6449,67 +6449,67 @@ int32_t VisPlayingArea::OnKeyDown(uint32_t wparam) {
 			wnd->vis_1200->OnKeyDown(wparam);
 			return 0;
 		}
-		if (wparam >= 0x30 && wparam <= 0x39) {
+		if (wparam >= '0' && wparam <= '9') {
 			if (g_kbControlState == 0) {
 				if (g_kbMenuState == 0) {
-					this->SelectControlGroup(wparam - 0x30);
+					this->SelectControlGroup(wparam - '0');
 				} else {
-					this->SelectControlGroupAndCenter(wparam - 0x30);
+					this->SelectControlGroupAndCenter(wparam - '0');
 				}
 			} else if (g_kbShiftState == 0) {
-				this->AssignControlGroup(wparam - 0x30);
+				this->AssignControlGroup(wparam - '0');
 			} else {
-				this->AddToControlGroup(wparam - 0x30);
+				this->AddToControlGroup(wparam - '0');
 			}
 			return 1;
 		}
 		switch (wparam) {
-		case 8:
+		case VK_BACK:
 			this->msglog.Clear();
 			break;
-		case 0xD:
+		case VK_RETURN:
 			wnd->OpenConsoleInput();
 			break;
-		case 0x25:
+		case VK_LEFT:
 			if (wnd->dialogsMask == DIALOG_MASK_INGAME) {
 				this->ScrollMapX(-1);
 			}
 			break;
-		case 0x26:
+		case VK_UP:
 			if (wnd->dialogsMask == DIALOG_MASK_INGAME) {
 				this->ScrollMapY(-1);
 			}
 			break;
-		case 0x27:
+		case VK_RIGHT:
 			if (wnd->dialogsMask == DIALOG_MASK_INGAME) {
 				this->ScrollMapX(1);
 			}
 			break;
-		case 0x28:
+		case VK_DOWN:
 			if (wnd->dialogsMask == DIALOG_MASK_INGAME) {
 				this->ScrollMapY(1);
 			}
 			break;
-		case 0x73:
-		case 0x74:
-		case 0x75:
-		case 0x76:
-		case 0x77:
-		case 0x78:
-		case 0x79:
-		case 0x7A:
-		case 0x7B: {
+		case VK_F4:
+		case VK_F5:
+		case VK_F6:
+		case VK_F7:
+		case VK_F8:
+		case VK_F9:
+		case VK_F10:
+		case VK_F11:
+		case VK_F12: {
 #ifdef A2CLIENT_PATCH
 			// Tangar f_key_handler (40caff): the custom-hotkey map replaces the
 			// retail F4-F12 shortcut slots.
 			this->TangarHandleHotkey(wparam);
 #else
-			UserShortcut& shortcut = wnd->m_GameSession.shortcuts[wparam - 0x73];
+			UserShortcut& shortcut = wnd->m_GameSession.shortcuts[wparam - VK_F4];
 			if ((shortcut.kind != 2 || g_kbControlState != 0) && g_kbShiftState == 0) {
-				wnd->vis_spellbook->MsgProc(VIS_MSG_SHORTCUT_KEY, wparam - 0x73, g_kbControlState);
+				wnd->vis_spellbook->MsgProc(VIS_MSG_SHORTCUT_KEY, wparam - VK_F4, g_kbControlState);
 			}
 			if ((shortcut.kind != 1 || g_kbShiftState != 0) && g_kbControlState == 0) {
-				wnd->vis_invtype1->MsgProc(VIS_MSG_SHORTCUT_KEY, wparam - 0x73, g_kbShiftState);
+				wnd->vis_invtype1->MsgProc(VIS_MSG_SHORTCUT_KEY, wparam - VK_F4, g_kbShiftState);
 			}
 			if (shortcut.kind == 1) {
 				if (this->IsBookOpen() == 0 && wnd->vis_spellbook->IsSpellAvailable(shortcut.item_id) != 0) {
@@ -6525,42 +6525,42 @@ int32_t VisPlayingArea::OnKeyDown(uint32_t wparam) {
 			if (wnd->dialogsMask == DIALOG_MASK_INGAME) {
 				if (g_kbControlState == 0 && this->selected_object_count != 0 && (this->selection_flags & SEL_NON_CONTROLLABLE) == 0) {
 					switch (wparam) {
-					case 0x41:
+					case 'A':
 						this->SetOrderMode(ORDER_MODE_ATTACK);
 						return 1;
-					case 0x43:
+					case 'C':
 						if (this->IsBookOpen() == 0) {
 							this->SetOrderMode(ORDER_MODE_CAST);
 						}
 						return 1;
-					case 0x44:
+					case 'D':
 						this->SetOrderMode(ORDER_MODE_DEFEND);
 						return 1;
-					case 0x47:
+					case 'G':
 						this->SetOrderMode(ORDER_MODE_GUARD);
 						return 1;
-					case 0x4C:
+					case 'L':
 						this->SendGroupStop();
 						return 1;
-					case 0x4D:
+					case 'M':
 						this->SetOrderMode(ORDER_MODE_MOVE);
 						return 1;
-					case 0x50:
+					case 'P':
 						this->SendGroupGather();
 						return 1;
-					case 0x52:
+					case 'R':
 						this->SetOrderMode(ORDER_MODE_RETREAT);
 						return 1;
-					case 0x53:
+					case 'S':
 						this->SetOrderMode(ORDER_MODE_SWARM);
 						return 1;
-					case 0x54:
+					case 'T':
 						this->SetOrderMode(ORDER_MODE_AGGRESSIVE);
 						return 1;
 					}
 				}
 				switch (wparam) {
-				case 0x20:
+				case VK_SPACE:
 					if (wnd->dialogsMask == DIALOG_MASK_INGAME && wnd->console_active == 0) {
 						if (this->my_unit == nullptr || this->my_unit->hp > -40) {
 							if (this->IsBagOpen() == 0 && this->IsBookOpen() == 0) {
@@ -6583,72 +6583,72 @@ int32_t VisPlayingArea::OnKeyDown(uint32_t wparam) {
 						}
 					}
 					break;
-				case 0x42:
-				case 0x51:
+				case 'B':
+				case 'Q':
 					if (wnd->dialogsMask == DIALOG_MASK_INGAME) {
 						wnd->vis_right_panel->MsgProc(VIS_MSG_TOGGLE_SPELL_PANEL, 0, 0);
 						this->MsgProc(VIS_MSG_TOGGLE_SPELL_PANEL, 0, 0);
 					}
 					break;
-				case 0x43:
+				case 'C':
 					if (g_kbControlState != 0) {
 						SetMessageColors(g_MessageColors == 0);
 						this->msglog.Add(txt_patch.GetLine(g_MessageColors + 0x55), clr_log_sblack, 2000);
 					}
 					break;
-				case 0x45:
+				case 'E':
 					this->SelectAllOwnUnits();
 					break;
-				case 0x46:
+				case 'F':
 					if (g_kbControlState != 0) {
 						this->CycleFormation();
 						this->msglog.Add(TxtFile::AllLines[this->GetFormation() + 0x61], clr_log_sblack, 2000);
 					}
 					break;
-				case 0x48:
+				case 'H':
 					if (g_kbControlState != 0) {
 						this->ToggleShowHp();
 						this->msglog.Add(TxtFile::AllLines[this->show_hp + 0x64], clr_log_sblack, 2000);
 					}
 					break;
-				case 0x49:
-				case 0xC0:
+				case 'I':
+				case VK_OEM_3:
 					if (wnd->dialogsMask == DIALOG_MASK_INGAME) {
 						wnd->vis_right_panel->MsgProc(VIS_MSG_TOGGLE_SELECT_PANEL, 0, 0);
 						this->MsgProc(VIS_MSG_TOGGLE_SELECT_PANEL, 0, 0);
 					}
 					break;
-				case 0x4B:
+				case 'K':
 					if (g_kbControlState != 0 && wnd->sessionMode != SESSION_LOCAL_BATTLE) {
 						g_settings.ClanNames = g_settings.ClanNames == 0;
 						this->msglog.Add(TxtFile::AllLines[g_settings.ClanNames + 0x16F], clr_log_sblack, 2000);
 					}
 					break;
-				case 0x4C:
+				case 'L':
 					if (g_kbControlState != 0) {
 						this->ToggleFlyingHp();
 						this->msglog.Add(TxtFile::AllLines[this->flying_hp + 0x66], clr_log_sblack, 2000);
 					}
 					break;
-				case 0x4E:
+				case 'N':
 					if (g_kbControlState != 0) {
 						g_settings.ShowTimeFlow = g_settings.ShowTimeFlow == 0;
 						this->msglog.Add(TxtFile::AllLines[g_settings.ShowTimeFlow + 0x68], clr_log_sblack, 2000);
 						this->UpdateDayNightCycle(1);
 					}
 					break;
-				case 0x4F:
+				case 'O':
 					if (g_kbControlState != 0) {
 						g_settings.Smoothing = g_settings.Smoothing == 0;
 						this->msglog.Add(TxtFile::AllLines[g_settings.Smoothing + 0x6A], clr_log_sblack, 2000);
 					}
 					break;
-				case 0x54:
+				case 'T':
 					if (g_kbControlState != 0) {
 						g_ShowNetStats = g_ShowNetStats == 0;
 					}
 					break;
-				case 0x55:
+				case 'U':
 					if (g_kbControlState == 0) {
 						if (wnd->dialogsMask == DIALOG_MASK_INGAME) {
 							this->SendHurtSelf();
@@ -6663,7 +6663,7 @@ int32_t VisPlayingArea::OnKeyDown(uint32_t wparam) {
 						this->msglog.Add(txt_patch.GetLine(cast_state + 0x73), clr_log_sblack, 2000);
 					}
 					break;
-				case 0x57:
+				case 'W':
 					if (g_kbControlState == 0) {
 						if (wnd->sessionMode != SESSION_LOCAL_BATTLE) {
 							wnd->PostMessage(MAIN_MSG_TOGGLE_QUEST_STATUS, 0, 0);
@@ -6677,7 +6677,7 @@ int32_t VisPlayingArea::OnKeyDown(uint32_t wparam) {
 			}
 			break;
 		}
-	} else if ((wnd->dialogsMask & DIALOG_MASK_SHOP) != 0 && (wparam == 0x42 || wparam == 0x51)) {
+	} else if ((wnd->dialogsMask & DIALOG_MASK_SHOP) != 0 && (wparam == 'B' || wparam == 'Q')) {
 		wnd->vis_right_panel->MsgProc(VIS_MSG_TOGGLE_SPELL_PANEL, 0, 0);
 		this->MsgProc(VIS_MSG_TOGGLE_SPELL_PANEL, 0, 0);
 		wnd->vis_root->FindChild(1000)->MsgProc(VIS_MSG_TOGGLE_SPELL_PANEL, 0, 0);

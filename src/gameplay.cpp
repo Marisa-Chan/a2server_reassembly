@@ -1020,7 +1020,7 @@ void Vis1200obj::VMethod7() {
 int32_t Vis1200obj::OnKeyDown(uint32_t wparam) {
     int32_t result = 0;
     switch (wparam) {
-    case 8:
+    case VK_BACK:
         if (g_kbControlState == 0) {
             this->BackspaceInputChar();
         } else {
@@ -1028,17 +1028,17 @@ int32_t Vis1200obj::OnKeyDown(uint32_t wparam) {
         }
         result = 1;
         break;
-    case 9:
+    case VK_TAB:
         this->CompletePlayerName();
         result = 1;
         break;
-    case 0xD:
+    case VK_RETURN:
         if (this->input_line.GetLength() != 0) {
             this->history.Add(this->input_line);
             this->input_line.Empty();
         }
         // fall through
-    case 0x1B:
+    case VK_ESCAPE:
         return CVisualObject::OnKeyDown(wparam);
     }
     return result;
@@ -1342,7 +1342,7 @@ int32_t Vis1200::OnKeyDown(uint32_t wparam) {
 #ifdef A2CLIENT_PATCH
     // CHAT_keyDown hook (43E1FB): Up/Down navigate the sent-message
     // history; Enter commits the current message into it
-    if (wparam == 0x26) {
+    if (wparam == VK_UP) {
         if (s_history_index > 0) {
             s_history_index--;
             CStringArray* entry = s_sent_history.GetAt(s_sent_history.FindIndex(s_history_index));
@@ -1354,7 +1354,7 @@ int32_t Vis1200::OnKeyDown(uint32_t wparam) {
         }
         return 1;
     }
-    if (wparam == 0x28) {
+    if (wparam == VK_DOWN) {
         if (s_history_index + 1 < s_sent_history.GetCount()) {
             s_history_index++;
             CStringArray* entry = s_sent_history.GetAt(s_sent_history.FindIndex(s_history_index));
@@ -1366,7 +1366,7 @@ int32_t Vis1200::OnKeyDown(uint32_t wparam) {
         }
         return 1;
     }
-    if (wparam == 0xd) {
+    if (wparam == VK_RETURN) {
         // consoleEnter + addString: commit the current lines into history
         if (this->text_block->history.GetSize() != 0) {
             CStringArray* entry = new CStringArray();
@@ -1379,22 +1379,22 @@ int32_t Vis1200::OnKeyDown(uint32_t wparam) {
         this->MsgProc(VIS_MSG_HIDE_SCREEN, 0, 0);
         return 1;
     }
-    if (wparam == 0x1b) {
+    if (wparam == VK_ESCAPE) {
         this->MsgProc(VIS_MSG_CLOSE_SCREEN, 0, 0);
         return 1;
     }
     return VisScreen::OnKeyDown(wparam);
 #else
-    if (wparam == 0xd) {
+    if (wparam == VK_RETURN) {
         this->text_block->SaveHistoryBackup();
         this->MsgProc(VIS_MSG_HIDE_SCREEN, 0, 0);
         return 1;
     }
-    if (wparam == 0x1b) {
+    if (wparam == VK_ESCAPE) {
         this->MsgProc(VIS_MSG_CLOSE_SCREEN, 0, 0);
         return 1;
     }
-    if (wparam == 0x26) {
+    if (wparam == VK_UP) {
         this->text_block->RecallHistoryPrev();
     }
     return VisScreen::OnKeyDown(wparam);
