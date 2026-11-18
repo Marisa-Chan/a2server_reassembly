@@ -54,7 +54,7 @@ void PACKET_XorByKey(uint8_t* data, uint32_t size, uint32_t protover) {
     }
 
     for (uint32_t i = 0; i < size; i++) {
-        data[i] ^= key[(i % 0x8E) % 0x50];
+        data[i] ^= key[(i % MAX_SEGMENT_PAYLOAD) % 0x50];
     }
 }
 
@@ -78,8 +78,8 @@ int SOCK_SendMsg(SOCKET sock, int ver, const uint8_t* msg, size_t len, int timeo
     len += 5;
 
     while (idx < len) {
-        if (len - idx > 0x8E) {
-            pack[0] = 0x8E;
+        if (len - idx > MAX_SEGMENT_PAYLOAD) {
+            pack[0] = MAX_SEGMENT_PAYLOAD;
             pack[7] = 0;
         } else {
             pack[0] = (uint8_t)(len - idx);

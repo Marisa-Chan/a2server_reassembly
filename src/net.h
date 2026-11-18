@@ -304,7 +304,18 @@ enum UnitUpdateField : uint32_t {
                                     | UNIT_UPD_DEFENSE | UNIT_UPD_ABSORB | UNIT_UPD_ATTACK | UNIT_UPD_HAND_DAMAGE, // 0x31f0f: rune boost
     UNIT_UPD_ALL_STATS              = 0xA31FFFFF, // every stat field, no side-effect bits
     UNIT_UPD_ALL_STATS_EQUIPMENT    = UNIT_UPD_ALL_STATS | UNIT_UPD_SEND_EQUIPMENT, // 0xA35FFFFF
+    UNIT_UPD_SEND_GATE_MASK         = 0xBF1FFFFF, // fields carried inside PacketUnitUpdate itself
+    UNIT_UPD_SUMMON_MASK            = 0x800000DB, // summoned non-humanoid privacy filter
+    UNIT_UPD_MONSTER_MASK           = 0xC08000FB, // non-owner monster privacy filter
+    UNIT_UPD_MONSTER_STD_HP_MASK    = 0xC08000F3, // non-owner monster with standard hp_max (omits hp_max/mp_max)
+    UNIT_UPD_OTHER_HERO_MASK        = 0xC0C000FB, // non-allied humanoid privacy filter
     UNIT_UPD_ALL                    = 0xFFFFFFFF,
+};
+
+enum : uint32_t {
+    UNCLAIMED_CLIENT_UID_MASK = 0x3FFF,
+    UNCLAIMED_CLIENT_FLAG     = 0x4000,
+    MAX_SEGMENT_PAYLOAD       = 0x8E,
 };
 
 // SendUnitUpdate props_flags / SendHumanoidProps slot mask: INDEPENDENT bit

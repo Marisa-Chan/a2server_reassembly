@@ -403,10 +403,10 @@ void NetStru1::SendPendingUnits(Player* player) {
             Unit* unit = g_ServerUnits->unit_list.GetNext(pos);
             uint32_t flags = (unit->building_id < 0x6000) ? UNIT_UPD_ALL_STATS_EQUIPMENT : (UNIT_UPD_HP | UNIT_UPD_MP | UNIT_UPD_DIR_POS | UNIT_UPD_SPELLS);
             if (unit->ownership_changed != 0) {
-                flags |= 0x40;
+                flags |= UNIT_UPD_OWNER;
             }
             if (g_Server->multiplayer == 0 && 0x16 <= unit->server_id && unit->server_id <= 0x17) {
-                flags |= 0x200000;
+                flags |= UNIT_UPD_SEND_INVENTORY;
             }
             g_NetStru1_main.SendUnitUpdate(unit, player, flags, EQUIP_SLOTS_ALL, 0, 0);
         }
@@ -419,7 +419,7 @@ void NetStru1::SendPendingUnits(Player* player) {
             Unit* unit = units_list->unit_list.GetNext(pos);
             uint32_t flags = (unit->building_id < 0x6000) ? UNIT_UPD_ALL_STATS_EQUIPMENT : (UNIT_UPD_HP | UNIT_UPD_MP | UNIT_UPD_DIR_POS);
             if (unit->ownership_changed != 0) {
-                flags |= 0x40;
+                flags |= UNIT_UPD_OWNER;
             }
             if (unit->decay < Unit::DECAY_REMOVED) {
                 g_NetStru1_main.SendUnitUpdate(unit, player, flags, EQUIP_SLOTS_ALL, 0, 0);
@@ -808,14 +808,14 @@ void NetStru1::SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t
     if (is_humanoid == 0) {
         if (unit->building_id < 0x6000) {
             if (unit->server_id > 20) {
-                mask &= 0x800000db;
+                mask &= UNIT_UPD_SUMMON_MASK;
             }
         } else if (g_Server->multiplayer != 0) {
             mask &= ~UNIT_UPD_SERVER_ID;
         }
 
         if (unit->pOwner != player) {
-            mask &= 0xc08000fb;
+            mask &= UNIT_UPD_MONSTER_MASK;
 
 #ifdef A2SERVER_PATCH
             // fix_0051946B hook (51946B): unit->monster_info may be null on non-humanoid units.
@@ -833,7 +833,7 @@ void NetStru1::SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t
                 }
 
                 if (unit->hp_max == max_hp && unit->typeId != unit_type::boss_a && unit->typeId != unit_type::boss_b) {
-                    mask &= 0xc08000f3;
+                    mask &= UNIT_UPD_MONSTER_STD_HP_MASK;
                 }
             }
         }
@@ -841,7 +841,7 @@ void NetStru1::SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t
         if (unit->pOwner != player) {
             uint16_t tid = unit->typeId;
             if (tid < unit_type::hero_fighter_male || tid > unit_type::humanoid_last) {
-                mask &= 0xc0c000fb;
+                mask &= UNIT_UPD_OTHER_HERO_MASK;
             }
             #ifdef A2SERVER_PATCH
             // bug_0001: unit->pOwner may be null here - skip the vision-share
@@ -851,7 +851,7 @@ void NetStru1::SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t
             else if (g_World != nullptr) {
             #endif
                 if ((g_World->diplomacy.diplomacy[unit->pOwner->player_id][player->player_id] & DIPLO_VISION_SHARE) == 0) {
-                    mask &= 0xc0c000fb;
+                    mask &= UNIT_UPD_OTHER_HERO_MASK;
                 }
             }
         }
@@ -1042,13 +1042,13 @@ void NetStru1::SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t
     }
 
     // bit 0x800000: enchantments.
-    bool has_enchantments = mask & 0x800000;
+    bool has_enchantments = mask & UNIT_UPD_EFFECTS;
     if (has_enchantments) {
-        pkt->flags_mask |= 0x800000;
+        pkt->flags_mask |= UNIT_UPD_EFFECTS;
     }
 
     // Send the packet.
-    if (mask & 0xbf1fffff) {
+    if (mask & UNIT_UPD_SEND_GATE_MASK) {
         this->QueuePacketSend(pkt);
     }
 
@@ -1057,7 +1057,7 @@ void NetStru1::SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t
     }
 
     // Owner-only: send inventory.
-    if (mask & 0x200000 && unit->pOwner == player) {
+    if (mask & UNIT_UPD_SEND_INVENTORY && unit->pOwner == player) {
         this->SendMonsterInventory(unit, player, inv_start_index, inv_end_index);
     }
 
@@ -1271,7 +1271,7 @@ Packet* NetStru1::DecodePacket(uint8_t cmd, NetStru2* ns2) {
     if (this->make_statistics == 0) {
         pkt->from_player_id = 0;
     } else if (ns2->player_id == 0) {
-        pkt->from_player_id = static_cast<uint16_t>((ns2->uid & 0x3FFF) | 0x4000);
+        pkt->from_player_id = static_cast<uint16_t>((ns2->uid & UNCLAIMED_CLIENT_UID_MASK) | UNCLAIMED_CLIENT_FLAG);
     } else {
         pkt->from_player_id = ns2->player_id;
     }
@@ -1591,10 +1591,10 @@ NetStru2* NetStru1::GetClientByPlayerID(uint16_t player_id) {
 
 NetStru2* NetStru1::GetClientByLowUid(uint32_t low_uid) {
     //5185d5
-    uint32_t luid = low_uid & 0x3fff;
+    uint32_t luid = low_uid & UNCLAIMED_CLIENT_UID_MASK;
     for (POSITION it = this->active_connects.GetHeadPosition(); it != nullptr;) {
         NetStru2* cli = this->active_connects.GetNext(it);
-        if ((cli->uid & 0x3fff) == luid) {
+        if ((cli->uid & UNCLAIMED_CLIENT_UID_MASK) == luid) {
             return cli;
         }
     }
@@ -1740,7 +1740,7 @@ NetStru2* NetStru1::GetFirstClient() {
 int NetStru2::WriteData(void* buf, uint32_t size) {
     //515ef3
     while(true) {
-        int32_t avail = 0x8e - this->out_buffers[this->out_buff_id].datasz;
+        int32_t avail = MAX_SEGMENT_PAYLOAD - this->out_buffers[this->out_buff_id].datasz;
         if (size <= avail) {
             break;
         }
