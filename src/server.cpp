@@ -5387,24 +5387,24 @@ void Server::ProcessClientPacket(Packet* pkt) {
         }
 
     case CHEAT_SUMMON:
-        CheckPacketType(pkt, "PacketData");
+        CheckPacketType(pkt, "PacketJoin");
         {
             if (this->multiplayer != 0) {
                 break;
             }
-            player = g_PlayersList->FindById(packet_data->from_player_id);
+            player = g_PlayersList->FindById(packet_join->from_player_id);
             if (!player || !player->main_unit) {
                 break;
             }
 
-            int idx = packet_data->count;
+            int32_t idx = packet_join->__as_dword;
             if (idx <= 0 || idx >= g_GameDataRes.humans.GetSize()) {
                 break;
             }
 
             Human* new_unit = this->SummonUnit(&g_GameDataRes.humans[idx].name, player->main_unit, 1);
             if (new_unit) {
-                new_unit->name = CString(packet_data->data);
+                new_unit->name = CString(packet_join->name);
                 g_NetStru1_main.SendUnitUpdate(new_unit, new_unit->pOwner, UNIT_UPD_ALL, EQUIP_SLOTS_ALL, 0, 0);
             }
             break;
