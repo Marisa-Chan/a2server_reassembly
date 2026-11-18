@@ -24,6 +24,14 @@ enum : uint32_t {
 };
 } // namespace player_file
 
+namespace save_file {
+enum : uint32_t {
+    SAV_MAGIC   = 0x26677342,
+    SAV_VERSION = 0x0BAD0002,
+    SAV_TRAILER = 0xBADFACE1,
+};
+} // namespace save_file
+
 struct CharacterClassCode {
     enum ClassIndex : uint8_t {
         CLASS_WARRIOR_MALE   = 0, // 0x00

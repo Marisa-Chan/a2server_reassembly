@@ -8072,11 +8072,11 @@ void Server::SaveGame(CString* filename) {
     uint32_t compressed_size = out_ptr - out_buf;
     delete[] (uint8_t*)detached;
 
-    uint32_t magic = 0x26677342;
+    uint32_t magic = save_file::SAV_MAGIC;
     file.Write(&magic, 4);
     uint32_t end_pos_placeholder = 0;
     file.Write(&end_pos_placeholder, 4);
-    uint32_t version = 0x0bad0002;
+    uint32_t version = save_file::SAV_VERSION;
     file.Write(&version, 4);
     file.Write(&compressed_size, 4);
     file.Write(out_buf, compressed_size);
@@ -8137,7 +8137,7 @@ void Server::SerializeGame(CArchive& ar) {
             }
         }
 
-        const uint32_t sentinel = 0xbadface1;
+        const uint32_t sentinel = save_file::SAV_TRAILER;
         ar << sentinel;
         ar << sentinel;
     } else {
@@ -8274,13 +8274,13 @@ int32_t Server::LoadSavedGame(const CString& filename) {
     }
     uint32_t val;
     file.Read(&val, 4);
-    if (val != 0x26677342) {
+    if (val != save_file::SAV_MAGIC) {
         LogMessage("Invalid save file.");
         return 1;
     }
     file.Read(&val, 4); // skip
     file.Read(&val, 4); // version
-    if ((int32_t)val < 0xbad0002) {
+    if ((int32_t)val < (int32_t)save_file::SAV_VERSION) {
         LogMessage("Outdated save file.");
         return 1;
     }

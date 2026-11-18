@@ -18,6 +18,7 @@
 #include "spell.h"
 #include "players_list.h"
 #include "player.h"
+#include "player_file.h"
 #include "unit.h"
 #include "unit_list.h"
 #include "buildings_list.h"
@@ -813,7 +814,7 @@ void LoadGameWindow::VMethod26() { //43ed94
 
         uint32_t headers[2];
         fread(headers, 4, 2, f);
-        if (headers[0] == 0x26677342) {
+        if (headers[0] == save_file::SAV_MAGIC) {
             fseek(f, headers[1], SEEK_SET);
 
             char savename[257];
@@ -1000,7 +1001,7 @@ void SaveGameWindow::VMethod26() { //43fb2c
 
         uint32_t headers[2];
         fread(headers, 4, 2, f);
-        if (headers[0] == 0x26677342) {
+        if (headers[0] == save_file::SAV_MAGIC) {
             fseek(f, headers[1], SEEK_SET);
 
             char savename[257];
