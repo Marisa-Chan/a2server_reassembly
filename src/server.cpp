@@ -4572,6 +4572,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
     PacketDword* packet_dword = reinterpret_cast<PacketDword*>(pkt);
     PacketData* packet_data = reinterpret_cast<PacketData*>(pkt);
     PacketWord* packet_word = reinterpret_cast<PacketWord*>(pkt);
+    PacketTerrain* packet_terrain = reinterpret_cast<PacketTerrain*>(pkt);
 
     // TODO: re-check 0x39, 0x48
 
@@ -5114,19 +5115,19 @@ void Server::ProcessClientPacket(Packet* pkt) {
         break;
 
     case SET_DIPLOMACY: // Diplomacy bulk update
-        CheckPacketType(pkt, "PacketData");
+        CheckPacketType(pkt, "PacketTerrain");
         {
             if (!g_World || (g_ServerConfig.gameType != GAME_TYPE_COOPERATIVE && g_ServerConfig.gameType != GAME_TYPE_ARENA)) {
                 break;
             }
 
-            player = g_PlayersList->FindById(packet_data->from_player_id);
+            player = g_PlayersList->FindById(packet_terrain->from_player_id);
             if (!player) {
                 break;
             }
 
-            int count = packet_data->count;
-            const int16_t* modification = reinterpret_cast<const int16_t*>(packet_data->data);
+            int32_t count = packet_terrain->count;
+            const uint16_t* modification = packet_terrain->buf;
 #if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
             if (count < 0 || count > 0x10000 || player->player_id >= 70) {
                 break;
