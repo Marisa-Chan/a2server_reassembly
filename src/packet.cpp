@@ -485,7 +485,7 @@ PacketEnterGame::PacketEnterGame() {
 }
 
 PacketEnterGame::PacketEnterGame(const PacketEnterGame* src) {
-    memcpy(&this->id, &src->id, 0xE); // id(1)+4+4+4+1 = 14
+    memcpy(&this->id, &src->id, 0x2D); // id(1)+4+4+4+32 = 45
 }
 
 PacketEnterGame::~PacketEnterGame() {
@@ -493,7 +493,7 @@ PacketEnterGame::~PacketEnterGame() {
 }
 
 uint32_t PacketEnterGame::GetDataSize() {
-    // 57A170  id(1) + 13 derived bytes = 0xE
+    // 57A170  id(1) + 44 derived bytes = 0x2D
     return 0x2D;
 }
 

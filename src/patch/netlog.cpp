@@ -145,6 +145,8 @@ uint32_t packet_len(const uint8_t* d, size_t avail) {
     };
 
     switch (id) {
+        case 0x02:
+            return 45;
         case 0x03: case 0x05: case 0x09: case 0x0a: case 0xaf: case 0xb7: case 0xb8:
         case 0x4a: case 0x4b: case 0x4c: case 0x5a: case 0xc8: case 0xd6: case 0xdb:
         case 0xdc:
