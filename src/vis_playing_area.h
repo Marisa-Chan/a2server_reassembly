@@ -21,6 +21,20 @@ public:
 		SEL_NON_CONTROLLABLE = SEL_FOREIGN | SEL_STRUCTURE, // 0x024
 	};
 
+	enum HoverFlags : uint32_t {
+		HOVER_NONE              = 0,
+		HOVER_GROUND_UNIT       = 0x001,
+		HOVER_AIR_UNIT          = 0x002,
+		HOVER_UNIT_MASK         = HOVER_GROUND_UNIT | HOVER_AIR_UNIT, // 0x003
+		HOVER_HOSTILE           = 0x004,
+		HOVER_STRUCTURE         = 0x020,
+		HOVER_SELECTABLE_MASK   = HOVER_UNIT_MASK | HOVER_STRUCTURE,  // 0x023
+		HOVER_HOSTILE_OR_STRUCT = HOVER_HOSTILE | HOVER_STRUCTURE,    // 0x024
+		HOVER_SACK              = 0x040,
+		HOVER_FOG               = 0x400,
+		HOVER_USABLE_BUILDING   = 0x800,
+	};
+
 	VisPlayingArea(int32_t l, int32_t t, int32_t r, int32_t b); // 402af6 (client: 402af6)
 	~VisPlayingArea(); // 403395 (client: 403418)
 

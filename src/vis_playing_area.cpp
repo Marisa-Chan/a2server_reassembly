@@ -4473,7 +4473,7 @@ int32_t VisPlayingArea::ScreenToTileRow(int32_t x, int32_t y) {
 // 41864D
 uint32_t VisPlayingArea::UpdateMouseHover() {
 	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
-	uint32_t avail = 0;
+	uint32_t avail = HOVER_NONE;
 	CUnit* old_unit = this->hovered_unit;
 	uint16_t old_id = (uint16_t)this->hovered_unit_id;
 	this->hovered_unit = nullptr;
@@ -4508,22 +4508,22 @@ uint32_t VisPlayingArea::UpdateMouseHover() {
 		}
 		const char* class_name = obj->GetRuntimeClass()->m_lpszClassName;
 		if (strcmp(class_name, "CUnit") == 0) {
-			avail |= 1;
+			avail |= HOVER_GROUND_UNIT;
 		}
 		if (strcmp(class_name, "CAirUnit") == 0) {
-			avail |= 2;
+			avail |= HOVER_AIR_UNIT;
 		}
 		if (strcmp(class_name, "CStructure") == 0) {
 			StructureInfo* info = g_StructuresInfo[obj->typeId];
 			if (info->usable != 0) {
-				avail |= 0x800;
+				avail |= HOVER_USABLE_BUILDING;
 			} else if (info->indestructible != 0) {
 				continue;
 			}
-			avail |= 0x20;
+			avail |= HOVER_STRUCTURE;
 		}
 		if (this->my_main_unit->IsHostile(obj->map_player->index) != 0) {
-			avail |= 4;
+			avail |= HOVER_HOSTILE;
 		}
 		this->hovered_unit = (CUnit*)obj;
 		if (wnd->sessionMode != SESSION_LOCAL_BATTLE) {
@@ -4582,10 +4582,10 @@ uint32_t VisPlayingArea::UpdateMouseHover() {
 	uint16_t land_flags = (land[cell] & LandscapeTile::FOW_MASK) | (land[cell + 1] & LandscapeTile::FOW_MASK) |
 		(land[cell + 1 + this->map_width] & LandscapeTile::FOW_MASK) | (land[cell + this->map_width] & LandscapeTile::FOW_MASK);
 	if (land_flags == LandscapeTile::FOW_VISIBLE && this->tile_backpacks[tile_x + 3 + (tile_y + 3) * (this->view_tiles_x + 6)] != 0) {
-		avail |= 0x40;
+		avail |= HOVER_SACK;
 	}
 	if (land_flags != LandscapeTile::FOW_VISIBLE) {
-		avail |= 0x400;
+		avail |= HOVER_FOG;
 	}
 	tile_x += this->view_x;
 	tile_y += this->view_y;
@@ -4665,7 +4665,7 @@ void VisPlayingArea::UpdateMapCursor() {
 						break;
 					}
 					uint32_t avail = this->UpdateMouseHover();
-					if ((avail & 0x400) != 0 && cursor == g_Cursors[CURSOR_CAST]) {
+					if ((avail & HOVER_FOG) != 0 && cursor == g_Cursors[CURSOR_CAST]) {
 						cursor = g_Cursors[CURSOR_MOVE];
 					}
 					if (g_mousept.GetSelectState() != 0 && !select_frame.IsRectEmpty()) {
@@ -4675,10 +4675,10 @@ void VisPlayingArea::UpdateMapCursor() {
 					(this->selected_available_spell_mask != 0 || this->active_spell_effect_mask != 0) && (this->selection_flags & SEL_FOREIGN) == 0) {
 					uint32_t avail = this->UpdateMouseHover();
 					cursor = g_Cursors[CURSOR_CAST];
-					if ((avail & 0x400) != 0) {
+					if ((avail & HOVER_FOG) != 0) {
 						cursor = g_Cursors[CURSOR_MOVE];
 					}
-					if ((avail & 3) == 0 && wnd->vis_spellbook->NeedsUnitTarget() != 0) {
+					if ((avail & HOVER_UNIT_MASK) == 0 && wnd->vis_spellbook->NeedsUnitTarget() != 0) {
 						cursor = g_Cursors[CURSOR_MOVE];
 					}
 					int32_t pickup_flag = (this->selected_object_count == 1 && (this->selection_flags & SEL_GROUND_UNIT) != 0) ? 1 : 0;
@@ -4686,48 +4686,48 @@ void VisPlayingArea::UpdateMapCursor() {
 					if (pickup_flag != 0) {
 						pickup_flag = ((CUnit*)this->primary_selected_object)->unitFlags & UNIT_FLAG_PLAYER_CLASS;
 						if (pickup_flag != 0) {
-							pickup_flag = (avail == 0x40 || (this->hovered_unit == this->primary_selected_object && (avail & 0x40) != 0)) ? 1 : 0;
+							pickup_flag = (avail == HOVER_SACK || (this->hovered_unit == this->primary_selected_object && (avail & HOVER_SACK) != 0)) ? 1 : 0;
 						}
 					}
 					if (town_flag != 0) {
-						town_flag = ((((CUnit*)this->primary_selected_object)->unitFlags & UNIT_FLAG_PLAYER_CLASS) != 0 && (avail & 0x800) != 0) ? 1 : 0;
+						town_flag = ((((CUnit*)this->primary_selected_object)->unitFlags & UNIT_FLAG_PLAYER_CLASS) != 0 && (avail & HOVER_USABLE_BUILDING) != 0) ? 1 : 0;
 					}
 					if (kb_menu != 0) {
 						cursor = g_Cursors[CURSOR_MOVE];
 					} else if (kb_control != 0) {
-						if ((avail & 3) != 0) {
+						if ((avail & HOVER_UNIT_MASK) != 0) {
 							cursor = g_Cursors[CURSOR_ATTACK];
 						} else {
 							cursor = g_Cursors[CURSOR_SWARM];
 						}
-					} else if ((avail & 0x24) == 0 && g_kbShiftState != 0) {
+					} else if ((avail & HOVER_HOSTILE_OR_STRUCT) == 0 && g_kbShiftState != 0) {
 						cursor = g_Cursors[CURSOR_SELECT];
 					}
 					if (pickup_flag != 0 && cursor == g_Cursors[CURSOR_MOVE]) {
 						cursor = g_Cursors[CURSOR_PICKUP];
 					}
-					if (cursor == g_Cursors[CURSOR_CAST] && wnd->vis_spellbook->NeedsUnitTarget() != 0 && (avail & 4) == 0 &&
+					if (cursor == g_Cursors[CURSOR_CAST] && wnd->vis_spellbook->NeedsUnitTarget() != 0 && (avail & HOVER_HOSTILE) == 0 &&
 						wnd->vis_spellbook->HasSelectedSpell() == 0 && g_SpellOffensive[wnd->vis_spellbook->GetActiveSlot()] != 0) {
-						if ((avail & 3) != 0) {
+						if ((avail & HOVER_UNIT_MASK) != 0) {
 							cursor = g_Cursors[CURSOR_SELECT];
 						} else {
 							cursor = g_Cursors[CURSOR_MOVE];
 						}
 					}
-					if (town_flag != 0 && (avail & 4) == 0) {
+					if (town_flag != 0 && (avail & HOVER_HOSTILE) == 0) {
 						cursor = g_Cursors[CURSOR_TOWN];
 					}
 					this->UpdateMouseHover();
 				} else {
 					uint32_t avail = this->UpdateMouseHover();
 					if (this->selected_object_count == 0) {
-						if ((avail & 0x23) != 0) {
+						if ((avail & HOVER_SELECTABLE_MASK) != 0) {
 							cursor = g_Cursors[CURSOR_SELECT];
 						} else {
 							cursor = g_Cursors[CURSOR_DEFAULT];
 						}
 					} else if ((this->selection_flags & SEL_NON_CONTROLLABLE) != 0) {
-						if ((avail & 0x23) != 0) {
+						if ((avail & HOVER_SELECTABLE_MASK) != 0) {
 							cursor = g_Cursors[CURSOR_SELECT];
 						} else {
 							cursor = g_Cursors[CURSOR_DEFAULT];
@@ -4738,16 +4738,16 @@ void VisPlayingArea::UpdateMapCursor() {
 						if (pickup_flag != 0) {
 							pickup_flag = ((CUnit*)this->primary_selected_object)->unitFlags & UNIT_FLAG_PLAYER_CLASS;
 							if (pickup_flag != 0) {
-								pickup_flag = (avail == 0x40 || (this->hovered_unit == this->primary_selected_object && (avail & 0x40) != 0)) ? 1 : 0;
+								pickup_flag = (avail == HOVER_SACK || (this->hovered_unit == this->primary_selected_object && (avail & HOVER_SACK) != 0)) ? 1 : 0;
 							}
 						}
 						if (town_flag != 0) {
-							town_flag = ((((CUnit*)this->primary_selected_object)->unitFlags & UNIT_FLAG_PLAYER_CLASS) != 0 && (avail & 0x800) != 0) ? 1 : 0;
+							town_flag = ((((CUnit*)this->primary_selected_object)->unitFlags & UNIT_FLAG_PLAYER_CLASS) != 0 && (avail & HOVER_USABLE_BUILDING) != 0) ? 1 : 0;
 						}
-						if ((avail & 4) != 0) {
+						if ((avail & HOVER_HOSTILE) != 0) {
 							if (kb_menu != 0) {
 								cursor = g_Cursors[CURSOR_MOVE];
-							} else if ((avail & 0x20) == 0) {
+							} else if ((avail & HOVER_STRUCTURE) == 0) {
 								if (kb_control != 0) {
 									cursor = g_Cursors[CURSOR_SWARM];
 								} else {
@@ -4756,7 +4756,7 @@ void VisPlayingArea::UpdateMapCursor() {
 							} else {
 								cursor = g_Cursors[CURSOR_SELECT];
 							}
-						} else if ((avail & 0x23) != 0) {
+						} else if ((avail & HOVER_SELECTABLE_MASK) != 0) {
 							if (kb_menu != 0) {
 								cursor = g_Cursors[CURSOR_MOVE];
 							} else if (kb_control != 0) {
@@ -4814,7 +4814,7 @@ void VisPlayingArea::UpdateMapCursor() {
 			int32_t tile_x = (g_mousept.GetX() >> 5) + this->view_x;
 			int32_t tile_y = this->ScreenToTileRow(g_mousept.GetX(), g_mousept.GetY()) + this->view_y;
 			if (abs(tile_x - this->primary_selected_object->tileX) <= 2 &&
-				abs(tile_y - this->primary_selected_object->tileY) <= 2 && (avail & 1) != 0) {
+				abs(tile_y - this->primary_selected_object->tileY) <= 2 && (avail & HOVER_GROUND_UNIT) != 0) {
 				cursor = g_Cursors[CURSOR_BACKPACK];
 			}
 		}
