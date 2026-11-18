@@ -5618,9 +5618,95 @@ void Server::ProcessClientPacket(Packet* pkt) {
         }
 
     case REQUEST_UNIT_UPDATE:
-        CheckPacketType(pkt, "Packet");
-        player = this->FindPlayerById(pkt->from_player_id);
-#if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
+        CheckPacketType(pkt, "PacketData");
+#ifdef A2CLIENT
+        {
+            // client: 50037c
+            player = this->FindPlayerById(packet_data->from_player_id);
+            if (player == nullptr) {
+                break;
+            }
+            Human* unit = nullptr;
+            if (player->main_unit != nullptr) {
+                g_NetStru1_main.SendUnitUpdate(player->main_unit, player, UNIT_UPD_ALL, EQUIP_SLOTS_ALL, 0, 0);
+                g_NetStru1_main.SendTickPacket(player);
+                break;
+            }
+
+            if (this->save_on_server == 0) {
+                if (this->multiplayer != 0) {
+                    char chr_path[256];
+                    char lock_path[256];
+                    lock_path[0] = '\0';
+                    if (!player->login.IsEmpty()) {
+                        sprintf(chr_path, "%schr\\%s\\%u%u.a2c", (const char*)g_ServerConfig.chr_base, (const char*)player->login, player->hat_player_id, player->flags);
+                        sprintf(lock_path, "%schr\\%s\\lockflag", (const char*)g_ServerConfig.chr_base, (const char*)player->login);
+                    } else {
+                        sprintf(chr_path, "%u%u.a2c", player->hat_player_id, player->flags);
+                    }
+
+                    CFile file;
+                    CStdioFile lock_file;
+                    if (lock_path[0] == '\0' || !file.Open(lock_path, CFile::modeRead)) {
+                        if (file.Open(chr_path, CFile::modeRead)) {
+                            packet_data->count = file.GetLength();
+                            file.Read(packet_data->data, file.GetLength());
+                            file.Close();
+                            void* buf = malloc(packet_data->count);
+                            memcpy(buf, packet_data->data, packet_data->count);
+                            unit = this->LoadCharacter(buf, packet_data->count, player);
+                        }
+                        if (lock_path[0] != '\0' && lock_file.Open(lock_path, CFile::modeCreate | CFile::modeWrite)) {
+                            lock_file.WriteString("");
+                            lock_file.Close();
+                        }
+                    }
+                }
+            } else {
+                void* buf = malloc(packet_data->count);
+                memcpy(buf, packet_data->data, packet_data->count);
+                unit = this->LoadCharacter(buf, packet_data->count, player);
+            }
+
+            if (unit == nullptr) {
+                if (this->save_on_server == 0 && this->multiplayer != 0) {
+                    LogMessage("Characters created outside this server are not accepted");
+                    g_NetStru1_main.SendInfoPacket(JOIN_ERROR, 0xB, 0, player);
+                    g_NetStru1_main.SendTickPacket(player);
+                    player->Deactivate();
+                    break;
+                } else {
+                    LogMessage("Invalid character joined the game.");
+                    unit = this->CreatePlayerCharacter(player, 25, 25, 25, 25, 1, 1);
+                    g_NetStru1_main.SendTickPacket(player);
+                    break;
+                }
+            }
+
+            unit->building_id = BldIdSet_AllocBit() & 0xFFFF;
+            unit->pOwner = player;
+            player->main_unit = unit;
+            player->unit_list->AddTail(unit);
+
+            Group* grp = new Group();
+            player->group_list->groups.AddTail(grp);
+            grp->AddUnit(unit);
+
+            g_NetStru1_main.SendUnitUpdate(unit, unit->pOwner, UNIT_UPD_ALL, EQUIP_SLOTS_ALL, 0, 0);
+            g_NetStru1_main.SendTickPacket(unit->pOwner);
+            g_NetStru1_main.SendKillStats(0, unit->pOwner);
+
+            if (unit->has_flagged_item != 0) {
+                g_NetStru1_main.SendTeamNotify(TEAM_NOTIFY_PLAYER_FLAGGED, player->player_id, nullptr);
+                CString msg;
+                msg.Format("Cheating detected! Player: %s file: %u%u.a2c", (const char*)player->name, player->hat_player_id, player->flags);
+                LogMessage(msg);
+            }
+            break;
+        }
+#else
+        player = this->FindPlayerById(packet_data->from_player_id);
+#ifdef A2SERVER_PATCH
         if (player != nullptr && player->main_unit != nullptr) {
 #else
         if (player->main_unit != nullptr) {
@@ -5628,6 +5714,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
             g_NetStru1_main.SendUnitUpdate(player->main_unit, player, UNIT_UPD_ALL, EQUIP_SLOTS_ALL, 0, 0);
         }
         break;
+#endif
 
     case LATENCY: // Set network latency for this connection?
         CheckPacketType(pkt, "PacketDword");
