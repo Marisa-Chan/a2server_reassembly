@@ -9,6 +9,7 @@
 #include "net.h"
 #include "table.h"
 #include "txtfile.h"
+#include "player.h"
 #include "server.h"
 #include "shop_assortment.h"
 
@@ -43,7 +44,7 @@ struct GameSettings {
 	int32_t ShowTimeFlow = 1;
 	int32_t TipsMode = 1;
 	int32_t Acknowledgement = 1;
-	int32_t AutoCasting = 25;
+	int32_t AutoCasting = AutoCastSettings::TIER_MEDIUM | AutoCastSettings::TARGET_OWN;
 	int32_t* pShadows = nullptr;
 	int32_t* pLightning = nullptr;
 	int32_t* pAnimation = nullptr;

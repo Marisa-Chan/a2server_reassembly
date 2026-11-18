@@ -11,11 +11,48 @@
 class UnitList;
 struct GroupList;
 
+struct AutoCastSettings {
+    enum Mask : uint8_t {
+        TARGET_OWN      = 0x01,
+        TARGET_ALLIES   = 0x02,
+        TARGET_NEUTRAL  = 0x04,
+        TARGET_MASK     = 0x07,
+
+        TIER_LOW        = 0x08, // min: heal, shield
+        TIER_MEDIUM_BIT = 0x10, // mid: bless, haste
+        TIER_HIGH_BIT   = 0x20, // max: protection, invisibility
+        TIER_MEDIUM     = TIER_LOW | TIER_MEDIUM_BIT,                  // 0x18
+        TIER_HIGH       = TIER_LOW | TIER_MEDIUM_BIT | TIER_HIGH_BIT,  // 0x38
+        TIER_MASK       = 0x38,
+
+        ALL             = 0xFF,
+    };
+
+    union {
+        uint8_t raw;
+        struct {
+            uint8_t own_units     : 1; // [0] 0x01
+            uint8_t allied_units  : 1; // [1] 0x02
+            uint8_t neutral_units : 1; // [2] 0x04
+            uint8_t tier_low      : 1; // [3] 0x08
+            uint8_t tier_medium   : 1; // [4] 0x10
+            uint8_t tier_high     : 1; // [5] 0x20
+            uint8_t unused        : 2; // [7:6]
+        };
+    };
+
+    AutoCastSettings() = default;
+    constexpr AutoCastSettings(uint8_t v) : raw(v) {}
+    constexpr operator uint8_t() const { return this->raw; }
+    AutoCastSettings& operator|=(uint8_t v) { this->raw |= v; return *this; }
+    AutoCastSettings& operator&=(uint8_t v) { this->raw &= v; return *this; }
+};
+ASSERT_SIZE(AutoCastSettings, 1);
 
 struct Settings {
     uint8_t some_fields[0x1f];
     uint8_t formation;
-    uint8_t autobuff_mask;
+    AutoCastSettings autobuff_mask;
     uint8_t more_fields[3];
 
 public:

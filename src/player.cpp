@@ -17,7 +17,7 @@
 Settings::Settings() {
     memset(this, 0, sizeof(Settings));
     this->formation    = 2;
-    this->autobuff_mask = 0xFF;
+    this->autobuff_mask = AutoCastSettings::ALL;
 }
 
 // 534118

@@ -1754,17 +1754,17 @@ int32_t World::ShouldAutobuff(Unit* caster, Unit* target) {
     uint8_t relation = this->diplomacy.diplomacy[caster->pOwner->player_id][target->pOwner->player_id] & (DIPLO_WAR | DIPLO_ALLIANCE);
 
     // Neutral.
-    if (relation == 0 && (caster->pOwner->settings->autobuff_mask & 4) != 0) {
+    if (relation == 0 && caster->pOwner->settings->autobuff_mask.neutral_units != 0) {
         return 1;
     }
 
     // Friend.
-    if ((relation & 2) != 0 && (caster->pOwner->settings->autobuff_mask & 2) != 0) {
+    if ((relation & DIPLO_ALLIANCE) != 0 && caster->pOwner->settings->autobuff_mask.allied_units != 0) {
         return 1;
     }
 
     // Own units.
-    if (caster->pOwner == target->pOwner && (caster->pOwner->settings->autobuff_mask & 1) != 0) {
+    if (caster->pOwner == target->pOwner && caster->pOwner->settings->autobuff_mask.own_units != 0) {
         return 1;
     }
 
@@ -1784,7 +1784,7 @@ void World::DoAutobuff(Unit* unit) {
         return;
     }
 
-    if ((unit->pOwner->settings->autobuff_mask & 8) == 0) {
+    if (unit->pOwner->settings->autobuff_mask.tier_low == 0) {
         unit->eye2->cast_action = 0;
         return;
     }
@@ -1842,7 +1842,7 @@ void World::DoAutobuff(Unit* unit) {
     }
 
     // Check autobuff_mask bit for medium-level buffs.
-    if ((unit->pOwner->settings->autobuff_mask & 0x10) == 0) {
+    if (unit->pOwner->settings->autobuff_mask.tier_medium == 0) {
         unit->eye2->cast_action = 0;
         return;
     }
@@ -1890,7 +1890,7 @@ void World::DoAutobuff(Unit* unit) {
     }
 
     // Check autobuff_mask bit for high-level buffs.
-    if ((unit->pOwner->settings->autobuff_mask & 0x20) == 0) {
+    if (unit->pOwner->settings->autobuff_mask.tier_high == 0) {
         unit->eye2->cast_action = 0;
         return;
     }

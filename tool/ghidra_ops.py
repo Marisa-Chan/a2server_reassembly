@@ -40,6 +40,7 @@ TYPE_ALIASES = {
     "Rle16Cmd": "ushort",
     "Rle16Pixel": "ushort",
     "FatEntryFlags": "uint",
+    "AutoCastSettings": "uchar",
 }
 GAME_CATEGORY = "/Game"
 

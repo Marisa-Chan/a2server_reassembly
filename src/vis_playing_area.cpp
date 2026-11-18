@@ -4291,15 +4291,15 @@ void VisPlayingArea::AddHitRect(CRect* rect, uint16_t unit_id) {
 
 // 41AB05
 void VisPlayingArea::CycleAutoCastGroup() {
-	int32_t mode = g_settings.AutoCasting & 0x38;
-	if (mode == 8) {
-		mode = 0x18;
-	} else if (mode == 0x18) {
-		mode = 0x38;
-	} else if (mode == 0x38) {
-		mode = 8;
+	int32_t mode = g_settings.AutoCasting & AutoCastSettings::TIER_MASK;
+	if (mode == AutoCastSettings::TIER_LOW) {
+		mode = AutoCastSettings::TIER_MEDIUM;
+	} else if (mode == AutoCastSettings::TIER_MEDIUM) {
+		mode = AutoCastSettings::TIER_HIGH;
+	} else if (mode == AutoCastSettings::TIER_HIGH) {
+		mode = AutoCastSettings::TIER_LOW;
 	}
-	g_settings.AutoCasting = (g_settings.AutoCasting & 7) | mode;
+	g_settings.AutoCasting = (g_settings.AutoCasting & AutoCastSettings::TARGET_MASK) | mode;
 	this->SendAutoCastSetting();
 }
 
@@ -6655,8 +6655,9 @@ int32_t VisPlayingArea::OnKeyDown(uint32_t wparam) {
 						}
 					} else {
 						this->CycleAutoCastGroup();
-						int32_t cast_state = (g_settings.AutoCasting & 0x10) != 0;
-						if ((g_settings.AutoCasting & 0x20) != 0) {
+						AutoCastSettings acast_cfg(static_cast<uint8_t>(g_settings.AutoCasting));
+						int32_t cast_state = acast_cfg.tier_medium != 0;
+						if (acast_cfg.tier_high != 0) {
 							cast_state = 2;
 						}
 						this->msglog.Add(txt_patch.GetLine(cast_state + 0x73), clr_log_sblack, 2000);

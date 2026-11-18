@@ -6,6 +6,7 @@
 // (VisPlayingArea, ex BigStruct2). Extracted from gameplay.{h,cpp}.
 #pragma once
 #include "gameplay.h"
+#include "player.h"
 
 class VisPlayingArea : public CVisualObject {
 public:

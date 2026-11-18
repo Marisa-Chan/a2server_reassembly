@@ -1160,31 +1160,33 @@ int32_t GameOptionsWindow::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lpara
         this->FindChild(7)->WriteData(g_settings.pFormationMode);
         this->FindChild(9)->WriteData(g_settings.pWimpyMode);
 
-        g_settings.AutoCasting = 8;
+        AutoCastSettings acast_cfg(AutoCastSettings::TIER_LOW);
 
         int32_t sel;
         this->FindChild(141)->WriteData(&sel);
 
         if (sel == 1) {
-            g_settings.AutoCasting |= 0x18;
+            acast_cfg |= AutoCastSettings::TIER_MEDIUM;
         } else if (sel == 2) {
-            g_settings.AutoCasting |= 0x38;
+            acast_cfg |= AutoCastSettings::TIER_HIGH;
         }
 
         this->FindChild(131)->WriteData(&sel);
         if (sel != 0) {
-            g_settings.AutoCasting |= 1;
+            acast_cfg.own_units = 1;
         }
 
         this->FindChild(132)->WriteData(&sel);
         if (sel != 0) {
-            g_settings.AutoCasting |= 2;
+            acast_cfg.allied_units = 1;
         }
 
         this->FindChild(133)->WriteData(&sel);
         if (sel != 0) {
-            g_settings.AutoCasting |= 4;
+            acast_cfg.neutral_units = 1;
         }
+
+        g_settings.AutoCasting = acast_cfg.raw;
 
 
         mwnd->vis_map_context->SendFormationMode(*g_settings.pFormationMode % 3);
@@ -1309,7 +1311,8 @@ void GameOptionsWindow::VMethod26() { //442646
     ochar->AddEntry(txt_dialogs.GetLine(167)); //own chars
     this->AddChild(ochar);
 
-    int32_t aflg = (g_settings.AutoCasting & 1) != 0;
+    AutoCastSettings acast_cfg(static_cast<uint8_t>(g_settings.AutoCasting));
+    int32_t aflg = acast_cfg.own_units != 0;
     ochar->ReadData(&aflg);
     ochar->SetUpObj(altclr);
 
@@ -1319,7 +1322,7 @@ void GameOptionsWindow::VMethod26() { //442646
     alli->AddEntry(txt_dialogs.GetLine(168)); //allies
     this->AddChild(alli);
 
-    aflg = (g_settings.AutoCasting & 2) != 0;
+    aflg = acast_cfg.allied_units != 0;
     alli->ReadData(&aflg);
     alli->SetUpObj(ochar);
 
@@ -1329,7 +1332,7 @@ void GameOptionsWindow::VMethod26() { //442646
     neutral->AddEntry(txt_dialogs.GetLine(169)); //neutral
     this->AddChild(neutral);
 
-    aflg = (g_settings.AutoCasting & 4) != 0;
+    aflg = acast_cfg.neutral_units != 0;
     neutral->ReadData(&aflg);
     neutral->SetUpObj(alli);
 
@@ -1382,8 +1385,8 @@ void GameOptionsWindow::VMethod26() { //442646
     acast->AddEntry(txt_dialogs.GetLine(173)); //max
     this->AddChild(acast);
 
-    aflg = (g_settings.AutoCasting & 0x10) != 0;
-    if ((g_settings.AutoCasting & 0x20) != 0) {
+    aflg = acast_cfg.tier_medium != 0;
+    if (acast_cfg.tier_high != 0) {
         aflg = 2;
     }
 
