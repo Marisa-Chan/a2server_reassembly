@@ -294,7 +294,7 @@ void Server::ProcessPlayers() {
                     inn->RemoveUnit(player->main_unit, Inn::EXIT_LEAVE_NONE);
                 }
 
-                if (player->main_unit->decay != 0 && g_Server->multiplayer != 0) {
+                if (player->main_unit->decay != Unit::DECAY_ALIVE && g_Server->multiplayer != 0) {
                     player->respawn_requested = 0;
                     Human* main_unit = player->main_unit;
                     if (main_unit->inventory == nullptr) {
@@ -384,7 +384,7 @@ void Server::ProcessPlayers() {
                     } else {
                         unit->hp = unit->hp_max;
                         unit->mp = unit->mp_max;
-                        unit->decay = 0;
+                        unit->decay = Unit::DECAY_ALIVE;
                         unit->ResetActionState();
                         unit->cast_target = nullptr;
                         unit->some_spell = nullptr;
@@ -2466,7 +2466,7 @@ Human* Server::CreatePlayerCharacter(Player* player, uint8_t body, uint8_t react
     // Does player already have the main unit (reconnect / rejoin)?
     if (player->main_unit != nullptr) {
         Human* unit = player->main_unit;
-        if (unit->decay > 0) {
+        if (unit->decay > Unit::DECAY_ALIVE) {
             unit->ReviveWithPenalty();           // reinitialize stats from class template
             unit->hp = unit->hp_max;
             unit->mp = unit->mp_max;
@@ -2758,7 +2758,7 @@ Human* Server::LoadCharacter(void* data, int32_t size, Player* player) {
     unit->ResetActionState();
     unit->hp = unit->hp_max;
     unit->mp = unit->mp_max;
-    unit->decay = 0;
+    unit->decay = Unit::DECAY_ALIVE;
     unit->RecalcStats();
     unit->unit_attrs &= ~Unit::ATTR_PHASED_OUT;
     unit->sent_to_mask = 0;
@@ -3936,7 +3936,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
         cheat_string = cheat_string.Mid(8);
         cheat_string.TrimLeft();
 
-        if (player->main_unit->decay != 0) {
+        if (player->main_unit->decay != Unit::DECAY_ALIVE) {
             // Unit is dead/decayed --- cannot receive items.
             if (!is_reconnect) {
                 g_NetStru1_main.SendTeamNotify(TEAM_NOTIFY_CHEAT_FAILED, player->player_id, nullptr);
@@ -7884,7 +7884,7 @@ void Server::UpdateMissionResult(Player* player) {
     }
 
     if (player->mission_result < mission_result::hero_died) {
-        if (player->main_unit == nullptr || player->main_unit->decay != 0) {
+        if (player->main_unit == nullptr || player->main_unit->decay != Unit::DECAY_ALIVE) {
             player->mission_result = mission_result::hero_died;
             g_NetStru1_main.SendInfoPacket(MISSION_RESULT, player->mission_result, 0, player);
             if (player->is_logged_in != 0 && this->multiplayer == 0) {

@@ -77,7 +77,7 @@ void Outpost::RegenTick() {
         POSITION pos = this->units_original.unit_list.GetHeadPosition();
         while (pos != nullptr) {
             Unit* u = this->units_original.unit_list.GetNext(pos);
-            if (u->decay < 3) {
+            if (u->decay < Unit::DECAY_BONES) {
                 return; // At least one unit has not yet decayed; wait longer.
             }
 
@@ -105,7 +105,7 @@ void Outpost::RegenTick() {
         POSITION pos = this->units_original.unit_list.GetHeadPosition();
         while (pos != nullptr) {
             Unit* u = this->units_original.unit_list.GetNext(pos);
-            if (u->decay < 5) {
+            if (u->decay < Unit::DECAY_REMOVED) {
                 this->hp = -601;
                 u->DecayTick();
             }

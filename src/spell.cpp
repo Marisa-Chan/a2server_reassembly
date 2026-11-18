@@ -661,7 +661,7 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
         case spell::animate_dead: {
                 Unit* dead_unit = nullptr;
                 auto& unit_list = g_Server->srv_stru1->units_list->unit_list;
-                for (int decay_target = 2; decay_target <= 4 && dead_unit == nullptr; ++decay_target) {
+                for (int decay_target = Unit::DECAY_CORPSE; decay_target <= Unit::DECAY_OLD_BONES && dead_unit == nullptr; ++decay_target) {
                     for (POSITION p = unit_list.GetHeadPosition(); p != nullptr; ) {
                         Unit* u = unit_list.GetNext(p);
                         if (u->decay != decay_target) {
@@ -684,7 +684,7 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
 
                 uint8_t corpse_decay = dead_unit->decay;
                 dead_unit->hp = -10001;
-                dead_unit->decay = 5;
+                dead_unit->decay = Unit::DECAY_REMOVED;
                 g_NetStru1_main.SendUnitUpdate(dead_unit, nullptr, UNIT_UPD_HP, EQUIP_SLOTS_ALL, 0, 0);
                 Player* owner_player = caster->pOwner;
 
@@ -692,7 +692,7 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
                 if (g_UnitPool != nullptr) {
                     for (POSITION p = g_UnitPool->unit_list.GetHeadPosition(); p != nullptr; ) {
                         Unit* u = g_UnitPool->unit_list.GetNext(p);
-                        if (u->decay < 5 || u->IsHumanoid() != 0) {
+                        if (u->decay < Unit::DECAY_REMOVED || u->IsHumanoid() != 0) {
                             continue;
                         }
                         POSITION rm = g_Server->srv_stru1->units_list->unit_list.Find(u);
@@ -710,7 +710,7 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
                 unit->ReleaseObjects();
 
                 switch (corpse_decay) {
-                case 2:
+                case Unit::DECAY_CORPSE:
                     unit->InitDefaults(CString("F_Zombie.1"));
                     unit->body = dead_unit->body;
                     unit->reaction = dead_unit->reaction / 2 + 1;
@@ -721,7 +721,7 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
                     unit->hit_values.attack = dead_unit->hit_values.attack;
                     unit->protections.defense = dead_unit->protections.defense;
                     break;
-                case 3:
+                case Unit::DECAY_BONES:
                     unit->InitDefaults(CString("F_Skeleton.1"));
                     unit->body = dead_unit->body / 2 + 1;
                     unit->reaction = dead_unit->reaction / 2 + 1;
@@ -732,7 +732,7 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
                     unit->hit_values.attack = dead_unit->hit_values.attack;
                     unit->protections.defense = dead_unit->protections.defense;
                     break;
-                case 4:
+                case Unit::DECAY_OLD_BONES:
                     unit->InitDefaults(CString("Ghost"));
                     unit->reaction = dead_unit->reaction / 2 + 1;
                     unit->mind = dead_unit->mind;
@@ -799,7 +799,7 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
                 if (g_UnitPool != nullptr) {
                     for (POSITION p = g_UnitPool->unit_list.GetHeadPosition(); p != nullptr; ) {
                         Unit* u = g_UnitPool->unit_list.GetNext(p);
-                        if (u->decay < 5 || u->IsHumanoid() != 0) {
+                        if (u->decay < Unit::DECAY_REMOVED || u->IsHumanoid() != 0) {
                             continue;
                         }
                         POSITION rm = g_Server->srv_stru1->units_list->unit_list.Find(u);

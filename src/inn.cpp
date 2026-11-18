@@ -575,7 +575,7 @@ void Inn::InnCreateQuests(Player* player) {
             POSITION upos = this->pOwner ? this->pOwner->unit_list->unit_list.GetHeadPosition() : nullptr;
             while (upos) {
                 Unit* u = this->pOwner->unit_list->unit_list.GetNext(upos);
-                if (!u->quest_escort_mark || u->decay != 0) {
+                if (!u->quest_escort_mark || u->decay != Unit::DECAY_ALIVE) {
                     continue;
                 }
                 if (g_QuestMap.OnEvent(Quest::EVENT_QUERY_UNIT_ACTIVE, u->building_id, 0)) {

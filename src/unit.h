@@ -119,6 +119,15 @@ public:
         SWING_RECOVERY = 7,
     };
 
+    enum DecayStage : uint8_t {
+        DECAY_ALIVE       = 0,
+        DECAY_UNCONSCIOUS = 1,
+        DECAY_CORPSE      = 2,
+        DECAY_BONES       = 3,
+        DECAY_OLD_BONES   = 4,
+        DECAY_REMOVED     = 5,
+    };
+
 public: // VTable at 60efc0.
     virtual ~Unit() override;
     virtual void Serialize(CArchive& ar) override;  // client: 53633a

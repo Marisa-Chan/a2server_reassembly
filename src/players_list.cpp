@@ -287,7 +287,7 @@ void PlayersList::ProcessPlayerTimeouts() {
 
 						unit->pOwner = nullptr;
 						unit->hp = -600;
-						unit->decay = 5;
+						unit->decay = Unit::DECAY_REMOVED;
 						g_UnitPool->AddTail(unit);
 
 						// Advance to next unit.
@@ -411,7 +411,7 @@ void PlayersList::ProcessPlayerTimeouts() {
 
 					unit->pOwner = nullptr;
 					unit->hp = -600;
-					unit->decay = 5;
+					unit->decay = Unit::DECAY_REMOVED;
 					g_UnitPool->AddTail(unit);
 				}
 

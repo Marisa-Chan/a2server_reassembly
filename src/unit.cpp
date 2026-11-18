@@ -737,8 +737,8 @@ void Unit::ProcessEffects() {
     if (this->hp < 1) {
         this->state = ORDER_IDLE;
         this->some_state = EXEC_IDLE;
-        if (this->decay == 0) {
-            this->decay = 1;
+        if (this->decay == DECAY_ALIVE) {
+            this->decay = DECAY_UNCONSCIOUS;
             this->CancelQueuedSpell();
             this->protections.defense /= 2;
             this->charge_countdown = (int8_t)(this->GetCorpseDecayTime() - 1);
@@ -1817,7 +1817,7 @@ void Unit::Revive() {
     // Inline 58FD16: reset subcell position to cell center.
     this->position->x_subcell = 0x80;
     this->position->y_subcell = 0x80;
-    this->decay = 0;
+    this->decay = DECAY_ALIVE;
     this->some_state2 = SWING_READY;
     this->attack_ready = 1;
     this->protections.defense <<= 1;
@@ -1867,16 +1867,16 @@ void Unit::DecayTick() {
 
     // Update decay state based on HP thresholds.
     if (this->hp < -10) {
-        this->decay = 2;
+        this->decay = DECAY_CORPSE;
     }
     if (this->hp < -20) {
-        this->decay = 3;
+        this->decay = DECAY_BONES;
     }
     if (this->hp < -40) {
-        this->decay = 4;
+        this->decay = DECAY_OLD_BONES;
     }
     if (this->hp < -600) {
-        this->decay = 5;
+        this->decay = DECAY_REMOVED;
         this->hp = -10001;
         if (old_decay != this->decay) {
             g_NetStru1_main.SendUnitUpdate(this, nullptr, UNIT_UPD_HP, EQUIP_SLOTS_ALL, 0, 0);
@@ -1898,7 +1898,7 @@ void Unit::InitDefaults(const CString& str) {
     this->has_flagged_item = 0;
     this->monster_info = nullptr;
     this->typeId = 0;
-    this->decay = 0;
+    this->decay = DECAY_ALIVE;
     this->token_size = 1;
     this->movement_type = 1;
     this->unit_attrs = 0;

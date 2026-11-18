@@ -421,7 +421,7 @@ void NetStru1::SendPendingUnits(Player* player) {
             if (unit->ownership_changed != 0) {
                 flags |= 0x40;
             }
-            if (unit->decay < 5) {
+            if (unit->decay < Unit::DECAY_REMOVED) {
                 g_NetStru1_main.SendUnitUpdate(unit, player, flags, EQUIP_SLOTS_ALL, 0, 0);
             }
         }
