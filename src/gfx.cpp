@@ -4902,15 +4902,16 @@ CSprite256::CSprite256(const char* fname) { //424e79
 		exit(-1);
 	}
 
+	SpriteTrailer trailer;
 	f.Seek(-4, CFile::end);
-	f.Read(&this->frames_count, 4);
+	f.Read(&trailer.raw, 4);
 	this->data_size = f.GetLength();
 
 	f.Rewind();
 
-	bool has_pal = (this->frames_count & 0x80000000) != 0;
+	bool has_pal = trailer.has_palette != 0;
 
-	this->frames_count &= 0x7fffffff;
+	this->frames_count = trailer.frames_count;
 
 	this->pdata = new uint8_t[this->data_size];
 

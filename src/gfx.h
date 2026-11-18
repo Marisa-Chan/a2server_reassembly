@@ -312,6 +312,20 @@ struct SpriteFrame {
 };
 ASSERT_SIZE(SpriteFrame, 0xc);
 
+struct SpriteTrailer {
+	union {
+		uint32_t raw;
+		struct {
+			uint32_t frames_count : 31; // [30:0] 0x7FFFFFFF: frame count
+			uint32_t has_palette  : 1;  // [31]   0x80000000: 256-entry RGBQUAD palette precedes frame data
+		};
+	};
+
+	constexpr SpriteTrailer(uint32_t v = 0) : raw(v) {}
+	constexpr operator uint32_t() const { return this->raw; }
+};
+ASSERT_SIZE(SpriteTrailer, 4);
+
 
 class CGameBitmap : public CObject {
 	DECLARE_DYNAMIC(CGameBitmap);

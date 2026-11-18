@@ -35,6 +35,7 @@ TYPE_ALIASES = {
     "UnitSaveFlags": "uint",
     "SackVisualType": "uchar",
     "EnterGameParams": "uint",
+    "SpriteTrailer": "uint",
 }
 GAME_CATEGORY = "/Game"
 
