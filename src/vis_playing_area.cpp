@@ -1976,7 +1976,7 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 			break;
 
 		case ANNOUNCEMENT:
-			this->MsgProc(VIS_MSG_NETMAP_FIND_MAP, (uint32_t)&(packet_join->__as_dword), 0); ///???????????
+			wnd->vis_root->MsgProc(VIS_MSG_NETMAP_FIND_MAP, reinterpret_cast<uint32_t>(packet_join->name), 0);
 			break;
 
 		case SERVER_SHUTDOWN:

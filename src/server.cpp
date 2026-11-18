@@ -5608,6 +5608,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
         {
             // WAT: Vanilla builds a local announcement packet but then sends the ORIGINAL packet. We send the constructed announcement instead.
             PacketJoin announcement;
+            announcement.id = ANNOUNCEMENT;
             std::strncpy(announcement.name, packet_join->name, 1023);
 #if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
             announcement.name[1023] = '\0';
