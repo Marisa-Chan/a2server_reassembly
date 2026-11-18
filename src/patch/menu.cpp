@@ -38,6 +38,9 @@ static const char* ButtonLabel(int32_t i) {
 }
 
 void Load() {
+	// TODO: pick new images:
+	// Menu: data\\graphics\\interface\\mainmenu\\menunew.png
+	// Buttons: data\\graphics\\interface\\mainmenu\\button%doff.bmp, button%don.bmp
 	if (img_menu_new == nullptr) {
 		char path[MAX_PATH];
 		sprintf_s(path, "data\\locale\\%s\\graphics\\mainmenu\\menunew.png", tangar_cfg::z_russian ? "ru" : "en");
