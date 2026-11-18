@@ -113,6 +113,12 @@ public:
         EXEC_SPECIAL           = 27,
     };
 
+    enum SwingPhase : int32_t {
+        SWING_READY    = 0,
+        SWING_WINDUP   = 5,
+        SWING_RECOVERY = 7,
+    };
+
 public: // VTable at 60efc0.
     virtual ~Unit() override;
     virtual void Serialize(CArchive& ar) override;  // client: 53633a

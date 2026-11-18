@@ -775,7 +775,7 @@ void Unit::ProcessEffects() {
     switch (this->some_state) {
     case EXEC_STEP: // Move?
         this->ProcessMoveStep(x_wide, y_wide, eye_f0, eye_f1);
-        this->some_state2 = 0;
+        this->some_state2 = SWING_READY;
         break;
 
     case EXEC_PICKUP: { // Pick up sack.
@@ -795,7 +795,7 @@ void Unit::ProcessEffects() {
     case EXEC_ATTACK: // Attack.
     case EXEC_CAST_UNIT: // Spell cast.
     case EXEC_CAST_POS: { // Area spell cast.
-            if (this->some_state2 == 0) {
+            if (this->some_state2 == SWING_READY) {
                 int32_t charge_extra = 0;
                 if (this->some_state == EXEC_ATTACK) {
                     if (!this->weapon || !this->weapon->imbued_spell || !(this->unit_attrs & Unit::ATTR_MAGE)) {
@@ -817,15 +817,15 @@ void Unit::ProcessEffects() {
 
                     if (ok) {
                         this->attack_ready = 0;
-                        this->some_state2 = 5;
+                        this->some_state2 = SWING_WINDUP;
                         this->charge_countdown = this->charge;
                     }
                 } else {
                     this->attack_ready = 0;
-                    this->some_state2 = 5;
+                    this->some_state2 = SWING_WINDUP;
                     this->charge_countdown = (int8_t)(this->charge + charge_extra);
                 }
-            } else if (this->some_state2 == 5) { // Countdown to attack or spell execution.
+            } else if (this->some_state2 == SWING_WINDUP) { // Countdown to attack or spell execution.
                 this->charge_countdown--;
                 if (this->charge_countdown == 0) {
                     if (this->some_state == EXEC_ATTACK) {
@@ -872,7 +872,7 @@ void Unit::ProcessEffects() {
                         }
                     }
 
-                    this->some_state2 = 7;
+                    this->some_state2 = SWING_RECOVERY;
                     int32_t relax_extra = 0;
                     if (this->weapon && this->IsHumanoid()) {
                         relax_extra = (this->weapon->weight + (30 - (int)this->reaction) * 5) / 12;
@@ -895,10 +895,10 @@ void Unit::ProcessEffects() {
                         #endif
                     }
                 }
-            } else if (this->some_state2 == 7) { // Countdown after attack or spell execution.
+            } else if (this->some_state2 == SWING_RECOVERY) { // Countdown after attack or spell execution.
                 this->charge_countdown--;
                 if (this->charge_countdown == 0) {
-                    this->some_state2 = 0;
+                    this->some_state2 = SWING_READY;
                     this->attack_ready = 1;
                 }
             }
@@ -1818,7 +1818,7 @@ void Unit::Revive() {
     this->position->x_subcell = 0x80;
     this->position->y_subcell = 0x80;
     this->decay = 0;
-    this->some_state2 = 0;
+    this->some_state2 = SWING_READY;
     this->attack_ready = 1;
     this->protections.defense <<= 1;
     this->RecalcStats();
@@ -1836,7 +1836,7 @@ void Unit::ResetActionState() {
         this->some_spell = nullptr;
     }
     this->some_spell = nullptr;
-    this->some_state2 = 0;
+    this->some_state2 = SWING_READY;
     this->attack_ready = 1;
     this->some_state = EXEC_IDLE;
     this->state = ORDER_IDLE;
@@ -1913,7 +1913,7 @@ void Unit::InitDefaults(const CString& str) {
     this->group = nullptr;
     this->state = ORDER_IDLE;
     this->some_state = EXEC_IDLE;
-    this->some_state2 = 0;
+    this->some_state2 = SWING_READY;
     this->attack_ready = 1;
     this->cast_target = nullptr;
     this->area_cast_x = 0;
