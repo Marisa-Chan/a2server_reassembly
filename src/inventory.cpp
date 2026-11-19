@@ -10,7 +10,7 @@ Inventory::Inventory() {
 Inventory::Inventory(const Inventory* src) {
     for (POSITION pos = src->items.GetHeadPosition(); pos != nullptr;) {
         Item* item = src->items.GetNext(pos);
-        this->PutItemIntoBagAtDefault(item->TakeOne());
+        this->PutItemIntoBagAtDefault(item->Clone());
     }
     this->default_position = src->default_position;
     this->total_weight = src->total_weight;
