@@ -12,7 +12,7 @@
 /*
 int APIENTRY WinMain(HINSTANCE hInst, HINSTANCE hInstPrev, PSTR cmdline, int cmdshow)
 {
-	return AfxWinMain(hInst, hInstPrev, cmdline, cmdshow);
+    return AfxWinMain(hInst, hInstPrev, cmdline, cmdshow);
 }*/
 
 int       a2_argc;
@@ -23,7 +23,7 @@ FILE* a2_stdout;
 FILE* a2_stderr;
 
 void Traceback(EXCEPTION_POINTERS *info) {
-	CONTEXT* ctx = info->ContextRecord;
+    CONTEXT* ctx = info->ContextRecord;
 
     HANDLE hProcess = GetCurrentProcess();
     HANDLE hThread = GetCurrentThread();
@@ -42,23 +42,23 @@ void Traceback(EXCEPTION_POINTERS *info) {
         printf("[crash_filter] Failed to initialize symbol table\n");
     }
 
-	char buffer[1024];
-	
-	printf("EXCEPTION DUMP:\neax=%08Xh,ebx=%08Xh,ecx=%08Xh,edx=%08Xh,\nesp=%08Xh,ebp=%08Xh,esi=%08Xh,edi=%08Xh;\neip=%08Xh;\naddr=%ph,code=%08Xh,flags=%08Xh\n",
-			info->ContextRecord->Eax,
-			info->ContextRecord->Ebx,
-			info->ContextRecord->Ecx,
-			info->ContextRecord->Edx,
-			info->ContextRecord->Esp,
-			info->ContextRecord->Ebp,
-			info->ContextRecord->Esi,
-			info->ContextRecord->Edi,
-			info->ContextRecord->Eip,
-			info->ExceptionRecord->ExceptionAddress,
-			info->ExceptionRecord->ExceptionCode,
-			info->ExceptionRecord->ExceptionFlags);
+    char buffer[1024];
+    
+    printf("EXCEPTION DUMP:\neax=%08Xh,ebx=%08Xh,ecx=%08Xh,edx=%08Xh,\nesp=%08Xh,ebp=%08Xh,esi=%08Xh,edi=%08Xh;\neip=%08Xh;\naddr=%ph,code=%08Xh,flags=%08Xh\n",
+            info->ContextRecord->Eax,
+            info->ContextRecord->Ebx,
+            info->ContextRecord->Ecx,
+            info->ContextRecord->Edx,
+            info->ContextRecord->Esp,
+            info->ContextRecord->Ebp,
+            info->ContextRecord->Esi,
+            info->ContextRecord->Edi,
+            info->ContextRecord->Eip,
+            info->ExceptionRecord->ExceptionAddress,
+            info->ExceptionRecord->ExceptionCode,
+            info->ExceptionRecord->ExceptionFlags);
 
-	printf("=== Stack Trace Start ===\n");
+    printf("=== Stack Trace Start ===\n");
 
     for (int i = 0; i < 64; ++i) {
         if (!StackWalk64(machineType, hProcess, hThread, &frame, ctx, NULL, SymFunctionTableAccess64, SymGetModuleBase64, NULL)) {
@@ -92,8 +92,8 @@ DWORD ExceptionHandler(EXCEPTION_POINTERS *info) {
     __try {
         Traceback(info);
 
-		printf("Press any key to exit...\n");
-		_getch();
+        printf("Press any key to exit...\n");
+        _getch();
 
         ExitProcess(1);
     }
@@ -109,26 +109,26 @@ void SetExceptionFilter() {
 int AFXAPI AfxWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow);
 
 int main(int argc, const char* argv[]) {
-	memset(a2_pioinfo, 0, sizeof(a2_pioinfo));
-	memset(a2_mbctype, 0, sizeof(a2_mbctype));
-	a2_stdout = stdout;
-	a2_stderr = stderr;
-	a2_argc = argc;
-	a2_argv = argv;
+    memset(a2_pioinfo, 0, sizeof(a2_pioinfo));
+    memset(a2_mbctype, 0, sizeof(a2_mbctype));
+    a2_stdout = stdout;
+    a2_stderr = stderr;
+    a2_argc = argc;
+    a2_argv = argv;
 
     SetExceptionFilter();
 
-	HINSTANCE hInstance = GetModuleHandle(NULL);
+    HINSTANCE hInstance = GetModuleHandle(NULL);
 
-	LPSTR lpCmdLine = GetCommandLineA();
+    LPSTR lpCmdLine = GetCommandLineA();
 
-	STARTUPINFO si = { 0 };
+    STARTUPINFO si = { 0 };
 
-	GetStartupInfo(&si);
+    GetStartupInfo(&si);
 
-	int nCmdShow = si.wShowWindow;
+    int nCmdShow = si.wShowWindow;
 
-	int exitCode = AfxWinMain(hInstance, NULL, lpCmdLine, si.dwFlags & STARTF_USESHOWWINDOW ? si.wShowWindow : SW_SHOWDEFAULT);
-	
-	return exitCode;
+    int exitCode = AfxWinMain(hInstance, NULL, lpCmdLine, si.dwFlags & STARTF_USESHOWWINDOW ? si.wShowWindow : SW_SHOWDEFAULT);
+    
+    return exitCode;
 }

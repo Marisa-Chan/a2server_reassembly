@@ -13,138 +13,138 @@ int32_t g_isDosCP = 0; //660f64
 
 // dos -> 1251
 uint8_t __cdecl DecodeChar(uint8_t ch) {
-	//45e181
-	if (g_isDosCP == 0) {
-		return ch;
-	}
+    //45e181
+    if (g_isDosCP == 0) {
+        return ch;
+    }
 
 #ifdef A2CLIENT_PATCH
-	// CHAT_convDosToIdx hook (461DB6): map DOS jo-tyo back to the
-	// font-table indices before the standard decode
-	if (ch == 0xF0) {
-		return 192 + 32;
-	} else if (ch == 0xF1) {
-		return 105 + 32;
-	}
+    // CHAT_convDosToIdx hook (461DB6): map DOS jo-tyo back to the
+    // font-table indices before the standard decode
+    if (ch == 0xF0) {
+        return 192 + 32;
+    } else if (ch == 0xF1) {
+        return 105 + 32;
+    }
 #endif
-	uint8_t t = ch;
-	if (t >= 0x80 && t < 0xb0) {
-		return t + 0x30;
-	} else if (t >= 0xe0 && t < 0xf0) {
-		return t + 0x10;
-	}
-	return t;
+    uint8_t t = ch;
+    if (t >= 0x80 && t < 0xb0) {
+        return t + 0x30;
+    } else if (t >= 0xe0 && t < 0xf0) {
+        return t + 0x10;
+    }
+    return t;
 }
 
 // 1251 -> dos
 uint8_t __cdecl EncodeChar(uint8_t c) {
-	//4763a9
+    //4763a9
 #ifdef A2CLIENT_PATCH
-	// CHAT_convWinToDos hook (47A11E): map Win-1251 jo-tyo to the
-	// DOS codepage equivalents before the standard conversion
-	if (g_isDosCP == 1) {
-		if (c == 0xA8) {
-			c = 0xF0;
-		} else if (c == 0xB8) {
-			c = 0xF1;
-		}
-	}
+    // CHAT_convWinToDos hook (47A11E): map Win-1251 jo-tyo to the
+    // DOS codepage equivalents before the standard conversion
+    if (g_isDosCP == 1) {
+        if (c == 0xA8) {
+            c = 0xF0;
+        } else if (c == 0xB8) {
+            c = 0xF1;
+        }
+    }
 #endif
-	if (g_isDosCP == 1 && c >= 0x80) {
-		if (c >= 0xc0 && c < 0xf0) {
-			c -= 0x40;
-		} else if (c >= 0xf0) {
-			c -= 0x10;
-		}
-	}
-	return c;
+    if (g_isDosCP == 1 && c >= 0x80) {
+        if (c >= 0xc0 && c < 0xf0) {
+            c -= 0x40;
+        } else if (c >= 0xf0) {
+            c -= 0x10;
+        }
+    }
+    return c;
 }
 
 uint8_t __cdecl ToLowerChar(uint8_t c) {
-	//47641d
-	if (g_isDosCP == 0) {
-		return tolower((char)c);
-	}
+    //47641d
+    if (g_isDosCP == 0) {
+        return tolower((char)c);
+    }
 
-	if (c >= 0x80 && c < 0x90) {
-		return c + 0x20;
-	} else if (c >= 0x90 && c < 0xa0) {
-		return c + 0x50;
-	}
+    if (c >= 0x80 && c < 0x90) {
+        return c + 0x20;
+    } else if (c >= 0x90 && c < 0xa0) {
+        return c + 0x50;
+    }
 
-	return tolower((char)c);
+    return tolower((char)c);
 }
 
 
 CString XorRegString(const CString& str) { //43d1a9 (client: 43f5b9)
 #ifdef A2CLIENT
-	const int32_t key = 0x9c; // client Allods2.exe
+    const int32_t key = 0x9c; // client Allods2.exe
 #else
-	const int32_t key = 0x1c;
+    const int32_t key = 0x1c;
 #endif
-	CString tmp = str;
-	for (int i = 0; i < str.GetLength(); i++) {
-		tmp.SetAt(i, tmp[i] ^ (i + key));
-	}
-	return tmp;
+    CString tmp = str;
+    for (int i = 0; i < str.GetLength(); i++) {
+        tmp.SetAt(i, tmp[i] ^ (i + key));
+    }
+    return tmp;
 }
 
 void pathStrCpy(const char* src, char* dst) {
-	//4e5fd9
-	if (g_PathLower) {
-		for (const char* a = src; *a != 0; a++, dst++) {
-			*dst = tolower(*a);
-		}
-		*dst = 0;
-	} else {
-		strcpy(dst, src);
-	}
+    //4e5fd9
+    if (g_PathLower) {
+        for (const char* a = src; *a != 0; a++, dst++) {
+            *dst = tolower(*a);
+        }
+        *dst = 0;
+    } else {
+        strcpy(dst, src);
+    }
 }
 
 
 void __cdecl ReportWarning(const char* warn) {
-	//527de3
-	CString str;
-	str.Format("WARNING!\n%s", warn);
+    //527de3
+    CString str;
+    str.Format("WARNING!\n%s", warn);
 
-	// The original formats the message and discards it without ever printing it (likely debug-only). But we're gonna print it.
-	puts(str);
+    // The original formats the message and discards it without ever printing it (likely debug-only). But we're gonna print it.
+    puts(str);
 }
 
 void __cdecl XorData(void* data, uint32_t size) {
-	//51fd7d
-	// client: 50feed
+    //51fd7d
+    // client: 50feed
 #if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
-	tangar_hat::PACKET_XorByKey(static_cast<uint8_t*>(data), size, 20);
+    tangar_hat::PACKET_XorByKey(static_cast<uint8_t*>(data), size, 20);
 #else
-	static const uint8_t xorkey[80] =
-	{ 0x2e, 0xc7, 0xc4, 0x8d, 0xff, 0xe5, 0x5d, 0x0b,
-		0xd6, 0xff, 0x7f, 0xff, 0xd7, 0x34, 0xd2, 0x02,
-		0xe2, 0x6d, 0x9e, 0x48, 0x7b, 0xc6, 0x6a, 0xf1,
-		0x97, 0x73, 0x56, 0x77, 0xfa, 0x9d, 0x80, 0x00,
-		0x11, 0x04, 0x29, 0x08, 0xa6, 0x8b, 0x2a, 0x47,
-		0x64, 0x00, 0x01, 0x38, 0x84, 0xa0, 0x40, 0x69,
-		0x01, 0xf9, 0xfa, 0xbe, 0xea, 0xff, 0x97, 0x7b,
-		0xa7, 0x26, 0xed, 0xf7, 0x6b, 0x7b, 0x3b, 0x4f,
-		0x44, 0x74, 0xa3, 0x09, 0x79, 0x40, 0x38, 0x3a,
-		0x20, 0x5d, 0xa3, 0x40, 0xc3, 0xe8, 0x7f, 0x3b };
+    static const uint8_t xorkey[80] =
+    { 0x2e, 0xc7, 0xc4, 0x8d, 0xff, 0xe5, 0x5d, 0x0b,
+        0xd6, 0xff, 0x7f, 0xff, 0xd7, 0x34, 0xd2, 0x02,
+        0xe2, 0x6d, 0x9e, 0x48, 0x7b, 0xc6, 0x6a, 0xf1,
+        0x97, 0x73, 0x56, 0x77, 0xfa, 0x9d, 0x80, 0x00,
+        0x11, 0x04, 0x29, 0x08, 0xa6, 0x8b, 0x2a, 0x47,
+        0x64, 0x00, 0x01, 0x38, 0x84, 0xa0, 0x40, 0x69,
+        0x01, 0xf9, 0xfa, 0xbe, 0xea, 0xff, 0x97, 0x7b,
+        0xa7, 0x26, 0xed, 0xf7, 0x6b, 0x7b, 0x3b, 0x4f,
+        0x44, 0x74, 0xa3, 0x09, 0x79, 0x40, 0x38, 0x3a,
+        0x20, 0x5d, 0xa3, 0x40, 0xc3, 0xe8, 0x7f, 0x3b };
 
-	uint8_t* p = (uint8_t*)data;
+    uint8_t* p = (uint8_t*)data;
 
-	while (size != 0) {
-		uint32_t num = size;
-		if (num > 80) {
-			num = 80;
-		}
+    while (size != 0) {
+        uint32_t num = size;
+        if (num > 80) {
+            num = 80;
+        }
 
-		const uint8_t* pkey = xorkey;
-		for (int i = num; i != 0; i--) {
-			*p ^= *pkey;
-			p++;
-			pkey++;
-		}
+        const uint8_t* pkey = xorkey;
+        for (int i = num; i != 0; i--) {
+            *p ^= *pkey;
+            p++;
+            pkey++;
+        }
 
-		size -= num;
-	}
+        size -= num;
+    }
 #endif
 }

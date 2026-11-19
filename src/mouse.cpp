@@ -35,7 +35,7 @@ CMousePointer::~CMousePointer() {
 }
 
 CMousePointer::CMousePointer() {
-	//4264eb
+    //4264eb
     this->cursor_sprite = nullptr;
     this->saved_screen_rect = nullptr;
     this->paint_call_count = 0;

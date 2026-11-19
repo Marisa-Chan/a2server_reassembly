@@ -276,7 +276,7 @@ int32_t Spell::StartCast(Unit* caster, Unit* target, int8_t x, int8_t y) {
     if ((caster->unit_attrs & Unit::ATTR_MAGE) && caster->some_item == nullptr) {
         if (this->mana_cost > caster->mp) {
             return 0;
-		}
+        }
         caster->mp -= this->mana_cost;
     }
 
@@ -287,7 +287,7 @@ int32_t Spell::StartCast(Unit* caster, Unit* target, int8_t x, int8_t y) {
         local_pos = *target->position;
         if (target->GetTokenSize() > 1) {
             local_pos.SetCoords2(target->GetRightXx() - 1, target->GetBottomYy() - 1);
-		}
+        }
     }
 
     if (target != caster && (caster->enchantments & (1u << spell::invisibility))) {
@@ -295,7 +295,7 @@ int32_t Spell::StartCast(Unit* caster, Unit* target, int8_t x, int8_t y) {
             Effect* eff = caster->_effects.GetNext(p);
             if (eff->itemDataID == spell::invisibility) {
                 eff->spell_value = 1;
-			}
+            }
         }
     }
 
@@ -305,7 +305,7 @@ int32_t Spell::StartCast(Unit* caster, Unit* target, int8_t x, int8_t y) {
 
     if (this->spell_info == nullptr) {
         return 0;
-	}
+    }
 
     #ifdef A2SERVER_PATCH
     // bug_0009: empty values array (null m_pData) - fail the cast instead of
@@ -320,7 +320,7 @@ int32_t Spell::StartCast(Unit* caster, Unit* target, int8_t x, int8_t y) {
         delay = CalcWalkDist(caster->position, &local_pos) / info.effect_speed;
         if (this->spell_id == spell::lightning || this->spell_id == spell::prismatic_spray) {
             delay = 5;
-		}
+        }
     } else if (caster->monster_info == nullptr) {
         return 1;
     }
@@ -396,23 +396,23 @@ void SpellBook::SetSpell(int32_t spell_id, Spell* spell) {
 }
 
 void SpellBook::RefreshForHumanoid(Humanoid* humanoid) {
-	//53dbc5
-	for (int index = 1; index < this->spells.GetSize(); ++index) {
-		Spell* spell = this->spells[index];
-		if (spell != nullptr) {
-			uint8_t spell_id = spell->spell_id;
-			SpellInfo& expected_info = g_GameDataRes.spells[spell_id];
-			if (spell->spell_info != &expected_info) {
-				spell = new Spell(index);
+    //53dbc5
+    for (int index = 1; index < this->spells.GetSize(); ++index) {
+        Spell* spell = this->spells[index];
+        if (spell != nullptr) {
+            uint8_t spell_id = spell->spell_id;
+            SpellInfo& expected_info = g_GameDataRes.spells[spell_id];
+            if (spell->spell_info != &expected_info) {
+                spell = new Spell(index);
 
-				this->spells[index] = spell;
+                this->spells[index] = spell;
 
-				LogMessage("Bad spell data, restoring spell");
-			}
+                LogMessage("Bad spell data, restoring spell");
+            }
 
-			spell->SetPowerFromCaster(humanoid);
-		}
-	}
+            spell->SetPowerFromCaster(humanoid);
+        }
+    }
 }
 
 // 539F5A

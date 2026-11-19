@@ -39,7 +39,7 @@ char g_HintBuf[223]; //4c9a6f GetHint static buffer
 
 
 CVisualObject::CVisualObject() {
-	//4d6d40
+    //4d6d40
     this->parent = nullptr;
     this->cursor_over_obj = nullptr;
     this->focus_obj = nullptr;

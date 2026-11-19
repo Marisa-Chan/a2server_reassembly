@@ -14,9 +14,9 @@
 // 5365AB
 // Distance between two TokenPos positions in sub-cell units.
 uint32_t __cdecl CalcWalkDist(TokenPos* a, TokenPos* b) {
-	int32_t dx = a->GetXx() - b->GetXx();
-	int32_t dy = a->GetYy() - b->GetYy();
-	return (uint32_t)std::sqrt((double)(dx * dx + dy * dy));
+    int32_t dx = a->GetXx() - b->GetXx();
+    int32_t dy = a->GetYy() - b->GetYy();
+    return (uint32_t)std::sqrt((double)(dx * dx + dy * dy));
 }
 
 // 6364D0
@@ -26,17 +26,17 @@ int32_t g_BlizzardWaveTable[41] = {1};
 // 636578
 // Wave table A used by AreaEffect::ApplyWaveDistribution.
 const int32_t g_WaveDistA[41] = {
-	10, // count
-	-2, -1, 0, 1, 2, -2, -1, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // x-offsets
-	1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 // y-offsets
+    10, // count
+    -2, -1, 0, 1, 2, -2, -1, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // x-offsets
+    1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 // y-offsets
 };
 
 // 636620
 // Wave table B used by AreaEffect::ApplyWaveDistribution.
 const int32_t g_WaveDistB[41] = {
-	9, // count
-	-2, -1, 0, 1, 2, -1, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // x-offsets
-	2, 1, 0, -1, -2, 2, 1, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 // y-offsets
+    9, // count
+    -2, -1, 0, 1, 2, -1, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // x-offsets
+    2, 1, 0, -1, -2, 2, 1, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 // y-offsets
 };
 
 // 6366C4
@@ -46,59 +46,59 @@ const int32_t g_AcidWaveCount = 6;
 // 6366C8
 // Wave patterns A for acid stream (6 records of: count, 20 x-offsets, 20 y-offsets).
 const int32_t g_AcidWaveA[6][41] = {
-	{ 1, // count
-	  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // x-offsets
-	  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // y-offsets
-	},
-	{ 3, // count
-	  -1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // x-offsets
-	  1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // y-offsets
-	},
-	{ 5, // count
-	  -2, -1, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // x-offsets
-	  2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // y-offsets
-	},
-	{ 7, // count
-	  -3, -2, -1, 0, 1, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // x-offsets
-	  3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // y-offsets
-	},
-	{ 9, // count
-	  -4, -3, -2, -1, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // x-offsets
-	  4, 4, 4, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // y-offsets
-	},
-	{ 0, // count
-	  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // x-offsets
-	  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // y-offsets
-	},
+    { 1, // count
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // x-offsets
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // y-offsets
+    },
+    { 3, // count
+      -1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // x-offsets
+      1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // y-offsets
+    },
+    { 5, // count
+      -2, -1, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // x-offsets
+      2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // y-offsets
+    },
+    { 7, // count
+      -3, -2, -1, 0, 1, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // x-offsets
+      3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // y-offsets
+    },
+    { 9, // count
+      -4, -3, -2, -1, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // x-offsets
+      4, 4, 4, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // y-offsets
+    },
+    { 0, // count
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // x-offsets
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // y-offsets
+    },
 };
 
 // 636AA0
 // Wave patterns B for acid stream.
 const int32_t g_AcidWaveB[6][41] = {
-	{ 1, // count
-	  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // x-offsets
-	  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // y-offsets
-	},
-	{ 2, // count
-	  1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // x-offsets
-	  0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // y-offsets
-	},
-	{ 3, // count
-	  2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // x-offsets
-	  0, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // y-offsets
-	},
-	{ 4, // count
-	  3, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // x-offsets
-	  0, 1, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // y-offsets
-	},
-	{ 5, // count
-	  4, 3, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // x-offsets
-	  0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // y-offsets
-	},
-	{ 6, // count
-	  5, 4, 3, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // x-offsets
-	  0, 1, 2, 3, 4, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // y-offsets
-	},
+    { 1, // count
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // x-offsets
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // y-offsets
+    },
+    { 2, // count
+      1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // x-offsets
+      0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // y-offsets
+    },
+    { 3, // count
+      2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // x-offsets
+      0, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // y-offsets
+    },
+    { 4, // count
+      3, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // x-offsets
+      0, 1, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // y-offsets
+    },
+    { 5, // count
+      4, 3, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // x-offsets
+      0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // y-offsets
+    },
+    { 6, // count
+      5, 4, 3, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // x-offsets
+      0, 1, 2, 3, 4, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // y-offsets
+    },
 };
 
 // 636488
@@ -106,24 +106,24 @@ IMPLEMENT_SERIAL(SpellEffect, Token, 1);
 
 // 537371
 SpellEffect::SpellEffect() : Token() {
-	this->typeId = 0;
-	this->caster = nullptr;
-	this->expired = 0;
-	this->offensive = 1;
-	this->seen_by_mask = 0;
-	this->seen_by_mask_prev = 0;
-	this->notified_mask = 0;
+    this->typeId = 0;
+    this->caster = nullptr;
+    this->expired = 0;
+    this->offensive = 1;
+    this->seen_by_mask = 0;
+    this->seen_by_mask_prev = 0;
+    this->notified_mask = 0;
 }
 
 // 5373CC
 SpellEffect::SpellEffect(const TokenPos* pos) : Token(pos) {
-	this->typeId = 0;
-	this->caster = nullptr;
-	this->expired = 0;
-	this->offensive = 1;
-	this->seen_by_mask = 0;
-	this->seen_by_mask_prev = 0;	
-	this->notified_mask = 0;
+    this->typeId = 0;
+    this->caster = nullptr;
+    this->expired = 0;
+    this->offensive = 1;
+    this->seen_by_mask = 0;
+    this->seen_by_mask_prev = 0;
+    this->notified_mask = 0;
 }
 
 // 57c080
@@ -131,14 +131,14 @@ SpellEffect::~SpellEffect() {}
 
 // 53E44A
 void SpellEffect::Serialize(CArchive& ar) {
-	Token::Serialize(ar);
-	if (ar.IsStoring()) {
-		ar << this->expired;
-		ar << this->offensive;
-	} else {
-		ar >> this->expired;
-		ar >> this->offensive;
-	}
+    Token::Serialize(ar);
+    if (ar.IsStoring()) {
+        ar << this->expired;
+        ar << this->offensive;
+    } else {
+        ar >> this->expired;
+        ar >> this->offensive;
+    }
 }
 
 // 53742d
@@ -153,365 +153,365 @@ IMPLEMENT_SERIAL(PointEffect, SpellEffect, 1);
 
 // 5375A4
 void PointEffect::FinishHit() {
-	// Clean up effect caster if caster has no owner.
-	if (this->effect != nullptr && this->effect->caster != nullptr && this->effect->caster->pOwner == nullptr) {
-		this->effect->caster = nullptr;
-	}
+    // Clean up effect caster if caster has no owner.
+    if (this->effect != nullptr && this->effect->caster != nullptr && this->effect->caster->pOwner == nullptr) {
+        this->effect->caster = nullptr;
+    }
 
-	if (!this->target->IsUnit()) {
-		if (this->target->IsBuilding()) {
-			this->effect->RemoveFromUnit(this->target);
-		}
-	} else {
-		Unit* attacker = this->target;
-		if (attacker != nullptr && attacker->pOwner != nullptr) {
-			this->effect->RemoveFromUnit(attacker);
-		}
+    if (!this->target->IsUnit()) {
+        if (this->target->IsBuilding()) {
+            this->effect->RemoveFromUnit(this->target);
+        }
+    } else {
+        Unit* attacker = this->target;
+        if (attacker != nullptr && attacker->pOwner != nullptr) {
+            this->effect->RemoveFromUnit(attacker);
+        }
 
-		if (this->caster != nullptr && this->offensive != 0) {
-			if (this->caster->monster_info == nullptr) {
-				attacker->last_hit_by = nullptr;
-			#ifdef A2SERVER_PATCH
-			// prevent_suicide_point_effect hook (53766C): self-damage must
-			// not overwrite the kill attribution
-			} else if (this->caster->pOwner != nullptr && attacker != this->caster) {
-			#else
-			} else if (this->caster->pOwner != nullptr) {
-			#endif
-				attacker->last_hit_by = this->caster;
-				attacker->last_hit_spell_id = this->effect->itemDataID;
-			}
+        if (this->caster != nullptr && this->offensive != 0) {
+            if (this->caster->monster_info == nullptr) {
+                attacker->last_hit_by = nullptr;
+            #ifdef A2SERVER_PATCH
+            // prevent_suicide_point_effect hook (53766C): self-damage must
+            // not overwrite the kill attribution
+            } else if (this->caster->pOwner != nullptr && attacker != this->caster) {
+            #else
+            } else if (this->caster->pOwner != nullptr) {
+            #endif
+                attacker->last_hit_by = this->caster;
+                attacker->last_hit_spell_id = this->effect->itemDataID;
+            }
 
-			if (attacker != nullptr && this->caster != nullptr &&
-				this->caster->pOwner != nullptr && attacker->pOwner != nullptr) {
-				g_World->RecordUnitHit(this->caster, attacker, 0);
-			}
-		}
-	}
+            if (attacker != nullptr && this->caster != nullptr &&
+                this->caster->pOwner != nullptr && attacker->pOwner != nullptr) {
+                g_World->RecordUnitHit(this->caster, attacker, 0);
+            }
+        }
+    }
 
-	this->expired = 1;
+    this->expired = 1;
 }
 
 // 5374FC
 PointEffect::PointEffect() : SpellEffect() {
-	this->target = nullptr;
-	this->effect = nullptr;
+    this->target = nullptr;
+    this->effect = nullptr;
 }
 
 // 53752F
 PointEffect::PointEffect(Effect* effect, Unit* target) : SpellEffect() {
-	this->target = target;
-	this->effect = effect;
-	*this->position = *target->position;
+    this->target = target;
+    this->effect = effect;
+    *this->position = *target->position;
 }
 
 // 537703
 PointEffect::~PointEffect() {
-	delete this->effect;
-	this->effect = nullptr;
+    delete this->effect;
+    this->effect = nullptr;
 }
 
 // 53E6D4
 void PointEffect::Serialize(CArchive& ar) {
-	SpellEffect::Serialize(ar);
+    SpellEffect::Serialize(ar);
 
-	if (ar.IsStoring()) {
-		ar.WriteObject(this->effect);
-		ar.Write(&this->target, sizeof(this->target));
-	} else {
-		ar >> this->effect;
-		uint32_t key;
-		ar.Read(&key, sizeof(key));
-		void* found;
-		if (g_Server->saved_ptr_map.Lookup(reinterpret_cast<void*>(key), found)) {
-			this->target = static_cast<Unit*>(found);
-		} else {
-			this->target = nullptr;
-		}
-	}
+    if (ar.IsStoring()) {
+        ar.WriteObject(this->effect);
+        ar.Write(&this->target, sizeof(this->target));
+    } else {
+        ar >> this->effect;
+        uint32_t key;
+        ar.Read(&key, sizeof(key));
+        void* found;
+        if (g_Server->saved_ptr_map.Lookup(reinterpret_cast<void*>(key), found)) {
+            this->target = static_cast<Unit*>(found);
+        } else {
+            this->target = nullptr;
+        }
+    }
 }
 
 // 57C0A0
 void PointEffect::ProcessEffects() {
-	this->FinishHit();
+    this->FinishHit();
 }
 
 // 53E7F2
 void PointEffect::FixupPointers() {
-	Token::FixupPointers();
-	if (this->effect != nullptr) {
-		this->effect->FixupPointers();
-	}
+    Token::FixupPointers();
+    if (this->effect != nullptr) {
+        this->effect->FixupPointers();
+    }
 }
 
 
 // 5382FB
 void AreaEffect::ExpireOnUnit(Unit* unit) {
-	this->effect->RemoveFromUnit(unit);
+    this->effect->RemoveFromUnit(unit);
 }
 
 // 53831D
 void AreaEffect::DamageUnit(Unit* unit) {
-	if (unit == nullptr || this->itemDataID == spell::wall_of_earth) {
-		return;
-	}
+    if (unit == nullptr || this->itemDataID == spell::wall_of_earth) {
+        return;
+    }
 
-	if (this->itemDataID == spell::fire_ball) {
-		DirectDamage local_dd(static_cast<DirectDamage*>(this->effect));
-		int32_t size = (uint8_t)unit->GetTokenSize();
-		int32_t size_sq = size * size;
-		local_dd.unit_to_hit.some_damage2_min /= size_sq;
-		local_dd.unit_to_hit.some_damage2_spread /= size_sq;
-		local_dd.RemoveFromUnit(unit);
-	} else {
-		this->effect->RemoveFromUnit(unit);
-	}
+    if (this->itemDataID == spell::fire_ball) {
+        DirectDamage local_dd(static_cast<DirectDamage*>(this->effect));
+        int32_t size = (uint8_t)unit->GetTokenSize();
+        int32_t size_sq = size * size;
+        local_dd.unit_to_hit.some_damage2_min /= size_sq;
+        local_dd.unit_to_hit.some_damage2_spread /= size_sq;
+        local_dd.RemoveFromUnit(unit);
+    } else {
+        this->effect->RemoveFromUnit(unit);
+    }
 
-	if (this->itemDataID == spell::light) {
-		return;
-	}
+    if (this->itemDataID == spell::light) {
+        return;
+    }
 
-	if ((unit->GetMovementType() & 0xFF) == 0 || this->caster == nullptr) {
-		return;
-	}
+    if ((unit->GetMovementType() & 0xFF) == 0 || this->caster == nullptr) {
+        return;
+    }
 
-	if (this->caster->monster_info == nullptr) {
-		unit->last_hit_by = nullptr;
-	} else if (this->caster->pOwner == nullptr) {
-		unit->last_hit_by = nullptr;
-	#ifdef A2SERVER_PATCH
-	// prevent_suicide_area_effect hook (538473): self-damage must not
-	// overwrite the kill attribution
-	} else if (this->itemDataID != spell::darkness && unit != this->caster) {
-	#else
-	} else if (this->itemDataID != spell::darkness) {
-	#endif
-		unit->last_hit_by = this->caster;
-		unit->last_hit_spell_id = this->effect->itemDataID;
-	}
+    if (this->caster->monster_info == nullptr) {
+        unit->last_hit_by = nullptr;
+    } else if (this->caster->pOwner == nullptr) {
+        unit->last_hit_by = nullptr;
+    #ifdef A2SERVER_PATCH
+    // prevent_suicide_area_effect hook (538473): self-damage must not
+    // overwrite the kill attribution
+    } else if (this->itemDataID != spell::darkness && unit != this->caster) {
+    #else
+    } else if (this->itemDataID != spell::darkness) {
+    #endif
+        unit->last_hit_by = this->caster;
+        unit->last_hit_spell_id = this->effect->itemDataID;
+    }
 
-	if (this->caster->pOwner != nullptr && unit->pOwner != nullptr) {
-		if (g_Server->multiplayer == 0 || !this->caster->pOwner->is_ai || unit->pOwner->is_ai) {
-			g_World->RecordUnitHit(this->caster, unit, 1);
-		}
-	}
+    if (this->caster->pOwner != nullptr && unit->pOwner != nullptr) {
+        if (g_Server->multiplayer == 0 || !this->caster->pOwner->is_ai || unit->pOwner->is_ai) {
+            g_World->RecordUnitHit(this->caster, unit, 1);
+        }
+    }
 }
 
 // 537C8C
 void AreaEffect::ApplyDistribution() {
-	if (g_GameDataRes.spells[this->itemDataID].Values()[0].distribution == Spell::DIST_LONG_WALL) {
-		this->ApplyWaveDistribution();
-	} else {
-		this->ApplyAroundPosition();
-	}
+    if (g_GameDataRes.spells[this->itemDataID].Values()[0].distribution == Spell::DIST_LONG_WALL) {
+        this->ApplyWaveDistribution();
+    } else {
+        this->ApplyAroundPosition();
+    }
 }
 
 // 538897
 uint32_t AreaEffect::GetLayerIndex() const {
-	switch (this->itemDataID) {
-	case spell::wall_of_fire:
-		return AreaEffect::LAYER_FIRE;
-	case spell::poison_cloud:
-		return AreaEffect::LAYER_POISON;
-	case spell::darkness:
-		return AreaEffect::LAYER_DARKNESS;
-	case spell::light:
-		return AreaEffect::LAYER_LIGHT;
-	case spell::wall_of_earth:
-		return AreaEffect::LAYER_EARTH_WALL;
-	default:
-		// Vanilla constructed the string "MapLayer() call - Invalid Area Effect" here, but didn't log it --- likely because it would be logged on every blizzard spell.
-		return AreaEffect::LAYER_FIRE;
-	}
+    switch (this->itemDataID) {
+    case spell::wall_of_fire:
+        return AreaEffect::LAYER_FIRE;
+    case spell::poison_cloud:
+        return AreaEffect::LAYER_POISON;
+    case spell::darkness:
+        return AreaEffect::LAYER_DARKNESS;
+    case spell::light:
+        return AreaEffect::LAYER_LIGHT;
+    case spell::wall_of_earth:
+        return AreaEffect::LAYER_EARTH_WALL;
+    default:
+        // Vanilla constructed the string "MapLayer() call - Invalid Area Effect" here, but didn't log it --- likely because it would be logged on every blizzard spell.
+        return AreaEffect::LAYER_FIRE;
+    }
 }
 
 // 53822C
 void AreaEffect::ApplyRadiusRing() {
-	uint8_t x = this->position->GetX();
-	uint8_t y = this->position->GetY();
-	int32_t radius = this->radius;
-	for (int32_t dx = x - radius; dx <= x + radius; dx++) {
-		for (int32_t dy = y - radius; dy <= y + radius; dy++) {
-			MapStuff_Instance->PlaceAreaEffectAt(this, dx, dy);
-		}
-	}
-	g_NetStru1_main.SendAreaEffect(this, 0);
-	this->zone_active = 0;
+    uint8_t x = this->position->GetX();
+    uint8_t y = this->position->GetY();
+    int32_t radius = this->radius;
+    for (int32_t dx = x - radius; dx <= x + radius; dx++) {
+        for (int32_t dy = y - radius; dy <= y + radius; dy++) {
+            MapStuff_Instance->PlaceAreaEffectAt(this, dx, dy);
+        }
+    }
+    g_NetStru1_main.SendAreaEffect(this, 0);
+    this->zone_active = 0;
 }
 
 // 5384FF
 void AreaEffect::BroadcastAndApply() {
-	g_NetStru1_main.SendAreaEffect(this, 1);
+    g_NetStru1_main.SendAreaEffect(this, 1);
 
-	bool spread_damage = false;
-	if (this->effect->IsKindOf(RUNTIME_CLASS(DirectDamage))) {
-		spread_damage = static_cast<DirectDamage*>(this->effect)->unit_to_hit.some_damage2_spread > 0;
-	}
+    bool spread_damage = false;
+    if (this->effect->IsKindOf(RUNTIME_CLASS(DirectDamage))) {
+        spread_damage = static_cast<DirectDamage*>(this->effect)->unit_to_hit.some_damage2_spread > 0;
+    }
 
-	uint8_t x = this->position->GetX();
-	uint8_t y = this->position->GetY();
-	int32_t radius = this->radius;
-	for (int32_t dx = x - radius; dx <= x + radius; dx++) {
-		for (int32_t dy = y - radius; dy <= y + radius; dy++) {
-			uint16_t yx = PosYX(dx, dy).val;
-			this->DamageUnit(MapStuff_Instance->GetSmallUnitAt(yx));
-			this->DamageUnit(MapStuff_Instance->GetLargeUnitAt(yx));
-			this->DamageUnit(MapStuff_Instance->GetBuildingUnitAt(dx, dy));
-			if (spread_damage) {
-				this->ApplyCellLayer(dx, dy);
-				MapStuff_Instance->BlockCell(dx, dy);
-			}
-		}
-	}
-	this->expired = 1;
+    uint8_t x = this->position->GetX();
+    uint8_t y = this->position->GetY();
+    int32_t radius = this->radius;
+    for (int32_t dx = x - radius; dx <= x + radius; dx++) {
+        for (int32_t dy = y - radius; dy <= y + radius; dy++) {
+            uint16_t yx = PosYX(dx, dy).val;
+            this->DamageUnit(MapStuff_Instance->GetSmallUnitAt(yx));
+            this->DamageUnit(MapStuff_Instance->GetLargeUnitAt(yx));
+            this->DamageUnit(MapStuff_Instance->GetBuildingUnitAt(dx, dy));
+            if (spread_damage) {
+                this->ApplyCellLayer(dx, dy);
+                MapStuff_Instance->BlockCell(dx, dy);
+            }
+        }
+    }
+    this->expired = 1;
 }
 
 // 538137
 void AreaEffect::ApplyAtCell(uint8_t x, uint8_t y, bool spread_damage) {
-	uint16_t yx = PosYX(x, y).val;
-	Unit* unit = MapStuff_Instance->GetBuildingUnitAt(x, y);
-	if (unit != nullptr && (MapStuff_Instance->obstacle_map[yx].bits & obstacle_flag::structure) != 0) {
-		return;
-	}
+    uint16_t yx = PosYX(x, y).val;
+    Unit* unit = MapStuff_Instance->GetBuildingUnitAt(x, y);
+    if (unit != nullptr && (MapStuff_Instance->obstacle_map[yx].bits & obstacle_flag::structure) != 0) {
+        return;
+    }
 
-	if (this->itemDataID == spell::wall_of_earth) {
-		if (MapStuff_Instance->GetUnitAt(yx) == nullptr) {
-			MapStuff_Instance->RegisterAreaEffectAt(this, x, y);
-		}
-		return;
-	}
+    if (this->itemDataID == spell::wall_of_earth) {
+        if (MapStuff_Instance->GetUnitAt(yx) == nullptr) {
+            MapStuff_Instance->RegisterAreaEffectAt(this, x, y);
+        }
+        return;
+    }
 
-	MapStuff_Instance->RegisterAreaEffectAt(this, x, y);
-	this->ApplyCellLayer(x, y);
-	if (spread_damage) {
-		MapStuff_Instance->BlockCell(x, y);
-	}
+    MapStuff_Instance->RegisterAreaEffectAt(this, x, y);
+    this->ApplyCellLayer(x, y);
+    if (spread_damage) {
+        MapStuff_Instance->BlockCell(x, y);
+    }
 }
 
 // 53868D
 void AreaEffect::ApplyCellLayer(uint8_t x, uint8_t y) {
-	AreaEffect** layers = MapStuff_Instance->GetAreaEffectsAt(PosYX(x, y).val);
-	if (layers == nullptr) {
-		return;
-	}
-	switch (this->itemDataID) {
-	case spell::fire_ball:
-	case spell::wall_of_fire:
-		if (layers[AreaEffect::LAYER_POISON] != nullptr) {
-			AreaEffect* layer = layers[AreaEffect::LAYER_POISON];
-			MapStuff_Instance->PlaceAreaEffectAt(layer, x, y);
-			g_NetStru1_main.SendAreaEffect(layer, 0);
-		}
-		if (layers[AreaEffect::LAYER_CLEARED_BY_FIRE] != nullptr) {
-			AreaEffect* layer = layers[AreaEffect::LAYER_CLEARED_BY_FIRE];
-			MapStuff_Instance->PlaceAreaEffectAt(layer, x, y);
-			g_NetStru1_main.SendAreaEffect(layer, 0);
-		}
-		break;
-	case spell::poison_cloud:
-		if (layers[AreaEffect::LAYER_FIRE] != nullptr) {
-			AreaEffect* layer = layers[AreaEffect::LAYER_POISON];
-			MapStuff_Instance->PlaceAreaEffectAt(layer, x, y);
-			g_NetStru1_main.SendAreaEffect(layer, 0);
-		}
-		break;
-	case spell::darkness:
-		if (layers[AreaEffect::LAYER_LIGHT] != nullptr) {
-			MapStuff_Instance->PlaceAreaEffectAt(layers[AreaEffect::LAYER_DARKNESS], x, y);
-			AreaEffect* layer = layers[AreaEffect::LAYER_LIGHT];
-			MapStuff_Instance->PlaceAreaEffectAt(layer, x, y);
-			g_NetStru1_main.SendAreaEffect(layer, 0);
-		}
-		break;
-	case spell::light:
-		if (layers[AreaEffect::LAYER_DARKNESS] != nullptr) {
-			MapStuff_Instance->PlaceAreaEffectAt(layers[AreaEffect::LAYER_LIGHT], x, y);
-			AreaEffect* layer = layers[AreaEffect::LAYER_DARKNESS];
-			MapStuff_Instance->PlaceAreaEffectAt(layer, x, y);
-			g_NetStru1_main.SendAreaEffect(layer, 0);
-		}
-		break;
-	}
+    AreaEffect** layers = MapStuff_Instance->GetAreaEffectsAt(PosYX(x, y).val);
+    if (layers == nullptr) {
+        return;
+    }
+    switch (this->itemDataID) {
+    case spell::fire_ball:
+    case spell::wall_of_fire:
+        if (layers[AreaEffect::LAYER_POISON] != nullptr) {
+            AreaEffect* layer = layers[AreaEffect::LAYER_POISON];
+            MapStuff_Instance->PlaceAreaEffectAt(layer, x, y);
+            g_NetStru1_main.SendAreaEffect(layer, 0);
+        }
+        if (layers[AreaEffect::LAYER_CLEARED_BY_FIRE] != nullptr) {
+            AreaEffect* layer = layers[AreaEffect::LAYER_CLEARED_BY_FIRE];
+            MapStuff_Instance->PlaceAreaEffectAt(layer, x, y);
+            g_NetStru1_main.SendAreaEffect(layer, 0);
+        }
+        break;
+    case spell::poison_cloud:
+        if (layers[AreaEffect::LAYER_FIRE] != nullptr) {
+            AreaEffect* layer = layers[AreaEffect::LAYER_POISON];
+            MapStuff_Instance->PlaceAreaEffectAt(layer, x, y);
+            g_NetStru1_main.SendAreaEffect(layer, 0);
+        }
+        break;
+    case spell::darkness:
+        if (layers[AreaEffect::LAYER_LIGHT] != nullptr) {
+            MapStuff_Instance->PlaceAreaEffectAt(layers[AreaEffect::LAYER_DARKNESS], x, y);
+            AreaEffect* layer = layers[AreaEffect::LAYER_LIGHT];
+            MapStuff_Instance->PlaceAreaEffectAt(layer, x, y);
+            g_NetStru1_main.SendAreaEffect(layer, 0);
+        }
+        break;
+    case spell::light:
+        if (layers[AreaEffect::LAYER_DARKNESS] != nullptr) {
+            MapStuff_Instance->PlaceAreaEffectAt(layers[AreaEffect::LAYER_LIGHT], x, y);
+            AreaEffect* layer = layers[AreaEffect::LAYER_DARKNESS];
+            MapStuff_Instance->PlaceAreaEffectAt(layer, x, y);
+            g_NetStru1_main.SendAreaEffect(layer, 0);
+        }
+        break;
+    }
 }
 
 // 53801A
 void AreaEffect::ApplyAroundPosition() {
-	uint8_t x = this->position->GetX();
-	uint8_t y = this->position->GetY();
+    uint8_t x = this->position->GetX();
+    uint8_t y = this->position->GetY();
 
-	bool spread_damage = false;
-	if (this->effect->IsKindOf(RUNTIME_CLASS(DirectDamage))) {
-		spread_damage = static_cast<DirectDamage*>(this->effect)->unit_to_hit.some_damage2_spread > 0;
-	}
+    bool spread_damage = false;
+    if (this->effect->IsKindOf(RUNTIME_CLASS(DirectDamage))) {
+        spread_damage = static_cast<DirectDamage*>(this->effect)->unit_to_hit.some_damage2_spread > 0;
+    }
 
-	int32_t radius = this->radius;
-	for (int32_t dx = -radius; dx <= radius; dx++) {
-		for (int32_t dy = -radius; dy <= radius; dy++) {
-			if (abs(dx) + abs(dy) <= radius + 1) {
-				this->ApplyAtCell(x + dx, y + dy, spread_damage);
-			}
-		}
-	}
-	g_NetStru1_main.SendAreaEffect(this, 1);
-	this->zone_active = 1;
+    int32_t radius = this->radius;
+    for (int32_t dx = -radius; dx <= radius; dx++) {
+        for (int32_t dy = -radius; dy <= radius; dy++) {
+            if (abs(dx) + abs(dy) <= radius + 1) {
+                this->ApplyAtCell(x + dx, y + dy, spread_damage);
+            }
+        }
+    }
+    g_NetStru1_main.SendAreaEffect(this, 1);
+    this->zone_active = 1;
 }
 
 // 537F2C
 void AreaEffect::ApplyWaveDistribution() {
-	uint8_t x = this->position->GetX();
-	uint8_t y = this->position->GetY();
+    uint8_t x = this->position->GetX();
+    uint8_t y = this->position->GetY();
 
-	bool spread_damage = false;
-	if (this->effect->IsKindOf(RUNTIME_CLASS(DirectDamage))) {
-		spread_damage = static_cast<DirectDamage*>(this->effect)->unit_to_hit.some_damage2_spread > 0;
-	}
+    bool spread_damage = false;
+    if (this->effect->IsKindOf(RUNTIME_CLASS(DirectDamage))) {
+        spread_damage = static_cast<DirectDamage*>(this->effect)->unit_to_hit.some_damage2_spread > 0;
+    }
 
-	WavePattern wave;
-	wave.SetWaveTables(g_WaveDistA, g_WaveDistB, this->wave_pattern);
-	for (int32_t i = 0; i < wave.count; i++) {
-		this->ApplyAtCell(x + wave.x_mult * wave.x_offsets[i], y + wave.y_mult * wave.y_offsets[i], spread_damage);
-	}
-	g_NetStru1_main.SendAreaEffect(this, 1);
-	this->zone_active = 1;
+    WavePattern wave;
+    wave.SetWaveTables(g_WaveDistA, g_WaveDistB, this->wave_pattern);
+    for (int32_t i = 0; i < wave.count; i++) {
+        this->ApplyAtCell(x + wave.x_mult * wave.x_offsets[i], y + wave.y_mult * wave.y_offsets[i], spread_damage);
+    }
+    g_NetStru1_main.SendAreaEffect(this, 1);
+    this->zone_active = 1;
 }
 
 // 537CD6
 void AreaEffect::TickAcidBlizzard() {
-	if (this->duration--) {
-		return;
-	}
-	this->duration = 2;
-	uint8_t x = this->position->GetX();
-	uint8_t y = this->position->GetY();
-	WavePattern wave = {};
-	int32_t count = 0;
-	uint8_t packet_type = 0x10;
-	if (this->itemDataID == spell::blizzard) {
-		g_BlizzardWaveTable[1] = Random0N(5) - 2;
-		g_BlizzardWaveTable[0x15] = Random0N(5) - 2;
-		wave.SetWaveTable(g_BlizzardWaveTable);
-		count = 32;
-	} else if (this->itemDataID == spell::acid_stream) {
-		wave.SetWaveTables(g_AcidWaveA[this->wave_step], g_AcidWaveB[this->wave_step], this->wave_pattern);
-		count = g_AcidWaveCount;
-		packet_type = 0x12;
-	}
-	for (int32_t i = 0; i < wave.count; i++) {
-		uint8_t nx = x + wave.x_mult * wave.x_offsets[i];
-		uint8_t ny = y + wave.y_mult * wave.y_offsets[i];
-		this->effect->typeId = this->itemDataID * 2 + 9;
-		if (this->effect->position->ClampToMap(nx, ny)) {
-			g_NetStru1_main.BroadcastEffectMove(this->effect, packet_type);
-			uint16_t yx = PosYX(nx, ny).val;
-			this->DamageUnit(MapStuff_Instance->GetSmallUnitAt(yx));
-			this->DamageUnit(MapStuff_Instance->GetLargeUnitAt(yx));
-			this->DamageUnit(MapStuff_Instance->GetBuildingUnitAt(nx, ny));
-		}
-	}
-	this->wave_step++;
-	if (this->wave_step >= count) {
-		this->expired = 1;
-	}
+    if (this->duration--) {
+        return;
+    }
+    this->duration = 2;
+    uint8_t x = this->position->GetX();
+    uint8_t y = this->position->GetY();
+    WavePattern wave = {};
+    int32_t count = 0;
+    uint8_t packet_type = 0x10;
+    if (this->itemDataID == spell::blizzard) {
+        g_BlizzardWaveTable[1] = Random0N(5) - 2;
+        g_BlizzardWaveTable[0x15] = Random0N(5) - 2;
+        wave.SetWaveTable(g_BlizzardWaveTable);
+        count = 32;
+    } else if (this->itemDataID == spell::acid_stream) {
+        wave.SetWaveTables(g_AcidWaveA[this->wave_step], g_AcidWaveB[this->wave_step], this->wave_pattern);
+        count = g_AcidWaveCount;
+        packet_type = 0x12;
+    }
+    for (int32_t i = 0; i < wave.count; i++) {
+        uint8_t nx = x + wave.x_mult * wave.x_offsets[i];
+        uint8_t ny = y + wave.y_mult * wave.y_offsets[i];
+        this->effect->typeId = this->itemDataID * 2 + 9;
+        if (this->effect->position->ClampToMap(nx, ny)) {
+            g_NetStru1_main.BroadcastEffectMove(this->effect, packet_type);
+            uint16_t yx = PosYX(nx, ny).val;
+            this->DamageUnit(MapStuff_Instance->GetSmallUnitAt(yx));
+            this->DamageUnit(MapStuff_Instance->GetLargeUnitAt(yx));
+            this->DamageUnit(MapStuff_Instance->GetBuildingUnitAt(nx, ny));
+        }
+    }
+    this->wave_step++;
+    if (this->wave_step >= count) {
+        this->expired = 1;
+    }
 }
 
 // 6364B8
@@ -519,219 +519,219 @@ IMPLEMENT_SERIAL(AreaEffect, SpellEffect, 1);
 
 // 537846
 AreaEffect::AreaEffect() : SpellEffect() {
-	this->effect = nullptr;
-	this->TokenID = 0;
-	this->zone_active = 0;
+    this->effect = nullptr;
+    this->TokenID = 0;
+    this->zone_active = 0;
 }
 
 // 537880
 AreaEffect::AreaEffect(Effect* effect, TokenPos* pos, uint8_t range) : SpellEffect(pos) {
-	this->effect = effect;
-	this->TokenID = 0;
-	this->zone_active = 0;
-	this->radius = range;
-	this->wave_step = 0;
-	this->duration = 0;
+    this->effect = effect;
+    this->TokenID = 0;
+    this->zone_active = 0;
+    this->radius = range;
+    this->wave_step = 0;
+    this->duration = 0;
 }
 
 // 5378D8
 AreaEffect::~AreaEffect() {
-	delete this->effect;
-	this->effect = nullptr;
+    delete this->effect;
+    this->effect = nullptr;
 }
 
 // 53E81F
 void AreaEffect::Serialize(CArchive& ar) {
-	SpellEffect::Serialize(ar);
-	if (ar.IsStoring()) {
-		ar << this->zone_active;
-		ar << this->radius;
-		ar << this->wave_pattern;
-		ar << this->wave_step;
-		ar << this->duration;
-		ar.WriteObject(this->effect);
-	} else {
-		ar >> this->zone_active;
-		ar >> this->radius;
-		ar >> this->wave_pattern;
-		ar >> this->wave_step;
-		ar >> this->duration;
-		ar >> this->effect;
-	}
+    SpellEffect::Serialize(ar);
+    if (ar.IsStoring()) {
+        ar << this->zone_active;
+        ar << this->radius;
+        ar << this->wave_pattern;
+        ar << this->wave_step;
+        ar << this->duration;
+        ar.WriteObject(this->effect);
+    } else {
+        ar >> this->zone_active;
+        ar >> this->radius;
+        ar >> this->wave_pattern;
+        ar >> this->wave_step;
+        ar >> this->duration;
+        ar >> this->effect;
+    }
 }
 
 // 537964
 void AreaEffect::ProcessEffects() {
-	if (this->TokenID & AreaEffect::MODE_PHASED_WAVE) {
-		this->TickAcidBlizzard();
-		return;
-	}
-	if (!(this->TokenID & AreaEffect::MODE_PERSISTENT)) {
-		this->BroadcastAndApply();
-		return;
-	}
-	if (this->zone_active == 0) {
-		this->ApplyDistribution();
-		return;
-	}
-	if (this->duration == 0) {
-		this->ApplyRadiusRing();
-		this->expired = 1;
-		return;
-	}
+    if (this->TokenID & AreaEffect::MODE_PHASED_WAVE) {
+        this->TickAcidBlizzard();
+        return;
+    }
+    if (!(this->TokenID & AreaEffect::MODE_PERSISTENT)) {
+        this->BroadcastAndApply();
+        return;
+    }
+    if (this->zone_active == 0) {
+        this->ApplyDistribution();
+        return;
+    }
+    if (this->duration == 0) {
+        this->ApplyRadiusRing();
+        this->expired = 1;
+        return;
+    }
 
-	this->duration--;
-	if ((this->duration & 0xF) == 0) {
-		uint8_t x = this->position->GetX();
-		uint8_t y = this->position->GetY();
-		int32_t radius = this->radius;
-		for (int32_t dx = -radius; dx <= radius; dx++) {
-			for (int32_t dy = -radius; dy <= radius; dy++) {
-				if (MapStuff_Instance->CanApplyAreaEffect(this, x + dx, y + dy)) {
-					uint16_t yx = ((y + dy) << 8) | (x + dx);
-					Unit* unit = MapStuff_Instance->GetUnitAt(yx);
-					this->DamageUnit(unit);
-				}
-			}
-		}
-	}
+    this->duration--;
+    if ((this->duration & 0xF) == 0) {
+        uint8_t x = this->position->GetX();
+        uint8_t y = this->position->GetY();
+        int32_t radius = this->radius;
+        for (int32_t dx = -radius; dx <= radius; dx++) {
+            for (int32_t dy = -radius; dy <= radius; dy++) {
+                if (MapStuff_Instance->CanApplyAreaEffect(this, x + dx, y + dy)) {
+                    uint16_t yx = ((y + dy) << 8) | (x + dx);
+                    Unit* unit = MapStuff_Instance->GetUnitAt(yx);
+                    this->DamageUnit(unit);
+                }
+            }
+        }
+    }
 }
 
 // 53EB1E
 void AreaEffect::FixupPointers() {
-	Token::FixupPointers();
-	if (this->effect != nullptr) {
-		this->effect->FixupPointers();
-	}
+    Token::FixupPointers();
+    if (this->effect != nullptr) {
+        this->effect->FixupPointers();
+    }
 }
 
 IMPLEMENT_SERIAL(SpellTransport, SpellEffect, 1); // 636FC8
 
 // 5389E2
 SpellTransport::SpellTransport() : SpellEffect() {
-	this->spell_effect = nullptr;
-	this->area_effect = nullptr;
+    this->spell_effect = nullptr;
+    this->area_effect = nullptr;
 }
 
 // 538A15
 SpellTransport::SpellTransport(SpellEffect* spell_effect, TokenPos* from_position, int16_t speed) : SpellEffect(from_position) {
-	this->spell_effect = spell_effect;
-	this->area_effect = nullptr;
-	int32_t dist = (int32_t)CalcWalkDist(from_position, this->spell_effect->position);
-	this->duration = (int16_t)(dist / speed);
+    this->spell_effect = spell_effect;
+    this->area_effect = nullptr;
+    int32_t dist = (int32_t)CalcWalkDist(from_position, this->spell_effect->position);
+    this->duration = (int16_t)(dist / speed);
 }
 
 // 538A9E
 SpellTransport::SpellTransport(AreaEffect* ae, TokenPos* from_position, int16_t speed) : SpellEffect(from_position) {
-	this->spell_effect = nullptr;
-	this->area_effect = ae;
-	// WAT: dereferencing `this->spell_effect` is guaranteed to crash. This function has no callers in ASM.
-	// I guess they meant `area_effect` instead?
-	int32_t dist = (int32_t)CalcWalkDist(from_position, this->spell_effect->position);
-	this->duration = (int16_t)(dist / speed);
+    this->spell_effect = nullptr;
+    this->area_effect = ae;
+    // WAT: dereferencing `this->spell_effect` is guaranteed to crash. This function has no callers in ASM.
+    // I guess they meant `area_effect` instead?
+    int32_t dist = (int32_t)CalcWalkDist(from_position, this->spell_effect->position);
+    this->duration = (int16_t)(dist / speed);
 }
 
 // 538B27
 SpellTransport::~SpellTransport() {
-	if (this->spell_effect != nullptr) {
-		delete this->spell_effect;
-		this->spell_effect = nullptr;
-	}
-	if (this->area_effect != nullptr) {
-		delete this->area_effect;
-		this->area_effect = nullptr;
-	}
+    if (this->spell_effect != nullptr) {
+        delete this->spell_effect;
+        this->spell_effect = nullptr;
+    }
+    if (this->area_effect != nullptr) {
+        delete this->area_effect;
+        this->area_effect = nullptr;
+    }
 }
 
 // 53E588
 void SpellTransport::Serialize(CArchive& ar) {
-	SpellEffect::Serialize(ar);
-	if (ar.IsStoring()) {
-		ar.WriteObject(this->spell_effect);
-		ar.WriteObject(this->area_effect);
-		ar << this->duration;
-	} else {
-		ar >> this->spell_effect;
-		ar >> this->area_effect;
-		ar >> this->duration;
-	}
+    SpellEffect::Serialize(ar);
+    if (ar.IsStoring()) {
+        ar.WriteObject(this->spell_effect);
+        ar.WriteObject(this->area_effect);
+        ar << this->duration;
+    } else {
+        ar >> this->spell_effect;
+        ar >> this->area_effect;
+        ar >> this->duration;
+    }
 }
 
 // 538BF4
 void SpellTransport::ProcessEffects() {
-	this->duration--;
-	if (this->duration < 1) {
-		SpellEffect* effect = (this->spell_effect != nullptr) ? this->spell_effect : this->area_effect;
-		g_Server->srv_stru1->effects_list->list.AddTail(effect);
-		this->spell_effect = nullptr;
-		this->area_effect = nullptr;
-		this->expired = 1;
-	}
+    this->duration--;
+    if (this->duration < 1) {
+        SpellEffect* effect = (this->spell_effect != nullptr) ? this->spell_effect : this->area_effect;
+        g_Server->srv_stru1->effects_list->list.AddTail(effect);
+        this->spell_effect = nullptr;
+        this->area_effect = nullptr;
+        this->expired = 1;
+    }
 }
 
 // 53E68D
 void SpellTransport::FixupPointers() {
-	Token::FixupPointers();
-	if (this->spell_effect != nullptr) {
-		this->spell_effect->FixupPointers();
-	}
-	if (this->area_effect != nullptr) {
-		this->area_effect->FixupPointers();
-	}
+    Token::FixupPointers();
+    if (this->spell_effect != nullptr) {
+        this->spell_effect->FixupPointers();
+    }
+    if (this->area_effect != nullptr) {
+        this->area_effect->FixupPointers();
+    }
 }
 
 
 // 537AE8
 void WavePattern::SetWaveTable(const int32_t* table) {
-	this->x_offsets = table + 1;
-	this->y_offsets = table + 21;
-	this->count = table[0];
-	this->x_mult = 1;
-	this->y_mult = 1;
+    this->x_offsets = table + 1;
+    this->y_offsets = table + 21;
+    this->count = table[0];
+    this->x_mult = 1;
+    this->y_mult = 1;
 }
 
 // 537B2B
 void WavePattern::SetWaveTables(const int32_t* table_a, const int32_t* table_b, uint8_t direction) {
-	this->x_offsets = table_b + 1;
-	this->y_offsets = table_b + 21;
-	this->count = table_b[0];
-	this->x_mult = 1;
-	this->y_mult = 1;
-	switch (direction) {
-	case 0:
-		this->x_offsets = table_a + 1;
-		this->y_offsets = table_a + 21;
-		this->count = table_a[0];
-		this->y_mult = -1;
-		break;
-	case 1:
-		this->y_mult = -1;
-		break;
-	case 2:
-		this->x_offsets = table_a + 21;
-		this->y_offsets = table_a + 1;
-		this->count = table_a[0];
-		break;
-	case 3:
-		break;
-	case 4:
-		this->x_offsets = table_a + 1;
-		this->y_offsets = table_a + 21;
-		this->count = table_a[0];
-		this->x_mult = -1;
-		break;
-	case 5:
-		this->x_mult = -1;
-		break;
-	case 6:
-		this->x_offsets = table_a + 21;
-		this->y_offsets = table_a + 1;
-		this->count = table_a[0];
-		this->x_mult = -1;
-		break;
-	case 7:
-		this->x_mult = -1;
-		this->y_mult = -1;
-		break;
-	}
+    this->x_offsets = table_b + 1;
+    this->y_offsets = table_b + 21;
+    this->count = table_b[0];
+    this->x_mult = 1;
+    this->y_mult = 1;
+    switch (direction) {
+    case 0:
+        this->x_offsets = table_a + 1;
+        this->y_offsets = table_a + 21;
+        this->count = table_a[0];
+        this->y_mult = -1;
+        break;
+    case 1:
+        this->y_mult = -1;
+        break;
+    case 2:
+        this->x_offsets = table_a + 21;
+        this->y_offsets = table_a + 1;
+        this->count = table_a[0];
+        break;
+    case 3:
+        break;
+    case 4:
+        this->x_offsets = table_a + 1;
+        this->y_offsets = table_a + 21;
+        this->count = table_a[0];
+        this->x_mult = -1;
+        break;
+    case 5:
+        this->x_mult = -1;
+        break;
+    case 6:
+        this->x_offsets = table_a + 21;
+        this->y_offsets = table_a + 1;
+        this->count = table_a[0];
+        this->x_mult = -1;
+        break;
+    case 7:
+        this->x_mult = -1;
+        this->y_mult = -1;
+        break;
+    }
 }

@@ -19,15 +19,15 @@ struct Server;
 
 #pragma pack(push, 1)
 struct ItemNamePktEntry {
-	uint16_t id;        // 0x00 - item type id (high byte = category, low byte = index)
-	uint8_t gap_2;    // 0x02
-	uint8_t gap_3;    // 0x03
-	uint8_t flags;      // 0x04 - template flags (OR'd into runtime item flags)
-	uint8_t mods_count;    // 0x05
-	uint8_t data_len;   // 0x06 - length of variable data following this header
-	uint8_t data[];     // 0x07 - variable-length data (data_len bytes)
-	// For magic items (id & 0xF00 == 0xE00): *(int32_t*)&data[1] is patched with EquipData::shape
-	// Total record size: 7 + data_len
+    uint16_t id;        // 0x00 - item type id (high byte = category, low byte = index)
+    uint8_t gap_2;    // 0x02
+    uint8_t gap_3;    // 0x03
+    uint8_t flags;      // 0x04 - template flags (OR'd into runtime item flags)
+    uint8_t mods_count;    // 0x05
+    uint8_t data_len;   // 0x06 - length of variable data following this header
+    uint8_t data[];     // 0x07 - variable-length data (data_len bytes)
+    // For magic items (id & 0xF00 == 0xE00): *(int32_t*)&data[1] is patched with EquipData::shape
+    // Total record size: 7 + data_len
 };
 #pragma pack(pop)
 class NetStru1;
@@ -35,25 +35,25 @@ class NetStru1;
 
 
 struct GameSettings {
-	int32_t* pGameSpeed = nullptr;
-	int32_t* pFormationMode = nullptr;
-	int32_t* pWimpyMode = nullptr;
-	int32_t* pShowAllHitPoints = nullptr;
-	int32_t Smoothing = 1;
-	int32_t* pShowFlyingHP = nullptr;
-	int32_t ShowTimeFlow = 1;
-	int32_t TipsMode = 1;
-	int32_t Acknowledgement = 1;
-	int32_t AutoCasting = AutoCastSettings::TIER_MEDIUM | AutoCastSettings::TARGET_OWN;
-	int32_t* pShadows = nullptr;
-	int32_t* pLightning = nullptr;
-	int32_t* pAnimation = nullptr;
-	int32_t ClanNames = 1;
-	int32_t* pMessageColors = nullptr;
+    int32_t* pGameSpeed = nullptr;
+    int32_t* pFormationMode = nullptr;
+    int32_t* pWimpyMode = nullptr;
+    int32_t* pShowAllHitPoints = nullptr;
+    int32_t Smoothing = 1;
+    int32_t* pShowFlyingHP = nullptr;
+    int32_t ShowTimeFlow = 1;
+    int32_t TipsMode = 1;
+    int32_t Acknowledgement = 1;
+    int32_t AutoCasting = AutoCastSettings::TIER_MEDIUM | AutoCastSettings::TARGET_OWN;
+    int32_t* pShadows = nullptr;
+    int32_t* pLightning = nullptr;
+    int32_t* pAnimation = nullptr;
+    int32_t ClanNames = 1;
+    int32_t* pMessageColors = nullptr;
 
-	void Init(); // 442386 (client: 444958)
-	void Load(HKEY& rkey); //442420 (client: 4449f2)
-	void Save(HKEY& rkey); //4421be (client: 444790)
+    void Init(); // 442386 (client: 444958)
+    void Load(HKEY& rkey); //442420 (client: 4449f2)
+    void Save(HKEY& rkey); //4421be (client: 444790)
 };
 ASSERT_SIZE(GameSettings, 0x3c);
 
@@ -65,16 +65,16 @@ extern CMapStringToString g_TunesMap; //660d80
 // Base address 0x65fbbc; consumed by CProjectile::VMethod6 (46e291) case 7 -> RenderDistort, freed by FreeDistortMap.
 class DistortMap {
 public:
-	int16_t** offsets = nullptr; // 0x00 - grid of {dx, dy} pairs
-	int32_t outer = 0;           // 0x04
-	int32_t inner = 0;           // 0x08
-	int32_t radius = 0;          // 0x0c
+    int16_t** offsets = nullptr; // 0x00 - grid of {dx, dy} pairs
+    int32_t outer = 0;           // 0x04
+    int32_t inner = 0;           // 0x08
+    int32_t radius = 0;          // 0x0c
 
 public:
-	DistortMap(int32_t outer, int32_t inner); // 4a9f90 (client: 4adfc0)
-	~DistortMap(); // 4aa04f (client: 4ae07f)
-	void BuildScaleTable(); // 4aa0af
-	void RenderDistort(int32_t x, int32_t y); // 4aa29b (client: 4ae2cb)
+    DistortMap(int32_t outer, int32_t inner); // 4a9f90 (client: 4adfc0)
+    ~DistortMap(); // 4aa04f (client: 4ae07f)
+    void BuildScaleTable(); // 4aa0af
+    void RenderDistort(int32_t x, int32_t y); // 4aa29b (client: 4ae2cb)
 };
 ASSERT_SIZE(DistortMap, 0x10);
 
@@ -88,14 +88,14 @@ extern uint32_t g_CpuFeatureFlags; // 660f84 - bit 1 = MMX available. We're hard
 
 class GameApp : public CWinApp {
 public:
-	static GameApp theApp;
+    static GameApp theApp;
 public:
 
-	virtual BOOL InitInstance() override;  // client: 48626d
-	virtual BOOL OnIdle(LONG lCount) override;  // client: 4872dc
-	virtual int ExitInstance() override;  // client: 48711d
+    virtual BOOL InitInstance() override;  // client: 48626d
+    virtual BOOL OnIdle(LONG lCount) override;  // client: 4872dc
+    virtual int ExitInstance() override;  // client: 48711d
 #if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
-	virtual int DoMessageBox(LPCTSTR lpszPrompt, UINT nType, UINT nIDPrompt) override;
+    virtual int DoMessageBox(LPCTSTR lpszPrompt, UINT nType, UINT nIDPrompt) override;
 #endif
 };
 
@@ -151,28 +151,28 @@ void __stdcall ShowRoleKeyDialog(const char* str); //41d723 (client: 41efa5)
 
 
 struct ScenarioState {
-	int32_t vars[512];
-	int32_t locationEntrySelectionFlags[20];
-	int32_t locationEntryStates[20];
-	int32_t locationEntryLocationIds[20];
-	int32_t reserved23cTo2ef[180];
-	int32_t currentLocationTransientFlags[16];
-	int32_t scenarioChapter;
-	int32_t startMissionAllowed;
-	int32_t specialDialogStateLowConfidence;
-	int32_t innSceneUnlockedLowConfidence;
-	int32_t followupLocationUnlockFlagLowConfidence;
-	int32_t locationTransitionStateLowConfidence;
-	int32_t laterSceneStateLowConfidence;
-	int32_t rebuildAvailableLocationsPending;
-	int32_t isMage;
-	int32_t unk;
-	int32_t pairedObjectiveBCompletedLowConfidence;
-	int32_t endingVariantFlagLowConfidence;
-	int32_t mission31UnlockedLowConfidence;
-	int32_t isFemale;
-	int32_t reserved30eTo37f[114];
-	int32_t completedLocationFlags[128];
+    int32_t vars[512];
+    int32_t locationEntrySelectionFlags[20];
+    int32_t locationEntryStates[20];
+    int32_t locationEntryLocationIds[20];
+    int32_t reserved23cTo2ef[180];
+    int32_t currentLocationTransientFlags[16];
+    int32_t scenarioChapter;
+    int32_t startMissionAllowed;
+    int32_t specialDialogStateLowConfidence;
+    int32_t innSceneUnlockedLowConfidence;
+    int32_t followupLocationUnlockFlagLowConfidence;
+    int32_t locationTransitionStateLowConfidence;
+    int32_t laterSceneStateLowConfidence;
+    int32_t rebuildAvailableLocationsPending;
+    int32_t isMage;
+    int32_t unk;
+    int32_t pairedObjectiveBCompletedLowConfidence;
+    int32_t endingVariantFlagLowConfidence;
+    int32_t mission31UnlockedLowConfidence;
+    int32_t isFemale;
+    int32_t reserved30eTo37f[114];
+    int32_t completedLocationFlags[128];
 };
 ASSERT_SIZE(ScenarioState, 0x1000);
 

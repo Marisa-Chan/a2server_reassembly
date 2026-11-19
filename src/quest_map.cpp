@@ -8,217 +8,217 @@ QuestMap g_QuestMap; // 6ce4d8
 
 // 55D579
 QuestMap::QuestMap() {
-	this->assoc = nullptr;
-	this->quest = nullptr;
-	this->glue = nullptr;
-	this->building_id = 0;
+    this->assoc = nullptr;
+    this->quest = nullptr;
+    this->glue = nullptr;
+    this->building_id = 0;
 }
 
 // 580F70 / 55D915
 QuestMap::~QuestMap() {
-	POSITION quest_pos = this->quests_map.GetStartPosition();
-	while (quest_pos != nullptr) {
-		uint32_t quest_id = 0;
-		Quest* quest_value = nullptr;
-		this->quests_map.GetNextAssoc(quest_pos, quest_id, quest_value);
-		delete quest_value;
-	}
+    POSITION quest_pos = this->quests_map.GetStartPosition();
+    while (quest_pos != nullptr) {
+        uint32_t quest_id = 0;
+        Quest* quest_value = nullptr;
+        this->quests_map.GetNextAssoc(quest_pos, quest_id, quest_value);
+        delete quest_value;
+    }
 
-	this->DeleteGlues();
+    this->DeleteGlues();
 
-	POSITION sub_pos = this->substructs.GetHeadPosition();
-	while (sub_pos != nullptr) {
-		QuestSubstruct* sub = this->substructs.GetNext(sub_pos);
-		delete sub;
-	}
+    POSITION sub_pos = this->substructs.GetHeadPosition();
+    while (sub_pos != nullptr) {
+        QuestSubstruct* sub = this->substructs.GetNext(sub_pos);
+        delete sub;
+    }
 
-	this->assoc = nullptr;
-	this->quest = nullptr;
-	this->glue = nullptr;
-	this->building_id = 0;
+    this->assoc = nullptr;
+    this->quest = nullptr;
+    this->glue = nullptr;
+    this->building_id = 0;
 }
 
 // 55DE84
 void QuestMap::ProcessQueuedEvents() {
-	while (this->substructs.GetCount() != 0) {
-		QuestSubstruct* sub = this->substructs.RemoveHead();
-		if (this->substructs.GetCount() == 0) {
-			this->substructs.RemoveAll();
-		}
-		this->OnEvent(sub->event_type, sub->param_a, sub->param_b);
-		delete sub;
-	}
+    while (this->substructs.GetCount() != 0) {
+        QuestSubstruct* sub = this->substructs.RemoveHead();
+        if (this->substructs.GetCount() == 0) {
+            this->substructs.RemoveAll();
+        }
+        this->OnEvent(sub->event_type, sub->param_a, sub->param_b);
+        delete sub;
+    }
 }
 
 // 55E00C
 void QuestMap::ProcessDeferredEvents() {
-	this->ProcessInnGlues();
-	this->ProcessQueuedEvents();
+    this->ProcessInnGlues();
+    this->ProcessQueuedEvents();
 }
 
 // 55E027
 void QuestMap::ProcessInnGlues() {
-	this->assoc = this->glues_map.GetStartPosition();
-	while (this->assoc != nullptr) {
-		uint32_t building_id = 0;
-		QuestInnGlue* glue = nullptr;
-		this->glues_map.GetNextAssoc(this->assoc, building_id, glue);
-		this->building_id = building_id;
-		this->glue = glue;
-		glue->ProcessQuests();
-	}
+    this->assoc = this->glues_map.GetStartPosition();
+    while (this->assoc != nullptr) {
+        uint32_t building_id = 0;
+        QuestInnGlue* glue = nullptr;
+        this->glues_map.GetNextAssoc(this->assoc, building_id, glue);
+        this->building_id = building_id;
+        this->glue = glue;
+        glue->ProcessQuests();
+    }
 }
 
 // 55D6F7
 void QuestMap::DeleteGlues() {
-	POSITION pos = this->glues_map.GetStartPosition();
-	while (pos != nullptr) {
-		uint32_t building_id = 0;
-		QuestInnGlue* glue = nullptr;
-		this->glues_map.GetNextAssoc(pos, building_id, glue);
-		delete glue;
-	}
-	this->glues_map.RemoveAll();
+    POSITION pos = this->glues_map.GetStartPosition();
+    while (pos != nullptr) {
+        uint32_t building_id = 0;
+        QuestInnGlue* glue = nullptr;
+        this->glues_map.GetNextAssoc(pos, building_id, glue);
+        delete glue;
+    }
+    this->glues_map.RemoveAll();
 }
 
 // 55DD10
 void QuestMap::QueueEvent(int32_t event_type, int32_t a, int32_t b) {
-	QuestSubstruct* sub = new QuestSubstruct;
-	sub->event_type = event_type;
-	sub->param_a = a;
-	sub->param_b = b;
-	this->substructs.AddTail(sub);
+    QuestSubstruct* sub = new QuestSubstruct;
+    sub->event_type = event_type;
+    sub->param_a = a;
+    sub->param_b = b;
+    this->substructs.AddTail(sub);
 }
 
 // 55E24A
 void QuestMap::RegisterQuest(Quest* quest) {
-	this->quests_map[quest->quest_data.quest_id] = quest;
-	quest->quest_map = this;
+    this->quests_map[quest->quest_data.quest_id] = quest;
+    quest->quest_map = this;
 
-	if (quest->quest_data.landmark_id != 0) {
-		QuestInnGlue* glue = nullptr;
-		if (this->glues_map.Lookup(quest->quest_data.landmark_id, glue)) {
-			this->glue = glue;
-			glue->map[quest->quest_data.quest_id] = quest;
-		}
-	}
+    if (quest->quest_data.landmark_id != 0) {
+        QuestInnGlue* glue = nullptr;
+        if (this->glues_map.Lookup(quest->quest_data.landmark_id, glue)) {
+            this->glue = glue;
+            glue->map[quest->quest_data.quest_id] = quest;
+        }
+    }
 }
 
 // 55E5FB
 void QuestMap::UnregisterQuest(Quest* quest) {
-	this->flags[quest->quest_data.player_id] |= QuestMap::FLAG_UNREGISTERED;
-	this->quests_map.RemoveKey(quest->quest_data.quest_id);
-	quest->quest_map = nullptr;
+    this->flags[quest->quest_data.player_id] |= QuestMap::FLAG_UNREGISTERED;
+    this->quests_map.RemoveKey(quest->quest_data.quest_id);
+    quest->quest_map = nullptr;
 
-	if (quest->quest_data.landmark_id != 0) {
-		QuestInnGlue* glue = nullptr;
-		if (this->glues_map.Lookup(quest->quest_data.landmark_id, glue)) {
-			this->glue = glue;
-			glue->map.RemoveKey(quest->quest_data.quest_id);
-			if (glue->map.GetCount() == 0) {
-				glue->map.RemoveAll();
-			}
-		}
-	}
+    if (quest->quest_data.landmark_id != 0) {
+        QuestInnGlue* glue = nullptr;
+        if (this->glues_map.Lookup(quest->quest_data.landmark_id, glue)) {
+            this->glue = glue;
+            glue->map.RemoveKey(quest->quest_data.quest_id);
+            if (glue->map.GetCount() == 0) {
+                glue->map.RemoveAll();
+            }
+        }
+    }
 }
 
 // 55EA81
 void QuestMap::AddInnGlue(QuestInnGlue* glue) {
-	this->glues_map.SetAt(glue->building_id, glue);
-	glue->quest_map = this;
+    this->glues_map.SetAt(glue->building_id, glue);
+    glue->quest_map = this;
 }
 
 // 55ECFE
 void QuestMap::RemovePlayerQuests(int32_t player_id) {
-	this->assoc = this->quests_map.GetStartPosition();
-	while (this->assoc != nullptr) {
-		uint32_t key = 0;
-		Quest* quest = nullptr;
-		this->quests_map.GetNextAssoc(this->assoc, key, quest);
+    this->assoc = this->quests_map.GetStartPosition();
+    while (this->assoc != nullptr) {
+        uint32_t key = 0;
+        Quest* quest = nullptr;
+        this->quests_map.GetNextAssoc(this->assoc, key, quest);
 
-		this->building_id = key;
-		this->quest = quest;
+        this->building_id = key;
+        this->quest = quest;
 
-		if (player_id == 0 || quest->quest_data.player_id == player_id) {
-			this->UnregisterQuest(quest);
-			delete quest;
-		}
-	}
+        if (player_id == 0 || quest->quest_data.player_id == player_id) {
+            this->UnregisterQuest(quest);
+            delete quest;
+        }
+    }
 }
 
 // 55e129
 int32_t QuestMap::OnEvent(int32_t event_type, int32_t a, int32_t b) {
-	POSITION quest_pos = this->quests_map.GetStartPosition();
-	while (quest_pos != nullptr) {
-		uint32_t quest_id = 0;
-		Quest* quest = nullptr;
-		this->quests_map.GetNextAssoc(quest_pos, quest_id, quest);
+    POSITION quest_pos = this->quests_map.GetStartPosition();
+    while (quest_pos != nullptr) {
+        uint32_t quest_id = 0;
+        Quest* quest = nullptr;
+        this->quests_map.GetNextAssoc(quest_pos, quest_id, quest);
 
-		if (quest != nullptr && quest->OnEvent(event_type, a, b) != 0) {
-			return static_cast<int32_t>(quest_id);
-		}
-	}
+        if (quest != nullptr && quest->OnEvent(event_type, a, b) != 0) {
+            return static_cast<int32_t>(quest_id);
+        }
+    }
 
-	return 0;
+    return 0;
 }
 
 // 55EE42
 Quest* QuestMap::CreateQuest(int quest_kind) {
-	switch (quest_kind) {
-	case Quest::KIND_KILL_MOB:
-		return new QuestKillMob();
-	case Quest::KIND_KILL_N:
-		return new QuestKillN();
-	case Quest::KIND_KILL_GROUP:
-		return new QuestKillGroup();
-	case Quest::KIND_ESCORT:
-		return new QuestEscort();
-	case Quest::KIND_DELIVER_ITEM:
-		return new QuestDeliverItem();
-	case Quest::KIND_DELIVER_MAIL:
-		return new QuestDeliverMail();
-	case Quest::KIND_RAISE_ZOMBIES:
-		return new QuestRaiseZombies();
-	case Quest::KIND_RAISE_SKELETONS:
-		return new QuestRaiseSkeletons();
-	case Quest::KIND_RAISE_GHOSTS:
-		return new QuestRaiseGhosts();
-	case Quest::KIND_INTERCEPT_UNIT:
-		return new QuestInterceptUnit();
-	case Quest::KIND_INTERCEPT_GROUP:
-		return new QuestInterceptGroup();
-	case Quest::KIND_KILL_INN_DEFENDERS:
-		return new QuestKillInnDefenders();
-	default: // KIND_NONE and KIND_FIND_ITEM are covered here.
-		return new Quest();
-	}
+    switch (quest_kind) {
+    case Quest::KIND_KILL_MOB:
+        return new QuestKillMob();
+    case Quest::KIND_KILL_N:
+        return new QuestKillN();
+    case Quest::KIND_KILL_GROUP:
+        return new QuestKillGroup();
+    case Quest::KIND_ESCORT:
+        return new QuestEscort();
+    case Quest::KIND_DELIVER_ITEM:
+        return new QuestDeliverItem();
+    case Quest::KIND_DELIVER_MAIL:
+        return new QuestDeliverMail();
+    case Quest::KIND_RAISE_ZOMBIES:
+        return new QuestRaiseZombies();
+    case Quest::KIND_RAISE_SKELETONS:
+        return new QuestRaiseSkeletons();
+    case Quest::KIND_RAISE_GHOSTS:
+        return new QuestRaiseGhosts();
+    case Quest::KIND_INTERCEPT_UNIT:
+        return new QuestInterceptUnit();
+    case Quest::KIND_INTERCEPT_GROUP:
+        return new QuestInterceptGroup();
+    case Quest::KIND_KILL_INN_DEFENDERS:
+        return new QuestKillInnDefenders();
+    default: // KIND_NONE and KIND_FIND_ITEM are covered here.
+        return new Quest();
+    }
 }
 
 // 55F441
 int32_t QuestMap::PickRandomOtherInn(int32_t building_id_) {
-	if (this->glues_map.GetCount() < 2) {
-		return 0;
-	}
+    if (this->glues_map.GetCount() < 2) {
+        return 0;
+    }
 
-	do {
-		int32_t skip = Random0N(this->glues_map.GetCount() - 1);
-		this->assoc = this->glues_map.GetStartPosition();
+    do {
+        int32_t skip = Random0N(this->glues_map.GetCount() - 1);
+        this->assoc = this->glues_map.GetStartPosition();
 
-		uint32_t key = 0;
-		QuestInnGlue* glue = nullptr;
-		for (int32_t i = 0; i <= skip; ++i) {
-			this->glues_map.GetNextAssoc(this->assoc, key, glue);
-		}
+        uint32_t key = 0;
+        QuestInnGlue* glue = nullptr;
+        for (int32_t i = 0; i <= skip; ++i) {
+            this->glues_map.GetNextAssoc(this->assoc, key, glue);
+        }
 
-		this->building_id = key;
-		this->glue = glue;
-	} while (this->building_id == building_id_);
+        this->building_id = key;
+        this->glue = glue;
+    } while (this->building_id == building_id_);
 
-	return this->building_id;
+    return this->building_id;
 }
 
 // 4a47a0
 int32_t QuestMap::FindQuest(uint32_t id, Quest** out) {
-	return this->quests_map.Lookup(id, *out);
+    return this->quests_map.Lookup(id, *out);
 }
 

@@ -9,225 +9,225 @@
 
 
 int __cdecl CalcFileChecksum(CString filename) {
-	CFile file;
-	int checksum = 0;
+    CFile file;
+    int checksum = 0;
 
 #if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
-	// loading_map_bug hook (4F1D4A): resolve relative map paths against the server executable directory.
-	CString open_path = filename;
-	const char* raw_name = (const char*)filename;
-	const bool is_abs = (raw_name[0] != '\0' && raw_name[1] == ':') ||
-	                    raw_name[0] == '\\' || raw_name[0] == '/';
-	if (!is_abs) {
-		char module_fn[MAX_PATH] = {};
-		if (GetModuleFileNameA(nullptr, module_fn, MAX_PATH - 1) > 0) {
-			std::string dir(module_fn);
-			size_t slash_fwd = dir.rfind('/');
-			size_t slash_bwd = dir.rfind('\\');
-			size_t k = slash_fwd;
-			if (k == std::string::npos || (slash_bwd != std::string::npos && k < slash_bwd)) {
-				k = slash_bwd;
-			}
-			if (k != std::string::npos) {
-				dir.erase(k + 1);
-				dir += raw_name;
-				open_path = dir.c_str();
-			}
-		}
-	}
-	if (!file.Open((const char*)open_path, 0, nullptr) &&
-	    (open_path == filename || !file.Open((const char*)filename, 0, nullptr))) {
-		return checksum;
-	}
+    // loading_map_bug hook (4F1D4A): resolve relative map paths against the server executable directory.
+    CString open_path = filename;
+    const char* raw_name = (const char*)filename;
+    const bool is_abs = (raw_name[0] != '\0' && raw_name[1] == ':') ||
+                        raw_name[0] == '\\' || raw_name[0] == '/';
+    if (!is_abs) {
+        char module_fn[MAX_PATH] = {};
+        if (GetModuleFileNameA(nullptr, module_fn, MAX_PATH - 1) > 0) {
+            std::string dir(module_fn);
+            size_t slash_fwd = dir.rfind('/');
+            size_t slash_bwd = dir.rfind('\\');
+            size_t k = slash_fwd;
+            if (k == std::string::npos || (slash_bwd != std::string::npos && k < slash_bwd)) {
+                k = slash_bwd;
+            }
+            if (k != std::string::npos) {
+                dir.erase(k + 1);
+                dir += raw_name;
+                open_path = dir.c_str();
+            }
+        }
+    }
+    if (!file.Open((const char*)open_path, 0, nullptr) &&
+        (open_path == filename || !file.Open((const char*)filename, 0, nullptr))) {
+        return checksum;
+    }
 #else
-	if (!file.Open((const char*)filename, 0, nullptr)) {
-		return checksum;
-	}
+    if (!file.Open((const char*)filename, 0, nullptr)) {
+        return checksum;
+    }
 #endif
 
-	const uint32_t file_length = file.GetLength();
-	const uint32_t padded_length = (file_length & 0xfffffffc) + 4;
-	int32_t* buffer = static_cast<int32_t*>(malloc(padded_length));
-	if (buffer == nullptr) {
-		file.Close();
-		return checksum;
-	}
+    const uint32_t file_length = file.GetLength();
+    const uint32_t padded_length = (file_length & 0xfffffffc) + 4;
+    int32_t* buffer = static_cast<int32_t*>(malloc(padded_length));
+    if (buffer == nullptr) {
+        file.Close();
+        return checksum;
+    }
 
-	memset(buffer, 0, padded_length);
-	file.Read(buffer, file_length);
-	file.Close();
+    memset(buffer, 0, padded_length);
+    file.Read(buffer, file_length);
+    file.Close();
 
-	const uint32_t word_count = padded_length / sizeof(int32_t);
-	for (uint32_t index = 0; index < word_count; index++) {
-		checksum += buffer[index];
-	}
+    const uint32_t word_count = padded_length / sizeof(int32_t);
+    for (uint32_t index = 0; index < word_count; index++) {
+        checksum += buffer[index];
+    }
 
-	free(buffer);
-	return checksum;
+    free(buffer);
+    return checksum;
 }
 
 File2::File2() {
-	//4e67ea
-	this->file = nullptr;
+    //4e67ea
+    this->file = nullptr;
 }
 
 
 File2::File2(LPCTSTR lpszFileName, UINT nOpenFlags) {
-	//4e6813
-	if (!this->Open(lpszFileName, nOpenFlags)) {
-		AfxThrowFileException(CFileException::accessDenied, -1, nullptr);
-	}
+    //4e6813
+    if (!this->Open(lpszFileName, nOpenFlags)) {
+        AfxThrowFileException(CFileException::accessDenied, -1, nullptr);
+    }
 }
 
 File2::~File2() {
-	//4e6882
-	this->Close();
+    //4e6882
+    this->Close();
 }
 
 
 ULONGLONG File2::GetPosition() const {
-	//4e6d04
-	return this->position;
+    //4e6d04
+    return this->position;
 };
 
 BOOL File2::Open(LPCTSTR lpszFileName, UINT nOpenFlags, CFileException* pError) {
-	//4e68d3
-	char fname[1024];
-	pathStrCpy(lpszFileName, fname);
+    //4e68d3
+    char fname[1024];
+    pathStrCpy(lpszFileName, fname);
 
-	if (nOpenFlags & modeWrite) {
-		return FALSE;
-	}
+    if (nOpenFlags & modeWrite) {
+        return FALSE;
+    }
 
-	m_strFileName = fname;
+    m_strFileName = fname;
 
-	char fbuf[1024];
-	strcpy(fbuf, fname);
+    char fbuf[1024];
+    strcpy(fbuf, fname);
 
-	FatInfo* inf = Resources::ResFiles.GetFatInfo(fbuf);
-	if (inf == nullptr) {
-		if (pError) {
-			pError->m_cause = 2;
-		}
-		return FALSE;
-	}
-	
-	this->file = inf->file;
-	this->offset = inf->offset;
-	this->size = inf->size;
+    FatInfo* inf = Resources::ResFiles.GetFatInfo(fbuf);
+    if (inf == nullptr) {
+        if (pError) {
+            pError->m_cause = 2;
+        }
+        return FALSE;
+    }
+    
+    this->file = inf->file;
+    this->offset = inf->offset;
+    this->size = inf->size;
 
-	delete inf;
+    delete inf;
 
-	this->position = 0;
-	m_hFile = this->file->m_hFile;
+    this->position = 0;
+    m_hFile = this->file->m_hFile;
 
-	if (pError) {
-		pError->m_cause = 0;
-	}
+    if (pError) {
+        pError->m_cause = 0;
+    }
 
-	return TRUE;
+    return TRUE;
 };
 
 CFile* File2::Duplicate() const {
-	//4e6cec
-	AfxThrowFileException(CFileException::accessDenied);
-	return nullptr;
+    //4e6cec
+    AfxThrowFileException(CFileException::accessDenied);
+    return nullptr;
 };
 
 ULONGLONG File2::Seek(LONGLONG lOff, UINT nFrom) {
-	//4e6acb
-	if (m_hFile == (HANDLE)-1) {
-		AfxThrowFileException(CFileException::invalidFile);
-	}
+    //4e6acb
+    if (m_hFile == (HANDLE)-1) {
+        AfxThrowFileException(CFileException::invalidFile);
+    }
 
-	if (nFrom == 0) {
-		if (this->size < lOff) {
-			AfxThrowFileException(CFileException::badSeek);
-		}
-		this->position = lOff;
-	} else if (nFrom == 1) {
-		if (this->size < lOff + this->position) {
-			AfxThrowFileException(CFileException::badSeek);
-		}
-		this->position = this->position + lOff;
-	} else if (nFrom == 2) {
-		if (-this->size != lOff && size <= -lOff) {
-			AfxThrowFileException(CFileException::badSeek);
-		}
-		this->position = size + lOff;
-	}
-	return this->position;
+    if (nFrom == 0) {
+        if (this->size < lOff) {
+            AfxThrowFileException(CFileException::badSeek);
+        }
+        this->position = lOff;
+    } else if (nFrom == 1) {
+        if (this->size < lOff + this->position) {
+            AfxThrowFileException(CFileException::badSeek);
+        }
+        this->position = this->position + lOff;
+    } else if (nFrom == 2) {
+        if (-this->size != lOff && size <= -lOff) {
+            AfxThrowFileException(CFileException::badSeek);
+        }
+        this->position = size + lOff;
+    }
+    return this->position;
 };
 
 void File2::SetLength(ULONGLONG dwNewLen) {
-	//4e6b83
-	AfxThrowFileException(CFileException::accessDenied);
+    //4e6b83
+    AfxThrowFileException(CFileException::accessDenied);
 };
 
 ULONGLONG File2::GetLength() const {
-	//4e6b9b
-	return this->size;
+    //4e6b9b
+    return this->size;
 };
 
 UINT File2::Read(void* lpBuf, UINT nCount) {
-	//4e6bac
-	if (m_hFile == (HANDLE)-1) {
-		AfxThrowFileException(CFileException::invalidFile);
-	}
+    //4e6bac
+    if (m_hFile == (HANDLE)-1) {
+        AfxThrowFileException(CFileException::invalidFile);
+    }
 
-	UINT toRead = 0;
-	if (nCount < this->size - this->position) {
-		toRead = nCount;
-	} else {
-		toRead = this->size - this->position;
-	}
+    UINT toRead = 0;
+    if (nCount < this->size - this->position) {
+        toRead = nCount;
+    } else {
+        toRead = this->size - this->position;
+    }
 
-	this->file->Seek(this->offset + this->position, 0);
+    this->file->Seek(this->offset + this->position, 0);
 
-	if (toRead == 0) {
-		return 0;
-	}
+    if (toRead == 0) {
+        return 0;
+    }
 
-	this->position += toRead;
-	
-	if (this->size < this->position) {
-		AfxThrowFileException(CFileException::endOfFile);
-	}
+    this->position += toRead;
+    
+    if (this->size < this->position) {
+        AfxThrowFileException(CFileException::endOfFile);
+    }
 
-	return this->file->Read(lpBuf, toRead);
+    return this->file->Read(lpBuf, toRead);
 };
 
 void File2::Write(const void* lpBuf, UINT nCount) {
-	//4e6c68
-	AfxThrowFileException(CFileException::accessDenied);
+    //4e6c68
+    AfxThrowFileException(CFileException::accessDenied);
 };
 
 void File2::LockRange(ULONGLONG dwPos, ULONGLONG dwCount) {
-	//4e6c80
-	AfxThrowFileException(CFileException::accessDenied);
+    //4e6c80
+    AfxThrowFileException(CFileException::accessDenied);
 };
 
 void File2::UnlockRange(ULONGLONG dwPos, ULONGLONG dwCount) {
-	//4e6c98
-	AfxThrowFileException(CFileException::accessDenied);
+    //4e6c98
+    AfxThrowFileException(CFileException::accessDenied);
 };
 
 void File2::Abort() {
-	//4e6cb0
+    //4e6cb0
 };
 
 void File2::Flush() {
-	//4e6cbb
+    //4e6cbb
 };
 
 void File2::Close() {
-	//4e6cc6
-	Resources::ResFiles.CloseFile(this->file);
-	this->file = nullptr;
+    //4e6cc6
+    Resources::ResFiles.CloseFile(this->file);
+    this->file = nullptr;
 };
 
 
 void File2::Rewind() {
-	//4e6a97
-	this->Seek(0, 0);
+    //4e6a97
+    this->Seek(0, 0);
 }

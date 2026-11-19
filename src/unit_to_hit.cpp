@@ -6,7 +6,7 @@ UnitToHit::UnitToHit() {
 }
 
 void UnitToHit::Clear() {
-	//533c72
+    //533c72
     this->skill_levels.fill(0);
 
     this->attack = 0;

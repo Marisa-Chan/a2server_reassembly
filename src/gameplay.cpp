@@ -43,27 +43,27 @@ uint16_t* clr_log_tok3 = clrsh_ShockingBlack; //62f8a0
 
 //476de7
 void __cdecl SetMessageColors(uint32_t flag) {
-	g_MessageColors = flag;
-	if (flag == 0) {
-		clr_log_sblack = clrsh_ShockingBlack;
-		clr_log_tblack = clrsh_TechBlack;
-	} else {
-		clr_log_sblack = g_colors_human_pals[2];
-		clr_log_tblack = g_colors_human_pals[7];
-		clr_log_tok0 = clrsh_GoldenFizz;
-		clr_log_tok1 = g_colors_human_pals[1];
-		clr_log_tok2 = g_colors_human_pals[4];
-		clr_log_tok3 = g_colors_human_pals[0];
-	}
+    g_MessageColors = flag;
+    if (flag == 0) {
+        clr_log_sblack = clrsh_ShockingBlack;
+        clr_log_tblack = clrsh_TechBlack;
+    } else {
+        clr_log_sblack = g_colors_human_pals[2];
+        clr_log_tblack = g_colors_human_pals[7];
+        clr_log_tok0 = clrsh_GoldenFizz;
+        clr_log_tok1 = g_colors_human_pals[1];
+        clr_log_tok2 = g_colors_human_pals[4];
+        clr_log_tok3 = g_colors_human_pals[0];
+    }
 }
 
 
 GM_a28::~GM_a28() = default; //4020ad
 
 GM_a28::GM_a28() {
-	//401f50
-	this->elapsed_time = 0;
-	this->dirty = 1;
+    //401f50
+    this->elapsed_time = 0;
+    this->dirty = 1;
 }
 
 #ifdef A2CLIENT_PATCH
@@ -71,177 +71,177 @@ GM_a28::GM_a28() {
 // shows a literal tilde instead of treating it as a color-code escape
 static CString TangarDoubleTilde(const char* str)
 {
-	static char tilda_buf[4000];
-	char* t = tilda_buf;
-	while (*str && t < (tilda_buf + sizeof(tilda_buf) - 3)) {
-		*t++ = *str;
-		if (*str == '~') {
-			*t++ = *str;
-		}
-		str++;
-	}
-	*t = 0;
-	return CString(tilda_buf);
+    static char tilda_buf[4000];
+    char* t = tilda_buf;
+    while (*str && t < (tilda_buf + sizeof(tilda_buf) - 3)) {
+        *t++ = *str;
+        if (*str == '~') {
+            *t++ = *str;
+        }
+        str++;
+    }
+    *t = 0;
+    return CString(tilda_buf);
 }
 #endif
 
 void GM_a28::Add(const char* msg, uint16_t* clr, uint32_t t) {
-	//4021fe
-	this->dirty = 1;
+    //4021fe
+    this->dirty = 1;
 
-	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
-	
-	CGameFont* fnt = g_font1;
-	if (wnd->sessionMode == SESSION_SERVER) {
-		fnt = g_font2;
-	}
+    MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
+    
+    CGameFont* fnt = g_font1;
+    if (wnd->sessionMode == SESSION_SERVER) {
+        fnt = g_font2;
+    }
 
-	bool restart = this->text.GetSize() == 0;
+    bool restart = this->text.GetSize() == 0;
 
 #ifdef A2CLIENT_PATCH
-	// CHAT_logStrings hook (4021FE): every added chat line is echoed
-	// to the client log
-	LogMessage(CString(msg));
+    // CHAT_logStrings hook (4021FE): every added chat line is echoed
+    // to the client log
+    LogMessage(CString(msg));
 #endif
-	CStringArray& lines = fnt->StringArrayForRect(this->out_area, msg);
-	for (int i = 0; i < lines.GetSize(); i++) {
-		CString& s = lines[i];
-		for (int j = 0; j < s.GetLength(); j++) {
-			if (s[j] == '\r') {
-				s.SetAt(j, ' ');
-			}
-		}
+    CStringArray& lines = fnt->StringArrayForRect(this->out_area, msg);
+    for (int i = 0; i < lines.GetSize(); i++) {
+        CString& s = lines[i];
+        for (int j = 0; j < s.GetLength(); j++) {
+            if (s[j] == '\r') {
+                s.SetAt(j, ' ');
+            }
+        }
 
-		this->text.Add(s);
-		this->color.Add(clr);
-		this->times.Add(t);
-	}
+        this->text.Add(s);
+        this->color.Add(clr);
+        this->times.Add(t);
+    }
 
-	if (restart) {
-		this->timestamp = timeGetTime();
-		this->elapsed_time = 0;
-	}
+    if (restart) {
+        this->timestamp = timeGetTime();
+        this->elapsed_time = 0;
+    }
 
-	while (this->text.GetSize() > this->max_size) {
-		this->text.RemoveAt(0);
-		this->color.RemoveAt(0);
-		this->times.RemoveAt(0);
-	}
+    while (this->text.GetSize() > this->max_size) {
+        this->text.RemoveAt(0);
+        this->color.RemoveAt(0);
+        this->times.RemoveAt(0);
+    }
 }
 
 void GM_a28::AddWithCheck(const char* msg, uint16_t* clr, uint32_t t) {
-	//4023aa
-	this->dirty = 1;
+    //4023aa
+    this->dirty = 1;
 
-	CStringArray& lines = g_font1->StringArrayForRect(this->out_area, msg);
-	for (int i = 0; i < lines.GetSize(); i++) {
-		CString& s = lines[i];
-		for (int j = 0; j < s.GetLength(); j++) {
-			if (s[j] == '\r') {
-				s.SetAt(j, ' ');
-			}
-		}
+    CStringArray& lines = g_font1->StringArrayForRect(this->out_area, msg);
+    for (int i = 0; i < lines.GetSize(); i++) {
+        CString& s = lines[i];
+        for (int j = 0; j < s.GetLength(); j++) {
+            if (s[j] == '\r') {
+                s.SetAt(j, ' ');
+            }
+        }
 
-		if (lines.GetSize() == 1 && this->text.GetSize() != 0) {
-			if (this->text[this->text.GetUpperBound()] == s) {
-				return;
-			}
-		}
+        if (lines.GetSize() == 1 && this->text.GetSize() != 0) {
+            if (this->text[this->text.GetUpperBound()] == s) {
+                return;
+            }
+        }
 
-		this->text.Add(s);
-		this->color.Add(clr);
-		this->times.Add(t);
-	}
+        this->text.Add(s);
+        this->color.Add(clr);
+        this->times.Add(t);
+    }
 
-	if (this->text.GetSize() == 1) {
-		this->timestamp = timeGetTime();
-		this->elapsed_time = 0;
-	}
+    if (this->text.GetSize() == 1) {
+        this->timestamp = timeGetTime();
+        this->elapsed_time = 0;
+    }
 
-	while (this->text.GetSize() > this->max_size) {
-		this->text.RemoveAt(0);
-		this->color.RemoveAt(0);
-		this->times.RemoveAt(0);
-	}
+    while (this->text.GetSize() > this->max_size) {
+        this->text.RemoveAt(0);
+        this->color.RemoveAt(0);
+        this->times.RemoveAt(0);
+    }
 }
 
 void GM_a28::Clear() {
-	//4021d2
-	this->text.RemoveAll();
-	this->color.RemoveAll();
-	this->times.RemoveAll();
+    //4021d2
+    this->text.RemoveAll();
+    this->color.RemoveAll();
+    this->times.RemoveAll();
 }
 
 void GM_a28::Draw() {
-	//40261a
+    //40261a
 
-	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
+    MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 
-	int32_t out_x = 8;
-	int32_t out_y = 8;
-	CGameFont* fnt = g_font1;
+    int32_t out_x = 8;
+    int32_t out_y = 8;
+    CGameFont* fnt = g_font1;
 
-	if (wnd->sessionMode == SESSION_SERVER) {
-		out_x = 0;
-		out_y = 220;
-		fnt = g_font2;
-	}
+    if (wnd->sessionMode == SESSION_SERVER) {
+        out_x = 0;
+        out_y = 220;
+        fnt = g_font2;
+    }
 
-	for (int i = 0; i < this->text.GetSize(); i++) {
-		CString s = this->text[i];
+    for (int i = 0; i < this->text.GetSize(); i++) {
+        CString s = this->text[i];
 #ifdef A2CLIENT_PATCH
-		// CHAT_tilde1/2 hooks (40270A/40275E): double tildes so the font
-		// renderer shows a literal tilde instead of a color-code escape
-		s = TangarDoubleTilde((const char*)s);
+        // CHAT_tilde1/2 hooks (40270A/40275E): double tildes so the font
+        // renderer shows a literal tilde instead of a color-code escape
+        s = TangarDoubleTilde((const char*)s);
 #endif
 
-		while (true) {
-			int rpos = s.Find('\r');
+        while (true) {
+            int rpos = s.Find('\r');
 
-			if (rpos < 0) {
-				fnt->DrawTextWithShadow(out_x, out_y, s, CGameFont::ALIGN_LEFT_TOP, (uint16_t*)this->color[i], 1);
-				out_y += 2 + fnt->GetHeight();
-				break;
-			}
-			
-			fnt->DrawTextWithShadow(out_x, out_y, s.Left(rpos), CGameFont::ALIGN_LEFT_TOP, (uint16_t*)this->color[i], 1);
-			out_y += 2 + fnt->GetHeight();
-			s = s.Mid(rpos + 1);
-		}
-	}
+            if (rpos < 0) {
+                fnt->DrawTextWithShadow(out_x, out_y, s, CGameFont::ALIGN_LEFT_TOP, (uint16_t*)this->color[i], 1);
+                out_y += 2 + fnt->GetHeight();
+                break;
+            }
+            
+            fnt->DrawTextWithShadow(out_x, out_y, s.Left(rpos), CGameFont::ALIGN_LEFT_TOP, (uint16_t*)this->color[i], 1);
+            out_y += 2 + fnt->GetHeight();
+            s = s.Mid(rpos + 1);
+        }
+    }
 }
 
 void GM_a28::SetRect(const CRect& r) {
-	//40212b
-	this->out_area = r;
+    //40212b
+    this->out_area = r;
 
-	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
+    MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 
-	if (wnd->sessionMode == SESSION_SERVER) {
-		this->max_size = (g_ScreenSize.bottom - 480) / (g_font2->GetHeight() + 2) + 14;
-	} else {
-		this->max_size = (this->out_area.Height() / (g_font1->GetHeight() + 2)) / 2;
-	}
+    if (wnd->sessionMode == SESSION_SERVER) {
+        this->max_size = (g_ScreenSize.bottom - 480) / (g_font2->GetHeight() + 2) + 14;
+    } else {
+        this->max_size = (this->out_area.Height() / (g_font1->GetHeight() + 2)) / 2;
+    }
 }
 
 void GM_a28::Update() {
-	//402585
-	if (this->text.GetSize() == 0) {
-		return;
-	}
+    //402585
+    if (this->text.GetSize() == 0) {
+        return;
+    }
 
-	uint32_t ts = timeGetTime();
+    uint32_t ts = timeGetTime();
 
-	this->elapsed_time += (ts - this->timestamp);
-	this->timestamp = ts;
+    this->elapsed_time += (ts - this->timestamp);
+    this->timestamp = ts;
 
-	if (this->times[0] < this->elapsed_time) {
-		this->elapsed_time = 0;
+    if (this->times[0] < this->elapsed_time) {
+        this->elapsed_time = 0;
 
-		this->text.RemoveAt(0);
-		this->color.RemoveAt(0);
-		this->times.RemoveAt(0);
-	}
+        this->text.RemoveAt(0);
+        this->color.RemoveAt(0);
+        this->times.RemoveAt(0);
+    }
 }
 
 

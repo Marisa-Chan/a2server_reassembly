@@ -107,60 +107,60 @@ PackerDat::~PackerDat() {
 
 void NetStru1::AnnouncePlayerName(const CString& name, Player* player) {
     // 51cd89
-	PacketJoin& pkt = PacketJoin::Inst;
-	pkt.id = CHAT;
-	strcpy(pkt.name, name);
+    PacketJoin& pkt = PacketJoin::Inst;
+    pkt.id = CHAT;
+    strcpy(pkt.name, name);
 
-	if (player) {
-		pkt.to_player_id = player->player_id;
-	} else {
-		pkt.to_player_id = 0;
-	}
+    if (player) {
+        pkt.to_player_id = player->player_id;
+    } else {
+        pkt.to_player_id = 0;
+    }
 
-	pkt.player_id = 0;
-	pkt.token_id = 0;
-	pkt.color = 0;
-	pkt.flags = 0;
+    pkt.player_id = 0;
+    pkt.token_id = 0;
+    pkt.color = 0;
+    pkt.flags = 0;
 
-	this->QueuePacketSend(&pkt);
+    this->QueuePacketSend(&pkt);
 }
 
 // 51C8B1
 void NetStru1::SendExistingPlayers(Player* player) {
     LogMessage("NetStru1::SendExistingPlayers");
-	POSITION pos = g_PlayersList->list.GetHeadPosition();
-	while (pos != nullptr) {
-		Player* p = g_PlayersList->list.GetNext(pos);
-		if (p == player) {
-			continue;
-		}
+    POSITION pos = g_PlayersList->list.GetHeadPosition();
+    while (pos != nullptr) {
+        Player* p = g_PlayersList->list.GetNext(pos);
+        if (p == player) {
+            continue;
+        }
 #ifdef A2SERVER_PATCH
-		// adm_invis hook (51C901): invisible GMs are hidden from the joining
-		// player's view of the world
-		if ((p->flags & GMF_INVISIBLE) == GMF_INVISIBLE) {
-			continue;
-		}
+        // adm_invis hook (51C901): invisible GMs are hidden from the joining
+        // player's view of the world
+        if ((p->flags & GMF_INVISIBLE) == GMF_INVISIBLE) {
+            continue;
+        }
 #endif
 
-		PacketJoin& packet = PacketJoin::Inst;
+        PacketJoin& packet = PacketJoin::Inst;
 
-		strcpy(packet.name, p->name);
-		packet.id = PLAYER_INFO;
-		packet.to_player_id = player->player_id;
-		packet.player_id = p->player_id;
-		packet.token_id = p->token_id;
-		packet.color = p->color_slot - 1;
-		packet.flags = p->is_ai != 0;
-		this->QueuePacketSend(&packet);
+        strcpy(packet.name, p->name);
+        packet.id = PLAYER_INFO;
+        packet.to_player_id = player->player_id;
+        packet.player_id = p->player_id;
+        packet.token_id = p->token_id;
+        packet.color = p->color_slot - 1;
+        packet.flags = p->is_ai != 0;
+        this->QueuePacketSend(&packet);
 
-		if (p->main_unit != nullptr && p->main_unit->has_flagged_item != 0
+        if (p->main_unit != nullptr && p->main_unit->has_flagged_item != 0
 #ifndef A2CLIENT
-			&& g_ServerConfig.gameType == GAME_TYPE_COOPERATIVE
+            && g_ServerConfig.gameType == GAME_TYPE_COOPERATIVE
 #endif
-		) {
-			g_NetStru1_main.SendTeamNotify(TEAM_NOTIFY_PLAYER_FLAGGED, p->player_id, player);
-		}
-	}
+        ) {
+            g_NetStru1_main.SendTeamNotify(TEAM_NOTIFY_PLAYER_FLAGGED, p->player_id, player);
+        }
+    }
 }
 
 // 51C61E
@@ -691,21 +691,21 @@ void NetStru1::UpdateConnStats() {
 // 51E289
 void NetStru1::SendHatLobbyInfo(int32_t player_count, CString source, int32_t map_level, int32_t game_type, int32_t map_range) {
 #ifdef A2TANGAR_HAT
-	// imp_UpdateInfo hook (51E289): push server status over the HAT control
-	// layer instead of legacy 0xD2 HAT_LOBBY_INFO so HAT preserves SERVER_CAP_DETAILED_INFO.
-	if ((Config::ServerCaps & SVC_DETAILED_INFO) != 0) {
-		tangar_hat::NetHatUpdateInfo(static_cast<uint8_t>(player_count), static_cast<const char*>(source),
-		                             static_cast<uint8_t>(map_level), static_cast<uint8_t>(game_type),
-		                             static_cast<uint8_t>(map_range));
-		return;
-	}
+    // imp_UpdateInfo hook (51E289): push server status over the HAT control
+    // layer instead of legacy 0xD2 HAT_LOBBY_INFO so HAT preserves SERVER_CAP_DETAILED_INFO.
+    if ((Config::ServerCaps & SVC_DETAILED_INFO) != 0) {
+        tangar_hat::NetHatUpdateInfo(static_cast<uint8_t>(player_count), static_cast<const char*>(source),
+                                     static_cast<uint8_t>(map_level), static_cast<uint8_t>(game_type),
+                                     static_cast<uint8_t>(map_range));
+        return;
+    }
 #endif
-	PacketJoin& pkt = PacketJoin::Inst;
-	pkt.id = HAT_LOBBY_INFO;
-	pkt.__as_dword = player_count | (map_level << 8) | (game_type << 16) | (map_range << 24);
-	strcpy(pkt.name, source);
-	pkt.to_player_id = 0;
-	this->QueuePacketSend(&pkt);
+    PacketJoin& pkt = PacketJoin::Inst;
+    pkt.id = HAT_LOBBY_INFO;
+    pkt.__as_dword = player_count | (map_level << 8) | (game_type << 16) | (map_range << 24);
+    strcpy(pkt.name, source);
+    pkt.to_player_id = 0;
+    this->QueuePacketSend(&pkt);
 }
 
 // 4FB4CA

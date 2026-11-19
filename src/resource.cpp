@@ -14,58 +14,58 @@ FatEntry* ResBase::g_lastDstRoot = nullptr;
 
 
 uint16_t Resources::GetPathType(const char* path) {
-	// 4e6de0
+    // 4e6de0
 
-	WIN32_FIND_DATAA fnd;
-	HANDLE hfind = FindFirstFileA(path, &fnd);
-	FindClose(hfind);
-	if (hfind == INVALID_HANDLE_VALUE) {
-		char letter = tolower(*path);
+    WIN32_FIND_DATAA fnd;
+    HANDLE hfind = FindFirstFileA(path, &fnd);
+    FindClose(hfind);
+    if (hfind == INVALID_HANDLE_VALUE) {
+        char letter = tolower(*path);
 
-		char buf[104];
-		DWORD num = GetLogicalDriveStringsA(100, buf);
-		for (DWORD i = 0; i < num; i++) {
-			if (isalpha(buf[i])) {
-				buf[i] = tolower(buf[i]);
-			}
-		}
-		if (isalnum(letter) &&
-			strcmp(path + 1, ":\\") == 0 &&
-			memchr(buf, letter, num - 2) != NULL) {
-			return 2;
-		}
+        char buf[104];
+        DWORD num = GetLogicalDriveStringsA(100, buf);
+        for (DWORD i = 0; i < num; i++) {
+            if (isalpha(buf[i])) {
+                buf[i] = tolower(buf[i]);
+            }
+        }
+        if (isalnum(letter) &&
+            strcmp(path + 1, ":\\") == 0 &&
+            memchr(buf, letter, num - 2) != NULL) {
+            return 2;
+        }
 
-		return 0;
-	} else if ((fnd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) == 0) {
-		return 1;
-	}
-	
-	return 2;
+        return 0;
+    } else if ((fnd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) == 0) {
+        return 1;
+    }
+    
+    return 2;
 }
 
 Resources::Resources() {
-	//4e5e06
+    //4e5e06
 #if defined(A2CLIENT_PATCH) || defined(A2SERVER_PATCH)
-	// Tangar a2mgr DllMain_Init + BASE_setCurrentDirectory1 (client 486534, 5A4988):
-	// pin the process working directory to the executable directory before search_paths[0]
-	// is captured during static initialization.
-	char exe_path[MAX_PATH] = {};
-	if (GetModuleFileNameA(nullptr, exe_path, MAX_PATH - 1) > 0) {
-		char* slash = strrchr(exe_path, '\\');
-		char* fslash = strrchr(exe_path, '/');
-		if (fslash != nullptr && (slash == nullptr || fslash > slash)) {
-			slash = fslash;
-		}
-		if (slash != nullptr) {
-			*slash = '\0';
-			SetCurrentDirectoryA(exe_path);
-		}
-	}
+    // Tangar a2mgr DllMain_Init + BASE_setCurrentDirectory1 (client 486534, 5A4988):
+    // pin the process working directory to the executable directory before search_paths[0]
+    // is captured during static initialization.
+    char exe_path[MAX_PATH] = {};
+    if (GetModuleFileNameA(nullptr, exe_path, MAX_PATH - 1) > 0) {
+        char* slash = strrchr(exe_path, '\\');
+        char* fslash = strrchr(exe_path, '/');
+        if (fslash != nullptr && (slash == nullptr || fslash > slash)) {
+            slash = fslash;
+        }
+        if (slash != nullptr) {
+            *slash = '\0';
+            SetCurrentDirectoryA(exe_path);
+        }
+    }
 #endif
 
-	char path[260];
-	GetCurrentDirectoryA(256, path);
-	this->AddPath(path);
+    char path[260];
+    GetCurrentDirectoryA(256, path);
+    this->AddPath(path);
 }
 
 Resources::~Resources() {
@@ -85,8 +85,8 @@ Resources::~Resources() {
 }
 
 void Resources::AddPath(const char* path) {
-	//4e6273
-	if (GetPathType(path) != 2) {
+    //4e6273
+    if (GetPathType(path) != 2) {
         #ifdef A2SERVER_PATCH
         ::MessageBoxA(NULL, path, "Ignoring resource path", MB_OK);
         return;
@@ -94,56 +94,56 @@ void Resources::AddPath(const char* path) {
         ::MessageBoxA(NULL, path, "Ignoring resource path", MB_OK);
         return;
         #else
-		AfxThrowFileException(CFileException::badPath);
+        AfxThrowFileException(CFileException::badPath);
         #endif
-	}
+    }
 
-	char buf[1024];
-	pathStrCpy(path, buf);
+    char buf[1024];
+    pathStrCpy(path, buf);
 
-	this->search_paths.Add(buf);
+    this->search_paths.Add(buf);
 }
 
 void Resources::AddResFile(const char* path) {
-	//4e605a
-	char buf[1024];
-	pathStrCpy(path, buf);
+    //4e605a
+    char buf[1024];
+    pathStrCpy(path, buf);
 
-	if (this->search_paths.GetSize() <= 0) {
-		AfxThrowFileException(CFileException::fileNotFound);
-	}
+    if (this->search_paths.GetSize() <= 0) {
+        AfxThrowFileException(CFileException::fileNotFound);
+    }
 
-	char pbuf[256];
-	strcpy(pbuf, (const char*)this->search_paths[0]);
-	size_t len = strlen(pbuf);
-	if (pbuf[len - 1] != '\\' || pbuf[len - 2] != ':') {
-		strcat(pbuf, "\\");
-	}
-	strcat(pbuf, buf);
+    char pbuf[256];
+    strcpy(pbuf, (const char*)this->search_paths[0]);
+    size_t len = strlen(pbuf);
+    if (pbuf[len - 1] != '\\' || pbuf[len - 2] != ':') {
+        strcat(pbuf, "\\");
+    }
+    strcat(pbuf, buf);
 
-	this->res_files.Add(new ResFile(pbuf));
+    this->res_files.Add(new ResFile(pbuf));
 }
 
 
 
 
 void Resources::StaticAddPath(const char* path) {
-	//4e6242
-	char buf[1024];
-	pathStrCpy(path, buf);
-	ResFiles.AddPath(buf);
+    //4e6242
+    char buf[1024];
+    pathStrCpy(path, buf);
+    ResFiles.AddPath(buf);
 }
 
 void Resources::StaticAddResFile(const char* path) {
-	//4e6211
+    //4e6211
 #ifdef A2CLIENT_PATCH
-	// RES_noLoad hook (client 4EB741): unpacked assets under data\ replace .res archives.
-	(void)path;
-	return;
+    // RES_noLoad hook (client 4EB741): unpacked assets under data\ replace .res archives.
+    (void)path;
+    return;
 #else
-	char buf[1024];
-	pathStrCpy(path, buf);
-	ResFiles.AddResFile(buf);
+    char buf[1024];
+    pathStrCpy(path, buf);
+    ResFiles.AddResFile(buf);
 #endif
 }
 

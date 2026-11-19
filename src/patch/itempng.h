@@ -17,18 +17,18 @@
 // behavior from a real subclass.
 class PatchPngSprite : public CSprite256 {
 public:
-	explicit PatchPngSprite(PatchImage* image);
+    explicit PatchPngSprite(PatchImage* image);
 
-	virtual void Draw(int32_t x, int32_t y, int frame, int palid, int mode) override;
-	virtual void DrawIndexMask(int32_t x, int32_t y, int frame, uint32_t mv) override;
+    virtual void Draw(int32_t x, int32_t y, int frame, int palid, int mode) override;
+    virtual void DrawIndexMask(int32_t x, int32_t y, int frame, uint32_t mv) override;
 
-	// Sprites live in a permanent cache, exactly as in the manager patch (its
-	// IImage_Destruct no-ops and the CSprite256 ??_G guard skips deletion for
-	// cached pointers): `delete sprite` therefore does nothing.
-	static void operator delete(void*) {}
+    // Sprites live in a permanent cache, exactly as in the manager patch (its
+    // IImage_Destruct no-ops and the CSprite256 ??_G guard skips deletion for
+    // cached pointers): `delete sprite` therefore does nothing.
+    static void operator delete(void*) {}
 
 private:
-	PatchImage* image;
+    PatchImage* image;
 };
 
 // Returns a cached PNG-backed sprite for a retail ".256" sprite path (by

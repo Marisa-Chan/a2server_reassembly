@@ -3948,72 +3948,72 @@ void CUnit::PlayCastSound() {
 
 // 473b80
 void StructEnter::RebuildFromMap() {
-	MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-	VisPlayingArea* map = main_wnd->vis_map_context;
-	POSITION it = map->objects.GetStartPosition();
-	this->ClearGroups();
-	while (it != NULL) {
-		uint16_t key;
-		CGameObject* value;
-		map->objects.GetNextAssoc(it, key, value);
-		if (!value->IsKindOf(RUNTIME_CLASS(CUnit))) {
-			continue;
-		}
-		CUnit* unit = (CUnit*)value;
-		if (unit->map_player != map->my_main_unit) {
-			continue;
-		}
-		if ((unit->unitFlags & UNIT_FLAG_PLAYER_CLASS) != 0 && unit->death_state == 0) {
-			this->AddStructureUnit(unit);
-		} else if ((unit->unitFlags & UNIT_FLAG_CREATURE) != 0 && unit->death_state == 0) {
-			this->AddPartyMember(unit);
-		}
-	}
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    VisPlayingArea* map = main_wnd->vis_map_context;
+    POSITION it = map->objects.GetStartPosition();
+    this->ClearGroups();
+    while (it != NULL) {
+        uint16_t key;
+        CGameObject* value;
+        map->objects.GetNextAssoc(it, key, value);
+        if (!value->IsKindOf(RUNTIME_CLASS(CUnit))) {
+            continue;
+        }
+        CUnit* unit = (CUnit*)value;
+        if (unit->map_player != map->my_main_unit) {
+            continue;
+        }
+        if ((unit->unitFlags & UNIT_FLAG_PLAYER_CLASS) != 0 && unit->death_state == 0) {
+            this->AddStructureUnit(unit);
+        } else if ((unit->unitFlags & UNIT_FLAG_CREATURE) != 0 && unit->death_state == 0) {
+            this->AddPartyMember(unit);
+        }
+    }
 }
 
 // 473d10
 int32_t StructEnter::FindFlaggedStructureUnit() {
-	for (int32_t i = 0; i < this->structure_list.GetSize(); i++) {
-		CUnit* unit = this->structure_list[i];
-		if ((unit->unitFlags & UNIT_FLAG_TOKEN_GOLD_ENTRY) != 0) {
-			return i;
-		}
-	}
-	return -1;
+    for (int32_t i = 0; i < this->structure_list.GetSize(); i++) {
+        CUnit* unit = this->structure_list[i];
+        if ((unit->unitFlags & UNIT_FLAG_TOKEN_GOLD_ENTRY) != 0) {
+            return i;
+        }
+    }
+    return -1;
 }
 
 // 475080
 void StructEnter::AddPartyMember(CUnit* unit) {
-	this->party_list.Add(unit);
-	if ((unit->unitFlags & UNIT_FLAG_MAGE) != 0) {
-		this->male_party_count++;
-	} else {
-		this->female_party_count++;
-	}
+    this->party_list.Add(unit);
+    if ((unit->unitFlags & UNIT_FLAG_MAGE) != 0) {
+        this->male_party_count++;
+    } else {
+        this->female_party_count++;
+    }
 }
 
 // 475010
 void StructEnter::ClearGroups() {
-	this->structure_list.SetSize(0);
-	this->party_list.SetSize(0);
-	this->male_party_count = 0;
-	this->female_party_count = 0;
+    this->structure_list.SetSize(0);
+    this->party_list.SetSize(0);
+    this->male_party_count = 0;
+    this->female_party_count = 0;
 }
 
 // 474ff0
 void StructEnter::AddStructureUnit(CUnit* unit) {
-	this->structure_list.Add(unit);
+    this->structure_list.Add(unit);
 }
 
 // 474f20
 StructEnter::StructEnter() {
-	this->female_party_count = 0;
-	this->male_party_count = 0;
+    this->female_party_count = 0;
+    this->male_party_count = 0;
 }
 
 // 474f90
 StructEnter::~StructEnter() {
-	this->ClearGroups();
+    this->ClearGroups();
 }
 
 StructEnter g_StructEnter;

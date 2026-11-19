@@ -90,11 +90,11 @@ const AFX_MSGMAP_ENTRY CListBox2::_messageEntries[] =
 };
 
 void CListBox2::OnKeyDown(UINT, UINT, UINT) {
-	this->Default();
+    this->Default();
 }
 
 void CListBox2::OnLButtonDblClk(UINT, CPoint) {
-	this->Default();
+    this->Default();
 }
 
 
@@ -112,8 +112,8 @@ CEdit2::CEdit2() = default;
 CEdit2::~CEdit2() = default;
 
 const AFX_MSGMAP* CEdit2::GetMessageMap() const {
-	//494efb
-	return &CEdit2::messageMap;
+    //494efb
+    return &CEdit2::messageMap;
 }
 
 //60bf70
@@ -123,36 +123,36 @@ AFX_DATADEF const AFX_MSGMAP CEdit2::messageMap =
 const AFX_MSGMAP_ENTRY CEdit2::_messageEntries[] =
 {
     {WM_KEYDOWN, 0, 0, 0, AfxSig_vwww, (AFX_PMSG)&OnKeyDown},
-	{0, 0, 0, 0, AfxSig_end, (AFX_PMSG)0}
+    {0, 0, 0, 0, AfxSig_end, (AFX_PMSG)0}
 };
 
 void CEdit2::OnKeyDown(UINT nChar, UINT nRepcnt, UINT nFlags) {
-	this->Default();
+    this->Default();
 
-	if (nChar == VK_RETURN) {
-		CString txt;
-		CWnd::GetWindowText(txt);
+    if (nChar == VK_RETURN) {
+        CString txt;
+        CWnd::GetWindowText(txt);
 
-		char buf[1024];
-		CharToOemA(txt, buf);
+        char buf[1024];
+        CharToOemA(txt, buf);
 
 #if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
-		Printf("<server>: %s", buf);
-		if (buf[0] != '#') {
-			CString msg;
-			msg.Format("<server>: %s", buf);
-			g_NetStru1_main.AnnouncePlayerName(msg, nullptr);
-		} else if (g_Server != nullptr) {
-			g_Server->CheatCommand(nullptr, CString(buf));
-		}
+        Printf("<server>: %s", buf);
+        if (buf[0] != '#') {
+            CString msg;
+            msg.Format("<server>: %s", buf);
+            g_NetStru1_main.AnnouncePlayerName(msg, nullptr);
+        } else if (g_Server != nullptr) {
+            g_Server->CheatCommand(nullptr, CString(buf));
+        }
 #else
-		g_NetStru1_main.AnnouncePlayerName(buf, nullptr);
+        g_NetStru1_main.AnnouncePlayerName(buf, nullptr);
 
-		LogMessage(buf);
+        LogMessage(buf);
 #endif
 
-		SetSel(0xffff0000);
-	}
+        SetSel(0xffff0000);
+    }
 }
 
 
@@ -398,7 +398,7 @@ AFX_DATADEF const AFX_MSGMAP MainWindow::messageMap =
 const AFX_MSGMAP_ENTRY MainWindow::_messageEntries[] =
 {
     {WM_DESTROY, 0, 0, 0, AfxSig_vv, (AFX_PMSG)&OnDestroy},
-	{WM_CREATE, 0, 0, 0, AfxSig_is, (AFX_PMSG)&OnCreate},
+    {WM_CREATE, 0, 0, 0, AfxSig_is, (AFX_PMSG)&OnCreate},
     {WM_PAINT, 0, 0, 0, AfxSig_vv, (AFX_PMSG)&OnPaint},
     {WM_SETCURSOR, 0, 0, 0, AfxSig_bWww, (AFX_PMSG)&OnSetCursor},
     {WM_SETFOCUS, 0, 0, 0, AfxSig_vW, (AFX_PMSG)&OnSetFocus},

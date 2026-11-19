@@ -27,52 +27,52 @@ TakeDamage::TakeDamage(const TakeDamage& ref) = default;
 TakeDamage::~TakeDamage() = default; //45dd08
 
 TakeDamage::TakeDamage(int32_t _dmg, uint16_t* clr, int32_t unk, int32_t _dx, int32_t _dy, CUnit* ct) {
-	//45db8a
-	this->dmg = _dmg;
+    //45db8a
+    this->dmg = _dmg;
 
-	this->txt.Format("%d", this->dmg);
+    this->txt.Format("%d", this->dmg);
 
-	this->drift_left = unk;
-	this->dx = _dx;
-	this->dy = _dy;
-	this->cunit = ct;
+    this->drift_left = unk;
+    this->dx = _dx;
+    this->dy = _dy;
+    this->cunit = ct;
 
-	if (!clr) {
-		this->color = g_colors_human_pals[ct->map_player->color];
-	} else {
-		this->color = clr;
-	}
+    if (!clr) {
+        this->color = g_colors_human_pals[ct->map_player->color];
+    } else {
+        this->color = clr;
+    }
 
-	this->timestamp = timeGetTime();
+    this->timestamp = timeGetTime();
 
-	MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
-	this->burst_id = wnd->serverLoopCounter;
+    MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
+    this->burst_id = wnd->serverLoopCounter;
 }
 
 
 
 void TakeDamage::Update() {
-	//45dd1b
-	if (this->drift_left == 0) {
-		this->dx += 1;
-		this->dy -= 2;
-	} else {
-		this->dx -= 1;
-		this->dy -= 2;
-	}
+    //45dd1b
+    if (this->drift_left == 0) {
+        this->dx += 1;
+        this->dy -= 2;
+    } else {
+        this->dx -= 1;
+        this->dy -= 2;
+    }
 }
 
 int TakeDamage::Draw() {
-	//45dd6d
-	uint32_t t = timeGetTime();
-	if (t - this->timestamp > 1000) {
-		return 0;
-	}
+    //45dd6d
+    uint32_t t = timeGetTime();
+    if (t - this->timestamp > 1000) {
+        return 0;
+    }
 
-	if (this->cunit->bIsBlocked == 0) {
-		g_font2->DrawTextWithShadow(this->cunit->centerScreenX + this->dx, this->cunit->centerScreenY + this->dy - this->cunit->terrainHeightOffset, this->txt, CGameFont::ALIGN_LEFT_TOP, this->color, 1);
-	}
-	return 1;
+    if (this->cunit->bIsBlocked == 0) {
+        g_font2->DrawTextWithShadow(this->cunit->centerScreenX + this->dx, this->cunit->centerScreenY + this->dy - this->cunit->terrainHeightOffset, this->txt, CGameFont::ALIGN_LEFT_TOP, this->color, 1);
+    }
+    return 1;
 }
 
 int32_t TakeDamage::GetScreenX() { //41f620
@@ -85,52 +85,52 @@ int32_t TakeDamage::GetScreenY() { //41f640
 
 
 void __cdecl TakeDamage::AddDamage(CArray<TakeDamage>* arr, const TakeDamage& dmg) {
-	//45dea1
+    //45dea1
 
-	for (int i = 0; i < arr->GetSize(); i++) {
-		TakeDamage& b = arr->ElementAt(i);
-		if (b.cunit == dmg.cunit && b.burst_id == dmg.burst_id) {
-			b.dmg += dmg.dmg;
-			b.txt.Format("%d", b.dmg);
-			return;
-		}
-	}
+    for (int i = 0; i < arr->GetSize(); i++) {
+        TakeDamage& b = arr->ElementAt(i);
+        if (b.cunit == dmg.cunit && b.burst_id == dmg.burst_id) {
+            b.dmg += dmg.dmg;
+            b.txt.Format("%d", b.dmg);
+            return;
+        }
+    }
 
-	arr->Add(dmg);
+    arr->Add(dmg);
 }
 
 void __cdecl TakeDamage::DrawDamages(CArray<TakeDamage>* arr) {
-	//45ddf6
-	if (arr->GetSize() == 0) {
-		return;
-	}
+    //45ddf6
+    if (arr->GetSize() == 0) {
+        return;
+    }
 
-	LockSurface2();
-	for (int i = 0; i < arr->GetSize(); i++) {
-		if (arr->ElementAt(i).Draw() == 0) {
-			arr->RemoveAt(i);
-			i--;
-		}
-	}
-	UnlockSurface2();
+    LockSurface2();
+    for (int i = 0; i < arr->GetSize(); i++) {
+        if (arr->ElementAt(i).Draw() == 0) {
+            arr->RemoveAt(i);
+            i--;
+        }
+    }
+    UnlockSurface2();
 }
 
 void __cdecl TakeDamage::UpdateDamages(CArray<TakeDamage>* arr) {
-	//45de65
-	for (int i = 0; i < arr->GetSize(); i++) {
-		arr->ElementAt(i).Update();
-	}
+    //45de65
+    for (int i = 0; i < arr->GetSize(); i++) {
+        arr->ElementAt(i).Update();
+    }
 }
 
 #ifdef A2CLIENT_PATCH
 // Retail bug fix: drop every label that references a unit which is about to
 // be deleted, so Draw() cannot dereference a freed CUnit*.
 void __cdecl TakeDamage::RemoveDamagesFor(CArray<TakeDamage>* arr, CUnit* ct) {
-	for (int i = arr->GetSize() - 1; i >= 0; i--) {
-		if (arr->ElementAt(i).cunit == ct) {
-			arr->RemoveAt(i);
-		}
-	}
+    for (int i = arr->GetSize() - 1; i >= 0; i--) {
+        if (arr->ElementAt(i).cunit == ct) {
+            arr->RemoveAt(i);
+        }
+    }
 }
 #endif
 

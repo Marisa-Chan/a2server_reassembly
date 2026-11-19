@@ -12,18 +12,18 @@
 
 class PatchImage {
 public:
-	PatchImage(const char* filename);
-	~PatchImage();
+    PatchImage(const char* filename);
+    ~PatchImage();
 
-	void Display(int16_t x, int16_t y);
-	void DisplayEx(int16_t x, int16_t y, int16_t inX, int16_t inY, int16_t w, int16_t h, bool no_alpha);
+    void Display(int16_t x, int16_t y);
+    void DisplayEx(int16_t x, int16_t y, int16_t inX, int16_t inY, int16_t w, int16_t h, bool no_alpha);
 
-	uint32_t* GetPixels();
-	uint32_t GetWidth();
-	uint32_t GetHeight();
+    uint32_t* GetPixels();
+    uint32_t GetWidth();
+    uint32_t GetHeight();
 
 private:
-	uint32_t* myPixels = nullptr;
-	uint32_t myWidth = 0;
-	uint32_t myHeight = 0;
+    uint32_t* myPixels = nullptr;
+    uint32_t myWidth = 0;
+    uint32_t myHeight = 0;
 };

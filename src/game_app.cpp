@@ -141,446 +141,446 @@ void GameSettings::Save(HKEY& rkey) {
 
 // 4a9f90
 DistortMap::DistortMap(int32_t outer, int32_t inner) {
-	int32_t radius = (int32_t)sqrt((double)(outer * outer - (outer - inner) * (outer - inner)));
-	this->radius = radius;
-	this->offsets = new int16_t * [radius];
-	for (int32_t i = 0; i < radius; i++) {
-		this->offsets[i] = new int16_t[radius * 2];
-	}
-	this->outer = outer;
-	this->inner = inner;
-	this->BuildScaleTable();
+    int32_t radius = (int32_t)sqrt((double)(outer * outer - (outer - inner) * (outer - inner)));
+    this->radius = radius;
+    this->offsets = new int16_t * [radius];
+    for (int32_t i = 0; i < radius; i++) {
+        this->offsets[i] = new int16_t[radius * 2];
+    }
+    this->outer = outer;
+    this->inner = inner;
+    this->BuildScaleTable();
 }
 
 // 4aa04f
 DistortMap::~DistortMap() {
-	for (int32_t i = 0; i < this->radius; i++) {
-		delete[] this->offsets[i];
-	}
-	delete[] this->offsets;
+    for (int32_t i = 0; i < this->radius; i++) {
+        delete[] this->offsets[i];
+    }
+    delete[] this->offsets;
 }
 
 // 47619a
 void FreeDistortMap() {
-	free(g_ItemNamePktData);
-	if (g_DistortMap != nullptr) {
-		delete g_DistortMap;
-	}
+    free(g_ItemNamePktData);
+    if (g_DistortMap != nullptr) {
+        delete g_DistortMap;
+    }
 }
 
 // 4aa0af
 void DistortMap::BuildScaleTable() {
-	// scale[i] = i / (outer * sin(atan(i / (outer - inner))))
-	double* scale = new double[this->radius];
-	memset(scale, 0, this->radius * 4);
-	for (int32_t i = 0; i < this->radius; i++) {
-		double angle = atan((double)i / (this->outer - this->inner));
-		if (i == 0) {
-			scale[0] = 1.0;
-		} else {
-			scale[i] = i / (this->outer * sin(angle));
-		}
-	}
-	for (int32_t i = 0; i < this->radius; i++) {
-		for (int32_t j = 0; j < this->radius; j++) {
-			int32_t r = (int32_t)(sqrt((double)(i * i + j * j)) + 0.5);
-			if (r < this->radius) {
-				this->offsets[i][j * 2] = (int16_t)(int32_t)(i * scale[r] + 0.5);
-				this->offsets[i][j * 2 + 1] = (int16_t)(int32_t)(j * scale[r] + 0.5);
-			} else {
-				this->offsets[i][j * 2] = (int16_t)i;
-				this->offsets[i][j * 2 + 1] = (int16_t)j;
-			}
-		}
-	}
-	delete[] scale;
+    // scale[i] = i / (outer * sin(atan(i / (outer - inner))))
+    double* scale = new double[this->radius];
+    memset(scale, 0, this->radius * 4);
+    for (int32_t i = 0; i < this->radius; i++) {
+        double angle = atan((double)i / (this->outer - this->inner));
+        if (i == 0) {
+            scale[0] = 1.0;
+        } else {
+            scale[i] = i / (this->outer * sin(angle));
+        }
+    }
+    for (int32_t i = 0; i < this->radius; i++) {
+        for (int32_t j = 0; j < this->radius; j++) {
+            int32_t r = (int32_t)(sqrt((double)(i * i + j * j)) + 0.5);
+            if (r < this->radius) {
+                this->offsets[i][j * 2] = (int16_t)(int32_t)(i * scale[r] + 0.5);
+                this->offsets[i][j * 2 + 1] = (int16_t)(int32_t)(j * scale[r] + 0.5);
+            } else {
+                this->offsets[i][j * 2] = (int16_t)i;
+                this->offsets[i][j * 2 + 1] = (int16_t)j;
+            }
+        }
+    }
+    delete[] scale;
 }
 
 // 4AA29B
 void DistortMap::RenderDistort(int32_t x, int32_t y) {
-	CRect clip;
-	GetClipRect(&clip);
-	uint16_t* surface = (uint16_t*)g_selDrawBitmap.lpSurface;
+    CRect clip;
+    GetClipRect(&clip);
+    uint16_t* surface = (uint16_t*)g_selDrawBitmap.lpSurface;
 
-	for (int32_t i = this->radius - 1; i >= 0; i--) {
-		for (int32_t j = this->radius - 1; j >= 0; j--) {
-			int32_t off_x = this->offsets[i][j * 2];
-			int32_t off_y = this->offsets[i][j * 2 + 1];
-			CPoint pt(x + i, y + j);
-			if (clip.PtInRect(pt)) {
-				CPoint src_pt(x + off_x, y + off_y);
-				if (clip.PtInRect(src_pt)) {
-					int32_t dst_idx = (y + j) * g_selDrawBitmap.dwWidth + (x + i);
-					int32_t src_idx = (y + off_y) * g_selDrawBitmap.dwWidth + (x + off_x);
-					surface[dst_idx] = surface[src_idx];
-				}
-			}
-			CPoint pt2(x + i, y - j);
-			if (clip.PtInRect(pt2)) {
-				CPoint src_pt(x + off_x, y - off_y);
-				if (clip.PtInRect(src_pt)) {
-					int32_t dst_idx = (y - j) * g_selDrawBitmap.dwWidth + (x + i);
-					int32_t src_idx = (y - off_y) * g_selDrawBitmap.dwWidth + (x + off_x);
-					surface[dst_idx] = surface[src_idx];
-				}
-			}
-			CPoint pt3(x - i, y + j);
-			if (clip.PtInRect(pt3)) {
-				CPoint src_pt(x - off_x, y + off_y);
-				if (clip.PtInRect(src_pt)) {
-					int32_t dst_idx = (y + j) * g_selDrawBitmap.dwWidth + (x - i);
-					int32_t src_idx = (y + off_y) * g_selDrawBitmap.dwWidth + (x - off_x);
-					surface[dst_idx] = surface[src_idx];
-				}
-			}
-			CPoint pt4(x - i, y - j);
-			if (clip.PtInRect(pt4)) {
-				CPoint src_pt(x - off_x, y - off_y);
-				if (clip.PtInRect(src_pt)) {
-					int32_t dst_idx = (y - j) * g_selDrawBitmap.dwWidth + (x - i);
-					int32_t src_idx = (y - off_y) * g_selDrawBitmap.dwWidth + (x - off_x);
-					surface[dst_idx] = surface[src_idx];
-				}
-			}
-		}
-	}
+    for (int32_t i = this->radius - 1; i >= 0; i--) {
+        for (int32_t j = this->radius - 1; j >= 0; j--) {
+            int32_t off_x = this->offsets[i][j * 2];
+            int32_t off_y = this->offsets[i][j * 2 + 1];
+            CPoint pt(x + i, y + j);
+            if (clip.PtInRect(pt)) {
+                CPoint src_pt(x + off_x, y + off_y);
+                if (clip.PtInRect(src_pt)) {
+                    int32_t dst_idx = (y + j) * g_selDrawBitmap.dwWidth + (x + i);
+                    int32_t src_idx = (y + off_y) * g_selDrawBitmap.dwWidth + (x + off_x);
+                    surface[dst_idx] = surface[src_idx];
+                }
+            }
+            CPoint pt2(x + i, y - j);
+            if (clip.PtInRect(pt2)) {
+                CPoint src_pt(x + off_x, y - off_y);
+                if (clip.PtInRect(src_pt)) {
+                    int32_t dst_idx = (y - j) * g_selDrawBitmap.dwWidth + (x + i);
+                    int32_t src_idx = (y - off_y) * g_selDrawBitmap.dwWidth + (x + off_x);
+                    surface[dst_idx] = surface[src_idx];
+                }
+            }
+            CPoint pt3(x - i, y + j);
+            if (clip.PtInRect(pt3)) {
+                CPoint src_pt(x - off_x, y + off_y);
+                if (clip.PtInRect(src_pt)) {
+                    int32_t dst_idx = (y + j) * g_selDrawBitmap.dwWidth + (x - i);
+                    int32_t src_idx = (y + off_y) * g_selDrawBitmap.dwWidth + (x - off_x);
+                    surface[dst_idx] = surface[src_idx];
+                }
+            }
+            CPoint pt4(x - i, y - j);
+            if (clip.PtInRect(pt4)) {
+                CPoint src_pt(x - off_x, y - off_y);
+                if (clip.PtInRect(src_pt)) {
+                    int32_t dst_idx = (y - j) * g_selDrawBitmap.dwWidth + (x - i);
+                    int32_t src_idx = (y - off_y) * g_selDrawBitmap.dwWidth + (x - off_x);
+                    surface[dst_idx] = surface[src_idx];
+                }
+            }
+        }
+    }
 }
 
 // 475E7A
 void InitCpuAndDistTables() {
-	// In vanilla, here they checked if `CPUID` was available, and if yes --- called it to check if MMX is supported.
-	// We just hardcode the MMX flag to 1, because where would you get a non-MMX CPU nowadays?
-	g_CpuFeatureFlags = 2;
+    // In vanilla, here they checked if `CPUID` was available, and if yes --- called it to check if MMX is supported.
+    // We just hardcode the MMX flag to 1, because where would you get a non-MMX CPU nowadays?
+    g_CpuFeatureFlags = 2;
 
-	// Fill the squared-distance table over the 21x21 visible range
-	for (int32_t i = 0; i <= 20; i++) {
-		for (int32_t j = 0; j <= 20; j++) {
-			uint16_t dist = (uint16_t)(i * i + j * j);
-			g_DistTable[i + 20][j] = dist;
-			g_DistTable[i + 20][20 - j] = dist;
-			g_DistTable[20 - i][j] = dist;
-			g_DistTable[20 - i][20 - j] = dist;
-		}
-	}
+    // Fill the squared-distance table over the 21x21 visible range
+    for (int32_t i = 0; i <= 20; i++) {
+        for (int32_t j = 0; j <= 20; j++) {
+            uint16_t dist = (uint16_t)(i * i + j * j);
+            g_DistTable[i + 20][j] = dist;
+            g_DistTable[i + 20][20 - j] = dist;
+            g_DistTable[20 - i][j] = dist;
+            g_DistTable[20 - i][20 - j] = dist;
+        }
+    }
 
 #ifdef A2CLIENT_PATCH
-	// LANG_fix_codepage hook (client 479D7A): force DOS codepage flag instead of reading main\id.
-	g_isDosCP = 1;
+    // LANG_fix_codepage hook (client 479D7A): force DOS codepage flag instead of reading main\id.
+    g_isDosCP = 1;
 #else
-	// Read the codepage flag from the end of "main\id"
-	char idbuf[80];
-	memset(idbuf, 0, 80);
-	{
-		File2 file;
-		file.Open("main\\id", 0, NULL);
-		file.Read(idbuf, file.GetLength());
-		file.Close();
-	}
-	g_isDosCP = idbuf[strlen(idbuf) - 1] - '0';
+    // Read the codepage flag from the end of "main\id"
+    char idbuf[80];
+    memset(idbuf, 0, 80);
+    {
+        File2 file;
+        file.Open("main\\id", 0, NULL);
+        file.Read(idbuf, file.GetLength());
+        file.Close();
+    }
+    g_isDosCP = idbuf[strlen(idbuf) - 1] - '0';
 #endif
 
-	g_DistortMap = new DistortMap(0x14, 0x10);
+    g_DistortMap = new DistortMap(0x14, 0x10);
 
-	RegFile reg("graphics\\units\\material.reg");
-	for (int32_t i = 0; i < 16; i++) {
-		CString key;
-		key.Format("Material%d", i);
-		CString path = reg.GetValueString(key, "Path", "heroes");
-		g_CUnitMaterialSpritePaths.Add(path);
-	}
+    RegFile reg("graphics\\units\\material.reg");
+    for (int32_t i = 0; i < 16; i++) {
+        CString key;
+        key.Format("Material%d", i);
+        CString path = reg.GetValueString(key, "Path", "heroes");
+        g_CUnitMaterialSpritePaths.Add(path);
+    }
 }
 
 
 // 43A857
 void __cdecl PostConsoleLine(const char* source) {
 #if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
-	// redir_log hook (43A872): write every server console line to Tangar's timestamped log file.
-	log_format("%s\n", source != nullptr ? source : "");
+    // redir_log hook (43A872): write every server console line to Tangar's timestamped log file.
+    log_format("%s\n", source != nullptr ? source : "");
 #endif
-	MainWindow* mainWnd = (MainWindow*)AfxGetMainWnd();
-	if (!mainWnd || mainWnd->sessionMode != SESSION_SERVER) {
-		return;
-	}
+    MainWindow* mainWnd = (MainWindow*)AfxGetMainWnd();
+    if (!mainWnd || mainWnd->sessionMode != SESSION_SERVER) {
+        return;
+    }
 
-	// Allocate a copy of source and post it to the main window (receiver frees).
-	size_t len = strlen(source) + 1;
-	char* buf = (char*)malloc(len);
-	strcpy(buf, source);
-	PostMessageA(g_MainWndHWND, MAIN_MSG_LOG_MESSAGE, (WPARAM)buf, 0);
+    // Allocate a copy of source and post it to the main window (receiver frees).
+    size_t len = strlen(source) + 1;
+    char* buf = (char*)malloc(len);
+    strcpy(buf, source);
+    PostMessageA(g_MainWndHWND, MAIN_MSG_LOG_MESSAGE, (WPARAM)buf, 0);
 
-	// Append to log file if configured.
-	if (g_ServerConfig.log_file.IsEmpty()) {
-		return;
-	}
+    // Append to log file if configured.
+    if (g_ServerConfig.log_file.IsEmpty()) {
+        return;
+    }
 
-	CStdioFile file;
-	if (!file.Open(g_ServerConfig.log_file, CFile::modeWrite | CFile::modeCreate | CFile::modeNoTruncate)) {
-		return;
-	}
-	file.SeekToEnd();
+    CStdioFile file;
+    if (!file.Open(g_ServerConfig.log_file, CFile::modeWrite | CFile::modeCreate | CFile::modeNoTruncate)) {
+        return;
+    }
+    file.SeekToEnd();
 
-	CTime now = CTime::GetCurrentTime();
-	CString timestamp = now.Format("%d.%m.%y %H:%M:%S ");
-	file.WriteString(timestamp + source + "\n");
+    CTime now = CTime::GetCurrentTime();
+    CString timestamp = now.Format("%d.%m.%y %H:%M:%S ");
+    file.WriteString(timestamp + source + "\n");
 }
 
 // 43AA23
 void LogMessage(CString message) {
-	PostConsoleLine(message);
+    PostConsoleLine(message);
 }
 
 void ReadFileToString(const char* fname, CString* str) {
-	//4758cd
+    //4758cd
 
-	File2 f;
-	f.Open(fname, 0);
+    File2 f;
+    f.Open(fname, 0);
 
-	uint32_t len = f.GetLength();
-	char* buf = (char *)malloc(len + 1);
+    uint32_t len = f.GetLength();
+    char* buf = (char *)malloc(len + 1);
 
-	f.Read(buf, len);
-	f.Close();
+    f.Read(buf, len);
+    f.Close();
 
-	buf[len] = 0;
-	CharToOemA(buf, buf);
+    buf[len] = 0;
+    CharToOemA(buf, buf);
 
-	*str = buf;
+    *str = buf;
 
-	free(buf);
+    free(buf);
 }
 
 // 476b21
 void ParseTunes() {
-	for (int32_t i = 0; i < txt_tunes.GetCount(); i++) {
-		CString line(txt_tunes.GetLine(i));
-		int32_t pos = line.Find('=');
-		CString key = line.Left(pos);
-		CString value = line.Mid(pos + 1);
-		g_TunesMap.SetAt(key, value);
-	}
+    for (int32_t i = 0; i < txt_tunes.GetCount(); i++) {
+        CString line(txt_tunes.GetLine(i));
+        int32_t pos = line.Find('=');
+        CString key = line.Left(pos);
+        CString value = line.Mid(pos + 1);
+        g_TunesMap.SetAt(key, value);
+    }
 }
 
 
 int32_t GetRandS16(int32_t range) {
-	//4a4720
-	return ((rand() * range) / 32767) % range;
+    //4a4720
+    return ((rand() * range) / 32767) % range;
 }
 
 int32_t ParseConfig(const char* fname) { // 4f7188
 #if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
-	// Tangar config v2.0: the patched server replaces the stock parser
-	// wholesale with the manager's ReadConfig (imp_ParseConfig takeover at
-	// this address; the load_config hook at 482CCC only re-pushed the same
-	// "server.cfg" argument, so nothing else is needed there)
-	return ReadConfig(fname);
+    // Tangar config v2.0: the patched server replaces the stock parser
+    // wholesale with the manager's ReadConfig (imp_ParseConfig takeover at
+    // this address; the load_config hook at 482CCC only re-pushed the same
+    // "server.cfg" argument, so nothing else is needed there)
+    return ReadConfig(fname);
 #else
-	CStdioFile file;
-	if (!file.Open(fname, 0, nullptr)) {
-		return -1;
-	}
+    CStdioFile file;
+    if (!file.Open(fname, 0, nullptr)) {
+        return -1;
+    }
 
-	CString section_name;
-	int32_t line_num = 1;
+    CString section_name;
+    int32_t line_num = 1;
 
-	while (file.GetPosition() < file.GetLength()) {
-		CString original_line;
-		file.ReadString(original_line);
+    while (file.GetPosition() < file.GetLength()) {
+        CString original_line;
+        file.ReadString(original_line);
 
-		CString lowered(original_line);
-		lowered.MakeLower();
+        CString lowered(original_line);
+        lowered.MakeLower();
 
-		int semicolon_pos = lowered.Find(';');
-		int eq_pos = lowered.Find('=');
+        int semicolon_pos = lowered.Find(';');
+        int eq_pos = lowered.Find('=');
 
-		if (semicolon_pos >= 0 && eq_pos >= semicolon_pos) {
-			eq_pos = -1;
-		}
+        if (semicolon_pos >= 0 && eq_pos >= semicolon_pos) {
+            eq_pos = -1;
+        }
 
-		if (semicolon_pos != -1) {
-			lowered = lowered.Left(semicolon_pos);
-		}
+        if (semicolon_pos != -1) {
+            lowered = lowered.Left(semicolon_pos);
+        }
 
 
-		if (lowered.IsEmpty()) {
-			line_num++;
-			continue;
-		}
+        if (lowered.IsEmpty()) {
+            line_num++;
+            continue;
+        }
 
-		if (lowered[0] == '[') {
-			// Section header
-			lowered = lowered.Mid(1);
-			lowered.TrimLeft();
-			int close_bracket = lowered.Find(']');
-			if (close_bracket == -1) {
-				return line_num;
-			}
-			lowered = lowered.Left(close_bracket);
-			lowered.TrimRight();
-			section_name = lowered;
-		} else if (section_name == "maps") {
-			// Maps section
-			lowered.TrimLeft();
-			lowered.TrimRight();
-			if (lowered.GetLength() == 0) {
-				continue; // Empty maps lines don't increment line_num (matches original ASM)
-			}
-			if (eq_pos == -1) {
-				g_ServerConfig.map_names.SetAtGrow(g_ServerConfig.map_names.GetSize(), lowered);
-				g_ServerConfig.map_durations.SetAtGrow(g_ServerConfig.map_durations.GetSize(), 0x7FFFFFFF);
-			} else {
-				CString temp(lowered);
-				lowered = lowered.Left(eq_pos);
-				lowered.TrimRight();
-				temp = temp.Mid(eq_pos + 1);
-				temp.TrimLeft();
-				double d = atof(temp);
-				g_ServerConfig.map_names.SetAtGrow(g_ServerConfig.map_names.GetSize(), lowered);
-				g_ServerConfig.map_durations.SetAtGrow(g_ServerConfig.map_durations.GetSize(), d * 60.0);
-			}
-		} else if (eq_pos != -1 && section_name != "bannedplayers") {
-			// Key=value line (not in bannedplayers section)
-			CString value_lowered = lowered.Mid(eq_pos + 1);
-			value_lowered.TrimLeft();
-			value_lowered.TrimRight();
+        if (lowered[0] == '[') {
+            // Section header
+            lowered = lowered.Mid(1);
+            lowered.TrimLeft();
+            int close_bracket = lowered.Find(']');
+            if (close_bracket == -1) {
+                return line_num;
+            }
+            lowered = lowered.Left(close_bracket);
+            lowered.TrimRight();
+            section_name = lowered;
+        } else if (section_name == "maps") {
+            // Maps section
+            lowered.TrimLeft();
+            lowered.TrimRight();
+            if (lowered.GetLength() == 0) {
+                continue; // Empty maps lines don't increment line_num (matches original ASM)
+            }
+            if (eq_pos == -1) {
+                g_ServerConfig.map_names.SetAtGrow(g_ServerConfig.map_names.GetSize(), lowered);
+                g_ServerConfig.map_durations.SetAtGrow(g_ServerConfig.map_durations.GetSize(), 0x7FFFFFFF);
+            } else {
+                CString temp(lowered);
+                lowered = lowered.Left(eq_pos);
+                lowered.TrimRight();
+                temp = temp.Mid(eq_pos + 1);
+                temp.TrimLeft();
+                double d = atof(temp);
+                g_ServerConfig.map_names.SetAtGrow(g_ServerConfig.map_names.GetSize(), lowered);
+                g_ServerConfig.map_durations.SetAtGrow(g_ServerConfig.map_durations.GetSize(), d * 60.0);
+            }
+        } else if (eq_pos != -1 && section_name != "bannedplayers") {
+            // Key=value line (not in bannedplayers section)
+            CString value_lowered = lowered.Mid(eq_pos + 1);
+            value_lowered.TrimLeft();
+            value_lowered.TrimRight();
 
-			CString value_original = original_line.Mid(eq_pos + 1);
-			value_original.TrimLeft();
-			value_original.TrimRight();
+            CString value_original = original_line.Mid(eq_pos + 1);
+            value_original.TrimLeft();
+            value_original.TrimRight();
 
-			int int_value = atoi(value_lowered);
+            int int_value = atoi(value_lowered);
 
-			if (lowered.Find("repopdelay") == 0 && section_name == "settings") {
-				if (int_value < 20) { int_value = 20; }
-				if (int_value > 500) { int_value = 500; }
-				g_ServerConfig.repop_delay = int_value;
-			} else if (lowered.Find("logintimeout") == 0 && section_name == "settings") {
-				if (int_value < 10) { int_value = 10; }
-				if (int_value > 300) { int_value = 300; }
-				g_ServerConfig.login_timeout = int_value;
-			} else if (lowered.Find("reconnectdelay") == 0 && section_name == "settings") {
-				if (int_value < 1) { int_value = 1; }
-				g_ServerConfig.reconnect_delay = int_value;
-			} else if (lowered.Find("protocol") == 0 && section_name == "settings") {
-				// Protocol setting is read but ignored.
-			} else if (lowered.Find("gametype") == 0 && section_name == "settings") {
-				if (value_lowered == "cooperative") {
-					g_ServerConfig.gameType = GAME_TYPE_COOPERATIVE;
-				} else if (value_lowered == "deathmatch") {
-					g_ServerConfig.gameType = GAME_TYPE_DEATHMATCH;
-				} else if (value_lowered == "teamplay") {
-					g_ServerConfig.gameType = GAME_TYPE_TEAMPLAY;
-				} else if (value_lowered == "arena") {
-					g_ServerConfig.gameType = GAME_TYPE_ARENA;
-				} else {
-					return line_num;
-				}
-			} else if (lowered.Find("gamespeed") == 0 && section_name == "settings") {
-				if (int_value < 0 || int_value > 8) { int_value = 4; }
-				g_ServerConfig.game_speed = int_value;
-			} else if (lowered.Find("logfile") == 0 && section_name == "settings") {
-				g_ServerConfig.log_file = value_lowered;
-			} else if (lowered.Find("chrbase") == 0 && section_name == "settings") {
-				g_ServerConfig.chr_base = value_lowered;
-				int len = g_ServerConfig.chr_base.GetLength();
-				if (len > 0 && ((LPCTSTR)g_ServerConfig.chr_base)[len - 1] != '\\') {
-					g_ServerConfig.chr_base += '\\';
-				}
-			} else if (lowered.Find("ipaddress2") == 0 && section_name == "settings") {
-				g_ServerConfig.ip_address2 = value_lowered;
-			} else if (lowered.Find("ipaddress") == 0 && section_name == "settings") {
-				g_ServerConfig.ip_address = value_lowered;
-			} else if (lowered.Find("hataddress") == 0 && section_name == "settings") {
-				g_ServerConfig.hat_address = value_lowered;
-			} else if (lowered.Find("description") == 0 && section_name == "settings") {
-				g_ServerConfig.server_name.Empty();
-				for (int i = 0; i < value_original.GetLength(); i++) {
-					char c = value_original[i];
-					if (c == '&' || c == '%' || c == '|' || c == '?' || (unsigned char)c >= 0x80) {
-						g_ServerConfig.server_name += '*';
-					} else {
-						g_ServerConfig.server_name += c;
-					}
-				}
-			} else if (lowered.Find("serverid") == 0 && section_name == "settings") {
-				g_ServerConfig.server_id = int_value;
-			} else if (lowered.Find("sayrange") == 0 && section_name == "settings") {
-				if (int_value < 1 || int_value > 255) { int_value = 255; }
-				g_ServerConfig.chat_range = int_value;
-			} else if (lowered.Find("shoutdelay") == 0 && section_name == "settings") {
-				if (int_value < 0) { int_value = 0; }
-				g_ServerConfig.shout_delay = int_value;
-			} else if (lowered.Find("shutdowndelay") == 0 && section_name == "settings") {
-				if (int_value < 1 || int_value > 60) { int_value = 5; }
-				g_ServerConfig.shutdown_delay = int_value;
-			} else if (lowered.Find("maxplayers") == 0 && section_name == "settings") {
-				if (int_value < 1 || int_value > 16) { int_value = 16; }
-				g_ServerConfig.max_players = int_value;
-			} else if (lowered.Find("fraglimit") == 0 && section_name == "settings") {
-				if (int_value < 1) { int_value = 0x7FFFFFFF; }
-				g_ServerConfig.frag_limit = int_value;
-			} else if (lowered.Find("arenatimelimit") == 0 && section_name == "settings") {
-				if (int_value < 1) { int_value = 0x7FFFFFFF; }
-				g_ServerConfig.arena_time_limit = int_value;
-			} else if (lowered.Find("flagscore") == 0 && section_name == "settings") {
-				if (int_value < 1) { int_value = 1; }
-				g_ServerConfig.flag_score = int_value;
-			} else if (lowered.Find("save") == 0 && section_name == "settings") {
-				if (value_lowered == "client") {
-					g_ServerConfig.save_is_server = 0;
-				} else if (value_lowered == "server") {
-					g_ServerConfig.save_is_server = 1;
-				} else {
-					return line_num;
-				}
-			} else if (lowered.Find("scaledmaps") == 0 && section_name == "settings") {
-				if (value_lowered == "on") {
-					g_ServerConfig.map_range_check = 1;
-				} else if (value_lowered == "off") {
-					g_ServerConfig.map_range_check = 0;
-				} else {
-					return line_num;
-				}
-			} else if (lowered.Find("alwaysloadsacks") == 0 && section_name == "settings") {
-				if (value_lowered == "on") {
-					g_ServerConfig.always_load_sacks = 1;
-				} else if (value_lowered == "off") {
-					g_ServerConfig.always_load_sacks = 0;
-				} else {
-					return line_num;
-				}
-			} else if (lowered.Find("treasureprobability") == 0 && section_name == "settings") {
-				if (int_value < 1) { int_value = 0; }
-				if (int_value > 100) { int_value = 100; }
-				g_ServerConfig.treasure_probability = int_value;
-			} else {
-				return line_num;
-			}
-		} else {
-			// No '=' or section is "bannedplayers"
-			if (section_name == "bannedips") {
-				lowered.TrimLeft();
-				lowered.TrimRight();
-				g_ServerConfig.banned_ips.SetAtGrow(g_ServerConfig.banned_ips.GetSize(), lowered);
-			} else if (section_name == "bannedplayers") {
-				original_line.TrimLeft();
-				original_line.TrimRight();
-				g_ServerConfig.banned_names.SetAtGrow(g_ServerConfig.banned_names.GetSize(), original_line);
-			} else if (section_name == "reporttowww") {
-				lowered.TrimLeft();
-				lowered.TrimRight();
-				g_ServerConfig.report_to_www.SetAtGrow(g_ServerConfig.report_to_www.GetSize(), lowered);
-			} else {
-				lowered.TrimRight();
-				if (lowered.GetLength() != 0) {
-					return line_num;
-				}
-			}
-		}
+            if (lowered.Find("repopdelay") == 0 && section_name == "settings") {
+                if (int_value < 20) { int_value = 20; }
+                if (int_value > 500) { int_value = 500; }
+                g_ServerConfig.repop_delay = int_value;
+            } else if (lowered.Find("logintimeout") == 0 && section_name == "settings") {
+                if (int_value < 10) { int_value = 10; }
+                if (int_value > 300) { int_value = 300; }
+                g_ServerConfig.login_timeout = int_value;
+            } else if (lowered.Find("reconnectdelay") == 0 && section_name == "settings") {
+                if (int_value < 1) { int_value = 1; }
+                g_ServerConfig.reconnect_delay = int_value;
+            } else if (lowered.Find("protocol") == 0 && section_name == "settings") {
+                // Protocol setting is read but ignored.
+            } else if (lowered.Find("gametype") == 0 && section_name == "settings") {
+                if (value_lowered == "cooperative") {
+                    g_ServerConfig.gameType = GAME_TYPE_COOPERATIVE;
+                } else if (value_lowered == "deathmatch") {
+                    g_ServerConfig.gameType = GAME_TYPE_DEATHMATCH;
+                } else if (value_lowered == "teamplay") {
+                    g_ServerConfig.gameType = GAME_TYPE_TEAMPLAY;
+                } else if (value_lowered == "arena") {
+                    g_ServerConfig.gameType = GAME_TYPE_ARENA;
+                } else {
+                    return line_num;
+                }
+            } else if (lowered.Find("gamespeed") == 0 && section_name == "settings") {
+                if (int_value < 0 || int_value > 8) { int_value = 4; }
+                g_ServerConfig.game_speed = int_value;
+            } else if (lowered.Find("logfile") == 0 && section_name == "settings") {
+                g_ServerConfig.log_file = value_lowered;
+            } else if (lowered.Find("chrbase") == 0 && section_name == "settings") {
+                g_ServerConfig.chr_base = value_lowered;
+                int len = g_ServerConfig.chr_base.GetLength();
+                if (len > 0 && ((LPCTSTR)g_ServerConfig.chr_base)[len - 1] != '\\') {
+                    g_ServerConfig.chr_base += '\\';
+                }
+            } else if (lowered.Find("ipaddress2") == 0 && section_name == "settings") {
+                g_ServerConfig.ip_address2 = value_lowered;
+            } else if (lowered.Find("ipaddress") == 0 && section_name == "settings") {
+                g_ServerConfig.ip_address = value_lowered;
+            } else if (lowered.Find("hataddress") == 0 && section_name == "settings") {
+                g_ServerConfig.hat_address = value_lowered;
+            } else if (lowered.Find("description") == 0 && section_name == "settings") {
+                g_ServerConfig.server_name.Empty();
+                for (int i = 0; i < value_original.GetLength(); i++) {
+                    char c = value_original[i];
+                    if (c == '&' || c == '%' || c == '|' || c == '?' || (unsigned char)c >= 0x80) {
+                        g_ServerConfig.server_name += '*';
+                    } else {
+                        g_ServerConfig.server_name += c;
+                    }
+                }
+            } else if (lowered.Find("serverid") == 0 && section_name == "settings") {
+                g_ServerConfig.server_id = int_value;
+            } else if (lowered.Find("sayrange") == 0 && section_name == "settings") {
+                if (int_value < 1 || int_value > 255) { int_value = 255; }
+                g_ServerConfig.chat_range = int_value;
+            } else if (lowered.Find("shoutdelay") == 0 && section_name == "settings") {
+                if (int_value < 0) { int_value = 0; }
+                g_ServerConfig.shout_delay = int_value;
+            } else if (lowered.Find("shutdowndelay") == 0 && section_name == "settings") {
+                if (int_value < 1 || int_value > 60) { int_value = 5; }
+                g_ServerConfig.shutdown_delay = int_value;
+            } else if (lowered.Find("maxplayers") == 0 && section_name == "settings") {
+                if (int_value < 1 || int_value > 16) { int_value = 16; }
+                g_ServerConfig.max_players = int_value;
+            } else if (lowered.Find("fraglimit") == 0 && section_name == "settings") {
+                if (int_value < 1) { int_value = 0x7FFFFFFF; }
+                g_ServerConfig.frag_limit = int_value;
+            } else if (lowered.Find("arenatimelimit") == 0 && section_name == "settings") {
+                if (int_value < 1) { int_value = 0x7FFFFFFF; }
+                g_ServerConfig.arena_time_limit = int_value;
+            } else if (lowered.Find("flagscore") == 0 && section_name == "settings") {
+                if (int_value < 1) { int_value = 1; }
+                g_ServerConfig.flag_score = int_value;
+            } else if (lowered.Find("save") == 0 && section_name == "settings") {
+                if (value_lowered == "client") {
+                    g_ServerConfig.save_is_server = 0;
+                } else if (value_lowered == "server") {
+                    g_ServerConfig.save_is_server = 1;
+                } else {
+                    return line_num;
+                }
+            } else if (lowered.Find("scaledmaps") == 0 && section_name == "settings") {
+                if (value_lowered == "on") {
+                    g_ServerConfig.map_range_check = 1;
+                } else if (value_lowered == "off") {
+                    g_ServerConfig.map_range_check = 0;
+                } else {
+                    return line_num;
+                }
+            } else if (lowered.Find("alwaysloadsacks") == 0 && section_name == "settings") {
+                if (value_lowered == "on") {
+                    g_ServerConfig.always_load_sacks = 1;
+                } else if (value_lowered == "off") {
+                    g_ServerConfig.always_load_sacks = 0;
+                } else {
+                    return line_num;
+                }
+            } else if (lowered.Find("treasureprobability") == 0 && section_name == "settings") {
+                if (int_value < 1) { int_value = 0; }
+                if (int_value > 100) { int_value = 100; }
+                g_ServerConfig.treasure_probability = int_value;
+            } else {
+                return line_num;
+            }
+        } else {
+            // No '=' or section is "bannedplayers"
+            if (section_name == "bannedips") {
+                lowered.TrimLeft();
+                lowered.TrimRight();
+                g_ServerConfig.banned_ips.SetAtGrow(g_ServerConfig.banned_ips.GetSize(), lowered);
+            } else if (section_name == "bannedplayers") {
+                original_line.TrimLeft();
+                original_line.TrimRight();
+                g_ServerConfig.banned_names.SetAtGrow(g_ServerConfig.banned_names.GetSize(), original_line);
+            } else if (section_name == "reporttowww") {
+                lowered.TrimLeft();
+                lowered.TrimRight();
+                g_ServerConfig.report_to_www.SetAtGrow(g_ServerConfig.report_to_www.GetSize(), lowered);
+            } else {
+                lowered.TrimRight();
+                if (lowered.GetLength() != 0) {
+                    return line_num;
+                }
+            }
+        }
 
-		line_num++;
-	}
+        line_num++;
+    }
 
-	return 0;
+    return 0;
 #endif // A2TANGAR_HAT
 }
 
@@ -588,495 +588,495 @@ int32_t ParseConfig(const char* fname) { // 4f7188
 
 
 BOOL GameApp::InitInstance() {
-	//4823bd
+    //4823bd
 #ifdef A2CLIENT
-	g_IsServer = 0;
+    g_IsServer = 0;
 #else
-	g_IsServer = 1;
+    g_IsServer = 1;
 #endif
 #if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
-	tangar_crash::SetExceptionFilter();
+    tangar_crash::SetExceptionFilter();
 #endif
 
-	const char* stmp = strstr(m_lpCmdLine, "-latency");
-	if (stmp) {
-		g_CmdLatency = atoi(stmp + 8);
-		if (g_CmdLatency && (g_CmdLatency < 50 || g_CmdLatency > 10000)) {
-			g_CmdLatency = 0;
-		}
-	}
+    const char* stmp = strstr(m_lpCmdLine, "-latency");
+    if (stmp) {
+        g_CmdLatency = atoi(stmp + 8);
+        if (g_CmdLatency && (g_CmdLatency < 50 || g_CmdLatency > 10000)) {
+            g_CmdLatency = 0;
+        }
+    }
 
-	stmp = strstr(m_lpCmdLine, "-timeout");
-	if (stmp) {
-		g_CmdTimeout = atoi(stmp + 8);
-		if (g_CmdTimeout == 0 || g_CmdTimeout > 120) {
-			g_CmdTimeout = 15;
-		}
+    stmp = strstr(m_lpCmdLine, "-timeout");
+    if (stmp) {
+        g_CmdTimeout = atoi(stmp + 8);
+        if (g_CmdTimeout == 0 || g_CmdTimeout > 120) {
+            g_CmdTimeout = 15;
+        }
 
-		g_CmdTimeout *= 1000;
-	}
+        g_CmdTimeout *= 1000;
+    }
 
 #ifdef A2CLIENT_PATCH
-	// Tangar a2mgr DllMain_Init: wait before video/window initialization after
-	// an auto-updater self-restart ("-delay 4000").
-	stmp = strstr(this->m_lpCmdLine, "-delay");
-	if (stmp != nullptr && (stmp[6] == ' ' || stmp[6] == '\t')) {
-		int32_t delay = atoi(stmp + 6);
-		if (delay > 0 && delay <= 60000) {
-			Sleep(static_cast<DWORD>(delay));
-		}
-	}
-	tangar_cfg::ParseConfig();
-	tangar_locale::DecideLanguage();
-	if (GetFileAttributesA("maps") == INVALID_FILE_ATTRIBUTES) {
-		CreateDirectoryA("maps", nullptr);
-	}
-	if (tangar_cfg::z_screendir && GetFileAttributesA("screenshots") == INVALID_FILE_ATTRIBUTES) {
-		CreateDirectoryA("screenshots", nullptr);
-	}
+    // Tangar a2mgr DllMain_Init: wait before video/window initialization after
+    // an auto-updater self-restart ("-delay 4000").
+    stmp = strstr(this->m_lpCmdLine, "-delay");
+    if (stmp != nullptr && (stmp[6] == ' ' || stmp[6] == '\t')) {
+        int32_t delay = atoi(stmp + 6);
+        if (delay > 0 && delay <= 60000) {
+            Sleep(static_cast<DWORD>(delay));
+        }
+    }
+    tangar_cfg::ParseConfig();
+    tangar_locale::DecideLanguage();
+    if (GetFileAttributesA("maps") == INVALID_FILE_ATTRIBUTES) {
+        CreateDirectoryA("maps", nullptr);
+    }
+    if (tangar_cfg::z_screendir && GetFileAttributesA("screenshots") == INVALID_FILE_ATTRIBUTES) {
+        CreateDirectoryA("screenshots", nullptr);
+    }
 #endif
 
-	HKEY regkey;
-	if (RegOpenKeyA(HKEY_LOCAL_MACHINE, "SOFTWARE\\1C\\Allods 2", &regkey) != ERROR_SUCCESS) {
-		char buf[1024];
-		sprintf(buf, "%s\\%s", "SOFTWARE", "1C");
-		RegCreateKeyA(HKEY_LOCAL_MACHINE, buf, &regkey);
-		strcat(buf, "\\Allods2");
-		RegCreateKeyA(HKEY_LOCAL_MACHINE, buf, &regkey);
-	}
-	RegCloseKey(regkey);
+    HKEY regkey;
+    if (RegOpenKeyA(HKEY_LOCAL_MACHINE, "SOFTWARE\\1C\\Allods 2", &regkey) != ERROR_SUCCESS) {
+        char buf[1024];
+        sprintf(buf, "%s\\%s", "SOFTWARE", "1C");
+        RegCreateKeyA(HKEY_LOCAL_MACHINE, buf, &regkey);
+        strcat(buf, "\\Allods2");
+        RegCreateKeyA(HKEY_LOCAL_MACHINE, buf, &regkey);
+    }
+    RegCloseKey(regkey);
 
-	RegOpenKeyExA(HKEY_LOCAL_MACHINE, "SOFTWARE\\1C\\Allods 2", 0, KEY_READ, &regkey);
+    RegOpenKeyExA(HKEY_LOCAL_MACHINE, "SOFTWARE\\1C\\Allods 2", 0, KEY_READ, &regkey);
 
-	DWORD bufsz = 255;
-	if (RegQueryValueExA(regkey, "CDSPEED", NULL, NULL, (uint8_t*)g_CdSpeed, &bufsz) != ERROR_SUCCESS) {
-		strcpy(g_CdSpeed, "-4x");
-	}
+    DWORD bufsz = 255;
+    if (RegQueryValueExA(regkey, "CDSPEED", NULL, NULL, (uint8_t*)g_CdSpeed, &bufsz) != ERROR_SUCCESS) {
+        strcpy(g_CdSpeed, "-4x");
+    }
 
-	bufsz = 255;
-	if (RegQueryValueExA(regkey, "RESOLUTION", NULL, NULL, (uint8_t*)g_resolution, &bufsz) != ERROR_SUCCESS) {
-		strcpy(g_resolution, "-640");
-	}
+    bufsz = 255;
+    if (RegQueryValueExA(regkey, "RESOLUTION", NULL, NULL, (uint8_t*)g_resolution, &bufsz) != ERROR_SUCCESS) {
+        strcpy(g_resolution, "-640");
+    }
 
-	GetCurrentDirectoryA(sizeof(g_InitialWorkingDir), g_InitialWorkingDir);
+    GetCurrentDirectoryA(sizeof(g_InitialWorkingDir), g_InitialWorkingDir);
 
-	char pathbuf[256];
-	bufsz = 255;
-	if (RegQueryValueExA(regkey, "INSTALLDIR", NULL, NULL, (uint8_t*)pathbuf, &bufsz) == ERROR_SUCCESS) {
-		#if !defined(A2SERVER_PATCH) && !defined(A2CLIENT_PATCH)
-		SetCurrentDirectoryA(pathbuf);
-		#endif
-	}
+    char pathbuf[256];
+    bufsz = 255;
+    if (RegQueryValueExA(regkey, "INSTALLDIR", NULL, NULL, (uint8_t*)pathbuf, &bufsz) == ERROR_SUCCESS) {
+        #if !defined(A2SERVER_PATCH) && !defined(A2CLIENT_PATCH)
+        SetCurrentDirectoryA(pathbuf);
+        #endif
+    }
 
-	MainWindow* mwnd = new MainWindow();
+    MainWindow* mwnd = new MainWindow();
 
-	m_pMainWnd = mwnd;
+    m_pMainWnd = mwnd;
 
-	mwnd->ShowWindow(m_nCmdShow);
+    mwnd->ShowWindow(m_nCmdShow);
 
-	g_MainWndHWND = mwnd->m_hWnd;
+    g_MainWndHWND = mwnd->m_hWnd;
 
-	if (g_IsServer == 0) {
-		SetCursor(NULL);
-	} else {
+    if (g_IsServer == 0) {
+        SetCursor(NULL);
+    } else {
 #ifdef A2CLIENT
-		// client: 48626d loads the arrow cursor on demand here
-		SetCursor(::LoadCursorA(0, IDC_ARROW));
+        // client: 48626d loads the arrow cursor on demand here
+        SetCursor(::LoadCursorA(0, IDC_ARROW));
 #else
-		SetCursor(mwnd->cursor_arrow);
+        SetCursor(mwnd->cursor_arrow);
 #endif
-	}
+    }
 
-	GetCurrentDirectoryA(sizeof(g_WorkingDir), g_WorkingDir);
+    GetCurrentDirectoryA(sizeof(g_WorkingDir), g_WorkingDir);
 
-	char path[260];
-	GetTempPathA(256, path);
+    char path[260];
+    GetTempPathA(256, path);
 
-	path[strlen(path) - 1] = 0;
+    path[strlen(path) - 1] = 0;
 
-	Resources::StaticAddPath(path);
+    Resources::StaticAddPath(path);
 
-	g_IsCdPresent = 1;
+    g_IsCdPresent = 1;
 
-	bufsz = 255;
-	if (RegQueryValueExA(regkey, "CD", NULL, NULL, (uint8_t*)path, &bufsz) == ERROR_SUCCESS) {
-		strcat(path, "\\");
+    bufsz = 255;
+    if (RegQueryValueExA(regkey, "CD", NULL, NULL, (uint8_t*)path, &bufsz) == ERROR_SUCCESS) {
+        strcat(path, "\\");
 
-		DWORD a, b, c;
-		GetVolumeInformationA(path, pathbuf, 255, &a, &b, &c, NULL, 0);
+        DWORD a, b, c;
+        GetVolumeInformationA(path, pathbuf, 255, &a, &b, &c, NULL, 0);
 
-		if (strcmp(pathbuf, "ROM2") != 0) {
-			g_IsCdPresent = 0;
-		}
-		
-		strcat(path, "Allods");
+        if (strcmp(pathbuf, "ROM2") != 0) {
+            g_IsCdPresent = 0;
+        }
+        
+        strcat(path, "Allods");
 
-		Resources::StaticAddPath(path);
-	} else {
-		g_IsCdPresent = 0;
-	}
+        Resources::StaticAddPath(path);
+    } else {
+        g_IsCdPresent = 0;
+    }
 
 #ifdef A2CLIENT
-	g_IsCdPresent = 1; // always has CD for client, patch
+    g_IsCdPresent = 1; // always has CD for client, patch
 #endif
 
-	RegCloseKey(regkey);
+    RegCloseKey(regkey);
 
-	CTime tm = CTime::GetCurrentTime();
+    CTime tm = CTime::GetCurrentTime();
 
-	Resources::StaticAddResFile("graphics.res");
-	Resources::StaticAddResFile("main.res");
-	Resources::StaticAddResFile("patch.res");
+    Resources::StaticAddResFile("graphics.res");
+    Resources::StaticAddResFile("main.res");
+    Resources::StaticAddResFile("patch.res");
 #ifdef A2CLIENT
-	Resources::StaticAddResFile("world.res");
+    Resources::StaticAddResFile("world.res");
 #else
-	try {
-		Resources::StaticAddResFile("world_srv.res");
-	} catch (CException* e) {
-		e->Delete();
-		Resources::StaticAddResFile("world.res");
-	}
+    try {
+        Resources::StaticAddResFile("world_srv.res");
+    } catch (CException* e) {
+        e->Delete();
+        Resources::StaticAddResFile("world.res");
+    }
 #endif
-	try {
-		Resources::StaticAddResFile("music.res");
-	} catch (CException* e) {
-		e->Delete();
-	}
+    try {
+        Resources::StaticAddResFile("music.res");
+    } catch (CException* e) {
+        e->Delete();
+    }
 #ifdef A2CLIENT_PATCH
-	// RES_loadDirectories CheckMusic (client 4867E6): disable music if data\music directory is absent.
-	uint32_t music_attrib = GetFileAttributesA("data\\music");
-	if (music_attrib == INVALID_FILE_ATTRIBUTES || (music_attrib & FILE_ATTRIBUTE_DIRECTORY) == 0) {
-		g_SoundSettings.music_allowed = 0;
-	}
+    // RES_loadDirectories CheckMusic (client 4867E6): disable music if data\music directory is absent.
+    uint32_t music_attrib = GetFileAttributesA("data\\music");
+    if (music_attrib == INVALID_FILE_ATTRIBUTES || (music_attrib & FILE_ATTRIBUTE_DIRECTORY) == 0) {
+        g_SoundSettings.music_allowed = 0;
+    }
 #else
-	try {
-		Resources::StaticAddResFile("video.res");
-	} catch (CException* e) {
-		e->Delete();
-	}
+    try {
+        Resources::StaticAddResFile("video.res");
+    } catch (CException* e) {
+        e->Delete();
+    }
 #endif
 
-	if (strstr(m_lpCmdLine, "-nomusic")) {
-		g_SoundSettings.music_allowed = 0;
-	}
+    if (strstr(m_lpCmdLine, "-nomusic")) {
+        g_SoundSettings.music_allowed = 0;
+    }
 
-	if (strstr(m_lpCmdLine, "-trace")) {
-		g_EnableTrace = 1;
-	}
+    if (strstr(m_lpCmdLine, "-trace")) {
+        g_EnableTrace = 1;
+    }
 
-	g_CLlDriver.keepalive = 0;
+    g_CLlDriver.keepalive = 0;
 
-	Resources::StaticAddResFile("sfx.res");
-	Resources::StaticAddResFile("movies.res");
-	Resources::StaticAddResFile("scenario.res");
-	try {
-		Resources::StaticAddResFile("speech.res");
-	} catch (CException* e) {
-		e->Delete();
-	}
+    Resources::StaticAddResFile("sfx.res");
+    Resources::StaticAddResFile("movies.res");
+    Resources::StaticAddResFile("scenario.res");
+    try {
+        Resources::StaticAddResFile("speech.res");
+    } catch (CException* e) {
+        e->Delete();
+    }
 
-	Resources::MarkSubstitutedFiles("update.lst");
+    Resources::MarkSubstitutedFiles("update.lst");
 
-	mwnd->UpdateClipCursor();
+    mwnd->UpdateClipCursor();
 
-	InitCpuAndDistTables();
+    InitCpuAndDistTables();
 
-	mwnd->m_FameHall.ZeroFactors();
-	mwnd->m_FameHall.SetDifficulty(1);
-	mwnd->m_FameHall.AddTextDocument(1);
+    mwnd->m_FameHall.ZeroFactors();
+    mwnd->m_FameHall.SetDifficulty(1);
+    mwnd->m_FameHall.AddTextDocument(1);
 
-	g_VideoOptionFlags = 0;
+    g_VideoOptionFlags = 0;
 
-	if (strstr(m_lpCmdLine, "-safevideo")) {
-		g_CmdSafeVideo = 1;
-	}
+    if (strstr(m_lpCmdLine, "-safevideo")) {
+        g_CmdSafeVideo = 1;
+    }
 
-	stmp = strstr(m_lpCmdLine, "-cfg\"");
-	if (stmp) {
-		const char* qend = strchr(stmp + 5, '\"');
-		if (qend) {
-			CString confname(stmp + 5, qend - (stmp + 5));
-			int32_t ierr = ParseConfig( confname );
-			if (ierr != 0) {
-				CString msg;
-				if (ierr < 1) {
-					msg = "Error loading " + confname + ".";
-				} else {
-					msg.Format("Error in %s. Line %d.", confname, ierr);
-				}
+    stmp = strstr(m_lpCmdLine, "-cfg\"");
+    if (stmp) {
+        const char* qend = strchr(stmp + 5, '\"');
+        if (qend) {
+            CString confname(stmp + 5, qend - (stmp + 5));
+            int32_t ierr = ParseConfig( confname );
+            if (ierr != 0) {
+                CString msg;
+                if (ierr < 1) {
+                    msg = "Error loading " + confname + ".";
+                } else {
+                    msg.Format("Error in %s. Line %d.", confname, ierr);
+                }
 
-				AfxMessageBox(msg);
-			}
-		}
-	} else {
-		int32_t ierr = ParseConfig("server.cfg");
-		if (ierr > 0) {
-			CString msg;
-			msg.Format("Error in server.cfg. Line %d.", ierr);
+                AfxMessageBox(msg);
+            }
+        }
+    } else {
+        int32_t ierr = ParseConfig("server.cfg");
+        if (ierr > 0) {
+            CString msg;
+            msg.Format("Error in server.cfg. Line %d.", ierr);
 
-			AfxMessageBox(msg);
-		}
-	}
+            AfxMessageBox(msg);
+        }
+    }
 
 #if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
-	// DllMain LoadThresholds + StartControlThread (srvmgr.cpp:2719-2756, 2769)
-	try {
-		thresholds::thresholds.LoadFromFile(thresholds::THRESHOLDS_FILE);
-	} catch (const thresholds::ParseException& error) {
-		log_format("Loading thresholds failed: %s\n", error.what());
-	}
-	tangar_ctl::StartControlThread();
+    // DllMain LoadThresholds + StartControlThread (srvmgr.cpp:2719-2756, 2769)
+    try {
+        thresholds::thresholds.LoadFromFile(thresholds::THRESHOLDS_FILE);
+    } catch (const thresholds::ParseException& error) {
+        log_format("Loading thresholds failed: %s\n", error.what());
+    }
+    tangar_ctl::StartControlThread();
 #endif
 #ifndef A2CLIENT
-	if (g_ServerConfig.chr_base.IsEmpty()) {
-		AfxMessageBox("Missing \'ChrBase\' parameter in config file.");
-		exit(1);
-	}
+    if (g_ServerConfig.chr_base.IsEmpty()) {
+        AfxMessageBox("Missing \'ChrBase\' parameter in config file.");
+        exit(1);
+    }
 
-	CString ffdir = g_ServerConfig.chr_base.Left(g_ServerConfig.chr_base.GetLength() - 1);
+    CString ffdir = g_ServerConfig.chr_base.Left(g_ServerConfig.chr_base.GetLength() - 1);
 
-	CFileFind fnd;
-	if (fnd.FindFile(ffdir)) {
-		fnd.FindNextFileA();
+    CFileFind fnd;
+    if (fnd.FindFile(ffdir)) {
+        fnd.FindNextFileA();
 
-		if (!fnd.IsDirectory()) {
-			CString msg = "Invalid ChrBase directory \"" + ffdir + "\"";
-			AfxMessageBox(msg);
-			exit(1);
-		}
-	} else {
-		if (!CreateDirectoryA(ffdir, NULL)) {
-			CString msg = "ChrBase directory \"" + ffdir + "\" does not exist and can't be created";
-			AfxMessageBox(msg);
-			exit(1);
-		}
-	}
-	fnd.Close();
+        if (!fnd.IsDirectory()) {
+            CString msg = "Invalid ChrBase directory \"" + ffdir + "\"";
+            AfxMessageBox(msg);
+            exit(1);
+        }
+    } else {
+        if (!CreateDirectoryA(ffdir, NULL)) {
+            CString msg = "ChrBase directory \"" + ffdir + "\" does not exist and can't be created";
+            AfxMessageBox(msg);
+            exit(1);
+        }
+    }
+    fnd.Close();
 #endif
 
-	if (!InitVideo()) {
-		AfxMessageBox("Unable to initialize video");
-		exit(1);
-	}
+    if (!InitVideo()) {
+        AfxMessageBox("Unable to initialize video");
+        exit(1);
+    }
 
-	if (strstr(m_lpCmdLine, "-window") == NULL && !SetVideoMode()) {
-		AfxMessageBox("Unable to set video mode");
-		exit(1);
-	}
+    if (strstr(m_lpCmdLine, "-window") == NULL && !SetVideoMode()) {
+        AfxMessageBox("Unable to set video mode");
+        exit(1);
+    }
 
 #ifdef A2CLIENT_PATCH
-	// LANG_change_48626D (client 486C39): load text tables from the locale selected in DecideLanguage().
-	ReadFileToString(tangar_locale::help, &g_HelpStr);
+    // LANG_change_48626D (client 486C39): load text tables from the locale selected in DecideLanguage().
+    ReadFileToString(tangar_locale::help, &g_HelpStr);
 
-	txt_main.LoadChunkFile(tangar_locale::main_txt);
-	txt_heropicture.LoadChunkFile(tangar_locale::heropicture);
-	txt_stats.LoadChunkFile(tangar_locale::stats);
-	txt_spells.LoadChunkFile(tangar_locale::spells);
-	txt_spell.LoadChunkFile(tangar_locale::spell);
-	txt_dialogs.LoadChunkFile(tangar_locale::dialogs);
-	txt_unitname.LoadChunkFile(tangar_locale::unitname);
-	txt_building.LoadChunkFile(tangar_locale::building);
-	txt_itemname.LoadChunkFile(tangar_locale::itemname);
-	txt_npcnames.LoadChunkFile(tangar_locale::npcnames);
-	txt_cutscene.LoadChunkFile(tangar_locale::cutscene);
-	txt_cutpaths.LoadChunkFile(tangar_locale::cutpaths);
-	txt_tunes.LoadChunkFile(tangar_locale::tunes);
-	txt_patch.LoadChunkFile(tangar_locale::patch_txt);
+    txt_main.LoadChunkFile(tangar_locale::main_txt);
+    txt_heropicture.LoadChunkFile(tangar_locale::heropicture);
+    txt_stats.LoadChunkFile(tangar_locale::stats);
+    txt_spells.LoadChunkFile(tangar_locale::spells);
+    txt_spell.LoadChunkFile(tangar_locale::spell);
+    txt_dialogs.LoadChunkFile(tangar_locale::dialogs);
+    txt_unitname.LoadChunkFile(tangar_locale::unitname);
+    txt_building.LoadChunkFile(tangar_locale::building);
+    txt_itemname.LoadChunkFile(tangar_locale::itemname);
+    txt_npcnames.LoadChunkFile(tangar_locale::npcnames);
+    txt_cutscene.LoadChunkFile(tangar_locale::cutscene);
+    txt_cutpaths.LoadChunkFile(tangar_locale::cutpaths);
+    txt_tunes.LoadChunkFile(tangar_locale::tunes);
+    txt_patch.LoadChunkFile(tangar_locale::patch_txt);
 #else
-	ReadFileToString("main\\text\\help.txt", &g_HelpStr);
+    ReadFileToString("main\\text\\help.txt", &g_HelpStr);
 
-	txt_main.LoadChunkFile("main\\text\\main.txt");
-	txt_heropicture.LoadChunkFile("main\\text\\heropicture.txt");
-	txt_stats.LoadChunkFile("main\\text\\stats.txt");
-	txt_spells.LoadChunkFile("main\\text\\spells.txt");
-	txt_spell.LoadChunkFile("main\\text\\spell.txt");
-	txt_dialogs.LoadChunkFile("main\\text\\dialogs.txt");
-	txt_unitname.LoadChunkFile("main\\text\\unitname.txt");
-	txt_building.LoadChunkFile("main\\text\\building.txt");
-	txt_itemname.LoadChunkFile("main\\text\\itemname.txt");
-	txt_npcnames.LoadChunkFile("main\\text\\npcnames.txt");
-	txt_cutscene.LoadChunkFile("main\\text\\cutscene.txt");
-	txt_cutpaths.LoadChunkFile("main\\text\\cutpaths.txt");
-	txt_tunes.LoadChunkFile("main\\text\\tunes.txt");
-	txt_patch.LoadChunkFile("patch\\patch.txt");
+    txt_main.LoadChunkFile("main\\text\\main.txt");
+    txt_heropicture.LoadChunkFile("main\\text\\heropicture.txt");
+    txt_stats.LoadChunkFile("main\\text\\stats.txt");
+    txt_spells.LoadChunkFile("main\\text\\spells.txt");
+    txt_spell.LoadChunkFile("main\\text\\spell.txt");
+    txt_dialogs.LoadChunkFile("main\\text\\dialogs.txt");
+    txt_unitname.LoadChunkFile("main\\text\\unitname.txt");
+    txt_building.LoadChunkFile("main\\text\\building.txt");
+    txt_itemname.LoadChunkFile("main\\text\\itemname.txt");
+    txt_npcnames.LoadChunkFile("main\\text\\npcnames.txt");
+    txt_cutscene.LoadChunkFile("main\\text\\cutscene.txt");
+    txt_cutpaths.LoadChunkFile("main\\text\\cutpaths.txt");
+    txt_tunes.LoadChunkFile("main\\text\\tunes.txt");
+    txt_patch.LoadChunkFile("patch\\patch.txt");
 #endif
 
-	ParseTunes();
+    ParseTunes();
 
-	CFile ffame;
-	if (!ffame.Open("famehall.dat", 0)) {
-		mwnd->m_FameHall.SeedDefaultEntries();
-	} else {
-		if (!ffame.GetLength()) {
-			mwnd->m_FameHall.SeedDefaultEntries();
-		} else {
-			mwnd->m_FameHall.LoadEntries(&ffame);
-		}
+    CFile ffame;
+    if (!ffame.Open("famehall.dat", 0)) {
+        mwnd->m_FameHall.SeedDefaultEntries();
+    } else {
+        if (!ffame.GetLength()) {
+            mwnd->m_FameHall.SeedDefaultEntries();
+        } else {
+            mwnd->m_FameHall.LoadEntries(&ffame);
+        }
 
-		ffame.Close();
-	}
+        ffame.Close();
+    }
 
-	char wintext[256];
-	OemToCharA(TxtFile::AllLines[0x96], wintext);
-	mwnd->SetWindowText(wintext);
+    char wintext[256];
+    OemToCharA(TxtFile::AllLines[0x96], wintext);
+    mwnd->SetWindowText(wintext);
 
-	g_GameDataRes.ParseWorldIn("World\\Data\\");
+    g_GameDataRes.ParseWorldIn("World\\Data\\");
 
-	LoadItemNames();
-	LoadFonts();
-	mwnd->CreateUI();
-	mwnd->LoadSettings();
-	mwnd->app_initialized = 1;
-	mwnd->LoadData();
+    LoadItemNames();
+    LoadFonts();
+    mwnd->CreateUI();
+    mwnd->LoadSettings();
+    mwnd->app_initialized = 1;
+    mwnd->LoadData();
 
-	// client: 48626d — vanilla checked the CD before the main-menu message.
-	// We have disabled the CD check.
+    // client: 48626d — vanilla checked the CD before the main-menu message.
+    // We have disabled the CD check.
 #ifdef A2CLIENT
-	if (g_IsCdPresent == 0) {
-		mwnd->ShowNoCDIntro();
-		mwnd->PostMessageA(MAIN_MSG_CD_CHECK_FAILED, 0, 0);
-	}
-	else {
-		if (strstr(m_lpCmdLine, "-startserver") == nullptr && strstr(m_lpCmdLine, "-cfg") == nullptr && strstr(m_lpCmdLine, ".asl") == nullptr) {
-			if (mwnd->PlayIntroVideos())
-				mwnd->PlayVideo(0);
-		}
-		mwnd->PostMessageA(MAIN_MSG_MAIN_MENU, 0, 0);
-	}
+    if (g_IsCdPresent == 0) {
+        mwnd->ShowNoCDIntro();
+        mwnd->PostMessageA(MAIN_MSG_CD_CHECK_FAILED, 0, 0);
+    }
+    else {
+        if (strstr(m_lpCmdLine, "-startserver") == nullptr && strstr(m_lpCmdLine, "-cfg") == nullptr && strstr(m_lpCmdLine, ".asl") == nullptr) {
+            if (mwnd->PlayIntroVideos())
+                mwnd->PlayVideo(0);
+        }
+        mwnd->PostMessageA(MAIN_MSG_MAIN_MENU, 0, 0);
+    }
 #else
-	mwnd->PostMessageA(MAIN_MSG_MAIN_MENU, 0, 0);
+    mwnd->PostMessageA(MAIN_MSG_MAIN_MENU, 0, 0);
 #endif
 
-	g_AutoRunEvent = CreateEventA(NULL, TRUE, TRUE, "Allods 2 AutoRun");
+    g_AutoRunEvent = CreateEventA(NULL, TRUE, TRUE, "Allods 2 AutoRun");
 
-	// Vanilla client checked the `scenario.dll` presence before proceeding with startup.
-	// We have Scenario statically linked, so we skip the check.
+    // Vanilla client checked the `scenario.dll` presence before proceeding with startup.
+    // We have Scenario statically linked, so we skip the check.
 
-	mwnd->input_locked = 0;
+    mwnd->input_locked = 0;
 
-	ExperienceTable::InitTable();
-	SetMessageColors(g_MessageColors);
+    ExperienceTable::InitTable();
+    SetMessageColors(g_MessageColors);
 
-	return TRUE;
+    return TRUE;
 }
 
 BOOL GameApp::OnIdle(LONG lCount) { //4835b0
-	static uint32_t idle_tick = 0;
+    static uint32_t idle_tick = 0;
 
-	MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
+    MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 
-	if (mwnd->sessionMode == SESSION_SERVER && g_Server) {
-		mwnd->IdleLoop();
-	} else if ((mwnd->dialogsMask & DIALOG_MASK_INGAME) == 0) {
-		if (mwnd->serverBootstrapEnabled == 0 || !g_Server) {
-			if (mwnd->vis_netmapsel && g_NetStru1_local.IsActive() == 0) {
-				mwnd->vis_netmapsel->MsgProc(VIS_MSG_CLOSE_SCREEN, 0, 0);
-			}
+    if (mwnd->sessionMode == SESSION_SERVER && g_Server) {
+        mwnd->IdleLoop();
+    } else if ((mwnd->dialogsMask & DIALOG_MASK_INGAME) == 0) {
+        if (mwnd->serverBootstrapEnabled == 0 || !g_Server) {
+            if (mwnd->vis_netmapsel && g_NetStru1_local.IsActive() == 0) {
+                mwnd->vis_netmapsel->MsgProc(VIS_MSG_CLOSE_SCREEN, 0, 0);
+            }
 
-			mwnd->vis_map_context->ProcessPackets(0);
-		} else {
-			uint32_t tick = GetTickCount();
-			if (tick - idle_tick > 62) {
-				g_Server->PumpNetwork();
-				mwnd->vis_map_context->ProcessPackets(0);
-				idle_tick = tick;
-			}
-		}
+            mwnd->vis_map_context->ProcessPackets(0);
+        } else {
+            uint32_t tick = GetTickCount();
+            if (tick - idle_tick > 62) {
+                g_Server->PumpNetwork();
+                mwnd->vis_map_context->ProcessPackets(0);
+                idle_tick = tick;
+            }
+        }
 
-		if (mwnd->has_focus != 0) {
-			mwnd->vis_root->MsgProc(VIS_MSG_FRAME_TICK, 0, 0);
-		}
+        if (mwnd->has_focus != 0) {
+            mwnd->vis_root->MsgProc(VIS_MSG_FRAME_TICK, 0, 0);
+        }
 
-		g_mousept.Update();
-	} else {
-		if (mwnd->serverBootstrapEnabled == 0) {
-			mwnd->RemoteGameIdle();
-		} else if ((mwnd->dialogsMask & DIALOG_MASK_INGAME) != 0 && (mwnd->sessionMode != SESSION_LOCAL_BATTLE || (mwnd->dialogsMask & (DIALOG_MASK_FAME_HALL_DOC | DIALOG_MASK_POPUP)) == 0)) {
-			if (mwnd->unlimited_speed == 0) {
-				mwnd->SingleGameTimedIdle();
-			} else {
-				mwnd->SingleGameIdle();
-			}
-		}
-	}
-	g_NetStru1_local.ProcessConnections();
-	g_NetStru1_main.ProcessConnections();
-	g_mousept.Update();
+        g_mousept.Update();
+    } else {
+        if (mwnd->serverBootstrapEnabled == 0) {
+            mwnd->RemoteGameIdle();
+        } else if ((mwnd->dialogsMask & DIALOG_MASK_INGAME) != 0 && (mwnd->sessionMode != SESSION_LOCAL_BATTLE || (mwnd->dialogsMask & (DIALOG_MASK_FAME_HALL_DOC | DIALOG_MASK_POPUP)) == 0)) {
+            if (mwnd->unlimited_speed == 0) {
+                mwnd->SingleGameTimedIdle();
+            } else {
+                mwnd->SingleGameIdle();
+            }
+        }
+    }
+    g_NetStru1_local.ProcessConnections();
+    g_NetStru1_main.ProcessConnections();
+    g_mousept.Update();
 
-	mwnd->vis_root->MsgProc(VIS_MSG_CURSOR_BLINK, 0, 0);
+    mwnd->vis_root->MsgProc(VIS_MSG_CURSOR_BLINK, 0, 0);
 
-	return 1;
+    return 1;
 }
 
 int GameApp::ExitInstance() { //4833f1
 #if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
-	Config::ExitingCleanly = true;
-	tangar_ctl::StopControlThread();
+    Config::ExitingCleanly = true;
+    tangar_ctl::StopControlThread();
 #endif
-	if (g_EnableTrace != 0) {
-		g_NetStru1_main.WriteStatsLog("pkt.log");
-	}
+    if (g_EnableTrace != 0) {
+        g_NetStru1_main.WriteStatsLog("pkt.log");
+    }
 
-	CloseHandle(g_AutoRunEvent);
+    CloseHandle(g_AutoRunEvent);
 
-	txt_patch.Free();
-	txt_tunes.Free();
-	txt_cutpaths.Free();
-	txt_cutscene.Free();
-	txt_npcnames.Free();
-	g_GlobalMapLocationHints.Free();
-	txt_itemname.Free();
-	txt_building.Free();
-	txt_unitname.Free();
-	txt_dialogs.Free();
-	txt_spell.Free();
-	txt_spells.Free();
-	txt_stats.Free();
-	txt_heropicture.Free();
-	txt_main.Free();
+    txt_patch.Free();
+    txt_tunes.Free();
+    txt_cutpaths.Free();
+    txt_cutscene.Free();
+    txt_npcnames.Free();
+    g_GlobalMapLocationHints.Free();
+    txt_itemname.Free();
+    txt_building.Free();
+    txt_unitname.Free();
+    txt_dialogs.Free();
+    txt_spell.Free();
+    txt_spells.Free();
+    txt_stats.Free();
+    txt_heropicture.Free();
+    txt_main.Free();
 
-	UnloadGraphics();
-	FreeDSound();
-	FreeFontData();
-	DeleteCursors();
-	FreeDDraw();
-	FreeBrightnessLookup();
+    UnloadGraphics();
+    FreeDSound();
+    FreeFontData();
+    DeleteCursors();
+    FreeDDraw();
+    FreeBrightnessLookup();
 
-	char path[256];
-	GetTempPathA(sizeof(path), path);
+    char path[256];
+    GetTempPathA(sizeof(path), path);
 
-	CString fpath = path;
-	fpath += A2CLIENT_PATCH_ENABLED ? "" : "allods-2-*.$$$";
-	if (A2CLIENT_PATCH_ENABLED) { fpath.AppendFormat("allods-%u-*.$$$", GetCurrentProcessId()); }
+    CString fpath = path;
+    fpath += A2CLIENT_PATCH_ENABLED ? "" : "allods-2-*.$$$";
+    if (A2CLIENT_PATCH_ENABLED) { fpath.AppendFormat("allods-%u-*.$$$", GetCurrentProcessId()); }
 
-	WIN32_FIND_DATAA fnd;
-	HANDLE fhndl = FindFirstFileA(fpath, &fnd);
-	if (fhndl != INVALID_HANDLE_VALUE) {
-		while (true) {
-			fpath = path;
-			fpath += fnd.cFileName;
+    WIN32_FIND_DATAA fnd;
+    HANDLE fhndl = FindFirstFileA(fpath, &fnd);
+    if (fhndl != INVALID_HANDLE_VALUE) {
+        while (true) {
+            fpath = path;
+            fpath += fnd.cFileName;
 
-			DeleteFileA(fpath);
+            DeleteFileA(fpath);
 
-			if (FindNextFileA(fhndl, &fnd) == 0) {
-				break;
-			}
-		}
-	}
-	FindClose(fhndl);
+            if (FindNextFileA(fhndl, &fnd) == 0) {
+                break;
+            }
+        }
+    }
+    FindClose(fhndl);
 
-	return CWinApp::ExitInstance();
+    return CWinApp::ExitInstance();
 }
 
 
 
 int IsLateCampaignMission() { //497490
-	return ScenarioGetVar(0x300) > 0x77;
+    return ScenarioGetVar(0x300) > 0x77;
 }
 
 
 void SrandInit() { //5421e9
-	srand(timeGetTime());
+    srand(timeGetTime());
 }
 
 // 5421FD
@@ -1134,7 +1134,7 @@ Item* __cdecl RollItemInPriceRange(CString category, int32_t min_price, int32_t 
     }
 
     int32_t attempts = 0;
-	int32_t shape_id, material_id, item_data_id;
+    int32_t shape_id, material_id, item_data_id;
 
     if (category == "Weapon") {
         while (true) {
@@ -1242,111 +1242,111 @@ Item* __cdecl RollRandomItem(int32_t level, int32_t max_gold) {
 
 
 int32_t __cdecl AppGetWorkingDir(int maxchar, char* buf) { //4761dd
-	int ln = strlen(g_WorkingDir);
-	if (ln > maxchar) {
-		ln = maxchar;
-	}
+    int ln = strlen(g_WorkingDir);
+    if (ln > maxchar) {
+        ln = maxchar;
+    }
 
-	strncpy(buf, g_WorkingDir, ln);
-	buf[ln] = 0;
-	return ln;
+    strncpy(buf, g_WorkingDir, ln);
+    buf[ln] = 0;
+    return ln;
 }
 
 int __cdecl AppHasAnySaveFile() { // 440d96
-	char buf[260];
-	AppGetWorkingDir(260 - 1, buf);
+    char buf[260];
+    AppGetWorkingDir(260 - 1, buf);
 
-	strcat(buf, "\\game*.sav");
+    strcat(buf, "\\game*.sav");
 
-	_WIN32_FIND_DATAA fnd;
-	HANDLE hFindFile = FindFirstFileA(buf, &fnd);
-	if (hFindFile == INVALID_HANDLE_VALUE) {
-		return 0;
-	}
+    _WIN32_FIND_DATAA fnd;
+    HANDLE hFindFile = FindFirstFileA(buf, &fnd);
+    if (hFindFile == INVALID_HANDLE_VALUE) {
+        return 0;
+    }
 
-	FindClose(hFindFile);
-	return 1;
+    FindClose(hFindFile);
+    return 1;
 }
 
 int __cdecl SaveListCompare(const void* data1, const void* data2) { // 43ea5b
-	return CompareFileTime(&((WIN32_FIND_DATAA*)data1)->ftLastWriteTime, &((WIN32_FIND_DATAA*)data2)->ftLastWriteTime);
+    return CompareFileTime(&((WIN32_FIND_DATAA*)data1)->ftLastWriteTime, &((WIN32_FIND_DATAA*)data2)->ftLastWriteTime);
 }
 
 void __cdecl AppFindSavesList(CArray<WIN32_FIND_DATAA>* list, int p) { //43eaa0
-	char buf[260];
-	AppGetWorkingDir(260 - 1, buf);
+    char buf[260];
+    AppGetWorkingDir(260 - 1, buf);
 
-	strcat(buf, "\\game*.sav");
-	_WIN32_FIND_DATAA fnd;
-	HANDLE hFindFile = FindFirstFileA(buf, &fnd);
-	if (hFindFile == INVALID_HANDLE_VALUE) {
-		return;
-	}
+    strcat(buf, "\\game*.sav");
+    _WIN32_FIND_DATAA fnd;
+    HANDLE hFindFile = FindFirstFileA(buf, &fnd);
+    if (hFindFile == INVALID_HANDLE_VALUE) {
+        return;
+    }
 
-	while (true) {
-		if ((fnd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) == 0) {
-			if (p == 0) {
-				if (strcmp(fnd.cFileName, "game9999.sav") != 0 && strcmp(fnd.cFileName, "game9998.sav") != 0) {
-					list->Add(fnd);
-				}
-			} else {
-				list->Add(fnd);
-			}
-		}
+    while (true) {
+        if ((fnd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) == 0) {
+            if (p == 0) {
+                if (strcmp(fnd.cFileName, "game9999.sav") != 0 && strcmp(fnd.cFileName, "game9998.sav") != 0) {
+                    list->Add(fnd);
+                }
+            } else {
+                list->Add(fnd);
+            }
+        }
 
-		if (FindNextFileA(hFindFile, &fnd) == 0) {
-			break;
-		}
-	}
-	FindClose(hFindFile);
+        if (FindNextFileA(hFindFile, &fnd) == 0) {
+            break;
+        }
+    }
+    FindClose(hFindFile);
 
-	
-	if (list->GetSize() != 0) {
-		qsort(list->GetData(), list->GetSize(), sizeof(WIN32_FIND_DATAA), SaveListCompare);
-	}
+    
+    if (list->GetSize() != 0) {
+        qsort(list->GetData(), list->GetSize(), sizeof(WIN32_FIND_DATAA), SaveListCompare);
+    }
 
 }
 
 
 void LogWarning(const CString& msg) { //59b753
-	CString str("WARNING! : ");
-	str += msg;
-	if (g_Server->multiplayer == 0) {
-		g_NetStru1_main.AnnouncePlayerName(str, nullptr);
-	} else {
-		LogMessage(str);
-	}
+    CString str("WARNING! : ");
+    str += msg;
+    if (g_Server->multiplayer == 0) {
+        g_NetStru1_main.AnnouncePlayerName(str, nullptr);
+    } else {
+        LogMessage(str);
+    }
 }
 
 #if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
 // 5EB49E imp_LocalMessageBox hook (OnLocalMessageBox): suppress modal AfxMessageBox
 // popups on the server and log them via Tangar Printf instead.
 int GameApp::DoMessageBox(LPCTSTR lpszPrompt, UINT /*nType*/, UINT /*nIDPrompt*/) {
-	Printf("Error: %s", lpszPrompt != nullptr ? lpszPrompt : "");
-	tangar_crash::WriteDiagnostic(lpszPrompt != nullptr ? lpszPrompt : "MFC error box");
-	return IDOK;
+    Printf("Error: %s", lpszPrompt != nullptr ? lpszPrompt : "");
+    tangar_crash::WriteDiagnostic(lpszPrompt != nullptr ? lpszPrompt : "MFC error box");
+    return IDOK;
 }
 #endif
 
 // 5e64bd - MFC AfxWinMain; the _a2WinMain@16 stdcall thunk (5d9d58) is folded in
 extern "C" int32_t WINAPI a2WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int32_t nShowCmd) {
-	int32_t exitCode = -1;
+    int32_t exitCode = -1;
 
-	CWinApp* pApp = AfxGetModuleState()->m_pCurrentWinApp;
+    CWinApp* pApp = AfxGetModuleState()->m_pCurrentWinApp;
 
-	if (AfxWinInit(hInstance, hPrevInstance, lpCmdLine, nShowCmd)) {
-		if (pApp->InitApplication()) {
-			if (pApp->InitInstance()) {
-				exitCode = pApp->Run();
-			} else {
-				if (pApp->m_pMainWnd != nullptr) {
-					pApp->m_pMainWnd->DestroyWindow();
-				}
-				exitCode = pApp->ExitInstance();
-			}
-		}
-	}
+    if (AfxWinInit(hInstance, hPrevInstance, lpCmdLine, nShowCmd)) {
+        if (pApp->InitApplication()) {
+            if (pApp->InitInstance()) {
+                exitCode = pApp->Run();
+            } else {
+                if (pApp->m_pMainWnd != nullptr) {
+                    pApp->m_pMainWnd->DestroyWindow();
+                }
+                exitCode = pApp->ExitInstance();
+            }
+        }
+    }
 
-	AfxWinTerm();
-	return exitCode;
+    AfxWinTerm();
+    return exitCode;
 }

@@ -157,17 +157,17 @@ void FillDeformedGrey(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2
 
 
 inline uint32_t GetColorRGB(uint8_t r, uint8_t g, uint8_t b) {
-	return ((r >> (8 - g_RBits)) << g_RBitShift) | ((g >> (8 - g_GBits)) << g_GBitShift) | ((b >> (8 - g_BBits)) << g_BBitShift);
+    return ((r >> (8 - g_RBits)) << g_RBitShift) | ((g >> (8 - g_GBits)) << g_GBitShift) | ((b >> (8 - g_BBits)) << g_BBitShift);
 }
 
 
 
 namespace shadow_level {
 enum : int32_t {
-	disabled      = 3,
-	char_selected = 8,
-	list_selected = 10,
-	text_select   = 12,
+    disabled      = 3,
+    char_selected = 8,
+    list_selected = 10,
+    text_select   = 12,
 };
 } // namespace shadow_level
 
@@ -216,16 +216,16 @@ extern IDirectDraw* g_ddraw; //659bec
 
 
 struct ColorThing {
-	uint8_t r;
-	uint8_t g;
-	uint8_t b;
-	uint8_t __pd1;
-	int32_t brightness;
-	int32_t contrast;
-	int32_t shade_delta;
-	int32_t lit_delta;
-	int32_t __pd2;
-	double sun_angle;
+    uint8_t r;
+    uint8_t g;
+    uint8_t b;
+    uint8_t __pd1;
+    int32_t brightness;
+    int32_t contrast;
+    int32_t shade_delta;
+    int32_t lit_delta;
+    int32_t __pd2;
+    double sun_angle;
 };
 ASSERT_SIZE(ColorThing, 0x20);
 
@@ -235,284 +235,284 @@ extern ColorThing g_DeltaCLR; //660e28
 
 class CGameFont : public CObject {
 public:
-	enum AlignFlags : uint32_t {
-		ALIGN_LEFT_TOP = 0,
-		ALIGN_RIGHT    = 0x01,
-		ALIGN_HCENTER  = 0x02,
-		ALIGN_BOTTOM   = 0x04,
-		ALIGN_VCENTER  = 0x08,
-		ALIGN_CENTER   = ALIGN_HCENTER | ALIGN_VCENTER,
-	};
+    enum AlignFlags : uint32_t {
+        ALIGN_LEFT_TOP = 0,
+        ALIGN_RIGHT    = 0x01,
+        ALIGN_HCENTER  = 0x02,
+        ALIGN_BOTTOM   = 0x04,
+        ALIGN_VCENTER  = 0x08,
+        ALIGN_CENTER   = ALIGN_HCENTER | ALIGN_VCENTER,
+    };
 
-	virtual ~CGameFont();  // client: 461d19
+    virtual ~CGameFont();  // client: 461d19
 
-	virtual void DrawTxt(int32_t x, int32_t y, const char* txt, uint32_t align, uint16_t* colosh);  // client: 464b40
-	virtual uint16_t* GetShadowColors();  // client: 464b50
+    virtual void DrawTxt(int32_t x, int32_t y, const char* txt, uint32_t align, uint16_t* colosh);  // client: 464b40
+    virtual uint16_t* GetShadowColors();  // client: 464b50
 
 public:
-	CGameFont();  // client: 461cf0
-	void DrawTextWithShadow(int32_t x, int32_t y, const char* txt, uint32_t align, uint16_t* colorsh, int32_t shadow_dxy);  // client: 4627f6
+    CGameFont();  // client: 461cf0
+    void DrawTextWithShadow(int32_t x, int32_t y, const char* txt, uint32_t align, uint16_t* colorsh, int32_t shadow_dxy);  // client: 4627f6
 
-	int32_t GetStrWidth(const char* str); //45e1f9 (client: 461e19)
+    int32_t GetStrWidth(const char* str); //45e1f9 (client: 461e19)
 
-	int32_t GetHeight(); //402a90 (client: 402860)
+    int32_t GetHeight(); //402a90 (client: 402860)
 
-	CStringArray& StrToArray(const char* str); //45e959 (client: 462575)  internal
-	CStringArray& StrSplitToFitWidth(const CRect& r, const char* str); //45e35f (client: 461f7b)  internal
+    CStringArray& StrToArray(const char* str); //45e959 (client: 462575)  internal
+    CStringArray& StrSplitToFitWidth(const CRect& r, const char* str); //45e35f (client: 461f7b)  internal
 
-	CStringArray& StringArrayForRect(const CRect& r, const char* str); //45eb1d (client: 462739)
-	void DrawTextLinesShadow(const CRect& r, int32_t first, int32_t last, const CStringArray& lines, uint16_t *clr, int32_t dy); //45f6c2 (client: 4632dd)
-	void DrawTextLines(const CRect& r, int32_t first, int32_t last, const CStringArray& lines, uint16_t* clr, int32_t dy); //45f33e (client: 462f5a)
+    CStringArray& StringArrayForRect(const CRect& r, const char* str); //45eb1d (client: 462739)
+    void DrawTextLinesShadow(const CRect& r, int32_t first, int32_t last, const CStringArray& lines, uint16_t *clr, int32_t dy); //45f6c2 (client: 4632dd)
+    void DrawTextLines(const CRect& r, int32_t first, int32_t last, const CStringArray& lines, uint16_t* clr, int32_t dy); //45f33e (client: 462f5a)
 
-	void DrawTextJustifyInRectShadow(const CRect& r, const char* str, uint16_t* clr, int32_t dy); //45ed37 (client: 46284f)
+    void DrawTextJustifyInRectShadow(const CRect& r, const char* str, uint16_t* clr, int32_t dy); //45ed37 (client: 46284f)
 
-	void DrawTextJustifyShadow(int32_t x, int32_t y, int32_t w, CString txt, uint16_t* clr); //45f10b (client: 462d27)
-	void DrawTextJustify(int32_t x, int32_t y, int32_t w, CString txt, uint16_t* clr); //45eed7 (client: 462af3)
+    void DrawTextJustifyShadow(int32_t x, int32_t y, int32_t w, CString txt, uint16_t* clr); //45f10b (client: 462d27)
+    void DrawTextJustify(int32_t x, int32_t y, int32_t w, CString txt, uint16_t* clr); //45eed7 (client: 462af3)
 public:
-	CGameBitmap* bitmap;
-	int32_t* char_widths;
-	int32_t space;
+    CGameBitmap* bitmap;
+    int32_t* char_widths;
+    int32_t space;
 };
 
 ASSERT_SIZE(CGameFont, 0x10);
 
 
 class CGamePalette : public CObject {
-	DECLARE_DYNAMIC(CGamePalette);
+    DECLARE_DYNAMIC(CGamePalette);
 public:
-	virtual ~CGamePalette(); //423c6d (client: 425b9d)
-	virtual void Dump(CDumpContext& dc) const override;  // client: 4264d7
+    virtual ~CGamePalette(); //423c6d (client: 425b9d)
+    virtual void Dump(CDumpContext& dc) const override;  // client: 4264d7
 
-	void operator=(const CGamePalette& b);
+    void operator=(const CGamePalette& b);
 
-	CGamePalette() = default; // 423bdf (client: 425b0f)
-	void Free();  // client: 4264aa
-	void SetPalette(RGBQUAD* rgb, uint32_t count, int mode, int useColor); //423cbe (client: 425bee)
-	uint16_t* GetPalette(int32_t idx); //41ec40 (client: 420440)
+    CGamePalette() = default; // 423bdf (client: 425b0f)
+    void Free();  // client: 4264aa
+    void SetPalette(RGBQUAD* rgb, uint32_t count, int mode, int useColor); //423cbe (client: 425bee)
+    uint16_t* GetPalette(int32_t idx); //41ec40 (client: 420440)
 
 public:
-	uint32_t count = 0;
-	uint16_t* colors = nullptr;
+    uint32_t count = 0;
+    uint16_t* colors = nullptr;
 };
 
 ASSERT_SIZE(CGamePalette, 0xC);
 
 struct BmpFrame {
-	uint32_t width;
-	uint32_t height;
-	uint8_t data[];
+    uint32_t width;
+    uint32_t height;
+    uint8_t data[];
 };
 ASSERT_SIZE(BmpFrame, 8);
 
 struct SpriteFrame {
-	uint32_t width;
-	uint32_t height;
-	uint32_t datasize;
-	uint8_t data[];
+    uint32_t width;
+    uint32_t height;
+    uint32_t datasize;
+    uint8_t data[];
 };
 ASSERT_SIZE(SpriteFrame, 0xc);
 
 struct SpriteTrailer {
-	union {
-		uint32_t raw;
-		struct {
-			uint32_t frames_count : 31; // [30:0] 0x7FFFFFFF: frame count
-			uint32_t has_palette  : 1;  // [31]   0x80000000: 256-entry RGBQUAD palette precedes frame data
-		};
-	};
+    union {
+        uint32_t raw;
+        struct {
+            uint32_t frames_count : 31; // [30:0] 0x7FFFFFFF: frame count
+            uint32_t has_palette  : 1;  // [31]   0x80000000: 256-entry RGBQUAD palette precedes frame data
+        };
+    };
 
-	constexpr SpriteTrailer(uint32_t v = 0) : raw(v) {}
-	constexpr operator uint32_t() const { return this->raw; }
+    constexpr SpriteTrailer(uint32_t v = 0) : raw(v) {}
+    constexpr operator uint32_t() const { return this->raw; }
 };
 ASSERT_SIZE(SpriteTrailer, 4);
 
 struct Rle8Cmd {
-	enum Op : uint8_t {
-		OP_PIXELS      = 0, // 0x00: run of `count` source pixels (or nibble pairs in Rle4)
-		OP_SKIP_LINES  = 1, // 0x40: advance down `count` scanlines
-		OP_SKIP_PIXELS = 2, // 0x80: skip `count` transparent pixels horizontally
-	};
+    enum Op : uint8_t {
+        OP_PIXELS      = 0, // 0x00: run of `count` source pixels (or nibble pairs in Rle4)
+        OP_SKIP_LINES  = 1, // 0x40: advance down `count` scanlines
+        OP_SKIP_PIXELS = 2, // 0x80: skip `count` transparent pixels horizontally
+    };
 
-	union {
-		uint8_t raw;
-		struct {
-			uint8_t count : 6; // [5:0] 0x3F
-			uint8_t op    : 2; // [7:6] 0xC0 (Op)
-		};
-	};
+    union {
+        uint8_t raw;
+        struct {
+            uint8_t count : 6; // [5:0] 0x3F
+            uint8_t op    : 2; // [7:6] 0xC0 (Op)
+        };
+    };
 
-	constexpr Rle8Cmd(uint8_t v = 0) : raw(v) {}
-	constexpr operator uint8_t() const { return this->raw; }
+    constexpr Rle8Cmd(uint8_t v = 0) : raw(v) {}
+    constexpr operator uint8_t() const { return this->raw; }
 };
 ASSERT_SIZE(Rle8Cmd, 1);
 
 struct Rle16Cmd {
-	enum Op : uint16_t {
-		OP_PIXELS      = 0, // 0x0000: run of `count` Rle16Pixel entries
-		OP_SKIP_LINES  = 1, // 0x4000: advance down `count` scanlines
-		OP_SKIP_PIXELS = 2, // 0x8000: skip `count` transparent pixels horizontally
-	};
+    enum Op : uint16_t {
+        OP_PIXELS      = 0, // 0x0000: run of `count` Rle16Pixel entries
+        OP_SKIP_LINES  = 1, // 0x4000: advance down `count` scanlines
+        OP_SKIP_PIXELS = 2, // 0x8000: skip `count` transparent pixels horizontally
+    };
 
-	union {
-		uint16_t raw;
-		struct {
-			uint16_t count : 14; // [13:0]  0x3FFF
-			uint16_t op    : 2;  // [15:14] 0xC000 (Op)
-		};
-	};
+    union {
+        uint16_t raw;
+        struct {
+            uint16_t count : 14; // [13:0]  0x3FFF
+            uint16_t op    : 2;  // [15:14] 0xC000 (Op)
+        };
+    };
 
-	constexpr Rle16Cmd(uint16_t v = 0) : raw(v) {}
-	constexpr operator uint16_t() const { return this->raw; }
+    constexpr Rle16Cmd(uint16_t v = 0) : raw(v) {}
+    constexpr operator uint16_t() const { return this->raw; }
 };
 ASSERT_SIZE(Rle16Cmd, 2);
 
 struct Rle16Pixel {
-	union {
-		uint16_t raw;
-		struct {
-			uint16_t unused_lsb  : 1; // [0]     0 (word byte-offset alignment)
-			uint16_t color_index : 8; // [8:1]   palette entry (0..255)
-			uint16_t alpha_level : 4; // [12:9]  0x1E00: destination shade/alpha level (0..15)
-			uint16_t unused_high : 3; // [15:13]
-		};
-		struct {
-			uint16_t align_bit   : 1;  // [0]
-			uint16_t clut_index  : 15; // [15:1]  (alpha_level << 8) | color_index == raw / 2
-		};
-	};
+    union {
+        uint16_t raw;
+        struct {
+            uint16_t unused_lsb  : 1; // [0]     0 (word byte-offset alignment)
+            uint16_t color_index : 8; // [8:1]   palette entry (0..255)
+            uint16_t alpha_level : 4; // [12:9]  0x1E00: destination shade/alpha level (0..15)
+            uint16_t unused_high : 3; // [15:13]
+        };
+        struct {
+            uint16_t align_bit   : 1;  // [0]
+            uint16_t clut_index  : 15; // [15:1]  (alpha_level << 8) | color_index == raw / 2
+        };
+    };
 
-	constexpr Rle16Pixel(uint16_t v = 0) : raw(v) {}
-	constexpr operator uint16_t() const { return this->raw; }
+    constexpr Rle16Pixel(uint16_t v = 0) : raw(v) {}
+    constexpr operator uint16_t() const { return this->raw; }
 };
 ASSERT_SIZE(Rle16Pixel, 2);
 
 
 class CGameBitmap : public CObject {
-	DECLARE_DYNAMIC(CGameBitmap);
+    DECLARE_DYNAMIC(CGameBitmap);
 public:
-	virtual ~CGameBitmap();  // client: 42689a
-	virtual void Dump(CDumpContext& dc) const override;  // client: 426c6d
+    virtual ~CGameBitmap();  // client: 42689a
+    virtual void Dump(CDumpContext& dc) const override;  // client: 426c6d
 
-	virtual void DrawWithPalette(int32_t x, int32_t y, int frame, int palid, CGamePalette* ppalette, int mode);  // client: 42a820
-	virtual void Draw(int32_t x, int32_t y, int frame, int mode, int palid);  // client: 42a810
-	virtual void DrawBrightened(int32_t x, int32_t y, int frame, int blevel, int mode);  // client: 42a830
-	virtual int32_t GetWidth(int frame = 0);  // client: 426c16
-	virtual int32_t GetHeight(int frame = 0);  // client: 426c41
-	virtual void SelectBitmapForDraw();  // client: 426c87
-	virtual void FlipVertical();  // client: 42a840
-	virtual int GetPixelSize();  // client: 42a850
+    virtual void DrawWithPalette(int32_t x, int32_t y, int frame, int palid, CGamePalette* ppalette, int mode);  // client: 42a820
+    virtual void Draw(int32_t x, int32_t y, int frame, int mode, int palid);  // client: 42a810
+    virtual void DrawBrightened(int32_t x, int32_t y, int frame, int blevel, int mode);  // client: 42a830
+    virtual int32_t GetWidth(int frame = 0);  // client: 426c16
+    virtual int32_t GetHeight(int frame = 0);  // client: 426c41
+    virtual void SelectBitmapForDraw();  // client: 426c87
+    virtual void FlipVertical();  // client: 42a840
+    virtual int GetPixelSize();  // client: 42a850
 
 
-	CGameBitmap();
-	CGameBitmap(const char* fname);  // client: 4264f1
-	CGameBitmap(const CGameBitmap& source);  // client: 42672d
+    CGameBitmap();
+    CGameBitmap(const char* fname);  // client: 4264f1
+    CGameBitmap(const CGameBitmap& source);  // client: 42672d
 
-	void* GetData();  // client: 420460
-	void ResetPalette(uint32_t count, int mode, int useColor);  // client: 426be0
+    void* GetData();  // client: 420460
+    void ResetPalette(uint32_t count, int mode, int useColor);  // client: 426be0
 
-	int32_t GetFrameCount(); //4387f0 (client: 43ae10)
+    int32_t GetFrameCount(); //4387f0 (client: 43ae10)
 
 public:
-	uint32_t frames_count = 0;
-	uint32_t data_size = 0;
-	void** frames = nullptr;
-	uint8_t* pdata = nullptr;
-	CGamePalette palette;
-	uint8_t* palette_data = nullptr;
+    uint32_t frames_count = 0;
+    uint32_t data_size = 0;
+    void** frames = nullptr;
+    uint8_t* pdata = nullptr;
+    CGamePalette palette;
+    uint8_t* palette_data = nullptr;
 };
 
 ASSERT_SIZE(CGameBitmap, 0x24);
 
 
 class CBmp256 : public CGameBitmap {
-	DECLARE_DYNAMIC(CBmp256);
+    DECLARE_DYNAMIC(CBmp256);
 public:
-	virtual ~CBmp256();  // client: 42aba0
-	virtual void Dump(CDumpContext& dc) const override;  // client: 4283c8
+    virtual ~CBmp256();  // client: 42aba0
+    virtual void Dump(CDumpContext& dc) const override;  // client: 4283c8
 
-	virtual void Draw(int32_t x, int32_t y, int frame, int mode, int palid) override;  // client: 42830d
-	virtual int32_t GetWidth(int frame = 0) override;  // client: 4283ee
-	virtual int32_t GetHeight(int frame = 0) override;  // client: 428403
-	virtual void FlipVertical() override;  // client: 4280d4
-	virtual int GetPixelSize() override;  // client: 42ab60
+    virtual void Draw(int32_t x, int32_t y, int frame, int mode, int palid) override;  // client: 42830d
+    virtual int32_t GetWidth(int frame = 0) override;  // client: 4283ee
+    virtual int32_t GetHeight(int frame = 0) override;  // client: 428403
+    virtual void FlipVertical() override;  // client: 4280d4
+    virtual int GetPixelSize() override;  // client: 42ab60
 
-	virtual void DrawSubRect(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b, int palid);  // client: 4282b3
-	virtual void DrawSubRectAdd(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b, int palid);  // client: 42836e
+    virtual void DrawSubRect(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b, int palid);  // client: 4282b3
+    virtual void DrawSubRectAdd(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b, int palid);  // client: 42836e
 
-	CBmp256(const char* fname);  // client: 427eba
-	CBmp256(uint32_t w, uint32_t h);  // client: 4281ff
+    CBmp256(const char* fname);  // client: 427eba
+    CBmp256(uint32_t w, uint32_t h);  // client: 4281ff
 };
 
 
 class CBmp64 : public CGameBitmap {
-	DECLARE_DYNAMIC(CBmp64);
+    DECLARE_DYNAMIC(CBmp64);
 public:
-	virtual ~CBmp64();  // client: 42ab40
-	virtual void Dump(CDumpContext& dc) const override;  // client: 427e69
+    virtual ~CBmp64();  // client: 42ab40
+    virtual void Dump(CDumpContext& dc) const override;  // client: 427e69
 
-	virtual void Draw(int32_t x, int32_t y, int frame, int mode, int palid) override;  // client: 427d3a
-	virtual int32_t GetWidth(int frame = 0) override;  // client: 427e8f
-	virtual int32_t GetHeight(int frame = 0) override;  // client: 427ea4
-	virtual void FlipVertical() override;  // client: 427c09
+    virtual void Draw(int32_t x, int32_t y, int frame, int mode, int palid) override;  // client: 427d3a
+    virtual int32_t GetWidth(int frame = 0) override;  // client: 427e8f
+    virtual int32_t GetHeight(int frame = 0) override;  // client: 427ea4
+    virtual void FlipVertical() override;  // client: 427c09
 
-	virtual void DrawSubRect(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b);  // client: 427d8b
-	virtual void DrawSubRectMasked(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b);  // client: 427dd5
-	virtual void DrawSubRectAdd(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b);  // client: 427e1f
+    virtual void DrawSubRect(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b);  // client: 427d8b
+    virtual void DrawSubRectMasked(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b);  // client: 427dd5
+    virtual void DrawSubRectAdd(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b);  // client: 427e1f
 
 
-	CBmp64(const char* fname);  // client: 42769b
-	CBmp64(uint32_t w, uint32_t h);  // client: 4278ac
+    CBmp64(const char* fname);  // client: 42769b
+    CBmp64(uint32_t w, uint32_t h);  // client: 4278ac
 
-	void LoadFile(const char* fname, CGameBitmap* bmp2 = nullptr);  // client: 427945
-	void WriteFile(const char* fname, CGameBitmap* bmp2 = nullptr);  // client: 427ac3
+    void LoadFile(const char* fname, CGameBitmap* bmp2 = nullptr);  // client: 427945
+    void WriteFile(const char* fname, CGameBitmap* bmp2 = nullptr);  // client: 427ac3
 };
 
 class CSprite256 : public CGameBitmap {
-	DECLARE_DYNAMIC(CSprite256);
+    DECLARE_DYNAMIC(CSprite256);
 public:
-	virtual ~CSprite256();  // client: 42aaf0
-	virtual void Dump(CDumpContext& dc) const override;  // client: 427486
+    virtual ~CSprite256();  // client: 42aaf0
+    virtual void Dump(CDumpContext& dc) const override;  // client: 427486
 
-	virtual void DrawWithPalette(int32_t x, int32_t y, int frame, int palid, CGamePalette* ppalette, int mode) override;  // client: 427140
-	virtual void Draw(int32_t x, int32_t y, int frame, int palid, int mode) override;  // client: 427014
-	virtual void DrawBrightened(int32_t x, int32_t y, int frame, int blevel, int mode) override;  // client: 427260
+    virtual void DrawWithPalette(int32_t x, int32_t y, int frame, int palid, CGamePalette* ppalette, int mode) override;  // client: 427140
+    virtual void Draw(int32_t x, int32_t y, int frame, int palid, int mode) override;  // client: 427014
+    virtual void DrawBrightened(int32_t x, int32_t y, int frame, int blevel, int mode) override;  // client: 427260
 
-	virtual void DrawWithPaletteBlend(int32_t x, int32_t y, int frame, int palid, CGamePalette* ppalette, int mode);  // client: 4271d0
-	virtual void DrawBlend(int32_t x, int32_t y, int frame, int palid, int mode);  // client: 4270aa
-	virtual void DrawShadowed(int32_t x, int32_t y, int frame, int blevel, int32_t tilt, int mode);  // client: 427344
-	virtual void DrawIndexMask(int32_t x, int32_t y, int frame, uint32_t mv);  // client: 427438
+    virtual void DrawWithPaletteBlend(int32_t x, int32_t y, int frame, int palid, CGamePalette* ppalette, int mode);  // client: 4271d0
+    virtual void DrawBlend(int32_t x, int32_t y, int frame, int palid, int mode);  // client: 4270aa
+    virtual void DrawShadowed(int32_t x, int32_t y, int frame, int blevel, int32_t tilt, int mode);  // client: 427344
+    virtual void DrawIndexMask(int32_t x, int32_t y, int frame, uint32_t mv);  // client: 427438
 
-	CSprite256(const char* fname);  // client: 426da9
-	CSprite256(const CSprite256& b);  // client: 426fef
+    CSprite256(const char* fname);  // client: 426da9
+    CSprite256(const CSprite256& b);  // client: 426fef
 
 #ifdef A2CLIENT_PATCH
 protected:
-	// Patch subclasses (patch/itempng.h) construct without loading a .256 file.
-	CSprite256() = default;
+    // Patch subclasses (patch/itempng.h) construct without loading a .256 file.
+    CSprite256() = default;
 public:
 #endif
 };
 
 class CA16 : public CSprite256 {
-	DECLARE_DYNAMIC(CA16);
+    DECLARE_DYNAMIC(CA16);
 public:
-	virtual ~CA16() {}; //428ae0 (client: 42ac80)
+    virtual ~CA16() {}; //428ae0 (client: 42ac80)
 
-	virtual void Draw(int32_t x, int32_t y, int frame, int palid, int mode) override;  // client: 42a740
+    virtual void Draw(int32_t x, int32_t y, int frame, int palid, int mode) override;  // client: 42a740
 
-	CA16(const char* fname);
+    CA16(const char* fname);
 };
 
 class CSprite16 : public CGameBitmap {
-	DECLARE_DYNAMIC(CSprite16);
+    DECLARE_DYNAMIC(CSprite16);
 public:
-	virtual ~CSprite16() {}; //428950 (client: 4016a2)
-	virtual void Dump(CDumpContext& dc) const override {}; //424e2b (client: 426d5b)
+    virtual ~CSprite16() {}; //428950 (client: 4016a2)
+    virtual void Dump(CDumpContext& dc) const override {}; //424e2b (client: 426d5b)
 
-	virtual void DrawRle4(int32_t x, int32_t y, int frame, uint16_t* pcolor);  // client: 426d0d
+    virtual void DrawRle4(int32_t x, int32_t y, int frame, uint16_t* pcolor);  // client: 426d0d
 
 
-	CSprite16(const char* fname);
+    CSprite16(const char* fname);
 };
 
 
@@ -521,23 +521,23 @@ public:
 //CSprite16 based
 class CSpriteFont16 : public CGameFont {
 public:
-	virtual ~CSpriteFont16() {}; //460fb0 (client: 4016a2)
-	virtual void DrawTxt(int32_t x, int32_t y, const char* txt, uint32_t align, uint16_t* clr) override;  // client: 463bbd
-	virtual uint16_t* GetShadowColors() override; //45fdf2 (client: 463a06)
+    virtual ~CSpriteFont16() {}; //460fb0 (client: 4016a2)
+    virtual void DrawTxt(int32_t x, int32_t y, const char* txt, uint32_t align, uint16_t* clr) override;  // client: 463bbd
+    virtual uint16_t* GetShadowColors() override; //45fdf2 (client: 463a06)
 
 public:
-	CSpriteFont16(const char* fname, int32_t _space);  // client: 46365e
+    CSpriteFont16(const char* fname, int32_t _space);  // client: 46365e
 };
 
 //CA16 based
 class CSpriteFont16a : public CGameFont {
 public:
-	virtual ~CSpriteFont16a();  // client: 4016a2
-	virtual void DrawTxt(int32_t x, int32_t y, const char* txt, uint32_t align, uint16_t* colosh) override;  // client: 463bbd
-	virtual uint16_t* GetShadowColors() override;  // client: 463d18
+    virtual ~CSpriteFont16a();  // client: 4016a2
+    virtual void DrawTxt(int32_t x, int32_t y, const char* txt, uint32_t align, uint16_t* colosh) override;  // client: 463bbd
+    virtual uint16_t* GetShadowColors() override;  // client: 463d18
 
 public:
-	CSpriteFont16a(const char* fname, int32_t _space);  // client: 463a16
+    CSpriteFont16a(const char* fname, int32_t _space);  // client: 463a16
 };
 
 ASSERT_SIZE(CSpriteFont16a, 0x10);

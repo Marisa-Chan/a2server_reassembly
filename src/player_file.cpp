@@ -17,20 +17,20 @@
 
 
 void __cdecl DecryptEncryptedData(uint8_t* data, int32_t size, uint16_t key) { //4f535e
-	for (; size > 0; size--) {
-		*data ^= key;
-		data++;
-		key = (key << 1) | (key >> 15);
-	}
+    for (; size > 0; size--) {
+        *data ^= key;
+        data++;
+        key = (key << 1) | (key >> 15);
+    }
 }
 
 uint32_t __cdecl CalcChecksum(uint8_t* data, int32_t size) { //4f5308
-	uint32_t sum = 0;
-	for (; size > 0; size--) {
-		sum = (sum << 1) + *data;
-		data++;
-	}
-	return sum;
+    uint32_t sum = 0;
+    for (; size > 0; size--) {
+        sum = (sum << 1) + *data;
+        data++;
+    }
+    return sum;
 }
 
 
@@ -41,106 +41,106 @@ constexpr int32_t kKillStatsSize = 0x0A00;
 
 
 void WriteEncryptedSection(CFile& file, uint32_t tag, uint8_t* data, uint32_t size) {
-	PlayerFileSectionHeader header = {};
-	header.tag = tag;
-	header.size = size;
-	header.key = GetRandS16(0x7FFF);
-	header.checksum = CalcChecksum(data, size);
+    PlayerFileSectionHeader header = {};
+    header.tag = tag;
+    header.size = size;
+    header.key = GetRandS16(0x7FFF);
+    header.checksum = CalcChecksum(data, size);
 
-	DecryptEncryptedData(data, size, header.key);
-	file.Write(&header, sizeof(header));
-	file.Write(data, size);
+    DecryptEncryptedData(data, size, header.key);
+    file.Write(&header, sizeof(header));
+    file.Write(data, size);
 
     // What's the point of this? Remove the unencrypted bytes from memory?
-	DecryptEncryptedData(data, size, header.key);
+    DecryptEncryptedData(data, size, header.key);
 }
 
 uint8_t* GetPacketPayload(PacketUnitStateVec* packet) {
-	return reinterpret_cast<uint8_t*>(packet) + 0x0A;
+    return reinterpret_cast<uint8_t*>(packet) + 0x0A;
 }
 
 uint32_t GetPacketPayloadSize(const PacketUnitStateVec* packet) {
-	return packet->data_size + 9;
+    return packet->data_size + 9;
 }
 
 void MaybeWriteRandomByte(CFile& file, uint16_t key, uint16_t mask) {
-	if ((key & mask) == 0) {
-		return;
-	}
+    if ((key & mask) == 0) {
+        return;
+    }
 
-	uint8_t random_byte = GetRandS16(0xFF);
-	file.Write(&random_byte, sizeof(random_byte));
+    uint8_t random_byte = GetRandS16(0xFF);
+    file.Write(&random_byte, sizeof(random_byte));
 }
 
 void WriteStatsSection(CFile& file, FileSectionStats* stats) {
-	PlayerFileSectionHeader header = {};
-	header.tag = player_file::SEC_STATS;
-	header.key = GetRandS16(0x7FFF);
-	header.size = sizeof(FileSectionStats);
-	for (int32_t bit = 0; bit < 16; bit++) {
-		if ((header.key & (1u << bit)) != 0) {
-			header.size += 1;
-		}
-	}
-	header.checksum = CalcChecksum(reinterpret_cast<uint8_t*>(stats), sizeof(FileSectionStats));
+    PlayerFileSectionHeader header = {};
+    header.tag = player_file::SEC_STATS;
+    header.key = GetRandS16(0x7FFF);
+    header.size = sizeof(FileSectionStats);
+    for (int32_t bit = 0; bit < 16; bit++) {
+        if ((header.key & (1u << bit)) != 0) {
+            header.size += 1;
+        }
+    }
+    header.checksum = CalcChecksum(reinterpret_cast<uint8_t*>(stats), sizeof(FileSectionStats));
 
-	file.Write(&header, sizeof(header));
+    file.Write(&header, sizeof(header));
 
-	MaybeWriteRandomByte(file, header.key, 0x0001);
-	uint32_t monster_kills = stats->monster_kills ^ 0x01529251;
-	file.Write(&monster_kills, sizeof(monster_kills));
+    MaybeWriteRandomByte(file, header.key, 0x0001);
+    uint32_t monster_kills = stats->monster_kills ^ 0x01529251;
+    file.Write(&monster_kills, sizeof(monster_kills));
 
-	MaybeWriteRandomByte(file, header.key, 0x0002);
-	uint32_t player_kills = stats->player_kills - (stats->monster_kills * 5 + 0x13141516);
-	file.Write(&player_kills, sizeof(player_kills));
+    MaybeWriteRandomByte(file, header.key, 0x0002);
+    uint32_t player_kills = stats->player_kills - (stats->monster_kills * 5 + 0x13141516);
+    file.Write(&player_kills, sizeof(player_kills));
 
-	MaybeWriteRandomByte(file, header.key, 0x0004);
-	uint32_t frags = stats->frags - (stats->player_kills * 7 + 0x00ABCDEF);
-	file.Write(&frags, sizeof(frags));
+    MaybeWriteRandomByte(file, header.key, 0x0004);
+    uint32_t frags = stats->frags - (stats->player_kills * 7 + 0x00ABCDEF);
+    file.Write(&frags, sizeof(frags));
 
-	MaybeWriteRandomByte(file, header.key, 0x0008);
-	uint32_t deaths = stats->deaths ^ 0x17FF12AA;
-	file.Write(&deaths, sizeof(deaths));
+    MaybeWriteRandomByte(file, header.key, 0x0008);
+    uint32_t deaths = stats->deaths ^ 0x17FF12AA;
+    file.Write(&deaths, sizeof(deaths));
 
-	MaybeWriteRandomByte(file, header.key, 0x0010);
-	int32_t money = stats->money - (stats->monster_kills * 3 - 0x21524542);
-	file.Write(&money, sizeof(money));
+    MaybeWriteRandomByte(file, header.key, 0x0010);
+    int32_t money = stats->money - (stats->monster_kills * 3 - 0x21524542);
+    file.Write(&money, sizeof(money));
 
-	MaybeWriteRandomByte(file, header.key, 0x0020);
-	int8_t body = stats->body - (stats->money * 0x11 + stats->monster_kills * 0x13);
-	file.Write(&body, sizeof(body));
+    MaybeWriteRandomByte(file, header.key, 0x0020);
+    int8_t body = stats->body - (stats->money * 0x11 + stats->monster_kills * 0x13);
+    file.Write(&body, sizeof(body));
 
-	MaybeWriteRandomByte(file, header.key, 0x0040);
-	int8_t reaction = stats->reaction - stats->body * 3;
-	file.Write(&reaction, sizeof(reaction));
+    MaybeWriteRandomByte(file, header.key, 0x0040);
+    int8_t reaction = stats->reaction - stats->body * 3;
+    file.Write(&reaction, sizeof(reaction));
 
-	MaybeWriteRandomByte(file, header.key, 0x0080);
-	int8_t mind = stats->mind - (stats->body + stats->reaction * 5);
-	file.Write(&mind, sizeof(mind));
+    MaybeWriteRandomByte(file, header.key, 0x0080);
+    int8_t mind = stats->mind - (stats->body + stats->reaction * 5);
+    file.Write(&mind, sizeof(mind));
 
-	MaybeWriteRandomByte(file, header.key, 0x0100);
-	int8_t spirit = stats->spirit - (stats->body * 7 + stats->mind * 9);
-	file.Write(&spirit, sizeof(spirit));
+    MaybeWriteRandomByte(file, header.key, 0x0100);
+    int8_t spirit = stats->spirit - (stats->body * 7 + stats->mind * 9);
+    file.Write(&spirit, sizeof(spirit));
 
-	MaybeWriteRandomByte(file, header.key, 0x4000);
-	uint32_t spells = stats->spells + 0x10121974;
-	file.Write(&spells, sizeof(spells));
+    MaybeWriteRandomByte(file, header.key, 0x4000);
+    uint32_t spells = stats->spells + 0x10121974;
+    file.Write(&spells, sizeof(spells));
 
-	MaybeWriteRandomByte(file, header.key, 0x2000);
-	file.Write(&stats->active_spell, sizeof(stats->active_spell));
+    MaybeWriteRandomByte(file, header.key, 0x2000);
+    file.Write(&stats->active_spell, sizeof(stats->active_spell));
 
-	for (int32_t index = 0; index < 5; index++) {
-		MaybeWriteRandomByte(file, header.key, 0x200 << index);
+    for (int32_t index = 0; index < 5; index++) {
+        MaybeWriteRandomByte(file, header.key, 0x200 << index);
 
-		uint32_t encoded_exp = 0;
-		if (index == 0) {
-			encoded_exp = stats->experience[index] ^ 0xDADEDADE;
-		} else {
-			encoded_exp = stats->experience[index] + stats->experience[index - 1] * 0x771;
-		}
+        uint32_t encoded_exp = 0;
+        if (index == 0) {
+            encoded_exp = stats->experience[index] ^ 0xDADEDADE;
+        } else {
+            encoded_exp = stats->experience[index] + stats->experience[index - 1] * 0x771;
+        }
 
-		file.Write(&encoded_exp, sizeof(encoded_exp));
-	}
+        file.Write(&encoded_exp, sizeof(encoded_exp));
+    }
 }
 
 // Static buffers for ParsePlayerFile
@@ -154,161 +154,161 @@ uint32_t s_section_40a_size;
 uint8_t s_compressed_buf[kKillStatsSize];
 
 void MaybeSkipRandomByte(CFile& file, uint16_t key, uint16_t mask) {
-	if ((key & mask) != 0) {
-		uint8_t dummy;
-		file.Read(&dummy, 1);
-	}
+    if ((key & mask) != 0) {
+        uint8_t dummy;
+        file.Read(&dummy, 1);
+    }
 }
 
 bool ReadDecryptAndVerify(CFile& file, const PlayerFileSectionHeader& header, uint8_t* buffer) {
-	file.Read(buffer, header.size);
-	DecryptEncryptedData(buffer, header.size, header.key);
-	return CalcChecksum(buffer, header.size) == static_cast<int32_t>(header.checksum);
+    file.Read(buffer, header.size);
+    DecryptEncryptedData(buffer, header.size, header.key);
+    return CalcChecksum(buffer, header.size) == static_cast<int32_t>(header.checksum);
 }
 
 bool ReadStatsSection(CFile& file, const PlayerFileSectionHeader& header) {
-	MaybeSkipRandomByte(file, header.key, 0x0001);
-	file.Read(&s_stats_buf.monster_kills, 4);
-	s_stats_buf.monster_kills ^= 0x01529251;
+    MaybeSkipRandomByte(file, header.key, 0x0001);
+    file.Read(&s_stats_buf.monster_kills, 4);
+    s_stats_buf.monster_kills ^= 0x01529251;
 
-	MaybeSkipRandomByte(file, header.key, 0x0002);
-	file.Read(&s_stats_buf.player_kills, 4);
-	s_stats_buf.player_kills += s_stats_buf.monster_kills * 5 + 0x13141516;
+    MaybeSkipRandomByte(file, header.key, 0x0002);
+    file.Read(&s_stats_buf.player_kills, 4);
+    s_stats_buf.player_kills += s_stats_buf.monster_kills * 5 + 0x13141516;
 
-	MaybeSkipRandomByte(file, header.key, 0x0004);
-	file.Read(&s_stats_buf.frags, 4);
-	s_stats_buf.frags += s_stats_buf.player_kills * 7 + 0x00ABCDEF;
+    MaybeSkipRandomByte(file, header.key, 0x0004);
+    file.Read(&s_stats_buf.frags, 4);
+    s_stats_buf.frags += s_stats_buf.player_kills * 7 + 0x00ABCDEF;
 
-	MaybeSkipRandomByte(file, header.key, 0x0008);
-	file.Read(&s_stats_buf.deaths, 4);
-	s_stats_buf.deaths ^= 0x17FF12AA;
+    MaybeSkipRandomByte(file, header.key, 0x0008);
+    file.Read(&s_stats_buf.deaths, 4);
+    s_stats_buf.deaths ^= 0x17FF12AA;
 
-	MaybeSkipRandomByte(file, header.key, 0x0010);
-	file.Read(&s_stats_buf.money, 4);
-	s_stats_buf.money += s_stats_buf.monster_kills * 3 - 0x21524542;
+    MaybeSkipRandomByte(file, header.key, 0x0010);
+    file.Read(&s_stats_buf.money, 4);
+    s_stats_buf.money += s_stats_buf.monster_kills * 3 - 0x21524542;
 
-	MaybeSkipRandomByte(file, header.key, 0x0020);
-	file.Read(&s_stats_buf.body, 1);
-	s_stats_buf.body += static_cast<uint8_t>(s_stats_buf.money * 0x11 + s_stats_buf.monster_kills * 0x13);
+    MaybeSkipRandomByte(file, header.key, 0x0020);
+    file.Read(&s_stats_buf.body, 1);
+    s_stats_buf.body += static_cast<uint8_t>(s_stats_buf.money * 0x11 + s_stats_buf.monster_kills * 0x13);
 
-	MaybeSkipRandomByte(file, header.key, 0x0040);
-	file.Read(&s_stats_buf.reaction, 1);
-	s_stats_buf.reaction += static_cast<uint8_t>(s_stats_buf.body * 3);
+    MaybeSkipRandomByte(file, header.key, 0x0040);
+    file.Read(&s_stats_buf.reaction, 1);
+    s_stats_buf.reaction += static_cast<uint8_t>(s_stats_buf.body * 3);
 
-	MaybeSkipRandomByte(file, header.key, 0x0080);
-	file.Read(&s_stats_buf.mind, 1);
-	s_stats_buf.mind += static_cast<uint8_t>(s_stats_buf.body + s_stats_buf.reaction * 5);
+    MaybeSkipRandomByte(file, header.key, 0x0080);
+    file.Read(&s_stats_buf.mind, 1);
+    s_stats_buf.mind += static_cast<uint8_t>(s_stats_buf.body + s_stats_buf.reaction * 5);
 
-	MaybeSkipRandomByte(file, header.key, 0x0100);
-	file.Read(&s_stats_buf.spirit, 1);
-	s_stats_buf.spirit += static_cast<uint8_t>(s_stats_buf.body * 7 + s_stats_buf.mind * 9);
+    MaybeSkipRandomByte(file, header.key, 0x0100);
+    file.Read(&s_stats_buf.spirit, 1);
+    s_stats_buf.spirit += static_cast<uint8_t>(s_stats_buf.body * 7 + s_stats_buf.mind * 9);
 
-	MaybeSkipRandomByte(file, header.key, 0x4000);
-	file.Read(&s_stats_buf.spells, 4);
-	s_stats_buf.spells -= 0x10121974;
+    MaybeSkipRandomByte(file, header.key, 0x4000);
+    file.Read(&s_stats_buf.spells, 4);
+    s_stats_buf.spells -= 0x10121974;
 
-	MaybeSkipRandomByte(file, header.key, 0x2000);
-	file.Read(&s_stats_buf.active_spell, 4);
+    MaybeSkipRandomByte(file, header.key, 0x2000);
+    file.Read(&s_stats_buf.active_spell, 4);
 
-	for (int32_t i = 0; i < 5; i++) {
-		MaybeSkipRandomByte(file, header.key, 0x200 << i);
-		file.Read(&s_stats_buf.experience[i], 4);
-		if (i == 0) {
-			s_stats_buf.experience[i] ^= 0xDADEDADE;
-		} else {
-			s_stats_buf.experience[i] -= s_stats_buf.experience[i - 1] * 0x771;
-		}
-	}
+    for (int32_t i = 0; i < 5; i++) {
+        MaybeSkipRandomByte(file, header.key, 0x200 << i);
+        file.Read(&s_stats_buf.experience[i], 4);
+        if (i == 0) {
+            s_stats_buf.experience[i] ^= 0xDADEDADE;
+        } else {
+            s_stats_buf.experience[i] -= s_stats_buf.experience[i - 1] * 0x771;
+        }
+    }
 
-	return CalcChecksum(reinterpret_cast<uint8_t*>(&s_stats_buf), sizeof(FileSectionStats)) == header.checksum;
+    return CalcChecksum(reinterpret_cast<uint8_t*>(&s_stats_buf), sizeof(FileSectionStats)) == header.checksum;
 }
 
 bool ReadCompressedKillStats(CFile& file, const PlayerFileSectionHeader& header) {
-	file.Read(s_compressed_buf, header.size);
-	DecryptEncryptedData(s_compressed_buf, header.size, header.key);
-	if (CalcChecksum(s_compressed_buf, header.size) != header.checksum) {
-		return false;
-	}
+    file.Read(s_compressed_buf, header.size);
+    DecryptEncryptedData(s_compressed_buf, header.size, header.key);
+    if (CalcChecksum(s_compressed_buf, header.size) != header.checksum) {
+        return false;
+    }
 
-	uint32_t uncompressed_size = *reinterpret_cast<uint32_t*>(s_compressed_buf);
-	uint8_t* temp = new uint8_t[uncompressed_size];
+    uint32_t uncompressed_size = *reinterpret_cast<uint32_t*>(s_compressed_buf);
+    uint8_t* temp = new uint8_t[uncompressed_size];
 
-	uint8_t* read_ptr = s_compressed_buf + 4;
-	int32_t read_offset = 4;
-	uint8_t* write_ptr = temp;
+    uint8_t* read_ptr = s_compressed_buf + 4;
+    int32_t read_offset = 4;
+    uint8_t* write_ptr = temp;
 
-	while (read_offset < static_cast<int32_t>(header.size)) {
-		if ((*read_ptr & 0x80) != 0) {
-			uint8_t count = *read_ptr & 0x7F;
-			uint8_t value = read_ptr[1];
-			for (int32_t j = 0; j < count; j++) {
-				*write_ptr++ = value;
-			}
-			read_ptr += 2;
-			read_offset += 2;
-		} else {
-			uint8_t count = *read_ptr;
-			std::memcpy(write_ptr, read_ptr + 1, count);
-			write_ptr += count;
-			read_ptr += count + 1;
-			read_offset += count + 1;
-		}
-	}
+    while (read_offset < static_cast<int32_t>(header.size)) {
+        if ((*read_ptr & 0x80) != 0) {
+            uint8_t count = *read_ptr & 0x7F;
+            uint8_t value = read_ptr[1];
+            for (int32_t j = 0; j < count; j++) {
+                *write_ptr++ = value;
+            }
+            read_ptr += 2;
+            read_offset += 2;
+        } else {
+            uint8_t count = *read_ptr;
+            std::memcpy(write_ptr, read_ptr + 1, count);
+            write_ptr += count;
+            read_ptr += count + 1;
+            read_offset += count + 1;
+        }
+    }
 
-	std::memcpy(s_kill_stats_buf, temp, uncompressed_size);
-	delete[] temp;
-	return true;
+    std::memcpy(s_kill_stats_buf, temp, uncompressed_size);
+    delete[] temp;
+    return true;
 }
 
 void WriteKillStatsSection(CFile& file, uint8_t* kill_stats) {
-	uint8_t* buffer = new uint8_t[kKillStatsSize];
-	if (buffer == nullptr) {
-		return;
-	}
+    uint8_t* buffer = new uint8_t[kKillStatsSize];
+    if (buffer == nullptr) {
+        return;
+    }
 
-	buffer[0] = 0;
-	buffer[1] = 10;
-	buffer[2] = 0;
-	buffer[3] = 0;
+    buffer[0] = 0;
+    buffer[1] = 10;
+    buffer[2] = 0;
+    buffer[3] = 0;
 
-	uint8_t* write_ptr = buffer + 4;
-	int32_t read_offset = 0;
-	uint8_t* read_ptr = kill_stats;
+    uint8_t* write_ptr = buffer + 4;
+    int32_t read_offset = 0;
+    uint8_t* read_ptr = kill_stats;
 
-	while (read_offset < kKillStatsSize) {
-		bool repeated_run = read_offset + 1 < kKillStatsSize && read_ptr[0] == read_ptr[1];
-		if (repeated_run) {
-			uint8_t run_length = 1;
-			while (run_length < 0x7F && read_offset + run_length < kKillStatsSize && read_ptr[0] == read_ptr[run_length]) {
-				run_length += 1;
-			}
+    while (read_offset < kKillStatsSize) {
+        bool repeated_run = read_offset + 1 < kKillStatsSize && read_ptr[0] == read_ptr[1];
+        if (repeated_run) {
+            uint8_t run_length = 1;
+            while (run_length < 0x7F && read_offset + run_length < kKillStatsSize && read_ptr[0] == read_ptr[run_length]) {
+                run_length += 1;
+            }
 
-			*write_ptr = run_length | 0x80;
-			write_ptr[1] = read_ptr[0];
-			write_ptr += 2;
-			read_ptr += run_length;
-			read_offset += run_length;
-			continue;
-		}
+            *write_ptr = run_length | 0x80;
+            write_ptr[1] = read_ptr[0];
+            write_ptr += 2;
+            read_ptr += run_length;
+            read_offset += run_length;
+            continue;
+        }
 
-		uint8_t run_length = 1;
-		while (run_length < 0x7F && read_offset + run_length < kKillStatsSize && read_ptr[run_length - 1] != read_ptr[run_length]) {
-			run_length += 1;
-		}
-		if (read_offset + run_length == kKillStatsSize) {
-			run_length += 1;
-		}
+        uint8_t run_length = 1;
+        while (run_length < 0x7F && read_offset + run_length < kKillStatsSize && read_ptr[run_length - 1] != read_ptr[run_length]) {
+            run_length += 1;
+        }
+        if (read_offset + run_length == kKillStatsSize) {
+            run_length += 1;
+        }
 
-		*write_ptr = run_length - 1;
-		std::memcpy(write_ptr + 1, read_ptr, run_length - 1);
-		write_ptr += run_length;
-		read_ptr += run_length - 1;
-		read_offset += run_length - 1;
-	}
+        *write_ptr = run_length - 1;
+        std::memcpy(write_ptr + 1, read_ptr, run_length - 1);
+        write_ptr += run_length;
+        read_ptr += run_length - 1;
+        read_offset += run_length - 1;
+    }
 
-	uint32_t compressed_size = static_cast<uint32_t>(write_ptr - buffer);
-	WriteEncryptedSection(file, player_file::SEC_KILL_STATS, buffer, compressed_size);
-	delete[] buffer;
+    uint32_t compressed_size = static_cast<uint32_t>(write_ptr - buffer);
+    WriteEncryptedSection(file, player_file::SEC_KILL_STATS, buffer, compressed_size);
+    delete[] buffer;
 }
 
 } // namespace
@@ -317,123 +317,123 @@ void WriteKillStatsSection(CFile& file, uint8_t* kill_stats) {
 // Stats section from the most recent ParsePlayerFile call (client 0x6995a8 twin).
 // Outside the anonymous namespace so the Tangar client patch can reach it.
 FileSectionStats* GetParsedPlayerStats() {
-	return &s_stats_buf;
+    return &s_stats_buf;
 }
 
 // Basic-info section from the most recent ParsePlayerFile call (client 0x69c058 twin).
 FileSectionBasicInfo* GetParsedPlayerBasicInfo() {
-	return &s_basic_info_buf;
+    return &s_basic_info_buf;
 }
 // 4F53EA
 int32_t __cdecl WritePlayerFile(const char* filename, FileSectionBasicInfo* basic_info, FileSectionStats* stats, uint8_t* kill_stats, PacketUnitStateVec* equip_pkt, PacketUnitStateVec* inv_pkt, uint8_t* section_40a, uint32_t size_40a) {
-	FileSectionBasicInfo* merged_basic_info = nullptr;
-	FileSectionStats* merged_stats = nullptr;
-	uint8_t* merged_kill_stats = nullptr;
-	PacketUnitStateVec* merged_equip = nullptr;
-	PacketUnitStateVec* merged_inventory = nullptr;
-	uint8_t* merged_param7 = nullptr;
-	uint32_t merged_param8 = 0;
+    FileSectionBasicInfo* merged_basic_info = nullptr;
+    FileSectionStats* merged_stats = nullptr;
+    uint8_t* merged_kill_stats = nullptr;
+    PacketUnitStateVec* merged_equip = nullptr;
+    PacketUnitStateVec* merged_inventory = nullptr;
+    uint8_t* merged_param7 = nullptr;
+    uint32_t merged_param8 = 0;
 
-	CFile file;
-	if (file.Open(filename, CFile::modeRead, nullptr)) {
-		if (file.GetLength() != 0) {
-			if (ParsePlayerFile(&file, &merged_basic_info, &merged_stats, &merged_kill_stats, &merged_equip, &merged_inventory, &merged_param7, &merged_param8) == 0) {
-				file.Close();
-				return 0;
-			}
-		}
+    CFile file;
+    if (file.Open(filename, CFile::modeRead, nullptr)) {
+        if (file.GetLength() != 0) {
+            if (ParsePlayerFile(&file, &merged_basic_info, &merged_stats, &merged_kill_stats, &merged_equip, &merged_inventory, &merged_param7, &merged_param8) == 0) {
+                file.Close();
+                return 0;
+            }
+        }
 
-		file.Close();
-	}
+        file.Close();
+    }
 
-	if (!file.Open(filename, CFile::modeCreate | CFile::modeWrite, nullptr)) {
-		return 0;
-	}
+    if (!file.Open(filename, CFile::modeCreate | CFile::modeWrite, nullptr)) {
+        return 0;
+    }
 
-	if (basic_info != nullptr) {
-		merged_basic_info = basic_info;
-	}
-	if (merged_basic_info == nullptr) {
-		return 0;
-	}
+    if (basic_info != nullptr) {
+        merged_basic_info = basic_info;
+    }
+    if (merged_basic_info == nullptr) {
+        return 0;
+    }
 
-	if (stats != nullptr) {
-		merged_stats = stats;
-	}
-	if (kill_stats != nullptr) {
-		merged_kill_stats = kill_stats;
-	}
-	if (equip_pkt != nullptr) {
-		merged_equip = equip_pkt;
-	}
-	if (inv_pkt != nullptr) {
-		merged_inventory = inv_pkt;
-	}
-	if (section_40a != nullptr) {
-		merged_param7 = section_40a;
-		merged_param8 = size_40a;
-	}
+    if (stats != nullptr) {
+        merged_stats = stats;
+    }
+    if (kill_stats != nullptr) {
+        merged_kill_stats = kill_stats;
+    }
+    if (equip_pkt != nullptr) {
+        merged_equip = equip_pkt;
+    }
+    if (inv_pkt != nullptr) {
+        merged_inventory = inv_pkt;
+    }
+    if (section_40a != nullptr) {
+        merged_param7 = section_40a;
+        merged_param8 = size_40a;
+    }
 
-	file.Write(&kPlayerFileMagic, sizeof(kPlayerFileMagic));
+    file.Write(&kPlayerFileMagic, sizeof(kPlayerFileMagic));
 
-	WriteEncryptedSection(file, player_file::SEC_BASIC_INFO, reinterpret_cast<uint8_t*>(merged_basic_info), sizeof(FileSectionBasicInfo));
+    WriteEncryptedSection(file, player_file::SEC_BASIC_INFO, reinterpret_cast<uint8_t*>(merged_basic_info), sizeof(FileSectionBasicInfo));
 
-	if (merged_kill_stats != nullptr) {
-		WriteKillStatsSection(file, merged_kill_stats);
-	}
+    if (merged_kill_stats != nullptr) {
+        WriteKillStatsSection(file, merged_kill_stats);
+    }
 
-	if (merged_param7 != nullptr) {
-		WriteEncryptedSection(file, player_file::SEC_UNKNOWN_40A, merged_param7, merged_param8);
-	}
+    if (merged_param7 != nullptr) {
+        WriteEncryptedSection(file, player_file::SEC_UNKNOWN_40A, merged_param7, merged_param8);
+    }
 
-	if (merged_equip != nullptr) {
-		WriteEncryptedSection(file, player_file::SEC_EQUIPMENT, GetPacketPayload(merged_equip), GetPacketPayloadSize(merged_equip));
-	}
+    if (merged_equip != nullptr) {
+        WriteEncryptedSection(file, player_file::SEC_EQUIPMENT, GetPacketPayload(merged_equip), GetPacketPayloadSize(merged_equip));
+    }
 
-	if (merged_stats != nullptr) {
-		WriteStatsSection(file, merged_stats);
-	}
+    if (merged_stats != nullptr) {
+        WriteStatsSection(file, merged_stats);
+    }
 
-	if (merged_inventory != nullptr) {
-		WriteEncryptedSection(file, player_file::SEC_INVENTORY, GetPacketPayload(merged_inventory), GetPacketPayloadSize(merged_inventory));
-	}
+    if (merged_inventory != nullptr) {
+        WriteEncryptedSection(file, player_file::SEC_INVENTORY, GetPacketPayload(merged_inventory), GetPacketPayloadSize(merged_inventory));
+    }
 
 #ifdef A2TANGAR_HAT
-	// part_of_save hook (4F62B1): log character save completion under SVL_SAVES.
-	if (Config::LogMode & SVL_SAVES) {
-		Printf("Saved successfully!");
-	}
+    // part_of_save hook (4F62B1): log character save completion under SVL_SAVES.
+    if (Config::LogMode & SVL_SAVES) {
+        Printf("Saved successfully!");
+    }
 #endif
-	file.Close();
-	return 1;
+    file.Close();
+    return 1;
 }
 
 // 4F62E6
 int32_t __cdecl ParsePlayerFile(CFile* file, FileSectionBasicInfo** basic_info, FileSectionStats** stats, uint8_t** kill_stats, PacketUnitStateVec** equipment, PacketUnitStateVec** inventory, uint8_t** section_40a, uint32_t* size_40a) {
 #ifdef A2CLIENT_PATCH
-	// Tangar: parsing a player file means an existing character is being loaded
-	// (gui_bugfix.cpp load_character hook, 4F75F5).
-	tangar_stats::creating_new_character = false;
+    // Tangar: parsing a player file means an existing character is being loaded
+    // (gui_bugfix.cpp load_character hook, 4F75F5).
+    tangar_stats::creating_new_character = false;
 #endif
-	*basic_info = nullptr;
-	*stats = nullptr;
-	*kill_stats = nullptr;
-	*equipment = nullptr;
-	*inventory = nullptr;
-	*section_40a = nullptr;
-	*size_40a = 0;
+    *basic_info = nullptr;
+    *stats = nullptr;
+    *kill_stats = nullptr;
+    *equipment = nullptr;
+    *inventory = nullptr;
+    *section_40a = nullptr;
+    *size_40a = 0;
 
-	uint32_t magic = 0;
-	file->Read(&magic, sizeof(magic));
-	if (magic != kPlayerFileMagic) {
-		return 0;
-	}
+    uint32_t magic = 0;
+    file->Read(&magic, sizeof(magic));
+    if (magic != kPlayerFileMagic) {
+        return 0;
+    }
 
-	while (file->GetPosition() < file->GetLength()) {
-		PlayerFileSectionHeader header = {};
-		file->Read(&header, sizeof(header));
+    while (file->GetPosition() < file->GetLength()) {
+        PlayerFileSectionHeader header = {};
+        file->Read(&header, sizeof(header));
 
-		switch (header.tag) {
+        switch (header.tag) {
             case player_file::SEC_BASIC_INFO: {
                 if (!ReadDecryptAndVerify(*file, header, reinterpret_cast<uint8_t*>(&s_basic_info_buf))) {
                     return 0;
@@ -491,118 +491,118 @@ int32_t __cdecl ParsePlayerFile(CFile* file, FileSectionBasicInfo** basic_info, 
             }
             default:
                 return 0;
-		}
-	}
+        }
+    }
 
-	return 1;
+    return 1;
 }
 
 
 
 void CGameSession::RefreshCharacterRosterFiles(int val) { //49265a
-	MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
+    MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 
 #ifdef A2CLIENT
-	if (mwnd->hat_settings.ishat == 0 || mwnd->net_session.internet_game == 0) {
-		val = 0;
-	}
+    if (mwnd->hat_settings.ishat == 0 || mwnd->net_session.internet_game == 0) {
+        val = 0;
+    }
 #endif
 
-	this->characterRosterFilePaths.RemoveAll();
-	this->characterRosterNames.RemoveAll();
-	this->characterRosterHatId.RemoveAll();
+    this->characterRosterFilePaths.RemoveAll();
+    this->characterRosterNames.RemoveAll();
+    this->characterRosterHatId.RemoveAll();
 
-	if (mwnd->sessionMode != SESSION_LOCAL_BATTLE) {
-		CArray<FILETIME> ftimes;
-		CFileFind ff;
-		BOOL found = ff.FindFile("*.a2c");
-		while (found) {
-			found = ff.FindNextFileA();
+    if (mwnd->sessionMode != SESSION_LOCAL_BATTLE) {
+        CArray<FILETIME> ftimes;
+        CFileFind ff;
+        BOOL found = ff.FindFile("*.a2c");
+        while (found) {
+            found = ff.FindNextFileA();
 
-			CFile f;
-			f.Open(ff.GetFileName(), CFile::modeRead);
+            CFile f;
+            f.Open(ff.GetFileName(), CFile::modeRead);
 
-			uint32_t tag = 0;
-			f.Read(&tag, 4);
-			if (tag == kPlayerFileMagic) {
-				PlayerFileSectionHeader hdr;
-				f.Read(&hdr, 0x10);
+            uint32_t tag = 0;
+            f.Read(&tag, 4);
+            if (tag == kPlayerFileMagic) {
+                PlayerFileSectionHeader hdr;
+                f.Read(&hdr, 0x10);
 
-				std::vector<uint8_t> data;
-				data.resize(hdr.size);
+                std::vector<uint8_t> data;
+                data.resize(hdr.size);
 
-				f.Read(data.data(), hdr.size);
-				DecryptEncryptedData(data.data(), hdr.size, hdr.key);
-				if (CalcChecksum(data.data(), hdr.size) == hdr.checksum) {
-					FileSectionBasicInfo* sec = (FileSectionBasicInfo*)data.data();
-					strcpy(this->character_name, sec->nick);
-					if (sec->hat_id == 0x529c0291 || sec->hat_id == 0xbaadf00d) {
-						sec->hat_id = mwnd->net_session.hat_id;
-					}
-					if (sec->hat_id == mwnd->net_session.hat_id
+                f.Read(data.data(), hdr.size);
+                DecryptEncryptedData(data.data(), hdr.size, hdr.key);
+                if (CalcChecksum(data.data(), hdr.size) == hdr.checksum) {
+                    FileSectionBasicInfo* sec = (FileSectionBasicInfo*)data.data();
+                    strcpy(this->character_name, sec->nick);
+                    if (sec->hat_id == 0x529c0291 || sec->hat_id == 0xbaadf00d) {
+                        sec->hat_id = mwnd->net_session.hat_id;
+                    }
+                    if (sec->hat_id == mwnd->net_session.hat_id
 #if defined(A2CLIENT) && !defined(A2CLIENT_PATCH)
-						// p10ach.xck (497083): disable 0xbabad0d0 wildcard HAT ID fallback
-						|| (sec->hat_id == 0xbabad0d0 && mwnd->net_session.internet_game != 0 && mwnd->hat_settings.ishat && mwnd->hat_settings.deathmatch)
+                        // p10ach.xck (497083): disable 0xbabad0d0 wildcard HAT ID fallback
+                        || (sec->hat_id == 0xbabad0d0 && mwnd->net_session.internet_game != 0 && mwnd->hat_settings.ishat && mwnd->hat_settings.deathmatch)
 #endif
-						) {	
-						FILETIME tm;
-						ff.GetLastWriteTime(&tm);
+                        ) {
+                        FILETIME tm;
+                        ff.GetLastWriteTime(&tm);
 
-						int idx = 0;
-						for (; idx < ftimes.GetSize(); idx++) {
-							if (CompareFileTime(&tm, &ftimes[idx]) > 0) {
-								break;
-							}
-						}
+                        int idx = 0;
+                        for (; idx < ftimes.GetSize(); idx++) {
+                            if (CompareFileTime(&tm, &ftimes[idx]) > 0) {
+                                break;
+                            }
+                        }
 
-						HatCharId hatid;
-						hatid.id1 = sec->id1;
-						hatid.id2 = sec->id2;
+                        HatCharId hatid;
+                        hatid.id1 = sec->id1;
+                        hatid.id2 = sec->id2;
 #ifndef A2CLIENT
-						ftimes.InsertAt(idx, tm);
-						this->characterRosterFilePaths.InsertAt(idx, ff.GetFileName());
-						this->characterRosterNames.InsertAt(idx, this->character_name);
+                        ftimes.InsertAt(idx, tm);
+                        this->characterRosterFilePaths.InsertAt(idx, ff.GetFileName());
+                        this->characterRosterNames.InsertAt(idx, this->character_name);
 
-						if (val == 0) {
-							this->characterRosterHatId.InsertAt(idx, hatid);
-						} else {
-							for (int i = 0; i < this->hat_char_ids.GetSize(); i++) {
-								if (this->hat_char_ids[i].id == hatid.id) {
-									this->characterRosterHatId.InsertAt(idx, hatid);
-									break;
-								}
-							}
-						}
+                        if (val == 0) {
+                            this->characterRosterHatId.InsertAt(idx, hatid);
+                        } else {
+                            for (int i = 0; i < this->hat_char_ids.GetSize(); i++) {
+                                if (this->hat_char_ids[i].id == hatid.id) {
+                                    this->characterRosterHatId.InsertAt(idx, hatid);
+                                    break;
+                                }
+                            }
+                        }
 #else
 
-						if (val == 0) {
-							ftimes.InsertAt(idx, tm);
-							this->characterRosterHatId.InsertAt(idx, hatid);
-							this->characterRosterFilePaths.InsertAt(idx, ff.GetFileName());
-							this->characterRosterNames.InsertAt(idx, this->character_name);
-						}
-						else {
-							for (int i = 0; i < this->hat_char_ids.GetSize(); i++) {
-								if (this->hat_char_ids[i].id == hatid.id) {
-									ftimes.InsertAt(idx, tm);
-									this->characterRosterHatId.InsertAt(idx, hatid);
-									this->characterRosterFilePaths.InsertAt(idx, ff.GetFileName());
-									this->characterRosterNames.InsertAt(idx, this->character_name);
-									break;
-								}
-							}
-						}
+                        if (val == 0) {
+                            ftimes.InsertAt(idx, tm);
+                            this->characterRosterHatId.InsertAt(idx, hatid);
+                            this->characterRosterFilePaths.InsertAt(idx, ff.GetFileName());
+                            this->characterRosterNames.InsertAt(idx, this->character_name);
+                        }
+                        else {
+                            for (int i = 0; i < this->hat_char_ids.GetSize(); i++) {
+                                if (this->hat_char_ids[i].id == hatid.id) {
+                                    ftimes.InsertAt(idx, tm);
+                                    this->characterRosterHatId.InsertAt(idx, hatid);
+                                    this->characterRosterFilePaths.InsertAt(idx, ff.GetFileName());
+                                    this->characterRosterNames.InsertAt(idx, this->character_name);
+                                    break;
+                                }
+                            }
+                        }
 #endif
-					}
-				}
-			}
-			f.Close();
-		}
-		ff.Close();
+                    }
+                }
+            }
+            f.Close();
+        }
+        ff.Close();
 
-		this->selectedCharacterRosterFileIndex = 0;
-		this->LoadCharacterRosterEntry(this->selectedCharacterRosterFileIndex);
-	}
+        this->selectedCharacterRosterFileIndex = 0;
+        this->LoadCharacterRosterEntry(this->selectedCharacterRosterFileIndex);
+    }
 
-	this->characterRosterNames.Add(txt_main.GetLine(120)); // New character
+    this->characterRosterNames.Add(txt_main.GetLine(120)); // New character
 }

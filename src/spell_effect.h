@@ -137,14 +137,14 @@ ASSERT_SIZE(SpellTransport, 0x54);
 // Wave propagation descriptor built from the static tables.
 struct WavePattern {
 public:
-	const int32_t* x_offsets;
-	const int32_t* y_offsets;
-	int32_t count;
-	int32_t x_mult;
-	int32_t y_mult;
+    const int32_t* x_offsets;
+    const int32_t* y_offsets;
+    int32_t count;
+    int32_t x_mult;
+    int32_t y_mult;
 
 public:
-	void SetWaveTable(const int32_t* table);  // client: 521b21
-	void SetWaveTables(const int32_t* table_a, const int32_t* table_b, uint8_t direction);  // client: 521b64
+    void SetWaveTable(const int32_t* table);  // client: 521b21
+    void SetWaveTables(const int32_t* table_a, const int32_t* table_b, uint8_t direction);  // client: 521b64
 };
 ASSERT_SIZE(WavePattern, 0x14);
