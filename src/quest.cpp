@@ -381,8 +381,9 @@ int32_t QuestInterceptUnit::OnEvent(int32_t event_type, int32_t a, int32_t b) {
     if (event_type == Quest::EVENT_UNIT_KILLED) {
         if (a == this->quest_data.obj && this->quest_data.state != Quest::STATE_COMPLETED && this->quest_data.state != Quest::STATE_FAILED) {
             if ((b & 0xffff) != this->quest_data.player_id) {
-                this->quest_map->UnregisterQuest(this);
-                this->quest_map->flags[this->quest_data.player_id] = QuestMap::FLAG_KILLED_BY_OTHER;
+                QuestMap* quest_map = this->quest_map;
+                quest_map->UnregisterQuest(this);
+                quest_map->flags[this->quest_data.player_id] = QuestMap::FLAG_KILLED_BY_OTHER;
                 return 0;
             }
             this->quest_map->QueueEvent(Quest::EVENT_FORCE_COMPLETE, this->quest_data.quest_id, 0);
@@ -422,8 +423,11 @@ int32_t QuestInterceptGroup::OnEvent(int32_t event_type, int32_t a, int32_t b) {
     if (event_type == Quest::EVENT_GROUP_WIPED) {
         if (a == this->quest_data.obj && this->quest_data.state != Quest::STATE_COMPLETED && this->quest_data.state != Quest::STATE_FAILED) {
             if ((b & 0xffff) != this->quest_data.player_id) {
-                this->quest_map->UnregisterQuest(this);
-                this->quest_map->flags[this->quest_data.player_id] = QuestMap::FLAG_KILLED_BY_OTHER;
+                // Retail caches the quest_map pointer before the call (55ff33): UnregisterQuest
+                // nulls quest->quest_map (55e850), and the flags write still targets the old map.
+                QuestMap* quest_map = this->quest_map;
+                quest_map->UnregisterQuest(this);
+                quest_map->flags[this->quest_data.player_id] = QuestMap::FLAG_KILLED_BY_OTHER;
                 return 0;
             }
             this->quest_map->QueueEvent(Quest::EVENT_FORCE_COMPLETE, this->quest_data.quest_id, 0);
