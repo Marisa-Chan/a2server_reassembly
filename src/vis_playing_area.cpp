@@ -2203,7 +2203,9 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 				LockSurface2();
 				FillRectColorSimple(0, g_ScreenSize.bottom / 2 + 20, g_ScreenSize.right, g_ScreenSize.bottom / 2 + 40, 0);
 
-				g_font1->DrawTxt(g_ScreenSize.right / 2, g_ScreenSize.bottom / 2 + 20, TxtFile::AllLines[0x16c], CGameFont::ALIGN_HCENTER, clrsh_ShockingBlack);
+				CString progress_str;
+				progress_str.Format(TxtFile::AllLines[0x16c], (int32_t)(packet_file->offset + packet_file->count) * 100 / (int32_t)packet_file->total_length);
+				g_font1->DrawTxt(g_ScreenSize.right / 2, g_ScreenSize.bottom / 2 + 20, progress_str, CGameFont::ALIGN_HCENTER, clrsh_ShockingBlack);
 
 				UnlockSurface2();
 
