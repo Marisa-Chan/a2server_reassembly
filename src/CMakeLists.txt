@@ -164,7 +164,7 @@ add_executable(rea2ct ${A2_SOURCES} ${A2CLIENT_PATCHES})
 # Pin to what the build already defaulted to (26100 SDK MAXVER) — silences
 # the "_WIN32_WINNT not defined" warning in every TU.
 set(A2_COMPILE_DEFS
-  _AFXDLL;FKG_FORCED_USAGE;_USE_32BIT_TIME_T;NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;_WIN32_WINNT=0x0A00
+  _AFXDLL;FKG_FORCED_USAGE;_USE_32BIT_TIME_T;NDEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;_WIN32_WINNT=0x0A00
 )
 
 foreach(TARGET rea2s rea2c rea2sp rea2st rea2cp rea2ct)
@@ -225,7 +225,7 @@ set(A2_LINK_OPTS
     /DEBUG
     /MACHINE:X86
     /SAFESEH
-    /SUBSYSTEM:CONSOLE
+    /SUBSYSTEM:WINDOWS
     "/MANIFESTUAC:level='asInvoker' uiAccess='false'"
     /TLBID:1
     /NOLOGO
