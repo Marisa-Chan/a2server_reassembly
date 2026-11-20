@@ -1,5 +1,7 @@
 #include <winsock2.h>
+#ifdef A2CLIENT_PATCH
 #include "patch/locale.h"
+#endif
 #include <ws2tcpip.h>
 #include <timeapi.h>
 
@@ -388,7 +390,11 @@ void VisGlobalMap::VMethod28() {
     g_mousept.DisableHint();
     this->LoadBitmaps();
     this->LoadSamples();
-    ReadFileToString(A2CLIENT_PATCH_ENABLED ? tangar_locale::globalmap : "main\\text\\globalmap.txt", &g_MissionText);
+#ifdef A2CLIENT_PATCH
+    ReadFileToString(tangar_locale::globalmap, &g_MissionText);
+#else
+    ReadFileToString("main\\text\\globalmap.txt", &g_MissionText);
+#endif
     this->routePointSoundIndex = 0;
     GMapThing* thing = new GMapThing();
     this->graphNodePoints.RemoveAll();
@@ -583,9 +589,17 @@ VisGlobalMap::VisGlobalMap(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t
 void VisGlobalMap::LoadBitmaps() {
     this->FreeBitmaps();
     if (this->umoirMapMode != 0) {
-        this->gmap = new CBmp64(A2CLIENT_PATCH_ENABLED ? tangar_locale::gfx_umoir : "main\\graphics\\Global.Map\\Umoir.bmp");
+#ifdef A2CLIENT_PATCH
+        this->gmap = new CBmp64(tangar_locale::gfx_umoir);
+#else
+        this->gmap = new CBmp64("main\\graphics\\Global.Map\\Umoir.bmp");
+#endif
     } else {
-        this->gmap = new CBmp64(A2CLIENT_PATCH_ENABLED ? tangar_locale::gfx_gmap : "main\\graphics\\Global.Map\\GMap.bmp");
+#ifdef A2CLIENT_PATCH
+        this->gmap = new CBmp64(tangar_locale::gfx_gmap);
+#else
+        this->gmap = new CBmp64("main\\graphics\\Global.Map\\GMap.bmp");
+#endif
     }
     g_mousept.Update();
     this->flag1_spr = new CA16("graphics\\Global.Map\\Flag1\\sprites.16a");

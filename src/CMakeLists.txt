@@ -75,7 +75,6 @@ set(A2_SOURCES
   lib/smacker.c
   res/a2server.rc
 
-  patch/locale.cpp
   patch/netlog.cpp
 )
 

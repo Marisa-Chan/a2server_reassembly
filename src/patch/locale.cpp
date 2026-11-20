@@ -1,10 +1,7 @@
 // Ported from a2mgr language.cpp DecideLanguage + path tables.
 
 #include "locale.h"
-
-#ifdef A2CLIENT_PATCH
 #include "client_config.h"
-#endif
 
 #include <cstdio>
 #include <windows.h>
@@ -46,16 +43,11 @@ const char* gfx_button_fmt = "main\\graphics\\MainMenu\\button%u.bmp";
 const char* gfx_text_fmt = "main\\graphics\\MainMenu\\text%u.bmp";
 
 void DecideLanguage() {
-#ifdef A2CLIENT_PATCH
     if (!tangar_cfg::z_lang_override) {
         LANGID lid = GetSystemDefaultUILanguage();
         tangar_cfg::z_russian = (lid == 0x419);
     }
     bool is_russian = tangar_cfg::z_russian;
-#else
-    LANGID lid = GetSystemDefaultUILanguage();
-    bool is_russian = (lid == 0x419);
-#endif
 
     const char* dir = is_russian ? "locale\\ru" : "locale\\en";
 

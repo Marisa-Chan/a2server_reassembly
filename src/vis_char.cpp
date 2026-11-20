@@ -1,11 +1,9 @@
 #include <winsock2.h>
 #ifdef A2CLIENT_PATCH
 #include "patch/hotkeys.h"
-#endif
-#ifdef A2CLIENT_PATCH
+#include "patch/locale.h"
 #include "patch/stats_level.h"
 #endif
-#include "patch/locale.h"
 #include <ws2tcpip.h>
 #include <timeapi.h>
 
@@ -1298,7 +1296,11 @@ void VisCharGenStats::LoadBitmaps() { //429475
     tangar_stats::creating_new_character = true;
 #endif
     this->FreeBitmaps();
-    this->bmp = new CBmp64(A2CLIENT_PATCH_ENABLED ? tangar_locale::gfx_chrgen_leftup : "main\\graphics\\chrgen\\leftup.bmp");
+#ifdef A2CLIENT_PATCH
+    this->bmp = new CBmp64(tangar_locale::gfx_chrgen_leftup);
+#else
+    this->bmp = new CBmp64("main\\graphics\\chrgen\\leftup.bmp");
+#endif
     g_mousept.Update();
     this->stat_button_bmps[0] = new CBmp64("graphics\\interface\\chrgen\\buttons\\plon.bmp");
     g_mousept.Update();
@@ -2369,9 +2371,11 @@ void VisCharInfo::VMethod7() {
                 char fname[0x100];
                 char full_path[0x100];
                 GetTempPathA(0x100, temp_path);
-                sprintf(fname, A2CLIENT_PATCH_ENABLED ? "allods-%u-%u.$$$" : "allods-2-%d.$$$",
-                A2CLIENT_PATCH_ENABLED ? GetCurrentProcessId() : unit->unit_id,
-                A2CLIENT_PATCH_ENABLED ? unit->unit_id : 0);
+#ifdef A2CLIENT_PATCH
+                sprintf(fname, "allods-%u-%u.$$$", GetCurrentProcessId(), unit->unit_id);
+#else
+                sprintf(fname, "allods-2-%d.$$$", unit->unit_id);
+#endif
                 sprintf(full_path, "%s%s", temp_path, fname);
                 if (strcmp(this->picturename, fname) != 0) {
                     strcpy(this->picturename, fname);

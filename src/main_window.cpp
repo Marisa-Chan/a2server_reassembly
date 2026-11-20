@@ -1,10 +1,10 @@
 #include "main_window.h"
-#include "patch/locale.h"
 #include "patch/netlog.h"
 #ifdef A2CLIENT_PATCH
 #include "patch/client_config.h"
 #include "patch/hat_client.h"
 #include "patch/hotkeys.h"
+#include "patch/locale.h"
 #endif
 #include <ctime>
 #include <cstdio>
@@ -657,7 +657,11 @@ int32_t MainWindow::WaitConnectionCharacterJoin() {
 // 48d815
 void MainWindow::ShowCurrentTownDialog() {
     CStringArray* plist = new CStringArray();
-    ReadFileToString(A2CLIENT_PATCH_ENABLED ? tangar_locale::town : "main\\text\\town.txt", &g_MissionText);
+#ifdef A2CLIENT_PATCH
+    ReadFileToString(tangar_locale::town, &g_MissionText);
+#else
+    ReadFileToString("main\\text\\town.txt", &g_MissionText);
+#endif
     g_Cursors[0x1a]->Use();
     this->ShowRightPanelInfo();
 
@@ -3396,7 +3400,11 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         break;
 
     case MAIN_MSG_NEW_CAMPAIGN:
-        ReadFileToString(A2CLIENT_PATCH_ENABLED ? tangar_locale::town : "main\\text\\town.txt", &g_MissionText);
+#ifdef A2CLIENT_PATCH
+        ReadFileToString(tangar_locale::town, &g_MissionText);
+#else
+        ReadFileToString("main\\text\\town.txt", &g_MissionText);
+#endif
         ScenarioNewGame();
         this->serverLoopCounter = 0;
         this->serverBootstrapEnabled = 1;
@@ -3415,7 +3423,11 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         break;
 
     case MAIN_MSG_SHOW_CHAR_LOADER:
-        ReadFileToString(A2CLIENT_PATCH_ENABLED ? tangar_locale::town : "main\\text\\town.txt", &g_MissionText);
+#ifdef A2CLIENT_PATCH
+        ReadFileToString(tangar_locale::town, &g_MissionText);
+#else
+        ReadFileToString("main\\text\\town.txt", &g_MissionText);
+#endif
         this->serverLoopCounter = 0;
         this->sessionMode = SESSION_SINGLEPLAYER;
 #ifdef A2CLIENT
@@ -4493,7 +4505,11 @@ int MainWindow::RunSessionBootstrap(int mode) { // 48e502
     }
 
     if (this->sessionMode == SESSION_LOCAL_BATTLE) {
-        sprintf(buf, A2CLIENT_PATCH_ENABLED ? tangar_locale::mission_fmt : "main\\text\\mission%d.txt", ScenarioGetCurrentLocation()->GetId());
+#ifdef A2CLIENT_PATCH
+        sprintf(buf, tangar_locale::mission_fmt, ScenarioGetCurrentLocation()->GetId());
+#else
+        sprintf(buf, "main\\text\\mission%d.txt", ScenarioGetCurrentLocation()->GetId());
+#endif
         ReadFileToString(buf, &g_MissionText);
         MissionGetBriefing(&g_MissionBriefing);
 
@@ -4525,7 +4541,11 @@ int MainWindow::RunSessionBootstrap(int mode) { // 48e502
             PostMessage(MAIN_MSG_AUTOSAVE, 0, 0);
         }
     } else {
-        ReadFileToString(A2CLIENT_PATCH_ENABLED ? tangar_locale::quest : "main\\text\\quest.txt", &g_MissionText);
+#ifdef A2CLIENT_PATCH
+        ReadFileToString(tangar_locale::quest, &g_MissionText);
+#else
+        ReadFileToString("main\\text\\quest.txt", &g_MissionText);
+#endif
     }
 
     g_Cursors[CURSOR_DEFAULT]->Use();
@@ -5943,7 +5963,11 @@ void MainWindow::ShowNoCDIntro() {
 
     g_mousept.Unpaint();
 
-    CBmp64* logo = new CBmp64(A2CLIENT_PATCH_ENABLED ? tangar_locale::gfx_logo_allods : "main\\graphics\\logo\\allods.bmp");
+#ifdef A2CLIENT_PATCH
+    CBmp64* logo = new CBmp64(tangar_locale::gfx_logo_allods);
+#else
+    CBmp64* logo = new CBmp64("main\\graphics\\logo\\allods.bmp");
+#endif
 
     LockSurface2();
     FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);

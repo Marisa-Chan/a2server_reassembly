@@ -1,6 +1,8 @@
 #include <winsock2.h>
+#ifdef A2CLIENT_PATCH
 #include "patch/locale.h"
 #include "patch/menu.h"
+#endif
 #include <ws2tcpip.h>
 #include <timeapi.h>
 
@@ -3148,21 +3150,39 @@ void VisMainMenu::LoadGraphics() {
 #else
     CString str;
     this->FreeGraphics();
-    this->bmp_menu_mask = new CBmp256(A2CLIENT_PATCH_ENABLED ? tangar_locale::gfx_menu_mask : "main\\graphics\\MainMenu\\MenuMask.bmp");
+#ifdef A2CLIENT_PATCH
+    this->bmp_menu_mask = new CBmp256(tangar_locale::gfx_menu_mask);
     g_mousept.Update();
-    this->bmp_menu = new CBmp64(A2CLIENT_PATCH_ENABLED ? tangar_locale::gfx_menu : "main\\graphics\\MainMenu\\menu_.bmp");
+    this->bmp_menu = new CBmp64(tangar_locale::gfx_menu);
+#else
+    this->bmp_menu_mask = new CBmp256("main\\graphics\\MainMenu\\MenuMask.bmp");
+    g_mousept.Update();
+    this->bmp_menu = new CBmp64("main\\graphics\\MainMenu\\menu_.bmp");
+#endif
     g_mousept.Update();
     this->sprite = new CA16("graphics\\interface\\sprites.16a");
     this->sprite->ResetPalette(0x10, 4, 0);
     g_mousept.Update();
     for (int32_t i = 0; i < 8; i++) {
-        str.Format(A2CLIENT_PATCH_ENABLED ? tangar_locale::gfx_button_p_fmt : "main\\graphics\\MainMenu\\button%dp.bmp", i + 1);
+#ifdef A2CLIENT_PATCH
+        str.Format(tangar_locale::gfx_button_p_fmt, i + 1);
+#else
+        str.Format("main\\graphics\\MainMenu\\button%dp.bmp", i + 1);
+#endif
         this->bmp_pressed.Add(new CBmp64(str));
         g_mousept.Update();
-        str.Format(A2CLIENT_PATCH_ENABLED ? tangar_locale::gfx_button_fmt : "main\\graphics\\MainMenu\\button%d.bmp", i + 1);
+#ifdef A2CLIENT_PATCH
+        str.Format(tangar_locale::gfx_button_fmt, i + 1);
+#else
+        str.Format("main\\graphics\\MainMenu\\button%d.bmp", i + 1);
+#endif
         this->bmp_button.Add(new CBmp64(str));
         g_mousept.Update();
-        str.Format(A2CLIENT_PATCH_ENABLED ? tangar_locale::gfx_text_fmt : "main\\graphics\\MainMenu\\text%d.bmp", i + 1);
+#ifdef A2CLIENT_PATCH
+        str.Format(tangar_locale::gfx_text_fmt, i + 1);
+#else
+        str.Format("main\\graphics\\MainMenu\\text%d.bmp", i + 1);
+#endif
         this->bmp_labels.Add(new CBmp64(str));
         g_mousept.Update();
     }
@@ -3358,7 +3378,11 @@ void VisCredits::VMethod28() {
 // 43C9B5
 void VisCredits::LoadContent() {
     this->FreeContent();
-    this->text.LoadChunkFile(A2CLIENT_PATCH_ENABLED ? tangar_locale::credits : "main\\text\\credits.txt");
+#ifdef A2CLIENT_PATCH
+    this->text.LoadChunkFile(tangar_locale::credits);
+#else
+    this->text.LoadChunkFile("main\\text\\credits.txt");
+#endif
     for (int32_t i = 0; i < this->text.GetCount(); i++) {
         char* line = this->text.GetLine(i);
         if (*line != '"') {
@@ -3367,7 +3391,11 @@ void VisCredits::LoadContent() {
         CString name(line);
         name = name.Mid(1);
         name = name.Left(name.GetLength() - 1);
-        name = CString(A2CLIENT_PATCH_ENABLED ? tangar_locale::gfx_logo_dir : "main\\graphics\\logo\\") + name;
+#ifdef A2CLIENT_PATCH
+        name = CString(tangar_locale::gfx_logo_dir) + name;
+#else
+        name = CString("main\\graphics\\logo\\") + name;
+#endif
         this->bitmaps.SetAt(this->text.GetLine(i), new CBmp64(name));
     }
 }
