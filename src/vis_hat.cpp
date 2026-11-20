@@ -814,7 +814,7 @@ void VisHatServerListDlg::VMethod31(int32_t code) {
         this->FindChild(8)->WriteData(buffer);
         this->hat_settings->password = buffer;
         this->FindChild(3)->WriteData(&this->hat_settings->deathmatch);
-#ifdef A2CLIENT_PATCH
+#if defined(A2CLIENT) && defined(A2TANGAR_HAT)
         // Tangar GUI_softcoreSwitch (44C966): dropdown value -> registry mode
         // remap (0=PvP, 1=PvE->2, 2=Sandbox->4, 3=Arena->3).
         if (this->hat_settings->deathmatch == 2) {
