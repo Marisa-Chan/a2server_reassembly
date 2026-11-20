@@ -8155,6 +8155,9 @@ void Server::SendMapInfo(Player* player) {
     pkt->__as_dword = (uint32_t)g_MapFileChecksum;
     pkt->to_player_id = player->player_id;
     g_NetStru1_main.QueuePacketSend(pkt);
+#ifdef A2SERVER_PATCH
+    delete pkt;
+#endif
 }
 
 // 5090A7
