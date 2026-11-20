@@ -20,7 +20,7 @@ extern bool show_stopwatch;
 extern uint32_t show_stopwatch_frozen;
 extern int64_t stopwatch_start; // time_t of the last stopwatch restart
 
-// World-view scroll rate limiter (milliseconds between scroll steps; 0 = default 35).
+// World-view scroll rate limiter (milliseconds between scroll steps; default 25).
 extern uint32_t g_scrollintv;
 
 // Tile-grid overlay.

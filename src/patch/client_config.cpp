@@ -21,13 +21,13 @@ bool r_stopwatch = false;
 bool show_stopwatch = false;
 uint32_t show_stopwatch_frozen = 0;
 int64_t stopwatch_start = 0;
-uint32_t g_scrollintv = 35;
+uint32_t g_scrollintv = 25;
 bool r_grid = false;
-uint32_t r_grid_color = 255;
+uint32_t r_grid_color = 0x3800;
 bool z_lang_override = false;
 bool z_russian = true;
 bool stats_based_level_selection = true; // a2mgr default: on
-bool z_screendir = false;
+bool z_screendir = true;
 bool g_altchat = false;
 int32_t z_softcore = 0; // 0=off, 1=force softcore, 2=force sandbox (no config parse in a2mgr)
 
@@ -109,6 +109,21 @@ void StripComment(std::string& wh) {
     }
 }
 
+std::vector<std::string> SplitChar(const std::string& s, char delim) {
+    std::vector<std::string> out;
+    std::string cur;
+    for (char c : s) {
+        if (c == delim) {
+            out.push_back(cur);
+            cur.clear();
+        } else {
+            cur += c;
+        }
+    }
+    out.push_back(cur);
+    return out;
+}
+
 void Parse2x(std::ifstream& f) {
     std::string wh;
     while (std::getline(f, wh)) {
@@ -127,22 +142,37 @@ void Parse2x(std::ifstream& f) {
         }
 
         if (cmd[0] == "g_scrollspeed" && cmd.size() == 2 && CheckInt(cmd[1])) {
-            g_scrollintv = StrToUInt(cmd[1]);
-        } else if (cmd[0] == "r_fps" && cmd.size() == 2) {
-            r_fps = StrToBool(cmd[1]);
-        } else if (cmd[0] == "r_time" && cmd.size() == 2) {
-            r_time = StrToBool(cmd[1]);
-        } else if (cmd[0] == "r_stopwatch" && cmd.size() == 2) {
-            r_stopwatch = StrToBool(cmd[1]);
-        } else if (cmd[0] == "z_screendir" && cmd.size() == 2) {
-            z_screendir = StrToBool(cmd[1]);
-        } else if (cmd[0] == "g_altchat" && cmd.size() == 2) {
-            g_altchat = StrToBool(cmd[1]);
-        } else if (cmd[0] == "r_grid" && cmd.size() == 2) {
-            r_grid = StrToBool(cmd[1]);
+            uint32_t speed = StrToUInt(cmd[1]);
+            if (speed > 100) {
+                speed = 100;
+            }
+            g_scrollintv = 10 * (100 - speed);
+        } else if (cmd[0] == "r_fps") {
+            r_fps = (cmd.size() == 2) ? StrToBool(cmd[1]) : true;
+        } else if (cmd[0] == "r_time") {
+            r_time = (cmd.size() == 2) ? StrToBool(cmd[1]) : true;
+        } else if (cmd[0] == "r_stopwatch") {
+            r_stopwatch = (cmd.size() == 2) ? StrToBool(cmd[1]) : true;
+        } else if (cmd[0] == "z_screendir") {
+            z_screendir = (cmd.size() == 2) ? StrToBool(cmd[1]) : true;
+        } else if (cmd[0] == "g_altchat") {
+            g_altchat = (cmd.size() == 2) ? StrToBool(cmd[1]) : true;
+        } else if (cmd[0] == "r_grid") {
+            r_grid = (cmd.size() == 2) ? StrToBool(cmd[1]) : true;
         } else if (cmd[0] == "r_grid_color" && cmd.size() == 2) {
-            // accepts a decimal color or 0xRRGGBB hex
-            if (cmd[1].size() > 2 && cmd[1][0] == '0' && (cmd[1][1] == 'x' || cmd[1][1] == 'X')) {
+            std::vector<std::string> parmc = SplitChar(cmd[1], ':');
+            if (parmc.size() == 3 && CheckInt(parmc[0]) && CheckInt(parmc[1]) && CheckInt(parmc[2])) {
+                uint32_t c_r = (uint32_t)((float)StrToUInt(parmc[0]) / 255.0f * 31.0f);
+                uint32_t c_g = (uint32_t)((float)StrToUInt(parmc[1]) / 255.0f * 63.0f);
+                uint32_t c_b = (uint32_t)((float)StrToUInt(parmc[2]) / 255.0f * 31.0f);
+                uint32_t val = 0;
+                val |= (c_r & 0x1F);
+                val <<= 5;
+                val |= (c_g & 0x3F);
+                val <<= 6;
+                val |= (c_b & 0x1F);
+                r_grid_color = val;
+            } else if (cmd[1].size() > 2 && cmd[1][0] == '0' && (cmd[1][1] == 'x' || cmd[1][1] == 'X')) {
                 r_grid_color = (uint32_t)strtoul(cmd[1].c_str() + 2, nullptr, 16);
             } else if (CheckInt(cmd[1])) {
                 r_grid_color = StrToUInt(cmd[1]);
@@ -161,8 +191,8 @@ void Parse2x(std::ifstream& f) {
             } else {
                 z_lang_override = false;
             }
-        } else if (cmd[0] == "stats_based_level_selection" && cmd.size() == 2) {
-            stats_based_level_selection = StrToBool(cmd[1]);
+        } else if (cmd[0] == "stats_based_level_selection") {
+            stats_based_level_selection = (cmd.size() == 2) ? StrToBool(cmd[1]) : true;
         } else if (cmd.size() == 2 && cmd[0].compare(0, 6, "alias:") == 0) {
             std::string name = cmd[0].substr(6);
             std::string action = cmd[1];
@@ -195,6 +225,8 @@ void Parse1x(std::ifstream& f) {
             r_fps = StrToBool(val);
         } else if (prm == "show_watches") {
             r_time = StrToBool(val);
+        } else if (prm == "alt_chat") {
+            g_altchat = StrToBool(val);
         }
     }
 }
