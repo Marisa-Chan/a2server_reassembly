@@ -1065,9 +1065,10 @@ int32_t Vis1200obj::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
 // 43B240
 // client: 43d64b
 int32_t Vis1200obj::OnChar(uint32_t wparam) {
-#ifdef A2CLIENT
+#if defined(A2CLIENT) && !defined(A2CLIENT_PATCH)
     if (wparam < ' ' || wparam == 0x7F || wparam == '~') {
 #else
+    // CHAT_wmCharHandler (client 43D64B): allow '~' in patched client chat.
     if (wparam < ' ' || wparam == 0x7F) {
 #endif
         return CVisualObject::OnChar(wparam);
