@@ -2467,7 +2467,11 @@ void World::ScriptOP_0x27(TriggerAction* action) {
 
 
 uint8_t World::UnitMaxRange(Unit* unit) { //5a6adb
+#ifdef A2SERVER_PATCH
+    if (unit->eye2->spell_id != 0 && unit->spell_book != nullptr) {
+#else
     if (unit->eye2->spell_id != 0) {
+#endif
         Spell* spell = unit->spell_book->GetSpell(unit->eye2->spell_id);
         if (spell && spell->mana_cost <= unit->mp) {
             return spell->max_range;

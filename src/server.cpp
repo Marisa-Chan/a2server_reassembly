@@ -5297,6 +5297,22 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 break;
             case set_param_op::active_spell: {
                     Unit* unit = this->FindPlayerUnit(packet_2dwords->from_player_id, static_cast<uint16_t>(param_value));
+#ifdef A2SERVER_PATCH
+                    if (unit && unit->eye2 && unit->spell_book) {
+                        uint8_t new_spell_id = static_cast<uint8_t>(param_value >> 16);
+                        if (new_spell_id != 0 && unit->spell_book->GetSpell(new_spell_id) == nullptr) {
+                            break;
+                        }
+                        if (unit->eye2->spell_id == new_spell_id) {
+                            unit->eye2->spell_id = 0;
+                        } else {
+                            unit->eye2->spell_id = new_spell_id;
+                        }
+
+                        Humanoid* human = static_cast<Humanoid*>(unit);
+                        g_NetStru1_main.SendUnitUpdate(human, human->pOwner, UNIT_UPD_SPELLS, EQUIP_SLOTS_ALL, 0, 0);
+                    }
+#else
                     if (unit && unit->eye2) {
                         uint8_t new_spell_id = static_cast<uint8_t>(param_value >> 16);
                         if (unit->eye2->spell_id == new_spell_id) {
@@ -5308,6 +5324,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
                         Humanoid* human = static_cast<Humanoid*>(unit);
                         g_NetStru1_main.SendUnitUpdate(human, human->pOwner, UNIT_UPD_SPELLS, EQUIP_SLOTS_ALL, 0, 0);
                     }
+#endif
                     break;
                 }
             default: {
