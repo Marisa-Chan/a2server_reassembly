@@ -332,6 +332,22 @@ void Blit16(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b, ui
     int32_t w = r - l;
     int32_t h = b - t;
 
+#ifdef A2CLIENT_PATCH
+    if (src_data == nullptr || g_selDrawBitmap.lpSurface == nullptr || src_width <= 0 || src_height <= 0) {
+        return;
+    }
+    if (l < 0) {
+        x -= l;
+        w += l;
+        l = 0;
+    }
+    if (t < 0) {
+        y -= t;
+        h += t;
+        t = 0;
+    }
+#endif
+
     if (x < g_clipRect.left) {
         w -= g_clipRect.left - x;
         l += g_clipRect.left - x;
@@ -349,6 +365,18 @@ void Blit16(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b, ui
     if (y + h >= g_clipRect.bottom) {
         h = g_clipRect.bottom - y;
     }
+
+#ifdef A2CLIENT_PATCH
+    if (l >= src_width || t >= src_height) {
+        return;
+    }
+    if (l + w > src_width) {
+        w = src_width - l;
+    }
+    if (t + h > src_height) {
+        h = src_height - t;
+    }
+#endif
 
     if (w <= 0 || h <= 0) {
         return;
@@ -374,6 +402,22 @@ void Blit16Masked(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t
     int32_t w = r - l;
     int32_t h = b - t;
 
+#ifdef A2CLIENT_PATCH
+    if (src_data == nullptr || g_selDrawBitmap.lpSurface == nullptr || src_width <= 0 || src_height <= 0) {
+        return;
+    }
+    if (l < 0) {
+        x -= l;
+        w += l;
+        l = 0;
+    }
+    if (t < 0) {
+        y -= t;
+        h += t;
+        t = 0;
+    }
+#endif
+
     if (x < g_clipRect.left) {
         w -= g_clipRect.left - x;
         l += g_clipRect.left - x;
@@ -391,6 +435,18 @@ void Blit16Masked(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t
     if (y + h >= g_clipRect.bottom) {
         h = g_clipRect.bottom - y;
     }
+
+#ifdef A2CLIENT_PATCH
+    if (l >= src_width || t >= src_height) {
+        return;
+    }
+    if (l + w > src_width) {
+        w = src_width - l;
+    }
+    if (t + h > src_height) {
+        h = src_height - t;
+    }
+#endif
 
     if (w <= 0 || h <= 0) {
         return;
@@ -417,6 +473,22 @@ void Blit16Add(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b,
     int32_t w = r - l;
     int32_t h = b - t;
 
+#ifdef A2CLIENT_PATCH
+    if (src_data == nullptr || g_selDrawBitmap.lpSurface == nullptr || src_width <= 0 || src_height <= 0) {
+        return;
+    }
+    if (l < 0) {
+        x -= l;
+        w += l;
+        l = 0;
+    }
+    if (t < 0) {
+        y -= t;
+        h += t;
+        t = 0;
+    }
+#endif
+
     if (x < g_clipRect.left) {
         w -= g_clipRect.left - x;
         l += g_clipRect.left - x;
@@ -434,6 +506,18 @@ void Blit16Add(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b,
     if (y + h >= g_clipRect.bottom) {
         h = g_clipRect.bottom - y;
     }
+
+#ifdef A2CLIENT_PATCH
+    if (l >= src_width || t >= src_height) {
+        return;
+    }
+    if (l + w > src_width) {
+        w = src_width - l;
+    }
+    if (t + h > src_height) {
+        h = src_height - t;
+    }
+#endif
 
     if (w <= 0 || h <= 0) {
         return;
@@ -3493,6 +3577,18 @@ void __cdecl CopyScreenRectToBmp64(int32_t x, int32_t y, int32_t w, int32_t h, i
     if (g_clipRect.bottom <= y + h) {
         h = g_clipRect.bottom - y;
     }
+
+#ifdef A2CLIENT_PATCH
+    if (dst == nullptr || g_selDrawBitmap.lpSurface == nullptr || dw <= 0 || dh <= 0 || dx >= dw || dy >= dh) {
+        return;
+    }
+    if (dx + w > dw) {
+        w = dw - dx;
+    }
+    if (dy + h > dh) {
+        h = dh - dy;
+    }
+#endif
 
     if (w <= 0 || h <= 0) {
         return;

@@ -1,7 +1,14 @@
+#include <algorithm>
 #include "mouse.h"
 #include "gfx.h"
 #include "game_app.h"
 #include "main_window.h"
+
+#ifdef A2CLIENT_PATCH
+constexpr int32_t kSelectFrameBufLen = 8192;
+#else
+constexpr int32_t kSelectFrameBufLen = 1600;
+#endif
 
 CMousePointer g_mousept; //642c68
 CCursor* g_Cursors[28]; //665420
@@ -45,11 +52,11 @@ CMousePointer::CMousePointer() {
     this->y_offset = 0;
     this->frame = 0;
 
-    for (int i = 0; i < 8; i++) {
+    for (int32_t i = 0; i < 8; i++) {
         if ((i & 2) == 0) {
-            this->saved_rect_frame[i] = new CBmp64(1600, 2);
+            this->saved_rect_frame[i] = new CBmp64(kSelectFrameBufLen, 2);
         } else {
-            this->saved_rect_frame[i] = new CBmp64(2, 1600);
+            this->saved_rect_frame[i] = new CBmp64(2, kSelectFrameBufLen);
         }
     }
 
@@ -219,6 +226,21 @@ void CMousePointer::PaintSelectFrame() {
         LockSurface1();
 
         if (r.Width() > 0) {
+#ifdef A2CLIENT_PATCH
+            int32_t hl = (std::max)(r.left, g_ScreenSize.left);
+            int32_t hr = (std::min)(r.right, g_ScreenSize.right);
+            int32_t vt = (std::max)(r.top + 1, g_ScreenSize.top);
+            int32_t vb = (std::min)(r.bottom - 1, g_ScreenSize.bottom);
+            if (r.Height() > 0 && hr > hl) {
+                CopyScreenRectToBmp64(hl, r.top, hr - hl, 1, kSelectFrameBufLen, 2, (uint8_t*)this->saved_rect_frame[0]->GetData());
+                CopyScreenRectToBmp64(hl, r.bottom - 1, hr - hl, 1, kSelectFrameBufLen, 2, (uint8_t*)this->saved_rect_frame[1]->GetData());
+            }
+
+            if (vb > vt) {
+                CopyScreenRectToBmp64(r.left, vt, 2, vb - vt, 2, kSelectFrameBufLen, (uint8_t*)this->saved_rect_frame[2]->GetData());
+                CopyScreenRectToBmp64(r.right - 1, vt, 2, vb - vt, 2, kSelectFrameBufLen, (uint8_t*)this->saved_rect_frame[3]->GetData());
+            }
+#else
             if (r.Height() > 0) {
                 CopyScreenRectToBmp64(r.left, r.top, r.Width(), 1, 1600, 2, (uint8_t*)this->saved_rect_frame[0]->GetData());
                 CopyScreenRectToBmp64(r.left, r.bottom - 1, r.Width(), 1, 1600, 2, (uint8_t*)this->saved_rect_frame[1]->GetData());
@@ -228,6 +250,7 @@ void CMousePointer::PaintSelectFrame() {
                 CopyScreenRectToBmp64(r.left, r.top + 1, 2, r.Height() - 2, 2, 1600, (uint8_t*)this->saved_rect_frame[2]->GetData());
                 CopyScreenRectToBmp64(r.right - 1, r.top + 1, 2, r.Height() - 2, 2, 1600, (uint8_t*)this->saved_rect_frame[3]->GetData());
             }
+#endif
         }
 
         DrawRectangleFrame(r.left, r.top, r.right - 1, r.bottom - 1, GetColorRGB(0xff, 0xff, 0xff));
@@ -349,6 +372,33 @@ void CMousePointer::SaveScreenParts(const CRect& rect) {
         if (intr.IntersectRect(&rect, &r) && this->select_frame_state) {
             LockSurface2();
 
+#ifdef A2CLIENT_PATCH
+            int32_t hl = (std::max)(r.left, g_ScreenSize.left);
+            int32_t hr = (std::min)(r.right, g_ScreenSize.right);
+            int32_t vt = (std::max)(r.top + 1, g_ScreenSize.top);
+            int32_t vb = (std::min)(r.bottom - 1, g_ScreenSize.bottom);
+            if (r.Width() > 0) {
+                if (r.Height() > 0 && hr > hl) {
+                    this->saved_rect_frame[4]->DrawSubRect(hl, r.top, 0, 0, hr - hl, 1);
+                    this->saved_rect_frame[5]->DrawSubRect(hl, r.bottom - 1, 0, 0, hr - hl, 1);
+                }
+
+                if (vb > vt) {
+                    this->saved_rect_frame[6]->DrawSubRect(r.left, vt, 0, 0, 1, vb - vt);
+                    this->saved_rect_frame[7]->DrawSubRect(r.right - 1, vt, 0, 0, 1, vb - vt);
+                }
+            }
+
+            if (r.Height() > 0 && hr > hl) {
+                CopyScreenRectToBmp64(hl, r.top, hr - hl, 1, kSelectFrameBufLen, 2, (uint8_t*)this->saved_rect_frame[0]->GetData());
+                CopyScreenRectToBmp64(hl, r.bottom - 1, hr - hl, 1, kSelectFrameBufLen, 2, (uint8_t*)this->saved_rect_frame[1]->GetData());
+            }
+
+            if (vb > vt) {
+                CopyScreenRectToBmp64(r.left, vt, 2, vb - vt, 2, kSelectFrameBufLen, (uint8_t*)this->saved_rect_frame[2]->GetData());
+                CopyScreenRectToBmp64(r.right - 1, vt, 2, vb - vt, 2, kSelectFrameBufLen, (uint8_t*)this->saved_rect_frame[3]->GetData());
+            }
+#else
             if (r.Width() > 0) {
                 if (r.Height() > 0) {
                     this->saved_rect_frame[4]->DrawSubRect(r.left, r.top, 0, 0, r.Width(), 1);
@@ -368,6 +418,7 @@ void CMousePointer::SaveScreenParts(const CRect& rect) {
                 CopyScreenRectToBmp64(r.left, r.top + 1, 2, r.Height() - 2, 2, 1600, (uint8_t*)this->saved_rect_frame[2]->GetData());
                 CopyScreenRectToBmp64(r.right - 1, r.top + 1, 2, r.Height() - 2, 2, 1600, (uint8_t*)this->saved_rect_frame[3]->GetData());
             }
+#endif
 
             UnlockSurface2();
         }
@@ -396,6 +447,21 @@ void CMousePointer::SaveScreenParts2(const CRect& rect) {
             LockSurface2();
 
             if (r.Width() > 0) {
+#ifdef A2CLIENT_PATCH
+                int32_t hl = (std::max)(r.left, g_ScreenSize.left);
+                int32_t hr = (std::min)(r.right, g_ScreenSize.right);
+                int32_t vt = (std::max)(r.top + 1, g_ScreenSize.top);
+                int32_t vb = (std::min)(r.bottom - 1, g_ScreenSize.bottom);
+                if (r.Height() > 0 && hr > hl) {
+                    CopyScreenRectToBmp64(hl, r.top, hr - hl, 1, kSelectFrameBufLen, 2, (uint8_t*)this->saved_rect_frame[4]->GetData());
+                    CopyScreenRectToBmp64(hl, r.bottom - 1, hr - hl, 1, kSelectFrameBufLen, 2, (uint8_t*)this->saved_rect_frame[5]->GetData());
+                }
+
+                if (vb > vt) {
+                    CopyScreenRectToBmp64(r.left, vt, 2, vb - vt, 2, kSelectFrameBufLen, (uint8_t*)this->saved_rect_frame[6]->GetData());
+                    CopyScreenRectToBmp64(r.right - 1, vt, 2, vb - vt, 2, kSelectFrameBufLen, (uint8_t*)this->saved_rect_frame[7]->GetData());
+                }
+#else
                 if (r.Height() > 0) {
                     CopyScreenRectToBmp64(r.left, r.top, r.Width(), 1, 1600, 2, (uint8_t*)this->saved_rect_frame[4]->GetData());
                     CopyScreenRectToBmp64(r.left, r.bottom - 1, r.Width(), 1, 1600, 2, (uint8_t*)this->saved_rect_frame[5]->GetData());
@@ -405,6 +471,7 @@ void CMousePointer::SaveScreenParts2(const CRect& rect) {
                     CopyScreenRectToBmp64(r.left, r.top + 1, 2, r.Height() - 2, 2, 1600, (uint8_t*)this->saved_rect_frame[6]->GetData());
                     CopyScreenRectToBmp64(r.right - 1, r.top + 1, 2, r.Height() - 2, 2, 1600, (uint8_t*)this->saved_rect_frame[7]->GetData());
                 }
+#endif
             }
 
             DrawRectangleFrame(r.left, r.top, r.right - 1, r.bottom - 1, GetColorRGB(0xff, 0xff, 0xff));
@@ -493,6 +560,21 @@ void CMousePointer::UnpaintSelectFrame() {
     LockSurface1();
 
     if (r.Width() > 0) {
+#ifdef A2CLIENT_PATCH
+        int32_t hl = (std::max)(r.left, g_ScreenSize.left);
+        int32_t hr = (std::min)(r.right, g_ScreenSize.right);
+        int32_t vt = (std::max)(r.top + 1, g_ScreenSize.top);
+        int32_t vb = (std::min)(r.bottom - 1, g_ScreenSize.bottom);
+        if (r.Height() > 0 && hr > hl) {
+            this->saved_rect_frame[0]->DrawSubRect(hl, r.top, 0, 0, hr - hl, 1);
+            this->saved_rect_frame[1]->DrawSubRect(hl, r.bottom - 1, 0, 0, hr - hl, 1);
+        }
+
+        if (vb > vt) {
+            this->saved_rect_frame[2]->DrawSubRect(r.left, vt, 0, 0, 1, vb - vt);
+            this->saved_rect_frame[3]->DrawSubRect(r.right - 1, vt, 0, 0, 1, vb - vt);
+        }
+#else
         if (r.Height() > 0) {
             this->saved_rect_frame[0]->DrawSubRect(r.left, r.top, 0, 0, r.Width(), 1);
             this->saved_rect_frame[1]->DrawSubRect(r.left, r.bottom - 1, 0, 0, r.Width(), 1);
@@ -502,6 +584,7 @@ void CMousePointer::UnpaintSelectFrame() {
             this->saved_rect_frame[2]->DrawSubRect(r.left, r.top + 1, 0, 0, 1, r.Height() - 2);
             this->saved_rect_frame[3]->DrawSubRect(r.right - 1, r.top + 1, 0, 0, 1, r.Height() - 2);
         }
+#endif
     }
 
     UnlockSurface1();
