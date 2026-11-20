@@ -2043,7 +2043,15 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
             break;
 
         case DIPLOMACY_STATE:
+#ifdef A2CLIENT_PATCH
+            // CRASH_fix_414994: guard against uninitialized my_main_unit and map_players OOB.
+            if (this->my_main_unit == nullptr) {
+                break;
+            }
+            for (int32_t i = 16; i < packet_terrain->count && i < this->map_players.GetSize(); i++) {
+#else
             for (int i = 16; i < packet_terrain->count; i++) {
+#endif
                 MapPlayerData* mp = this->map_players[i];
                 if (mp && (mp->flags & 1) == 0 && i < this->my_main_unit->diplomacy.GetSize()) {
                     buf[0] = 0;
