@@ -1473,7 +1473,11 @@ void NetStru1::OnClientDisconnect(NetStru2* cli) {
         lldriver->RestartModemServerDp();
     }
 
+#ifdef A2SERVER_PATCH
+    if (g_Server && g_PlayersList) {
+#else
     if (g_Server) {
+#endif
         Player* pl = g_PlayersList->FindById(cli->player_id);
         if (pl && pl->drop_deadline_tick16 == 0) {
 #ifdef A2CLIENT

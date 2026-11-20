@@ -4307,9 +4307,15 @@ void Server::ProcessClientPacket(Packet* pkt) {
 
     // PATH 1: Group order (pkt->order_mode >= 1 means multiple units)
     if (pkt->order_mode != 0) {
+#ifdef A2SERVER_PATCH
+        if (!g_World || !g_PlayersList || !g_ServerUnits || !this->srv_stru1 || !this->srv_stru1->building_list || !MapStuff_Instance) {
+            return;
+        }
+#else
         if (!g_World) {
             return;
         }
+#endif
 #if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
         if (packet_order->count == 0 || packet_order->count > 0xFD) {
             return;
@@ -4631,6 +4637,11 @@ void Server::ProcessClientPacket(Packet* pkt) {
 
     case JOIN_MISSION: // Join mission.
         CheckPacketType(pkt, "Packet2Dwords");
+#ifdef A2SERVER_PATCH
+        if (!g_PlayersList) {
+            break;
+        }
+#endif
         player = g_PlayersList->FindById(packet_2dwords->from_player_id);
         if (player) {
             this->SendWorldState(player, (packet_2dwords->param1 == 0) ? 1 : 0);
@@ -4709,6 +4720,11 @@ void Server::ProcessClientPacket(Packet* pkt) {
 
             // TRANSFER_SRC_SACK: pickup sack from ground.
             if (from_type == TRANSFER_SRC_SACK) {
+#ifdef A2SERVER_PATCH
+                if (!MapStuff_Instance) {
+                    break;
+                }
+#endif
                 Sack* sack = MapStuff_Instance->GetSackAtPos(human->position);
                 if (!sack) {
                     LogMessage("Invalid pickup order - no sack there.");
@@ -4820,6 +4836,12 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 update_mask |= UNIT_UPD_WEIGHT_SPEED;
             } else if (to_type == TRANSFER_DST_GROUND) {
                 // Drop item on ground (create sack).
+#ifdef A2SERVER_PATCH
+                if (!MapStuff_Instance || !this->srv_stru1 || !this->srv_stru1->sack_list) {
+                    human->inventory->PutItemIntoBagAtDefault(item);
+                    break;
+                }
+#endif
                 Inventory* sack_inv = new Inventory();
                 sack_inv->PutItemIntoBagAtDefault(item);
                 uint8_t drop_x = (uint8_t)(packet_transfer->param2 & 0xFF);
@@ -4857,6 +4879,11 @@ void Server::ProcessClientPacket(Packet* pkt) {
     case DROP_GOLD: // Gold drop - create money sack on the ground
         CheckPacketType(pkt, "Packet2Dwords");
         {
+#ifdef A2SERVER_PATCH
+            if (!g_PlayersList || !MapStuff_Instance || !this->srv_stru1 || !this->srv_stru1->sack_list) {
+                break;
+            }
+#endif
             player = g_PlayersList->FindById(packet_2dwords->from_player_id);
             if (!player) {
                 CString msg;
@@ -5119,6 +5146,11 @@ void Server::ProcessClientPacket(Packet* pkt) {
     case REQUEST_MAP_INFO:
         CheckPacketType(pkt, "Packet2Dwords");
         {
+#ifdef A2SERVER_PATCH
+            if (!g_PlayersList) {
+                break;
+            }
+#endif
             player = g_PlayersList->FindById(packet_2dwords->from_player_id);
             if (player) {
                 this->SendMapInfo(player);
@@ -5235,9 +5267,15 @@ void Server::ProcessClientPacket(Packet* pkt) {
     case SET_DIPLOMACY: // Diplomacy bulk update
         CheckPacketType(pkt, "PacketTerrain");
         {
+#ifdef A2SERVER_PATCH
+            if (!g_World || !g_PlayersList || (g_ServerConfig.gameType != GAME_TYPE_COOPERATIVE && g_ServerConfig.gameType != GAME_TYPE_ARENA)) {
+                break;
+            }
+#else
             if (!g_World || (g_ServerConfig.gameType != GAME_TYPE_COOPERATIVE && g_ServerConfig.gameType != GAME_TYPE_ARENA)) {
                 break;
             }
+#endif
 
             player = g_PlayersList->FindById(packet_terrain->from_player_id);
             if (!player) {
@@ -5533,6 +5571,11 @@ void Server::ProcessClientPacket(Packet* pkt) {
             if (this->multiplayer != 0) {
                 break;
             }
+#ifdef A2SERVER_PATCH
+            if (!g_PlayersList) {
+                break;
+            }
+#endif
             player = g_PlayersList->FindById(packet_join->from_player_id);
             if (!player || !player->main_unit) {
                 break;
@@ -5554,6 +5597,11 @@ void Server::ProcessClientPacket(Packet* pkt) {
     case REQUEST_UNITS_RESEND:
         CheckPacketType(pkt, "Packet");
         {
+#ifdef A2SERVER_PATCH
+            if (!g_PlayersList) {
+                break;
+            }
+#endif
             player = g_PlayersList->FindById(pkt->from_player_id);
             if (player) {
                 g_NetStru1_main.ResendPlayerUnits(player);
@@ -5611,6 +5659,11 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 break;
             }
 
+#ifdef A2SERVER_PATCH
+            if (!g_PlayersList) {
+                break;
+            }
+#endif
             player = g_PlayersList->FindById(packet_join->from_player_id);
             if (!player) {
                 break;
@@ -5890,6 +5943,11 @@ void Server::ProcessClientPacket(Packet* pkt) {
             }
 
             // Find the target player by two identity fields carried in the packet
+#ifdef A2SERVER_PATCH
+            if (!g_PlayersList) {
+                break;
+            }
+#endif
             Player* target = g_PlayersList->FindByHatCharId(packet_2dwords->param1, packet_2dwords->param2);
             // Only proceed if the target player has no active NetStru2 yet
             if (target && g_NetStru1_main.GetClientByPlayerID(target->player_id) == nullptr) {
@@ -8050,6 +8108,11 @@ void SpellEffectList::ProcessTick() {
 
 // 502B4A
 Player* Server::FindPlayerById(uint16_t player_id) {
+#ifdef A2SERVER_PATCH
+    if (!g_PlayersList) {
+        return nullptr;
+    }
+#endif
     Player* player = g_PlayersList->FindById(player_id);
     if (!player) {
         CString id_str;
@@ -8063,9 +8126,15 @@ Player* Server::FindPlayerById(uint16_t player_id) {
 // 502AD1
 Unit* Server::FindPlayerUnit(uint16_t player_ref, uint16_t unit_id) {
     Player* player = this->FindPlayerById(player_ref);
+#ifdef A2SERVER_PATCH
+    if (!player || !player->unit_list) {
+        return nullptr;
+    }
+#else
     if (!player) {
         return nullptr;
     }
+#endif
     Unit* unit = player->unit_list->FindById(unit_id);
     if (!unit) {
         return nullptr;
