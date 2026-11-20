@@ -279,7 +279,11 @@ void Server::ProcessPlayers() {
         while (player_it != nullptr) {
             Player* player = g_PlayersList->list.GetNext(player_it);
             if (!player->is_ai && player->main_unit != nullptr) {
+                #ifdef A2SERVER_PATCH
+                Shop* shop = this->FindShopFor(player->main_unit);
+                #else
                 Shop* shop = this->FindShopAt(player->main_unit->position);
+                #endif
                 if (shop != nullptr && shop->shop_template != nullptr) {
                     if (shop->shop_template->FindInstanceFor(player->main_unit) != nullptr) {
                         shop->shop_template->CloseInstance(player->main_unit);
@@ -4157,14 +4161,32 @@ Shop* Server::FindShopAt(TokenPos* pos) {
             shop = static_cast<Shop*>(building);
         }
     }
-#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
-    // imp_EnterCustomShop hook (502C50): substitute per-player .alm shop clone.
-    if (this->use_default_shop == 0) {
-        return CheckReplacementBuilding(shop, pos);
+    return shop;
+}
+
+#if defined(A2SERVER_PATCH)
+Shop* Server::FindShopFor(Unit* unit) {
+    Shop* shop = nullptr;
+    if (this->use_default_shop != 0) {
+        shop = &g_DefaultShop;
+    } else if (this->srv_stru1->building_list != nullptr) {
+        // Retail FindNearby is first-hit over ALL buildings; a non-shop building
+        // earlier in the list (signpost near the approach path) makes the shop
+        // lookup fail from certain tiles. Instead we find the nearest Shop.
+        shop = this->srv_stru1->building_list->FindNearestShop(unit->position);
+    }
+
+#if defined(A2TANGAR_HAT)
+    if (this->use_default_shop == 0 && shop != nullptr) {
+        Shop* replacement = CheckReplacementBuilding(shop, unit);
+        if (replacement != nullptr) {
+            return replacement;
+        }
     }
 #endif
     return shop;
 }
+#endif
 
 const char* PacketType(Packet *pkt) {
     if (dynamic_cast<Packet2Dwords*>(pkt) != nullptr) { return "Packet2Dwords"; }
@@ -4646,7 +4668,11 @@ void Server::ProcessClientPacket(Packet* pkt) {
 
             // Both types in [4..8]: shop-slot interaction --- delegate entirely.
             if (from_type >= TRANSFER_SRC_SHOP && from_type <= TRANSFER_SRC_SHELF_4 && to_type >= TRANSFER_DST_SHOP && to_type <= TRANSFER_DST_SHELF_4) {
+                #ifdef A2SERVER_PATCH
+                Shop* shop = this->FindShopFor(human);
+                #else
                 Shop* shop = this->FindShopAt(human->position);
+                #endif
                 if (shop) {
                     shop->HandleItemOperation(
                         human,
@@ -4695,7 +4721,11 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 }
             } else if (from_type == TRANSFER_SRC_SHOP) {
                 // Buy item from shop.
+                #ifdef A2SERVER_PATCH
+                Shop* shop = this->FindShopFor(human);
+                #else
                 Shop* shop = this->FindShopAt(human->position);
+                #endif
                 if (!shop) {
                     break;
                 }
@@ -4762,7 +4792,11 @@ void Server::ProcessClientPacket(Packet* pkt) {
             } else if (to_type == TRANSFER_DST_SHOP) {
                 // Sell item to shop.
                 item->pOwner = human->pOwner;
+                #ifdef A2SERVER_PATCH
+                Shop* shop = this->FindShopFor(human);
+                #else
                 Shop* shop = this->FindShopAt(human->position);
+                #endif
                 if (!shop) {
                     break;
                 }
@@ -4860,7 +4894,11 @@ void Server::ProcessClientPacket(Packet* pkt) {
             if (!unit) {
                 break;
             }
-            Shop* shop = this->FindShopAt(unit->position);
+                #ifdef A2SERVER_PATCH
+                Shop* shop = this->FindShopFor(unit);
+                #else
+                Shop* shop = this->FindShopAt(unit->position);
+                #endif
             if (!shop) {
                 break;
             }
@@ -4897,7 +4935,11 @@ void Server::ProcessClientPacket(Packet* pkt) {
             if (!unit) {
                 break;
             }
+            #ifdef A2SERVER_PATCH
+            Shop* shop = this->FindShopFor(unit);
+            #else
             Shop* shop = this->FindShopAt(unit->position);
+            #endif
             if (!shop) {
                 break;
             }
@@ -4915,7 +4957,11 @@ void Server::ProcessClientPacket(Packet* pkt) {
             if (!unit || !unit->position) {
                 break;
             }
+            #ifdef A2SERVER_PATCH
+            Shop* shop = this->FindShopFor(unit);
+            #else
             Shop* shop = this->FindShopAt(unit->position);
+            #endif
             if (!shop) {
                 break;
             }
@@ -4933,7 +4979,11 @@ void Server::ProcessClientPacket(Packet* pkt) {
             if (!unit) {
                 break;
             }
+            #ifdef A2SERVER_PATCH
+            Shop* shop = this->FindShopFor(unit);
+            #else
             Shop* shop = this->FindShopAt(unit->position);
+            #endif
             if (!shop) {
                 break;
             }
@@ -4948,7 +4998,11 @@ void Server::ProcessClientPacket(Packet* pkt) {
             if (!unit) {
                 break;
             }
+            #ifdef A2SERVER_PATCH
+            Shop* shop = this->FindShopFor(unit);
+            #else
             Shop* shop = this->FindShopAt(unit->position);
+            #endif
             if (!shop) {
                 break;
             }

@@ -1,6 +1,9 @@
 #include "buildings_list.h"
 #include "building.h"
 #include "inn.h"
+#ifdef A2SERVER_PATCH
+#include "shop.h"
+#endif
 
 
 void BuildingsList::RegenTick() { // 55817b
@@ -26,6 +29,30 @@ Building* BuildingsList::FindNearby(TokenPos* pos) {
     TokenPos adjusted(pos->GetX() - 1, pos->GetY() - 1, MapStuff_Instance);
     return this->FindNearbyExact(&adjusted);
 }
+
+#ifdef A2SERVER_PATCH
+// A2SERVER_PATCH: Shop-only variant of FindNearby to prevent non-shop buildings from hijacking the lookup.
+Shop* BuildingsList::FindNearestShop(TokenPos* pos) {
+    TokenPos adjusted(pos->GetX() - 1, pos->GetY() - 1, MapStuff_Instance);
+    Shop* best_shop = nullptr;
+    uint8_t best_dist = 0xFF;
+    for (POSITION it = this->GetHeadPosition(); it != nullptr;) {
+        Building* building = this->GetNext(it);
+        if (!building->IsKindOf(RUNTIME_CLASS(Shop))) {
+            continue;
+        }
+        uint8_t dist = building->position->Distance(&adjusted);
+        if (dist < best_dist) {
+            best_dist = dist;
+            best_shop = static_cast<Shop*>(building);
+        }
+    }
+    if (best_shop != nullptr && best_dist > 2) {
+        return nullptr;
+    }
+    return best_shop;
+}
+#endif
 
 // 557DB2
 Building* BuildingsList::FindById(uint16_t id) {

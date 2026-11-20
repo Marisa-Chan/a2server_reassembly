@@ -3,8 +3,8 @@
 struct MapAlm;
 struct MapBuildingData;
 class Shop;
-struct TokenPos;
+class Unit;
 
 void ClearShops();
 Shop* CreateMultiShops(MapBuildingData* struc, MapAlm* mapdata);
-Shop* CheckReplacementBuilding(Shop* shop, TokenPos* coords);
+Shop* CheckReplacementBuilding(Shop* shop, Unit* unit);

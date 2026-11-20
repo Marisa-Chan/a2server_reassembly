@@ -283,6 +283,9 @@ public:
     // ProcessClientPacket helpers
     Unit* FindPlayerUnit(uint16_t player_ref, uint16_t unit_id);
     Shop* FindShopAt(TokenPos* pos);
+    #ifdef A2SERVER_PATCH
+    Shop* FindShopFor(Unit* unit);
+    #endif
     Inn* FindInnAt(TokenPos* pos);   // Inn lookup by TokenPos (client: 4fca5c)
     Player* FindPlayerById(uint16_t player_id);  // client: 4fc8f1
     void SaveGame(CString* str);  // client: 4f25d6

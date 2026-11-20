@@ -67,24 +67,13 @@ void ClearShops()
     s_ShopReplacements.clear();
 }
 
-Shop* CheckReplacementBuilding(Shop* shop, TokenPos* coords)
+Shop* CheckReplacementBuilding(Shop* shop, Unit* unit)
 {
-    if (shop == nullptr || coords == nullptr || g_PlayersList == nullptr) {
+    if (shop == nullptr || unit == nullptr || unit->pOwner == nullptr) {
         return nullptr;
     }
 
-    for (POSITION pos = g_PlayersList->list.GetHeadPosition(); pos != nullptr;) {
-        Player* plr = g_PlayersList->list.GetNext(pos);
-        if (plr == nullptr || plr->main_unit == nullptr) {
-            continue;
-        }
-        if (plr->main_unit->position == coords) {
-            uint32_t replacement_id = (static_cast<uint32_t>(plr->player_id) << 24) |
-                                      (static_cast<uint32_t>(shop->TokenID) & 0x00FFFFFFu);
-            auto it = s_ShopReplacements.find(replacement_id);
-            return (it != s_ShopReplacements.end()) ? it->second : nullptr;
-        }
-    }
-
-    return nullptr;
+    uint32_t replacement_id = (static_cast<uint32_t>(unit->pOwner->player_id) << 24) | (shop->TokenID & 0x00FFFFFFu);
+    auto it = s_ShopReplacements.find(replacement_id);
+    return (it != s_ShopReplacements.end()) ? it->second : nullptr;
 }
