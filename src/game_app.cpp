@@ -295,8 +295,8 @@ void InitCpuAndDistTables() {
 
 // 43A857
 void __cdecl PostConsoleLine(const char* source) {
-#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
-    // redir_log hook (43A872): write every server console line to Tangar's timestamped log file.
+#if (defined(A2TANGAR_HAT) && !defined(A2CLIENT)) || defined(A2CLIENT_PATCH)
+    // redir_log (server 43A872) / CHAT_logStrings (client 4021FE): write to Tangar's timestamped log file.
     log_format("%s\n", source != nullptr ? source : "");
 #endif
     MainWindow* mainWnd = (MainWindow*)AfxGetMainWnd();
@@ -629,6 +629,7 @@ BOOL GameApp::InitInstance() {
         }
     }
     tangar_cfg::ParseConfig();
+    tangar_cfg::InitClientLogFile();
     tangar_locale::DecideLanguage();
     if (GetFileAttributesA("maps") == INVALID_FILE_ATTRIBUTES) {
         CreateDirectoryA("maps", nullptr);

@@ -46,6 +46,13 @@ extern bool g_altchat;
 // Screenshots: put screenshot files into the screenshots subdirectory.
 extern bool z_screendir;
 
+// Client logs: put log files into the logs subdirectory (default true).
+extern bool z_logsdir;
+
+// Initialize Config::LogFile for the client ("logs\\allods2_DD-MM-YYYY[.pid].log"
+// when z_logsdir is enabled, else "allods2[.pid].log") and write startup header.
+void InitClientLogFile();
+
 // Screen resolution from allods2.cfg (r_width / r_height when both set).
 extern uint32_t r_width;
 extern uint32_t r_height;

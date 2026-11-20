@@ -4,13 +4,17 @@
 #include "client_config.h"
 
 #include <windows.h>
+#include <tlhelp32.h>
 
+#include "config_new.h"
 #include "hotkeys.h"
+#include "tangar_log.h"
 
 #include <cctype>
 #include <cstdint>
 #include <cstdio>
 #include <cstdlib>
+#include <ctime>
 #include <fstream>
 #include <string>
 #include <vector>
@@ -33,6 +37,7 @@ bool z_lang_override = false;
 bool z_russian = true;
 bool stats_based_level_selection = true; // a2mgr default: on
 bool z_screendir = true;
+bool z_logsdir = true;
 bool g_altchat = false;
 int32_t z_softcore = 0; // 0=off, 1=force softcore, 2=force sandbox (no config parse in a2mgr)
 
@@ -183,6 +188,8 @@ void Parse2x(std::ifstream& f) {
             r_stopwatch = (cmd.size() == 2) ? StrToBool(cmd[1]) : true;
         } else if (cmd[0] == "z_screendir") {
             z_screendir = (cmd.size() == 2) ? StrToBool(cmd[1]) : true;
+        } else if (cmd[0] == "z_logsdir") {
+            z_logsdir = (cmd.size() == 2) ? StrToBool(cmd[1]) : true;
         } else if (cmd[0] == "g_altchat") {
             g_altchat = (cmd.size() == 2) ? StrToBool(cmd[1]) : true;
         } else if (cmd[0] == "r_grid") {
@@ -358,6 +365,67 @@ const char* HatAddress() {
         hat.resize(255);
     }
     return hat.c_str();
+}
+
+void InitClientLogFile() {
+    if (z_logsdir && GetFileAttributesA("logs") == INVALID_FILE_ATTRIBUTES) {
+        CreateDirectoryA("logs", nullptr);
+    }
+
+    std::string wherelog = "allods2";
+    if (z_logsdir) {
+        time_t t = time(nullptr);
+        struct tm tmv = {};
+        if (localtime_s(&tmv, &t) == 0) {
+            char buf[128] = {};
+            _snprintf(buf, sizeof(buf) - 1, "logs\\allods2_%02u-%02u-%04u",
+                      static_cast<unsigned>(tmv.tm_mday),
+                      static_cast<unsigned>(tmv.tm_mon + 1),
+                      static_cast<unsigned>(tmv.tm_year + 1900));
+            wherelog = buf;
+        } else {
+            wherelog = "logs\\allods2";
+        }
+    }
+
+    DWORD self_pid = GetCurrentProcessId();
+    char self_path[MAX_PATH] = {};
+    GetModuleFileNameA(nullptr, self_path, MAX_PATH);
+    const char* self_base = strrchr(self_path, '\\');
+    self_base = (self_base != nullptr) ? (self_base + 1) : self_path;
+
+    uint32_t other_instances = 0;
+    HANDLE snap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+    if (snap != INVALID_HANDLE_VALUE) {
+        PROCESSENTRY32 pe = {};
+        pe.dwSize = sizeof(pe);
+        if (Process32First(snap, &pe)) {
+            do {
+                if (pe.th32ProcessID != self_pid && _stricmp(pe.szExeFile, self_base) == 0) {
+                    other_instances++;
+                }
+            } while (Process32Next(snap, &pe));
+        }
+        CloseHandle(snap);
+    }
+
+    if (other_instances != 0) {
+        char pid_buf[32] = {};
+        _snprintf(pid_buf, sizeof(pid_buf) - 1, ".%lu", static_cast<unsigned long>(self_pid));
+        wherelog += pid_buf;
+    }
+    wherelog += ".log";
+
+    bool pre_exists = (GetFileAttributesA(wherelog.c_str()) != INVALID_FILE_ATTRIBUTES);
+    Config::LogFile = wherelog;
+    if (pre_exists) {
+        FILE* fp = fopen(Config::LogFile.c_str(), "a");
+        if (fp != nullptr) {
+            fputc('\n', fp);
+            fclose(fp);
+        }
+    }
+    log_format("Rage of Mages II (v1.07)\n");
 }
 
 void ParseConfig() {

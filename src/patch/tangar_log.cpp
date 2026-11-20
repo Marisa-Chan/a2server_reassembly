@@ -1,6 +1,7 @@
 #include "tangar_log.h"
 
 #include "../game_app.h"
+#include "../util.h"
 #include "config_new.h"
 
 #include <cstdarg>
@@ -18,6 +19,11 @@ void log_format(const char* format, ...)
     _vsnprintf(line, sizeof(line) - 1, format, va);
     line[sizeof(line) - 1] = '\0';
     va_end(va);
+#ifdef A2CLIENT
+    if (g_isDosCP != 0) {
+        OemToCharA(line, line);
+    }
+#endif
     SYSTEMTIME tm;
     GetLocalTime(&tm);
     _snprintf(l2, sizeof(l2) - 1, "[%d.%.2d.%.4d %d:%.2d:%.2d.%.3d] %s", tm.wDay, tm.wMonth, tm.wYear,
