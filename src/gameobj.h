@@ -6,6 +6,7 @@
 #include <afx.h>
 #include "alm.h"
 #include "constants.h"
+#include "gfx.h"
 #include "item.h"
 #include "util.h"
 
@@ -302,7 +303,7 @@ public:
     virtual void PlayRetreatVoice();  // client: 46da67
     virtual void PlaySelectVoice();  // client: 46d8d3
     virtual void PlayPickupVoice();  // client: 46db1e
-    virtual void RenderHeroPortrait(const char* str, CGameBitmap* bmp1, CGameBitmap* bmp2);  // client: 46dd6a
+    virtual void RenderHeroPortrait(const char* str, CBmp64* bmp1, CGameBitmap* bmp2);  // client: 46dd6a
 
     CUnit(); //46411c (client: 467de9)
 

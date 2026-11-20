@@ -1076,7 +1076,7 @@ CUnit::~CUnit() { //46459d
     }
 }
 
-void CUnit::RenderHeroPortrait(const char* str, CGameBitmap* bmp1, CGameBitmap* bmp2) { // 469ffc
+void CUnit::RenderHeroPortrait(const char* str, CBmp64* bmp1, CGameBitmap* bmp2) { // 469ffc
     if (bmp1 != nullptr && bmp1->GetData() != nullptr) {
         memset(bmp1->GetData(), 0, bmp1->GetWidth(0) * bmp1->GetHeight(0) * 2);
     }
@@ -1389,7 +1389,7 @@ void CUnit::RenderHeroPortrait(const char* str, CGameBitmap* bmp1, CGameBitmap* 
 
     if (str != nullptr) {
         bmp1->FlipVertical();
-        static_cast<CBmp64*>(bmp1)->WriteFile(str, bmp2); // TODO: is `bmp1` actually `CBmp64*`?
+        bmp1->WriteFile(str, bmp2);
     }
 
     uint8_t palette_data[256 * 4] = { 0 };

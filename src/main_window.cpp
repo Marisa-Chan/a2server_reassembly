@@ -3650,8 +3650,6 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
                 CWnd::PostMessage(MAIN_MSG_SHOW_HAT_BROWSER, 0, 0);
             }
         } else {
-            // TODO client (48a969): posts 0x48d (hat connect handshake: client
-            // 004958ac/00495c94 gates) instead of the inline connect flow below
 #ifndef A2CLIENT
             if (this->ConnectToServerAddress() == 0) {
                 PostMessage(MAIN_MSG_SHOW_HAT_SERVER_LIST, 0, 0);

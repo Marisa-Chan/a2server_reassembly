@@ -942,7 +942,9 @@ void DirectDamage::Serialize(CArchive& ar) {
 
 // 540C77
 void DirectDamage::RemoveFromUnit(Unit* unit) {
-    if (unit->IsUnit() == 0) { // TODO: that shouldn't be possible if the input is actually a `Unit*` and not a `Token*`.
+    // WAT: that shouldn't be possible if the input is actually a `Unit*` and not a `Token*`.
+    // Looks like in vanilla they're passing `Token*` and force-casting it. Eugh.
+    if (unit->IsUnit() == 0) {
         if (unit->IsBuilding() != 0) {
             Building* building = reinterpret_cast<Building*>(unit);
             int32_t damage = building->RollDamage(&this->unit_to_hit, this->caster);
