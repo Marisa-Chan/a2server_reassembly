@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <inttypes.h>
 #include <stdio.h>
 #include "game_app.h"
@@ -2358,9 +2359,15 @@ void CopyIndexedSkip0(uint8_t* dst, uint8_t* src, int32_t size) { //45424d
 
 
 void DrawFlatTile(int32_t x, int32_t y, int32_t l1, int32_t l2, int32_t l3, int32_t l4, uint8_t* src, uint16_t* pal) { //458b29
+#ifdef A2CLIENT_PATCH
+    if (x + 32 <= g_clipRect.left || x >= g_clipRect.right || y >= g_clipRect.bottom || y + 32 < g_clipRect.top) {
+        return;
+    }
+#else
     if (x < g_clipRect.left || x + 32 > g_clipRect.right || y >= g_clipRect.bottom || y + 32 < g_clipRect.top) {
         return;
     }
+#endif
 
     int32_t tl = (l2 - l1) * 32 / 32; //top light diff
     int32_t bl = (l4 - l3) * 32 / 32; //bottom light diff
@@ -2370,6 +2377,14 @@ void DrawFlatTile(int32_t x, int32_t y, int32_t l1, int32_t l2, int32_t l3, int3
     
     uint8_t* dst = (uint8_t*)g_selDrawBitmap.lpSurface + y * g_selDrawBitmap.lPitch + x * 2;
     for (int32_t i = 0; i < 32; i++) {
+#ifdef A2CLIENT_PATCH
+        if (x + i < g_clipRect.left || x + i >= g_clipRect.right) {
+            l1 += tl;
+            l3 += bl;
+            dst += 2;
+            continue;
+        }
+#endif
         int32_t num_row = 32;
         int32_t lstep = (l3 - l1) / 32; // 256 / 32 lines
 
@@ -2410,7 +2425,11 @@ void DrawFlatTile(int32_t x, int32_t y, int32_t l1, int32_t l2, int32_t l3, int3
 
 
 void DrawDeformedTile(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2, int32_t h3, int32_t l1, int32_t l2, int32_t l3, int32_t l4, uint8_t* src, uint16_t* pal) { //458ca0
+#ifdef A2CLIENT_PATCH
+    if (x1 <= g_clipRect.left || x0 >= g_clipRect.right ||
+#else
     if (x0 < g_clipRect.left || x1 > g_clipRect.right || 
+#endif
         (h0 >= g_clipRect.bottom && h1 >= g_clipRect.bottom) ||
         (h2 < g_clipRect.top && h3 < g_clipRect.top)) {
         return;
@@ -2480,7 +2499,11 @@ void DrawDeformedTile(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2
         uint8_t* out_dst = (uint8_t*)g_selDrawBitmap.lpSurface + h0 * g_selDrawBitmap.lPitch + i * 2 + x0 * 2;
         int32_t num_rows = h2 - h0;
 
+#ifdef A2CLIENT_PATCH
+        if (num_rows > 0 && x0 + i >= g_clipRect.left && x0 + i < g_clipRect.right) {
+#else
         if (num_rows > 0) {
+#endif
             int32_t pix_step = (32 << 16) / num_rows;
             int32_t light_step = ((l3 - l1) / num_rows) / 2;
             if (g_clipRect.bottom < h2) {
@@ -2515,10 +2538,40 @@ void DrawDeformedTile(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2
 
 
 
+#ifdef A2CLIENT_PATCH
+static inline void ZeroClippedSpan16(uint8_t* row_base, int32_t sx, int32_t ex) {
+    int32_t cx0 = (std::max)(sx, (int32_t)g_clipRect.left);
+    int32_t cx1 = (std::min)(ex, (int32_t)g_clipRect.right);
+    if (cx0 < cx1) {
+        memset(row_base + cx0 * 2, 0, (size_t)(cx1 - cx0) * 2);
+    }
+}
+
+static inline void GreyClippedSpan16(uint8_t* row_base, int32_t sx, int32_t ex) {
+    int32_t cx0 = (std::max)(sx, (int32_t)g_clipRect.left);
+    int32_t cx1 = (std::min)(ex, (int32_t)g_clipRect.right);
+    if (cx0 < cx1) {
+        uint16_t* pix = (uint16_t*)(row_base + cx0 * 2);
+        for (int32_t n = cx1 - cx0; n > 0; n--) {
+            *pix = (*pix >> 1) & g_ColorAddMask;
+            pix++;
+        }
+    }
+}
+#endif
+
 void FillFlatTerrain(int32_t x, int32_t h0, int32_t h2) { //458fe6
+#ifdef A2CLIENT_PATCH
+    int32_t x_start = (std::max)(x, (int32_t)g_clipRect.left);
+    int32_t x_end = (std::min)(x + 32, (int32_t)g_clipRect.right);
+    if (x_start >= x_end || h0 >= g_clipRect.bottom || h2 < g_clipRect.top) {
+        return;
+    }
+#else
     if (h0 >= g_clipRect.bottom || h2 < g_clipRect.top) {
         return;
     }
+#endif
 
     if (h0 < g_clipRect.top) {
         h0 = g_clipRect.top;
@@ -2529,6 +2582,16 @@ void FillFlatTerrain(int32_t x, int32_t h0, int32_t h2) { //458fe6
         num_rows = g_clipRect.bottom - h0;
     }
 
+#ifdef A2CLIENT_PATCH
+    uint8_t* dst = (uint8_t*)g_selDrawBitmap.lpSurface + h0 * g_selDrawBitmap.lPitch + x_start * 2;
+    size_t span_bytes = (size_t)(x_end - x_start) * 2;
+    while (num_rows > 0) {
+        memset(dst, 0, span_bytes);
+
+        dst += g_selDrawBitmap.lPitch;
+        num_rows--;
+    }
+#else
     uint8_t* dst = (uint8_t*)g_selDrawBitmap.lpSurface + h0 * g_selDrawBitmap.lPitch + x * 2;
     while (num_rows > 0) {
         memset(dst, 0, 32 * 2);
@@ -2536,10 +2599,15 @@ void FillFlatTerrain(int32_t x, int32_t h0, int32_t h2) { //458fe6
         dst += g_selDrawBitmap.lPitch;
         num_rows--;
     }
+#endif
 }
 
 void FillDeformedTerrain(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2, int32_t h3) { // 4590ef
+#ifdef A2CLIENT_PATCH
+    if (x1 <= g_clipRect.left || x0 >= g_clipRect.right ||
+#else
     if (x0 < g_clipRect.left || x1 > g_clipRect.right ||
+#endif
         (h0 >= g_clipRect.bottom && h1 >= g_clipRect.bottom) ||
         (h2 < g_clipRect.top && h3 < g_clipRect.top)) {
         return;
@@ -2563,7 +2631,11 @@ void FillDeformedTerrain(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t
             while (h0 < h1) {
                 if (h0 >= g_clipRect.top && h0 < g_clipRect.bottom) {
                     uint8_t num = g_TerrainHelper[hid][idx];
+#ifdef A2CLIENT_PATCH
+                    ZeroClippedSpan16(out_dst - x0 * 2, x0, x0 + num);
+#else
                     memset(out_dst, 0, num * 2);
+#endif
                 }
                 out_dst += g_selDrawBitmap.lPitch;
                 h0++;
@@ -2576,7 +2648,11 @@ void FillDeformedTerrain(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t
             while (h1 < h0) {
                 if (h1 >= g_clipRect.top && h1 < g_clipRect.bottom) {
                     uint8_t num = g_TerrainHelper[hid][idx];
+#ifdef A2CLIENT_PATCH
+                    ZeroClippedSpan16(out_dst - x0 * 2, x0 + 32 - num, x0 + 32);
+#else
                     memset(out_dst + 32 * 2 - num * 2, 0, num * 2);
+#endif
                 }
                 h1++;
                 idx++;
@@ -2595,7 +2671,11 @@ void FillDeformedTerrain(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t
             while (h3 < h2) {
                 if (h3 >= g_clipRect.top && h3 < g_clipRect.bottom) {
                     uint8_t num = g_TerrainHelper[hid][idx];
+#ifdef A2CLIENT_PATCH
+                    ZeroClippedSpan16(out_dst - x0 * 2, x0, x0 + num);
+#else
                     memset(out_dst, 0, num * 2);
+#endif
                 }
                 out_dst += g_selDrawBitmap.lPitch;
                 h3++;
@@ -2608,7 +2688,11 @@ void FillDeformedTerrain(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t
             while (h2 < h3) {
                 if (h2 >= g_clipRect.top && h2 < g_clipRect.bottom) {
                     uint8_t num = g_TerrainHelper[hid][idx];
+#ifdef A2CLIENT_PATCH
+                    ZeroClippedSpan16(out_dst - x0 * 2, x0 + 32 - num, x0 + 32);
+#else
                     memset(out_dst + 32 * 2 - num * 2, 0, num * 2);
+#endif
                 }
                 out_dst += g_selDrawBitmap.lPitch;
                 h2++;
@@ -2622,9 +2706,15 @@ void FillDeformedTerrain(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t
 
 
 void FillFlatLight(int32_t x, int32_t y, int32_t t0, int32_t t1, int32_t t2, int32_t t3) { //459449
+#ifdef A2CLIENT_PATCH
+    if (x + 32 <= g_clipRect.left || x >= g_clipRect.right || y >= g_clipRect.bottom || y + 32 < g_clipRect.top) {
+        return;
+    }
+#else
     if (x < g_clipRect.left || x + 32 > g_clipRect.right || y >= g_clipRect.bottom || y + 32 < g_clipRect.top) {
         return;
     }
+#endif
 
     int32_t tl = (t1 - t0) * 32 / 32; //top light diff
     int32_t bl = (t3 - t2) * 32 / 32; //bottom light diff
@@ -2634,6 +2724,14 @@ void FillFlatLight(int32_t x, int32_t y, int32_t t0, int32_t t1, int32_t t2, int
 
     uint8_t* dst = (uint8_t*)g_selDrawBitmap.lpSurface + y * g_selDrawBitmap.lPitch + x * 2;
     for (int32_t i = 0; i < 32; i++) {
+#ifdef A2CLIENT_PATCH
+        if (x + i < g_clipRect.left || x + i >= g_clipRect.right) {
+            t0 += tl;
+            t2 += bl;
+            dst += 2;
+            continue;
+        }
+#endif
         int32_t num_row = 32;
         int32_t lstep = (t2 - t0) / 32;
 
@@ -2687,7 +2785,11 @@ void FillFlatLight(int32_t x, int32_t y, int32_t t0, int32_t t1, int32_t t2, int
 
 void FillDeformedLight(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2, int32_t h3, int32_t t0, int32_t t1, int32_t t2, int32_t t3) { //4595fd
 
+#ifdef A2CLIENT_PATCH
+    if (x1 <= g_clipRect.left || x0 >= g_clipRect.right ||
+#else
     if (x0 < g_clipRect.left || x1 > g_clipRect.right ||
+#endif
         (h0 >= g_clipRect.bottom && h1 >= g_clipRect.bottom) ||
         (h2 < g_clipRect.top && h3 < g_clipRect.top)) {
         return;
@@ -2750,7 +2852,11 @@ void FillDeformedLight(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h
         }
 
         int32_t num_rows = h2 - h0;
+#ifdef A2CLIENT_PATCH
+        if (num_rows > 0 && x0 + i >= g_clipRect.left && x0 + i < g_clipRect.right) {
+#else
         if (num_rows > 0) {
+#endif
             int32_t light_step = (t2 - t0) / num_rows;
 
             uint8_t* dst = (uint8_t*)g_selDrawBitmap.lpSurface + h0 * g_selDrawBitmap.lPitch + (x0 + i) * 2;
@@ -2789,9 +2895,17 @@ void FillDeformedLight(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h
 
 
 void FillFlatGrey(int32_t x, int32_t h0, int32_t h2) { //45995e
+#ifdef A2CLIENT_PATCH
+    int32_t x_start = (std::max)(x, (int32_t)g_clipRect.left);
+    int32_t x_end = (std::min)(x + 32, (int32_t)g_clipRect.right);
+    if (x_start >= x_end || h0 >= g_clipRect.bottom || h2 < g_clipRect.top) {
+        return;
+    }
+#else
     if (h0 >= g_clipRect.bottom || h2 < g_clipRect.top) {
         return;
     }
+#endif
 
     if (h0 < g_clipRect.top) {
         h0 = g_clipRect.top;
@@ -2802,6 +2916,20 @@ void FillFlatGrey(int32_t x, int32_t h0, int32_t h2) { //45995e
         num_rows = g_clipRect.bottom - h0;
     }
 
+#ifdef A2CLIENT_PATCH
+    uint8_t* dst = (uint8_t*)g_selDrawBitmap.lpSurface + h0 * g_selDrawBitmap.lPitch + x_start * 2;
+    int32_t span_cols = x_end - x_start;
+    while (num_rows > 0) {
+        uint16_t* pix = (uint16_t*)dst;
+        for (int32_t num = 0; num < span_cols; num++) {
+            *pix = (*pix >> 1) & g_ColorAddMask;
+            pix++;
+        }
+
+        dst += g_selDrawBitmap.lPitch;
+        num_rows--;
+    }
+#else
     uint8_t* dst = (uint8_t*)g_selDrawBitmap.lpSurface + h0 * g_selDrawBitmap.lPitch + x * 2;
     while (num_rows > 0) {
         uint16_t* pix = (uint16_t*)dst;
@@ -2813,10 +2941,15 @@ void FillFlatGrey(int32_t x, int32_t h0, int32_t h2) { //45995e
         dst += g_selDrawBitmap.lPitch;
         num_rows--;
     }
+#endif
 }
 
 void FillDeformedGrey(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2, int32_t h3) { //459b72
+#ifdef A2CLIENT_PATCH
+    if (x1 <= g_clipRect.left || x0 >= g_clipRect.right ||
+#else
     if (x0 < g_clipRect.left || x1 > g_clipRect.right ||
+#endif
         (h0 >= g_clipRect.bottom && h1 >= g_clipRect.bottom) ||
         (h2 < g_clipRect.top && h3 < g_clipRect.top)) {
         return;
@@ -2839,11 +2972,15 @@ void FillDeformedGrey(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2
             int32_t idx = 0;
             while (h0 < h1) {
                 if (h0 >= g_clipRect.top && h0 < g_clipRect.bottom) {
+#ifdef A2CLIENT_PATCH
+                    GreyClippedSpan16(out_dst - x0 * 2, x0, x0 + g_TerrainHelper[hid][idx]);
+#else
                     uint16_t* pix = (uint16_t*)out_dst;
                     for (int num = g_TerrainHelper[hid][idx]; num > 0; num--) {
                         *pix = (*pix >> 1) & g_ColorAddMask;
                         pix++;
                     }
+#endif
                 }
                 out_dst += g_selDrawBitmap.lPitch;
                 h0++;
@@ -2856,11 +2993,15 @@ void FillDeformedGrey(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2
             while (h1 < h0) {
                 if (h1 >= g_clipRect.top && h1 < g_clipRect.bottom) {
                     int num = g_TerrainHelper[hid][idx];
+#ifdef A2CLIENT_PATCH
+                    GreyClippedSpan16(out_dst - x0 * 2, x0 + 32 - num, x0 + 32);
+#else
                     uint16_t* pix = (uint16_t*)(out_dst + 32 * 2 - num * 2);
                     for (; num > 0; num--) {
                         *pix = (*pix >> 1) & g_ColorAddMask;
                         pix++;
                     }
+#endif
                 }
                 h1++;
                 idx++;
@@ -2878,11 +3019,15 @@ void FillDeformedGrey(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2
             int32_t idx = hid - 1;
             while (h3 < h2) {
                 if (h3 >= g_clipRect.top && h3 < g_clipRect.bottom) {
+#ifdef A2CLIENT_PATCH
+                    GreyClippedSpan16(out_dst - x0 * 2, x0, x0 + g_TerrainHelper[hid][idx]);
+#else
                     uint16_t* pix = (uint16_t*)out_dst;
                     for (int num = g_TerrainHelper[hid][idx]; num > 0; num--) {
                         *pix = (*pix >> 1) & g_ColorAddMask;
                         pix++;
                     }
+#endif
                 }
                 out_dst += g_selDrawBitmap.lPitch;
                 h3++;
@@ -2895,11 +3040,15 @@ void FillDeformedGrey(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2
             while (h2 < h3) {
                 if (h2 >= g_clipRect.top && h2 < g_clipRect.bottom) {
                     int num = g_TerrainHelper[hid][idx];
+#ifdef A2CLIENT_PATCH
+                    GreyClippedSpan16(out_dst - x0 * 2, x0 + 32 - num, x0 + 32);
+#else
                     uint16_t* pix = (uint16_t*)(out_dst + 32 * 2 - num * 2);
                     for (; num > 0; num--) {
                         *pix = (*pix >> 1) & g_ColorAddMask;
                         pix++;
                     }
+#endif
                 }
                 out_dst += g_selDrawBitmap.lPitch;
                 h2++;
