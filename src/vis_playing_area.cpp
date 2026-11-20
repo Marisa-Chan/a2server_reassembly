@@ -5715,27 +5715,40 @@ void VisPlayingArea::RenderWorldFrame() {
     int32_t sidestatus_h = wnd->vis_sidestatus->GetRect().Height();
     int32_t charinfo_h = wnd->vis_charinfo->GetRect().Height();
     uint32_t panel_cmp = charinfo_h <= sidestatus_h;
+#ifdef A2CLIENT_PATCH
+    {
+        int32_t gap_top = local_rect.top + 480;
+        int32_t gap_end = (panel_cmp != 0) ? (local_rect.bottom - charinfo_h) : local_rect.bottom;
+        int32_t gap = gap_end - gap_top;
+        int32_t top_used = 0;
+        if (g_bmp_extra800l != nullptr && gap >= g_bmp_extra800l->GetHeight(0)) {
+            g_bmp_extra800l->DrawSubRectMasked(local_rect.right - 0x10, gap_top, 0, 0, 0x10, g_bmp_extra800l->GetHeight(0));
+            top_used = g_bmp_extra800l->GetHeight(0);
+        } else if (g_bmp_extra1024l != nullptr && gap >= g_bmp_extra1024l->GetHeight(0)) {
+            g_bmp_extra1024l->DrawSubRectMasked(local_rect.right - 0x10, gap_top, 0, 0, 0x10, g_bmp_extra1024l->GetHeight(0));
+            top_used = g_bmp_extra1024l->GetHeight(0);
+        }
+        if (panel_cmp != 0) {
+            int32_t rem = gap - top_used;
+            if (g_bmp_extra800l != nullptr && rem >= g_bmp_extra800l->GetHeight(0)) {
+                int32_t h = g_bmp_extra800l->GetHeight(0);
+                g_bmp_extra800l->DrawSubRectMasked(local_rect.right - 0x10, gap_end - h, 0, 0, 0x10, h);
+            } else if (g_bmp_extra1024l != nullptr && rem >= g_bmp_extra1024l->GetHeight(0)) {
+                int32_t h = g_bmp_extra1024l->GetHeight(0);
+                g_bmp_extra1024l->DrawSubRectMasked(local_rect.right - 0x10, gap_end - h, 0, 0, 0x10, h);
+            }
+            // Tangar info_panel_left_sprite (40A939): lower text strip pinned to bottom.
+            g_bmp_textbackl->DrawSubRectMasked(local_rect.right - 0x10, gap_end, 0, 0, 0x10, charinfo_h);
+        }
+    }
+#else
     if (g_ScreenSize.bottom > 600) {
         g_bmp_extra1024l->DrawSubRectMasked(local_rect.right - 0x10, local_rect.top + 480, 0, 0, 0x10, g_bmp_extra1024l->GetHeight(0));
-#ifdef A2CLIENT_PATCH
-        // Tangar info_panel_left_sprite (40A939): the lower text strip is pinned to
-        // the bottom of the window instead of sitting fixed below the top strip.
-        {
-            int32_t strip_y;
-            RECT wr;
-            if (GetWindowRect(AfxGetMainWnd()->m_hWnd, &wr)) {
-                strip_y = wr.bottom - 0xf2;
-            } else {
-                strip_y = local_rect.bottom - 0xf2;
-            }
-            g_bmp_textbackl->DrawSubRectMasked(local_rect.right - 0x10, strip_y, 0, 0, 0x10, 0xf2);
-        }
-#else
         g_bmp_textbackl->DrawSubRectMasked(local_rect.right - 0x10, local_rect.top + 480 + g_bmp_extra1024l->GetHeight(0), 0, 0, 0x10, 0xf2);
-#endif
     } else if (g_ScreenSize.bottom > 480) {
         g_bmp_extra800l->DrawSubRectMasked(local_rect.right - 0x10, local_rect.top + 480, 0, 0, 0x10, g_bmp_extra800l->GetHeight(0));
     }
+#endif
     SetClipRect(local_rect);
     TakeDamage::DrawDamages(&this->damage_labels);
     this->msglog.Draw();

@@ -361,11 +361,37 @@ void VisSideStatus::VMethod7() {
         screen_rect.OffsetRect(0, main_wnd->vis_charinfo->GetRect().Height() - screen_rect.Height());
     }
 
+#ifdef A2CLIENT_PATCH
+    int32_t charinfo_h = main_wnd->vis_charinfo->GetRect().Height();
+    bool has_info_panel = screen_rect.Height() >= charinfo_h;
+    int32_t gap_end = has_info_panel ? (screen_rect.bottom - charinfo_h) : screen_rect.bottom;
+    int32_t gap = gap_end - screen_rect.top;
+    if (gap > 0) {
+        FillRectColorSimple(screen_rect.left, screen_rect.top, screen_rect.right, gap_end, 0);
+    }
+    int32_t top_used = 0;
+    if (g_bmp_extra800r != nullptr && gap >= g_bmp_extra800r->GetHeight(0)) {
+        g_bmp_extra800r->Draw(screen_rect.left, screen_rect.top, 0, 0, 0);
+        top_used = g_bmp_extra800r->GetHeight(0);
+    } else if (g_bmp_extra1024r != nullptr && gap >= g_bmp_extra1024r->GetHeight(0)) {
+        g_bmp_extra1024r->Draw(screen_rect.left, screen_rect.top, 0, 0, 0);
+        top_used = g_bmp_extra1024r->GetHeight(0);
+    }
+    if (has_info_panel) {
+        int32_t rem = gap - top_used;
+        if (g_bmp_extra800r != nullptr && rem >= g_bmp_extra800r->GetHeight(0)) {
+            g_bmp_extra800r->Draw(screen_rect.left, gap_end - g_bmp_extra800r->GetHeight(0), 0, 0, 0);
+        } else if (g_bmp_extra1024r != nullptr && rem >= g_bmp_extra1024r->GetHeight(0)) {
+            g_bmp_extra1024r->Draw(screen_rect.left, gap_end - g_bmp_extra1024r->GetHeight(0), 0, 0, 0);
+        }
+    }
+#else
     if (g_ScreenSize.bottom > 600) {
         g_bmp_extra1024r->Draw(screen_rect.left, screen_rect.top, 0, 0, 0);
     } else if (g_ScreenSize.bottom > 480) {
         g_bmp_extra800r->Draw(screen_rect.left, screen_rect.top, 0, 0, 0);
     }
+#endif
     UnlockSurface2();
     this->dirty = 0;
 }

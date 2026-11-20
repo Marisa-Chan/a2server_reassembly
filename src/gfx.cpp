@@ -5377,12 +5377,9 @@ void LoadGraphics() { //47819d
         g_mousept.Update();
 
 #ifdef A2CLIENT_PATCH
-        if (g_ScreenSize.bottom < 601) {
-            if (g_ScreenSize.bottom > 480) {
-                g_bmp_extra800l = new CBmp64("graphics\\interface\\extra800l.bmp");
-                g_bmp_extra800r = new CBmp64("graphics\\interface\\extra800r.bmp");
-            }
-        } else {
+        if (g_ScreenSize.bottom > 480) {
+            g_bmp_extra800l = new CBmp64("graphics\\interface\\extra800l.bmp");
+            g_bmp_extra800r = new CBmp64("graphics\\interface\\extra800r.bmp");
             g_bmp_extra1024l = new CBmp64("graphics\\interface\\extra1024l.bmp");
             g_bmp_extra1024r = new CBmp64("graphics\\interface\\extra1024r.bmp");
         }
