@@ -19,11 +19,13 @@
 #include "gameplay.h"
 #include "vis_playing_area.h"
 #include "vis_net.h"
-#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+#if (defined(A2TANGAR_HAT) && !defined(A2CLIENT)) || defined(A2CLIENT_PATCH)
 #include "patch/config_new.h"
 #include "patch/crash_filter.h"
-#include "patch/ctl_handle.h"
 #include "patch/tangar_log.h"
+#endif
+#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+#include "patch/ctl_handle.h"
 #include "patch/thresholds.h"
 #endif
 
@@ -594,7 +596,7 @@ BOOL GameApp::InitInstance() {
 #else
     g_IsServer = 1;
 #endif
-#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+#if (defined(A2TANGAR_HAT) && !defined(A2CLIENT)) || defined(A2CLIENT_PATCH)
     tangar_crash::SetExceptionFilter();
 #endif
 
@@ -1009,8 +1011,10 @@ BOOL GameApp::OnIdle(LONG lCount) { //4835b0
 }
 
 int GameApp::ExitInstance() { //4833f1
-#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+#if (defined(A2TANGAR_HAT) && !defined(A2CLIENT)) || defined(A2CLIENT_PATCH)
     Config::ExitingCleanly = true;
+#endif
+#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
     tangar_ctl::StopControlThread();
 #endif
     if (g_EnableTrace != 0) {

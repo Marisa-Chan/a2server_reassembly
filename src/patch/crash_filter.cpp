@@ -224,7 +224,9 @@ LONG WINAPI UnhandledCrashFilter(EXCEPTION_POINTERS* info) {
             Traceback(info->ContextRecord);
         }
 
-        EmergencySaveWithSEH();
+        if (g_IsServer != 0) {
+            EmergencySaveWithSEH();
+        }
         ExitProcess(1);
     } __except (EXCEPTION_EXECUTE_HANDLER) {
         TerminateProcess(GetCurrentProcess(), 1);
