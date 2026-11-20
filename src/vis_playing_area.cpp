@@ -4835,23 +4835,6 @@ void VisPlayingArea::UpdateMapCursor() {
 }
 
 // 404E1A
-#ifdef A2CLIENT_PATCH
-// GRID_part1-5 hooks (client 4052D5/405D3F/406372/4058EF/405826): tile-grid
-// overlay - 32-pixel-spaced lines over the drawn terrain area, gated on
-// the allods2.cfg r_grid / r_grid_color knobs
-static void DrawTileGrid(int32_t x, int32_t y, int32_t w, int32_t h) {
-    if (!tangar_cfg::r_grid) {
-        return;
-    }
-    for (int32_t gx = x; gx <= x + w; gx += 32) {
-        FillRectColor(gx, y, gx + 1, y + h, tangar_cfg::r_grid_color);
-    }
-    for (int32_t gy = y; gy <= y + h; gy += 32) {
-        FillRectColor(x, gy, x + w, gy + 1, tangar_cfg::r_grid_color);
-    }
-}
-#endif
-
 void VisPlayingArea::DrawTerrainFull() {
     AfxGetMainWnd();
     timeGetTime();
@@ -4903,15 +4886,20 @@ void VisPlayingArea::DrawTerrainFull() {
             } else {
                 DrawDeformedTile(x * 0x20, (x + 1) * 0x20, h1, h2, h3, h4, l1, l2, l3, l4, tile_data, pal);
             }
+#ifdef A2CLIENT_PATCH
+            // GRID_part1 (client 4052D5): per-tile height-deformed grid edges.
+            if (tangar_cfg::r_grid) {
+                FillRectColor(x * 0x20, h1, (x + 1) * 0x20, h2, tangar_cfg::r_grid_color);
+                FillRectColor(x * 0x20, h1, x * 0x20, h3, tangar_cfg::r_grid_color);
+            }
+#else
             if (g_TerrainHidden != 0) {
                 FillRectColor(x * 0x20, h1, (x + 1) * 0x20, h2, 0);
                 FillRectColor(x * 0x20, h1, x * 0x20, h3, 0);
             }
+#endif
         }
     }
-#ifdef A2CLIENT_PATCH
-    DrawTileGrid(0, 0, this->view_tiles_x * 32, this->view_tiles_y * 32);
-#endif
 }
 
 // 405399
@@ -4967,11 +4955,15 @@ void VisPlayingArea::DrawTerrainAnimated(int32_t arg) {
             } else {
                 DrawDeformedTile(map_x * 0x20, (map_x + 1) * 0x20, h1, h2, h3, h4, l1, l2, l3, l4, tile_data, pal);
             }
+#ifdef A2CLIENT_PATCH
+            // GRID_part4/part5 (client 4058EF/405826): per-tile grid edges on animated tiles.
+            if (tangar_cfg::r_grid) {
+                FillRectColor(map_x * 0x20, h1, (map_x + 1) * 0x20, h2, tangar_cfg::r_grid_color);
+                FillRectColor(map_x * 0x20, h1, map_x * 0x20, h3, tangar_cfg::r_grid_color);
+            }
+#endif
         }
     }
-#ifdef A2CLIENT_PATCH
-    DrawTileGrid(0, 0, this->view_tiles_x * 32, this->view_tiles_y * 32);
-#endif
 }
 
 // 40587B
@@ -5031,15 +5023,20 @@ void VisPlayingArea::DrawTerrainScrolled(int32_t arg) {
             } else {
                 DrawDeformedTile(map_x * 0x20, (map_x + 1) * 0x20, h1, h2, h3, h4, l1, l2, l3, l4, tile_data, pal);
             }
+#ifdef A2CLIENT_PATCH
+            // GRID_part2 (client 405D3F): per-tile height-deformed grid edges on scrolled tiles.
+            if (tangar_cfg::r_grid) {
+                FillRectColor(map_x * 0x20, h1, (map_x + 1) * 0x20, h2, tangar_cfg::r_grid_color);
+                FillRectColor(map_x * 0x20, h1, map_x * 0x20, h3, tangar_cfg::r_grid_color);
+            }
+#else
             if (g_TerrainHidden != 0) {
                 FillRectColor(map_x * 0x20, h1, (map_x + 1) * 0x20, h2, 0);
                 FillRectColor(map_x * 0x20, h1, map_x * 0x20, h3, 0);
             }
+#endif
         }
     }
-#ifdef A2CLIENT_PATCH
-    DrawTileGrid(0, 0, this->view_tiles_x * 32, this->view_tiles_y * 32);
-#endif
 }
 
 // 405D0E
@@ -5102,15 +5099,20 @@ void VisPlayingArea::RedrawLitTerrain() {
             } else {
                 DrawDeformedTile(x * 0x20, (x + 1) * 0x20, h1, h2, h3, h4, l1, l2, l3, l4, tile_data, pal);
             }
+#ifdef A2CLIENT_PATCH
+            // GRID_part3 (client 406372): per-tile height-deformed grid edges on lit tiles.
+            if (tangar_cfg::r_grid) {
+                FillRectColor(x * 0x20, h1, (x + 1) * 0x20, h2, tangar_cfg::r_grid_color);
+                FillRectColor(x * 0x20, h1, x * 0x20, h3, tangar_cfg::r_grid_color);
+            }
+#else
             if (g_TerrainHidden != 0) {
                 FillRectColor(x * 0x20, h1, (x + 1) * 0x20, h2, 0);
                 FillRectColor(x * 0x20, h1, x * 0x20, h3, 0);
             }
+#endif
         }
     }
-#ifdef A2CLIENT_PATCH
-    DrawTileGrid(0, 0, this->view_tiles_x * 32, this->view_tiles_y * 32);
-#endif
 }
 
 // 406F7B
