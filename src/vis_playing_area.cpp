@@ -116,7 +116,7 @@ void VisPlayingArea::CloseHatOverlays() {
     }
     CVisualObject* child1200 = this->FindChild(MAP_CHILD_CHAT_LINE);
     if (child1200 != nullptr) {
-        // TODO(client): the vanilla also calls the child's vtable+0x84 with 0x445 first
+        ((VisScreen*)child1200)->DoClose(VIS_MSG_HIDE_SCREEN);
         this->RemoveChild(child1200);
     }
 }
