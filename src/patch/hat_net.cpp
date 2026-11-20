@@ -473,60 +473,65 @@ int RecvServerFramed(SOCKET s, char* buf, int len, int flags) {
         return -1;
     }
 
-    int r = recv(s, buf, 4, 0);
-    if (r != 4) {
-        return -1;
-    }
-    if (*reinterpret_cast<int32_t*>(buf) == 0) {
-        return 0;
-    }
+    (void)flags;
+    constexpr int kMaxExtendedPerCall = 64;
+    for (int ext_count = 0; ext_count < kMaxExtendedPerCall; ++ext_count) {
+        int r = recv(s, buf, 4, 0);
+        if (r != 4) {
+            return -1;
+        }
+        if (*reinterpret_cast<int32_t*>(buf) == 0) {
+            return 0;
+        }
 
-    if (!RecvExactServer(s, reinterpret_cast<uint8_t*>(buf + 4), 4)) {
-        return -1;
-    }
-
-    int32_t pkt_size = *reinterpret_cast<int32_t*>(buf);
-    uint32_t pkt_flags = *reinterpret_cast<uint32_t*>(buf + 4);
-
-    if ((pkt_flags & 0x80100000u) == 0x80100000u) {
-        if (pkt_size < 0 || pkt_size > 0x100000) {
+        if (!RecvExactServer(s, reinterpret_cast<uint8_t*>(buf + 4), 4)) {
             return -1;
         }
 
-        std::vector<uint8_t> rd(static_cast<size_t>(pkt_size));
-        if (pkt_size > 0 && !RecvExactServer(s, rd.data(), pkt_size)) {
+        int32_t pkt_size = *reinterpret_cast<int32_t*>(buf);
+        uint32_t pkt_flags = *reinterpret_cast<uint32_t*>(buf + 4);
+
+        if ((pkt_flags & 0x80100000u) == 0x80100000u) {
+            if (pkt_size < 0 || pkt_size > 0x100000) {
+                return -1;
+            }
+
+            std::vector<uint8_t> rd(static_cast<size_t>(pkt_size));
+            if (pkt_size > 0 && !RecvExactServer(s, rd.data(), pkt_size)) {
+                return -1;
+            }
+
+            Packet pack;
+            pack.Reset();
+            for (int32_t i = 0; i < pkt_size; i++) {
+                pack.WriteUInt8(rd[static_cast<size_t>(i)]);
+            }
+            pack.Seek(0);
+
+            netlog::hex("CLI->SRV", &rd[0], (size_t)pkt_size, "EXT player=%d id=0x%02X", p_id,
+                        pkt_size > 0 ? rd[0] : 0);
+
+            if (!ProcessClientExtendedPacket(p_id, pack)) {
+                return -1;
+            }
+
+            memset(buf, 0, static_cast<size_t>(len));
+            if (!SOCK_WaitEvent(s, 0)) {
+                return -2;
+            }
+            continue;
+        }
+
+        if (pkt_size < 0 || pkt_size + 8 > len) {
             return -1;
         }
 
-        Packet pack;
-        pack.Reset();
-        for (int32_t i = 0; i < pkt_size; i++) {
-            pack.WriteUInt8(rd[static_cast<size_t>(i)]);
-        }
-        pack.Seek(0);
-
-        netlog::hex("CLI->SRV", &rd[0], (size_t)pkt_size, "EXT player=%d id=0x%02X", p_id,
-                    pkt_size > 0 ? rd[0] : 0);
-
-        if (!ProcessClientExtendedPacket(p_id, pack)) {
+        if (pkt_size > 0 && !RecvExactServer(s, reinterpret_cast<uint8_t*>(buf + 8), pkt_size)) {
             return -1;
         }
-
-        memset(buf, 0, static_cast<size_t>(len));
-        if (!SOCK_WaitEvent(s, 0)) {
-            return -2;
-        }
-        return RecvServerFramed(s, buf, len, flags);
+        return pkt_size + 8;
     }
-
-    if (pkt_size < 0 || pkt_size + 8 > len) {
-        return -1;
-    }
-
-    if (pkt_size > 0 && !RecvExactServer(s, reinterpret_cast<uint8_t*>(buf + 8), pkt_size)) {
-        return -1;
-    }
-    return pkt_size + 8;
+    return -2;
 }
 
 namespace {
