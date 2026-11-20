@@ -44,9 +44,9 @@ uint8_t __cdecl EncodeChar(uint8_t c) {
     // DOS codepage equivalents before the standard conversion
     if (g_isDosCP == 1) {
         if (c == 0xA8) {
-            c = 0xF0;
+            return 0xF0;
         } else if (c == 0xB8) {
-            c = 0xF1;
+            return 0xF1;
         }
     }
 #endif
