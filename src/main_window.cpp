@@ -1391,6 +1391,15 @@ MainWindow::MainWindow() { //4837e1
     CPoint resolution;
 
     if (g_IsServer == 0) {
+#ifdef A2CLIENT_PATCH
+        // VIDEO_checkVideoMode hook (487679): resolve from allods2.cfg
+        // (r_width/r_height) or desktop smart default, then CLI (-640/-800/-1024/--res:WxH).
+        int32_t res_w = 640;
+        int32_t res_h = 480;
+        tangar_cfg::GetResolution(&res_w, &res_h);
+        resolution.x = res_w;
+        resolution.y = res_h;
+#else
         const char* cmdline = afxCurrentWinApp->m_lpCmdLine;
 
         if (strstr(cmdline, "-800")) {
@@ -1409,30 +1418,10 @@ MainWindow::MainWindow() { //4837e1
             resolution.x = 1024;
             resolution.y = 768;
         } else {
-#ifdef A2CLIENT_PATCH
-            // VIDEO_checkVideoMode hook (487679): smart default - pick the
-            // largest mode the desktop supports instead of hardcoded 640x480
-            {
-                DEVMODEA mode;
-                mode.dmSize = sizeof(mode);
-                EnumDisplaySettingsA(NULL, ENUM_CURRENT_SETTINGS, &mode);
-                if (mode.dmPelsWidth >= 1024 && mode.dmPelsHeight >= 768) {
-                    resolution.x = 1024;
-                    resolution.y = 768;
-                } else if (mode.dmPelsWidth >= 800 && mode.dmPelsHeight >= 600) {
-                    resolution.x = 800;
-                    resolution.y = 600;
-                } else {
-                    resolution.x = 640;
-                    resolution.y = 480;
-                }
-            }
-#else
             resolution.x = 640;
             resolution.y = 480;
-#endif
         }
-
+#endif
     } else {
         resolution.x = 640;
         resolution.y = 480;

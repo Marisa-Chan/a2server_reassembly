@@ -46,6 +46,15 @@ extern bool g_altchat;
 // Screenshots: put screenshot files into the screenshots subdirectory.
 extern bool z_screendir;
 
+// Screen resolution from allods2.cfg (r_width / r_height when both set).
+extern uint32_t r_width;
+extern uint32_t r_height;
+extern uint32_t z_resolution;
+
+// Resolve initial client resolution (allods2.cfg r_width/r_height or desktop
+// smart default, overridden by -640/-800/-1024/--res:WxH CLI flags).
+void GetResolution(int32_t* w, int32_t* h);
+
 // HAT address from the -hat command-line argument (default "hat.rom2.ru"),
 // ported from a2mgr network_hat_enter.cpp ParseHatAddress.
 const char* HatAddress();

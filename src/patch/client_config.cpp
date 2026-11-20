@@ -9,6 +9,8 @@
 
 #include <cctype>
 #include <cstdint>
+#include <cstdio>
+#include <cstdlib>
 #include <fstream>
 #include <string>
 #include <vector>
@@ -24,6 +26,9 @@ int64_t stopwatch_start = 0;
 uint32_t g_scrollintv = 25;
 bool r_grid = false;
 uint32_t r_grid_color = 0x3800;
+uint32_t r_width = 640;
+uint32_t r_height = 480;
+uint32_t z_resolution = 0;
 bool z_lang_override = false;
 bool z_russian = true;
 bool stats_based_level_selection = true; // a2mgr default: on
@@ -125,6 +130,11 @@ std::vector<std::string> SplitChar(const std::string& s, char delim) {
 }
 
 void Parse2x(std::ifstream& f) {
+    uint32_t r_widtho = r_width;
+    uint32_t r_heighto = r_height;
+    bool invalidwh = false;
+    z_resolution = 0;
+
     std::string wh;
     while (std::getline(f, wh)) {
         wh = TrimStr(wh);
@@ -147,6 +157,24 @@ void Parse2x(std::ifstream& f) {
                 speed = 100;
             }
             g_scrollintv = 10 * (100 - speed);
+        } else if (cmd[0] == "r_width" && cmd.size() == 2) {
+            if (CheckInt(cmd[1])) {
+                r_width = StrToUInt(cmd[1]);
+                if (!invalidwh) {
+                    z_resolution++;
+                }
+            } else {
+                invalidwh = true;
+            }
+        } else if (cmd[0] == "r_height" && cmd.size() == 2) {
+            if (CheckInt(cmd[1])) {
+                r_height = StrToUInt(cmd[1]);
+                if (!invalidwh) {
+                    z_resolution++;
+                }
+            } else {
+                invalidwh = true;
+            }
         } else if (cmd[0] == "r_fps") {
             r_fps = (cmd.size() == 2) ? StrToBool(cmd[1]) : true;
         } else if (cmd[0] == "r_time") {
@@ -205,6 +233,15 @@ void Parse2x(std::ifstream& f) {
             tangar_hotkeys::ParseAlias(name, action);
         }
     }
+
+    if (z_resolution != 2) {
+        invalidwh = true;
+    }
+    if (invalidwh) {
+        r_width = r_widtho;
+        r_height = r_heighto;
+        z_resolution = 0;
+    }
 }
 
 void Parse1x(std::ifstream& f) {
@@ -258,6 +295,48 @@ std::vector<std::string> SplitCommandLine(const std::string& line) {
 }
 
 } // namespace
+
+void GetResolution(int32_t* w, int32_t* h) {
+    *w = 640;
+    *h = 480;
+
+    if (z_resolution == 0) {
+        DEVMODEA mode = {};
+        mode.dmSize = sizeof(mode);
+        EnumDisplaySettingsA(NULL, ENUM_CURRENT_SETTINGS, &mode);
+        if (mode.dmPelsWidth >= 1024 && mode.dmPelsHeight >= 768) {
+            *w = 1024;
+            *h = 768;
+        } else if (mode.dmPelsWidth >= 800 && mode.dmPelsHeight >= 600) {
+            *w = 800;
+            *h = 600;
+        }
+    } else {
+        *w = (int32_t)r_width;
+        *h = (int32_t)r_height;
+    }
+
+    std::vector<std::string> parms = SplitCommandLine(GetCommandLineA());
+    for (size_t i = 0; i < parms.size(); ++i) {
+        if (parms[i] == "-640") {
+            *w = 640;
+            *h = 480;
+        } else if (parms[i] == "-800") {
+            *w = 800;
+            *h = 600;
+        } else if (parms[i] == "-1024") {
+            *w = 1024;
+            *h = 768;
+        } else if (parms[i].compare(0, 6, "--res:") == 0) {
+            int w1 = 0;
+            int h1 = 0;
+            if (sscanf_s(parms[i].c_str(), "--res:%dx%d", &w1, &h1) == 2 && w1 > 0 && h1 > 0) {
+                *w = w1;
+                *h = h1;
+            }
+        }
+    }
+}
 
 const char* HatAddress() {
     static std::string hat;
