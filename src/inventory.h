@@ -18,7 +18,9 @@ public:
 public:
     void PutItemIntoBagAtDefault(Item *item);  // client: 5337e4
     void PutItemIntoBag(int32_t pos, Item *item); // 551fc3 (client: 533804)
-    Item* TakeItemAt(int32_t item_number, int32_t count);  // client: 533cd8
+    Item* PeekItemAt(int32_t item_number, POSITION* out_pos = nullptr);
+    Item* TakeItemAtPos(POSITION it, int32_t count = 1);
+    Item* TakeItemAt(int32_t item_number, int32_t count);  // 552e42 (client: 533cd8)
     void AddItem(int32_t amount, Item* item); // 5524FA (client: 5338f0) - add item to inventory
     void TransferFrom(Inventory* src); // Transfer all items from src into this inventory (client: 533b7d)
     Item* FindItemById(uint16_t item_id); // Find item by item_id (client: 533c07)

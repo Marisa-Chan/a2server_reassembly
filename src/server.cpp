@@ -4506,31 +4506,49 @@ void Server::ProcessClientPacket(Packet* pkt) {
 #endif
             if (g_ServerConfig.gameType != GAME_TYPE_TEAMPLAY || g_PlayersList->AreTeamsStarted() != 0) {
                 player->ResetAfkTimer();
-#ifdef A2SERVER_PATCH
+#if defined(A2SERVER_PATCH) || defined(A2TANGAR_HAT)
                 if (player->main_unit == nullptr || player->main_unit->inventory == nullptr) {
                     break;
                 }
 #endif
+#ifdef A2TANGAR_HAT
+                // fix_scroll_burn hook (5056E1): peek the scroll first; only
+                // warriors may cast from scrolls, and invalid/blocked casts
+                // discard the request without removing the item from the bag.
+                POSITION item_it = nullptr;
+                Item* peeked = player->main_unit->inventory->PeekItemAt(packet_order->slot, &item_it);
+                if (peeked == nullptr) {
+                    break;
+                }
+                Effect* eff = peeked->_effects.IsEmpty() ? nullptr : peeked->_effects.GetHead();
+                if (!tangar_items::IsScroll(peeked) || eff == nullptr || eff->effect_id != 0x29 ||
+                    (player->main_unit->unit_attrs & Unit::ATTR_MAGE) != 0) {
+                    g_NetStru1_main.SendUnitUpdate(player->main_unit, player, 0xFFFFFFFF, EQUIP_SLOTS_ALL, 0, 0);
+                    break;
+                }
+
+                Spell* spell = new Spell(eff->spell_or_damage);
+                spell->SetPower(eff->spell_value);
+                if (packet_order->id != SCROLL_CAST_UNIT && !spell->IsAreaSpell(packet_order->x, packet_order->y)) {
+                    delete spell;
+                    g_NetStru1_main.SendUnitUpdate(player->main_unit, player, 0xFFFFFFFF, EQUIP_SLOTS_ALL, 0, 0);
+                    break;
+                }
+
+                Item* item = player->main_unit->inventory->TakeItemAtPos(item_it, 1);
+                player->main_unit->some_item = item;
+                player->main_unit->spell = spell;
+                if (packet_order->id == SCROLL_CAST_UNIT) {
+                    g_World->GroupCastAtUnitCommand(group, static_cast<Unit*>(target), spell);
+                } else {
+                    g_World->GroupCastAtPositionCommand(group, x, y, spell);
+                }
+#else
                 auto* item = player->main_unit->inventory->TakeItemAt(packet_order->slot, 1);
                 if (!item || item->_effects.IsEmpty()) {
                     break;
                 }
 
-#ifdef A2TANGAR_HAT
-                // fix_scroll_burn hook (5056E1): only warriors may cast from
-                // scrolls, and prevented casts put the item back instead of
-                // burning it.
-                // TODO: peek an item and don't take it in the first place if it's bad food. Concurrent inventory manipulation might kill the server.
-                {
-                    Effect* head_eff = item->_effects.GetHead();
-                    if (!tangar_items::IsScroll(item) || head_eff == nullptr || head_eff->effect_id != 0x29 ||
-                        (player->main_unit->unit_attrs & Unit::ATTR_MAGE) != 0) {
-                        player->main_unit->inventory->PutItemIntoBag(packet_order->slot, item);
-                        g_NetStru1_main.SendUnitUpdate(player->main_unit, player, 0xFFFFFFFF, EQUIP_SLOTS_ALL, 0, 0);
-                        break;
-                    }
-                }
-#endif
                 Effect* eff = item->_effects.GetHead();
                 if (eff && eff->effect_id == 0x29) {
                     player->main_unit->some_item = item;
@@ -4552,6 +4570,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
                         }
                     }
                 }
+#endif
             }
             break;
         case GROUP_STOP_AFK:
@@ -4739,7 +4758,22 @@ void Server::ProcessClientPacket(Packet* pkt) {
             if (from_type == TRANSFER_SRC_BAG) {
                 // Pick item from bag.
                 count_before = human->inventory->items.GetSize();
+#ifdef A2TANGAR_HAT
+                // dont_eat_bad_food hook (505BDF): peek first when equipping from
+                // the bag so forbidden items are never removed from the inventory.
+                POSITION item_it = nullptr;
+                Item* peeked = human->inventory->PeekItemAt(packet_transfer->param1, &item_it);
+                if (peeked == nullptr) {
+                    break;
+                }
+                if (to_type == TRANSFER_DST_EQUIP && !tangar_items::CanEat(human, peeked)) {
+                    g_NetStru1_main.SendUnitUpdate(human, human->pOwner, 0xFFFFFFFF, EQUIP_SLOTS_ALL, 0, 0);
+                    break;
+                }
+                item = human->inventory->TakeItemAtPos(item_it, packet_transfer->param3);
+#else
                 item = human->inventory->TakeItemAt(packet_transfer->param1, packet_transfer->param3);
+#endif
                 if (item) {
                     update_mask |= UNIT_UPD_INVENTORY_WEIGHT_SPEED;
                     item->upgraded_at_inn = 0;
@@ -4782,16 +4816,6 @@ void Server::ProcessClientPacket(Packet* pkt) {
             if (!item) {
                 break;
             }
-
-#ifdef A2TANGAR_HAT
-            // dont_eat_bad_food hook (505BDF): forbidden items moved from the bag onto the character are forced back into the bag.
-            // TODO: peek an item and don't take it in the first place if it's bad food. Concurrent inventory manipulation might kill the server.
-            if (from_type == TRANSFER_SRC_BAG && to_type == TRANSFER_DST_EQUIP && !tangar_items::CanEat(human, item)) {
-                human->inventory->PutItemIntoBag(packet_transfer->param1, item);
-                g_NetStru1_main.SendUnitUpdate(human, human->pOwner, 0xFFFFFFFF, EQUIP_SLOTS_ALL, 0, 0);
-                break;
-            }
-#endif
 
             if (to_type == TRANSFER_DST_EQUIP) {
                 // Equip item.

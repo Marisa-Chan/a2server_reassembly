@@ -171,37 +171,52 @@ Item* Inventory::TakeItemById(uint16_t item_id) {
     return item;
 }
 
-// 552E42
-Item* Inventory::TakeItemAt(int32_t item_number, int32_t count) {
-    if (item_number >= this->items.GetCount()) {
+Item* Inventory::PeekItemAt(int32_t item_number, POSITION* out_pos) {
+    if (item_number < 0 || item_number >= this->items.GetCount()) {
         return nullptr;
     }
 
-    // Find the item at the specified position
-    int32_t index = 0;
-    for (POSITION pos = this->items.GetHeadPosition(); pos != nullptr;) {
-        POSITION pos_before = pos;
-        Item* item = this->items.GetNext(pos);
-        if (index == item_number) {
-            // Found the item
-            if (item->count > count) {
-                // Reduce count and return a copy
-                item->count -= (count - 1);
-                Item* taken = item->TakeOne();
-                taken->count = count;
-                this->total_weight -= taken->weight * taken->count;
-                return taken;
-            } else {
-                // Remove and return the entire item
-                this->items.RemoveAt(pos_before);
-                this->total_weight -= item->weight * item->count;
-                return item;
-            }
-        }
-        index++;
+    POSITION it = this->items.FindIndex(item_number);
+    if (it == nullptr) {
+        return nullptr;
     }
 
-    return nullptr;
+    if (out_pos != nullptr) {
+        *out_pos = it;
+    }
+    return this->items.GetAt(it);
+}
+
+Item* Inventory::TakeItemAtPos(POSITION it, int32_t count) {
+    if (it == nullptr || count <= 0) {
+        return nullptr;
+    }
+
+    Item* item = this->items.GetAt(it);
+    if (item == nullptr) {
+        return nullptr;
+    }
+
+    if (item->count > count) {
+        item->count -= (count - 1);
+        Item* taken = item->TakeOne();
+        taken->count = count;
+        this->total_weight -= taken->weight * taken->count;
+        return taken;
+    }
+
+    this->items.RemoveAt(it);
+    this->total_weight -= item->weight * item->count;
+    return item;
+}
+
+// 552E42
+Item* Inventory::TakeItemAt(int32_t item_number, int32_t count) {
+    POSITION it = nullptr;
+    if (this->PeekItemAt(item_number, &it) == nullptr) {
+        return nullptr;
+    }
+    return this->TakeItemAtPos(it, count);
 }
 
 // 5530A2
