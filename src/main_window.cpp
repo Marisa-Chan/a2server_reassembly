@@ -5948,7 +5948,7 @@ void MainWindow::ShowNoCDIntro() {
 
     g_mousept.Unpaint();
 
-    CBmp64* logo = new CBmp64("main\\graphics\\logo\\allods.bmp");
+    CBmp64* logo = new CBmp64(A2CLIENT_PATCH_ENABLED ? tangar_locale::gfx_logo_allods : "main\\graphics\\logo\\allods.bmp");
 
     LockSurface2();
     FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
