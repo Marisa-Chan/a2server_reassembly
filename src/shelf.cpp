@@ -485,6 +485,13 @@ Item* CMultiShopTemplate::BuyItem(Humanoid* humanoid, int16_t src_slot, int32_t 
 
 // 547644
 void CMultiShopTemplate::OpenShopFor(Unit* unit) {
+#ifdef A2SERVER_PATCH
+    if (CMultiShopInstance* existing = this->FindInstanceFor(static_cast<Humanoid*>(unit))) {
+        existing->SetUnit(unit);
+        existing->SendShelfState(-1);
+        return;
+    }
+#endif
     if (this->shop_instances.GetSize() >= 250) {
         return;
     }
