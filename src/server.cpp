@@ -4476,6 +4476,11 @@ void Server::ProcessClientPacket(Packet* pkt) {
                     LogMessage(msg);
                     break;
                 }
+#ifdef A2SERVER_PATCH
+                if (unit->inventory == nullptr) {
+                    break;
+                }
+#endif
                 unit->inventory->default_position = packet_order->param;
                 g_World->OrderSwarmTo(unit, x, y);
             }
@@ -4662,9 +4667,15 @@ void Server::ProcessClientPacket(Packet* pkt) {
         CheckPacketType(pkt, "PacketItemTransfer");
         {
             Unit* target_unit = this->FindPlayerUnit(packet_transfer->from_player_id, packet_transfer->unit_id);
+#ifdef A2SERVER_PATCH
+            if (!target_unit || !target_unit->IsHumanoid() || !target_unit->inventory || !target_unit->position) {
+                break;
+            }
+#else
             if (!target_unit) {
                 break;
             }
+#endif
 
             Humanoid* human = static_cast<Humanoid*>(target_unit);
 
@@ -4860,9 +4871,15 @@ void Server::ProcessClientPacket(Packet* pkt) {
                         : nullptr;
 
             int32_t amount = packet_2dwords->param1;
+#ifdef A2SERVER_PATCH
+            if (!unit || !unit->position || amount < 1 || player->money < amount) {
+                break;
+            }
+#else
             if (!unit || amount < 1 || player->money < amount) {
                 break;
             }
+#endif
 
 #if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
             // drop_gold hook (5060A4): prevent giga/pure players from dropping gold, and poison staple cell for regular players.
@@ -4896,9 +4913,15 @@ void Server::ProcessClientPacket(Packet* pkt) {
         CheckPacketType(pkt, "PacketWord");
         {
             Unit* unit = this->FindPlayerUnit(packet_word->from_player_id, packet_word->value);
+#ifdef A2SERVER_PATCH
+            if (!unit || !unit->IsHumanoid() || !unit->inventory || !unit->position) {
+                break;
+            }
+#else
             if (!unit) {
                 break;
             }
+#endif
                 #ifdef A2SERVER_PATCH
                 Shop* shop = this->FindShopFor(unit);
                 #else
@@ -4937,9 +4960,15 @@ void Server::ProcessClientPacket(Packet* pkt) {
         CheckPacketType(pkt, "PacketWord");
         {
             Unit* unit = this->FindPlayerUnit(packet_word->from_player_id, packet_word->value);
+#ifdef A2SERVER_PATCH
+            if (!unit || !unit->IsHumanoid() || !unit->inventory || !unit->position) {
+                break;
+            }
+#else
             if (!unit) {
                 break;
             }
+#endif
             #ifdef A2SERVER_PATCH
             Shop* shop = this->FindShopFor(unit);
             #else
@@ -4959,9 +4988,15 @@ void Server::ProcessClientPacket(Packet* pkt) {
         CheckPacketType(pkt, "PacketWord");
         {
             Unit* unit = this->FindPlayerUnit(packet_word->from_player_id, packet_word->value);
+#ifdef A2SERVER_PATCH
+            if (!unit || !unit->IsHumanoid() || !unit->inventory || !unit->position) {
+                break;
+            }
+#else
             if (!unit || !unit->position) {
                 break;
             }
+#endif
             #ifdef A2SERVER_PATCH
             Shop* shop = this->FindShopFor(unit);
             #else
@@ -4981,9 +5016,15 @@ void Server::ProcessClientPacket(Packet* pkt) {
         CheckPacketType(pkt, "PacketWord");
         {
             Unit* unit = this->FindPlayerUnit(packet_word->from_player_id, packet_word->value);
+#ifdef A2SERVER_PATCH
+            if (!unit || !unit->IsHumanoid() || !unit->inventory || !unit->position) {
+                break;
+            }
+#else
             if (!unit) {
                 break;
             }
+#endif
             #ifdef A2SERVER_PATCH
             Shop* shop = this->FindShopFor(unit);
             #else
@@ -5000,9 +5041,15 @@ void Server::ProcessClientPacket(Packet* pkt) {
         CheckPacketType(pkt, "PacketWord");
         {
             Unit* unit = this->FindPlayerUnit(packet_word->from_player_id, packet_word->value);
+#ifdef A2SERVER_PATCH
+            if (!unit || !unit->IsHumanoid() || !unit->inventory || !unit->position) {
+                break;
+            }
+#else
             if (!unit) {
                 break;
             }
+#endif
             #ifdef A2SERVER_PATCH
             Shop* shop = this->FindShopFor(unit);
             #else
@@ -5026,9 +5073,15 @@ void Server::ProcessClientPacket(Packet* pkt) {
         CheckPacketType(pkt, "PacketWord");
         {
             Unit* unit = this->FindPlayerUnit(packet_word->from_player_id, packet_word->value);
+#ifdef A2SERVER_PATCH
+            if (!unit || !unit->IsHumanoid() || !unit->inventory || !unit->position) {
+                break;
+            }
+#else
             if (!unit) {
                 break;
             }
+#endif
             Inn* inn = this->FindInnAt(unit->position);
             if (!inn) {
                 break;
@@ -5077,9 +5130,15 @@ void Server::ProcessClientPacket(Packet* pkt) {
         CheckPacketType(pkt, "Packet2Dwords");
         {
             Unit* unit = this->FindPlayerUnit(packet_2dwords->from_player_id, packet_2dwords->param1);
+#ifdef A2SERVER_PATCH
+            if (!unit || !unit->IsHumanoid() || !unit->inventory || !unit->position) {
+                break;
+            }
+#else
             if (!unit) {
                 break;
             }
+#endif
             Inn* inn = this->FindInnAt(unit->position);
             if (!inn) {
                 break;
@@ -6360,6 +6419,11 @@ void Server::SaveCharacter(Humanoid* humanoid) {
 #ifdef A2CLIENT
     if (g_Server->save_on_server || g_Server->multiplayer == 0)
         return;
+#endif
+#ifdef A2SERVER_PATCH
+    if (humanoid == nullptr || humanoid->pOwner == nullptr || !humanoid->IsHumanoid() || humanoid->inventory == nullptr) {
+        return;
+    }
 #endif
 
     Player* player = humanoid->pOwner;

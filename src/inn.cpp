@@ -111,6 +111,11 @@ void Inn::InnCreateQuests(Player* player) {
     }
 
     // ---- Player level info ----
+#ifdef A2SERVER_PATCH
+    if (player == nullptr || player->main_unit == nullptr) {
+        return;
+    }
+#endif
     int32_t exp = player->main_unit->_exp;
     int max_skill = 0;
     for (int i = 1; i < 6; i++) {
