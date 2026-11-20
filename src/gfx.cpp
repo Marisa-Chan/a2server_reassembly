@@ -44,6 +44,8 @@ int32_t g_ddsurf_lock3 = 0; //659bf8
 static uint16_t* g_surf1_buf = nullptr;
 static uint16_t* g_surf2_buf = nullptr;
 static uint16_t* g_surf3_buf = nullptr;
+static int32_t g_surf3_w = 0;
+static int32_t g_surf3_h = 0;
 static int32_t g_is_fullscreen = 0;
 static int32_t g_display_bpp = 32;
 static int32_t g_display_is_rgb565 = 0;
@@ -3265,9 +3267,9 @@ uint32_t LockSurface3() { //4543ca
     if (g_ddsurf_lock3 == 0) {
         g_selDrawBitmap.dwSize = sizeof(DDSURFACEDESC);
         g_selDrawBitmap.lpSurface = g_surf3_buf;
-        g_selDrawBitmap.dwWidth = g_ScreenSize.right - 160;
-        g_selDrawBitmap.dwHeight = g_ScreenSize.bottom + 1;
-        g_selDrawBitmap.lPitch = (g_ScreenSize.right - 160) * 2;
+        g_selDrawBitmap.dwWidth = g_surf3_w;
+        g_selDrawBitmap.dwHeight = g_surf3_h;
+        g_selDrawBitmap.lPitch = g_surf3_w * 2;
     }
     g_ddsurf_lock3++;
     return 1;
@@ -3645,8 +3647,10 @@ int32_t InitVideo() { //453fcc
     delete[] g_surf2_buf;
     delete[] g_surf3_buf;
 
+    g_surf3_w = ((g_ScreenSize.right - 160) + 31) & ~31;
+    g_surf3_h = ((g_ScreenSize.bottom + 31) & ~31) + 1;
     size_t surf12_pixels = (size_t)g_ScreenSize.right * (size_t)(g_ScreenSize.bottom + 1);
-    size_t surf3_pixels = (size_t)(g_ScreenSize.right - 160) * (size_t)(g_ScreenSize.bottom + 1);
+    size_t surf3_pixels = (size_t)g_surf3_w * (size_t)g_surf3_h;
     g_surf1_buf = new uint16_t[surf12_pixels];
     g_surf2_buf = new uint16_t[surf12_pixels];
     g_surf3_buf = new uint16_t[surf3_pixels];

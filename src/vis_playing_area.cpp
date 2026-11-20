@@ -3240,7 +3240,11 @@ void VisPlayingArea::SendAutoCastSetting() { //41ab74
 void VisPlayingArea::RecalcVisibleMapHeight() { //41b6e0
     MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 
+#ifdef A2CLIENT_PATCH
+    int32_t btm = this->rect.bottom;
+#else
     int32_t btm = this->rect.bottom & (~0x1f);
+#endif
     CVisualObject* obj2 = this->FindChild(MAP_CHILD_BAG);
     CVisualObject* obj3 = this->FindChild(MAP_CHILD_SPELL_BOOK);
 
@@ -5188,6 +5192,9 @@ void VisPlayingArea::RenderWorldFrame() {
     LockSurface3();
     GetClipRect(&clip_rect);
     if (this->force_full_redraw != 0) {
+#ifdef A2CLIENT_PATCH
+        SetClipRect(0, 0, this->view_tiles_x << 5, this->view_tiles_y << 5);
+#endif
         this->DrawTerrainFull();
         this->tile_scroll_y = 0;
         this->tile_scroll_x = 0;
@@ -5954,8 +5961,13 @@ int32_t VisPlayingArea::IsGfxObjectHidden(int32_t gfx_id, int32_t x, int32_t y, 
 
 // 402FB8
 void VisPlayingArea::AllocTileGrids() {
+#ifdef A2CLIENT_PATCH
+    this->view_tiles_x = (this->rect.Width() + 31) / 32;
+    this->view_tiles_y = (this->rect.Height() + 31) / 32;
+#else
     this->view_tiles_x = this->rect.Width() / 32;
     this->view_tiles_y = this->rect.Height() / 32;
+#endif
     if (this->scenario != nullptr) {
         if (this->view_x + this->view_tiles_x >= this->scenario->GetWidth() - 8) {
             this->view_x = (this->scenario->GetWidth() - 8) - this->view_tiles_x;
@@ -5964,7 +5976,9 @@ void VisPlayingArea::AllocTileGrids() {
             this->view_y = (this->scenario->GetHeight() - 8) - this->view_tiles_y;
         }
     }
+#ifndef A2CLIENT_PATCH
     this->rect.bottom = this->view_tiles_y * 0x20 + this->rect.top;
+#endif
     this->tile_grid_bytes = (this->view_tiles_x + 6) * (this->view_tiles_y + 0xA) * 4;
     this->corner_grid_bytes = (this->view_tiles_x + 7) * (this->view_tiles_y + 0xB) * 4;
     this->tile_units = (CGameObject**)malloc(this->tile_grid_bytes);
