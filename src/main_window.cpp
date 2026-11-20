@@ -2354,17 +2354,25 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
 
             CString str;
             this->vis_1200->WriteData(&str);
-            if (str[0] == '=') {
-                this->vis_map_context->SendChatPacket(str.Mid(1), CHAT_TYPE_YELL, 0);
-            } else if (str[0] == '-') {
-                int val = this->vis_1200->GetMatchPlayerIndex();
-                if (val == -1) {
-                    this->vis_map_context->SendChatPacket(str.Mid(1), CHAT_TYPE_ALLIES, 0);
+#ifdef A2CLIENT_PATCH
+            // CHAT_getMessageLast (client 48F167): swallow '/'-prefixed client commands.
+            if (!str.IsEmpty() && str[0] == '/') {
+                str.Empty();
+            }
+#endif
+            if (!str.IsEmpty()) {
+                if (str[0] == '=') {
+                    this->vis_map_context->SendChatPacket(str.Mid(1), CHAT_TYPE_YELL, 0);
+                } else if (str[0] == '-') {
+                    int32_t val = this->vis_1200->GetMatchPlayerIndex();
+                    if (val == -1) {
+                        this->vis_map_context->SendChatPacket(str.Mid(1), CHAT_TYPE_ALLIES, 0);
+                    } else {
+                        this->vis_map_context->SendChatPacket(str.Mid(this->vis_1200->GetMatchNameLength()), CHAT_TYPE_PRIVATE, val);
+                    }
                 } else {
-                    this->vis_map_context->SendChatPacket(str.Mid(this->vis_1200->GetMatchNameLength()), CHAT_TYPE_PRIVATE, val);
+                    this->vis_map_context->SendChatPacket(str, CHAT_TYPE_REGULAR, 0);
                 }
-            } else {
-                this->vis_map_context->SendChatPacket(str, CHAT_TYPE_REGULAR, 0);
             }
         }
     } else if (obj == this->vis_logownd) {
