@@ -428,7 +428,7 @@ void KillAllUnits(Player* caster, bool ai_only) {
 }
 
 void OwnUnits(Player* from, Player* to) {
-    if (from == nullptr || to == nullptr || g_ServerUnits == nullptr) {
+    if (from == nullptr || to == nullptr || g_ServerUnits == nullptr || g_Server == nullptr || g_Server->srv_stru1 == nullptr) {
         return;
     }
 
@@ -441,7 +441,7 @@ void OwnUnits(Player* from, Player* to) {
         if (unit->pOwner != from || unit == from->main_unit) {
             continue;
         }
-        g_NetStru1_main.TransferUnitOwnership(unit, to);
+        g_Server->srv_stru1->TransferUnitOwnership(unit, to);
     }
 }
 

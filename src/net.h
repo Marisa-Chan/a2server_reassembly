@@ -415,10 +415,6 @@ public:
     static NetStru1 HatConnector;
 
 public:
-    // Transfers unit ownership to another player.
-    // `this` is unused. TODO: looks like this should be in `SrvStru1` instead.
-    void TransferUnitOwnership(Unit* unit, Player* new_owner);  // client: 4f9322
-
     NetStru1(int stats); //51684b (client: 509343)
     ~NetStru1(); //516b44 (client: 5094ca)
 

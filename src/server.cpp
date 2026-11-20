@@ -1666,7 +1666,7 @@ void Server::SendWorldState(Player* player, int32_t enter_world) {
             while (node != nullptr) {
                 Unit* unit = g_ServerUnits->unit_list.GetNext(node);
                 if (unit != nullptr && unit->pOwner == found_player) {
-                    g_NetStru1_main.TransferUnitOwnership(unit, player);
+                    this->srv_stru1->TransferUnitOwnership(unit, player);
                 }
             }
         }
@@ -7805,6 +7805,47 @@ void SrvStru1::MakeTargetSpellEffect(uint8_t a0, uint8_t a1, Unit* unit, uint32_
 void SrvStru1::UpdateMapObjects() { // 4FB4AA
     this->building_list->RegenTick();
     this->sack_list->UpdateSackVisibility();
+}
+
+// 4FB4CA
+void SrvStru1::TransferUnitOwnership(Unit* unit, Player* new_owner) {
+#ifdef A2SERVER_PATCH
+    if (unit == nullptr) {
+        LogMessage("TransferUnitOwnership: unit is nullptr.");
+        return;
+    }
+#endif
+
+    Player* old_owner = unit->pOwner;
+
+    if (unit->group != nullptr) {
+        unit->group->RemoveUnit(unit);
+    }
+
+    UnitList* old_unit_list = old_owner->unit_list;
+    POSITION it = old_unit_list->unit_list.Find(unit);
+    if (it != nullptr) {
+        old_unit_list->unit_list.RemoveAt(it);
+    }
+
+    unit->pOwner = new_owner;
+    new_owner->unit_list->AddTail(unit);
+
+    Group* new_group = new Group();
+    new_owner->group_list->groups.AddTail(new_group);
+    new_group->AddUnit(unit);
+
+    g_World->ProcessAnimateDeadGroup(new_group);
+
+    uint16_t old_vision_mask = ~old_owner->vision_sharing_id;
+    unit->sent_to_mask = unit->sent_to_mask & old_vision_mask;
+
+    uint16_t new_vision_mask = ~new_owner->vision_sharing_id;
+    unit->sent_to_mask = unit->sent_to_mask & new_vision_mask;
+
+    g_NetStru1_main.SendUnitUpdate(unit, nullptr, UNIT_UPD_ALL, EQUIP_SLOTS_ALL, 0, 0);
+
+    unit->ownership_changed = 1;
 }
 
 // 4FB273

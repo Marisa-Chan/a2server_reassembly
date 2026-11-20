@@ -733,59 +733,6 @@ void NetStru1::SendHatLobbyInfo(int32_t player_count, CString source, int32_t ma
     this->QueuePacketSend(&pkt);
 }
 
-// 4FB4CA
-void NetStru1::TransferUnitOwnership(Unit* unit, Player* new_owner) {
-    #ifdef A2SERVER_PATCH
-    if (unit == nullptr) {
-        LogMessage("TransferUnitOwnership: unit is nullptr.");
-        return;
-    }
-    #endif
-
-    Player* old_owner = unit->pOwner;
-
-    // If the unit belongs to a group, remove it from that group.
-    if (unit->group != nullptr) {
-        unit->group->RemoveUnit(unit);
-    }
-
-    // Remove unit from old owner's unit list.
-    // ASM manually walks the CList structure to find and remove the node.
-    UnitList* old_unit_list = old_owner->unit_list;
-    POSITION pos = old_unit_list->unit_list.Find(unit);
-    if (pos != nullptr) {
-        old_unit_list->unit_list.RemoveAt(pos);
-    }
-    
-    unit->pOwner = new_owner;
-    new_owner->unit_list->AddTail(unit);
-    
-    // Create a new Group for the unit.
-    Group* new_group = new Group();
-    
-    // Add the new group to the new owner's group list.
-    // The assembly manually adds to the CList structure.
-    new_owner->group_list->groups.AddTail(new_group);
-    
-    // Associate the unit with the new group.
-    new_group->AddUnit(unit);
-
-    g_World->ProcessAnimateDeadGroup(new_group);
-
-    // Update unit's vision sharing flags.
-    uint16_t old_vision_mask = ~old_owner->vision_sharing_id;
-    unit->sent_to_mask = unit->sent_to_mask & old_vision_mask;
-    
-    uint16_t new_vision_mask = ~new_owner->vision_sharing_id;
-    unit->sent_to_mask = unit->sent_to_mask & new_vision_mask;
-    
-    // Send network packet about unit ownership change.
-    g_NetStru1_main.SendUnitUpdate(unit, 0, UNIT_UPD_ALL, EQUIP_SLOTS_ALL, 0, 0);
-    
-    // Mark unit as needing update?
-    unit->ownership_changed = 1;
-}
-
 // SendUnitUpdate: send unit state to a player (or all players if player==nullptr)
 // 519221
 void NetStru1::SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t props_flags, int32_t inv_start_index, int32_t inv_end_index) {

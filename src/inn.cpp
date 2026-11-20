@@ -1415,7 +1415,7 @@ void Inn::RemoveUnit(Humanoid* humanoid, int32_t id) {
                         if (escort_unit == nullptr || humanoid == nullptr) {
                             g_QuestMap.UnregisterQuest(this->active_quest);
                         } else {
-                            g_NetStru1_main.TransferUnitOwnership(escort_unit, humanoid->pOwner);
+                            g_Server->srv_stru1->TransferUnitOwnership(escort_unit, humanoid->pOwner);
                         }
                         break;
                     }

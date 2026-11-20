@@ -2271,7 +2271,7 @@ void World::ScriptOP_0x12(TriggerAction* action) {
 
 // 5b415a — Change unit's owner
 void World::ScriptOP_0x13(TriggerAction* action) {
-    g_NetStru1_main.TransferUnitOwnership(action->unit, action->player);
+    g_Server->srv_stru1->TransferUnitOwnership(action->unit, action->player);
 }
 
 // 5b41f9 — Drop all: destroy all items in unit's inventory
@@ -2295,7 +2295,7 @@ void World::ScriptOP_0x15(TriggerAction* action) {
 void World::ScriptOP_0x16(TriggerAction* action) {
     for (POSITION pos = action->group->unit_list.GetHeadPosition(); pos != nullptr; ) {
         Unit* unit = action->group->unit_list.GetNext(pos);
-        g_NetStru1_main.TransferUnitOwnership(unit, action->player);
+        g_Server->srv_stru1->TransferUnitOwnership(unit, action->player);
     }
 }
 

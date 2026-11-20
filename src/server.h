@@ -82,7 +82,8 @@ public:
     void MakeAreaSpellEffect(uint8_t from_x, uint8_t from_y, uint8_t to_x, uint8_t to_y, uint32_t spell_id, uint32_t power);  // client: 4f9629
     void MakeTargetSpellEffect(uint8_t a0, uint8_t a1, Unit* unit, uint32_t a3, uint32_t a4);  // client: 4f95ec
 
-    void UpdateMapObjects();  // client: 4f9302
+    void UpdateMapObjects();  // 4fb4aa (client: 4f9302)
+    void TransferUnitOwnership(Unit* unit, Player* new_owner); // 4fb4ca (client: 4f9322)
     void ProcessTick(); // 4fb273 (client: 4f9289)
 
     Unit* AddDummyUnitWithSpell(int32_t xpos, int32_t ypos, int32_t spellID, int16_t SpellDmg); //4fb8cd (client: 4f9466)

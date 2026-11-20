@@ -66,7 +66,7 @@ void QuestInnGlue::ProcessEscortTarget(Quest* quest) {
     if (quest->Kind() == Quest::KIND_ESCORT) {
         Building* building = g_Server->srv_stru1->building_list->FindClosest(this->position);
         if (building != nullptr) {
-            g_NetStru1_main.TransferUnitOwnership(unit, building->pOwner);
+            g_Server->srv_stru1->TransferUnitOwnership(unit, building->pOwner);
         }
     }
     this->quest_map->QueueEvent(Quest::EVENT_UNIT_REACHED_INN, inn_id, this->building_id << 16);
