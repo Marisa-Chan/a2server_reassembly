@@ -109,7 +109,12 @@ void NetStru1::AnnouncePlayerName(const CString& name, Player* player) {
     // 51cd89
     PacketJoin& pkt = PacketJoin::Inst;
     pkt.id = CHAT;
+#ifdef A2SERVER_PATCH
+    strncpy(pkt.name, name, sizeof(pkt.name) - 1);
+    pkt.name[sizeof(pkt.name) - 1] = '\0';
+#else
     strcpy(pkt.name, name);
+#endif
 
     if (player) {
         pkt.to_player_id = player->player_id;
@@ -144,7 +149,12 @@ void NetStru1::SendExistingPlayers(Player* player) {
 
         PacketJoin& packet = PacketJoin::Inst;
 
+#ifdef A2SERVER_PATCH
+        strncpy(packet.name, p->name, sizeof(packet.name) - 1);
+        packet.name[sizeof(packet.name) - 1] = '\0';
+#else
         strcpy(packet.name, p->name);
+#endif
         packet.id = PLAYER_INFO;
         packet.to_player_id = player->player_id;
         packet.player_id = p->player_id;
@@ -214,7 +224,12 @@ void NetStru1::SendBarePacket(uint8_t id, Player* player) {
 void NetStru1::AnnouncePlayer(Player* player) {
     PacketJoin& packet = PacketJoin::Inst;
     packet.id = PLAYER_ANNOUNCED;
+#ifdef A2SERVER_PATCH
+    strncpy(packet.name, player->name, sizeof(packet.name) - 1);
+    packet.name[sizeof(packet.name) - 1] = '\0';
+#else
     strcpy(packet.name, player->name);
+#endif
     packet.to_player_id = 0;
     packet.__as_dword = player->player_id;
     this->QueuePacketSend(&packet);
@@ -257,7 +272,12 @@ void NetStru1::SendArenaScore(CString& name, uint32_t score, char type, Player* 
     } else {
         packet.id = CHAT;
     }
+#ifdef A2SERVER_PATCH
+    strncpy(packet.name, name, sizeof(packet.name) - 1);
+    packet.name[sizeof(packet.name) - 1] = '\0';
+#else
     strcpy(packet.name, name);
+#endif
     packet.to_player_id = player ? player->player_id : 0;
     packet.__as_dword = score;
     this->QueuePacketSend(&packet);
@@ -703,7 +723,12 @@ void NetStru1::SendHatLobbyInfo(int32_t player_count, CString source, int32_t ma
     PacketJoin& pkt = PacketJoin::Inst;
     pkt.id = HAT_LOBBY_INFO;
     pkt.__as_dword = player_count | (map_level << 8) | (game_type << 16) | (map_range << 24);
+#ifdef A2SERVER_PATCH
+    strncpy(pkt.name, source, sizeof(pkt.name) - 1);
+    pkt.name[sizeof(pkt.name) - 1] = '\0';
+#else
     strcpy(pkt.name, source);
+#endif
     pkt.to_player_id = 0;
     this->QueuePacketSend(&pkt);
 }

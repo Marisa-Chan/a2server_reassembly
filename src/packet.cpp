@@ -97,8 +97,14 @@ PacketJoin::PacketJoin(CString _name) {
     this->color = 0;
     this->flags = 0;
 
+#ifdef A2SERVER_PATCH
+    strncpy(this->name, _name, sizeof(this->name) - 1);
+    this->name[sizeof(this->name) - 1] = '\0';
+    this->name_len = static_cast<uint16_t>(strlen(this->name));
+#else
     strcpy(this->name, _name);
     this->name_len = _name.GetLength();
+#endif
 }
 
 PacketJoin::~PacketJoin() {
