@@ -198,7 +198,8 @@ void __cdecl ExecuteMeleeAttack(Unit* self, Unit* target) {
     }
 }
 
-// Attack a building. TODO: retype `target` to `Building*`.
+// Attack a building.
+// WAT: in vanilla they're actually passing a `Unit*` and force-cast it to `Building*`.
 // 536A62
 void __cdecl ExecuteRangedAttack(Unit* self, Unit* target) {
     if (target == nullptr || self == nullptr || self->hp <= 0 || self->pOwner == nullptr) {
@@ -923,7 +924,6 @@ void Unit::ProcessEffects() {
 #endif
             Building* building = clicked != nullptr ? clicked : building_list->FindNearby(this->position);
             if (building) {
-                // TODO: also check C++ runtime class.
                 if (building->IsKindOf(RUNTIME_CLASS(Shop))) { // Shop
                     g_NetStru1_main.SendInfoPacket(OPEN_SHOP, building->object_info_id, 0, this->pOwner);
                     break;

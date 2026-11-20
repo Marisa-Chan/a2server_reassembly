@@ -184,7 +184,7 @@ public:
     void UpdateHatAnnounce();  // client: 4f5e75
     void ProcessHatConnections();
     void GetArenaFrags(CString* name, uint32_t* frags);
-    void AddArenaFrags(CString* name, int32_t flag); // TODO: that's likely `CString&`
+    void AddArenaFrags(CString* name, int32_t flag);
     void HandleArenaPlayer(Player* player); // Arena mode player entry handler
     void SendWorldState(Player* player, int32_t enter_world); // Mission join: send full world state to connecting player (client: 4faab6)
 

@@ -101,7 +101,7 @@ int32_t Visibility::StepVisRay(int32_t x, int32_t y, int32_t base_yx, int32_t ba
     PosYX pos = PosYX(x, y);
     PosYX direction = PosYX(this->ray_dir_table[x][y]);
     PosYX with_offset = PosYX(base_yx + pos.val);
-    int32_t height = (int8_t)this->map_stuff->height_map[with_offset.val];
+    int32_t height = this->map_stuff->height_map[with_offset.val];
 
     PosYX with_direction = PosYX(x + direction.x, y + direction.y);
 
@@ -128,11 +128,9 @@ void Visibility::ScanUnitVisibility(Unit* unit, uint16_t yx) {
     uint16_t unit_yx = unit->position->CompatGetYX();
     this->vis_scratch[unit_yx] = 1;
 
-    // TODO: heights >= 128 exist only on Tangar HAT maps (retail maps cap at 127).
-    // The signed load is retail-faithful (MOVSX in the binary) but reads a 255 peak
-    // as -1 there. Switch this and the load in StepVisRay to unsigned to match
-    // CScanrangeCalc / map-author intent; to be addressed separately.
-    int32_t base_height = (int8_t)this->map_stuff->height_map[unit_yx];
+    // WAT: vanilla uses a signed load for the height map (MOVSX) which reads 255 as -1, but that's really weird. We don't do that.
+    // Although maps with >= 128 heights are quite rare.
+    int32_t base_height = this->map_stuff->height_map[unit_yx];
 
     bool keep_going = true;
     for (int32_t radius = 1; radius < Visibility::CENTER && keep_going; radius++) {
