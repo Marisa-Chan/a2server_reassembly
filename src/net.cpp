@@ -764,6 +764,11 @@ void NetStru1::TransferUnitOwnership(Unit* unit, Player* new_owner) {
 // SendUnitUpdate: send unit state to a player (or all players if player==nullptr)
 // 519221
 void NetStru1::SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t props_flags, int32_t inv_start_index, int32_t inv_end_index) {
+#ifdef A2SERVER_PATCH
+    if (unit == nullptr) {
+        return;
+    }
+#endif
     if (!g_PlayersList && !player)
         return;
 

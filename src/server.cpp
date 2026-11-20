@@ -5238,7 +5238,13 @@ void Server::ProcessClientPacket(Packet* pkt) {
                     player->vision_sharing_mask &= ~other->vision_sharing_id;
                     if (old_val & 0x10) {
                         // Was sharing before --- revoke visibility
+#ifdef A2SERVER_PATCH
+                        if (player->main_unit != nullptr) {
+                            g_NetStru1_main.SendUnitUpdate(player->main_unit, other, UNIT_UPD_SEND_EQUIPMENT, EQUIP_SLOTS_ALL, 0, 0);
+                        }
+#else
                         g_NetStru1_main.SendUnitUpdate(player->main_unit, other, UNIT_UPD_SEND_EQUIPMENT, EQUIP_SLOTS_ALL, 0, 0);
+#endif
                     }
                 } else {
                     // Vision sharing enabled with `other`
