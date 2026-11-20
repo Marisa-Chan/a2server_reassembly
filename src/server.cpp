@@ -4647,6 +4647,11 @@ void Server::ProcessClientPacket(Packet* pkt) {
     case REQUEST_SAVE_GAME: // Execute string command
         CheckPacketType(pkt, "PacketJoin");
         {
+#if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
+            if (this->multiplayer != 0 || !g_PlayersList || !g_World) {
+                break;
+            }
+#endif
             CString cmd(packet_join->name);
             this->SaveGame(&cmd);
             break;
@@ -5798,6 +5803,11 @@ void Server::ProcessClientPacket(Packet* pkt) {
     case ANNOUNCEMENT: // Server-wide announcement
         CheckPacketType(pkt, "PacketJoin");
         {
+#if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
+            if (this->multiplayer != 0) {
+                break;
+            }
+#endif
             // WAT: Vanilla builds a local announcement packet but then sends the ORIGINAL packet. We send the constructed announcement instead.
             PacketJoin announcement;
             announcement.id = ANNOUNCEMENT;
