@@ -5592,12 +5592,17 @@ void Server::ProcessClientPacket(Packet* pkt) {
 
             switch (chat_type) {
             case CHAT_TYPE_REGULAR: // Regular message: send to all non-AI players within range.
+#ifdef A2SERVER_PATCH
+                if (player->main_unit == nullptr || player->main_unit->position == nullptr) {
+                    break;
+                }
+#endif
                 for (POSITION node = g_PlayersList->list.GetHeadPosition(); node;) {
                     Player* other = g_PlayersList->list.GetNext(node);
 #ifdef A2SERVER_PATCH
                     // public_chat_2 hook: don't deliver to AI players, players
                     // without a main unit, or phased-out units (attrs bit 8)
-                    if (other->is_ai || other->main_unit == nullptr || (other->main_unit->unit_attrs & Unit::ATTR_PHASED_OUT) != 0) {
+                    if (other->is_ai || other->main_unit == nullptr || other->main_unit->position == nullptr || (other->main_unit->unit_attrs & Unit::ATTR_PHASED_OUT) != 0) {
                         continue;
                     }
 #endif
@@ -5609,6 +5614,11 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 }
                 break;
             case CHAT_TYPE_ALLIES: // Allies: send to players with diplomacy bit 2 set toward sender.
+#ifdef A2SERVER_PATCH
+                if (g_World == nullptr || player->player_id >= 32) {
+                    break;
+                }
+#endif
                 for (POSITION node = g_PlayersList->list.GetHeadPosition(); node;) {
                     Player* other = g_PlayersList->list.GetNext(node);
 #ifdef A2SERVER_PATCH
