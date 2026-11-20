@@ -473,7 +473,11 @@ void VisInvType1::VMethod7() {
         g_bmp_invframe->DrawSubRectMasked(screen_rect.left + edge_width + 0x110 + i * 0x50, screen_rect.top, 0xc0, 0, 0x110, g_bmp_invframe->GetHeight(0));
     }
 
+#ifdef A2CLIENT_PATCH
+    if (edge_width != 0 && g_bmp_inv1024l != nullptr && g_bmp_inv1024r != nullptr) {
+#else
     if (edge_width != 0 && g_ScreenSize.bottom > 600) {
+#endif
         g_bmp_inv1024l->Draw(screen_rect.left, screen_rect.top, 0, 0, 0);
         g_bmp_inv1024r->DrawSubRectMasked(screen_rect.right - edge_width - 0x10, screen_rect.top, 0, 0, g_bmp_inv1024r->GetWidth(0), g_bmp_inv1024r->GetHeight(0));
     }
@@ -2702,6 +2706,28 @@ void VisSpellBook::VMethod7() {
         left = 0;
     }
     if (left != 0) {
+#ifdef A2CLIENT_PATCH
+        CRect prev_clip;
+        GetClipRect(&prev_clip);
+        SetClipRect(rc.left, rc.top, rc.right - 0x10, rc.bottom);
+        CBmp64* spb_l = (g_ScreenSize.right > 800) ? g_bmp_spb1024l : g_bmp_spb800l;
+        CBmp64* spb_r = (g_ScreenSize.right > 800) ? g_bmp_spb1024r : g_bmp_spb800r;
+        if (spb_l != nullptr && spb_r != nullptr) {
+            int32_t spb_l_x = rc.left + left - spb_l->GetWidth(0);
+            int32_t spb_r_x = rc.left + left + g_bmp_spellbook->GetWidth(0) - 0x10;
+            int32_t spb_r_end = spb_r_x + spb_r->GetWidth(0);
+            FillRectColorSimple(rc.left, rc.top + 2, spb_l_x + 0x10, rc.bottom, 0);
+            FillRectColorSimple(spb_r_end - 0x20, rc.top + 2, rc.right - 0x10, rc.bottom, 0);
+            spb_l->DrawSubRectMasked(spb_l_x, rc.top, 0, 0,
+                spb_l->GetWidth(0), spb_l->GetHeight(0));
+            spb_r->DrawSubRectMasked(spb_r_x, rc.top, 0, 0,
+                spb_r->GetWidth(0), spb_r->GetHeight(0));
+        } else {
+            FillRectColorSimple(rc.left, rc.top + 2, rc.left + left, rc.bottom, 0);
+            FillRectColorSimple(rc.left + left + g_bmp_spellbook->GetWidth(0) - 0x10, rc.top + 2, rc.right - 0x10, rc.bottom, 0);
+        }
+        SetClipRect(prev_clip);
+#else
         if (g_ScreenSize.bottom < 0x259) {
             if (g_ScreenSize.bottom > 0x1E0) {
                 g_bmp_spb800l->DrawSubRectMasked(rc.left, rc.top, 0, 0,
@@ -2715,6 +2741,7 @@ void VisSpellBook::VMethod7() {
             g_bmp_spb1024r->DrawSubRectMasked(rc.left + g_bmp_spellbook->GetWidth(0) - 0x10 + left, rc.top, 0, 0,
                 g_bmp_spb1024r->GetWidth(0), g_bmp_spb1024r->GetHeight(0));
         }
+#endif
     }
     g_bmp_spellbook->DrawSubRectMasked(rc.left + left, rc.top, 0, 0,
         g_bmp_spellbook->GetWidth(0), g_bmp_spellbook->GetHeight(0));

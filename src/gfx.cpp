@@ -5376,6 +5376,26 @@ void LoadGraphics() { //47819d
 
         g_mousept.Update();
 
+#ifdef A2CLIENT_PATCH
+        if (g_ScreenSize.bottom < 601) {
+            if (g_ScreenSize.bottom > 480) {
+                g_bmp_extra800l = new CBmp64("graphics\\interface\\extra800l.bmp");
+                g_bmp_extra800r = new CBmp64("graphics\\interface\\extra800r.bmp");
+            }
+        } else {
+            g_bmp_extra1024l = new CBmp64("graphics\\interface\\extra1024l.bmp");
+            g_bmp_extra1024r = new CBmp64("graphics\\interface\\extra1024r.bmp");
+        }
+        if (g_ScreenSize.right > 800) {
+            g_bmp_spb1024l = new CBmp64("graphics\\interface\\spb1024l.bmp");
+            g_bmp_spb1024r = new CBmp64("graphics\\interface\\spb1024r.bmp");
+            g_bmp_inv1024l = new CBmp64("graphics\\interface\\inv1024l.bmp");
+            g_bmp_inv1024r = new CBmp64("graphics\\interface\\inv1024r.bmp");
+        } else if (g_ScreenSize.right > 640) {
+            g_bmp_spb800l = new CBmp64("graphics\\interface\\spb800l.bmp");
+            g_bmp_spb800r = new CBmp64("graphics\\interface\\spb800r.bmp");
+        }
+#else
         if (g_ScreenSize.bottom < 601) {
             if (g_ScreenSize.bottom > 480) {
                 g_bmp_spb800l = new CBmp64("graphics\\interface\\spb800l.bmp");
@@ -5391,6 +5411,7 @@ void LoadGraphics() { //47819d
             g_bmp_inv1024l = new CBmp64("graphics\\interface\\inv1024l.bmp");
             g_bmp_inv1024r = new CBmp64("graphics\\interface\\inv1024r.bmp");
         }
+#endif
 
         gfx_interface_lm = new CSprite256("graphics\\interface\\lm.256");
         gfx_interface_lm->ResetPalette(1, 1, 0);

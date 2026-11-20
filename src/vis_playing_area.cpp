@@ -3249,11 +3249,19 @@ void VisPlayingArea::RecalcVisibleMapHeight() { //41b6e0
     CVisualObject* obj3 = this->FindChild(MAP_CHILD_SPELL_BOOK);
 
     if (obj2) {
+#ifdef A2CLIENT_PATCH
+        btm = obj2->GetRect().top + 2;
+#else
         btm = obj2->GetRect().top;
+#endif
     }
 
     if (obj3) {
+#ifdef A2CLIENT_PATCH
+        btm = obj3->GetRect().top + 2;
+#else
         btm = obj3->GetRect().top;
+#endif
     }
 
     btm = ((btm - 1) & (~0x1f)) + 0x20;
@@ -5671,6 +5679,13 @@ void VisPlayingArea::RenderWorldFrame() {
     LockSurface2();
     SetClipRect(this->dirty_rect);
 
+#ifdef A2CLIENT_PATCH
+    if (child3 != nullptr) {
+        FillRectColorSimple(local_rect.left, child3->GetRect().top + 2, local_rect.right, local_rect.bottom, 0);
+    } else if (child2 != nullptr) {
+        FillRectColorSimple(local_rect.left, child2->GetRect().top + 2, local_rect.right, local_rect.bottom, 0);
+    }
+#else
     if (child2 == nullptr || child3 == nullptr) {
         if (child3 == nullptr) {
             if (child2 != nullptr && g_ScreenSize.right == 800) {
@@ -5683,6 +5698,7 @@ void VisPlayingArea::RenderWorldFrame() {
         FillRectColorSimple(local_rect.right - 0x20, child3->GetRect().top + 2, local_rect.right, child2->GetRect().bottom, 0);
         FillRectColorSimple(local_rect.left, child3->GetRect().bottom, local_rect.right, child3->GetRect().bottom + 4, 0);
     }
+#endif
     g_bmp_crystall->DrawSubRectMasked(local_rect.right - 0x10, local_rect.top, 0, 0, 0x10, 0x9e);
     uint32_t top_panel_kind = (uint32_t)(this->selected_object_count == 0) | (this->selection_flags & SEL_NON_CONTROLLABLE);
     if (top_panel_kind == 0) {
