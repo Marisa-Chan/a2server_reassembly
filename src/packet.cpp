@@ -734,6 +734,13 @@ void PacketFileChunk::WriteTo(NetStru2* net) {
 void PacketFileChunk::ReadFrom(NetStru2* net) {
     // 527246  reads 0x2C bytes at +0xA, then optional count bytes at +0x36
     net->ReadData(&this->preamble[0], 0x2C);
+#ifdef A2SERVER_PATCH
+    if (this->count < 0) {
+        this->count = 0;
+    } else if (this->count > static_cast<int32_t>(sizeof(this->var_data))) {
+        this->count = static_cast<int32_t>(sizeof(this->var_data));
+    }
+#endif
     if (this->count > 0) {
         net->ReadData(this->var_data, this->count);
     }
@@ -831,6 +838,11 @@ void PacketUnitStateVec::WriteTo(NetStru2* net) {
 void PacketUnitStateVec::ReadFrom(NetStru2* net) {
     // 527528
     net->ReadData(&this->building_id, 9);
+#ifdef A2SERVER_PATCH
+    if (this->data_size > sizeof(this->data)) {
+        this->data_size = static_cast<uint16_t>(sizeof(this->data));
+    }
+#endif
     if (this->entry_count > 0) {
         net->ReadData(this->data, this->data_size);
     }
