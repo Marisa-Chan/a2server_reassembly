@@ -5,6 +5,8 @@
 
 #include "menu.h"
 
+#include <cstdio>
+
 #include "../vis_menu.h"
 #include "../gfx.h"
 #include "../sound.h"
@@ -37,24 +39,41 @@ static const char* ButtonLabel(int32_t i) {
     return tangar_cfg::z_russian ? labels_ru[i] : labels_en[i];
 }
 
+static bool FileExists(const char* path) {
+    FILE* fil = nullptr;
+    if (fopen_s(&fil, path, "rb") == 0 && fil != nullptr) {
+        fclose(fil);
+        return true;
+    }
+    return false;
+}
+
 void Load() {
-    // TODO: pick new images:
-    // Menu: data\\graphics\\interface\\mainmenu\\menunew.png
-    // Buttons: data\\graphics\\interface\\mainmenu\\button%doff.bmp, button%don.bmp
     if (img_menu_new == nullptr) {
-        char path[MAX_PATH];
-        sprintf_s(path, "data\\locale\\%s\\graphics\\mainmenu\\menunew.png", tangar_cfg::z_russian ? "ru" : "en");
-        img_menu_new = new PatchImage(path);
+        const char* new_menu_path = "data\\graphics\\interface\\mainmenu\\menunew.png";
+        if (FileExists(new_menu_path)) {
+            img_menu_new = new PatchImage(new_menu_path);
+        } else {
+            char path[MAX_PATH];
+            sprintf_s(path, "data\\locale\\%s\\graphics\\mainmenu\\menunew.png", tangar_cfg::z_russian ? "ru" : "en");
+            img_menu_new = new PatchImage(path);
+        }
     }
     for (int32_t i = 0; i < 3; i++) {
         if (img_buttons_up[i] == nullptr) {
             char path[MAX_PATH];
-            sprintf_s(path, "data\\graphics\\interface\\inn\\button%doff.bmp", i + 1);
+            sprintf_s(path, "data\\graphics\\interface\\mainmenu\\button%doff.bmp", i + 1);
+            if (!FileExists(path)) {
+                sprintf_s(path, "data\\graphics\\interface\\inn\\button%doff.bmp", i + 1);
+            }
             img_buttons_up[i] = new PatchImage(path);
         }
         if (img_buttons_down[i] == nullptr) {
             char path[MAX_PATH];
-            sprintf_s(path, "data\\graphics\\interface\\inn\\button%don.bmp", i + 1);
+            sprintf_s(path, "data\\graphics\\interface\\mainmenu\\button%don.bmp", i + 1);
+            if (!FileExists(path)) {
+                sprintf_s(path, "data\\graphics\\interface\\inn\\button%don.bmp", i + 1);
+            }
             img_buttons_down[i] = new PatchImage(path);
         }
     }
