@@ -4417,6 +4417,11 @@ void Server::ProcessClientPacket(Packet* pkt) {
             break;
         case GROUP_ATTACK_TARGET: // attack building?
             CheckPacketType(pkt, "PacketGroupOrder");
+#ifdef A2SERVER_PATCH
+            if (!target->IsUnit()) {
+                break;
+            }
+#endif
             if (g_ServerConfig.gameType != GAME_TYPE_TEAMPLAY || g_PlayersList->AreTeamsStarted() != 0) {
                 g_World->GroupAttackTargetCommand(group, static_cast<Unit*>(target), 0);
                 player->ResetAfkTimer();

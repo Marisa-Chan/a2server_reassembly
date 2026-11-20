@@ -410,7 +410,11 @@ int32_t World::GetAttackDecision(Unit* unit, Unit* target) {
             }
         }
 
+#ifdef A2SERVER_PATCH
+        if (target->IsUnit() && (target->enchantments & (1 << spell::stone_curse)) != 0) {
+#else
         if ((target->enchantments & (1 << spell::stone_curse)) != 0) {
+#endif
             score += 127;
             if (score < 1) {
                 score = 1;
@@ -1067,9 +1071,15 @@ void World::CastSelfHealOrBuff(Unit* unit) {
 // 5A85F4
 void World::BeginAutobuffCast(Unit* caster, Unit* target, Spell* spell) {
     #ifdef A2SERVER_PATCH
-    // bug_001A: target->eye2 may be null - treat the target as unavailable
-    if (target != nullptr && target->eye2 == nullptr) {
-        target = nullptr;
+    // bug_001A: target->eye2 may be null (or target may be a Building) - treat as unavailable when invalid
+    if (target != nullptr) {
+        if (!target->IsUnit()) {
+            if (spell != nullptr && spell->is_defensive != 0) {
+                target = nullptr;
+            }
+        } else if (target->eye2 == nullptr) {
+            target = nullptr;
+        }
     }
     #endif
     if (target == nullptr) {
@@ -1087,8 +1097,15 @@ void World::BeginAutobuffCast(Unit* caster, Unit* target, Spell* spell) {
         caster->eye2->unit5 = target;
         caster->eye2->spell = spell;
         caster->eye2->max_range = this->UnitMaxRange(caster);
+#ifdef A2SERVER_PATCH
+        if (target->IsUnit() && target->eye2 != nullptr) {
+            target->eye2->autobuff_spell_id = spell->spell_id;
+            target->eye2->autobuff_tick = g_Server->tick;
+        }
+#else
         target->eye2->autobuff_spell_id = spell->spell_id;
         target->eye2->autobuff_tick = g_Server->tick;
+#endif
     }
 
     caster->eye2->max_range = spell->max_range;
@@ -2605,7 +2622,11 @@ void World::DoAttackTarget(Unit* unit, Unit* target) {
     Unit* chosen_target = target;
     int32_t chosen_spell = 0;
 
+#ifdef A2SERVER_PATCH
+    if (target == nullptr || (target->IsUnit() && (target->unit_attrs & Unit::ATTR_PHASED_OUT) != 0)) {
+#else
     if ((target->unit_attrs & Unit::ATTR_PHASED_OUT) != 0) {
+#endif
         this->SetIdleOrRetreat(unit, 0);
         return;
     }
@@ -4070,12 +4091,21 @@ void World::RunAiUnitState(Unit* unit) {
 
 // 5A51A1
 void World::ProcessUnitState(Unit* unit) {
+#ifdef A2SERVER_PATCH
+    if (unit->state == Unit::ORDER_ATTACK_UNIT && unit->eye2->unit != nullptr && unit->eye2->unit->IsUnit() && unit->eye2->unit->some_state == Unit::EXEC_DEAD) {
+        this->ResetUnitToIdle(unit);
+    }
+    if ((unit->state == Unit::ORDER_DEFEND_TARGET || unit->state == Unit::ORDER_FOLLOW) && unit->eye2->unit2 != nullptr && unit->eye2->unit2->IsUnit() && unit->eye2->unit2->some_state == Unit::EXEC_DEAD) {
+        this->ResetUnitToIdle(unit);
+    }
+#else
     if (unit->state == Unit::ORDER_ATTACK_UNIT && unit->eye2->unit != nullptr && unit->eye2->unit->some_state == Unit::EXEC_DEAD) {
         this->ResetUnitToIdle(unit);
     }
     if ((unit->state == Unit::ORDER_DEFEND_TARGET || unit->state == Unit::ORDER_FOLLOW) && unit->eye2->unit2 != nullptr && unit->eye2->unit2->some_state == Unit::EXEC_DEAD) {
         this->ResetUnitToIdle(unit);
     }
+#endif
     if (unit->state == Unit::ORDER_MOVE && unit->eye->target_reached != 0 && unit->eye->move_target.val == unit->position->CompatGetYX()) {
         this->ResetUnitToIdle(unit);
     }
