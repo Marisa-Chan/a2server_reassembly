@@ -323,7 +323,7 @@ void LoadCustomHotkeys() {
 
     std::unordered_map<int, std::unique_ptr<UserShortcut>> new_hotkeys;
     if (!LoadHotkeysFile(stream, new_hotkeys)) {
-        tangar_cfg::WriteChat("Failed to load hotkeys!");
+        LogMessage("Failed to load hotkeys!");
         return;
     }
 
@@ -353,7 +353,7 @@ void SaveCustomHotkeys() {
     sprintf(filename, "hotkey.%u.a2key", GetParsedPlayerBasicInfo()->id1);
 
     if (!stream.SaveToFile(filename)) {
-        tangar_cfg::WriteChat("Failed to save hotkeys!");
+        LogMessage("Failed to save hotkeys!");
     }
 }
 
