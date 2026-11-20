@@ -4507,6 +4507,11 @@ void Server::ProcessClientPacket(Packet* pkt) {
 #endif
             if (g_ServerConfig.gameType != GAME_TYPE_TEAMPLAY || g_PlayersList->AreTeamsStarted() != 0) {
                 player->ResetAfkTimer();
+#ifdef A2SERVER_PATCH
+                if (player->main_unit == nullptr || player->main_unit->inventory == nullptr) {
+                    break;
+                }
+#endif
                 auto* item = player->main_unit->inventory->TakeItemAt(packet_order->slot, 1);
                 if (!item || item->_effects.IsEmpty()) {
                     break;
