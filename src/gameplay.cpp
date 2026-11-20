@@ -1344,11 +1344,11 @@ int32_t Vis1200::OnKeyDown(uint32_t wparam) {
     // CHAT_keyDown hook (43E1FB): Up/Down navigate the sent-message
     // history; Enter commits the current message into it
     if (wparam == VK_UP) {
-        if (s_history_index > 0) {
+        if (s_history_index > 0 && this->text_block != nullptr) {
             s_history_index--;
             CStringArray* entry = s_sent_history.GetAt(s_sent_history.FindIndex(s_history_index));
             this->text_block->history.RemoveAll();
-            for (int i = 0; i < entry->GetSize() - 1; i++) {
+            for (int32_t i = 0; i < entry->GetSize() - 1; i++) {
                 this->text_block->history.Add((*entry)[i]);
             }
             this->text_block->input_line = (*entry)[entry->GetUpperBound()];
@@ -1356,11 +1356,11 @@ int32_t Vis1200::OnKeyDown(uint32_t wparam) {
         return 1;
     }
     if (wparam == VK_DOWN) {
-        if (s_history_index + 1 < s_sent_history.GetCount()) {
+        if (s_history_index + 1 < s_sent_history.GetCount() && this->text_block != nullptr) {
             s_history_index++;
             CStringArray* entry = s_sent_history.GetAt(s_sent_history.FindIndex(s_history_index));
             this->text_block->history.RemoveAll();
-            for (int i = 0; i < entry->GetSize() - 1; i++) {
+            for (int32_t i = 0; i < entry->GetSize() - 1; i++) {
                 this->text_block->history.Add((*entry)[i]);
             }
             this->text_block->input_line = (*entry)[entry->GetUpperBound()];
@@ -1368,16 +1368,18 @@ int32_t Vis1200::OnKeyDown(uint32_t wparam) {
         return 1;
     }
     if (wparam == VK_RETURN) {
-        // consoleEnter + addString: commit the current lines into history
-        if (this->text_block->history.GetSize() != 0) {
+        // consoleEnter + addString: Vis1200obj::OnKeyDown already moved any
+        // non-empty input_line into history; empty Enter closes without sending.
+        if (this->text_block != nullptr && this->text_block->history.GetSize() != 0) {
             CStringArray* entry = new CStringArray();
             entry->Copy(this->text_block->history);
-            entry->Add(this->text_block->input_line);
             s_sent_history.AddTail(entry);
             s_history_index = (int32_t)s_sent_history.GetCount();
+            this->text_block->SaveHistoryBackup();
+            this->MsgProc(VIS_MSG_HIDE_SCREEN, 0, 0);
+        } else {
+            this->MsgProc(VIS_MSG_CLOSE_SCREEN, 0, 0);
         }
-        this->text_block->SaveHistoryBackup();
-        this->MsgProc(VIS_MSG_HIDE_SCREEN, 0, 0);
         return 1;
     }
     if (wparam == VK_ESCAPE) {
