@@ -2516,7 +2516,7 @@ void Humanoid::RecalcStats() {
 
     uint16_t max_body, max_reaction, max_mind, max_spirit;
 
-#ifdef A2TANGAR_HAT
+#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
     // set_*_max_parameters hooks (531650/53166C/531696/5316B8): the
     // class/gender stat caps come from config (defaults = retail values)
     const MainCharacterParameters& caps = fighter
