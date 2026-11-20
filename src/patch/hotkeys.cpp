@@ -25,6 +25,7 @@
 #include "../vis_char.h"
 #include "../vis_inventory.h"
 #include "../vis_playing_area.h"
+#include "client_config.h"
 
 namespace tangar_hotkeys {
 
@@ -322,7 +323,7 @@ void LoadCustomHotkeys() {
 
     std::unordered_map<int, std::unique_ptr<UserShortcut>> new_hotkeys;
     if (!LoadHotkeysFile(stream, new_hotkeys)) {
-        LogMessage(CString("Failed to load hotkeys!"));
+        tangar_cfg::WriteChat("Failed to load hotkeys!");
         return;
     }
 
@@ -352,7 +353,7 @@ void SaveCustomHotkeys() {
     sprintf(filename, "hotkey.%u.a2key", GetParsedPlayerBasicInfo()->id1);
 
     if (!stream.SaveToFile(filename)) {
-        LogMessage(CString("Failed to save hotkeys!"));
+        tangar_cfg::WriteChat("Failed to save hotkeys!");
     }
 }
 

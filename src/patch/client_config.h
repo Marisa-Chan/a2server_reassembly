@@ -66,4 +66,8 @@ void GetResolution(int32_t* w, int32_t* h);
 // ported from a2mgr network_hat_enter.cpp ParseHatAddress.
 const char* HatAddress();
 
+// Write a message to the in-game chat HUD (msglog.Add, 30s), falling back to
+// LogMessage if the playing area is not yet constructed (zxmgr::WriteChat).
+void WriteChat(const char* msg);
+
 } // namespace tangar_cfg

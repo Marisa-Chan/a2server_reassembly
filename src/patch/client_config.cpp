@@ -3,9 +3,14 @@
 
 #include "client_config.h"
 
+#include <winsock2.h>
 #include <windows.h>
 #include <tlhelp32.h>
 
+#include "../game_app.h"
+#include "../ingame.h"
+#include "../main_window.h"
+#include "../vis_playing_area.h"
 #include "config_new.h"
 #include "hotkeys.h"
 #include "tangar_log.h"
@@ -447,6 +452,18 @@ void ParseConfig() {
     }
 
     f.close();
+}
+
+void WriteChat(const char* msg) {
+    if (msg == nullptr) {
+        return;
+    }
+    MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
+    if (main_wnd != nullptr && main_wnd->vis_map_context != nullptr) {
+        main_wnd->vis_map_context->msglog.Add(msg, clr_log_sblack, 30000);
+    } else {
+        LogMessage(CString(msg));
+    }
 }
 
 } // namespace tangar_cfg

@@ -5651,11 +5651,10 @@ void SaveScreenshot() { //453d33
         fwrite(buf, 1, size, outf);
         fclose(outf);
 
-        // The patched string table line (GetPatchString(226)) is not available in
-        // the retail patch.txt, so the confirmation message is hardcoded.
+        const char* fmt = (txt_patch.GetCount() > 226) ? txt_patch.GetLine(226) : "Screenshot saved: %s";
         CString msg;
-        msg.Format("Screenshot saved: %s", (const char*)fname);
-        LogMessage(msg);
+        msg.Format(fmt, (const char*)fname);
+        tangar_cfg::WriteChat(msg);
     }
     free(buf);
 }
