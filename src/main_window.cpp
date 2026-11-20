@@ -869,6 +869,13 @@ void MainWindow::OnKeyDown(UINT key, UINT repeat, UINT flags) {
             break;
 
         case VK_ESCAPE:
+#ifdef A2CLIENT_PATCH
+            // CHAT_fixEscape (client 48A0F7): close active chat console instead of opening menu.
+            if (this->console_active != 0 && this->vis_1200 != nullptr) {
+                this->vis_1200->MsgProc(VIS_MSG_CLOSE_SCREEN, 0, 0);
+                break;
+            }
+#endif
             if (this->dialogsMask == DIALOG_MASK_INGAME) {
                 this->PostMessage(MAIN_MSG_SHOW_INGAME_MENU, 0, 0);
                 if (this->sessionMode != SESSION_LOCAL_BATTLE) {
