@@ -1092,8 +1092,51 @@ void NetStru1::SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t
     }
 }
 
+#if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
+// Ported from srvmgr/srvmgr.cpp:1192 (check_sig_c_s).
+bool IsAllowedClientPacketId(uint8_t c) {
+    static const PacketId kAllowedClientPackets[] = {
+        ENTER_GAME, JOIN_MISSION, PLAYER_LEAVE, REQUEST_SAVE_GAME, REQUEST_LOAD_GAME, CLIENT_SHUTDOWN,
+        GROUP_STOP, GROUP_GATHER, GROUP_GO_HOME, GROUP_MOVE, GROUP_GUARD, GROUP_AGGRESSIVE,
+        GROUP_ATTACK, GROUP_ATTACK_MOVE, GROUP_ATTACK_TARGET, GROUP_DEFEND, GROUP_PATROL,
+        GROUP_CAST_UNIT, GROUP_CAST_POS, GROUP_PICKUP, ITEM_OPERATION, DROP_GOLD,
+        GROUP_ENTER_BUILDING, SCROLL_CAST_UNIT, SCROLL_CAST_POS,
+        ENTER_SHOP, SHOP_BUY, SHOP_SELL, SHOP_TAKE_BACK, SHOP_CLOSE,
+        ENTER_INN, REQUEST_MAP_INFO, EXIT_INN, REQUEST_FILE_CHUNK,
+        CHEAT_MONEY, CHEAT_SHOP,
+        SET_DIPLOMACY, SET_PARAMETER, JOIN_MAP, CHEAT_SUMMON,
+        REQUEST_UNITS_RESEND, REQUEST_RESPAWN, HURT_SELF, GROUP_STOP_AFK,
+        CHAT, ANNOUNCEMENT, REQUEST_UNIT_UPDATE, LATENCY, HAT_TICKET, SERVER_TICK,
+    };
+    for (size_t i = 0; i < sizeof(kAllowedClientPackets) / sizeof(kAllowedClientPackets[0]); ++i) {
+        if (c == kAllowedClientPackets[i]) {
+            return true;
+        }
+    }
+    return false;
+}
+#endif
+
 // DecodePacket
 Packet* NetStru1::DecodePacket(uint8_t cmd, NetStru2* ns2) {
+#if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
+    if (this != &HatConnector && ns2 != nullptr && ns2->is_local_player == 0 && !IsAllowedClientPacketId(cmd)) {
+        Player* bad_player = (g_PlayersList != nullptr && ns2->player_id != 0)
+            ? g_PlayersList->FindById(ns2->player_id)
+            : nullptr;
+        CString inv_msg;
+        inv_msg.Format("Invalid packet '%.2X' from '%s' (disconnecting)",
+                       static_cast<unsigned int>(cmd),
+                       bad_player != nullptr ? (const char*)bad_player->login : (const char*)ns2->buf);
+        LogMessage(inv_msg);
+        if (bad_player != nullptr) {
+            g_NetStru1_main.AnnouncePlayer(bad_player);
+        }
+        ns2->ReturnBuffers();
+        this->DisconnectClient(ns2);
+        return nullptr;
+    }
+#endif
     Packet* pkt;
 
     switch (cmd) {
@@ -1392,7 +1435,13 @@ void NetStru1::DisconnectClient(NetStru2* cli) {
         this->AddTailNet2(this->local_client);
         this->local_client = nullptr;
     } else {
+#ifdef A2SERVER_PATCH
+        if (this->lldriver != nullptr) {
+            this->lldriver->DisconnectClient(cli->uid);
+        }
+#else
        this->lldriver->DisconnectClient(cli->uid);
+#endif
     }
 }
 

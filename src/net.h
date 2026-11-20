@@ -534,6 +534,9 @@ public:
 
     NetStru2* GetFirstClient();
 };
+#if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
+bool IsAllowedClientPacketId(uint8_t c);
+#endif
 ASSERT_OFFSET(NetStru1, packer_dat1, 0x90);
 ASSERT_OFFSET(NetStru1, packer1_trained_bytes, 0x1898);
 ASSERT_SIZE(NetStru1, 0x20f0);

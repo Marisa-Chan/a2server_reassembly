@@ -4228,25 +4228,6 @@ void CheckPacketType(Packet* pkt, const char* want_type) {
     }
 }
 
-#if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
-// Ported from srvmgr/srvmgr.cpp:1192 (check_sig_c_s).
-static bool IsAllowedClientPacketId(uint8_t c) {
-    static const uint8_t kAllowedClientPackets[] = {
-        0x02, 0x04, 0x05, 0x07, 0x08, 0x09, 0x12, 0x13, 0x14, 0x16,
-        0x17, 0x18, 0x19, 0x1A, 0x1B, 0x1C, 0x1D, 0x1E, 0x1F, 0x21,
-        0x22, 0x23, 0x24, 0x25, 0x26, 0x32, 0x33, 0x34, 0x35, 0x36,
-        0x38, 0x39, 0x3A, 0x3B, 0x3E, 0x3F, 0x45, 0x46, 0x48, 0x49,
-        0x4A, 0x4B, 0x4C, 0x4D, 0x91, 0xAE, 0xBE, 0xC1, 0xD0, 0x64,
-    };
-    for (size_t i = 0; i < sizeof(kAllowedClientPackets); ++i) {
-        if (c == kAllowedClientPackets[i]) {
-            return true;
-        }
-    }
-    return false;
-}
-#endif
-
 void Server::ProcessClientPacket(Packet* pkt) {
 #if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
     // remember_a2server hook (504A99)
@@ -4274,6 +4255,8 @@ void Server::ProcessClientPacket(Packet* pkt) {
             NetStru2* ns2 = g_NetStru1_main.GetClientByPlayerID(bad_player->player_id);
             if (ns2 != nullptr && ns2->is_local_player == 0) {
                 g_NetStru1_main.AnnouncePlayer(bad_player);
+                ns2->ReturnBuffers();
+                g_NetStru1_main.DisconnectClient(ns2);
             }
         }
         return;
