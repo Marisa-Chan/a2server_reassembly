@@ -1364,7 +1364,13 @@ Packet* NetStru1::ReceivePacket(NetStru2* cli) {
     }
 
     uint8_t id = 0;
+#ifdef A2SERVER_PATCH
+    if (!cli->ReadData(&id, 1)) {
+        return nullptr;
+    }
+#else
     cli->ReadData(&id, 1); //read pkt id
+#endif
     return this->DecodePacket(id, cli);
 }
 
@@ -1865,6 +1871,11 @@ int NetStru2::ReadData(void* buf, uint32_t size) {
         this->received_buffers.RemoveHead();
         this->hldriver->AddTailFreeNet3(buffer);
     }
+#ifdef A2SERVER_PATCH
+    if (size > 0) {
+        memset(buf, 0, size);
+    }
+#endif
     LeaveCriticalSection(&this->critical_section);
     return 0;
 }
@@ -1880,6 +1891,18 @@ void NetStru2::SetDrivers(NetStru1* HlDriver, CLlDriver* LlDriver) {
 int NetStru2::ReceiveData(NetStru3* buffer) {
     //5161bf
     EnterCriticalSection(&this->critical_section);
+#if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
+    constexpr INT_PTR kMaxQueuedRecvBuffers = 4096;
+    if (this->is_local_player == 0 && this->hldriver != &NetStru1::HatConnector &&
+        this->received_buffers.GetCount() >= kMaxQueuedRecvBuffers) {
+        LeaveCriticalSection(&this->critical_section);
+        if (this->hldriver != nullptr) {
+            this->hldriver->AddTailFreeNet3(buffer);
+        }
+        ReportWarning("CBufferManager::ReceiveData().\nClient receive queue overflow.\n");
+        return 0;
+    }
+#endif
 
     /*if (buffer->cmode != 0)
     {
@@ -3360,9 +3383,18 @@ int CLlDriver::RecvThreadTcp(A2NetSock* sock) {
 #endif
                 }
 #endif
+#if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
+                int recv_ok = sock->manager->ReceiveData(sock->current_buffer);
+                sock->copy_num = 0;
+                sock->current_buffer = nullptr;
+                if (!recv_ok) {
+                    return 0;
+                }
+#else
                 sock->manager->ReceiveData(sock->current_buffer);
                 sock->copy_num = 0;
                 sock->current_buffer = nullptr;
+#endif
             }
         }
     }
