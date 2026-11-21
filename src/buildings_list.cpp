@@ -54,6 +54,30 @@ Shop* BuildingsList::FindNearestShop(TokenPos* pos) {
 }
 #endif
 
+#ifdef A2SERVER_PATCH
+// A2SERVER_PATCH: Inn-only variant of FindNearby to prevent non-inn buildings from hijacking the lookup.
+Inn* BuildingsList::FindNearestInn(TokenPos* pos) {
+    TokenPos adjusted(pos->GetX() - 1, pos->GetY() - 1, MapStuff_Instance);
+    Inn* best_inn = nullptr;
+    uint8_t best_dist = 0xFF;
+    for (POSITION it = this->GetHeadPosition(); it != nullptr;) {
+        Building* building = this->GetNext(it);
+        if (!building->IsKindOf(RUNTIME_CLASS(Inn))) {
+            continue;
+        }
+        uint8_t dist = building->position->Distance(&adjusted);
+        if (dist < best_dist) {
+            best_dist = dist;
+            best_inn = static_cast<Inn*>(building);
+        }
+    }
+    if (best_inn != nullptr && best_dist > 2) {
+        return nullptr;
+    }
+    return best_inn;
+}
+#endif
+
 // 557DB2
 Building* BuildingsList::FindById(uint16_t id) {
     for (POSITION it = this->GetHeadPosition(); it != nullptr;) {

@@ -10,6 +10,7 @@
 class Building;
 class Player;
 class Shop;
+class Inn;
 struct TokenPos;
 
 class BuildingsList : public CList<Building*> {
@@ -24,6 +25,7 @@ public:
     void Serialize(CArchive& ar); // Serialize (client: 5360fc)
 #ifdef A2SERVER_PATCH
     Shop* FindNearestShop(TokenPos* pos); // Shop-only variant of FindNearby (see buildings_list.cpp)
+    Inn* FindNearestInn(TokenPos* pos); // Inn-only variant of FindNearby (see buildings_list.cpp)
 #endif
 
     void RegenTick(); //55817b (client: 535e9e)

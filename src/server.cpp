@@ -293,7 +293,11 @@ void Server::ProcessPlayers() {
                     }
                 }
 
+                #ifdef A2SERVER_PATCH
+                Inn* inn = this->FindInnFor(player->main_unit);
+                #else
                 Inn* inn = this->FindInnAt(player->main_unit->position);
+                #endif
                 if (inn != nullptr) {
                     inn->RemoveUnit(player->main_unit, Inn::EXIT_LEAVE_NONE);
                 }
@@ -5126,7 +5130,11 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 break;
             }
 #endif
+            #ifdef A2SERVER_PATCH
+            Inn* inn = this->FindInnFor(unit);
+            #else
             Inn* inn = this->FindInnAt(unit->position);
+            #endif
             if (!inn) {
                 break;
             }
@@ -5188,7 +5196,11 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 break;
             }
 #endif
+            #ifdef A2SERVER_PATCH
+            Inn* inn = this->FindInnFor(unit);
+            #else
             Inn* inn = this->FindInnAt(unit->position);
+            #endif
             if (!inn) {
                 break;
             }
@@ -8222,6 +8234,18 @@ Inn* Server::FindInnAt(TokenPos* pos) {
     }
     return static_cast<Inn*>(building);
 }
+
+#if defined(A2SERVER_PATCH)
+Inn* Server::FindInnFor(Unit* unit) {
+    if (!this->srv_stru1->building_list) {
+        return nullptr;
+    }
+    // Retail FindNearby is first-hit over ALL buildings; a non-inn building
+    // earlier in the list (signpost near the approach path) makes the inn
+    // lookup fail from certain tiles. Instead we find the nearest Inn.
+    return this->srv_stru1->building_list->FindNearestInn(unit->position);
+}
+#endif
 
 // 4FF878
 void Server::SendMapInfo(Player* player) {

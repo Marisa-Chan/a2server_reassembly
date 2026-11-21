@@ -288,6 +288,9 @@ public:
     Shop* FindShopFor(Unit* unit);
     #endif
     Inn* FindInnAt(TokenPos* pos);   // Inn lookup by TokenPos (client: 4fca5c)
+    #ifdef A2SERVER_PATCH
+    Inn* FindInnFor(Unit* unit);
+    #endif
     Player* FindPlayerById(uint16_t player_id);  // client: 4fc8f1
     void SaveGame(CString* str);  // client: 4f25d6
     void SendMapInfo(Player* player);  // client: 4fa9f7
