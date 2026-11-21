@@ -66,6 +66,22 @@ CGameObject::CGameObject() {
     this->x_pos2 = 0;
     this->y_pos2 = 0;
     this->z_pos = 0;
+#ifdef A2CLIENT_PATCH
+    this->tileX = 0;
+    this->tileY = 0;
+    this->mapBoundsLeft = 0;
+    this->mapBoundsTop = 0;
+    this->mapBoundsRight = 0;
+    this->mapBoundsBottom = 0;
+    this->mapLayerActive = 0;
+    this->screenX = 0;
+    this->screenY = 0;
+    this->centerWorldX8 = 0;
+    this->centerWorldY8 = 0;
+    this->centerScreenX = 0;
+    this->centerScreenY = 0;
+    this->terrainHeightOffset = 0;
+#endif
     this->dir = 0;
     this->phase = 0;
     this->speed = 0;

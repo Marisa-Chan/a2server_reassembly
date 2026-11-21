@@ -3030,6 +3030,10 @@ Scenario::Scenario(const char* fname) {
         }
         structure->x_pos2 = structure->x_pos;
         structure->y_pos2 = structure->y_pos;
+#ifdef A2CLIENT_PATCH
+        structure->tileX = structure->x_pos2 >> 8;
+        structure->tileY = structure->y_pos2 >> 8;
+#endif
     }
 
     for (int32_t i = 0; i < alm->units_datas.GetSize(); i++) {
@@ -3125,6 +3129,10 @@ Scenario::Scenario(const char* fname) {
         unit->x_pos2 = unit->x_pos;
         unit->y_pos = unit_data->y;
         unit->y_pos2 = unit->y_pos;
+#ifdef A2CLIENT_PATCH
+        unit->tileX = unit->x_pos2 >> 8;
+        unit->tileY = unit->y_pos2 >> 8;
+#endif
 
         unit->map_player = mwnd->vis_map_context->map_players[0];
         for (int32_t j = 1; j < mwnd->vis_map_context->map_players.GetSize(); j++) {

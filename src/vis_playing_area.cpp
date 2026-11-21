@@ -7155,6 +7155,16 @@ void VisPlayingArea::LoadScenario(const char* name) {
     this->scenario = new Scenario(str);
     this->minimap_dirty = 1;
     this->SetScenario(this->scenario);
+#ifdef A2CLIENT_PATCH
+    if (g_StructuresInfo.GetSize() != 0) {
+        for (POSITION it = this->objects.GetStartPosition(); it != nullptr;) {
+            uint16_t key;
+            CGameObject* obj;
+            this->objects.GetNextAssoc(it, key, obj);
+            obj->UpdateMapPosition();
+        }
+    }
+#endif
     wnd->vis_right_panel->MsgProc(VIS_MSG_SET_MAP_CONTEXT, (uint32_t)this, 0);
     this->UpdateDayNightCycle(1);
     LoadTerrainTiles(this->scenario->terrain_tile_mask);
