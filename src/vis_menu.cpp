@@ -2868,6 +2868,12 @@ int32_t VisMainMenu::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     if (msg == VIS_MSG_FRAME_TICK) {
         this->VMethod9();
     }
+#if defined(A2CLIENT) && defined(A2TANGAR_HAT)
+    if (msg == WM_KEYDOWN && wparam == VK_RETURN && this->is_active != 0) {
+        this->active_button = 5;
+        return this->OnLButtonUp(0, CPoint(-1, -1));
+    }
+#endif
     return this->VisScreen::MsgProc(msg, wparam, lparam);
 }
 
