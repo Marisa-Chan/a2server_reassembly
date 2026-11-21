@@ -700,7 +700,7 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
                             if (ct->map_player == this->my_main_unit && ct->spells != 0) {
                                 for (int i = 0; i < 32; i++) {
                                     if ((ct->spells & (1 << i)) != 0) {
-                                        ct->availableSpellMask |= SpellBtB[i];
+                                        ct->availableSpellMask |= SPELL_ID_TO_BOOK_MASK[i];
                                     }
                                 }
                             }
@@ -3002,7 +3002,7 @@ void VisPlayingArea::UpdateSelectionState() { //416cf7
         this->selected_object_count++;
         this->selected_available_spell_mask |= obj->availableSpellMask;
         if (obj->active_spell != 0) {
-            this->selected_active_spell_mask |= SpellBtB[obj->active_spell];
+            this->selected_active_spell_mask |= SPELL_ID_TO_BOOK_MASK[obj->active_spell];
         }
 
         if (!firstsel) {
@@ -3070,8 +3070,8 @@ void VisPlayingArea::UpdateSpellEffects(CUnit* unit) { //from 416cf7
             continue;
         }
 
-        unit->activeSpellEffectMask |= SpellBtB[cast_spell];
-        this->active_spell_effect_mask |= SpellBtB[cast_spell];
+        unit->activeSpellEffectMask |= SPELL_ID_TO_BOOK_MASK[cast_spell];
+        this->active_spell_effect_mask |= SPELL_ID_TO_BOOK_MASK[cast_spell];
     }
 }
 

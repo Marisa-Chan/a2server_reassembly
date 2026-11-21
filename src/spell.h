@@ -14,8 +14,6 @@
 class Humanoid;
 class Unit;
 
-extern const std::array<uint32_t, 32> SpellBtB;
-
 namespace magic_sphere {
     enum : uint8_t {
         none   = 0,
@@ -186,13 +184,28 @@ public:
 };
 ASSERT_SIZE(SpellBook, 0x1c);
 
+// 636248 (0-based; 1-based cells start at 63624C).
+// Maps 1-based VisSpellBook grid slot (2 rows x 12 cols) to spell::* ID.
 constexpr std::array<uint32_t, 25> BOOK_POS_TO_SPELL_ID = {
-    // 636248, 0-based.
     0,
-    // 63624C, 1-based.
-    1, 2, 3, 4, 24, 20, 21, 26, 13, 12, 11, 10,
-    5, 6, 7, 8, 25, 22, 23, 27, 19, 18, 17, 16,
+    // First row: Fire (0..3), Astral top (4..7), Air reversed (8..11)
+    spell::fire_arrow, spell::fire_ball, spell::wall_of_fire, spell::protection_from_fire,
+    spell::heal, spell::bless, spell::haste, spell::drain_life,
+    spell::protection_from_air, spell::invisibility, spell::prismatic_spray, spell::lightning,
+    // Second row: Water (12..15), Astral bottom (16..19), Earth reversed (20..23)
+    spell::ice_missile, spell::poison_cloud, spell::blizzard, spell::protection_from_water,
+    spell::summon, spell::animate_dead, spell::teleport, spell::shield,
+    spell::protection_from_earth, spell::stone_curse, spell::wall_of_earth, spell::stone_missile,
 };
+
+// 637010: inverse of BOOK_POS_TO_SPELL_ID; maps spell::* ID -> (1u << ui_cell).
+constexpr std::array<uint32_t, 32> SPELL_ID_TO_BOOK_MASK = []() constexpr {
+    std::array<uint32_t, 32> masks = {};
+    for (size_t pos = 1; pos < BOOK_POS_TO_SPELL_ID.size(); ++pos) {
+        masks[BOOK_POS_TO_SPELL_ID[pos]] = 1u << (pos - 1);
+    }
+    return masks;
+}();
 
 
 #endif
