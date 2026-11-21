@@ -418,8 +418,8 @@ public:
     uint16_t unit_id; // 0xa
     uint8_t gap_c;
     SackVisualType type_id; // 0xd
-    int16_t xpos; // 0xe
-    int16_t ypos; // 0x10
+    uint16_t xpos; // 0xe
+    uint16_t ypos; // 0x10
 };
 __pragma(pack(pop))
 ASSERT_SIZE(PacketSack, 0x12);
