@@ -62,7 +62,7 @@ void Load() {
     for (int32_t i = 0; i < 3; i++) {
         if (img_buttons_up[i] == nullptr) {
             char path[MAX_PATH];
-            sprintf_s(path, "data\\graphics\\interface\\mainmenu\\button%doff.bmp", i + 1);
+            sprintf_s(path, "data\\graphics\\interface\\mainmenu\\button%doff.png", i + 1);
             if (!FileExists(path)) {
                 sprintf_s(path, "data\\graphics\\interface\\inn\\button%doff.bmp", i + 1);
             }
@@ -70,7 +70,7 @@ void Load() {
         }
         if (img_buttons_down[i] == nullptr) {
             char path[MAX_PATH];
-            sprintf_s(path, "data\\graphics\\interface\\mainmenu\\button%don.bmp", i + 1);
+            sprintf_s(path, "data\\graphics\\interface\\mainmenu\\button%don.png", i + 1);
             if (!FileExists(path)) {
                 sprintf_s(path, "data\\graphics\\interface\\inn\\button%don.bmp", i + 1);
             }
