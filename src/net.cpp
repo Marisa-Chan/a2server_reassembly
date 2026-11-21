@@ -3236,7 +3236,11 @@ void __cdecl CLlDriver::SetSockOptions(SOCKET s, int enlinger) {
     //522af4
     int32_t flag = 1;
     setsockopt(s, IPPROTO_TCP, TCP_NODELAY, (const char*)&flag, 4);
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+    int32_t bufsz = 0x40000; // 256 KiB
+#else
     int32_t bufsz = 0x8000;
+#endif
     setsockopt(s, SOL_SOCKET, SO_SNDBUF, (const char*)&bufsz, 4);
     setsockopt(s, SOL_SOCKET, SO_RCVBUF, (const char*)&bufsz, 4);
 

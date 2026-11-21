@@ -740,7 +740,7 @@ void PacketFileChunk::WriteTo(NetStru2* net) {
 void PacketFileChunk::ReadFrom(NetStru2* net) {
     // 527246  reads 0x2C bytes at +0xA, then optional count bytes at +0x36
     net->ReadData(&this->preamble[0], 0x2C);
-#ifdef A2SERVER_PATCH
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
     if (this->count < 0) {
         this->count = 0;
     } else if (this->count > static_cast<int32_t>(sizeof(this->var_data))) {

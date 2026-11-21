@@ -5247,8 +5247,13 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 }
 #endif
 
-                int32_t chunk_size = 0x1000;
-                if (file_length - file_start < 0x1000) {
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+                constexpr int32_t kMaxChunkSize = static_cast<int32_t>(sizeof(resp.var_data)); // 64 KiB
+#else
+                constexpr int32_t kMaxChunkSize = 0x1000;
+#endif
+                int32_t chunk_size = kMaxChunkSize;
+                if (file_length - file_start < kMaxChunkSize) {
                     chunk_size = file_length - file_start;
                 }
 
@@ -5264,6 +5269,11 @@ void Server::ProcessClientPacket(Packet* pkt) {
             }
             g_NetStru1_main.QueuePacketSend(&resp);
             g_NetStru1_main.SendTickPacket(player);
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+            if (NetStru2* cli = g_NetStru1_main.GetClientByPlayerID(player->player_id)) {
+                cli->SendData();
+            }
+#endif
             break;
         }
 
@@ -8248,8 +8258,12 @@ void Server::SendMapInfo(Player* player) {
     pkt->__as_dword = (uint32_t)g_MapFileChecksum;
     pkt->to_player_id = player->player_id;
     g_NetStru1_main.QueuePacketSend(pkt);
-#ifdef A2SERVER_PATCH
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
     delete pkt;
+    g_NetStru1_main.SendTickPacket(player);
+    if (NetStru2* cli = g_NetStru1_main.GetClientByPlayerID(player->player_id)) {
+        cli->SendData();
+    }
 #endif
 }
 
