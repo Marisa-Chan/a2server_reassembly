@@ -664,7 +664,7 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
                                 ct->str2[0] = 0;
                             } else {
                                 memcpy(ct->str1, pdata, dpos - (char*)pdata);
-                                memcpy(ct->str2, dpos, 12);
+                                memcpy(ct->str2, dpos + 1, 12);
                             }
                             pdata += 12 + 12;
                         }
