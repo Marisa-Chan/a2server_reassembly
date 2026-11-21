@@ -4285,12 +4285,6 @@ void Server::ProcessClientPacket(Packet* pkt) {
 #endif
 
     PacketGroupOrder* packet_order = reinterpret_cast<PacketGroupOrder*>(pkt);
-    CString message;
-    void* vtable = *reinterpret_cast<void**>(pkt);
-    const char* packet_type = PacketType(pkt);
-
-    message.Format("ProcessClientPacket: received group order packet id=0x%02X, order_mode=%d, player_id=%d;  packet is '%s' --- 0x%x", pkt->id, pkt->order_mode, packet_order->from_player_id, packet_type, vtable);
-    LogMessage(message);
 
     // PATH 1: Group order (pkt->order_mode >= 1 means multiple units)
     if (pkt->order_mode != 0) {
