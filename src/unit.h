@@ -245,6 +245,16 @@ public:
     int32_t MovementType(); // Returns movement type. (client: 4c7743)
     int32_t IsMage(); // 5B6FB0 (client: 5444d0) — IsMage.
 
+    // Scan range or 0 if it's negative.
+    int32_t EffectiveScanRange() const {
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+        int32_t range = static_cast<int16_t>(this->scan_range);
+        return (range < 0) ? 0 : range;
+#else
+        return this->scan_range;
+#endif
+    }
+
     void ApplyMonsterInfo(const CArray<MonsterInfoData>& values);  // client: 51b12f
 
     Inventory* DetachInventory();

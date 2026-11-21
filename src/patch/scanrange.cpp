@@ -80,7 +80,8 @@ static void SR_UpdateUnit(Unit* unit) {
             (g_World->diplomacy.diplomacy[unit_player->player_id][g_PlayerInfo[i].Class->player_id] & DIPLO_VISION_SHARE) != 0) {
             uint8_t unit_x = unit->position->x;
             uint8_t unit_y = unit->position->y;
-            uint16_t unit_vision = unit->scan_range;
+
+            uint16_t unit_vision = static_cast<uint16_t>(unit->EffectiveScanRange());
 
             if (!dCalc) {
                 // unit_x, unit_y are uint8_t values (up to 255), which we

@@ -123,7 +123,7 @@ void Visibility::ScanUnitVisibility(Unit* unit, uint16_t yx) {
     int32_t base_yx = PosYX(base_x, base_y).val;
 
     memset(this->vis_budget_scratch, 0, sizeof(this->vis_budget_scratch));
-    this->vis_budget_scratch[Visibility::CENTER][Visibility::CENTER] = ((unit->scan_range >> 8) << this->scan_shift) + (1 << (this->scan_shift - 1));
+    this->vis_budget_scratch[Visibility::CENTER][Visibility::CENTER] = ((unit->EffectiveScanRange() >> 8) << this->scan_shift) + (1 << (this->scan_shift - 1));
 
     uint16_t unit_yx = unit->position->CompatGetYX();
     this->vis_scratch[unit_yx] = 1;

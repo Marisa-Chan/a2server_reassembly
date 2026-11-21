@@ -6112,7 +6112,12 @@ void VisPlayingArea::BuildShadowField(CGameObject* obj) {
         tangar_scanrange_initialized = true;
     }
 
-    tangar_scanrange.CalculateVision(obj->tileX, obj->tileY, obj->scan_range, &TangarShadowGetHeight, &TangarShadowCheckValid);
+    // Darkness underflow fix: a strong darkness spell can push scan_range below zero, which is equivalent for unlimited scan range.
+    int32_t effective_scan_range = obj->scan_range;
+    if (effective_scan_range < 0) {
+        effective_scan_range = 0;
+    }
+    tangar_scanrange.CalculateVision(obj->tileX, obj->tileY, effective_scan_range, &TangarShadowGetHeight, &TangarShadowCheckValid);
     memcpy(this->shadow_light, tangar_scanrange.pTablesVision, 0x1A44);
 #else
     int32_t base_x = obj->tileX - 20;
