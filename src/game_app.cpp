@@ -599,11 +599,6 @@ BOOL GameApp::InitInstance() {
 #if (defined(A2TANGAR_HAT) && !defined(A2CLIENT)) || defined(A2CLIENT_PATCH)
     tangar_crash::SetExceptionFilter();
 #endif
-#ifdef A2CLIENT_PATCH
-    if (g_IsServer == 0 && strstr(this->m_lpCmdLine, "-window") == nullptr) {
-        SetProcessDPIAware();
-    }
-#endif
 
     const char* stmp = strstr(m_lpCmdLine, "-latency");
     if (stmp) {
@@ -634,6 +629,9 @@ BOOL GameApp::InitInstance() {
         }
     }
     tangar_cfg::ParseConfig();
+    if (g_IsServer == 0 && !tangar_cfg::IsWindowed()) {
+        SetProcessDPIAware();
+    }
     tangar_cfg::InitClientLogFile();
     tangar_locale::DecideLanguage();
     if (GetFileAttributesA("maps") == INVALID_FILE_ATTRIBUTES) {
@@ -867,7 +865,11 @@ BOOL GameApp::InitInstance() {
         exit(1);
     }
 
+#ifdef A2CLIENT_PATCH
+    if (!tangar_cfg::IsWindowed() && !SetVideoMode()) {
+#else
     if (strstr(m_lpCmdLine, "-window") == NULL && !SetVideoMode()) {
+#endif
         AfxMessageBox("Unable to set video mode");
         exit(1);
     }

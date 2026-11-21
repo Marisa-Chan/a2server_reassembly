@@ -38,6 +38,7 @@ uint32_t r_grid_color = 0x3800;
 uint32_t r_width = 640;
 uint32_t r_height = 480;
 uint32_t z_resolution = 0;
+bool window = false;
 bool z_lang_override = false;
 bool z_russian = true;
 bool stats_based_level_selection = true; // a2mgr default: on
@@ -185,6 +186,8 @@ void Parse2x(std::ifstream& f) {
             } else {
                 invalidwh = true;
             }
+        } else if (cmd[0] == "window") {
+            window = (cmd.size() == 2) ? StrToBool(cmd[1]) : true;
         } else if (cmd[0] == "r_fps") {
             r_fps = (cmd.size() == 2) ? StrToBool(cmd[1]) : true;
         } else if (cmd[0] == "r_time") {
@@ -276,11 +279,24 @@ void Parse1x(std::ifstream& f) {
             r_time = StrToBool(val);
         } else if (prm == "alt_chat") {
             g_altchat = StrToBool(val);
+        } else if (prm == "window") {
+            window = StrToBool(val);
         }
     }
 }
 
 } // namespace
+
+bool IsWindowed() {
+    if (window) {
+        return true;
+    }
+    if (afxCurrentWinApp != nullptr && afxCurrentWinApp->m_lpCmdLine != nullptr &&
+        strstr(afxCurrentWinApp->m_lpCmdLine, "-window") != nullptr) {
+        return true;
+    }
+    return false;
+}
 
 namespace {
 

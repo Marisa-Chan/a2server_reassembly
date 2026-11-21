@@ -58,6 +58,12 @@ extern uint32_t r_width;
 extern uint32_t r_height;
 extern uint32_t z_resolution;
 
+// Windowed mode from allods2.cfg ("window true"), equivalent to the -window CLI flag.
+extern bool window;
+
+// True when windowed mode was requested via allods2.cfg ("window true") or -window on the CLI.
+bool IsWindowed();
+
 // Resolve initial client resolution (allods2.cfg r_width/r_height or desktop
 // smart default, overridden by -640/-800/-1024/--res:WxH CLI flags).
 void GetResolution(int32_t* w, int32_t* h);

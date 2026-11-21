@@ -66,12 +66,6 @@ int32_t g_InGame = 0; //62c9d4
 #endif
 
 #ifdef A2CLIENT_PATCH
-static bool IsWindowedArgPresent() {
-    return afxCurrentWinApp != nullptr &&
-           afxCurrentWinApp->m_lpCmdLine != nullptr &&
-           strstr(afxCurrentWinApp->m_lpCmdLine, "-window") != nullptr;
-}
-
 static bool IsWindowedClientMode() {
     return g_IsServer == 0;
 }
@@ -1527,7 +1521,7 @@ MainWindow::MainWindow() { //4837e1
     if (g_IsServer == 0) {
         const char* cls = AfxRegisterWndClass(CS_DBLCLKS | CS_HREDRAW | CS_VREDRAW, NULL, NULL, NULL);
 #ifdef A2CLIENT_PATCH
-        if (IsWindowedArgPresent()) {
+        if (tangar_cfg::IsWindowed()) {
             g_DisplaySize.SetRect(0, 0, resolution.x, resolution.y);
         } else {
             int32_t disp_w = GetSystemMetrics(SM_CXSCREEN);
