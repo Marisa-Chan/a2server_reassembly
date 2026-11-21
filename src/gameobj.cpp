@@ -1331,9 +1331,6 @@ void CUnit::RenderHeroPortrait(const char* str, CBmp64* bmp1, CGameBitmap* bmp2)
         if (item_sprites[4] != nullptr) {
             item_sprites[4]->Draw(0, 0, 0, 0, 0);
         }
-        if (item_sprites[8] != nullptr) {
-            item_sprites[8]->Draw(0, 0, 0, 0, 0);
-        }
         if (item_sprites[0] != nullptr) {
             item_sprites[0]->Draw(0, 0, 0, 0, 0);
         }
@@ -1352,10 +1349,10 @@ void CUnit::RenderHeroPortrait(const char* str, CBmp64* bmp1, CGameBitmap* bmp2)
             }
             unit_sprite->DrawIndexMask(0, 0, 0, 0);
             if (item_sprites[11] != nullptr) {
-                item_sprites[11]->DrawIndexMask(0, 0, 0, 8);
+                item_sprites[11]->DrawIndexMask(0, 0, 0, 12);
             }
             if (item_sprites[9] != nullptr) {
-                item_sprites[9]->DrawIndexMask(0, 0, 0, 12);
+                item_sprites[9]->DrawIndexMask(0, 0, 0, 10);
             }
             if (extra_sprites[9] != nullptr) {
                 extra_sprites[9]->DrawIndexMask(0, 0, 0, 10);
