@@ -246,8 +246,7 @@ enum : int32_t {
 
 
 // TEAM_NOTIFY param1 (SendTeamNotify msg_type). The client switch also has
-// cases 0x10/0x20/0x40/0x80 (kind bits with own text lines) and the server
-// sends arena/CTF codes from 0x0B up - those stay raw.
+// cases 0x10/0x20/0x40/0x80 (QuestMap::FLAG_*) and 0x100..0x107 (CTF rune notifications).
 enum TeamNotifyType : uint32_t {
     TEAM_NOTIFY_UNREACHABLE       = 1,  // move destination unreachable (client shows only with g_EnableTrace)
     TEAM_NOTIFY_SPHERE_LEVELUP    = 2,  // skill sphere leveled up (param2 = sphere | server_id << 16)
@@ -257,8 +256,13 @@ enum TeamNotifyType : uint32_t {
     TEAM_NOTIFY_CHEAT_FAILED      = 6,  // cheat command rejected (bad latency, unknown item, dead unit, ...)
     TEAM_NOTIFY_CHEAT_OK          = 7,  // cheat command applied
     TEAM_NOTIFY_SHOUT_COOLDOWN    = 8,  // shout rejected, param2 = remaining cooldown seconds
-    TEAM_NOTIFY_STAT_BOOST        = 9,  // rune stat boost applied, param2 = boost (no client display)
-    TEAM_NOTIFY_TEAMS_READY       = 10, // all teams ready, match starting (no client display)
+    TEAM_NOTIFY_STAT_BOOST        = 9,  // rune stat boost applied, param2 = boost
+    TEAM_NOTIFY_TEAMS_READY       = 10, // all teams ready, match starting
+    TEAM_NOTIFY_TEAM_READY_PROMPT = 11, // prompt player to ready up in teamplay
+    TEAM_NOTIFY_MAP_CHANGE_IN     = 12, // map change countdown, param2 = remaining seconds
+    TEAM_NOTIFY_SHUTDOWN_IN       = 13, // server shutdown countdown, param2 = remaining seconds
+    TEAM_NOTIFY_CAMPING_IN        = 14, // camping countdown, param2 = remaining seconds
+    TEAM_NOTIFY_CAMPING_CANCELLED = 15, // camping cancelled
 };
 
 // PacketUnitUpdate::flags_mask bits: the SendUnitUpdate update_mask selects

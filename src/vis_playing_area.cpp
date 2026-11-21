@@ -139,7 +139,7 @@ static CString TangarMapsPath(const CString& name) {
 // client: 40dac9
 int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
     //40da14
-    char buf[128];
+    char buf[256];
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 
     bool loop = true;
@@ -1727,6 +1727,58 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
                 }
                 break;
 
+#ifdef A2CLIENT
+            // client: 40ec22..40eecc — v1.07 teamplay, countdown, and camping notifications
+            case TEAM_NOTIFY_STAT_BOOST:
+                sprintf(buf, txt_patch.GetLine(0xb3), packet_2dwords->param2);
+                this->msglog.Add(buf, clr_log_sblack, 5000);
+
+                if ((wnd->dialogsMask & DIALOG_MASK_INGAME) != 0) {
+                    g_SfxArray[sfx_id::notify_chime]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
+                }
+                break;
+
+            case TEAM_NOTIFY_TEAMS_READY:
+            case TEAM_NOTIFY_TEAM_READY_PROMPT:
+                this->msglog.Add(txt_patch.GetLine(packet_2dwords->param1 + 0xb6), clr_log_sblack, 5000);
+
+                if ((wnd->dialogsMask & DIALOG_MASK_INGAME) != 0) {
+                    g_SfxArray[sfx_id::notify_chime]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
+                }
+                break;
+
+            case TEAM_NOTIFY_MAP_CHANGE_IN:
+            case TEAM_NOTIFY_SHUTDOWN_IN:
+                if (packet_2dwords->param2 < 60) {
+                    sprintf(buf, txt_patch.GetLine(packet_2dwords->param1 + 0xc0), packet_2dwords->param2);
+                } else {
+                    sprintf(buf, txt_patch.GetLine(packet_2dwords->param1 + 0xbe), packet_2dwords->param2 / 60);
+                }
+                this->msglog.Add(buf, clr_log_sblack, 5000);
+
+                if ((wnd->dialogsMask & DIALOG_MASK_INGAME) != 0) {
+                    g_SfxArray[sfx_id::notify_chime]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
+                }
+                break;
+
+            case TEAM_NOTIFY_CAMPING_IN:
+                sprintf(buf, txt_patch.GetLine(0xce), packet_2dwords->param2);
+                this->msglog.Add(buf, clr_log_sblack, 5000);
+
+                if ((wnd->dialogsMask & DIALOG_MASK_INGAME) != 0) {
+                    g_SfxArray[sfx_id::notify_chime]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
+                }
+                break;
+
+            case TEAM_NOTIFY_CAMPING_CANCELLED:
+                this->msglog.Add(txt_patch.GetLine(0xcf), clr_log_sblack, 5000);
+
+                if ((wnd->dialogsMask & DIALOG_MASK_INGAME) != 0) {
+                    g_SfxArray[sfx_id::notify_chime]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
+                }
+                break;
+#endif
+
             case QuestMap::FLAG_ACCEPTED:
                 this->msglog.Add(txt_patch.GetLine(0x58), clr_log_sblack, 5000);
 
@@ -1759,6 +1811,40 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
                     g_SfxArray[sfx_id::notify_chime]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
                 }
                 break;
+
+#ifdef A2CLIENT
+            // client: 40f07d..40f1fe — CTF rune status notifications
+            case 0x100:
+            case 0x101:
+                this->msglog.Add(txt_patch.GetLine(packet_2dwords->param1 - 0x3e),
+                                 (packet_2dwords->param1 & 1) ? g_colors_human_pals[0] : g_colors_human_pals[2],
+                                 5000);
+
+                if ((wnd->dialogsMask & DIALOG_MASK_INGAME) != 0) {
+                    g_SfxArray[sfx_id::notify_chime]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
+                }
+                break;
+
+            case 0x102:
+            case 0x103:
+            case 0x104:
+            case 0x105:
+            case 0x106:
+            case 0x107:
+                if (packet_2dwords->param2 < this->map_players.GetSize() &&
+                    packet_2dwords->param2 != 0 &&
+                    this->map_players[packet_2dwords->param2] != nullptr) {
+                    sprintf(buf, txt_patch.GetLine(packet_2dwords->param1 - 0x3e), this->map_players[packet_2dwords->param2]->name);
+                    this->msglog.Add(buf,
+                                     (packet_2dwords->param1 & 1) ? g_colors_human_pals[0] : g_colors_human_pals[2],
+                                     5000);
+
+                    if ((wnd->dialogsMask & DIALOG_MASK_INGAME) != 0) {
+                        g_SfxArray[sfx_id::notify_chime]->Play(g_SoundSettings.sfx_pos, 0, 0, 100, 0);
+                    }
+                }
+                break;
+#endif
             }
         }
         break;
