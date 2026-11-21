@@ -65,6 +65,39 @@ int32_t g_hat_selected_index = 0; //62c9e8
 int32_t g_InGame = 0; //62c9d4
 #endif
 
+#ifdef A2CLIENT_PATCH
+static bool IsWindowedArgPresent() {
+    return afxCurrentWinApp != nullptr &&
+           afxCurrentWinApp->m_lpCmdLine != nullptr &&
+           strstr(afxCurrentWinApp->m_lpCmdLine, "-window") != nullptr;
+}
+
+static bool IsWindowedClientMode() {
+    return g_IsServer == 0;
+}
+
+static LPARAM ScaleMouseLParam(LPARAM lParam) {
+    POINT pt;
+    pt.x = static_cast<int16_t>(LOWORD(lParam));
+    pt.y = static_cast<int16_t>(HIWORD(lParam));
+    CPoint lpt = PhysicalToLogicalPoint(pt);
+    return static_cast<LPARAM>((lpt.x & 0xFFFF) | ((lpt.y & 0xFFFF) << 16));
+}
+
+static bool GetWindowScreenRect(MainWindow* wnd, RECT* out_rect) {
+    if (wnd == nullptr || wnd->GetSafeHwnd() == nullptr || wnd->IsIconic()) {
+        return false;
+    }
+    CRect rc;
+    wnd->GetWindowRect(&rc);
+    if (rc.IsRectEmpty()) {
+        return false;
+    }
+    *out_rect = rc;
+    return true;
+}
+#endif
+
 
 
 //495033
@@ -458,6 +491,11 @@ void MainWindow::OnSysKeyDown(UINT key, UINT repeat, UINT flags) {
 
 // 483ea8
 void MainWindow::OnDestroy() {
+#ifdef A2CLIENT_PATCH
+    if (IsWindowedClientMode()) {
+        ClipCursor(nullptr);
+    }
+#endif
     if (g_IsServer != 0 && this->server_ctrl_dlg != nullptr) {
         this->server_ctrl_dlg->DestroyWindow();
         delete this->server_ctrl_dlg;
@@ -999,10 +1037,23 @@ void MainWindow::OnSetFocus(CWnd* pOldWnd) {
     this->has_focus = 1;
     g_kbMenuState = 0;
     CFrameWnd::OnSetFocus(pOldWnd);
+#ifdef A2CLIENT_PATCH
+    if (IsWindowedClientMode()) {
+        this->ApplyCursorClip();
+    }
+#endif
 }
 
 // 48cc87
 void MainWindow::ApplyCursorClip() {
+#ifdef A2CLIENT_PATCH
+    if (IsWindowedClientMode()) {
+        if (this->has_focus == 0) {
+            return;
+        }
+        GetWindowScreenRect(this, &this->clip_cursor_rect);
+    }
+#endif
     ClipCursor(&this->clip_cursor_rect);
 }
 
@@ -1013,10 +1064,24 @@ void MainWindow::OnKillFocus(CWnd* pNewWnd) {
     g_kbMenuState = 0;
     g_kbControlState = 0;
     g_kbShiftState = 0;
+#ifdef A2CLIENT_PATCH
+    g_LButtonDown = 0;
+    if (g_mousept.GetSelectState() != 0) {
+        g_mousept.ResetStates();
+    }
+    if (IsWindowedClientMode()) {
+        ClipCursor(nullptr);
+    }
+#endif
 }
 
 // 4949f9
 void MainWindow::OnClose() {
+#ifdef A2CLIENT_PATCH
+    if (IsWindowedClientMode()) {
+        ClipCursor(nullptr);
+    }
+#endif
     this->ProcessPlayersTick();
     this->dialogsMask = DIALOG_MASK_NONE;
     g_Cursors[0]->Use();
@@ -1169,6 +1234,18 @@ void MainWindow::UpdateMapRect() {
         rect.BottomRight().y = this->vis_invtype1->GetRect().TopLeft().y;
     }
 
+#ifdef A2CLIENT_PATCH
+    if (IsWindowedClientMode()) {
+        if (this->has_focus == 0) {
+            return;
+        }
+        rect = LogicalToPhysicalRect(rect);
+        RECT wnd_rc;
+        if (GetWindowScreenRect(this, &wnd_rc)) {
+            rect.OffsetRect(wnd_rc.left, wnd_rc.top);
+        }
+    }
+#endif
     ClipCursor(rect);
 }
 
@@ -1216,6 +1293,11 @@ void MainWindow::OnPaint() {
         CRect rect;
         CPaintDC dc(this);
         rect = dc.m_ps.rcPaint;
+#ifdef A2CLIENT_PATCH
+        if (g_IsServer == 0) {
+            rect = PhysicalToLogicalRect(rect);
+        }
+#endif
         FlushRect(rect.left, rect.top, rect.right, rect.bottom);
     } else if (g_IsServer != 0) {
         this->Default();
@@ -1391,6 +1473,9 @@ MainWindow::MainWindow() { //4837e1
     this->diplomacy_entries = new CArray<DiplomacyEntry*>; //avoid struct with only one this field
 
     this->vis_root = nullptr;
+#ifdef A2CLIENT_PATCH
+    this->has_focus = 0;
+#endif
 
     CPoint resolution;
 
@@ -1441,7 +1526,20 @@ MainWindow::MainWindow() { //4837e1
 
     if (g_IsServer == 0) {
         const char* cls = AfxRegisterWndClass(CS_DBLCLKS | CS_HREDRAW | CS_VREDRAW, NULL, NULL, NULL);
+#ifdef A2CLIENT_PATCH
+        if (IsWindowedArgPresent()) {
+            g_DisplaySize.SetRect(0, 0, resolution.x, resolution.y);
+        } else {
+            int32_t disp_w = GetSystemMetrics(SM_CXSCREEN);
+            int32_t disp_h = GetSystemMetrics(SM_CYSCREEN);
+            g_DisplaySize.SetRect(0, 0, disp_w > 0 ? disp_w : resolution.x, disp_h > 0 ? disp_h : resolution.y);
+        }
+        CFrameWnd::Create(cls, "Allods", WS_POPUP, g_DisplaySize, NULL, 0, 0, NULL);
+        this->ModifyStyleEx(WS_EX_CLIENTEDGE, 0, SWP_FRAMECHANGED);
+        this->SetWindowPos(nullptr, 0, 0, g_DisplaySize.right, g_DisplaySize.bottom, SWP_NOZORDER | SWP_NOACTIVATE);
+#else
         CFrameWnd::Create(cls, "Allods", WS_POPUP, CRect(0, 0, resolution.x, resolution.y), NULL, 0, 0, NULL);
+#endif
     } else {
         CFrameWnd::LoadFrame(0x65, WS_TILEDWINDOW, NULL, NULL);
         SetWindowPos(0, 0, 0, resolution.x, resolution.y, SWP_NOREPOSITION | SWP_NOMOVE);
@@ -2211,6 +2309,16 @@ int MainWindow::SetSpeed(int speed) {
 
 BOOL MainWindow::UpdateClipCursor() {
     //48cbc8
+#ifdef A2CLIENT_PATCH
+    if (IsWindowedClientMode()) {
+        if (GetWindowScreenRect(this, &this->clip_cursor_rect)) {
+            if (this->has_focus != 0) {
+                return ClipCursor(&this->clip_cursor_rect);
+            }
+            return TRUE;
+        }
+    }
+#endif
     return GetClipCursor(&this->clip_cursor_rect);
 }
 
@@ -3171,22 +3279,39 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
         vis_root->MsgProc(WM_KEYUP, wParam, lParam);
         break;
     case WM_MOUSEMOVE:
+#ifdef A2CLIENT_PATCH
+        if (vis_root->MsgProc(WM_MOUSEMOVE, wParam, ScaleMouseLParam(lParam)) != 0) {
+            SetLogicalCursorPos(g_mousept.GetX(), g_mousept.GetY());
+        }
+#else
         if (vis_root->MsgProc(WM_MOUSEMOVE, wParam, lParam) != 0) {
             SetCursorPos(g_mousept.GetX(), g_mousept.GetY());
         }
+#endif
 
         g_mousept.ResetNext400msg();
         break;
 
     case WM_LBUTTONDOWN:
+#ifdef A2CLIENT_PATCH
+        if (IsWindowedClientMode() && this->has_focus != 0 && g_mousept.GetSelectState() == 0) {
+            this->ApplyCursorClip();
+        }
+        vis_root->MsgProc(message, wParam, ScaleMouseLParam(lParam));
+#else
         vis_root->MsgProc(message, wParam, lParam);
+#endif
         g_mousept.ResetNext400msg();
         g_mousept.ForceDisableHint();
         g_LButtonDown = 1;
         break;
 
     case WM_LBUTTONUP:
+#ifdef A2CLIENT_PATCH
+        vis_root->MsgProc(message, wParam, ScaleMouseLParam(lParam));
+#else
         vis_root->MsgProc(message, wParam, lParam);
+#endif
         g_mousept.ResetNext400msg();
         g_mousept.ForceDisableHint();
         g_LButtonDown = 0;
@@ -3196,7 +3321,14 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
     case WM_RBUTTONDOWN:
     case WM_RBUTTONUP:
     case WM_RBUTTONDBLCLK:
+#ifdef A2CLIENT_PATCH
+        if (message == WM_RBUTTONDOWN && IsWindowedClientMode() && this->has_focus != 0 && g_mousept.GetSelectState() == 0) {
+            this->ApplyCursorClip();
+        }
+        vis_root->MsgProc(message, wParam, ScaleMouseLParam(lParam));
+#else
         vis_root->MsgProc(message, wParam, lParam);
+#endif
         g_mousept.ResetNext400msg();
         g_mousept.ForceDisableHint();
         break;
@@ -4157,7 +4289,25 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
 #endif
     }
 
-    return CWnd::WindowProc(message, wParam, lParam);
+    LRESULT result = CWnd::WindowProc(message, wParam, lParam);
+#ifdef A2CLIENT_PATCH
+    if (IsWindowedClientMode()) {
+        if ((message == WM_ACTIVATE && (LOWORD(wParam) == WA_INACTIVE || HIWORD(wParam) != 0)) ||
+            (message == WM_ACTIVATEAPP && wParam == FALSE)) {
+            ClipCursor(nullptr);
+        } else if (message == WM_ACTIVATE || message == WM_ACTIVATEAPP ||
+                   message == WM_MOVE || message == WM_DISPLAYCHANGE) {
+            if (this->has_focus != 0) {
+                if (g_mousept.GetSelectState() != 0 && this->vis_map_context != nullptr) {
+                    this->UpdateMapRect();
+                } else {
+                    this->ApplyCursorClip();
+                }
+            }
+        }
+    }
+#endif
+    return result;
 }
 
 

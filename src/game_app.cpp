@@ -599,6 +599,11 @@ BOOL GameApp::InitInstance() {
 #if (defined(A2TANGAR_HAT) && !defined(A2CLIENT)) || defined(A2CLIENT_PATCH)
     tangar_crash::SetExceptionFilter();
 #endif
+#ifdef A2CLIENT_PATCH
+    if (g_IsServer == 0 && strstr(this->m_lpCmdLine, "-window") == nullptr) {
+        SetProcessDPIAware();
+    }
+#endif
 
     const char* stmp = strstr(m_lpCmdLine, "-latency");
     if (stmp) {

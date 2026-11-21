@@ -195,7 +195,14 @@ uint32_t UnlockSurface3(); // 45444f (client: 45808f)
 uint32_t LockSurface1(); // 45431c (client: 457f5c)
 uint32_t UnlockSurface1(); // 454378 (client: 457fb8)
 #ifdef A2CLIENT_PATCH
+extern CRect g_DisplaySize;
 void PresentSurface1Rect(const CRect& rect);
+CPoint PhysicalToLogicalPoint(POINT pt);
+CPoint LogicalToPhysicalPoint(int32_t x, int32_t y);
+CRect LogicalToPhysicalRect(const CRect& rect);
+CRect PhysicalToLogicalRect(const CRect& rect);
+BOOL GetLogicalCursorPos(LPPOINT lpPoint);
+BOOL SetLogicalCursorPos(int32_t x, int32_t y);
 #endif
 
 uint32_t GetLockCountSurf2(); //4538e1 (client: 457521)

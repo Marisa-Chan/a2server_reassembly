@@ -42,6 +42,7 @@ IDirectDrawSurface* g_ddsurface3 = nullptr; //659a68
 int32_t g_ddsurf_lock3 = 0; //659bf8
 
 #ifdef A2CLIENT_PATCH
+CRect g_DisplaySize;
 static uint16_t* g_surf1_buf = nullptr;
 static uint16_t* g_surf2_buf = nullptr;
 static uint16_t* g_surf3_buf = nullptr;
@@ -52,6 +53,107 @@ static int32_t g_display_bpp = 32;
 static int32_t g_display_is_rgb565 = 0;
 static uint32_t g_rgb565_to_32[65536];
 static uint16_t g_rgb565_to_16[65536];
+
+static int32_t g_scale_src_w = 0;
+static int32_t g_scale_src_h = 0;
+static int32_t g_scale_dst_w = 0;
+static int32_t g_scale_dst_h = 0;
+static int32_t* g_scale_sx0 = nullptr;
+static int32_t* g_scale_sx1 = nullptr;
+static uint32_t* g_scale_wx = nullptr;
+static int32_t* g_scale_sy0 = nullptr;
+static int32_t* g_scale_sy1 = nullptr;
+static uint32_t* g_scale_wy = nullptr;
+static uint32_t* g_scale_row0 = nullptr;
+static uint32_t* g_scale_row1 = nullptr;
+
+static void FreeScaleTables() {
+    delete[] g_scale_sx0;
+    g_scale_sx0 = nullptr;
+    delete[] g_scale_sx1;
+    g_scale_sx1 = nullptr;
+    delete[] g_scale_wx;
+    g_scale_wx = nullptr;
+    delete[] g_scale_sy0;
+    g_scale_sy0 = nullptr;
+    delete[] g_scale_sy1;
+    g_scale_sy1 = nullptr;
+    delete[] g_scale_wy;
+    g_scale_wy = nullptr;
+    delete[] g_scale_row0;
+    g_scale_row0 = nullptr;
+    delete[] g_scale_row1;
+    g_scale_row1 = nullptr;
+    g_scale_src_w = 0;
+    g_scale_src_h = 0;
+    g_scale_dst_w = 0;
+    g_scale_dst_h = 0;
+}
+
+static void EnsureScaleTables(int32_t src_w, int32_t src_h, int32_t dst_w, int32_t dst_h) {
+    if (g_scale_src_w == src_w && g_scale_src_h == src_h &&
+        g_scale_dst_w == dst_w && g_scale_dst_h == dst_h &&
+        g_scale_sx0 != nullptr) {
+        return;
+    }
+
+    FreeScaleTables();
+    g_scale_src_w = src_w;
+    g_scale_src_h = src_h;
+    g_scale_dst_w = dst_w;
+    g_scale_dst_h = dst_h;
+
+    g_scale_sx0 = new int32_t[dst_w];
+    g_scale_sx1 = new int32_t[dst_w];
+    g_scale_wx = new uint32_t[dst_w];
+    g_scale_sy0 = new int32_t[dst_h];
+    g_scale_sy1 = new int32_t[dst_h];
+    g_scale_wy = new uint32_t[dst_h];
+    g_scale_row0 = new uint32_t[dst_w];
+    g_scale_row1 = new uint32_t[dst_w];
+
+    for (int32_t dx = 0; dx < dst_w; dx++) {
+        int64_t num = static_cast<int64_t>(2 * dx + 1) * src_w * 128 - static_cast<int64_t>(dst_w) * 128;
+        if (num <= 0 || src_w <= 1) {
+            g_scale_sx0[dx] = 0;
+            g_scale_sx1[dx] = 0;
+            g_scale_wx[dx] = 0;
+        } else {
+            int32_t fp = static_cast<int32_t>(num / dst_w);
+            int32_t sx0 = fp >> 8;
+            if (sx0 >= src_w - 1) {
+                g_scale_sx0[dx] = src_w - 1;
+                g_scale_sx1[dx] = src_w - 1;
+                g_scale_wx[dx] = 0;
+            } else {
+                g_scale_sx0[dx] = sx0;
+                g_scale_sx1[dx] = sx0 + 1;
+                g_scale_wx[dx] = static_cast<uint32_t>(fp & 0xFF);
+            }
+        }
+    }
+
+    for (int32_t dy = 0; dy < dst_h; dy++) {
+        int64_t num = static_cast<int64_t>(2 * dy + 1) * src_h * 128 - static_cast<int64_t>(dst_h) * 128;
+        if (num <= 0 || src_h <= 1) {
+            g_scale_sy0[dy] = 0;
+            g_scale_sy1[dy] = 0;
+            g_scale_wy[dy] = 0;
+        } else {
+            int32_t fp = static_cast<int32_t>(num / dst_h);
+            int32_t sy0 = fp >> 8;
+            if (sy0 >= src_h - 1) {
+                g_scale_sy0[dy] = src_h - 1;
+                g_scale_sy1[dy] = src_h - 1;
+                g_scale_wy[dy] = 0;
+            } else {
+                g_scale_sy0[dy] = sy0;
+                g_scale_sy1[dy] = sy0 + 1;
+                g_scale_wy[dy] = static_cast<uint32_t>(fp & 0xFF);
+            }
+        }
+    }
+}
 #endif
 
 CRect g_clipRect; //659d08
@@ -3213,6 +3315,141 @@ void __cdecl CopyScreenBlock(int32_t sx, int32_t sy, int32_t w, int32_t h) {
 }
 
 #ifdef A2CLIENT_PATCH
+static CRect GetEffectiveDisplaySize() {
+    if (g_DisplaySize.right > 0 && g_DisplaySize.bottom > 0) {
+        return g_DisplaySize;
+    }
+    return g_ScreenSize;
+}
+
+CPoint PhysicalToLogicalPoint(POINT pt) {
+    CRect disp = GetEffectiveDisplaySize();
+    int32_t disp_w = disp.right;
+    int32_t disp_h = disp.bottom;
+    int32_t scr_w = g_ScreenSize.right;
+    int32_t scr_h = g_ScreenSize.bottom;
+    if (disp_w <= 1 || disp_h <= 1 || scr_w <= 1 || scr_h <= 1 ||
+        (disp_w == scr_w && disp_h == scr_h)) {
+        return CPoint(pt.x, pt.y);
+    }
+
+    int32_t px = (std::max)(0L, (std::min)(pt.x, static_cast<LONG>(disp_w - 1)));
+    int32_t py = (std::max)(0L, (std::min)(pt.y, static_cast<LONG>(disp_h - 1)));
+    int32_t lx = static_cast<int32_t>((static_cast<int64_t>(px) * (scr_w - 1) + (disp_w - 1) / 2) / (disp_w - 1));
+    int32_t ly = static_cast<int32_t>((static_cast<int64_t>(py) * (scr_h - 1) + (disp_h - 1) / 2) / (disp_h - 1));
+    return CPoint(lx, ly);
+}
+
+CPoint LogicalToPhysicalPoint(int32_t x, int32_t y) {
+    CRect disp = GetEffectiveDisplaySize();
+    int32_t disp_w = disp.right;
+    int32_t disp_h = disp.bottom;
+    int32_t scr_w = g_ScreenSize.right;
+    int32_t scr_h = g_ScreenSize.bottom;
+    if (disp_w <= 1 || disp_h <= 1 || scr_w <= 1 || scr_h <= 1 ||
+        (disp_w == scr_w && disp_h == scr_h)) {
+        return CPoint(x, y);
+    }
+
+    int32_t lx = (std::max)(0, (std::min)(x, scr_w - 1));
+    int32_t ly = (std::max)(0, (std::min)(y, scr_h - 1));
+    int32_t px = static_cast<int32_t>((static_cast<int64_t>(lx) * (disp_w - 1) + (scr_w - 1) / 2) / (scr_w - 1));
+    int32_t py = static_cast<int32_t>((static_cast<int64_t>(ly) * (disp_h - 1) + (scr_h - 1) / 2) / (scr_h - 1));
+    return CPoint(px, py);
+}
+
+CRect LogicalToPhysicalRect(const CRect& rect) {
+    CRect disp = GetEffectiveDisplaySize();
+    int32_t disp_w = disp.right;
+    int32_t disp_h = disp.bottom;
+    int32_t scr_w = g_ScreenSize.right;
+    int32_t scr_h = g_ScreenSize.bottom;
+    if (disp_w <= 0 || disp_h <= 0 || scr_w <= 0 || scr_h <= 0 ||
+        (disp_w == scr_w && disp_h == scr_h)) {
+        return rect;
+    }
+
+    int32_t pl = static_cast<int32_t>((static_cast<int64_t>(rect.left) * disp_w) / scr_w);
+    int32_t pt = static_cast<int32_t>((static_cast<int64_t>(rect.top) * disp_h) / scr_h);
+    int32_t pr = static_cast<int32_t>((static_cast<int64_t>(rect.right) * disp_w + scr_w - 1) / scr_w);
+    int32_t pb = static_cast<int32_t>((static_cast<int64_t>(rect.bottom) * disp_h + scr_h - 1) / scr_h);
+    return CRect(pl, pt, pr, pb);
+}
+
+CRect PhysicalToLogicalRect(const CRect& rect) {
+    CRect disp = GetEffectiveDisplaySize();
+    int32_t disp_w = disp.right;
+    int32_t disp_h = disp.bottom;
+    int32_t scr_w = g_ScreenSize.right;
+    int32_t scr_h = g_ScreenSize.bottom;
+    if (disp_w <= 0 || disp_h <= 0 || scr_w <= 0 || scr_h <= 0 ||
+        (disp_w == scr_w && disp_h == scr_h)) {
+        return rect;
+    }
+
+    int32_t ll = static_cast<int32_t>((static_cast<int64_t>(rect.left) * scr_w) / disp_w) - 2;
+    int32_t lt = static_cast<int32_t>((static_cast<int64_t>(rect.top) * scr_h) / disp_h) - 2;
+    int32_t lr = static_cast<int32_t>((static_cast<int64_t>(rect.right) * scr_w + disp_w - 1) / disp_w) + 2;
+    int32_t lb = static_cast<int32_t>((static_cast<int64_t>(rect.bottom) * scr_h + disp_h - 1) / disp_h) + 2;
+    CRect out((std::max)(0, ll), (std::max)(0, lt), (std::min)(scr_w, lr), (std::min)(scr_h, lb));
+    return out;
+}
+
+BOOL GetLogicalCursorPos(LPPOINT lpPoint) {
+    if (!GetCursorPos(lpPoint)) {
+        return FALSE;
+    }
+    if (g_IsServer == 0) {
+        CWnd* mwnd = AfxGetMainWnd();
+        if (mwnd != nullptr && mwnd->GetSafeHwnd() != nullptr && !mwnd->IsIconic()) {
+            CRect wnd_rc;
+            mwnd->GetWindowRect(&wnd_rc);
+            lpPoint->x -= wnd_rc.left;
+            lpPoint->y -= wnd_rc.top;
+        }
+        CPoint lpt = PhysicalToLogicalPoint(*lpPoint);
+        lpPoint->x = lpt.x;
+        lpPoint->y = lpt.y;
+    }
+    return TRUE;
+}
+
+BOOL SetLogicalCursorPos(int32_t x, int32_t y) {
+    if (g_IsServer == 0) {
+        CPoint ppt = LogicalToPhysicalPoint(x, y);
+        CWnd* mwnd = AfxGetMainWnd();
+        if (mwnd != nullptr && mwnd->GetSafeHwnd() != nullptr && !mwnd->IsIconic()) {
+            CRect wnd_rc;
+            mwnd->GetWindowRect(&wnd_rc);
+            ppt.x += wnd_rc.left;
+            ppt.y += wnd_rc.top;
+        }
+        return SetCursorPos(ppt.x, ppt.y);
+    }
+    return SetCursorPos(x, y);
+}
+
+static void SampleRowBilinear32(const uint16_t* srow, int32_t dst_left, int32_t width, uint32_t* out_row) {
+    for (int32_t x = 0; x < width; x++) {
+        int32_t dx = dst_left + x;
+        uint32_t c0 = g_rgb565_to_32[srow[g_scale_sx0[dx]]];
+        uint32_t wx = g_scale_wx[dx];
+        if (wx == 0) {
+            out_row[x] = c0;
+            continue;
+        }
+        uint32_t c1 = g_rgb565_to_32[srow[g_scale_sx1[dx]]];
+        if (c0 == c1) {
+            out_row[x] = c0;
+            continue;
+        }
+        uint32_t inv_wx = 256 - wx;
+        uint32_t rb = (((c0 & 0x00FF00FFu) * inv_wx + (c1 & 0x00FF00FFu) * wx) >> 8) & 0x00FF00FFu;
+        uint32_t g = (((c0 & 0x0000FF00u) * inv_wx + (c1 & 0x0000FF00u) * wx) >> 8) & 0x0000FF00u;
+        out_row[x] = rb | g;
+    }
+}
+
 void PresentSurface1Rect(const CRect& rect) {
     if (g_IsServer != 0 || g_ddsurface == nullptr || g_surf1_buf == nullptr) {
         return;
@@ -3228,21 +3465,106 @@ void PresentSurface1Rect(const CRect& rect) {
         return;
     }
 
+    const int32_t src_w = g_ScreenSize.right;
+    const int32_t src_h = g_ScreenSize.bottom;
+    const CRect disp_rect = GetEffectiveDisplaySize();
+    const int32_t dst_w = disp_rect.right;
+    const int32_t dst_h = disp_rect.bottom;
+
+    if (src_w <= 0 || src_h <= 0 || dst_w <= 0 || dst_h <= 0) {
+        return;
+    }
+
+    // Unscaled 1:1 path (e.g. -window mode or matching native resolution).
+    if (dst_w == src_w && dst_h == src_h) {
+        DDSURFACEDESC ddsd;
+        memset(&ddsd, 0, sizeof(DDSURFACEDESC));
+        ddsd.dwSize = sizeof(DDSURFACEDESC);
+        RECT lock_rc = r;
+        HRESULT hr = g_ddsurface->Lock(&lock_rc, &ddsd, DDLOCK_WAIT, nullptr);
+        if (hr == DDERR_SURFACELOST) {
+            if (g_is_fullscreen != 0) {
+                g_ddraw->SetCooperativeLevel(mwnd->m_hWnd, DDSCL_EXCLUSIVE | DDSCL_FULLSCREEN);
+                g_ddraw->SetDisplayMode(dst_w, dst_h, gfx_bits);
+            }
+            if (FAILED(g_ddsurface->Restore())) {
+                return;
+            }
+            r = g_ScreenSize;
+            lock_rc = r;
+            memset(&ddsd, 0, sizeof(DDSURFACEDESC));
+            ddsd.dwSize = sizeof(DDSURFACEDESC);
+            hr = g_ddsurface->Lock(&lock_rc, &ddsd, DDLOCK_WAIT, nullptr);
+        }
+        if (FAILED(hr) || ddsd.lpSurface == nullptr) {
+            return;
+        }
+
+        const int32_t w = r.Width();
+        const int32_t h = r.Height();
+        const int32_t src_stride = src_w;
+        const uint16_t* src_row = g_surf1_buf + r.top * src_stride + r.left;
+        uint8_t* dst_row = (uint8_t*)ddsd.lpSurface;
+
+        if (g_display_bpp == 32) {
+            for (int32_t y = 0; y < h; y++) {
+                uint32_t* dst32 = (uint32_t*)dst_row;
+                for (int32_t x = 0; x < w; x++) {
+                    dst32[x] = g_rgb565_to_32[src_row[x]];
+                }
+                src_row += src_stride;
+                dst_row += ddsd.lPitch;
+            }
+        } else if (g_display_is_rgb565 != 0) {
+            for (int32_t y = 0; y < h; y++) {
+                memcpy(dst_row, src_row, (size_t)w * 2);
+                src_row += src_stride;
+                dst_row += ddsd.lPitch;
+            }
+        } else {
+            for (int32_t y = 0; y < h; y++) {
+                uint16_t* dst16 = (uint16_t*)dst_row;
+                for (int32_t x = 0; x < w; x++) {
+                    dst16[x] = g_rgb565_to_16[src_row[x]];
+                }
+                src_row += src_stride;
+                dst_row += ddsd.lPitch;
+            }
+        }
+
+        g_ddsurface->Unlock(ddsd.lpSurface);
+        return;
+    }
+
+    // Scaled stretch path (logical g_ScreenSize -> physical g_DisplaySize).
+    EnsureScaleTables(src_w, src_h, dst_w, dst_h);
+
+    const int32_t pad_x = dst_w / src_w + 2;
+    const int32_t pad_y = dst_h / src_h + 2;
+    int32_t dl = static_cast<int32_t>((static_cast<int64_t>(r.left) * dst_w) / src_w) - pad_x;
+    int32_t dt = static_cast<int32_t>((static_cast<int64_t>(r.top) * dst_h) / src_h) - pad_y;
+    int32_t dr = static_cast<int32_t>((static_cast<int64_t>(r.right) * dst_w + src_w - 1) / src_w) + pad_x;
+    int32_t db = static_cast<int32_t>((static_cast<int64_t>(r.bottom) * dst_h + src_h - 1) / src_h) + pad_y;
+    CRect dst_r((std::max)(0, dl), (std::max)(0, dt), (std::min)(dst_w, dr), (std::min)(dst_h, db));
+    if (dst_r.IsRectEmpty()) {
+        return;
+    }
+
     DDSURFACEDESC ddsd;
     memset(&ddsd, 0, sizeof(DDSURFACEDESC));
     ddsd.dwSize = sizeof(DDSURFACEDESC);
-    RECT lock_rc = r;
+    RECT lock_rc = dst_r;
     HRESULT hr = g_ddsurface->Lock(&lock_rc, &ddsd, DDLOCK_WAIT, nullptr);
     if (hr == DDERR_SURFACELOST) {
         if (g_is_fullscreen != 0) {
             g_ddraw->SetCooperativeLevel(mwnd->m_hWnd, DDSCL_EXCLUSIVE | DDSCL_FULLSCREEN);
-            g_ddraw->SetDisplayMode(g_ScreenSize.right, g_ScreenSize.bottom, gfx_bits);
+            g_ddraw->SetDisplayMode(dst_w, dst_h, gfx_bits);
         }
         if (FAILED(g_ddsurface->Restore())) {
             return;
         }
-        r = g_ScreenSize;
-        lock_rc = r;
+        dst_r = disp_rect;
+        lock_rc = dst_r;
         memset(&ddsd, 0, sizeof(DDSURFACEDESC));
         ddsd.dwSize = sizeof(DDSURFACEDESC);
         hr = g_ddsurface->Lock(&lock_rc, &ddsd, DDLOCK_WAIT, nullptr);
@@ -3251,34 +3573,51 @@ void PresentSurface1Rect(const CRect& rect) {
         return;
     }
 
-    const int32_t w = r.Width();
-    const int32_t h = r.Height();
-    const int32_t src_stride = g_ScreenSize.right;
-    const uint16_t* src_row = g_surf1_buf + r.top * src_stride + r.left;
+    const int32_t w = dst_r.Width();
+    const int32_t h = dst_r.Height();
     uint8_t* dst_row = (uint8_t*)ddsd.lpSurface;
 
     if (g_display_bpp == 32) {
+        uint32_t* hrow0 = g_scale_row0;
+        uint32_t* hrow1 = g_scale_row1;
+        int32_t cached_sy0 = -1;
+        int32_t cached_sy1 = -1;
+
         for (int32_t y = 0; y < h; y++) {
+            int32_t dy = dst_r.top + y;
+            int32_t sy0 = g_scale_sy0[dy];
+            int32_t sy1 = g_scale_sy1[dy];
+            uint32_t wy = g_scale_wy[dy];
+
+            if (sy0 != cached_sy0) {
+                if (sy0 == cached_sy1) {
+                    std::swap(hrow0, hrow1);
+                    cached_sy1 = cached_sy0;
+                    cached_sy0 = sy0;
+                } else {
+                    SampleRowBilinear32(g_surf1_buf + sy0 * src_w, dst_r.left, w, hrow0);
+                    cached_sy0 = sy0;
+                }
+            }
+
             uint32_t* dst32 = (uint32_t*)dst_row;
-            for (int32_t x = 0; x < w; x++) {
-                dst32[x] = g_rgb565_to_32[src_row[x]];
+            if (wy == 0 || sy0 == sy1) {
+                memcpy(dst32, hrow0, static_cast<size_t>(w) * sizeof(uint32_t));
+            } else {
+                if (sy1 != cached_sy1) {
+                    SampleRowBilinear32(g_surf1_buf + sy1 * src_w, dst_r.left, w, hrow1);
+                    cached_sy1 = sy1;
+                }
+                uint32_t inv_wy = 256 - wy;
+                for (int32_t x = 0; x < w; x++) {
+                    uint32_t r0 = hrow0[x];
+                    uint32_t r1 = hrow1[x];
+                    uint32_t rb = (((r0 & 0x00FF00FFu) * inv_wy + (r1 & 0x00FF00FFu) * wy) >> 8) & 0x00FF00FFu;
+                    uint32_t g = (((r0 & 0x0000FF00u) * inv_wy + (r1 & 0x0000FF00u) * wy) >> 8) & 0x0000FF00u;
+                    dst32[x] = rb | g;
+                }
             }
-            src_row += src_stride;
-            dst_row += ddsd.lPitch;
-        }
-    } else if (g_display_is_rgb565 != 0) {
-        for (int32_t y = 0; y < h; y++) {
-            memcpy(dst_row, src_row, (size_t)w * 2);
-            src_row += src_stride;
-            dst_row += ddsd.lPitch;
-        }
-    } else {
-        for (int32_t y = 0; y < h; y++) {
-            uint16_t* dst16 = (uint16_t*)dst_row;
-            for (int32_t x = 0; x < w; x++) {
-                dst16[x] = g_rgb565_to_16[src_row[x]];
-            }
-            src_row += src_stride;
+
             dst_row += ddsd.lPitch;
         }
     }
@@ -4018,6 +4357,14 @@ int32_t SetVideoMode() { //4546c6
     }
 
 #ifdef A2CLIENT_PATCH
+    // When InitVideo() already initialized the native desktop surface in DDSCL_NORMAL,
+    // keep borderless fullscreen at native desktop resolution and stretch g_ScreenSize to it.
+    if (g_ddsurface != nullptr && g_RBitMask != 0) {
+        ((MainWindow*)AfxGetMainWnd())->UpdateClipCursor();
+        return 1;
+    }
+
+    CRect disp = GetEffectiveDisplaySize();
     if (g_ddsurface != nullptr) {
         IDirectDrawSurface* old_surf = g_ddsurface;
         g_ddsurface = nullptr;
@@ -4028,9 +4375,9 @@ int32_t SetVideoMode() { //4546c6
         return 0;
     }
 
-    if (SUCCEEDED(g_ddraw->SetDisplayMode(g_ScreenSize.right, g_ScreenSize.bottom, 32))) {
+    if (SUCCEEDED(g_ddraw->SetDisplayMode(disp.right, disp.bottom, 32))) {
         gfx_bits = 32;
-    } else if (SUCCEEDED(g_ddraw->SetDisplayMode(g_ScreenSize.right, g_ScreenSize.bottom, 16))) {
+    } else if (SUCCEEDED(g_ddraw->SetDisplayMode(disp.right, disp.bottom, 16))) {
         gfx_bits = 16;
     } else {
         return 0;
@@ -5857,6 +6204,7 @@ void FreeDDraw() { //454219
         g_surf2_buf = nullptr;
         delete[] g_surf3_buf;
         g_surf3_buf = nullptr;
+        FreeScaleTables();
     }
 #else
     if (g_IsServer == 0 && g_ddraw) {

@@ -846,7 +846,11 @@ void VisButton::VMethod7() {
     r2.bottom -= 1;
 
     POINT pp;
+#ifdef A2CLIENT_PATCH
+    GetLogicalCursorPos(&pp);
+#else
     GetCursorPos(&pp);
+#endif
 
     uint32_t clr1;
     uint32_t clr2;

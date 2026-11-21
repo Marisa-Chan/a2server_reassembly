@@ -2765,8 +2765,3 @@ int VisShop::CommitBuy() {
     this->snd_buy->Play();
     return 1;
 }
-
-
-
-
-

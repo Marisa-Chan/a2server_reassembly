@@ -2614,7 +2614,11 @@ int32_t VisSpellBook::OnKeyDown(uint32_t wparam) {
         uint32_t spell_id = 0;
         if (this->pressed == -1) {
             CPoint pt;
+#ifdef A2CLIENT_PATCH
+            GetLogicalCursorPos(&pt);
+#else
             GetCursorPos(&pt);
+#endif
             int32_t idx = this->HitTestSpellCell(&pt);
             if (idx >= 0 && g_SpellbookCastable[idx] != 0) {
                 spell_id = BOOK_POS_TO_SPELL_ID[idx + 1];
@@ -2655,7 +2659,7 @@ int32_t VisSpellBook::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
             // custom-hotkey map owns the binding (with its own dedup).
             if (this->pressed == -1) {
                 CPoint pt;
-                GetCursorPos(&pt);
+                GetLogicalCursorPos(&pt);
                 int32_t idx = this->HitTestSpellCell(&pt);
                 if (idx >= 0) {
                     tangar_hotkeys::SpellHotkeySet((int32_t)wparam + VK_F4, (short)idx);
@@ -2666,7 +2670,11 @@ int32_t VisSpellBook::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
 #else
             if (this->pressed == -1) {
                 CPoint pt;
+#ifdef A2CLIENT_PATCH
+                GetLogicalCursorPos(&pt);
+#else
                 GetCursorPos(&pt);
+#endif
                 int32_t idx = this->HitTestSpellCell(&pt);
                 if (idx >= 0) {
                     main_wnd->m_GameSession.shortcuts[wparam].SetSpell((short)idx);

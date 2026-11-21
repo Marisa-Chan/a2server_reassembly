@@ -617,7 +617,11 @@ void CMousePointer::Update() {
 
     if (GetAsyncKeyState(VK_RBUTTON) > -1 && wnd->has_focus != 0) {
         POINT pt;
+#ifdef A2CLIENT_PATCH
+        GetLogicalCursorPos(&pt);
+#else
         GetCursorPos(&pt);
+#endif
 
         if ((pt.x != this->x  || pt.y != this->y) && this->cursor_sprite ) {
             this->Repaint(pt);

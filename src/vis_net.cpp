@@ -542,7 +542,11 @@ void VisServerScreenRadio::VMethod7() {
     int32_t y = r.top;
 
     POINT cursor;
+#ifdef A2CLIENT_PATCH
+    GetLogicalCursorPos(&cursor);
+#else
     GetCursorPos(&cursor);
+#endif
 
     LockSurface2();
 
