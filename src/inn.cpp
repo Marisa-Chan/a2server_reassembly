@@ -739,7 +739,7 @@ void Inn::RegenTick() {
         }
 #endif
         if (unit->pOwner->is_active == 0) {
-            this->RemoveUnit(static_cast<Humanoid*>(unit), Inn::EXIT_DISCONNECT);
+            this->RemoveUnit(static_cast<Humanoid*>(unit), Inn::EXIT_LEAVE_NONE);
         }
     }
 
@@ -1393,7 +1393,7 @@ void Inn::RemoveUnit(Humanoid* humanoid, int32_t id) {
         return;
     }
 
-    if (id >= Inn::REWARD_SLOT_LIMIT) { // Accepting quest.
+    if (static_cast<uint32_t>(id) >= Inn::REWARD_SLOT_LIMIT) { // Accepting quest (or leaving with EXIT_LEAVE_NONE).
         int32_t player_id = humanoid->pOwner->player_id;
 
         // Look up QuestMap for this player
@@ -1628,13 +1628,11 @@ void Inn::RemoveUnit(Humanoid* humanoid, int32_t id) {
             }
             delete item_list;
         }
-    }
 
-    // Find and clean up any pending quest for this player
-    this->active_quest = this->FindActiveQuest(humanoid->pOwner);
-    if (this->active_quest != nullptr) {
-        g_QuestMap.UnregisterQuest(this->active_quest);
+        // Find and clean up any pending quest for this player
+        this->active_quest = this->FindActiveQuest(humanoid->pOwner);
         if (this->active_quest != nullptr) {
+            g_QuestMap.UnregisterQuest(this->active_quest);
             delete this->active_quest;
         }
     }

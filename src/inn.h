@@ -19,7 +19,6 @@ class Inn : public Building {
 public:
     enum ExitCode : int32_t {
         EXIT_LEAVE_NONE   = -1,
-        EXIT_DISCONNECT   = 0xFFFF,
         EXIT_CANCEL_QUEST = static_cast<int32_t>(0xAAAAAAAAu),
     };
 
