@@ -39,6 +39,10 @@
 #include "vis_tavern.h"
 #include "vis_hat.h"
 #include "vis_char.h"
+#ifdef A2CLIENT_PATCH
+#include "vis_menu.h"
+#include "vis_net.h"
+#endif
 
 int g_ActionDirDx[16] = { 0, 0, 1, 0,   1, 0, 1, 0,   0, 0, -1, 0,   -1, 0, -1, 0 };
 int g_ActionDirDy[16] = { -1, 0, -1, 0,   0, 0, 1, 0,   1, 0, 1, 0,   0, 0, -1, 0 };
@@ -111,6 +115,48 @@ void VisPlayingArea::CloseHatOverlays() {
     if ((wnd->dialogsMask & DIALOG_MASK_POPUP) != 0) {
         CVisualObject* child = wnd->vis_root->FindChild(1);
         if (child != nullptr) {
+#ifdef A2CLIENT_PATCH
+            if (wnd->vis_root->cursor_over_obj_last == child) {
+                wnd->vis_root->cursor_over_obj_last = nullptr;
+            }
+            if (child == wnd->vis_msgbox) {
+                wnd->vis_msgbox = nullptr;
+            } else if (child == wnd->vis_savegame) {
+                wnd->vis_savegame = nullptr;
+            } else if (child == wnd->vis_loadgame) {
+                wnd->vis_loadgame = nullptr;
+            } else if (child == wnd->vis_2action) {
+                wnd->vis_2action = nullptr;
+            } else if (child == wnd->gap_0x12c) {
+                wnd->gap_0x12c = nullptr;
+            } else if (child == wnd->vis_missionfailed) {
+                wnd->vis_missionfailed = nullptr;
+            } else if (child == wnd->net_dialog) {
+                wnd->net_dialog = nullptr;
+            } else if (child == wnd->vis_connectiondlg) {
+                wnd->vis_connectiondlg = nullptr;
+            } else if (child == wnd->vis_netmapsel) {
+                wnd->vis_netmapsel = nullptr;
+            } else if (child == wnd->vis_hatbrowser) {
+                wnd->vis_hatbrowser = nullptr;
+            } else if (child == wnd->vis_serverscreen) {
+                wnd->vis_serverscreen = nullptr;
+            }
+            wnd->dialogsMask &= ~DIALOG_MASK_POPUP;
+
+            // Drop any already-queued MAIN_MSG_CHILD_CLOSED for `child` so Proc_44c
+            // cannot double-delete it or clear DIALOG_MASK_POPUP for the next overlay.
+            CArray<MSG> kept_msgs;
+            MSG msg;
+            while (PeekMessageA(&msg, wnd->m_hWnd, MAIN_MSG_CHILD_CLOSED, MAIN_MSG_CHILD_CLOSED, PM_REMOVE | PM_NOYIELD)) {
+                if ((CVisualObject*)msg.wParam != child) {
+                    kept_msgs.Add(msg);
+                }
+            }
+            for (int32_t i = 0; i < kept_msgs.GetSize(); i++) {
+                PostMessageA(wnd->m_hWnd, kept_msgs[i].message, kept_msgs[i].wParam, kept_msgs[i].lParam);
+            }
+#endif
             wnd->vis_root->RemoveChild(child);
             delete child;
         }
