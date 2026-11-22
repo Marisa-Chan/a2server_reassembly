@@ -1213,9 +1213,19 @@ void MainWindow::ModalScreen(VisScreen* scr) {
 
     MSG msg;
     for (;;) {
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+        int32_t gm = GetMessageA(&msg, nullptr, 0, 0);
+        if (gm <= 0) {
+            if (gm == 0) {
+                PostQuitMessage(msg.wParam);
+            }
+            return;
+        }
+#else
         if (GetMessageA(&msg, nullptr, 0, 0) == 0) {
             return;
         }
+#endif
         if (msg.message == MAIN_MSG_CHILD_CLOSED) {
             break;
         }
@@ -5915,6 +5925,9 @@ int32_t MainWindow::RunModalLoopClient() {
     while (this->net_session.hat_id == 0) {
         if (PeekMessageA(&msg, nullptr, 0, 0, 1) != 0) {
             if (msg.message == WM_QUIT) {
+#ifdef A2CLIENT_PATCH
+                PostQuitMessage(msg.wParam);
+#endif
                 return 0;
             }
 
@@ -5977,6 +5990,9 @@ int32_t MainWindow::ClientRefreshUpdateCharacters() {
             uint32_t start_time = timeGetTime();
             if (PeekMessageA(&msg, nullptr, 0, 0, 1) != 0) {
                 if (msg.message == WM_QUIT) {
+#ifdef A2CLIENT_PATCH
+                    PostQuitMessage(msg.wParam);
+#endif
                     return 0;
                 }
 

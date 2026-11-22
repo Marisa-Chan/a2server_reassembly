@@ -3024,26 +3024,25 @@ int CLlDriver::MakeSockAddr(const char* address, sockaddr_in* out, int port, int
     }
 
     out->sin_family = AF_INET;
-    InetPton(AF_INET, buf, &out->sin_addr.S_un.S_addr); //out->sin_addr.S_un.S_addr = inet_addr(buf);
+    if (InetPton(AF_INET, buf, &out->sin_addr.S_un.S_addr) != 1) {
+        out->sin_addr.S_un.S_addr = INADDR_NONE;
+    }
 
     if (out->sin_addr.S_un.S_addr == INADDR_NONE && resolve != 0) {
+        addrinfo hints = {};
+        hints.ai_family = AF_INET;
         addrinfo* res = nullptr;
-        if (GetAddrInfo(buf, nullptr, nullptr, &res) != 0 && res != nullptr) {
+        if (GetAddrInfo(buf, nullptr, &hints, &res) != 0 || res == nullptr) {
+            if (res != nullptr) {
+                FreeAddrInfo(res);
+            }
             out->sin_addr.S_un.S_addr = 0;
             out->sin_port = 0;
             return 0;
         }
 
         out->sin_addr.S_un.S_addr = ((sockaddr_in*)res->ai_addr)->sin_addr.S_un.S_addr;
-
-        /*hostent* host = gethostbyname(buf);
-        if (host == nullptr)
-        {
-            out->sin_addr.S_un.S_addr = 0;
-            out->sin_port = 0;
-            return 0;
-        }
-        out->sin_addr.S_un.S_addr = *(uint32_t *)(host->h_addr_list);*/
+        FreeAddrInfo(res);
     }
     memset(out->sin_zero, 0, sizeof(out->sin_zero));
     return 1;
@@ -3082,15 +3081,32 @@ int CLlDriver::StartServerTcp() {
     }
 
     this->listen_socket.wait_obj = CreateEventA(NULL, 0, 0, NULL);
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+    if (this->listen_socket.wait_obj == nullptr) {
+        this->CloseTcp();
+        return 0;
+    }
 
+    this->guaranteed = 1;
+    this->listen_socket.is_in_use = 1;
+
+    if (_beginthread(AcceptThreadTcp, 0, this) == -1L) {
+        this->listen_socket.is_in_use = 0;
+        CloseHandle(this->listen_socket.wait_obj);
+        this->listen_socket.wait_obj = nullptr;
+        this->CloseTcp();
+        return 0;
+    }
+#else
     if (_beginthread(AcceptThreadTcp, 0, this) == -1L || this->listen_socket.wait_obj == nullptr) {
         CloseHandle(this->listen_socket.wait_obj);
         this->listen_socket.wait_obj = nullptr;
         this->CloseTcp();
         return 0;
     }
-    
+
     this->guaranteed = 1;
+#endif
 
     return 1;
 }
@@ -3995,16 +4011,36 @@ int CLlDriver::ConnectTcp() {
     this->listen_socket.uid = this->next_uid;
     this->listen_socket.manager = this->hl_driver->AllocClientBufManager(this->listen_socket.uid);
     this->listen_socket.wait_obj = CreateEventA(NULL, 0, 0, NULL);
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+    if (this->listen_socket.wait_obj == nullptr) {
+        this->CloseTcp();
+        return 0;
+    }
 
-    if (_beginthread(AcceptThreadTcp, 0x400, this) == -1L && this->listen_socket.wait_obj != nullptr) {
+    this->num_connections = 1;
+    this->guaranteed = 1;
+    this->listen_socket.is_in_use = 1;
+
+    if (_beginthread(AcceptThreadTcp, 0x400, this) == -1L) {
+        this->listen_socket.is_in_use = 0;
+        this->num_connections = 0;
         CloseHandle(this->listen_socket.wait_obj);
         this->listen_socket.wait_obj = nullptr;
         this->CloseTcp();
         return 0;
     }
-    
+#else
+    if (_beginthread(AcceptThreadTcp, 0x400, this) == -1L || this->listen_socket.wait_obj == nullptr) {
+        CloseHandle(this->listen_socket.wait_obj);
+        this->listen_socket.wait_obj = nullptr;
+        this->CloseTcp();
+        return 0;
+    }
+
     this->num_connections = 1;
     this->guaranteed = 1;
+#endif
+
     return 1;
 }
 

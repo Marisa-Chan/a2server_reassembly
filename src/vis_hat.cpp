@@ -120,27 +120,29 @@ void HatBrowserProgress::Init(const char* hst) {
         return;
     }
 
-    memset(&send_addr, 0, sizeof(send_addr));
-    //host_ent = gethostbyname(hst);
+    memset(&this->send_addr, 0, sizeof(this->send_addr));
 
-    if (GetAddrInfo(hst, nullptr, nullptr, &host_ent) == 0 || host_ent == nullptr) {
-        inet_pton(AF_INET, hst, &addr.S_un); // addr.S_un.S_addr = inet_addr(hst);
+    addrinfo hints = {};
+    hints.ai_family = AF_INET;
+    this->host_ent = nullptr;
+    if (GetAddrInfo(hst, nullptr, &hints, &this->host_ent) == 0 && this->host_ent != nullptr) {
+        this->send_addr.sin_addr = ((sockaddr_in*)this->host_ent->ai_addr)->sin_addr;
+        this->send_addr.sin_family = this->host_ent->ai_family;
+        FreeAddrInfo(this->host_ent);
+        this->host_ent = nullptr;
+    } else {
+        if (this->host_ent != nullptr) {
+            FreeAddrInfo(this->host_ent);
+            this->host_ent = nullptr;
+        }
+        if (inet_pton(AF_INET, hst, &this->addr.S_un) != 1) {
+            this->addr.S_un.S_addr = INADDR_NONE;
+            this->error = -4;
+            return;
+        }
+        this->send_addr.sin_addr.S_un = this->addr.S_un;
+        this->send_addr.sin_family = AF_INET;
     }
-
-    if ((host_ent == nullptr) && addr.S_un.S_addr == 0xffffffff) {
-        error = -4;
-        return;
-    }
-
-    if (host_ent == nullptr)
-        send_addr.sin_addr.S_un = addr.S_un;
-    else
-        memcpy(&send_addr.sin_addr, host_ent->ai_addr, host_ent->ai_addrlen);
-
-    if (host_ent == nullptr)
-        send_addr.sin_family = 2;
-    else
-        send_addr.sin_family = host_ent->ai_family;
 
     static char addrbuf[INET_ADDRSTRLEN+1];
     inet_ntop(AF_INET, &(send_addr.sin_addr), addrbuf, INET_ADDRSTRLEN); // inet_ntoa(send_addr.sin_addr);
