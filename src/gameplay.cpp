@@ -501,6 +501,11 @@ void VisMiniMap::UpdateCursor() {
                 new_cursor = g_Cursors[9];
             } else {
                 VisPlayingArea* mc = this->map_context;
+#ifdef A2CLIENT_PATCH
+                if (mc == nullptr || mc->scenario == nullptr) {
+                    return;
+                }
+#endif
                 Scenario* scen = mc->scenario;
                 CRect rc2;
                 this->ClientRectToScreen(&rc2, this->rect);
@@ -604,6 +609,11 @@ int32_t VisMiniMap::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
 // 4b0aad (client: 4b53df)
 int32_t VisMiniMap::OnRButtonDown(uint32_t wparam, CPoint pos) {
     VisPlayingArea* mc = this->map_context;
+#ifdef A2CLIENT_PATCH
+    if (mc == nullptr || mc->scenario == nullptr) {
+        return 0;
+    }
+#endif
     (void)AfxGetMainWnd();
     CRect rc;
     this->ClientRectToScreen(&rc, this->rect);
@@ -636,6 +646,11 @@ int32_t VisMiniMap::OnRButtonDown(uint32_t wparam, CPoint pos) {
 // 4b0788 (client: 4b50be)
 int32_t VisMiniMap::OnLButtonDown(uint32_t wparam, CPoint pos) {
     VisPlayingArea* mc = this->map_context;
+#ifdef A2CLIENT_PATCH
+    if (mc == nullptr || mc->scenario == nullptr) {
+        return 0;
+    }
+#endif
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     CRect rc;
     this->ClientRectToScreen(&rc, this->rect);
@@ -701,6 +716,11 @@ int32_t VisMiniMap::OnLButtonDown(uint32_t wparam, CPoint pos) {
 
 // 4af0dc (client: 4b3a1c)
 void VisMiniMap::RebuildMap() {
+#ifdef A2CLIENT_PATCH
+    if (this->map_context == nullptr || this->map_context->scenario == nullptr) {
+        return;
+    }
+#endif
     Scenario* scen = this->map_context->scenario;
     uint16_t mask = (uint16_t)(((0x3F >> (8 - g_RBits & 0x1F)) << (g_RBitShift & 0x1F))
         | ((0x3F >> (8 - g_GBits & 0x1F)) << (g_GBitShift & 0x1F))
@@ -987,6 +1007,9 @@ void VisMiniMap::VMethod7() {
 // 4aeec3 (client: 4b3803)
 VisMiniMap::VisMiniMap(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : CVisualObject(_id, l, t, r, b, nullptr) {
+#ifdef A2CLIENT_PATCH
+    this->map_context = nullptr;
+#endif
     this->bitmap1 = nullptr;
     this->bitmap2 = nullptr;
 }

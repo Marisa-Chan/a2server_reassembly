@@ -17,6 +17,7 @@
 #include "patch/itempng.h"
 #endif
 
+#include <algorithm>
 #include <cmath>
 #include <cstdio>
 #include <cstdlib>
@@ -332,7 +333,7 @@ void CGameObject::SetTileLayerCell(int32_t layer_id, CGameObject* obj) {
 
     int32_t x = ((this->x_pos2 - 0x80 + this->GetTileWidth() * 0x80) >> 8) - map->view_x;
     int32_t y = ((this->y_pos2 - 0x80 + this->GetTileHeight() * 0x80) >> 8) - map->view_y;
-    if (x >= -4 && y >= -4 && x < map->view_tiles_x + 3 && y < map->view_tiles_y + 7) {
+    if (x >= -3 && y >= -3 && x < map->view_tiles_x + 3 && y < map->view_tiles_y + 7) {
         layer[x + 3 + (y + 3) * (map->view_tiles_x + 6)] = obj;
     }
 }
@@ -1996,6 +1997,21 @@ void CUnit::Draw(int32_t tile_x, int32_t tile_y, int32_t light) {
     switch (this->last_action) {
     case 0:
         if (vfx->idle_phases != 0) {
+#ifdef A2CLIENT_PATCH
+            int32_t idle_frame = 0;
+            if (vfx->idle_anim_frame_cnt > 0) {
+                int32_t idle_phase = (std::max)(this->phase, 0) % vfx->idle_anim_frame_cnt;
+                idle_frame = vfx->idle_anim_frames[idle_phase];
+            }
+            frame = dir8 * vfx->idle_phases + (base_phases + vfx->attack_phases + vfx->dying_phases) * 8 + 0x10 + idle_frame;
+            if (vfx->flip != 0 && dir8 > 4) {
+                dir8 = 8 - dir8;
+                flip = 1;
+            }
+            if (vfx->flip != 0) {
+                frame = (base_phases + vfx->attack_phases + vfx->dying_phases) * 5 + dir8 * vfx->idle_phases + 9 + idle_frame;
+            }
+#else
             frame = dir8 * vfx->idle_phases + (base_phases + vfx->attack_phases + vfx->dying_phases) * 8 + 0x10 + vfx->idle_anim_frames[this->phase];
             if (vfx->flip != 0 && dir8 > 4) {
                 dir8 = 8 - dir8;
@@ -2004,6 +2020,7 @@ void CUnit::Draw(int32_t tile_x, int32_t tile_y, int32_t light) {
             if (vfx->flip != 0) {
                 frame = (base_phases + vfx->attack_phases + vfx->dying_phases) * 5 + dir8 * vfx->idle_phases + 9 + vfx->idle_anim_frames[this->phase];
             }
+#endif
         } else if (this->death_state == 1) {
             vfx_idx = vfx->dying;
             UnitVFXUnfo* dying_vfx = g_VFX_info[vfx_idx];
@@ -2049,20 +2066,50 @@ void CUnit::Draw(int32_t tile_x, int32_t tile_y, int32_t light) {
         }
         break;
     case 1:
+#ifdef A2CLIENT_PATCH
+        {
+            int32_t move_frame = 0;
+            if (vfx->move_anim_frame_cnt > 0) {
+                int32_t move_phase = (std::max)(this->phase, 0) % vfx->move_anim_frame_cnt;
+                move_frame = vfx->move_anim_frames[move_phase];
+            }
+            if (vfx->flip != 0) {
+                frame = dir8 * base_phases + vfx->move_begin_phases + 9 + move_frame;
+            } else {
+                frame = dir8 * base_phases + vfx->move_begin_phases + 0x10 + move_frame;
+            }
+        }
+#else
         if (vfx->flip != 0) {
             frame = dir8 * base_phases + vfx->move_begin_phases + 9 + vfx->move_anim_frames[this->phase % vfx->move_anim_frame_cnt];
         } else {
             frame = dir8 * base_phases + vfx->move_begin_phases + 0x10 + vfx->move_anim_frames[this->phase % vfx->move_anim_frame_cnt];
         }
+#endif
         break;
     case 3:
     case 7:
     case 8:
+#ifdef A2CLIENT_PATCH
+        {
+            int32_t attack_frame = 0;
+            if (vfx->attack_anim_frame_cnt > 0) {
+                int32_t attack_phase = (std::min)((std::max)(this->phase, 0), vfx->attack_anim_frame_cnt - 1);
+                attack_frame = vfx->attack_anim_frames[attack_phase];
+            }
+            if (vfx->flip != 0) {
+                frame = base_phases * 5 + dir8 * vfx->attack_phases + 9 + attack_frame;
+            } else {
+                frame = dir8 * vfx->attack_phases + base_phases * 8 + 0x10 + attack_frame;
+            }
+        }
+#else
         if (vfx->flip != 0) {
             frame = base_phases * 5 + dir8 * vfx->attack_phases + 9 + vfx->attack_anim_frames[this->phase];
         } else {
             frame = dir8 * vfx->attack_phases + base_phases * 8 + 0x10 + vfx->attack_anim_frames[this->phase];
         }
+#endif
         break;
     case 5:
         frame = (this->dir - 8) & 0xF;
@@ -2206,6 +2253,21 @@ void CUnit::DrawShadow(int32_t tile_x, int32_t tile_y, int32_t light) {
     switch (this->last_action) {
     case 0:
         if (vfx->idle_phases != 0) {
+#ifdef A2CLIENT_PATCH
+            int32_t idle_frame = 0;
+            if (vfx->idle_anim_frame_cnt > 0) {
+                this->phase = (std::max)(this->phase, 0) % vfx->idle_anim_frame_cnt;
+                idle_frame = vfx->idle_anim_frames[this->phase];
+            }
+            frame = dir8 * vfx->idle_phases + (base_phases + vfx->attack_phases + vfx->dying_phases) * 8 + 16 + idle_frame;
+            if (vfx->flip != 0 && dir8 > 4) {
+                dir8 = 8 - dir8;
+                flip = 1;
+            }
+            if (vfx->flip != 0) {
+                frame = (base_phases + vfx->attack_phases + vfx->dying_phases) * 5 + dir8 * vfx->idle_phases + 9 + idle_frame;
+            }
+#else
 #ifdef A2CLIENT
             this->phase = this->phase % vfx->idle_phases;
 #endif
@@ -2217,6 +2279,7 @@ void CUnit::DrawShadow(int32_t tile_x, int32_t tile_y, int32_t light) {
             if (vfx->flip != 0) {
                 frame = (base_phases + vfx->attack_phases + vfx->dying_phases) * 5 + dir8 * vfx->idle_phases + 9 + vfx->idle_anim_frames[this->phase];
             }
+#endif
         } else if (this->death_state == 1) {
             vfx_idx = vfx->dying;
             UnitVFXUnfo* dying_vfx = g_VFX_info[vfx_idx];
@@ -2262,20 +2325,50 @@ void CUnit::DrawShadow(int32_t tile_x, int32_t tile_y, int32_t light) {
         }
         break;
     case 1:
+#ifdef A2CLIENT_PATCH
+        {
+            int32_t move_frame = 0;
+            if (vfx->move_anim_frame_cnt > 0) {
+                int32_t move_phase = (std::max)(this->phase, 0) % vfx->move_anim_frame_cnt;
+                move_frame = vfx->move_anim_frames[move_phase];
+            }
+            if (vfx->flip != 0) {
+                frame = dir8 * base_phases + vfx->move_begin_phases + 9 + move_frame;
+            } else {
+                frame = dir8 * base_phases + vfx->move_begin_phases + 16 + move_frame;
+            }
+        }
+#else
         if (vfx->flip != 0) {
             frame = dir8 * base_phases + vfx->move_begin_phases + 9 + vfx->move_anim_frames[this->phase % vfx->move_anim_frame_cnt];
         } else {
             frame = dir8 * base_phases + vfx->move_begin_phases + 16 + vfx->move_anim_frames[this->phase % vfx->move_anim_frame_cnt];
         }
+#endif
         break;
     case 3:
     case 7:
     case 8:
+#ifdef A2CLIENT_PATCH
+        {
+            int32_t attack_frame = 0;
+            if (vfx->attack_anim_frame_cnt > 0) {
+                int32_t attack_phase = (std::min)((std::max)(this->phase, 0), vfx->attack_anim_frame_cnt - 1);
+                attack_frame = vfx->attack_anim_frames[attack_phase];
+            }
+            if (vfx->flip != 0) {
+                frame = base_phases * 5 + dir8 * vfx->attack_phases + 9 + attack_frame;
+            } else {
+                frame = dir8 * vfx->attack_phases + base_phases * 8 + 16 + attack_frame;
+            }
+        }
+#else
         if (vfx->flip != 0) {
             frame = base_phases * 5 + dir8 * vfx->attack_phases + 9 + vfx->attack_anim_frames[this->phase];
         } else {
             frame = dir8 * vfx->attack_phases + base_phases * 8 + 16 + vfx->attack_anim_frames[this->phase];
         }
+#endif
         break;
     case 5:
         frame = (this->dir - 8) & 0xF;
