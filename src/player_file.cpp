@@ -4,8 +4,10 @@
 #endif
 #ifdef A2TANGAR_HAT
 #include "patch/config_new.h"
+#ifndef A2CLIENT
 #include "patch/flags.h"
 #include "patch/tangar_log.h"
+#endif
 #endif
 
 #include <cstring>
@@ -410,7 +412,7 @@ int32_t __cdecl WritePlayerFile(const char* filename, FileSectionBasicInfo* basi
         WriteEncryptedSection(file, player_file::SEC_INVENTORY, GetPacketPayload(merged_inventory), GetPacketPayloadSize(merged_inventory));
     }
 
-#ifdef A2TANGAR_HAT
+#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
     // part_of_save hook (4F62B1): log character save completion under SVL_SAVES.
     if (Config::LogMode & SVL_SAVES) {
         Printf("Saved successfully!");
