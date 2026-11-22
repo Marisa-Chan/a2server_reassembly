@@ -28,6 +28,8 @@
 #include "unit.h"
 #include "virtual_caster.h"
 #if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+#include "patch/config_new.h"
+#include "patch/flags.h"
 #include "patch/player_settings.h"
 #include "patch/solo.h"
 #include "patch/tangar_log.h"
@@ -625,7 +627,9 @@ void Diplomacy::RecordHostility(Unit* attacker, Unit* target, int32_t hit_flag) 
         if (!attacker->pOwner->is_ai) {
 #if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
             // auto_war_1 hook (5B56EF)
-            Printf("Player %s (%s) set auto-war to player %s", (const char*)attacker->pOwner->name, "attacker", (const char*)target->pOwner->name);
+            if (Config::LogMode & SVL_DIPLOMACY) {
+                Printf("Player %s (%s) set auto-war to player %s", (const char*)attacker->pOwner->name, "attacker", (const char*)target->pOwner->name);
+            }
 #endif
             g_NetStru1_main.SendVisibilityState(attacker->pOwner);
             g_NetStru1_main.SendVisibilityState(target->pOwner);
@@ -642,7 +646,9 @@ void Diplomacy::RecordHostility(Unit* attacker, Unit* target, int32_t hit_flag) 
         if (!target->pOwner->is_ai) {
 #if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
             // auto_war_2 hook (5B57C6)
-            Printf("Player %s (%s) set auto-war to player %s", (const char*)target->pOwner->name, "victim", (const char*)attacker->pOwner->name);
+            if (Config::LogMode & SVL_DIPLOMACY) {
+                Printf("Player %s (%s) set auto-war to player %s", (const char*)target->pOwner->name, "victim", (const char*)attacker->pOwner->name);
+            }
 #endif
             g_NetStru1_main.SendVisibilityState(attacker->pOwner);
             g_NetStru1_main.SendVisibilityState(target->pOwner);

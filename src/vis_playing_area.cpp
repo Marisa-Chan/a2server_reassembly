@@ -2184,6 +2184,9 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 
             this->my_main_unit->diplomacy.SetSize(packet_terrain->count);
             memcpy(this->my_main_unit->diplomacy.GetData(), packet_terrain->buf, packet_terrain->count * 2);
+#ifdef A2CLIENT_PATCH
+            this->my_main_unit->diplomacy.SetAtGrow(this->my_main_unit->index, DIPLO_THEY_ALLIED | DIPLO_VISION_SHARE | DIPLO_SHARED_VISION | DIPLO_ALLIANCE);
+#endif
 
             wnd->ClearDiplomacyEntries();
 

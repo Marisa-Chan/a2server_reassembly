@@ -1745,44 +1745,47 @@ void Server::SendWorldState(Player* player, int32_t enter_world) {
                         continue;
                     }
 
-#ifdef A2TANGAR_HAT
-                    // new_player_diplomacy hook (4FFEA6): apply the per-player
-                    // default diplomacy (both directions) and the GM players-ally
-                    // override; when handled, the retail zeroing and vision clears
-                    // are skipped
-                    {
-                        bool handled = false;
-                        settings::PlayerSettings* ps = settings::Find((const char*)player->name);
-                        if (ps != nullptr && ps->default_diplomacy != 0) {
-                            g_World->diplomacy.diplomacy[player->player_id][p_id] = ps->default_diplomacy;
-                            handled = true;
-                        }
-                        settings::PlayerSettings* ps2 = settings::Find((const char*)p->name);
-                        if (ps2 != nullptr && ps2->default_diplomacy != 0) {
-                            g_World->diplomacy.diplomacy[p_id][player->player_id] = ps2->default_diplomacy;
-                            handled = true;
-                        }
-                        auto gm_ally = [](Player* pl) { return (pl->flags & GMF_ANY) == GMF_ANY && (pl->flags & GMF_PLAYERS_ALLY) == GMF_PLAYERS_ALLY; };
-                        if (gm_ally(player) || gm_ally(p)) {
-                            g_World->diplomacy.diplomacy[player->player_id][p_id] = 2;
-                            g_World->diplomacy.diplomacy[p_id][player->player_id] = 2;
-                            handled = true;
-                        }
-                        if (handled) {
-                            continue;
-                        }
-                    }
-#endif
-
-                    // Co-op: clear mutual alliance bytes.
+                    // Co-op: clear mutual alliance bytes before applying any defaults.
                     if (g_ServerConfig.gameType == GAME_TYPE_COOPERATIVE) {
                         g_World->diplomacy.diplomacy[p_id][player_id] = 0;
                         g_World->diplomacy.diplomacy[player_id][p_id] = 0;
                     }
 
+#ifdef A2TANGAR_HAT
+                    // new_player_diplomacy hook (4FFEA6): apply the per-player
+                    // default diplomacy (both directions) and the GM players-ally
+                    // override, then sync vision_sharing_mask with DIPLO_VISION_SHARE.
+                    {
+                        settings::PlayerSettings* ps = settings::Find((const char*)player->name);
+                        if (ps != nullptr && ps->default_diplomacy != 0) {
+                            g_World->diplomacy.diplomacy[player->player_id][p_id] = ps->default_diplomacy;
+                        }
+                        settings::PlayerSettings* ps2 = settings::Find((const char*)p->name);
+                        if (ps2 != nullptr && ps2->default_diplomacy != 0) {
+                            g_World->diplomacy.diplomacy[p_id][player->player_id] = ps2->default_diplomacy;
+                        }
+                        auto gm_ally = [](Player* pl) { return (pl->flags & GMF_ANY) == GMF_ANY && (pl->flags & GMF_PLAYERS_ALLY) == GMF_PLAYERS_ALLY; };
+                        if (gm_ally(player) || gm_ally(p)) {
+                            g_World->diplomacy.diplomacy[player->player_id][p_id] = (g_World->diplomacy.diplomacy[player->player_id][p_id] & ~DIPLO_WAR) | DIPLO_ALLIANCE;
+                            g_World->diplomacy.diplomacy[p_id][player->player_id] = (g_World->diplomacy.diplomacy[p_id][player->player_id] & ~DIPLO_WAR) | DIPLO_ALLIANCE;
+                        }
+                    }
+
+                    if (g_World->diplomacy.diplomacy[player_id][p_id] & DIPLO_VISION_SHARE) {
+                        player->vision_sharing_mask |= p->vision_sharing_id;
+                    } else {
+                        player->vision_sharing_mask &= ~p->vision_sharing_id;
+                    }
+                    if (g_World->diplomacy.diplomacy[p_id][player_id] & DIPLO_VISION_SHARE) {
+                        p->vision_sharing_mask |= player->vision_sharing_id;
+                    } else {
+                        p->vision_sharing_mask &= ~player->vision_sharing_id;
+                    }
+#else
                     // Clear each player's vision bits for the other.
                     player->vision_sharing_mask &= ~p->vision_sharing_id;
                     p->vision_sharing_mask &= ~player->vision_sharing_id;
+#endif
                 }
             }
         }
@@ -5306,7 +5309,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
     case SET_DIPLOMACY: // Diplomacy bulk update
         CheckPacketType(pkt, "PacketTerrain");
         {
-#ifdef A2SERVER_PATCH
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
             if (!g_World || !g_PlayersList || (g_ServerConfig.gameType != GAME_TYPE_COOPERATIVE && g_ServerConfig.gameType != GAME_TYPE_ARENA)) {
                 break;
             }
@@ -5322,12 +5325,20 @@ void Server::ProcessClientPacket(Packet* pkt) {
             }
 
             int32_t count = packet_terrain->count;
-            const uint16_t* modification = packet_terrain->buf;
-#if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
             if (count < 0 || count > 0x10000 || player->player_id >= 70) {
                 break;
             }
 #endif
+
+            // Copy packet_terrain->buf before iterating: SendVisibilityState()
+            // below reuses the PacketTerrain::Inst singleton and overwrites buf.
+            CWordArray modification_copy;
+            modification_copy.SetSize(count, -1);
+            if (count > 0) {
+                memcpy(modification_copy.GetData(), packet_terrain->buf, static_cast<size_t>(count) * 2);
+            }
+            const uint16_t* modification = modification_copy.GetData();
 
             for (POSITION node = g_PlayersList->list.GetHeadPosition(); node;) {
                 Player* other = g_PlayersList->list.GetNext(node);
@@ -5336,8 +5347,8 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 }
 
                 int other_id = other->player_id;
-#if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
-                if (other_id < 0 || other_id >= count || other_id >= 70) {
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+                if (other == player || other_id < 0 || other_id >= count || other_id >= 70) {
                     continue;
                 }
 #endif
@@ -5360,14 +5371,16 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 if ((other->flags & GMF_PLAYERS_ALLY) == GMF_PLAYERS_ALLY) {
                     new_val |= 0x02;
                 }
-                static const char* const diplo_names[4] = {"war", "ally", "ignore", "vision"};
-                static const uint8_t diplo_flags[4] = {1, 2, 4, 0x10};
-                for (int i = 0; i < 4; ++i) {
-                    if ((old_val & diplo_flags[i]) != 0 && (requested_val & diplo_flags[i]) == 0) {
-                        Printf("Player %s unset %s to player %s", (const char*)player->name, diplo_names[i], (const char*)other->name);
-                    }
-                    if ((old_val & diplo_flags[i]) == 0 && (requested_val & diplo_flags[i]) != 0) {
-                        Printf("Player %s set %s to player %s", (const char*)player->name, diplo_names[i], (const char*)other->name);
+                if (Config::LogMode & SVL_DIPLOMACY) {
+                    static const char* const diplo_names[4] = {"war", "ally", "ignore", "vision"};
+                    static const uint8_t diplo_flags[4] = {1, 2, 4, 0x10};
+                    for (int i = 0; i < 4; ++i) {
+                        if ((old_val & diplo_flags[i]) != 0 && (requested_val & diplo_flags[i]) == 0) {
+                            Printf("Player %s unset %s to player %s", (const char*)player->name, diplo_names[i], (const char*)other->name);
+                        }
+                        if ((old_val & diplo_flags[i]) == 0 && (requested_val & diplo_flags[i]) != 0) {
+                            Printf("Player %s set %s to player %s", (const char*)player->name, diplo_names[i], (const char*)other->name);
+                        }
                     }
                 }
 #endif

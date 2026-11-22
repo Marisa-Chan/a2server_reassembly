@@ -657,6 +657,11 @@ void MainWindow::ClearDiplomacyEntries() {
     for (int32_t i = 0; i < this->vis_map_context->map_players.GetSize(); i++) {
         MapPlayerData* mpd = this->vis_map_context->map_players[i];
         if (mpd != nullptr && (mpd->flags & 1) == 0) {
+#ifdef A2CLIENT_PATCH
+            if (mpd->index >= this->vis_map_context->my_main_unit->diplomacy.GetSize()) {
+                this->vis_map_context->my_main_unit->diplomacy.SetAtGrow(mpd->index, 0);
+            }
+#endif
             uint16_t dipl_flags = this->vis_map_context->my_main_unit->diplomacy[mpd->index];
             DiplomacyEntry* entry = new DiplomacyEntry(mpd->name, (dipl_flags & DIPLO_WAR) != 0, (dipl_flags & DIPLO_ALLIANCE) != 0, (dipl_flags & DIPLO_VISION_SHARE) != 0, (dipl_flags & DIPLO_MUTE) != 0);
             this->diplomacy_entries->Add(entry);
@@ -2824,6 +2829,14 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
             for (int i = 0; i < this->vis_map_context->map_players.GetSize(); i++) {
                 MapPlayerData* mp = this->vis_map_context->map_players[i];
                 if (mp != nullptr && (mp->flags & 1) == 0) {
+#ifdef A2CLIENT_PATCH
+                    if (j >= this->diplomacy_entries->GetSize()) {
+                        break;
+                    }
+                    if (mp->index >= this->vis_map_context->my_main_unit->diplomacy.GetSize()) {
+                        this->vis_map_context->my_main_unit->diplomacy.SetAtGrow(mp->index, 0);
+                    }
+#endif
                     DiplomacyEntry* visdp = (*this->diplomacy_entries)[j];
 
                     uint16_t dpl = this->vis_map_context->my_main_unit->diplomacy[mp->index] & (DIPLO_THEY_WAR | DIPLO_THEY_ALLIED | DIPLO_SHARED_VISION);
