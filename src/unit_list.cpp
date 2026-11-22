@@ -373,27 +373,6 @@ void UnitList::ClearSentToMask(Player* player) {
     }
 }
 
-// 5574B5
-#ifdef A2TANGAR_HAT
-// UnsummonUnit from srvmgr (unsummon_unit.cpp): true when the unit's
-// owner has more than one summoned unit alive.
-static bool TangarOwnerHasMultipleSummons(Unit* unit) {
-    if (unit == nullptr || unit->pOwner == nullptr || unit->pOwner->unit_list == nullptr) {
-        return true;
-    }
-
-    int summoned_units = 0;
-    for (POSITION pos = unit->pOwner->unit_list->unit_list.GetHeadPosition(); pos != nullptr;) {
-        Unit* u = unit->pOwner->unit_list->unit_list.GetNext(pos);
-        if (u != nullptr && u->summoned != 0 && u->summon_id != 0) {
-            summoned_units++;
-        }
-    }
-
-    return summoned_units > 1;
-}
-#endif
-
 // 5574b5 (client: 5358d9)
 void UnitList::RegenTick() {
     // Tick all units in this list (call VMethod1 on each)
@@ -423,11 +402,8 @@ void UnitList::RegenTick() {
 
     CMap<uint32_t, uint32_t, int32_t, int32_t> map;
     while (unit != NULL) {
-#ifdef A2TANGAR_HAT
-        // unsummon_unit hook (557985): a player's last remaining summon is
-        // excluded from the culling counts (only count when the owner has
-        // more than one summoned unit alive)
-        if (unit->summon_id != 0 && TangarOwnerHasMultipleSummons(unit)) {
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+        if (unit->summon_id != 0 && unit->decay <= Unit::DECAY_UNCONSCIOUS && unit->some_state != Unit::EXEC_DEAD) {
             map[unit->summon_id]++;
         }
 #else
@@ -460,7 +436,11 @@ void UnitList::RegenTick() {
         unit = summon_pool.GetNext(pos);
     }
     while (unit != NULL) {
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+        if (unit->summon_id != 0 && unit->decay <= Unit::DECAY_UNCONSCIOUS && unit->some_state != Unit::EXEC_DEAD) {
+#else
         if (unit->summon_id != 0) {
+#endif
             if (map[unit->summon_id] == -1) {
                 map[unit->summon_id] = -2;
                 unit->Die();

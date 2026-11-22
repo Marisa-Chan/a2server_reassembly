@@ -1050,6 +1050,12 @@ void Unit::ReleaseObjects() {
         delete this->spell_book;
         this->spell_book = nullptr;
     }
+
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+    while (!this->_effects.IsEmpty()) {
+        delete this->_effects.RemoveHead();
+    }
+#endif
 }
 
 // 52c8e5 (client: 51a457)
@@ -1955,6 +1961,11 @@ void Unit::InitDefaults(const CString& str) {
     this->seen_by_mask = 0;
     this->seen_by_mask_prev = 0;
     this->ownership_changed = 0;
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+    this->sent_to_mask = 0;
+    this->list1.RemoveAll();
+    this->list2.RemoveAll();
+#endif
     memset(this->something_per_player, 0, 0x40);
     this->InitDefaultStats();
     if (!str.IsEmpty()) {

@@ -52,7 +52,7 @@ static void SR_UpdateUnit(Unit* unit) {
         Scanrange_Initialized = true;
     }
 
-    if (unit == nullptr) {
+    if (unit == nullptr || unit->position == nullptr || g_World == nullptr || MapStuff_Instance == nullptr) {
         return;
     }
     Player* unit_player = unit->pOwner;
@@ -105,7 +105,10 @@ static void SR_UpdateUnit(Unit* unit) {
 }
 
 void SR_Step() {
-    CList<Unit*>& units = g_Server->srv_stru1->units_list->unit_list;
+    if (g_ServerUnits == nullptr || g_World == nullptr || MapStuff_Instance == nullptr) {
+        return;
+    }
+    CList<Unit*>& units = g_ServerUnits->unit_list;
 
     for (int i = 0; i < 32; i++) {
         if (!g_PlayerInfo[i].Exists) {

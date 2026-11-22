@@ -499,6 +499,9 @@ void MapStuff::MoveStepTowardUnit(Unit* unit, Unit* target, uint8_t max_range) {
     if (unit->eye->target_unit != target) {
         unit->eye->static_age = 0xFF;
         unit->list1.RemoveAll();
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+        unit->list2.RemoveAll();
+#endif
         unit->eye->static_path_len = 0xFF;
         unit->eye->move_target = target_yx;
         unit->eye->dynamic_path_cell = target_yx;
@@ -640,7 +643,16 @@ void MapStuff::AdvancePathList2(Unit* unit) {
         return;
     }
 
-    unit->eye->position1 = unit->list2.GetHead();
+    PosYX head_yx = unit->list2.GetHead();
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+    PosYX cur_yx = unit->position->GetYX();
+    if (abs(head_yx.x - cur_yx.x) > 1 || abs(head_yx.y - cur_yx.y) > 1) {
+        unit->list2.RemoveAll();
+        this->StepRotateToTarget(unit);
+        return;
+    }
+#endif
+    unit->eye->position1 = head_yx;
 
     uint16_t fresh_yx = unit->position->CompatGetYX();
     unit->eye->reserved_cell = fresh_yx;
@@ -1158,6 +1170,11 @@ void MapStuff::MoveUnitBlockers(Unit* unit, PosYX yx, uint8_t t) {
             for (int i = 1; i < sz + 1; i++) {
                 int x = j + yx.x - dx;
                 int y = i + yx.y - dy;
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+                if (x < 0 || x >= 8 || y < 0 || y >= 8) {
+                    continue;
+                }
+#endif
                 this->footprint_scratch(y, x) = 2; // y x for save order how it's in original
             }
         }
@@ -2033,6 +2050,10 @@ void MapStuff::TeleportUnit(Unit* unit, uint8_t x, uint8_t y) {
     this->AddUnitToMap(unit);
     unit->position->SetCoords(x, y);
     this->PlaceUnit(unit);
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+    unit->list1.RemoveAll();
+    unit->list2.RemoveAll();
+#endif
     this->world->ResetUnitToHold(unit);
     g_NetStru1_main.SendUnitUpdate(unit, nullptr, UNIT_UPD_ALL, EQUIP_SLOTS_ALL, 0, 0);
 }

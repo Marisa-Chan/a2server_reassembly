@@ -1,17 +1,62 @@
 #include "players_list.h"
 #include "player.h"
 
+#include "building.h"
+#include "buildings_list.h"
+#include "effect.h"
 #include "game_app.h"
 #include "group.h"
 #include "map_stuff.h"
 #include "net.h"
 #include "quest_map.h"
+#include "sack.h"
 #include "server.h"
+#include "token.h"
 #include "unit.h"
 #include "unit_list.h"
 #include "world.h"
 #ifdef A2TANGAR_HAT
 #include "patch/player_info.h"
+#endif
+
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+// Clear any remaining pOwner references on dead corpses, pooled summons,
+// active units, buildings, or sacks before freeing `player` (dead pets and
+// mercenaries were already detached from player->unit_list when they died).
+static void DetachPlayerOwnedTokens(Player* player) {
+    auto clear_unit_owner = [player](UnitList* ul) {
+        if (ul == nullptr) {
+            return;
+        }
+        for (POSITION unit_it = ul->unit_list.GetHeadPosition(); unit_it != nullptr;) {
+            Unit* u = ul->unit_list.GetNext(unit_it);
+            if (u != nullptr && u->pOwner == player) {
+                u->pOwner = nullptr;
+            }
+        }
+    };
+    clear_unit_owner(g_ServerUnits);
+    clear_unit_owner(g_UnitPool);
+    if (g_Server != nullptr && g_Server->srv_stru1 != nullptr) {
+        clear_unit_owner(g_Server->srv_stru1->units_list);
+        if (g_Server->srv_stru1->building_list != nullptr) {
+            for (POSITION building_it = g_Server->srv_stru1->building_list->GetHeadPosition(); building_it != nullptr;) {
+                Building* bld = g_Server->srv_stru1->building_list->GetNext(building_it);
+                if (bld != nullptr && bld->pOwner == player) {
+                    bld->pOwner = nullptr;
+                }
+            }
+        }
+        if (g_Server->srv_stru1->sack_list != nullptr) {
+            for (POSITION sack_it = g_Server->srv_stru1->sack_list->list.GetHeadPosition(); sack_it != nullptr;) {
+                Sack* sack = g_Server->srv_stru1->sack_list->list.GetNext(sack_it);
+                if (sack != nullptr && sack->pOwner == player) {
+                    sack->pOwner = nullptr;
+                }
+            }
+        }
+    }
+}
 #endif
 
 
@@ -288,7 +333,24 @@ void PlayersList::ProcessPlayerTimeouts() {
                         unit->pOwner = nullptr;
                         unit->hp = -600;
                         unit->decay = Unit::DECAY_REMOVED;
+#ifdef A2SERVER_PATCH
+                        unit->summon_id = 0;
+                        unit->some_state = Unit::EXEC_DEAD;
+                        unit->state = Unit::ORDER_DEAD;
+                        unit->enchantments = 0;
+                        while (!unit->_effects.IsEmpty()) {
+                            delete unit->_effects.RemoveHead();
+                        }
+                        if (unit->building_id != 0) {
+                            BldIdSet_Unset(unit->building_id);
+                            unit->building_id = 0;
+                        }
+                        if (g_UnitPool->unit_list.Find(unit) == nullptr) {
+                            g_UnitPool->AddTail(unit);
+                        }
+#else
                         g_UnitPool->AddTail(unit);
+#endif
 
                         // Advance to next unit.
                         if (upos != nullptr) {
@@ -308,6 +370,15 @@ void PlayersList::ProcessPlayerTimeouts() {
                     POSITION found = srv_units->unit_list.Find(player->main_unit);
                     if (found != nullptr) {
                         srv_units->unit_list.RemoveAt(found);
+#ifdef A2SERVER_PATCH
+                        if (player->main_unit->building_id != 0) {
+                            BldIdSet_Unset(player->main_unit->building_id);
+                            player->main_unit->building_id = 0;
+                        }
+                        if (g_UnitPool->unit_list.Find(player->main_unit) == nullptr) {
+                            g_UnitPool->AddTail(player->main_unit);
+                        }
+#endif
                     }
                 }
             }
@@ -352,6 +423,9 @@ void PlayersList::ProcessPlayerTimeouts() {
             if (found != nullptr) {
                 this->list.RemoveAt(found);
             }
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+            DetachPlayerOwnedTokens(player);
+#endif
             delete player;
 
             g_Server->UpdateHatAnnounce();
@@ -442,6 +516,9 @@ void PlayersList::ProcessPlayerTimeouts() {
             if (found != nullptr) {
                 this->list.RemoveAt(found);
             }
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+            DetachPlayerOwnedTokens(player);
+#endif
             delete player;
 
             g_Server->UpdateHatAnnounce();
