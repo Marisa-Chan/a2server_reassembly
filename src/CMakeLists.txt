@@ -123,6 +123,7 @@ set(A2SERVER_PATCHES
   patch/scanrange.cpp
   patch/scanrange_calc.cpp
   patch/screenshots.cpp
+  patch/server_icon.cpp
   patch/server_state.cpp
   patch/solo.cpp
   patch/summon.cpp

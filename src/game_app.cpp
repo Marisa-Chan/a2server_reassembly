@@ -28,6 +28,9 @@
 #include "patch/ctl_handle.h"
 #include "patch/thresholds.h"
 #endif
+#if defined(A2SERVER_PATCH) && defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+#include "patch/server_icon.h"
+#endif
 
 GameApp GameApp::theApp;
 
@@ -677,9 +680,17 @@ BOOL GameApp::InitInstance() {
         #endif
     }
 
+#if defined(A2SERVER_PATCH) && defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+    uint32_t early_server_id = server_icon::InitProcessIdentity(m_lpCmdLine);
+#endif
+
     MainWindow* mwnd = new MainWindow();
 
     m_pMainWnd = mwnd;
+
+#if defined(A2SERVER_PATCH) && defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+    server_icon::Apply(mwnd->m_hWnd, early_server_id);
+#endif
 
     mwnd->ShowWindow(m_nCmdShow);
 
@@ -827,6 +838,9 @@ BOOL GameApp::InitInstance() {
         }
     }
 
+#if defined(A2SERVER_PATCH) && defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+    server_icon::Apply(mwnd->m_hWnd, g_ServerConfig.server_id);
+#endif
 #if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
     // DllMain LoadThresholds + StartControlThread (srvmgr.cpp:2719-2756, 2769)
     try {
