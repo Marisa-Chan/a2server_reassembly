@@ -2,18 +2,18 @@
 
 IMPLEMENT_SERIAL(VirtualCaster, Token, 1); // Runtime class definition at 6363d0.
 
-// 528900
+// 528900 (client: 517649)
 VirtualCaster::VirtualCaster() {
     this->byte_0x3c = 0;
     this->properties = new uint8_t[6]{};
 }
 
-// 528993
+// 528993 (client: 5176dc)
 VirtualCaster::~VirtualCaster() {
     delete[] this->properties;
 }
 
-// 55D009
+// 55d009 (client: 537860)
 void VirtualCaster::Serialize(CArchive& ar) {
     Token::Serialize(ar);
     if (ar.IsStoring()) {

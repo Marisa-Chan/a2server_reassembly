@@ -33,12 +33,12 @@ ASSERT_SIZE(ScenarioTavernEntryId, 4);
 
 class VisTavSceneAnim {
 public:
-    void LoadAnimFrames(CStringArray* names); //4010ee (client: 4010ee) in asm
-    void FreeAnimFrames(); //4014f2 (client: 4014f1) in asm
-    bool StepForward(); //4015c6 (client: 4015c5) in asm
-    bool StepBackward(); //401613 (client: 401612) in asm
-    void NextFrame(); //401659 (client: 401658) in asm
-    void Draw(int32_t x, int32_t y); //4016ef (client: 4016ee) in asm
+    void LoadAnimFrames(CStringArray* names); // 4010ee (client: 4010ee)
+    void FreeAnimFrames(); // 4014f2 (client: 4014f1)
+    bool StepForward(); // 4015c6 (client: 4015c5)
+    bool StepBackward(); // 401613 (client: 401612)
+    void NextFrame(); // 401659 (client: 401658)
+    void Draw(int32_t x, int32_t y); // 4016ef (client: 4016ee)
 
 public:
     CArray<CBmp64*> frames;
@@ -51,24 +51,24 @@ ASSERT_SIZE(VisTavSceneAnim, 0x30);
 //60c5d8
 class VisTavRightPanel : public CVisualObject {
 public:
-    virtual ~VisTavRightPanel(); // 4A3E40 (client: 4a7ec0)
+    virtual ~VisTavRightPanel(); // 499862 (client: 49d882)
 
-    virtual const char* GetHint() override; // 4a4710 (client: 4a7eb0) in asm
-    virtual void VMethod7() override; // 499dfa (client: 49de1a) in asm
-    virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 49a26e (client: 49e28e) in asm
-    virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 49a291 (client: 49e2b1) in asm
-    virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 49a30a (client: 49e32a) in asm
-    virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos) override; // 49a2e6 (client: 49e306) in asm
+    virtual const char* GetHint() override; // 4a4710 (client: 4a7eb0)
+    virtual void VMethod7() override; // 499dfa (client: 49de1a)
+    virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 49a26e (client: 49e28e)
+    virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 49a291 (client: 49e2b1)
+    virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 49a30a (client: 49e32a)
+    virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos) override; // 49a2e6 (client: 49e306)
 
-    VisTavRightPanel(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisTav* tav); //4997c6 (client: 42cc93) in asm
+    VisTavRightPanel(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisTav* tav); // 4997c6 (client: 49d7e6)
 
-    void LoadRightPanelBmps(); //499a67 (client: 49da87) in asm
-    void ResetButtonStates(); //49a84e (client: 49e87d) in asm
-    void UpdateButtonLabels(); //49a973 (client: 49e9a2) in asm
-    void FreeRightPanelBmps(); //499cdf in asm - client FreeBitmaps restructured away (both client 283b FreeBitmaps fns belong to VisCharGenAction 42d704 / VisCharSellectButtons 432ae6)
-    void InitRightPanel(); //4998c2 (client: 42cd99) in asm
-    int32_t HitTestButton(CPoint pos); //49a873 (client: 43281c) in asm
-    void UpdateHoveredButton(uint32_t wparam, CPoint pos); //49a8fa in asm - client FreeBitmaps restructured away (42d41b is VisCharGenAction::UpdateMouseOver)
+    void LoadRightPanelBmps(); // 499a67 (client: 49da87)
+    void ResetButtonStates(); // 49a84e (client: 49e87d)
+    void UpdateButtonLabels(); // 49a973 (client: 49e9a2)
+    void FreeRightPanelBmps(); // 499cdf (client: 49dcff) - client FreeBitmaps restructured away (both client 283b FreeBitmaps fns belong to VisCharGenAction 42d704 / VisCharSellectButtons 432ae6)
+    void InitRightPanel(); // 4998c2 (client: 49d8e2)
+    int32_t HitTestButton(CPoint pos); // 49a873 (client: 49e8a2)
+    void UpdateHoveredButton(uint32_t wparam, CPoint pos); // 49a8fa (client: 49e929) - client FreeBitmaps restructured away (42d41b is VisCharGenAction::UpdateMouseOver)
 
 public:
     VisTav* vis_tav; // 0x5c
@@ -85,19 +85,19 @@ ASSERT_SIZE(VisTavRightPanel, 0xc8);
 // 60c560
 class VisTavLeftPanel : public CVisualObject {
 public:
-    virtual ~VisTavLeftPanel(); // 4A3E10 (client: 4a7e40)
+    virtual ~VisTavLeftPanel(); // 497a21 (client: 49ba41)
 
-    virtual const char* GetHint() override; // 49934d (client: 49d36d) in asm
-    virtual void VMethod7() override; // 497ed0 (client: 49bef0) in asm
-    virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 497ec1 (client: 49bee1) in asm
+    virtual const char* GetHint() override; // 49934d (client: 49d36d)
+    virtual void VMethod7() override; // 497ed0 (client: 49bef0)
+    virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 497ec1 (client: 49bee1)
 
-    VisTavLeftPanel(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisTav* tav); //497990 (client: 49b9b0) in asm
+    VisTavLeftPanel(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisTav* tav); // 497990 (client: 49b9b0)
 
-    void LoadLeftPanelBmps(); //4995d1 (client: 49d5f1) in asm
-    void FreeLeftPanelBmps(); //4996ab (client: 49d6cb) in asm
-    void InitLeftPanel(); //497ace (client: 49baee) in asm
-    void DrawUnitPanel(CUnit* unit); //497f82 (client: 49bfa2) in asm
-    void SelectRosterEntry(int32_t idx); //497e06 (client: 49be26) in asm
+    void LoadLeftPanelBmps(); // 4995d1 (client: 49d5f1)
+    void FreeLeftPanelBmps(); // 4996ab (client: 49d6cb)
+    void InitLeftPanel(); // 497ace (client: 49baee)
+    void DrawUnitPanel(CUnit* unit); // 497f82 (client: 49bfa2)
+    void SelectRosterEntry(int32_t idx); // 497e06 (client: 49be26)
 
 public:
     VisTav* vis_tav; // 0x5c
@@ -114,24 +114,24 @@ ASSERT_SIZE(VisTavLeftPanel, 0x190);
 //60c650
 class VisTavScene : public CVisualObject {
 public:
-    virtual ~VisTavScene(); // 4A3E70 (client: 4a7ef0)
+    virtual ~VisTavScene(); // 49ae99 (client: 49eec8)
 
-    virtual const char* GetHint() override; // 49cd2b (client: 4a0d59) in asm
-    virtual void VMethod7() override; // 49b22f (client: 49f25e) in asm
-    virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 49d8d9 (client: 4a1907) in asm
-    virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 49da98 (client: 4a1ac6) in asm
-    virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos) override; // 49d8e8 (client: 4a1916) in asm
+    virtual const char* GetHint() override; // 49cd2b (client: 4a0d59)
+    virtual void VMethod7() override; // 49b22f (client: 49f25e)
+    virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 49d8d9 (client: 4a1907)
+    virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 49da98 (client: 4a1ac6)
+    virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos) override; // 49d8e8 (client: 4a1916)
 
-    virtual void VMethod26(); //49ced4 (client: 4a0f02) in asm
-    virtual void VMethod27(); //49d1b0 (client: 4a11de) in asm
-    virtual void VMethod28(); //49d2bb (client: 4a12e9) in asm
-    virtual void VMethod29(); //49d5f9 (client: 4a1627) in asm
+    virtual void VMethod26(); // 49ced4 (client: 4a0f02)
+    virtual void VMethod27(); // 49d1b0 (client: 4a11de)
+    virtual void VMethod28(); // 49d2bb (client: 4a12e9)
+    virtual void VMethod29(); // 49d5f9 (client: 4a1627)
 
-    VisTavScene(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisTav* tav); //49ad56 (client: 49ed85) in asm
+    VisTavScene(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisTav* tav); // 49ad56 (client: 49ed85)
 
-    void DrawQuestRoster(); //49bc23 (client: 49fc52) in asm
-    int32_t HitTestRoster(CPoint* pos); //49cab8 (client: 4a0ae6) in asm
-    void InitSceneRects(); //49af8c (client: 49efbb) in asm
+    void DrawQuestRoster(); // 49bc23 (client: 49fc52)
+    int32_t HitTestRoster(CPoint* pos); // 49cab8 (client: 4a0ae6)
+    void InitSceneRects(); // 49af8c (client: 49efbb)
 
 public:
     VisTav* vis_tav; // 0x5c
@@ -157,13 +157,13 @@ ASSERT_SIZE(VisTavScene, 0x3cc);
 //60c7f8
 class VisTavSceneDruid : public VisTavScene {
 public:
-    virtual ~VisTavSceneDruid(); // 4A3F90 (client: 4a80b0)
+    virtual ~VisTavSceneDruid(); // 4a3fc0 (client: 4a80e0)
 
-    virtual void VMethod7() override; // 4a0673 (client: 4a46a1) in asm
-    virtual void VMethod28() override; // 4a11e3 (client: 4a5211) in asm
-    virtual void VMethod29() override; // 4a158f (client: 4a55bd) in asm
+    virtual void VMethod7() override; // 4a0673 (client: 4a46a1)
+    virtual void VMethod28() override; // 4a11e3 (client: 4a5211)
+    virtual void VMethod29() override; // 4a158f (client: 4a55bd)
 
-    VisTavSceneDruid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisTav* tav); //4a05a0 (client: 4a45ce) in asm
+    VisTavSceneDruid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisTav* tav); // 4a05a0 (client: 4a45ce)
 
 public:
     CBmp64* bmp_flash;
@@ -176,13 +176,13 @@ ASSERT_SIZE(VisTavSceneDruid, 0x468);
 //60c910
 class VisTavSceneKaarg : public VisTavScene {
 public:
-    virtual ~VisTavSceneKaarg(); // 4A4090 (client: 4a81b0)
+    virtual ~VisTavSceneKaarg(); // 4a40c0 (client: 4a81e0)
 
-    virtual void VMethod7() override; // 4a2bb8 (client: 4a6be6) in asm
-    virtual void VMethod28() override; // 4a37e7 (client: 4a7815) in asm
-    virtual void VMethod29() override; // 4a3b25 (client: 4a7b53) in asm
+    virtual void VMethod7() override; // 4a2bb8 (client: 4a6be6)
+    virtual void VMethod28() override; // 4a37e7 (client: 4a7815)
+    virtual void VMethod29() override; // 4a3b25 (client: 4a7b53)
 
-    VisTavSceneKaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisTav* tav); //4a2aa4 (client: 4a6ad2) in asm
+    VisTavSceneKaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisTav* tav); // 4a2aa4 (client: 4a6ad2)
 
 public:
     VisTavSceneAnim anims_kaarg[5]; // 0x3cc
@@ -197,30 +197,30 @@ ASSERT_SIZE(VisTavSceneKaarg, 0x4d0);
 //60c6d8
 class VisTav : public VisScreen {
 public:
-    virtual ~VisTav(); // 4A3F10 (client: 4a7fd0)
+    virtual ~VisTav(); // 49dc33 (client: 4a1c61)
 
-    virtual void VMethod7() override; // 49E044 (client: 4a2072)
+    virtual void VMethod7() override; // 49e044 (client: 4a2072)
     virtual void VMethod8(CRect* rect) override; // 49e075 (client: 4a20a3)
-    virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 49E082 (client: 4a20b0)
-    virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 49E261 (client: 4a228f)
-    virtual int32_t OnKeyDown(uint32_t wparam) override; // 49E233 (client: 4a2261)
+    virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 49e082 (client: 4a20b0)
+    virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 49e261 (client: 4a228f)
+    virtual int32_t OnKeyDown(uint32_t wparam) override; // 49e233 (client: 4a2261)
 
-    virtual void VMethod26() override; // 49DDAF (client: 4a3549)
-    virtual void VMethod28() override; // 49E34F (client: 4a237d)
-    virtual void DoClose(uint32_t code) override; // 49EB6C (client: 4a2b9a)
+    virtual void VMethod26() override; // 49ddaf (client: 4a1ddd)
+    virtual void VMethod28() override; // 49e34f (client: 4a237d)
+    virtual void DoClose(uint32_t code) override; // 49eb6c (client: 4a2b9a)
 
-    virtual void VMethod30(); // 49F298 (client: 4a32c6)
-    virtual void VMethod31(); // 49F3D7 (client: 4a3405)
+    virtual void VMethod30(); // 49f298 (client: 4a32c6)
+    virtual void VMethod31(); // 49f3d7 (client: 4a3405)
 
-    void CloseDialog(); // client: 4a2e1a (client: 4a2e1a)
-    void SelectNextPartyUnit(); //49ee36 (client: 4a2e64) in asm
-    void SelectPrevPartyUnit(); //49eecd (client: 4a2efb) in asm
-    int32_t FindEntryIndexForUnit(CUnit* unit); //49e2e3 (client: 4a2311) in asm
-    void ShowHireResponseDialog(); //49ef63 (client: 4a2f91) in asm
-    void RetalkAvailNpc(); //49f0da (client: 4a3108) in asm
-    void ShowReservedNpcTalk(); //49f179 (client: 4a31a7) in asm
+    void CloseDialog(); // 49edec (client: 4a2e1a)
+    void SelectNextPartyUnit(); // 49ee36 (client: 4a2e64)
+    void SelectPrevPartyUnit(); // 49eecd (client: 4a2efb)
+    int32_t FindEntryIndexForUnit(CUnit* unit); // 49e2e3 (client: 4a2311)
+    void ShowHireResponseDialog(); // 49ef63 (client: 4a2f91)
+    void RetalkAvailNpc(); // 49f0da (client: 4a3108)
+    void ShowReservedNpcTalk(); // 49f179 (client: 4a31a7)
 
-    VisTav(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //49db79 (client: 4a1ba7) in asm
+    VisTav(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); // 49db79 (client: 4a1ba7)
 
 public:
     VisPlayingArea* map_context;
@@ -251,15 +251,15 @@ ASSERT_SIZE(VisTav, 0x140);
 //60c768
 class VisTavDruid : public VisTav {
 public:
-    virtual ~VisTavDruid(); // 4A3F40 (client: 4a8040)
+    virtual ~VisTavDruid(); // 4a3f70 (client: 4a8070)
 
-    virtual void VMethod26() override; // 49F51B (client: 4a8040)
-    virtual void VMethod28() override; // 49FAAA (client: 4a3ad8)
-    virtual void DoClose(uint32_t code) override; // 4A0278 (client: 4a42a6)
-    virtual void VMethod30() override; // 49F7B0 (client: 4a37de)
-    virtual void VMethod31() override; // 49F961 (client: 4a398f)
+    virtual void VMethod26() override; // 49f51b (client: 4a3549)
+    virtual void VMethod28() override; // 49faaa (client: 4a3ad8)
+    virtual void DoClose(uint32_t code) override; // 4a0278 (client: 4a42a6)
+    virtual void VMethod30() override; // 49f7b0 (client: 4a37de)
+    virtual void VMethod31() override; // 49f961 (client: 4a398f)
 
-    VisTavDruid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); // 49f4e6 (client: 4544a0) in asm
+    VisTavDruid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); // 49f4e6 (client: 4a3514)
 public:
     SfxSample* snd_druid[11];
 };
@@ -268,15 +268,15 @@ ASSERT_SIZE(VisTavDruid, 0x16c);
 //60c880
 class VisTavKaarg : public VisTav {
 public:
-    virtual ~VisTavKaarg(); // 4A4040 (client: 4a8160)
+    virtual ~VisTavKaarg(); // 4a4070 (client: 4a8190)
 
-    virtual void VMethod26() override; // 4A190D (client: 4a1ddd)
-    virtual void VMethod28() override; // 4A1BA2 (client: 4a5bd0)
-    virtual void DoClose(uint32_t code) override; // 4A2448 (client: 4a6476)
-    virtual void VMethod30() override; // 4A26D9 (client: 4a6707)
-    virtual void VMethod31() override; // 4A2873 (client: 4a68a1)
+    virtual void VMethod26() override; // 4a190d (client: 4a593b)
+    virtual void VMethod28() override; // 4a1ba2 (client: 4a5bd0)
+    virtual void DoClose(uint32_t code) override; // 4a2448 (client: 4a6476)
+    virtual void VMethod30() override; // 4a26d9 (client: 4a6707)
+    virtual void VMethod31() override; // 4a2873 (client: 4a68a1)
 
-    VisTavKaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); // 4a18d8 (client: 4544a0) in asm
+    VisTavKaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); // 4a18d8 (client: 4a5906)
 public:
     SfxSample* snd_kaarg[10];
 };

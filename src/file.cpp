@@ -8,6 +8,7 @@
 #include "resource.h"
 
 
+// 4f1d0d (client: 4f49fe) - File checksum (simple sum of int32-s).
 int __cdecl CalcFileChecksum(CString filename) {
     CFile file;
     int checksum = 0;
@@ -66,32 +67,32 @@ int __cdecl CalcFileChecksum(CString filename) {
     return checksum;
 }
 
+// 4e67ea (client: 4ebd1a)
 File2::File2() {
-    //4e67ea
     this->file = nullptr;
 }
 
 
+// 4e6813 (client: 4ebd43)
 File2::File2(LPCTSTR lpszFileName, UINT nOpenFlags) {
-    //4e6813
     if (!this->Open(lpszFileName, nOpenFlags)) {
         AfxThrowFileException(CFileException::accessDenied, -1, nullptr);
     }
 }
 
+// 4e6882 (client: 4ebdb2)
 File2::~File2() {
-    //4e6882
     this->Close();
 }
 
 
+// 4e6d04 (client: 4ec234)
 ULONGLONG File2::GetPosition() const {
-    //4e6d04
     return this->position;
 };
 
+// 4e68d3 (client: 4ebe03)
 BOOL File2::Open(LPCTSTR lpszFileName, UINT nOpenFlags, CFileException* pError) {
-    //4e68d3
     char fname[1024];
     pathStrCpy(lpszFileName, fname);
 
@@ -128,14 +129,14 @@ BOOL File2::Open(LPCTSTR lpszFileName, UINT nOpenFlags, CFileException* pError) 
     return TRUE;
 };
 
+// 4e6cec (client: 4ec21c)
 CFile* File2::Duplicate() const {
-    //4e6cec
     AfxThrowFileException(CFileException::accessDenied);
     return nullptr;
 };
 
+// 4e6acb (client: 4ebffb)
 ULONGLONG File2::Seek(LONGLONG lOff, UINT nFrom) {
-    //4e6acb
     if (m_hFile == (HANDLE)-1) {
         AfxThrowFileException(CFileException::invalidFile);
     }
@@ -159,18 +160,18 @@ ULONGLONG File2::Seek(LONGLONG lOff, UINT nFrom) {
     return this->position;
 };
 
+// 4e6b83 (client: 4ec0b3)
 void File2::SetLength(ULONGLONG dwNewLen) {
-    //4e6b83
     AfxThrowFileException(CFileException::accessDenied);
 };
 
+// 4e6b9b (client: 4ec0cb)
 ULONGLONG File2::GetLength() const {
-    //4e6b9b
     return this->size;
 };
 
+// 4e6bac (client: 4ec0dc)
 UINT File2::Read(void* lpBuf, UINT nCount) {
-    //4e6bac
     if (m_hFile == (HANDLE)-1) {
         AfxThrowFileException(CFileException::invalidFile);
     }
@@ -197,37 +198,37 @@ UINT File2::Read(void* lpBuf, UINT nCount) {
     return this->file->Read(lpBuf, toRead);
 };
 
+// 4e6c68 (client: 4ec198)
 void File2::Write(const void* lpBuf, UINT nCount) {
-    //4e6c68
     AfxThrowFileException(CFileException::accessDenied);
 };
 
+// 4e6c80 (client: 4ec1b0)
 void File2::LockRange(ULONGLONG dwPos, ULONGLONG dwCount) {
-    //4e6c80
     AfxThrowFileException(CFileException::accessDenied);
 };
 
+// 4e6c98 (client: 4ec1c8)
 void File2::UnlockRange(ULONGLONG dwPos, ULONGLONG dwCount) {
-    //4e6c98
     AfxThrowFileException(CFileException::accessDenied);
 };
 
+// 4e6cb0 (client: 4ec1e0)
 void File2::Abort() {
-    //4e6cb0
 };
 
+// 4e6cbb (client: 4ec1eb)
 void File2::Flush() {
-    //4e6cbb
 };
 
+// 4e6cc6 (client: 4ec1f6)
 void File2::Close() {
-    //4e6cc6
     Resources::ResFiles.CloseFile(this->file);
     this->file = nullptr;
 };
 
 
+// 4e6a97 (client: 4ebfc7)
 void File2::Rewind() {
-    //4e6a97
     this->Seek(0, 0);
 }

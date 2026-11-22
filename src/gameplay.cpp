@@ -41,7 +41,7 @@ uint16_t* clr_log_tok2 = clrsh_ShockingBlack; //62f898
 uint16_t* clr_log_tok1 = clrsh_ShockingBlack; //62f89c
 uint16_t* clr_log_tok3 = clrsh_ShockingBlack; //62f8a0
 
-//476de7
+// 476de7 (client: 47ab33)
 void __cdecl SetMessageColors(uint32_t flag) {
     g_MessageColors = flag;
     if (flag == 0) {
@@ -58,10 +58,11 @@ void __cdecl SetMessageColors(uint32_t flag) {
 }
 
 
-GM_a28::~GM_a28() = default; //4020ad
+// 4020ad (client: 4020ad)
+GM_a28::~GM_a28() = default;
 
+// 401f50 (client: 401f50)
 GM_a28::GM_a28() {
-    //401f50
     this->elapsed_time = 0;
     this->dirty = 1;
 }
@@ -85,8 +86,8 @@ static CString TangarDoubleTilde(const char* str)
 }
 #endif
 
+// 4021fe (client: 4021fe)
 void GM_a28::Add(const char* msg, uint16_t* clr, uint32_t t) {
-    //4021fe
     this->dirty = 1;
 
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
@@ -129,8 +130,8 @@ void GM_a28::Add(const char* msg, uint16_t* clr, uint32_t t) {
     }
 }
 
+// 4023aa (client: 4023aa)
 void GM_a28::AddWithCheck(const char* msg, uint16_t* clr, uint32_t t) {
-    //4023aa
     this->dirty = 1;
 
     CStringArray& lines = g_font1->StringArrayForRect(this->out_area, msg);
@@ -165,15 +166,15 @@ void GM_a28::AddWithCheck(const char* msg, uint16_t* clr, uint32_t t) {
     }
 }
 
+// 4021d2 (client: 4021d2)
 void GM_a28::Clear() {
-    //4021d2
     this->text.RemoveAll();
     this->color.RemoveAll();
     this->times.RemoveAll();
 }
 
+// 40261a (client: 40261a)
 void GM_a28::Draw() {
-    //40261a
 
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 
@@ -211,8 +212,8 @@ void GM_a28::Draw() {
     }
 }
 
+// 40212b (client: 40212b)
 void GM_a28::SetRect(const CRect& r) {
-    //40212b
     this->out_area = r;
 
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
@@ -224,8 +225,8 @@ void GM_a28::SetRect(const CRect& r) {
     }
 }
 
+// 402585 (client: 402585)
 void GM_a28::Update() {
-    //402585
     if (this->text.GetSize() == 0) {
         return;
     }
@@ -248,21 +249,21 @@ void GM_a28::Update() {
 
 
 
-// 4AEE31
+// 4aee31 (client: 4b3771)
 void VisRightPanel::VMethod7() {
     CVisualObject::VMethod7();
 }
 
-// 4AEDCF
+// 4aedcf (client: 4b370f)
 VisRightPanel::VisRightPanel(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
     : CVisualObject(_id, l, t, r, b, nullptr) {
 }
 
-// 4B46E0
+// 4b4710 (client: 4b90e0)
 VisRightPanel::~VisRightPanel() {
 }
 
-// 4AEE44
+// 4aee44 (client: 4b3784)
 int32_t VisRightPanel::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     if (msg == WM_MOUSEMOVE && g_mousept.GetSelectState() != 0) {
         g_mousept.ResetStates();
@@ -270,7 +271,7 @@ int32_t VisRightPanel::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     return CVisualObject::MsgProc(msg, wparam, lparam);
 }
 
-// 4B4019
+// 4b4019 (client: 4b89ea)
 void VisSideStatus::UpdateCursor() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     CSprite256* cur_sprite = g_mousept.GetCursorSprite();
@@ -310,7 +311,7 @@ void VisSideStatus::UpdateCursor() {
     new_cursor->Use();
 }
 
-// 4B4190
+// 4b4190 (client: 4b8b61)
 void VisSideStatus::VMethod7() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     if (main_wnd->dialogsMask != DIALOG_MASK_INGAME) {
@@ -396,7 +397,7 @@ void VisSideStatus::VMethod7() {
     this->dirty = 0;
 }
 
-// 4B4490
+// 4b4490 (client: 4b8e5f)
 int32_t VisSideStatus::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     int32_t result = CVisualObject::MsgProc(msg, wparam, lparam);
 
@@ -425,7 +426,7 @@ int32_t VisSideStatus::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     return result;
 }
 
-// 4B45BB
+// 4b45bb (client: 4b8f8a)
 const char* VisSideStatus::GetHint() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     if (main_wnd->drag_entry != nullptr) {
@@ -451,17 +452,17 @@ const char* VisSideStatus::GetHint() {
     return unit->GetStatsHint(hint_x, hint_y);
 }
 
-// 4B3FA3
+// 4b3fa3 (client: 4b8974)
 VisSideStatus::VisSideStatus(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
     : CVisualObject(_id, l, t, r, b, nullptr) {
     this->dirty = 0;
 }
 
-// 4B4810
+// 4b4810 (client: 4b91e0)
 VisSideStatus::~VisSideStatus() {
 }
 
-// 4B0C84
+// 4b0c84 (client: 4b55b6)
 int32_t VisMiniMap::OnLButtonUp(uint32_t wparam, CPoint pos) {
     (void)wparam;
     (void)pos;
@@ -474,7 +475,7 @@ int32_t VisMiniMap::OnLButtonUp(uint32_t wparam, CPoint pos) {
 }
 
 
-// 4B0C2F
+// 4b0c2f (client: 4b5561)
 int32_t VisMiniMap::OnMouseMove(uint32_t wparam, CPoint pos) {
     if ((wparam & 1) != 0) {
         return this->OnLButtonDown(wparam, pos);
@@ -486,7 +487,7 @@ int32_t VisMiniMap::OnMouseMove(uint32_t wparam, CPoint pos) {
 }
 
 
-// 4B042E
+// 4b042e (client: 4b4d64)
 void VisMiniMap::UpdateCursor() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     CSprite256* cur_sprite = g_mousept.GetCursorSprite();
@@ -570,7 +571,7 @@ void VisMiniMap::UpdateCursor() {
 }
 
 
-// 4AF006
+// 4af006 (client: 4b3946)
 int32_t VisMiniMap::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     int32_t res = this->CVisualObject::MsgProc(msg, wparam, lparam);
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
@@ -600,7 +601,7 @@ int32_t VisMiniMap::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
 }
 
 
-// 4B0AAD
+// 4b0aad (client: 4b53df)
 int32_t VisMiniMap::OnRButtonDown(uint32_t wparam, CPoint pos) {
     VisPlayingArea* mc = this->map_context;
     (void)AfxGetMainWnd();
@@ -632,7 +633,7 @@ int32_t VisMiniMap::OnRButtonDown(uint32_t wparam, CPoint pos) {
 }
 
 
-// 4B0788
+// 4b0788 (client: 4b50be)
 int32_t VisMiniMap::OnLButtonDown(uint32_t wparam, CPoint pos) {
     VisPlayingArea* mc = this->map_context;
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
@@ -698,7 +699,7 @@ int32_t VisMiniMap::OnLButtonDown(uint32_t wparam, CPoint pos) {
 }
 
 
-// 4AF0DC
+// 4af0dc (client: 4b3a1c)
 void VisMiniMap::RebuildMap() {
     Scenario* scen = this->map_context->scenario;
     uint16_t mask = (uint16_t)(((0x3F >> (8 - g_RBits & 0x1F)) << (g_RBitShift & 0x1F))
@@ -835,7 +836,7 @@ void VisMiniMap::RebuildMap() {
 }
 
 
-// 4AFB8E
+// 4afb8e (client: 4b44c4)
 void VisMiniMap::VMethod7() {
     VisPlayingArea* mc = this->map_context;
     if (mc == nullptr) {
@@ -983,7 +984,7 @@ void VisMiniMap::VMethod7() {
 }
 
 
-// 4AEEC3
+// 4aeec3 (client: 4b3803)
 VisMiniMap::VisMiniMap(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : CVisualObject(_id, l, t, r, b, nullptr) {
     this->bitmap1 = nullptr;
@@ -991,7 +992,7 @@ VisMiniMap::VisMiniMap(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 }
 
 
-// 4AEF4D (scalar deleting dtor ??_G at 4B4730)
+// 4aef4d (client: 4b388d) - (scalar deleting dtor ??_G at 4B4730)
 VisMiniMap::~VisMiniMap() {
     if (this->bitmap1 != nullptr) {
         delete this->bitmap1;
@@ -1001,7 +1002,7 @@ VisMiniMap::~VisMiniMap() {
     }
 }
 
-// 43AB28
+// 43ab28 (client: 43cf38)
 Vis1200obj::Vis1200obj(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint)
     : CVisualObject(_id, l, t, r, b, hint) {
     this->font = _font;
@@ -1012,10 +1013,10 @@ Vis1200obj::Vis1200obj(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, 
     this->flags |= 2;
 }
 
-// 43BFA0 (deleting dtor; the complete dtor 43AC08 only sets the vtable and calls the member dtors)
+// 43ac08 (client: 43d017) - (deleting dtor; the complete dtor 43AC08 only sets the vtable and calls the member dtors)
 Vis1200obj::~Vis1200obj() = default;
 
-// 43B32F
+// 43b32f (client: 43d73e)
 void Vis1200obj::VMethod7() {
     CString line;
     CRect screen_rect;
@@ -1042,7 +1043,7 @@ void Vis1200obj::VMethod7() {
     }
 }
 
-// 43B159
+// 43b159 (client: 43d564)
 int32_t Vis1200obj::OnKeyDown(uint32_t wparam) {
     int32_t result = 0;
     switch (wparam) {
@@ -1070,7 +1071,7 @@ int32_t Vis1200obj::OnKeyDown(uint32_t wparam) {
     return result;
 }
 
-// 43B283
+// 43b283 (client: 43d692)
 int32_t Vis1200obj::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     if (msg == VIS_MSG_FRAME_TICK) {
         this->blink_now_tick = timeGetTime();
@@ -1088,8 +1089,7 @@ int32_t Vis1200obj::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     return CVisualObject::MsgProc(msg, wparam, lparam);
 }
 
-// 43B240
-// client: 43d64b
+// 43b240 (client: 43d64b)
 int32_t Vis1200obj::OnChar(uint32_t wparam) {
 #if defined(A2CLIENT) && !defined(A2CLIENT_PATCH)
     if (wparam < ' ' || wparam == 0x7F || wparam == '~') {
@@ -1103,7 +1103,7 @@ int32_t Vis1200obj::OnChar(uint32_t wparam) {
     return 1;
 }
 
-// 43AD35
+// 43ad35 (client: 43d144)
 void Vis1200obj::WriteData(void* buf) {
     CString* out = (CString*)buf;
     for (int32_t i = 0; i < this->history.GetSize(); i++) {
@@ -1111,32 +1111,32 @@ void Vis1200obj::WriteData(void* buf) {
     }
 }
 
-// 43ACCA
+// 43acca (client: 43d0d9)
 void Vis1200obj::ReadData(const void* buf) {
     this->input_line = (const char*)buf;
 }
 
-// 43C020
+// 43c020 (client: 43e3b0)
 uint32_t Vis1200obj::DataSize() {
     return 4;
 }
 
-// 497330
+// 497330 (client: 49a9b0)
 int32_t Vis1200obj::GetMatchNameLength() {
     return this->match_name_length;
 }
 
-// 4972F0
+// 4972f0 (client: 49a970)
 int32_t Vis1200obj::GetMatchPlayerIndex() {
     return this->match_player_index;
 }
 
-// 43AD86
+// 43ad86 (client: 43d195) - commit current line to history
 void Vis1200obj::SaveHistoryBackup() {
     this->history_backup.Copy(this->history);
 }
 
-// 43AC8C
+// 43ac8c (client: 43d09b) - reset input/history state
 void Vis1200obj::ResetInputState() {
     this->match_player_index = -1;
     this->match_name_length = 0;
@@ -1144,7 +1144,7 @@ void Vis1200obj::ResetInputState() {
     this->input_line.Empty();
 }
 
-// 43ADA3
+// 43ada3 (client: 43d1b2) - recall previous line from history
 void Vis1200obj::RecallHistoryPrev() {
     this->history.Copy(this->history_backup);
     this->input_line.Empty();
@@ -1154,7 +1154,7 @@ void Vis1200obj::RecallHistoryPrev() {
     }
 }
 
-// 43AE1C
+// 43ae1c (client: 43d22b)
 void Vis1200obj::AppendInputChar(uint8_t ch) {
     if (this->font->GetStrWidth(this->input_line) + this->font->GetStrWidth("_") < this->rect.Width()) {
         this->input_line += (char)ch;
@@ -1175,7 +1175,7 @@ void Vis1200obj::AppendInputChar(uint8_t ch) {
     }
 }
 
-// 43B03A
+// 43b03a (client: 43d445)
 void Vis1200obj::BackspaceInputChar() {
     this->input_line = this->input_line.Left(this->input_line.GetLength() - 1);
     this->input_line.TrimLeft();
@@ -1186,7 +1186,7 @@ void Vis1200obj::BackspaceInputChar() {
     }
 }
 
-// 43aae0
+// 43aae0 (client: 43cef0) - chat separator test (' ', ',', '.', ':', ';')
 int32_t IsWordSeparator(char ch) {
     if (ch == ' ' || ch == ',' || ch == '.' || ch == ':' || ch == ';') {
         return 1;
@@ -1194,7 +1194,7 @@ int32_t IsWordSeparator(char ch) {
     return 0;
 }
 
-// 476236
+// 476236 (client: 479f82) - lowercase respecting DOS CP
 void MakeLowerDosCp(CString* str) {
     CString lowered(*str);
     lowered.MakeLower();
@@ -1215,7 +1215,7 @@ void MakeLowerDosCp(CString* str) {
     }
 }
 
-// 476987
+// 476987 (client: 47a6d3) - insert thousands separators
 void InsertThousandsSeparators(CString* str) {
     CString work(*str);
     int32_t len = work.GetLength();
@@ -1236,7 +1236,7 @@ void InsertThousandsSeparators(CString* str) {
     *str = work + *str;
 }
 
-// 43B724
+// 43b724 (client: 43db33)
 void Vis1200obj::CompletePlayerName() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     VisPlayingArea* map = main_wnd->vis_map_context;
@@ -1286,7 +1286,7 @@ void Vis1200obj::CompletePlayerName() {
     map->full_redraw_requested = 1;
 }
 
-// 43BA75
+// 43ba75 (client: 43de84)
 void Vis1200obj::DeletePreviousWord() {
     int32_t pos = this->input_line.GetLength() - 1;
     if (pos == -1) {
@@ -1299,7 +1299,7 @@ void Vis1200obj::DeletePreviousWord() {
     this->BackspaceInputChar();
 }
 
-// 43B504
+// 43b504 (client: 43d913)
 void Vis1200obj::DrawInputLine(CString* str) {
     CRect screen_rect;
     this->ClientRectToScreen(&screen_rect, this->rect);
@@ -1331,7 +1331,7 @@ void Vis1200obj::DrawInputLine(CString* str) {
     }
 }
 
-// 43BE9F
+// 43be9f (client: 43e2ae)
 void Vis1200::RepositionAboveDialogs() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     VisPlayingArea* map = (VisPlayingArea*)this->parent;
@@ -1347,7 +1347,7 @@ void Vis1200::RepositionAboveDialogs() {
     this->rect = CRect(top_left, size);
 }
 
-// 43BC3C
+// 43bc3c (client: 43e04b)
 void Vis1200::VMethod26() {
     this->text_block = new Vis1200obj(4, 0, 0, this->rect.Width(), g_font1->GetHeight() * 3, g_font1, clrsh_ShockingBlack, nullptr);
     this->rect.BottomRight().y = this->rect.TopLeft().y + g_font1->GetHeight() * 3 + 4;
@@ -1364,7 +1364,7 @@ static CList<CStringArray*, CStringArray*> s_sent_history;
 static int32_t s_history_index = 0;
 #endif
 
-// 43BDEC
+// 43bdec (client: 43e1fb)
 int32_t Vis1200::OnKeyDown(uint32_t wparam) {
 #ifdef A2CLIENT_PATCH
     // CHAT_keyDown hook (43E1FB): Up/Down navigate the sent-message
@@ -1430,7 +1430,7 @@ int32_t Vis1200::OnKeyDown(uint32_t wparam) {
 #endif
 }
 
-// 43BD2E
+// 43bd2e (client: 43e13d)
 void Vis1200::VMethod28() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     main_wnd->console_active = 1;
@@ -1441,12 +1441,12 @@ void Vis1200::VMethod28() {
     this->text_block->blink_last_tick = timeGetTime();
 }
 
-// 43BDCB
+// 43bdcb (client: 43e1da)
 int32_t Vis1200::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     return VisScreen::MsgProc(msg, wparam, lparam);
 }
 
-// 43BD96
+// 43bd96 (client: 43e1a5)
 void Vis1200::DoClose(uint32_t code) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     main_wnd->console_active = 0;
@@ -1454,38 +1454,38 @@ void Vis1200::DoClose(uint32_t code) {
     VisScreen::DoClose(code);
 }
 
-// 43BE80
+// 43be80 (client: 43e28f)
 void Vis1200::VMethod7() {
     if (this->active != 0) {
         VisScreen::VMethod7();
     }
 }
 
-// 4972D0
+// 4972d0 (client: 49a950)
 int32_t Vis1200::GetMatchPlayerIndex() {
     return this->text_block->GetMatchPlayerIndex();
 }
 
-// 497310
+// 497310 (client: 49a990)
 int32_t Vis1200::GetMatchNameLength() {
     return this->text_block->GetMatchNameLength();
 }
 
-// 43BE73
+// 43be73 (client: 43e282)
 void Vis1200::VMethod8(CRect* rect) {
 }
 
-// 43BB70
+// 43bb70 (client: 43df7f)
 Vis1200::Vis1200(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
     : VisScreen(_id, l, t, r, b, nullptr) {
     this->VMethod26();
 }
 
-// 43C000
+// 43c000 (client: 43e420)
 Vis1200::~Vis1200() {
 }
 
-// 4B12E3
+// 4b12e3 (client: 4b5c15)
 void VisOrderToolbar::VMethod7() {
     CRect screen_rect;
     this->ClientRectToScreen(&screen_rect, this->rect);
@@ -1516,7 +1516,7 @@ void VisOrderToolbar::VMethod7() {
     }
 }
 
-// 4B107B
+// 4b107b (client: 4b59ad)
 int32_t VisOrderToolbar::OnLButtonDown(uint32_t wparam, CPoint pos) {
     CRect screen_rect;
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
@@ -1552,7 +1552,7 @@ int32_t VisOrderToolbar::OnLButtonDown(uint32_t wparam, CPoint pos) {
     return 1;
 }
 
-// 4B0ED1
+// 4b0ed1 (client: 4b5803)
 int32_t VisOrderToolbar::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     int32_t result = CVisualObject::MsgProc(msg, wparam, lparam);
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
@@ -1605,7 +1605,7 @@ int32_t VisOrderToolbar::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
     return result;
 }
 
-// 4B0D9A
+// 4b0d9a (client: 4b56cc)
 const char* VisOrderToolbar::GetHint() {
     if (this->enabled != 0) {
         MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
@@ -1628,7 +1628,7 @@ const char* VisOrderToolbar::GetHint() {
     return nullptr;
 }
 
-// 4B0CFC
+// 4b0cfc (client: 4b562e)
 VisOrderToolbar::VisOrderToolbar(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
     : CVisualObject(_id, l, t, r, b, nullptr) {
     this->selected_order = 0xffffffff;
@@ -1636,11 +1636,11 @@ VisOrderToolbar::VisOrderToolbar(int32_t _id, int32_t l, int32_t t, int32_t r, i
     this->dirty = 0;
 }
 
-// 4B4790
+// 4b4790 (client: 4b9160)
 VisOrderToolbar::~VisOrderToolbar() {
 }
 
-// 4B12B3
+// 4b12b3 (client: 4b5be5)
 int32_t VisOrderToolbar::OnMouseMove(uint32_t wparam, CPoint pos) {
     if ((wparam & 1) != 0) {
         this->OnLButtonDown(wparam, pos);
@@ -1648,12 +1648,12 @@ int32_t VisOrderToolbar::OnMouseMove(uint32_t wparam, CPoint pos) {
     return 0;
 }
 
-// 4B1213
+// 4b1213 (client: 4b5b45)
 int32_t VisOrderToolbar::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
     return this->OnLButtonDown(wparam | 1, pos);
 }
 
-// 4B124C
+// 4b124c (client: 4b5b7e)
 int32_t VisOrderToolbar::OnLButtonUp(uint32_t wparam, CPoint pos) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     if (main_wnd->drag_entry != nullptr) {
@@ -1663,22 +1663,22 @@ int32_t VisOrderToolbar::OnLButtonUp(uint32_t wparam, CPoint pos) {
     return 1;
 }
 
-// 4B1287
+// 4b1287 (client: 4b5bb9)
 int32_t VisOrderToolbar::OnRButtonUp(uint32_t wparam, CPoint pos) {
     return this->map_context->MsgProc(VIS_MSG_CANCEL_ORDER, 0, 0);
 }
 
-// 4B1201
+// 4b1201 (client: 4b5b33)
 int32_t VisOrderToolbar::OnRButtonDown(uint32_t wparam, CPoint pos) {
     return 1;
 }
 
-// 4B123A
+// 4b123a (client: 4b5b6c)
 int32_t VisOrderToolbar::OnRButtonDblClk(uint32_t wparam, CPoint pos) {
     return 1;
 }
 
-// 4B1468
+// 4b1468 (client: 4b5d9a)
 void VisOrderToolbar::UpdateCursor() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     CSprite256* cur_sprite = g_mousept.GetCursorSprite();

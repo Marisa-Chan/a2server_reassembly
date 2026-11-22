@@ -22,16 +22,16 @@ struct IDirectSoundBuffer;
 // One in-flight video. Field/method comments give the binary counterpart.
 class SmackerPlayer {
 public:
-    SmackerPlayer();  // 4c6e49
-    ~SmackerPlayer(); // 4c6f60
+    SmackerPlayer(); // 4c6e49 (client: 4cb7e9)
+    ~SmackerPlayer(); // 4c6f60 (client: 4cb900)
 
-    void SetHwnd(HWND hwnd);                          // 497510
-    void SetPos(int32_t x, int32_t y);                // 4974e0
-    bool Open(const char* path, int32_t pane_w, int32_t pane_h); // 4c77c2 (+ 4c733e)
-    void GetVideoSize(int32_t* w, int32_t* h) const;  // 4c775a
-    void SetPaneSize(int32_t r, int32_t b);           // 4c779d
-    bool DoFrame();                                   // 4c716a(obj, 1)
-    void Stop();                                      // 4c7d14
+    void SetHwnd(HWND hwnd); // 497510 (client: 49abf0)
+    void SetPos(int32_t x, int32_t y); // 4974e0 (client: 49abc0)
+    bool Open(const char* path, int32_t pane_w, int32_t pane_h); // 4c77c2 (client: 4cc161) - (+ 4c733e)
+    void GetVideoSize(int32_t* w, int32_t* h) const; // 4c775a (client: 4cc0f9)
+    void SetPaneSize(int32_t r, int32_t b); // 4c779d (client: 4cc13c)
+    bool DoFrame(); // 4c716a (client: 4cbb0a) - (obj, 1)
+    void Stop(); // 4c7d14 (client: 4cc6b3)
 
 private:
     struct Fading {     // 16 bytes, like the binary's Fading entries
@@ -48,8 +48,8 @@ private:
         int32_t stepy;
     };
 
-    void Close();       // 4c7556 (+ the wrapper free of 4c6db3, done in Stop/dtor)
-    void RenderFrame(); // SmackDoFrame + SmackBlitSetPalette + SmackBlit + unlock/present
+    void Close(); // 4c7556 (client: 4cbef5) - (+ the wrapper free of 4c6db3, done in Stop/dtor)
+    void RenderFrame(); // 4c70a1 (client: 4cba41) - SmackDoFrame + SmackBlitSetPalette + SmackBlit + unlock/present
     void CreateAudioBuffer(uint8_t channels, uint8_t bitdepth, uint32_t rate);
     void WriteAudioChunk(const uint8_t* data, uint32_t size);
 
@@ -110,4 +110,4 @@ private:
 // frame, 0 when the user cancelled it (mouse button, key press or window
 // close/quit - the driver's skip rules). Address: FUN_0049229c
 // (client twin 496ae7, line-identical).
-int32_t PlaySmackerVideo(HWND hwnd, const char* path);
+int32_t PlaySmackerVideo(HWND hwnd, const char* path); // 49229c (client: 496ae7)

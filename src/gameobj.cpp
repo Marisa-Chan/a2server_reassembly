@@ -58,8 +58,8 @@ IMPLEMENT_DYNAMIC(CVerticalWoodenBridge, CBridge);
 //GetRuntimeClass 461060
 IMPLEMENT_DYNAMIC(CHorisontalWoodenBridge, CBridge);
 
+// 4610b0 (client: 464cc0)
 CGameObject::CGameObject() {
-    //4610b0
     this->unit_id = 0;
     this->x_pos = 0;
     this->y_pos = 0;
@@ -119,8 +119,8 @@ CGameObject::CGameObject() {
     this->str2[0] = 0;
 }
 
+// 4612f2 (client: 464f02)
 CGameObject::CGameObject(const CGameObject* obj) {
-    //4612f2
     this->unit_id = obj->unit_id;
     this->x_pos = obj->x_pos;
     this->y_pos = obj->y_pos;
@@ -186,7 +186,8 @@ CGameObject::CGameObject(const CGameObject* obj) {
 }
 
 
-void CGameObject::AssertValid() const { //461dfa
+// 461dfa (client: 465a0a)
+void CGameObject::AssertValid() const {
     MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 
     if ((mwnd->dialogsMask & DIALOG_MASK_INGAME) != 0 && 
@@ -204,11 +205,13 @@ void CGameObject::AssertValid() const { //461dfa
     }
 }
 
-void CGameObject::Dump(CDumpContext& dc) const { //461de0
+// 461de0 (client: 4659f0)
+void CGameObject::Dump(CDumpContext& dc) const {
     //dc << "CGameObject";
 }
 
-CGameObject::~CGameObject() { //46178a
+// 46178a (client: 46539a)
+CGameObject::~CGameObject() {
     for (int i = 0; i < this->tokenEntries.GetSize(); i++) {
         delete this->tokenEntries[i];
     }
@@ -217,13 +220,15 @@ CGameObject::~CGameObject() { //46178a
 }
 
 
-void CGameObject::AddControlGroup(int32_t grp) { //41f180
+// 41f180 (client: 420db0)
+void CGameObject::AddControlGroup(int32_t grp) {
     this->controlGroupMask |= 1 << grp;
     this->m_bSelectionDirty = 1;
 }
 
 
-void CGameObject::UpdateMapPosition() { //46190d
+// 46190d (client: 46551d)
+void CGameObject::UpdateMapPosition() {
     VisPlayingArea* map = this->pMapObject;
 
     this->tileX = this->x_pos2 >> 8;
@@ -292,7 +297,8 @@ void CGameObject::UpdateMapPosition() { //46190d
 }
 
 
-void CGameObject::SetTileLayerCell(int32_t layer_id, CGameObject* obj) { //461c41
+// 461c41 (client: 465851)
+void CGameObject::SetTileLayerCell(int32_t layer_id, CGameObject* obj) {
     if (this->mapLayerActive == 0) {
         return;
     }
@@ -332,7 +338,8 @@ void CGameObject::SetTileLayerCell(int32_t layer_id, CGameObject* obj) { //461c4
 }
 
 
-int32_t CGameObject::GetDirTo(int32_t x, int32_t y) { //461f8e
+// 461f8e (client: 465b9e)
+int32_t CGameObject::GetDirTo(int32_t x, int32_t y) {
     int32_t dx = x - this->x_pos;
     int32_t dy = y - this->y_pos;
     int32_t adx = abs(dx);
@@ -368,7 +375,8 @@ int32_t CGameObject::GetDirTo(int32_t x, int32_t y) { //461f8e
 }
 
 
-int32_t CGameObject::FindEffectTimer(int32_t effect_id) { //462405
+// 462405 (client: 46600b)
+int32_t CGameObject::FindEffectTimer(int32_t effect_id) {
     for (int32_t i = 0; i < this->effect_timers.GetSize(); i++) {
         if ((this->effect_timers[i] >> 16) == effect_id) {
             return i;
@@ -378,7 +386,8 @@ int32_t CGameObject::FindEffectTimer(int32_t effect_id) { //462405
 }
 
 
-int32_t CGameObject::GetControlGroup() { //41f220
+// 41f220 (client: 420e70)
+int32_t CGameObject::GetControlGroup() {
     for (int32_t grp = 0; grp < 0x20; grp++) {
         if (this->controlGroupMask & (1 << grp)) {
             return grp;
@@ -388,87 +397,104 @@ int32_t CGameObject::GetControlGroup() { //41f220
 }
 
 
-void CGameObject::RemoveControlGroup(int32_t grp) { //41f1f0
+// 41f1f0 (client: 420d80)
+void CGameObject::RemoveControlGroup(int32_t grp) {
     this->controlGroupMask &= ~(1 << grp);
 }
 
 
-void CGameObject::SetControlGroup(int32_t grp) { //41f150
+// 41f150 (client: 420d50)
+void CGameObject::SetControlGroup(int32_t grp) {
     this->controlGroupMask = 1 << grp;
     this->m_bSelectionDirty = 1;
 }
 
 
-int32_t CGameObject::IsBlocked() { //41f130
+// 41f130 (client: 4206c0)
+int32_t CGameObject::IsBlocked() {
     return this->bIsBlocked;
 }
 
 
 
-void CGameObject::SetSelected(int32_t selected) { //46f430
+// 46f430 (client: 472c30)
+void CGameObject::SetSelected(int32_t selected) {
     this->m_bSelected = selected;
     this->m_bSelectionDirty = 1;
 }
 
 
-int32_t CGameObject::VMethod2() { //46f460
+// 46f460 (client: 472c60)
+int32_t CGameObject::VMethod2() {
     return 0;
 }
 
 
-int32_t CGameObject::VMethod3() { //46f470
+// 46f470 (client: 472c70)
+int32_t CGameObject::VMethod3() {
     return 0;
 }
 
 
-int32_t CGameObject::GetTileWidth() { //46f480
+// 46f480 (client: 472c80)
+int32_t CGameObject::GetTileWidth() {
     return 0;
 }
 
 
-int32_t CGameObject::GetTileHeight() { // 46f490
+// 46f490 (client: 472c90)
+int32_t CGameObject::GetTileHeight() {
     return 0;
 }
 
 
-void CGameObject::Draw(int32_t tile_x, int32_t tile_y, int32_t light) { //46f4a0
+// 46f4a0 (client: 472ca0)
+void CGameObject::Draw(int32_t tile_x, int32_t tile_y, int32_t light) {
 }
 
 
-void CGameObject::DrawShadow(int32_t tile_x, int32_t tile_y, int32_t light) { //46f4b0
+// 46f4b0 (client: 472cb0)
+void CGameObject::DrawShadow(int32_t tile_x, int32_t tile_y, int32_t light) {
 }
 
 
-void CGameObject::DrawHealthBar(int32_t tile_x, int32_t tile_y, int32_t hgt) { //46f4c0
+// 46f4c0 (client: 472cc0)
+void CGameObject::DrawHealthBar(int32_t tile_x, int32_t tile_y, int32_t hgt) {
 }
 
 
-void CGameObject::DrawMinimapRect(int32_t x, int32_t y, int32_t zoom) { //46f4d0
+// 46f4d0 (client: 472cd0)
+void CGameObject::DrawMinimapRect(int32_t x, int32_t y, int32_t zoom) {
 }
 
 
-void CGameObject::UpdateTileLayer() { //46f4e0
+// 46f4e0 (client: 472ce0)
+void CGameObject::UpdateTileLayer() {
 }
 
 
-int32_t CGameObject::Update() { //461f73
+// 461f73 (client: 465b83)
+int32_t CGameObject::Update() {
     this->UpdateOccupancy();
     return 1;
 }
 
 
-void CGameObject::UpdateLight() { //46f4f0
+// 46f4f0 (client: 472cf0)
+void CGameObject::UpdateLight() {
 }
 
 
-void CGameObject::UpdateOccupancy() { //462190
+// 462190 (client: 465da0)
+void CGameObject::UpdateOccupancy() {
     if (this->pMapObject->my_main_unit->SharesVisionWithUs(this->map_player->index) != 0 && this->scan_range != 0 && (this->screenX & 0x1f) == 0x10 && (this->screenY & 0x1f) == 0x10 && (this->x_pos != this->occupiedLocation.x || this->y_pos != this->occupiedLocation.y)) {
         this->MarkOccupancy();
     }
 }
 
 
-void CGameObject::MarkOccupancy() { //462226
+// 462226 (client: 465e36)
+void CGameObject::MarkOccupancy() {
     if (this->pMapObject->my_main_unit->SharesVisionWithUs(this->map_player->index) != 0 && this->scan_range != 0) {
         this->pMapObject->minimap_dirty = 1;
 
@@ -502,7 +528,8 @@ void CGameObject::MarkOccupancy() { //462226
 }
 
 
-int32_t CGameObject::UpdateBlockedState() { //46207a
+// 46207a (client: 465c8a)
+int32_t CGameObject::UpdateBlockedState() {
     uint16_t* land = this->pMapObject->scenario->GetLandscape();
 
     int32_t idx = this->tileX + this->pMapObject->map_width * this->tileY;
@@ -517,10 +544,12 @@ int32_t CGameObject::UpdateBlockedState() { //46207a
     return 1;
 }
 
-void CGameObject::UpdateTransientVisualElements() { // 46f500
+// 46f500 (client: 472d00)
+void CGameObject::UpdateTransientVisualElements() {
 }
 
-void CGameObject::SetVals(uint16_t uni_id, int type_id, int32_t xpos, int32_t ypos, int32_t unk1, int32_t unk2, int32_t _phase, int32_t _speed, int32_t _hp) { //46187d
+// 46187d (client: 46548d)
+void CGameObject::SetVals(uint16_t uni_id, int type_id, int32_t xpos, int32_t ypos, int32_t unk1, int32_t unk2, int32_t _phase, int32_t _speed, int32_t _hp) {
     this->unit_id = uni_id;
     this->x_pos = xpos;
     this->x_pos2 = xpos;
@@ -539,27 +568,30 @@ void CGameObject::SetVals(uint16_t uni_id, int type_id, int32_t xpos, int32_t yp
 
 
 
-TokenEntry::~TokenEntry() { //4394bf
+// 4394bf (client: 43b7dd)
+TokenEntry::~TokenEntry() {
     if (this->mods) {
         free(this->mods);
     }
 }
 
-TokenEntry::TokenEntry() = default; //438f90
+// 438f90 (client: 43b2b0)
+TokenEntry::TokenEntry() = default;
 
 
-TokenEntry::TokenEntry(int id1) { //439009
+// 439009 (client: 43b329)
+TokenEntry::TokenEntry(int id1) {
     this->match_id = id1;
 }
 
 
+// 439465 (client: 43b783)
 TokenEntry::TokenEntry(const TokenEntry* obj) {
-    //439465
     operator=(*obj);
 }
 
+// 439102 (client: 43b422)
 TokenEntry::TokenEntry(uint8_t** data, int id1) {
-    //439102
     this->slot_code = 0;
     this->gap_0x14 = 0;
     this->gap_0x1c = -1;
@@ -643,8 +675,8 @@ TokenEntry::TokenEntry(uint8_t** data, int id1) {
     *data = pdata;
 }
 
+// 43a3cd (client: 43c6cb)
 void TokenEntry::operator=(const TokenEntry& obj) {
-    //43a3cd
     this->match_id = obj.match_id;
     this->item_id = obj.item_id;
     this->flg = obj.flg;
@@ -667,7 +699,8 @@ void TokenEntry::operator=(const TokenEntry& obj) {
 }
 
 
-const char* TokenEntry::GetHintText() { //439973
+// 439973 (client: 43bc8f)
+const char* TokenEntry::GetHintText() {
     char buffer[0x80];
 
     g_Destination[0] = '\0';
@@ -850,7 +883,8 @@ const char* TokenEntry::GetHintText() { //439973
 }
 
 
-int32_t TokenEntry::IsTwoHandedWeapon() { //4396fb
+// 4396fb (client: 43ba17)
+int32_t TokenEntry::IsTwoHandedWeapon() {
     char str[0x50];
 
     strcpy(str, txt_heropicture.GetLine(this->GetId() - 1));
@@ -878,7 +912,8 @@ int32_t TokenEntry::IsTwoHandedWeapon() { //4396fb
 }
 
 
-int32_t TokenEntry::IsQuestItem() { //43a5e5
+// 43a5e5 (client: 43c8e3)
+int32_t TokenEntry::IsQuestItem() {
     if (this->GetType() != TYPE_SPELL) {
         return 0;
     }
@@ -900,7 +935,8 @@ int32_t TokenEntry::IsQuestItem() { //43a5e5
 }
 
 
-int32_t TokenEntry::IsQuestTreasure() { //43a6d5
+// 43a6d5 (client: 43c9d3)
+int32_t TokenEntry::IsQuestTreasure() {
     if (this->GetType() != TYPE_SPELL) {
         return 0;
     }
@@ -909,7 +945,7 @@ int32_t TokenEntry::IsQuestTreasure() { //43a6d5
     return item.name == "Quest Treasure";
 }
 
-// client: 43ca26
+// server: none (client: 43ca26)
 int32_t TokenEntry::IsPotion() {
     if (this->GetType() != TYPE_SPELL) {
         return 0;
@@ -919,7 +955,7 @@ int32_t TokenEntry::IsPotion() {
     return item.name.Find("Potion") == 0;
 }
 
-// client: 43ca7a
+// server: none (client: 43ca7a)
 int32_t TokenEntry::IsScroll() {
     if (this->GetType() != TYPE_SPELL) {
         return 0;
@@ -933,7 +969,8 @@ int32_t TokenEntry::IsScroll() {
 }
 
 
-int32_t TokenEntry::RemoveCount(int32_t num) { //4a7880
+// 4a7880 (client: 4ab960)
+int32_t TokenEntry::RemoveCount(int32_t num) {
     this->count -= num;
 
     if ((int32_t)this->count > 0) {
@@ -945,7 +982,8 @@ int32_t TokenEntry::RemoveCount(int32_t num) { //4a7880
 }
 
 
-int32_t TokenEntry::IsDepleted() { //4a78c0
+// 4a78c0 (client: 4ab860)
+int32_t TokenEntry::IsDepleted() {
     if (this->IsEmpty() == 0 && this->count == 0) {
         return 1;
     }
@@ -954,24 +992,28 @@ int32_t TokenEntry::IsDepleted() { //4a78c0
 }
 
 
-int TokenEntry::HasKnownName() { //4396d6
+// 4396d6 (client: 43b9f4)
+int TokenEntry::HasKnownName() {
     void* ptr = nullptr;
     return g_ItemNameMap.Lookup(this->item_id, ptr);
 }
 
 
-int32_t TokenEntry::IsEmpty() { //41f0d0
+// 41f0d0 (client: 420930)
+int32_t TokenEntry::IsEmpty() {
     return this->item_id == ItemId::EMPTY_EQUIP_SLOT;
 }
 
 
-int32_t TokenEntry::AddCount(int32_t num) { //4a7850
+// 4a7850 (client: 4ab8a0)
+int32_t TokenEntry::AddCount(int32_t num) {
     this->count += num;
     return 1;
 }
 
 
-CString TokenEntry::GetSpriteName() { //4394f3
+// 4394f3 (client: 43b811)
+CString TokenEntry::GetSpriteName() {
     char buffer[0x50];
 
     if (this->GetType() == TYPE_SPELL) {
@@ -984,7 +1026,8 @@ CString TokenEntry::GetSpriteName() { //4394f3
 }
 
 
-int32_t TokenEntry::IsStackableWith(TokenEntry* other) { //4a7900
+// 4a7900 (client: 4ab8d0)
+int32_t TokenEntry::IsStackableWith(TokenEntry* other) {
     if (this == other) {
         return 1;
     }
@@ -1007,7 +1050,8 @@ int32_t TokenEntry::IsStackableWith(TokenEntry* other) { //4a7900
 }
 
 
-int32_t TokenEntry::GetFirstModAttrId() { //43988e
+// 43988e (client: 43bbaa)
+int32_t TokenEntry::GetFirstModAttrId() {
     const uint8_t* p = (const uint8_t*)this->mods;
 
     for (int32_t i = 0; i < this->mods_count; i++) {
@@ -1055,7 +1099,8 @@ int32_t TokenEntry::GetFirstModAttrId() { //43988e
 
 
 
-CUnit::CUnit() { //46411c
+// 46411c (client: 467de9)
+CUnit::CUnit() {
     this->mp_max = 0;
     this->mp = 0;
     this->lastVoicePlaybackTick = 0;
@@ -1076,7 +1121,8 @@ CUnit::CUnit() { //46411c
     this->special_stat_kind = 0;
 }
 
-CUnit::~CUnit() { //46459d
+// 46459d (client: 46826a)
+CUnit::~CUnit() {
     for (TokenEntry* eq : this->equipmentTokens) {
         if (eq) {
             delete eq;
@@ -1092,7 +1138,8 @@ CUnit::~CUnit() { //46459d
     }
 }
 
-void CUnit::RenderHeroPortrait(const char* str, CBmp64* bmp1, CGameBitmap* bmp2) { // 469ffc
+// 469ffc (client: 46dd6a)
+void CUnit::RenderHeroPortrait(const char* str, CBmp64* bmp1, CGameBitmap* bmp2) {
     if (bmp1 != nullptr && bmp1->GetData() != nullptr) {
         memset(bmp1->GetData(), 0, bmp1->GetWidth(0) * bmp1->GetHeight(0) * 2);
     }
@@ -1451,7 +1498,8 @@ void CUnit::RenderHeroPortrait(const char* str, CBmp64* bmp1, CGameBitmap* bmp2)
 }
 
 
-void CUnit::CopyFromUnit(const Unit& uni) { //46b0d7
+// 46b0d7 (client: 46ee45)
+void CUnit::CopyFromUnit(const Unit& uni) {
     this->typeId = uni.typeId;
     this->ApplyFace(uni.face);
     this->body = uni.body;
@@ -1554,7 +1602,8 @@ void CUnit::CopyFromUnit(const Unit& uni) { //46b0d7
     this->ReloadSprite();
 }
 
-void CUnit::ApplyFace(int32_t _face) { //46b7d2
+// 46b7d2 (client: 46f540)
+void CUnit::ApplyFace(int32_t _face) {
 
     this->face = _face;
 
@@ -1589,7 +1638,8 @@ void CUnit::ApplyFace(int32_t _face) { //46b7d2
     }
 }
 
-void CUnit::ReloadSprite() { // 46b91c
+// 46b91c (client: 46f688)
+void CUnit::ReloadSprite() {
     if ((this->unitFlags & UNIT_FLAG_PLAYER_CLASS) != 0) {
         CString sname;
 
@@ -1701,7 +1751,8 @@ void CUnit::ReloadSprite() { // 46b91c
     }
 }
 
-void CGameObject::DrawBarFill(int32_t left, int32_t right, int32_t y, int32_t fill_width, uint16_t color_lo, uint16_t color_mid, uint16_t color_hi) { // 46246B
+// 46246b (client: 466071)
+void CGameObject::DrawBarFill(int32_t left, int32_t right, int32_t y, int32_t fill_width, uint16_t color_lo, uint16_t color_mid, uint16_t color_hi) {
     VisPlayingArea* map = this->pMapObject;
     if (map->show_hp != 0 && this->IsSelected() == 0) {
         ShadowRect(CRect(left + 4, y - 2, left + fill_width + 4, y + 2), shadow_level::char_selected);
@@ -1720,7 +1771,8 @@ void CGameObject::DrawBarFill(int32_t left, int32_t right, int32_t y, int32_t fi
     FillRectColorSimple(left + 4, y, left + fill_width + 4, y + 1, color_mid);
 }
 
-void CGameObject::DrawControlGroupNumber(int32_t x, int32_t y) { // 4627BB
+// 4627bb (client: 4663b3)
+void CGameObject::DrawControlGroupNumber(int32_t x, int32_t y) {
     VisPlayingArea* map = this->pMapObject;
     int32_t group = this->GetControlGroup();
     if (group < 0) {
@@ -1737,8 +1789,8 @@ void CGameObject::DrawControlGroupNumber(int32_t x, int32_t y) { // 4627BB
     g_font3->DrawTextWithShadow(x, y, buf, CGameFont::ALIGN_LEFT_TOP, shadow, 1);
 }
 
-void CUnit::DrawHealthBar(int32_t tile_x, int32_t tile_y, int32_t hgt) { // 466a78
-    // client: 46a757
+// 466a78 (client: 46a757)
+void CUnit::DrawHealthBar(int32_t tile_x, int32_t tile_y, int32_t hgt) {
     if (this->death_state >= 5) {
         return;
     }
@@ -1905,7 +1957,8 @@ void CUnit::DrawHealthBar(int32_t tile_x, int32_t tile_y, int32_t hgt) { // 466a
     }
 }
 
-void CUnit::Draw(int32_t tile_x, int32_t tile_y, int32_t light) { // 464974
+// 464974 (client: 468640)
+void CUnit::Draw(int32_t tile_x, int32_t tile_y, int32_t light) {
     if (this->death_state >= 5) {
         return;
     }
@@ -2127,7 +2180,8 @@ void CUnit::Draw(int32_t tile_x, int32_t tile_y, int32_t light) { // 464974
     }
 }
 
-void CUnit::DrawShadow(int32_t tile_x, int32_t tile_y, int32_t light) { // 465b5a
+// 465b5a (client: 469826)
+void CUnit::DrawShadow(int32_t tile_x, int32_t tile_y, int32_t light) {
     if (this->death_state >= 5) {
         return;
     }
@@ -2320,29 +2374,29 @@ void CUnit::DrawShadow(int32_t tile_x, int32_t tile_y, int32_t light) { // 465b5
     }
 }
 
-// 4cb0a0
+// 4cb0a0 (client: 4cfa20)
 TransientVisualEffectBuilder::TransientVisualEffectBuilder() {
     this->visual_elements.RemoveAll();
 }
 
-// 4cb190
+// 4cb190 (client: 4cfb10)
 TransientVisualEffectBuilder::~TransientVisualEffectBuilder() {
     this->visual_elements.RemoveAll();
 }
 
-// 46f390
+// 46f390 (client: 473270)
 void TransientVisualEffectBuilder::Clear() {
     this->arc_x.RemoveAll();
     this->arc_y.RemoveAll();
     this->visual_elements.RemoveAll();
 }
 
-// 4cced2
+// 4cced2 (client: 4d181e)
 void TransientVisualEffectBuilder::AddElement(int16_t height, uint8_t phase) {
     this->visual_elements.Add(GO_11c(0, -height, 0, 0x14, phase));
 }
 
-// 4cce04
+// 4cce04 (client: 4d1754)
 void TransientVisualEffectBuilder::AddOffsetElement(int16_t height, uint8_t effect_type, uint8_t phase) {
     int16_t x_offset = 0;
     int16_t y_offset = 0;
@@ -2363,12 +2417,12 @@ void TransientVisualEffectBuilder::AddOffsetElement(int16_t height, uint8_t effe
     this->visual_elements.Add(GO_11c(-x_offset, -height - y_offset, 0, effect_type, phase));
 }
 
-// 4cd4b0
+// 4cd4b0 (client: 4d1e00)
 double DegToRad(int32_t degrees) {
     return degrees * (3.141592653589793 / 180.0);
 }
 
-// 4ccaf2
+// 4ccaf2 (client: 4d1452)
 void TransientVisualEffectBuilder::BuildGroundRing(int16_t height, float radius, uint32_t phase) {
     for (int32_t angle = 0x59; angle > 0; angle -= 0x12) {
         double rad = DegToRad(angle + (phase & 0xFF) * 0x12);
@@ -2382,7 +2436,7 @@ void TransientVisualEffectBuilder::BuildGroundRing(int16_t height, float radius,
     }
 }
 
-// 4cc798
+// 4cc798 (client: 4d110c)
 void TransientVisualEffectBuilder::BuildTiltedRing(int32_t x, int32_t y, int32_t height, float speed, float radius, int32_t angle) {
     float y_scale = speed / radius;
     double rad = DegToRad(angle);
@@ -2403,7 +2457,7 @@ void TransientVisualEffectBuilder::BuildTiltedRing(int32_t x, int32_t y, int32_t
     }
 }
 
-// 4cc5d1
+// 4cc5d1 (client: 4d0f45)
 void TransientVisualEffectBuilder::BuildCirclePoints(int32_t x, int32_t y, int32_t radius, int32_t step) {
     int32_t px = 0;
     int32_t py = radius;
@@ -2448,7 +2502,7 @@ void TransientVisualEffectBuilder::BuildCirclePoints(int32_t x, int32_t y, int32
     }
 }
 
-// 4cb85f
+// 4cb85f (client: 4d01d9)
 void TransientVisualEffectBuilder::SampleQuadraticArc(double px0, double py0, double px1, double py1, double px2, double py2) {
     double x0_sq = px0 * px0;
     double x1_sq = px1 * px1;
@@ -2465,7 +2519,7 @@ void TransientVisualEffectBuilder::SampleQuadraticArc(double px0, double py0, do
     }
 }
 
-// 4cb993
+// 4cb993 (client: 4d030d)
 void TransientVisualEffectBuilder::BuildJitterWalk(double x0, double y0, double x1, double y1) {
     double y_tolerance = this->line_length * 0.15;
     double dx = x1 - x0;
@@ -2557,7 +2611,7 @@ void TransientVisualEffectBuilder::BuildJitterWalk(double x0, double y0, double 
     }
 }
 
-// 4cc059
+// 4cc059 (client: 4d09d3)
 void TransientVisualEffectBuilder::BuildLightningLine(double x0, double y0, double x1, double y1, uint8_t vfx_type) {
     double dx = x1 - x0;
     double dy = y1 - y0;
@@ -2577,7 +2631,7 @@ void TransientVisualEffectBuilder::BuildLightningLine(double x0, double y0, doub
     }
 }
 
-// 4cc22d
+// 4cc22d (client: 4d0ba1)
 int32_t TransientVisualEffectBuilder::BuildRisingParticles(CArray<GO_11c>* existing, int16_t x_radius, int16_t y_radius, int16_t z_radius, uint16_t visual_id) {
     int16_t age_step = (int16_t)(z_radius / 7.0 + 1.0);
     for (int32_t i = 0; i < existing->GetSize(); i++) {
@@ -2607,7 +2661,7 @@ int32_t TransientVisualEffectBuilder::BuildRisingParticles(CArray<GO_11c>* exist
     return 1;
 }
 
-// 4cc3fd
+// 4cc3fd (client: 4d0d71)
 int32_t TransientVisualEffectBuilder::BuildFallingParticles(CArray<GO_11c>* existing, int16_t x_radius, int16_t y_radius, int16_t z_radius, uint16_t visual_id) {
     int16_t age_step = (int16_t)(z_radius / 7.0 + 1.0);
     for (int32_t i = 0; i < existing->GetSize(); i++) {
@@ -2637,7 +2691,7 @@ int32_t TransientVisualEffectBuilder::BuildFallingParticles(CArray<GO_11c>* exis
     return 1;
 }
 
-// 4cc944
+// 4cc944 (client: 4d12b4)
 void TransientVisualEffectBuilder::BuildEnergyColumn(int16_t height, float speed, float radius, uint32_t phase) {
     this->BuildTiltedRing(0, 0, height, speed, radius, (phase & 0xFF) << 2);
 
@@ -2658,7 +2712,7 @@ void TransientVisualEffectBuilder::BuildEnergyColumn(int16_t height, float speed
     }
 }
 
-// 4ccc7b
+// 4ccc7b (client: 4d15d3)
 void TransientVisualEffectBuilder::BuildGroundRingReversed(int16_t height, float radius, uint32_t phase) {
     for (int32_t angle = 0; angle < 0x5A; angle += 0x12) {
         double rad = DegToRad(angle + (phase & 0xFF) * 0x12);
@@ -2672,7 +2726,7 @@ void TransientVisualEffectBuilder::BuildGroundRingReversed(int16_t height, float
     }
 }
 
-// 4cb269
+// 4cb269 (client: 4cfbe9)
 int __cdecl CompareVisualElements(const void* left, const void* right) {
     const GO_11c* lhs = (const GO_11c*)left;
     const GO_11c* rhs = (const GO_11c*)right;
@@ -2686,7 +2740,8 @@ int __cdecl CompareVisualElements(const void* left, const void* right) {
     return 0;
 }
 
-void CUnit::UpdateTransientVisualElements() { // 468dcb
+// 468dcb (client: 46cb51)
+void CUnit::UpdateTransientVisualElements() {
     CArray<GO_11c> visual_elements;
 
     for (int32_t i = 0; i < this->effect_timers.GetSize();) {
@@ -2767,7 +2822,8 @@ void CUnit::UpdateTransientVisualElements() { // 468dcb
     this->transientVisualElements.Copy(visual_elements);
 }
 
-int32_t CUnit::Update() { // 46785f
+// 46785f (client: 46b5ef)
+int32_t CUnit::Update() {
 #ifdef A2CLIENT_PATCH
     // CRASH_fix_46B685 (client 46B685): guard a stale unit pointer before
     // the UpdateTransientVisualElements virtual call
@@ -3097,7 +3153,8 @@ int32_t CUnit::Update() { // 46785f
     return 1;
 }
 
-void CUnit::SpawnSpellProjectile() { // 468765
+// 468765 (client: 46c4f1)
+void CUnit::SpawnSpellProjectile() {
     VisPlayingArea* map = this->pMapObject;
     CGameObject* xd90_target = nullptr;
     if (this->action_target != 0 && map->objects.Lookup(this->action_target, xd90_target) == 0) {
@@ -3184,7 +3241,7 @@ void CUnit::SpawnSpellProjectile() { // 468765
     map->next_projectile_id = (uint16_t)(map->next_projectile_id + 1);
 }
 
-// 469535
+// 469535 (client: 46d2b5)
 void CUnit::PlayHitSound(int32_t kind) {
     if (0 < kind && kind < 3) {
         uint32_t now = timeGetTime();
@@ -3232,7 +3289,7 @@ void CUnit::PlayHitSound(int32_t kind) {
     }
 }
 
-// 4684fb
+// 4684fb (client: 46c28b)
 void CUnit::SpawnAttackProjectile() {
     VisPlayingArea* map = this->pMapObject;
     CGameObject* target = nullptr;
@@ -3265,7 +3322,7 @@ void CUnit::SpawnAttackProjectile() {
     map->next_projectile_id = (uint16_t)(map->next_projectile_id + 1);
 }
 
-// 46761e
+// 46761e (client: 46b3b2)
 void CUnit::DrawMinimapRect(int32_t x, int32_t y, int32_t zoom) {
     if (this->death_state > 1) {
         return;
@@ -3305,7 +3362,7 @@ void CUnit::DrawMinimapRect(int32_t x, int32_t y, int32_t zoom) {
     FillRectColorSimple(x, y, x + size, y + size, color);
 }
 
-// 469e67
+// 469e67 (client: 46dbd5)
 int32_t CUnit::UpdateBlockedState() {
     VisPlayingArea* map = this->pMapObject;
 
@@ -3337,7 +3394,7 @@ int32_t CUnit::UpdateBlockedState() {
     return 1;
 }
 
-// 464765
+// 464765 (client: 468432)
 void CUnit::UpdateTileLayer() {
     if (this->death_state < 2 && (this->unitFlags & UNIT_FLAG_HIDDEN) == 0) {
         this->SetTileLayerCell(2, this);
@@ -3357,7 +3414,7 @@ void CUnit::UpdateTileLayer() {
     this->m_bSelectionDirty = 0;
 }
 
-// 4698c0
+// 4698c0 (client: 46d63c)
 void CUnit::PlayAttackVoice() {
     uint32_t now = timeGetTime();
     if (now - this->lastVoicePlaybackTick < 3000) {
@@ -3381,7 +3438,7 @@ void CUnit::PlayAttackVoice() {
     }
 }
 
-// 46999f
+// 46999f (client: 46d719)
 void CUnit::PlayMoveVoice() {
     uint32_t now = timeGetTime();
     if (now - this->lastVoicePlaybackTick < 3000) {
@@ -3405,7 +3462,7 @@ void CUnit::PlayMoveVoice() {
     }
 }
 
-// 469a7e
+// 469a7e (client: 46d7f6)
 void CUnit::PlaySwarmVoice() {
     uint32_t now = timeGetTime();
     if (now - this->lastVoicePlaybackTick < 3000) {
@@ -3429,7 +3486,7 @@ void CUnit::PlaySwarmVoice() {
     }
 }
 
-// 469b5d
+// 469b5d (client: 46d8d3)
 void CUnit::PlaySelectVoice() {
     uint32_t now = timeGetTime();
     if (now - this->lastVoicePlaybackTick < 2000) {
@@ -3453,7 +3510,7 @@ void CUnit::PlaySelectVoice() {
     }
 }
 
-// 4693c1
+// 4693c1 (client: 46d145)
 void CUnit::PlayAttackSound() {
     if (g_VFX_info[this->typeId]->sound[0] == 0) {
         return;
@@ -3470,7 +3527,7 @@ void CUnit::PlayAttackSound() {
     }
 }
 
-// 4646c1
+// 4646c1 (client: 46838e)
 void CUnit::InitState(int16_t unit_id, int32_t typeId, int32_t x_pos, int32_t y_pos, int32_t z_pos, MapPlayerData* map_player, int32_t dir, int32_t phase, int16_t speed, int16_t hp) {
     this->unit_id = unit_id;
     this->x_pos = x_pos;
@@ -3488,41 +3545,41 @@ void CUnit::InitState(int16_t unit_id, int32_t typeId, int32_t x_pos, int32_t y_
     this->unitFlags = UNIT_FLAG_NONE;
 }
 
-// 46f600
+// 46f600 (client: 472f40)
 void CUnit::UpdateOccupancy() {
     if (this->death_state < 3) {
         CGameObject::UpdateOccupancy();
     }
 }
 
-// 46f630
+// 46f630 (client: 472f70)
 void CUnit::MarkOccupancy() {
     if (this->death_state < 3) {
         CGameObject::MarkOccupancy();
     }
 }
 
-// 4648a1
+// 4648a1 (client: 46856d)
 int32_t CUnit::GetTileWidth() {
     return g_VFX_info[this->typeId]->tile_size;
 }
 
-// 4648c5
+// 4648c5 (client: 468591)
 int32_t CUnit::GetTileHeight() {
     return g_VFX_info[this->typeId]->tile_size;
 }
 
-// 46f5e0
+// 46f5e0 (client: 472f20)
 int32_t CUnit::VMethod2() {
     return 0x30;
 }
 
-// 46f5f0
+// 46f5f0 (client: 472f30)
 int32_t CUnit::VMethod3() {
     return 0x50;
 }
 
-// 46978b
+// 46978b (client: 46d507)
 SfxBank* CUnit::GetSfxBank() {
     switch (this->serverId) {
     case 1:
@@ -3587,6 +3644,7 @@ static void TangarFormatWithSpaces(int32_t number, char* out_buf, size_t buf_siz
 }
 #endif
 
+// 46c124 (client: 46fe90)
 void CUnit::DrawStatsPanel(CRect* rect) {
     VisPlayingArea* map = this->pMapObject;
     uint16_t* label_color = clrsh_DullGold;
@@ -3754,7 +3812,7 @@ void CUnit::DrawStatsPanel(CRect* rect) {
     }
 }
 
-// 46D0F7
+// 46d0f7 (client: 470e63)
 const char* CUnit::GetStatsHint(int32_t x, int32_t y) {
     if (x >= 0x9f) {
         return nullptr;
@@ -3866,7 +3924,7 @@ const char* CUnit::GetStatsHint(int32_t x, int32_t y) {
     return nullptr;
 }
 
-// 46C0C9
+// 46c0c9 (client: 46fe35)
 int32_t CUnit::IsItemRestricted(TokenEntry* entry) {
     if ((entry->flg & 2) != 0 && (this->unitFlags & UNIT_FLAG_MAGE) == 0) {
         return 1;
@@ -3877,7 +3935,7 @@ int32_t CUnit::IsItemRestricted(TokenEntry* entry) {
     return 0;
 }
 
-// 4648e9
+// 4648e9 (client: 4685b5)
 void CUnit::SetSelected(int32_t selected) {
     VisPlayingArea* map = this->pMapObject;
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
@@ -3889,7 +3947,7 @@ void CUnit::SetSelected(int32_t selected) {
     CGameObject::SetSelected(selected);
 }
 
-// 469c3c
+// 469c3c (client: 46d9b0)
 void CUnit::PlayDefendVoice() {
     uint32_t now = timeGetTime();
     if (now - this->lastVoicePlaybackTick < 3000) {
@@ -3908,7 +3966,7 @@ void CUnit::PlayDefendVoice() {
     }
 }
 
-// 469cf5
+// 469cf5 (client: 46da67)
 void CUnit::PlayRetreatVoice() {
     uint32_t now = timeGetTime();
     if (now - this->lastVoicePlaybackTick < 3000) {
@@ -3927,7 +3985,7 @@ void CUnit::PlayRetreatVoice() {
     }
 }
 
-// 469dae
+// 469dae (client: 46db1e)
 void CUnit::PlayPickupVoice() {
     uint32_t now = timeGetTime();
     if (now - this->lastVoicePlaybackTick < 3000) {
@@ -3946,7 +4004,7 @@ void CUnit::PlayPickupVoice() {
     }
 }
 
-// 469499
+// 469499 (client: 46d21b)
 void CUnit::PlayCastSound() {
     SfxSample* sample = g_SfxArray[this->action_spell + sfx_id::projectile_base];
     VisPlayingArea* map = this->pMapObject;
@@ -3959,7 +4017,7 @@ void CUnit::PlayCastSound() {
     }
 }
 
-// 473b80
+// 473b80 (client: 4778d0)
 void StructEnter::RebuildFromMap() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     VisPlayingArea* map = main_wnd->vis_map_context;
@@ -3984,7 +4042,7 @@ void StructEnter::RebuildFromMap() {
     }
 }
 
-// 473d10
+// 473d10 (client: 477a60)
 int32_t StructEnter::FindFlaggedStructureUnit() {
     for (int32_t i = 0; i < this->structure_list.GetSize(); i++) {
         CUnit* unit = this->structure_list[i];
@@ -3995,7 +4053,7 @@ int32_t StructEnter::FindFlaggedStructureUnit() {
     return -1;
 }
 
-// 475080
+// 475080 (client: 477f70)
 void StructEnter::AddPartyMember(CUnit* unit) {
     this->party_list.Add(unit);
     if ((unit->unitFlags & UNIT_FLAG_MAGE) != 0) {
@@ -4005,7 +4063,7 @@ void StructEnter::AddPartyMember(CUnit* unit) {
     }
 }
 
-// 475010
+// 475010 (client: 477b90)
 void StructEnter::ClearGroups() {
     this->structure_list.SetSize(0);
     this->party_list.SetSize(0);
@@ -4013,25 +4071,25 @@ void StructEnter::ClearGroups() {
     this->female_party_count = 0;
 }
 
-// 474ff0
+// 474ff0 (client: none)
 void StructEnter::AddStructureUnit(CUnit* unit) {
     this->structure_list.Add(unit);
 }
 
-// 474f20
+// 474f20 (client: 477ac0)
 StructEnter::StructEnter() {
     this->female_party_count = 0;
     this->male_party_count = 0;
 }
 
-// 474f90
+// 474f90 (client: 477b30)
 StructEnter::~StructEnter() {
     this->ClearGroups();
 }
 
 StructEnter g_StructEnter;
 
-// 4631f3
+// 4631f3 (client: 466eca)
 void CStructure::DrawHealthBar(int32_t tile_x, int32_t tile_y, int32_t hgt) {
     if (tile_x != this->mapBoundsLeft || tile_y != this->mapBoundsTop) {
         return;
@@ -4082,7 +4140,7 @@ void CStructure::DrawHealthBar(int32_t tile_x, int32_t tile_y, int32_t hgt) {
     this->DrawBarFill(left, right, y, fill_width, color_lo, color_mid, color_hi);
 }
 
-// 462f58
+// 462f58 (client: 466c2f)
 void CStructure::DrawShadow(int32_t tile_x, int32_t tile_y, int32_t light) {
     VisPlayingArea* map = this->pMapObject;
 
@@ -4141,7 +4199,7 @@ void CStructure::DrawShadow(int32_t tile_x, int32_t tile_y, int32_t light) {
     }
 }
 
-// 462d11
+// 462d11 (client: 4669e8)
 void CStructure::Draw(int32_t tile_x, int32_t tile_y, int32_t light) {
     VisPlayingArea* map = this->pMapObject;
     StructureInfo* info = g_StructuresInfo[this->typeId];
@@ -4196,7 +4254,7 @@ void CStructure::Draw(int32_t tile_x, int32_t tile_y, int32_t light) {
     }
 }
 
-// 463a58
+// 463a58 (client: 467725)
 void CStructure::UpdateLight() {
     if (g_Lightning == 0) {
         return;
@@ -4233,7 +4291,7 @@ void CStructure::UpdateLight() {
     map->dirty_rect |= rect;
 }
 
-// 46380c
+// 46380c (client: 4674dd)
 void CStructure::DrawMinimapRect(int32_t x, int32_t y, int32_t zoom) {
     VisPlayingArea* map = this->pMapObject;
 
@@ -4263,7 +4321,7 @@ void CStructure::DrawMinimapRect(int32_t x, int32_t y, int32_t zoom) {
     FillRectColorSimple(x, y, x + width, y + height, color);
 }
 
-// 462b28
+// 462b28 (client: 4667ff)
 int32_t CStructure::UpdateBlockedState() {
     VisPlayingArea* map = this->pMapObject;
 
@@ -4299,7 +4357,7 @@ int32_t CStructure::UpdateBlockedState() {
     return 1;
 }
 
-// 463a05
+// 463a05 (client: 4676d2)
 int32_t CStructure::Update() {
     StructureInfo* info = g_StructuresInfo[this->typeId];
     if (info->frame_count != 0) {
@@ -4310,64 +4368,64 @@ int32_t CStructure::Update() {
     return 1;
 }
 
-// 4637ca
+// 4637ca (client: 46749b)
 int32_t CStructure::GetTileWidth() {
     return g_StructuresInfo[this->typeId]->tile_width;
 }
 
-// 4637eb
+// 4637eb (client: 4674bc)
 int32_t CStructure::GetTileHeight() {
     return g_StructuresInfo[this->typeId]->tile_height;
 }
 
-// 462b0f
+// 462b0f (client: 4667e6)
 void CStructure::UpdateTileLayer() {
     this->SetTileLayerCell(1, this);
 }
 
-// 4637b0
+// 4637b0 (client: 467481)
 void CStructure::Dump(CDumpContext& dc) const {
     //dc << "CStructure";
 }
 
-// 46f5a0
+// 46f5a0 (client: 472de0)
 CStructure::~CStructure() {
 }
 
-// 462acb
+// 462acb (client: 4667a2)
 CStructure::CStructure() {
 }
 
-// 462aea
+// 462aea (client: 4667c1)
 CStructure::CStructure(const CStructure* obj) : CGameObject(obj) {
 }
 
-// 46f550
+// 46f550 (client: 472ea0)
 void CBridge::SetSize(int32_t width, int32_t height) {
     this->bridge_width = width;
     this->bridge_height = height;
 }
 
-// 46f510
+// 46f510 (client: 472e60) - (returns bridge_width)
 int32_t CBridge::GetTileWidth() {
     return this->bridge_width;
 }
 
-// 46f530
+// 46f530 (client: 472e80) - (returns bridge_height)
 int32_t CBridge::GetTileHeight() {
     return this->bridge_height;
 }
 
-// 46f580
+// 46f580 (client: 472f00)
 CBridge::~CBridge() {
 }
 
-// 463c7f
+// 463c7f (client: 46794c)
 CBridge::CBridge(int32_t width, int32_t height) {
     this->SetSize(width, height);
 }
 
-// 463d26
+// 463d26 (client: 4679f3)
 void CVerticalWoodenBridge::Draw(int32_t tile_x, int32_t tile_y, int32_t light) {
     VisPlayingArea* map = this->pMapObject;
     StructureInfo* info = g_StructuresInfo[this->typeId];
@@ -4406,19 +4464,19 @@ void CVerticalWoodenBridge::Draw(int32_t tile_x, int32_t tile_y, int32_t light) 
     }
 }
 
-// 463f01
+// 463f01 (client: 467bce) - (stub)
 void CVerticalWoodenBridge::DrawShadow(int32_t tile_x, int32_t tile_y, int32_t light) {
 }
 
-// 4a9ef0
+// 4a9ef0 (client: 4adc60)
 CVerticalWoodenBridge::~CVerticalWoodenBridge() {
 }
 
-// 4a9e90
+// 4a9e90 (client: 4adc00)
 CVerticalWoodenBridge::CVerticalWoodenBridge(int32_t width, int32_t height) : CBridge(width, height) {
 }
 
-// 463f0e
+// 463f0e (client: 467bdb)
 void CHorisontalWoodenBridge::Draw(int32_t tile_x, int32_t tile_y, int32_t light) {
     VisPlayingArea* map = this->pMapObject;
     StructureInfo* info = g_StructuresInfo[this->typeId];
@@ -4461,20 +4519,19 @@ void CHorisontalWoodenBridge::Draw(int32_t tile_x, int32_t tile_y, int32_t light
     }
 }
 
-// 46410f
+// 46410f (client: 467ddc) - (stub)
 void CHorisontalWoodenBridge::DrawShadow(int32_t tile_x, int32_t tile_y, int32_t light) {
 }
 
-// 4a9f70
+// 4a9f70 (client: 4adce0)
 CHorisontalWoodenBridge::~CHorisontalWoodenBridge() {
 }
 
-// 4a9f10
+// 4a9f10 (client: 4adc80)
 CHorisontalWoodenBridge::CHorisontalWoodenBridge(int32_t width, int32_t height) : CBridge(width, height) {
 }
 
-// 46295a
-// client: 466629
+// 46295a (client: 466629)
 void CBackPack::DrawShadow(int32_t tile_x, int32_t tile_y, int32_t light) {
 #ifdef A2CLIENT
     if (this->typeId > 5) {
@@ -4497,8 +4554,7 @@ void CBackPack::DrawShadow(int32_t tile_x, int32_t tile_y, int32_t light) {
     g_spr_backpackb->DrawShadowed(x, y, this->typeId, g_DeltaCLR.lit_delta, sun_angle, 0);
 }
 
-// 462887
-// client: 46647f
+// 462887 (client: 46647f)
 void CBackPack::Draw(int32_t tile_x, int32_t tile_y, int32_t light) {
 #ifdef A2CLIENT
     if (this->typeId == 6) {
@@ -4529,63 +4585,63 @@ void CBackPack::Draw(int32_t tile_x, int32_t tile_y, int32_t light) {
     }
 }
 
-// 462a98
+// 462a98 (client: 46676f)
 void CBackPack::UpdateTileLayer() {
     this->SetTileLayerCell(0, this);
 }
 
-// 462ab1
+// 462ab1 (client: 466788)
 void CBackPack::Dump(CDumpContext& dc) const {
     //dc << "CBackPack";
 }
 
-// 46eeb4
+// 46eeb4 (client: 472c0f)
 void CProjectile::Dump(CDumpContext& dc) const {
     //dc << "CProjectile";
 }
 
-// 46d802
+// 46d802 (client: 47156d)
 CProjectile::CProjectile() {
 }
 
-// 46d85c
+// 46d85c (client: 4715c7)
 CProjectile::CProjectile(CProjectile* obj) : CGameObject(obj) {
     this->path_history.Copy(obj->path_history);
 }
 
-// 46f060
+// 46f060 (client: 4731f0)
 CProjectile::~CProjectile() {
 }
 
-// 46f5c0
+// 46f5c0 (client: 472d40)
 int32_t CBackPack::GetTileWidth() {
     return 1;
 }
 
-// 46f660
+// 46f660 (client: 4731a0)
 int32_t CProjectile::GetTileWidth() {
     return 1;
 }
 
-// 46f5d0
+// 46f5d0 (client: 472d50)
 int32_t CBackPack::GetTileHeight() {
     return 1;
 }
 
-// 46f670
+// 46f670 (client: 4731b0)
 int32_t CProjectile::GetTileHeight() {
     return 1;
 }
 
-// 46ef30
+// 46ef30 (client: 472d90)
 CBackPack::~CBackPack() {
 }
 
-// 462843
+// 462843 (client: 46643b)
 CBackPack::CBackPack() {
 }
 
-// 46d8d8
+// 46d8d8 (client: 471643)
 int32_t CProjectile::Update() {
     VisPlayingArea* map = this->pMapObject;
 
@@ -4771,7 +4827,7 @@ int32_t CProjectile::Update() {
     return 1;
 }
 
-// 46e291
+// 46e291 (client: 471fee)
 void CProjectile::Draw(int32_t tile_x, int32_t tile_y, int32_t light) {
     if (g_ProjectileInfos.GetSize() <= this->typeId || g_ProjectileInfos[this->typeId] == nullptr) {
         return;
@@ -4853,7 +4909,7 @@ void CProjectile::Draw(int32_t tile_x, int32_t tile_y, int32_t light) {
     }
 }
 
-// 46e805
+// 46e805 (client: 472562)
 void CProjectile::UpdateLight() {
     VisPlayingArea* map = this->pMapObject;
 
@@ -4934,7 +4990,7 @@ void CProjectile::UpdateLight() {
     }
 }
 
-// 46eb80
+// 46eb80 (client: 4728dd)
 void CProjectile::UpdateTransientVisualElements() {
     VisPlayingArea* map = this->pMapObject;
 
@@ -4967,7 +5023,7 @@ void CProjectile::UpdateTransientVisualElements() {
     }
 }
 
-// 46d6fb
+// 46d6fb (client: 471467)
 void CAirUnit::UpdateTileLayer() {
     this->SetTileLayerCell(3, this);
 
@@ -4991,16 +5047,16 @@ void CAirUnit::UpdateTileLayer() {
     this->pMapObject->dirty_rect |= rect;
 }
 
-// 46d7e8
+// 46d7e8 (client: 471553)
 void CAirUnit::Dump(CDumpContext& dc) const {
     //dc << "CAirUnit";
 }
 
-// 46d6ad
+// 46d6ad (client: 471419)
 CAirUnit::CAirUnit() {
     this->z_pos = 0x10;
 }
 
-// 46f010
+// 46f010 (client: 473180)
 CAirUnit::~CAirUnit() {
 }

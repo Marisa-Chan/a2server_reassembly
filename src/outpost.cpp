@@ -13,16 +13,17 @@
 
 IMPLEMENT_SERIAL(Outpost, Building, 1);
 
-// 54326A
+// 54326a (client: 52a1e8)
 Outpost::Outpost() {
     this->Reset();
 }
 
-// 5432DF
+// 5432df (client: 52a25d)
 Outpost::Outpost(TokenPos* pos) : Building(pos) {
     this->Reset();
 }
 
+// 54335a (client: 52a2d8) - Initializes fields.
 void Outpost::Reset() {
     this->tiles_mask = 0;
     this->group_id = 0;
@@ -35,7 +36,7 @@ void Outpost::Reset() {
     this->has_quest_intercept = 0;
 }
 
-// 5433CA
+// 5433ca (client: 52a348)
 Outpost::~Outpost() {
     POSITION pos = this->units_copy.unit_list.GetHeadPosition();
     while (pos != nullptr) {
@@ -44,7 +45,7 @@ Outpost::~Outpost() {
     }
 }
 
-// 54361E
+// 54361e (client: 52a3cb)
 void Outpost::FillUnits(Group* group) {
     this->units_original.unit_list.RemoveAll();
     this->units_copy.unit_list.RemoveAll();
@@ -65,7 +66,7 @@ void Outpost::FillUnits(Group* group) {
     }
 }
 
-// 5438ED
+// 5438ed (client: 52a524)
 void Outpost::RegenTick() {
     Building::RegenTick();
 
@@ -138,11 +139,12 @@ void Outpost::RegenTick() {
     this->RestoreOriginalUnits(found_group);
 }
 
+// 57c4f0 (client: 54d610)
 int32_t Outpost::IsOutpost() {
     return 1;
 }
 
-// 543EC3
+// 543ec3 (client: 52a72f) - Repop the group.
 void Outpost::RestoreOriginalUnits(Group* group) {
     POSITION original_it = this->units_original.unit_list.GetHeadPosition();
     Unit* unit_original = nullptr;

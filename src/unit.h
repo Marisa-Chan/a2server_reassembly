@@ -46,12 +46,12 @@ public:
     Protections protections;
 
 public:
-    EquipmentExtra();  // client: 51aea2
-    EquipmentExtra& operator=(const EquipmentExtra&);
-    void Serialize(CArchive& ar);  // client: 51b0f8
+    EquipmentExtra(); // 52e9e3 (client: 51aea2)
+    EquipmentExtra& operator=(const EquipmentExtra&); // 52eaa3 (client: 51af62)
+    void Serialize(CArchive& ar); // 52ec3d (client: 51b0f8)
 
-    void SetToUnit(Unit *);  // client: 51aed6
-    void AddToUnit(Unit *);  // client: 51b023
+    void SetToUnit(Unit *); // 52ea17 (client: 51aed6)
+    void AddToUnit(Unit *); // 52eb64 (client: 51b023)
 };
 ASSERT_SIZE(EquipmentExtra, 0x40);
 
@@ -182,68 +182,68 @@ public:
     };
 
 public: // VTable at 60efc0.
-    virtual ~Unit() override;
-    virtual void Serialize(CArchive& ar) override;  // client: 53633a
-    virtual void RegenTick() override;  // client: 51985d
-    virtual void ProcessEffects() override;  // client: 518d2f
-    virtual int32_t GetTokenSize() override; // TokenSize
-    virtual int32_t GetMovementType() override; // MovementType
-    virtual void FixupPointers() override;  // client: 536c19
-    virtual int32_t IsUnit() override; // IsUnit
-    virtual int32_t IsHumanoid() override; // IsHumanoid
-    virtual void ReleaseObjects();  // client: 518a17
-    virtual void CopyFrom(Unit *);  // client: 51807f
-    virtual Item* UseItem(Item *);
-    virtual void UseItemOrStash(Item *);
-    virtual Item* Unequip(Item *);
-    virtual void UnequipAll();
-    virtual void AwardKillMoney(Unit *);  // client: 520be5
-    virtual uint32_t RollDamage(UnitToHit *, Unit *);  // client: 520be5
-    virtual void RecalcStats();
-    virtual uint32_t RecalcExperience();
-    virtual void GiveLevelReward();  // client: 52124c
-    virtual void AddExperience(uint32_t, Unit *, int32_t);  // client: 52124c
-    virtual void AwardKillExperience(Unit*, int32_t);
-    virtual void AwardDamageExperience(Unit*, uint32_t, int32_t);
-    virtual void AwardCastExperience(Unit*, int32_t spell_id);
-    virtual int32_t GetCorpseDecayTime();
+    virtual ~Unit() override; // 52a330 (client: 51897e)
+    virtual void Serialize(CArchive& ar) override; // 5593b6 (client: 53633a)
+    virtual void RegenTick() override; // 52bad9 (client: 51985d)
+    virtual void ProcessEffects() override; // 52a857 (client: 518d2f)
+    virtual int32_t GetTokenSize() override; // 57b790 (client: 54c350) - TokenSize
+    virtual int32_t GetMovementType() override; // 57b7b0 (client: 54c370) - MovementType
+    virtual void FixupPointers() override; // 55a9c5 (client: 536c19)
+    virtual int32_t IsUnit() override; // 57b840 (client: 54c400) - IsUnit
+    virtual int32_t IsHumanoid() override; // 57b850 (client: 54c410) - IsHumanoid
+    virtual void ReleaseObjects(); // 52a504 (client: 518a17)
+    virtual void CopyFrom(Unit *); // 52963b (client: 51807f)
+    virtual Item* UseItem(Item *); // 52c8e5 (client: 51a457)
+    virtual void UseItemOrStash(Item *); // 52c914 (client: 51a486)
+    virtual Item* Unequip(Item *); // 52c957 (client: 51a4c9)
+    virtual void UnequipAll(); // 57b7d0 (client: 54c390)
+    virtual void AwardKillMoney(Unit *); // 57b7e0 (client: 54c3a0)
+    virtual uint32_t RollDamage(UnitToHit *, Unit *); // 536b31 (client: 520be5)
+    virtual void RecalcStats(); // 52f566 (client: 51b4fa)
+    virtual uint32_t RecalcExperience(); // 57b7f0 (client: 54c3b0)
+    virtual void GiveLevelReward(); // 52fed7 (client: 51bcab)
+    virtual void AddExperience(uint32_t, Unit *, int32_t); // 5371f7 (client: 52124c)
+    virtual void AwardKillExperience(Unit*, int32_t); // 57b810 (client: 54c3d0)
+    virtual void AwardDamageExperience(Unit*, uint32_t, int32_t); // 57b820 (client: 54c3e0)
+    virtual void AwardCastExperience(Unit*, int32_t spell_id); // 57b830 (client: 54c3f0)
+    virtual int32_t GetCorpseDecayTime(); // 52a771 (client: 518c4b)
 
 public:
-    Unit();  // client: 51781c
-    Unit(const CString&);  // client: 517932
-    Unit(const CString&, const TokenPos*);  // client: 517a2b
-    Unit(const TokenPos*);  // client: 517b28
-    Unit(const TokenPos*, Player*);  // client: 517c44
+    Unit(); // 528aef (client: 51781c)
+    Unit(const CString&); // 528c97 (client: 517932)
+    Unit(const CString&, const TokenPos*); // 528e24 (client: 517a2b)
+    Unit(const TokenPos*); // 528fb7 (client: 517b28)
+    Unit(const TokenPos*, Player*); // 529167 (client: 517c44)
 
-    void InitDefaults(const CString& str);  // client: 517d64
-    void ApplyInvincibility();    // Apply invincibility (god-mode) enchantments to unit (client: 52129d)
-    void AddCarriedWeight(int32_t delta_weight); // Add inventory weight and notify clients after item change. (client: 518c68)
-    void InitDefaultStats(); // Initialize default unit stats (for newly created units) (client: 518863)
-    void PickUpSack(class Sack* sack); // Pick up a sack into this unit's bag (client: 52ccb9)
-    int NeedsRefreshFor(Player* player); // Check if this unit needs a refresh for the given player. (client: 517510)
-    void ClearRefreshFor(Player* player); // Mark this unit as not needing the refresh for the given player. (client: 517538)
-    int32_t ReturnToMap(); // Return unit to map. (client: 519fb1)
+    void InitDefaults(const CString& str); // 52931b (client: 517d64)
+    void ApplyInvincibility(); // 537251 (client: 52129d) - Apply invincibility (god-mode) enchantments to unit
+    void AddCarriedWeight(int32_t delta_weight); // 52a790 (client: 518c68) - Add inventory weight and notify clients after item change.
+    void InitDefaultStats(); // 52a215 (client: 518863) - Initialize default unit stats (for newly created units)
+    void PickUpSack(class Sack* sack); // 52c98b (client: 51a4fd) - Pick up a sack into this unit's bag
+    int NeedsRefreshFor(Player* player); // 5287c4 (client: 517510) - Check if this unit needs a refresh for the given player.
+    void ClearRefreshFor(Player* player); // 5287ec (client: 517538) - Mark this unit as not needing the refresh for the given player.
+    int32_t ReturnToMap(); // 52c409 (client: 519fb1) - Return unit to map.
     void ResetActionState(); // 52c641 (client: 51a1e9)
-    void RemoveFromMap();  // client: 519ea6
-    void AddToMap(uint8_t x, uint8_t y, uint8_t flags);  // client: 519f1b
-    void Revive(); // Revive unit (set flags, reset subcell, call VMethod18, notify world) (client: 51a137)
-    void CancelQueuedSpell();  // client: 51a348
-    void CreateSackFromInventory(Inventory* inventory, int32_t money, int32_t is_main_player_unit); // Create a sack from this unit's inventory and money. (client: 51a5f8)
-    void AddHp(int16_t amount);  // Add HP (clamped to hp_max, triggers regen if newly positive) (client: 51a087)
-    int PlaceOnMap(uint8_t x, uint8_t y, uint8_t size);  // Place unit on map; returns nonzero on success (client: 519c8c)
-    Effect* FindEnchantment(uint16_t effect_id); // Find first Effect in _effects list matching the given itemDataID. (client: 51a2f7)
-    uint16_t GetRightXx(); // Returns x bottom-right extent (sub-cell units). (client: 517475)
-    uint16_t GetBottomYy(); // Returns y bottom-right extent (sub-cell units). (client: 5174b1)
-    int32_t GetTicksSinceAction(); // Returns g_Server->tick - last_action_tick (client: 519841)
-    void ProcessMoveStep(uint16_t x, uint16_t y, uint8_t eye0, uint8_t eye1); // Process movement step (client: 519b30)
-    void Die(); // Kill this unit (sets some_state to 0x10 and runs death cleanup) (client: 51a673)
-    void DecayTick(); // Corpse: decrement HP and recalculate decay. (client: 51acbb)
-    int32_t GetQuestDefense(); // Defense value for quests. Flyers get +25, mages get +50. (client: 51a629)
-    int32_t HasEnchantment(uint8_t spell_id); // 52C735 (client: 51a2d5): HasEnchantment.
-    uint8_t GetSpellPower(uint8_t sphere); // 52F5BB: clamped spell power for sphere: max(0, skill_levels[sphere] + mind - 30) (client: 51b54f)
-    void InitFromMonsterName(const CString& value);  // client: 51b595
-    int32_t MovementType(); // Returns movement type. (client: 4c7743)
-    int32_t IsMage(); // 5B6FB0 (client: 5444d0) — IsMage.
+    void RemoveFromMap(); // 52c163 (client: 519ea6)
+    void AddToMap(uint8_t x, uint8_t y, uint8_t flags); // 52c36d (client: 519f1b)
+    void Revive(); // 52c58f (client: 51a137) - Revive unit (set flags, reset subcell, call VMethod18, notify world)
+    void CancelQueuedSpell(); // 52c813 (client: 51a348)
+    void CreateSackFromInventory(Inventory* inventory, int32_t money, int32_t is_main_player_unit); // 52d8d3 (client: 51a5f8) - Create a sack from this unit's inventory and money.
+    void AddHp(int16_t amount); // 52c4df (client: 51a087) - Add HP (clamped to hp_max, triggers regen if newly positive)
+    int PlaceOnMap(uint8_t x, uint8_t y, uint8_t size); // 52bf3d (client: 519c8c) - Place unit on map; returns nonzero on success
+    Effect* FindEnchantment(uint16_t effect_id); // 52c757 (client: 51a2f7) - Find first Effect in _effects list matching the given itemDataID.
+    uint16_t GetRightXx(); // 528725 (client: 517475) - Returns x bottom-right extent (sub-cell units).
+    uint16_t GetBottomYy(); // 528763 (client: 5174b1) - Returns y bottom-right extent (sub-cell units).
+    int32_t GetTicksSinceAction(); // 52babd (client: 519841) - last_action_tick
+    void ProcessMoveStep(uint16_t x, uint16_t y, uint8_t eye0, uint8_t eye1); // 52bdd7 (client: 519b30) - Process movement step
+    void Die(); // 52d94e (client: 51a673) - Kill this unit (sets some_state to 0x10 and runs death cleanup)
+    void DecayTick(); // 52e7fa (client: 51acbb) - Corpse: decrement HP and recalculate decay.
+    int32_t GetQuestDefense(); // 52d904 (client: 51a629) - Defense value for quests. Flyers get +25, mages get +50.
+    int32_t HasEnchantment(uint8_t spell_id); // 52c735 (client: 51a2d5) - HasEnchantment.
+    uint8_t GetSpellPower(uint8_t sphere); // 52f5bb (client: 51b54f) - clamped spell power for sphere: max(0, skill_levels[sphere] + mind - 30)
+    void InitFromMonsterName(const CString& value); // 52f601 (client: 51b595)
+    int32_t MovementType(); // 59a030 (client: 569320) - Returns movement type.
+    int32_t IsMage(); // 5b6fb0 (client: 5444d0) - IsMage.
 
     // Scan range or 0 if it's negative.
     int32_t EffectiveScanRange() const {
@@ -255,9 +255,9 @@ public:
 #endif
     }
 
-    void ApplyMonsterInfo(const CArray<MonsterInfoData>& values);  // client: 51b12f
+    void ApplyMonsterInfo(const CArray<MonsterInfoData>& values); // 52ec7a (client: 51b12f)
 
-    Inventory* DetachInventory();
+    Inventory* DetachInventory(); // split from 52d94e (client: 51a673)
     
 public:
     MonsterInfo* monster_info;
@@ -367,46 +367,46 @@ public:
 
 public:
     //virtual CRuntimeClass* GetRuntimeClass() const override;  // declared by DECLARE_SERIAL
-    virtual ~Humanoid() override;  // client: 51bf2c
-    virtual void Serialize(CArchive& ar) override;  // client: 5374ea
+    virtual ~Humanoid() override; // 53015b (client: 51bf2c)
+    virtual void Serialize(CArchive& ar) override; // 55c760 (client: 5374ea)
     // CObject AssertValid  override
     // CObject Dump  override
     //virtual void VMethod1() override;
     //virtual void VMethod2() override;
     //virtual int32_t VMethod3() override;
     //virtual int32_t VMethod4() override;
-    virtual void FixupPointers() override;  // client: 536c9c
+    virtual void FixupPointers() override; // 55ab26 (client: 536c9c)
     //virtual int32_t VMethod6() override;
-    virtual int32_t IsUnit() override;  // client: 54c710
-    virtual int32_t IsHumanoid() override;  // client: 54c720
+    virtual int32_t IsUnit() override; // 57bb50 (client: 54c710)
+    virtual int32_t IsHumanoid() override; // 57bb60 (client: 54c720)
     //virtual int32_t VMethod9() override;
-    virtual void ReleaseObjects() override;  // client: 51bf7d
+    virtual void ReleaseObjects() override; // 5301ac (client: 51bf7d)
     //virtual void VMethod11(Unit*) override;
-    virtual Item* UseItem(Item*) override;  // client: 51c1af
-    virtual void UseItemOrStash(Item*) override;  // client: 51c274
-    virtual Item* Unequip(Item*) override;  // client: 51c2aa
-    virtual void UnequipAll() override;  // client: 51c2d3
-    virtual void AwardKillMoney(Unit*) override;  // client: 51ceb7
+    virtual Item* UseItem(Item*) override; // 5303e3 (client: 51c1af)
+    virtual void UseItemOrStash(Item*) override; // 5304b2 (client: 51c274)
+    virtual Item* Unequip(Item*) override; // 5304e8 (client: 51c2aa)
+    virtual void UnequipAll() override; // 530511 (client: 51c2d3)
+    virtual void AwardKillMoney(Unit*) override; // 53111b (client: 51ceb7)
     //virtual uint32_t VMethod17(UnitToHit*, Unit*) override;
-    virtual void RecalcStats() override;
-    virtual uint32_t RecalcExperience() override;  // client: 5211ee
+    virtual void RecalcStats() override; // 5315ec (client: 51d2a7)
+    virtual uint32_t RecalcExperience() override; // 537199 (client: 5211ee)
     //virtual void GiveLevelReward() override;
-    virtual void AddExperience(uint32_t newExp, Unit *target, int32_t sphere) override;  // client: 51c507
-    virtual void AwardKillExperience(Unit*, int32_t spell_id) override;  // client: 51cc07
-    virtual void AwardDamageExperience(Unit*, uint32_t damage, int32_t spell_id) override;  // client: 51cd64
-    virtual void AwardCastExperience(Unit*, int32_t spell_id) override;  // client: 51ce2b
-    virtual int32_t GetCorpseDecayTime() override;  // client: 51c162
+    virtual void AddExperience(uint32_t newExp, Unit *target, int32_t sphere) override; // 530745 (client: 51c507)
+    virtual void AwardKillExperience(Unit*, int32_t spell_id) override; // 530e52 (client: 51cc07)
+    virtual void AwardDamageExperience(Unit*, uint32_t damage, int32_t spell_id) override; // 530fc1 (client: 51cd64)
+    virtual void AwardCastExperience(Unit*, int32_t spell_id) override; // 531090 (client: 51ce2b)
+    virtual int32_t GetCorpseDecayTime() override; // 530394 (client: 51c162)
 
 public:
-    Humanoid();  // client: 51bd6f
-    Humanoid(const TokenPos*);  // client: 51bdc3
+    Humanoid(); // 52ff9e (client: 51bd6f)
+    Humanoid(const TokenPos*); // 52fff2 (client: 51bdc3)
 
-    void InitStats();  // client: 51be1d
-    void ReviveWithPenalty(); // Reduce humanoid's skills and revive the unit. (client: 51cefe)
-    void RecalcExperienceFromSkills(); // Recalculate experience from skills. (client: 51d0d3)
+    void InitStats(); // 53004c (client: 51be1d)
+    void ReviveWithPenalty(); // 53116b (client: 51cefe) - Reduce humanoid's skills and revive the unit.
+    void RecalcExperienceFromSkills(); // 531418 (client: 51d0d3) - Recalculate experience from skills.
     void CopyFrom(Humanoid* other); // 530231 (client: 51c002) - Copy stats and equipment from another humanoid.
-    void InitCreationSkills(int8_t main_skill, int8_t skill_level);   // Character creation: set skills and give initial weapon. (client: 51eb95)
-    void ApplyHumanInfo(CArray<HumanInfoData>* data);  // client: 51e92e
+    void InitCreationSkills(int8_t main_skill, int8_t skill_level); // 533345 (client: 51eb95) - Character creation: set skills and give initial weapon.
+    void ApplyHumanInfo(CArray<HumanInfoData>* data); // 532dde (client: 51e92e)
 
 public:
     std::array<Item*, 13> equipment;
@@ -424,16 +424,16 @@ public:
 
 public:
     //virtual CRuntimeClass* GetRuntimeClass() const override;
-    virtual ~Human() override;  // client: 53759d
-    virtual void Serialize(CArchive& ar) override;  // client: 53759d
+    virtual ~Human() override; // 57bbd0 (client: 54c7b0)
+    virtual void Serialize(CArchive& ar) override; // 55c81c (client: 53759d)
 
-    virtual void GiveLevelReward() override;  // client: 51f1b1
+    virtual void GiveLevelReward() override; // 5339a6 (client: 51f1b1)
 
 public:
-    Human();  // client: 51dfb3
-    Human(const CString& hname, int32_t is_hero, const char* unk);  // client: 51e020
+    Human(); // 53232d (client: 51dfb3)
+    Human(const CString& hname, int32_t is_hero, const char* unk); // 53239a (client: 51e020)
 
-    void InitFromName(CString hname, int32_t is_hero, const char* unk);  // client: 51e20d
+    void InitFromName(CString hname, int32_t is_hero, const char* unk); // 532587 (client: 51e20d)
 };
 
 ASSERT_SIZE(Human, 0x254);

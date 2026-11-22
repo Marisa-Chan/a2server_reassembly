@@ -12,8 +12,8 @@ int32_t g_isDosCP = 0; //660f64
 
 
 // dos -> 1251
+// 45e181 (client: 461da1)
 uint8_t __cdecl DecodeChar(uint8_t ch) {
-    //45e181
     if (g_isDosCP == 0) {
         return ch;
     }
@@ -37,8 +37,8 @@ uint8_t __cdecl DecodeChar(uint8_t ch) {
 }
 
 // 1251 -> dos
+// 4763a9 (client: 47a0f5)
 uint8_t __cdecl EncodeChar(uint8_t c) {
-    //4763a9
 #ifdef A2CLIENT_PATCH
     // CHAT_convWinToDos hook (47A11E): map Win-1251 jo-tyo to the
     // DOS codepage equivalents before the standard conversion
@@ -60,8 +60,8 @@ uint8_t __cdecl EncodeChar(uint8_t c) {
     return c;
 }
 
+// 47641d (client: 47a169)
 uint8_t __cdecl ToLowerChar(uint8_t c) {
-    //47641d
     if (g_isDosCP == 0) {
         return tolower((char)c);
     }
@@ -76,7 +76,8 @@ uint8_t __cdecl ToLowerChar(uint8_t c) {
 }
 
 
-CString XorRegString(const CString& str) { //43d1a9 (client: 43f5b9)
+// 43d1a9 (client: 43f5b9)
+CString XorRegString(const CString& str) {
 #ifdef A2CLIENT
     const int32_t key = 0x9c; // client Allods2.exe
 #else
@@ -89,8 +90,8 @@ CString XorRegString(const CString& str) { //43d1a9 (client: 43f5b9)
     return tmp;
 }
 
+// 4e5fd9 (client: 4eb509)
 void pathStrCpy(const char* src, char* dst) {
-    //4e5fd9
     if (g_PathLower) {
         for (const char* a = src; *a != 0; a++, dst++) {
             *dst = tolower(*a);
@@ -102,8 +103,8 @@ void pathStrCpy(const char* src, char* dst) {
 }
 
 
+// 527de3 (client: 516dbd)
 void __cdecl ReportWarning(const char* warn) {
-    //527de3
     CString str;
     str.Format("WARNING!\n%s", warn);
 
@@ -111,9 +112,8 @@ void __cdecl ReportWarning(const char* warn) {
     puts(str);
 }
 
+// 51fd7d (client: 50feed)
 void __cdecl XorData(void* data, uint32_t size) {
-    //51fd7d
-    // client: 50feed
 #if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
     tangar_hat::PACKET_XorByKey(static_cast<uint8_t*>(data), size, 20);
 #else

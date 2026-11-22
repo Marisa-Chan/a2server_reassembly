@@ -15,7 +15,7 @@
 #endif
 
 
-// 5357C6
+// 5357c6 (client: 520219) - AddTail: append player to list
 void PlayersList::AddPlayer(Player* player) {
     // Build a bitmask of player_id values (1..31) already in use.
     uint32_t used_mask = 0;
@@ -66,7 +66,7 @@ void PlayersList::AddPlayer(Player* player) {
 }
 
 // Find player by numeric id.
-// 535B50
+// 535b50 (client: 520402) - find player by numeric id
 Player* PlayersList::FindById(uint16_t player_id) {
     POSITION it = this->list.GetHeadPosition();
     Player* player = it ? this->list.GetNext(it) : nullptr;
@@ -82,7 +82,7 @@ Player* PlayersList::FindById(uint16_t player_id) {
 }
 
 // Find player by token id.
-// 535C46
+// 535c46 (client: 520449) - GetByTokenID
 Player* PlayersList::FindByTokenId(uint16_t token_id) {
     POSITION it = this->list.GetHeadPosition();
     Player* player = it ? this->list.GetNext(it) : nullptr;
@@ -98,7 +98,7 @@ Player* PlayersList::FindByTokenId(uint16_t token_id) {
 }
 
 // Reset all players' frags to 0.
-// 536286
+// 536286 (client: none) - Reset all players' frags to 0
 void PlayersList::ResetFrags() {
     for (POSITION it = this->list.GetHeadPosition(); it != nullptr;) {
         Player* player = this->list.GetNext(it);
@@ -107,7 +107,7 @@ void PlayersList::ResetFrags() {
 }
 
 // Returns max player_id in list.
-// 535F97
+// 535f97 (client: 52052f) - returns max player_id in list
 int32_t PlayersList::GetMaxPlayerId() {
     int32_t max_id = 0;
     for (POSITION it = this->list.GetHeadPosition(); it != nullptr;) {
@@ -120,7 +120,7 @@ int32_t PlayersList::GetMaxPlayerId() {
 }
 
 // Find player by exact name match.
-// 535D39
+// 535d39 (client: 52048d) - find player by name (name compared against player->name)
 Player* PlayersList::FindByName(CString name) {
     POSITION it = this->list.GetHeadPosition();
     Player* player = it ? this->list.GetNext(it) : nullptr;
@@ -135,7 +135,7 @@ Player* PlayersList::FindByName(CString name) {
     return nullptr;
 }
 
-// 535E94
+// 535e94 (client: none) - find player by HAT character id (hat_char_id1==a && hat_char_id2==b)
 Player* PlayersList::FindByHatCharId(int32_t a, int32_t b) {
     POSITION it = this->list.GetHeadPosition();
     Player* player = it ? this->list.GetNext(it) : nullptr;
@@ -150,8 +150,8 @@ Player* PlayersList::FindByHatCharId(int32_t a, int32_t b) {
     return nullptr;
 }
 
+// 53618f (client: 5205cf) - I guess it counts current human players?
 int PlayersList::CountHumanPlayers() {
-    //53618f
 
     if (this->list.IsEmpty()) {
         return 0;
@@ -167,8 +167,8 @@ int PlayersList::CountHumanPlayers() {
     return count;
 }
 
+// 536092 (client: 52057e)
 int PlayersList::CountCD() {
-    //536092
     int count = 0;
 
     for (POSITION pos = this->list.GetHeadPosition(); pos != nullptr;) {
@@ -179,7 +179,7 @@ int PlayersList::CountCD() {
     return count;
 }
 
-// 53636E
+// 53636e (client: none) - checks if team play is already started
 int PlayersList::AreTeamsStarted() {
     if (g_ServerConfig.gameType != GAME_TYPE_TEAMPLAY) {
         return 1;
@@ -209,7 +209,7 @@ int PlayersList::AreTeamsStarted() {
 }
 
 #ifndef A2CLIENT
-// 534DDD
+// 534ddd (client: 51ff32)
 void PlayersList::ProcessPlayerTimeouts() {
     POSITION pos = this->list.GetHeadPosition();
     Player* player = nullptr;
@@ -383,7 +383,7 @@ void PlayersList::ProcessPlayerTimeouts() {
     }
 }
 #else
-// client 51ff32
+// 534ddd (client: 51ff32)
 void PlayersList::ProcessPlayerTimeouts() {
     for (POSITION pos = list.GetHeadPosition(); pos; ) {
         Player* player = this->list.GetNext(pos);
@@ -450,7 +450,7 @@ void PlayersList::ProcessPlayerTimeouts() {
 }
 #endif
 
-// 5B70F0
+// 5b70f0 (client: 585150)
 Player* PlayersList::GetHead() {
     if (this->list.IsEmpty()) {
         return nullptr;
@@ -459,6 +459,7 @@ Player* PlayersList::GetHead() {
 }
 
 // 5B7110. Avoid this O(N^2) crap, use normal iteration over `list`.
+// 5b7110 (client: 547970) - Avoid this O(N^2) crap, use normal iteration over `list`.
 Player* PlayersList::GetNext(Player* player) {
     POSITION it = this->list.Find(player);
     if (it == nullptr) {
@@ -471,7 +472,8 @@ Player* PlayersList::GetNext(Player* player) {
     return this->list.GetAt(it);
 }
 
-PlayersList::~PlayersList() { //534c02
+// 534c02 (client: 51feea)
+PlayersList::~PlayersList() {
     for (POSITION it = this->list.GetHeadPosition(); it != nullptr;) {
         Player* pl = this->list.GetNext(it);
         if (pl) {
@@ -481,7 +483,7 @@ PlayersList::~PlayersList() { //534c02
     this->list.RemoveAll();
 }
 
-// 55AFB3
+// 55afb3 (client: 536e8d) - Serialize
 void PlayersList::Serialize(CArchive& ar) {
     if (ar.IsStoring()) {
         ar << this->next_player_id;

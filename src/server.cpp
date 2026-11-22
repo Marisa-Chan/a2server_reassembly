@@ -86,7 +86,8 @@ PasswordManager PasswordManager::manager; //6a8b98
 CString SrvLogFile; // client 631330
 
 
-void PasswordManager::OpenFile(const char* name) { //4f6bf9
+// 4f6bf9 (client: 4f7d8c)
+void PasswordManager::OpenFile(const char* name) {
     this->fname = name;
     CFileFind find;
     if (find.FindFile(name)) {
@@ -98,7 +99,8 @@ void PasswordManager::OpenFile(const char* name) { //4f6bf9
     }
 }
 
-void PasswordManager::Load() { //4f6c92
+// 4f6c92 (client: 4f7e25)
+void PasswordManager::Load() {
     CStdioFile file;
     if (!file.Open(this->fname, CFile::modeRead)) {
         return;
@@ -123,17 +125,17 @@ void PasswordManager::Load() { //4f6c92
 
 
 // ---- Helpers used by CreatePlayerCharacter ----
-// 5008CA
 // Stat point cost: (int)(pow(1.15, level - 1) * 0.349 + 0.5)
+// 5008ca (client: 4fb228)
 int32_t StatLevelPoints(int32_t level) {
     return (int32_t)(pow(1.15, (double)(level - 1)) * 0.349 + 0.5);
 }
 uint32_t BldIdSet_AllocBit(); // Allocate a token/building ID bit
 void BldIdSet_Clear();         // Clear allocated token/building ID bits
 
-// 5049D1
 // Strip an optional leading integer count from *str (modifies str in-place),
 // returns the parsed count (or 1 if none present).
+// 5049d1 (client: 4fddcb)
 int32_t ParseCountPrefix(CString* str) {
     int32_t count = 1;
     int32_t pos = str->Find(' ');
@@ -149,8 +151,8 @@ int32_t ParseCountPrefix(CString* str) {
 }
 
 // ---- Helpers used by LoadGame ----
-// 43A820
 // itoa -> CString
+// 43a820 (client: 43cc10)
 CString* IntToCString(CString* out, uint32_t value) {
     char buf[21];
     _itoa(value, buf, 10);
@@ -161,19 +163,20 @@ CString* IntToCString(CString* out, uint32_t value) {
 int g_MapFileChecksum; // File checksum global
 
 // ---- Helpers used by arena Server methods ----
-// 4FA768
 // Send game-end broadcast to all clients
+// 4fa768 (client: none)
 static void SendFragLimit(Player* player) {
     g_NetStru1_main.SendInfoPacket(HAT_SCORE_LIST, g_ServerConfig.frag_limit, 0, player);
 }
 
 uint16_t Server::somewords[32][32];
 
-Srv1::~Srv1() = default; // 59b6f0
+// 59b6f0 (client: 56a5a0)
+Srv1::~Srv1() = default;
 
 SrvStru1 SrvStru1::Instance; //6cf390
 
-// 4f2c26
+// 4f2c26 (client: 4f5180)
 Server::~Server() {
 #ifdef A2TANGAR_HAT
     // imp_ServerClosed callback (4F2FC3); the HAT NetCmd_Shutdown /
@@ -255,7 +258,7 @@ Server::~Server() {
     LogMessage("Server closed\n");
 }
 
-// 4F465E
+// 4f465e (client: none)
 void Server::AnnounceHatGameStart() {
     if (g_CLlDriver.provider != PROVIDER_HAT_TCP) {
         return;
@@ -268,7 +271,7 @@ void Server::AnnounceHatGameStart() {
     }
 }
 
-// 4F1E2A
+// 4f1e2a (client: 4f4b1f)
 void Server::ProcessPlayers() {
     this->AnnounceHatGameStart();
     this->gap_0x8c = 1;
@@ -424,7 +427,7 @@ void Server::ProcessPlayers() {
     this->ScanSavedCharacters();
 }
 
-// 4F9E55
+// 4f9e55 (client: none)
 void Server::ScanSavedCharacters() {
     if (g_ServerConfig.gameType != GAME_TYPE_COOPERATIVE) {
         return;
@@ -459,7 +462,7 @@ void Server::ScanSavedCharacters() {
 }
 
 
-// 59B7EA
+// 59b7ea (client: 56a69a) - Load ALM map file
 int Srv1::LoadMap(CString map_name) {
     if (this->is_scenario != 0) {
         map_name = "Scenario\\" + map_name;
@@ -580,7 +583,7 @@ int Srv1::LoadMap(CString map_name) {
     return 0;
 }
 
-// 59C56E
+// 59c56e (client: 56b41e) - CreateBuildings
 void Srv1::CreateBuildings(MapAlm* alm) {
     static std::set<int16_t> shop_type_ids = {
         Building::TYPE_SHOP_PLAGAT_1, Building::TYPE_SHOP_PLAGAT_2,
@@ -704,7 +707,7 @@ void Srv1::CreateBuildings(MapAlm* alm) {
     }
 }
 
-// 59FC97
+// 59fc97 (client: 56eb47) - Spawn 'count' random sacks on the map; count=0 defaults to max(10, map_width/4).
 void Srv1::SpawnRandomSacks(int count) {
 #ifdef A2TANGAR_HAT
     (void)count;
@@ -733,7 +736,7 @@ void Srv1::SpawnRandomSacks(int count) {
 #endif
 }
 
-// 59BEDB
+// 59bedb (client: 56ad8b)
 void Srv1::SpawnGroupOutpost(Group* group, MapAlm* alm) {
     if (group->unit_list.GetCount() == 0) {
         return;
@@ -817,7 +820,7 @@ void Srv1::SpawnGroupOutpost(Group* group, MapAlm* alm) {
     }
 }
 
-// 59C37A
+// 59c37a (client: 56b22a)
 void Srv1::SpawnAiGroupOutposts(MapAlm* alm) {
     POSITION player_iter = g_PlayersList->list.GetHeadPosition();
     while (player_iter) {
@@ -832,7 +835,7 @@ void Srv1::SpawnAiGroupOutposts(MapAlm* alm) {
     }
 }
 
-// 59C3FB
+// 59c3fb (client: 56b2ab)
 void Srv1::CreatePlayers(MapAlm* alm) {
     for (int32_t i = 1; i <= alm->map_players.GetSize(); i++) {
         MapPlayerData* player_data = alm->map_players[i - 1];
@@ -860,7 +863,7 @@ void Srv1::CreatePlayers(MapAlm* alm) {
     }
 }
 
-// 59CD45
+// 59cd45 (client: 56bbf5)
 void Srv1::CreateUnits(MapAlm* alm) {
     if (MapStuff_Instance == nullptr) {
         return;
@@ -968,7 +971,8 @@ void Srv1::CreateUnits(MapAlm* alm) {
     }
 }
 
-Unit* Srv1::GetScenarioScriptPCUnit(const char* name) { //59d4b8
+// 59d4b8 (client: 56c368)
+Unit* Srv1::GetScenarioScriptPCUnit(const char* name) {
     if (g_Server->multiplayer == 0) {
         CString pcname("PC_");
         pcname += name;
@@ -991,7 +995,8 @@ Unit* Srv1::GetScenarioScriptPCUnit(const char* name) { //59d4b8
     return nullptr;
 }
 
-Unit* Srv1::GetScenarioScriptHero(uint32_t idx) { //59d664
+// 59d664 (client: 56c514)
+Unit* Srv1::GetScenarioScriptHero(uint32_t idx) {
     if (g_Server->multiplayer == 0) {
         Player* first_player = g_PlayersList->GetHead();
         for (POSITION pos = first_player->unit_list->unit_list.GetHeadPosition(); pos != nullptr;) {
@@ -1011,7 +1016,8 @@ Unit* Srv1::GetScenarioScriptHero(uint32_t idx) { //59d664
     return nullptr;
 }
 
-Unit* Srv1::GetScenarioScriptUnit(CMap<int32_t, int32_t, Unit*, Unit*>& umap, uint32_t idx) { //59d3c0
+// 59d3c0 (client: 56c270)
+Unit* Srv1::GetScenarioScriptUnit(CMap<int32_t, int32_t, Unit*, Unit*>& umap, uint32_t idx) {
     Unit* result = nullptr;
     if (idx < 10001) {
         result = umap[idx];
@@ -1034,7 +1040,8 @@ Unit* Srv1::GetScenarioScriptUnit(CMap<int32_t, int32_t, Unit*, Unit*>& umap, ui
     return result;
 }
 
-Group* Srv1::GetScenarioScriptGroup(CMap<int32_t, int32_t, Group*, Group*>& gmap, uint32_t idx) { //59d808
+// 59d808 (client: 56c6b8)
+Group* Srv1::GetScenarioScriptGroup(CMap<int32_t, int32_t, Group*, Group*>& gmap, uint32_t idx) {
     Group* g = gmap[idx];
     if (!g) {
         CString msg;
@@ -1044,7 +1051,8 @@ Group* Srv1::GetScenarioScriptGroup(CMap<int32_t, int32_t, Group*, Group*>& gmap
     return g;
 }
 
-Player* Srv1::GetScenarioScriptPlayer(CMap<int32_t, int32_t, Player*, Player*>& pmap, uint32_t idx) { //59d77f
+// 59d77f (client: 56c62f)
+Player* Srv1::GetScenarioScriptPlayer(CMap<int32_t, int32_t, Player*, Player*>& pmap, uint32_t idx) {
     Player* p = pmap[idx];
     if (!p) {
         CString msg;
@@ -1054,7 +1062,7 @@ Player* Srv1::GetScenarioScriptPlayer(CMap<int32_t, int32_t, Player*, Player*>& 
     return p;
 }
 
-// 59D891
+// 59d891 (client: 56c741)
 void Srv1::LoadTriggers(MapAlm* alm, int flag) {
     CMap<int32_t, int32_t, Unit*, Unit*> units_map;
     CMap<int32_t, int32_t, Group*, Group*> groups_map;
@@ -1460,7 +1468,7 @@ void Srv1::LoadTriggers(MapAlm* alm, int flag) {
     }
 }
 
-// 59F1BE
+// 59f1be (client: 56e06e)
 void Srv1::LoadSacks(MapAlm* alm) {
     // Build lookup maps
     CMap<int32_t, int32_t, Building*, Building*> buildings_map;
@@ -1644,7 +1652,7 @@ void Srv1::LoadSacks(MapAlm* alm) {
 }
 
 // Called when a player enters a map; streams the current game state to them.
-// 4FF937
+// 4ff937 (client: 4faab6) - Mission join: send full world state to connecting player
 void Server::SendWorldState(Player* player, int32_t enter_world) {
     // Send existing players' PacketJoin data to the new player.
     g_NetStru1_main.SendExistingPlayers(player);
@@ -1685,9 +1693,7 @@ void Server::SendWorldState(Player* player, int32_t enter_world) {
     {
         PacketJoin* pkt = new PacketJoin(this->current_map_name);
         pkt->id = START_GAME;
-        // [pkt+0xA] = Server::map_code.  Offset 0xA within PacketJoin is
-        // the first uint32_t after the base Packet (Packet = 0xA bytes, pkt+0xA =
-        // player_id of PacketJoin, but the ASM stores map_code there as a dword).
+        // [pkt+0xA] = Server::map_code. Original stores it as a dword.
         pkt->__as_dword = this->map_code;
         pkt->to_player_id = player->player_id;
         g_NetStru1_main.QueuePacketSend(pkt);
@@ -1904,10 +1910,6 @@ void Server::SendWorldState(Player* player, int32_t enter_world) {
     }
 
     // Encode and send the full map-terrain packet to the player.
-    // encode_list is a stack-local CArray<uint16_t> (= CWordArray, var_88 in ASM).
-    // MapStuff_Instance->EncodeTerrain fills it with run-length encoded terrain data.
-    // The result is copied into 6E9DB0 (the large static packet buffer)
-    // beginning at offset 0xE, then the packet is sent.
     {
         // Set up terrain packet header.
         PacketTerrain& pkt = PacketTerrain::Inst;
@@ -1932,8 +1934,8 @@ void Server::SendWorldState(Player* player, int32_t enter_world) {
 }
 
 
+// 4ff439 (client: none)
 void Server::AssignPlayerSlot(Player* player, int32_t slot_data) {
-    //4FF439
     if (player->main_unit == nullptr) {
         return;
     }
@@ -2042,6 +2044,7 @@ void Server::AssignPlayerSlot(Player* player, int32_t slot_data) {
 //          8=team play started, 9=shutdown initiated.
 // Calling convention: __thiscall (ecx=this=Server*), args are stdcall-pushed.
 // `name` / `login` are CStrings passed by value (caller owns them; function may assign into them).
+// 4fc644 (client: none)
 int Server::JoinPlayer(uint32_t pkt_word0, uint32_t pkt_word1,
                        CString name,          // player display name (in/out)
                        CString login,         // player login credential
@@ -2060,7 +2063,7 @@ int Server::JoinPlayer(uint32_t pkt_word0, uint32_t pkt_word1,
     if (g_PlayersList->CountHumanPlayers() >= max_players) {
         LogMessage("Player " + name + " login " + login + " has been rejected (Server full)");
 
-        // ASM also checks `if (player != 0) {delete player}`, but player is always null at this point, so we skip that.
+        // Original also checks `if (player != 0) {delete player}`, but player is always null at this point, so we skip that.
 
         if (Block != nullptr) {
             delete[] Block;
@@ -2422,8 +2425,8 @@ int Server::JoinPlayer(uint32_t pkt_word0, uint32_t pkt_word1,
     return 0;
 }
 
+// 4f94c0 (client: none)
 void Server::SignalGameStart(int32_t start_kind) {
-    //4F94C0
 #ifdef A2SERVER_PATCH
     // SRV_EX.xck (4F94E5): save and kick all connected human players instead of sending GAME_START.
     LogMessage("Server::SignalGameStart\n");
@@ -2446,8 +2449,8 @@ void Server::SignalGameStart(int32_t start_kind) {
 }
 
 
+// 4f6fc9 (client: 4f8107)
 ServerConfig::ServerConfig() {
-    //4f6fc9
     this->game_speed = 4;
     this->repop_delay = 100;
     this->protocol = 2;
@@ -2470,6 +2473,7 @@ ServerConfig::ServerConfig() {
 
 // Create (or revive) the hero for a player who is joining via the magic-packet path.
 // 500907  client 4fb265
+// 500907 (client: 4fb265)
 Human* Server::CreatePlayerCharacter(Player* player, uint8_t body, uint8_t reaction, uint8_t mind, uint8_t spirit, uint8_t main_skill, uint8_t character_class) {
     // Does player already have the main unit (reconnect / rejoin)?
     if (player->main_unit != nullptr) {
@@ -2583,8 +2587,8 @@ Human* Server::CreatePlayerCharacter(Player* player, uint8_t body, uint8_t react
     return unit;
 }
 
-// 4ef4e7
 // Loads a `Human` unit from a saved character packet.
+// 4ef4e7 (client: 4f346b) - Load character from saved packet.
 Human* Server::LoadCharacter(void* data, int32_t size, Player* player) {
     CMemFile file(static_cast<uint8_t*>(data), size, 0);
 
@@ -2799,7 +2803,7 @@ Human* Server::LoadCharacter(void* data, int32_t size, Player* player) {
 //   #show map / #hide map:  reveal or conceal the full map for the player
 //   #victory:             trigger a victory event for the player's team
 //   #event <id>:          fire an in-game script event
-// 502D0B
+// 502d0b (client: 4fcab0)
 void Server::CheatCommand(Player* player, CString cheat_string) {
 #ifdef A2TANGAR_HAT
     if (player != nullptr) {
@@ -4154,7 +4158,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
 
 Shop g_DefaultShop;     // 6D10B8
 
-// 502C50
+// 502c50 (client: 4fc9f5)
 Shop* Server::FindShopAt(TokenPos* pos) {
     Shop* shop = nullptr;
     if (this->use_default_shop != 0) {
@@ -4232,6 +4236,7 @@ void CheckPacketType(Packet* pkt, const char* want_type) {
     }
 }
 
+// 504a96 (client: 4fdea5)
 void Server::ProcessClientPacket(Packet* pkt) {
 #if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
     // remember_a2server hook (504A99)
@@ -6003,6 +6008,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
 
 
 
+// server: none (client: 4f9a78) - Allods2.exe Join Player
 void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2* client, uint32_t params) {
     //Allods2.exe 4f9a78    Join Player
     if (name.GetLength() < 1) {
@@ -6223,8 +6229,8 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
     }
 }
 
+// 4fc4f3 (client: 4f992b)
 void Server::JoinErrorSend(NetStru2* client, int32_t error_code, const CString& str) {
-    //4fc4f3
     g_NetStru1_main.SendAllData();
     Player pl;
     pl.player_id = 9999;
@@ -6239,6 +6245,7 @@ void Server::JoinErrorSend(NetStru2* client, int32_t error_code, const CString& 
 }
 
 
+// 500792 (client: 4fb0f3) - not used in server, but used in Allods2
 Player* Server::Allods2_CreatePlayer(CString name) {
     Player* player = nullptr;
     if (this->multiplayer == 0) {
@@ -6264,7 +6271,7 @@ Player* Server::Allods2_CreatePlayer(CString name) {
     return player;
 }
 
-// 4f0bef
+// 4f0bef (client: none) - Connect to hat server
 int32_t Server::ConnectToHat() {
 #ifdef A2TANGAR_HAT
     // imp_NetLayer_FirstConnect (4F0BEF): prepare the HAT control connection
@@ -6304,7 +6311,7 @@ int32_t Server::ConnectToHat() {
     return 1;
 }
 
-// 4f0ecf
+// 4f0ecf (client: none)
 void Server::HatKeepaliveTick() {
     if (this->hat_disconnect_tick != 0 || this->hat_logged_in != 0) {
         return;
@@ -6409,8 +6416,8 @@ void Server::HatKeepaliveTick() {
     }
 }
 
+// 4f06f5 (client: 4f4116)
 int Server::Start(int mode) {
-    //4f06f5
     g_buildingIdSet.Clear();
 
 #ifdef A2CLIENT
@@ -6511,6 +6518,7 @@ int Server::Start(int mode) {
 
 // Save a player's character data to file.
 // 4EE028 client 4f2c57
+// 4ee028 (client: 4f2c57)
 void Server::SaveCharacter(Humanoid* humanoid) {
 #ifdef A2CLIENT
     if (g_Server->save_on_server || g_Server->multiplayer == 0)
@@ -6647,7 +6655,7 @@ void Server::SaveCharacter(Humanoid* humanoid) {
 
 
 // Load map (or a saved game?)
-// 4F1471
+// 4f1471 (client: 4f44d5) - Load map / saved game
 int Server::LoadGame(CString map_name) {
 #ifdef A2TANGAR_HAT
     // imp_LoadingMap callback (4F1471): reset custom shops before building reload.
@@ -6798,7 +6806,7 @@ int Server::LoadGame(CString map_name) {
     return 0;
 }
 
-// 4FBB79
+// 4fbb79 (client: 4f967a)
 void Server::ServerTic() {
 #ifdef A2TANGAR_HAT
     // imp_ServerTic callback (4FBB79): pump the HAT control connection,
@@ -6952,8 +6960,8 @@ void Server::ServerTic() {
 
 
 
+// 509010 (client: 50106e)
 void Server::ProcessAvailPackets() {
-    //509010
     while (true) {
         Packet* pkt = g_NetStru1_main.ReceiveAnyPacket();
         if (!pkt) {
@@ -6964,15 +6972,16 @@ void Server::ProcessAvailPackets() {
     }
 }
 
+// 50907e (client: 5010a0)
 void Server::PumpNetwork() {
-    //50907e
     this->ProcessAvailPackets();
     g_NetStru1_main.SendTickPacket(nullptr);
     g_NetStru1_main.SendAllData();
 }
 
+// 4ece8b (client: 4f233b)
 Server::Server()
-: base_dir(""), srv_stru1(&SrvStru1::Instance) { //4ece8b
+: base_dir(""), srv_stru1(&SrvStru1::Instance) {
     g_World = nullptr;
     g_ServerUnits = nullptr;
     g_UnitPool = nullptr;
@@ -7038,7 +7047,8 @@ Server::Server()
     this->map_elapsed_time2 = 0;
 }
 
-void Server::DespawnScenarioUnits(int32_t var300, CDWordArray& arr) { //501b9e
+// 501b9e (client: 4fbe72)
+void Server::DespawnScenarioUnits(int32_t var300, CDWordArray& arr) {
     UnitList ulst;
     for (int i = 0; i < arr.GetSize(); i++) {
         uint32_t serverID = arr[i] & 0xffff;
@@ -7142,7 +7152,7 @@ void Server::DespawnScenarioUnits(int32_t var300, CDWordArray& arr) { //501b9e
     g_NetStru1_main.SendAllData();
 }
 
-// 4F0D58
+// 4f0d58 (client: none)
 void Server::ProcessHatConnections() {
     NetStru1::HatConnector.ProcessConnections();
     if (g_HatLLDriver.IsListen()) {
@@ -7177,7 +7187,7 @@ void Server::ProcessHatConnections() {
     }
 }
 
-// 5013D4
+// 5013d4 (client: 4fb99d)
 void Server::EnsurePlayerGroup(Player* player) {
     Group* group;
     if (player->group_list->groups.GetCount() == 0) {
@@ -7276,6 +7286,7 @@ void Server::EnsurePlayerGroup(Player* player) {
 
 // 4F4570
 #ifndef A2CLIENT
+// 4f4570 (client: 4f5e75)
 void Server::UpdateHatAnnounce() {
     if (g_CLlDriver.provider != PROVIDER_HAT_TCP) {
         return;
@@ -7292,7 +7303,7 @@ void Server::UpdateHatAnnounce() {
     }
 }
 #else
-// client 4f5e75
+// 4f4570 (client: 4f5e75)
 void Server::UpdateHatAnnounce() {
     if (g_CLlDriver.provider == PROVIDER_DP_TCPIP) {
         CString str;
@@ -7323,7 +7334,7 @@ void Server::UpdateHatAnnounce() {
 }
 #endif
 
-// 4F8831
+// 4f8831 (client: none)
 void Server::KickAllPlayers() {
     for (POSITION it = g_PlayersList->list.GetHeadPosition(); it != nullptr;) {
         Player* player = g_PlayersList->list.GetNext(it);
@@ -7339,7 +7350,7 @@ void Server::KickAllPlayers() {
     g_PlayersList->ProcessPlayerTimeouts();
 }
 
-// 4F8F86
+// 4f8f86 (client: none) - Called when all team-game players are ready
 void Server::OnTeamsReady() {
     this->ctf_score[0] = 0;
     this->ctf_score[1] = 0;
@@ -7348,7 +7359,7 @@ void Server::OnTeamsReady() {
     }
 }
 
-// 4F9AD3
+// 4f9ad3 (client: none) - Pre-process a sack before pickup
 void Server::PrepareSackPickup(Sack* sack) {
     if (g_ServerConfig.gameType != GAME_TYPE_COOPERATIVE) {
         return;
@@ -7374,7 +7385,7 @@ void Server::PrepareSackPickup(Sack* sack) {
     }
 }
 
-// 4F9B9E
+// 4f9b9e (client: none) - Save sack to file
 void Server::SaveSack(Sack* sack) {
     if (g_ServerConfig.gameType != GAME_TYPE_COOPERATIVE) {
         return;
@@ -7402,7 +7413,7 @@ void Server::SaveSack(Sack* sack) {
     }
 }
 
-// 4F950F
+// 4f950f (client: none)
 void Server::LoadSavedSacks() {
     if (g_ServerConfig.gameType != GAME_TYPE_COOPERATIVE || this->sacks_loaded != 0) {
         return;
@@ -7472,7 +7483,7 @@ void Server::LoadSavedSacks() {
     this->sacks_loaded = 1;
 }
 
-// 4FA348
+// 4fa348 (client: none)
 void Server::AddArenaFrags(CString* name, int32_t flag) {
     for (int32_t i = 0; i < this->arena_names.GetSize(); i++) {
         if (this->arena_names[i] == *name) {
@@ -7493,7 +7504,7 @@ void Server::AddArenaFrags(CString* name, int32_t flag) {
     SendFragLimit(nullptr);
 }
 
-// 4FA4BB
+// 4fa4bb (client: none)
 void Server::GetArenaFrags(CString* name, uint32_t* frags) {
     *frags = 0;
     for (int32_t i = 0; i < this->arena_names.GetSize(); i++) {
@@ -7504,7 +7515,7 @@ void Server::GetArenaFrags(CString* name, uint32_t* frags) {
     }
 }
 
-// 5088DF
+// 5088df (client: none)
 void Server::ProcessHatPacket(Packet* pkt) {
     if (NetStru1::HatConnector.active_connects.IsEmpty()) {
         return;
@@ -7626,7 +7637,7 @@ void Server::ProcessHatPacket(Packet* pkt) {
     }
 }
 
-// 4FA551
+// 4fa551 (client: none) - Arena mode player entry handler
 void Server::HandleArenaPlayer(Player* player) {
     for (int32_t i = 0; i < this->arena_names.GetSize(); i++) {
         g_NetStru1_main.SendArenaScore(this->arena_names[i], this->arena_scores[i], HAT_SCORE_UPDATE, player);
@@ -7634,7 +7645,7 @@ void Server::HandleArenaPlayer(Player* player) {
     SendFragLimit(player);
 }
 
-// 4FA78E
+// 4fa78e (client: none)
 void Server::ResetArenaRound(int32_t end_reason) {
     g_NetStru1_main.SendInfoPacket(HAT_SCORE_LIST, g_ServerConfig.frag_limit, end_reason, nullptr);
     this->SendArenaResults();
@@ -7650,7 +7661,8 @@ void Server::ResetArenaRound(int32_t end_reason) {
     }
 }
 
-CowardActivation::CowardActivation() { // 5a335c
+// 5a335c (client: 5714cc)
+CowardActivation::CowardActivation() {
     memset(this->key, 0, sizeof(this->key));
     this->enabled = 0;
 
@@ -7677,7 +7689,7 @@ CowardActivation::CowardActivation() { // 5a335c
     this->key[0x11] = 0;
 }
 
-// 5A3498
+// 5a3498 (client: 571608) - CheckActivationKey
 int32_t CowardActivation::CheckActivationKey(const char* str) {
     // WAT: 100 is excessive here, should be at most 10, because `key` is 100 bytes.
     for (int32_t i = 1; i < 100; i++) {
@@ -7700,7 +7712,7 @@ int32_t CowardActivation::CheckActivationKey(const char* str) {
     return 0;
 }
 
-// 4FAEB4
+// 4faeb4 (client: 4f905a)
 void SrvStru1::FreeLists() {
     if (this->sack_list) {
         delete this->sack_list;
@@ -7748,7 +7760,8 @@ void SrvStru1::FreeLists() {
     }
 }
 
-void SrvStru1::Deinit() { //4fab1d
+// 4fab1d (client: none)
+void SrvStru1::Deinit() {
     if (this->sack_list) {
         delete this->sack_list;
         this->sack_list = nullptr;
@@ -7806,7 +7819,8 @@ void SrvStru1::Deinit() { //4fab1d
     }
 }
 
-Unit* SrvStru1::AddDummyUnitWithSpell(int32_t xpos, int32_t ypos, int32_t spellID, int16_t SpellDmg) { //4fb8cd
+// 4fb8cd (client: 4f9466)
+Unit* SrvStru1::AddDummyUnitWithSpell(int32_t xpos, int32_t ypos, int32_t spellID, int16_t SpellDmg) {
     Unit* unit = new Unit();
     unit->building_id = 0;
 
@@ -7829,25 +7843,28 @@ Unit* SrvStru1::AddDummyUnitWithSpell(int32_t xpos, int32_t ypos, int32_t spellI
     return unit;
 }
 
-void SrvStru1::MakeAreaSpellEffect(uint8_t from_x, uint8_t from_y, uint8_t to_x, uint8_t to_y, uint32_t spell_id, uint32_t power) { // 4FBB24
+// 4fbb24 (client: 4f9629)
+void SrvStru1::MakeAreaSpellEffect(uint8_t from_x, uint8_t from_y, uint8_t to_x, uint8_t to_y, uint32_t spell_id, uint32_t power) {
     Unit* unit = this->AddDummyUnitWithSpell(from_x, from_y, spell_id, power);
     unit->some_state = Unit::EXEC_CAST_POS;
     unit->area_cast_x = to_x;
     unit->area_cast_y = to_y;
 }
 
-void SrvStru1::MakeTargetSpellEffect(uint8_t a0, uint8_t a1, Unit* unit, uint32_t a3, uint32_t a4) { // 4FBAE3
+// 4fbae3 (client: 4f95ec)
+void SrvStru1::MakeTargetSpellEffect(uint8_t a0, uint8_t a1, Unit* unit, uint32_t a3, uint32_t a4) {
     Unit* u = this->AddDummyUnitWithSpell(a0, a1, a3, a4);
     u->some_state = Unit::EXEC_CAST_UNIT;
     u->cast_target = unit;
 }
 
-void SrvStru1::UpdateMapObjects() { // 4FB4AA
+// 4fb4aa (client: 4f9302)
+void SrvStru1::UpdateMapObjects() {
     this->building_list->RegenTick();
     this->sack_list->UpdateSackVisibility();
 }
 
-// 4FB4CA
+// 4fb4ca (client: 4f9322)
 void SrvStru1::TransferUnitOwnership(Unit* unit, Player* new_owner) {
 #ifdef A2SERVER_PATCH
     if (unit == nullptr) {
@@ -7888,7 +7905,7 @@ void SrvStru1::TransferUnitOwnership(Unit* unit, Player* new_owner) {
     unit->ownership_changed = 1;
 }
 
-// 4FB273
+// 4fb273 (client: 4f9289)
 void SrvStru1::ProcessTick() {
     POSITION unit_it = this->some_unit_list.GetHeadPosition();
     while (unit_it != nullptr) {
@@ -7904,18 +7921,20 @@ void SrvStru1::ProcessTick() {
     this->units_list->SendVisibilityUpdates();
 }
 
-SrvStru1::SrvStru1() { //4fa89c
+// 4fa89c (client: 4f91a3)
+SrvStru1::SrvStru1() {
     this->sack_list = nullptr;
     this->units_list = nullptr;
     this->effects_list = nullptr;
     this->building_list = nullptr;
 }
 
-SrvStru1::~SrvStru1() { //4fa981
+// 4fa981 (client: 4f9000)
+SrvStru1::~SrvStru1() {
     this->Deinit();
 }
 
-// 554B03
+// 554b03 (client: 534ac8) - Clear unit vision mask bits for player across this sack list
 void SackList::ClearSentToMask(Player* player) {
     for (POSITION pos = this->list.GetHeadPosition(); pos != nullptr;) {
         Sack* sack = this->list.GetNext(pos);
@@ -7926,7 +7945,7 @@ void SackList::ClearSentToMask(Player* player) {
     }
 }
 
-// 554927
+// 554927 (client: 534a18)
 void SackList::DropInventoryAt(TokenPos* pos, Inventory* inventory, int money, int is_main_player_unit) {
     if (this->DumpInventoryAt(pos, inventory, money, is_main_player_unit)) {
         Sack* sack = MapStuff_Instance->GetSackAtPos(pos);
@@ -7934,7 +7953,7 @@ void SackList::DropInventoryAt(TokenPos* pos, Inventory* inventory, int money, i
     }
 }
 
-// 55496E
+// 55496e (client: 534a5f) - Add sack to list and map
 int32_t SackList::AddSack(Sack* sack) {
     // Validate sack can be placed on map
     if (!MapStuff_Instance->CanPlaceSack(sack)) {
@@ -7946,7 +7965,7 @@ int32_t SackList::AddSack(Sack* sack) {
     return 1;
 }
 
-// 554460
+// 554460 (client: 534829)
 int32_t SackList::DumpInventoryAt(TokenPos* pos, Inventory* inventory, int money, int force_save) {
     Sack* sack = MapStuff_Instance->GetSackAtPos(pos);
     
@@ -8013,7 +8032,7 @@ int32_t SackList::DumpInventoryAt(TokenPos* pos, Inventory* inventory, int money
     return 1;
 }
 
-// 55BC58
+// 55bc58 (client: 5372d4) - Serialize
 void SackList::Serialize(CArchive& ar) {
     if (ar.IsStoring()) {
         ar << this->list.GetCount();
@@ -8032,7 +8051,8 @@ void SackList::Serialize(CArchive& ar) {
     }
 }
 
-SackList::~SackList() { //554bc3
+// 554bc3 (client: 534b1d)
+SackList::~SackList() {
     for (POSITION pos = this->list.GetHeadPosition(); pos != nullptr;) {
         Sack* sac = this->list.GetNext(pos);
         
@@ -8044,7 +8064,7 @@ SackList::~SackList() { //554bc3
     this->list.RemoveAll();
 }
 
-// 5540ed
+// 5540ed (client: 534615)
 void SackList::UpdateSackVisibility() {
 #ifndef A2CLIENT
     const int32_t max_sacks = g_Server->srv1.GetMapCenterX() / (g_ServerConfig.gameType == GAME_TYPE_COOPERATIVE ? 1 : 8);
@@ -8110,10 +8130,10 @@ void SackList::UpdateSackVisibility() {
     }
 }
 
-// 55837D
+// 55837d (client: 535f0b)
 SpellEffectList::SpellEffectList() {}
 
-// 55c213
+// 55c213 (client: 537309)
 void SpellEffectList::FixupPointers() {
     for (POSITION pos = this->list.GetHeadPosition(); pos != nullptr;) {
         SpellEffect* eff = this->list.GetNext(pos);
@@ -8123,7 +8143,8 @@ void SpellEffectList::FixupPointers() {
     }
 }
 
-SpellEffectList::~SpellEffectList() { //5583ed
+// 5583ed (client: 535f2d)
+SpellEffectList::~SpellEffectList() {
     for (POSITION pos = this->list.GetHeadPosition(); pos != nullptr;) {
         SpellEffect* eff = this->list.GetNext(pos);
 
@@ -8135,7 +8156,7 @@ SpellEffectList::~SpellEffectList() { //5583ed
     this->list.RemoveAll();
 }
 
-// 55BF31
+// 55bf31 (client: 5372ed) - Serialize
 void SpellEffectList::Serialize(CArchive& ar) {
     if (ar.IsStoring()) {
         ar << this->list.GetCount();
@@ -8154,7 +8175,7 @@ void SpellEffectList::Serialize(CArchive& ar) {
     }
 }
 
-// 5585F2
+// 5585f2 (client: 535f9b)
 void SpellEffectList::ProcessTick() {
     for (POSITION it = this->list.GetHeadPosition(); it != nullptr;) {
         POSITION current_it = it;
@@ -8185,7 +8206,7 @@ void SpellEffectList::ProcessTick() {
     }
 }
 
-// 502B4A
+// 502b4a (client: 4fc8f1)
 Player* Server::FindPlayerById(uint16_t player_id) {
 #ifdef A2SERVER_PATCH
     if (!g_PlayersList) {
@@ -8202,7 +8223,7 @@ Player* Server::FindPlayerById(uint16_t player_id) {
     return player;
 }
 
-// 502AD1
+// 502ad1 (client: 4fc761)
 Unit* Server::FindPlayerUnit(uint16_t player_ref, uint16_t unit_id) {
     Player* player = this->FindPlayerById(player_ref);
 #ifdef A2SERVER_PATCH
@@ -8224,7 +8245,7 @@ Unit* Server::FindPlayerUnit(uint16_t player_ref, uint16_t unit_id) {
     return unit;
 }
 
-// 502CB7
+// 502cb7 (client: 4fca5c) - Inn lookup by TokenPos
 Inn* Server::FindInnAt(TokenPos* pos) {
     if (!this->srv_stru1->building_list) {
         return nullptr;
@@ -8251,7 +8272,7 @@ Inn* Server::FindInnFor(Unit* unit) {
 }
 #endif
 
-// 4FF878
+// 4ff878 (client: 4fa9f7)
 void Server::SendMapInfo(Player* player) {
     PacketJoin* pkt = new PacketJoin(this->current_map_name);
     pkt->id = MAP_INFO;
@@ -8267,7 +8288,7 @@ void Server::SendMapInfo(Player* player) {
 #endif
 }
 
-// 5090A7
+// 5090a7 (client: 5010c9)
 void Server::Tick() {
     this->tick++;
     this->ProcessAvailPackets();
@@ -8277,12 +8298,12 @@ void Server::Tick() {
     g_NetStru1_main.SendPacket_64(this->tick, 0);
 }
 
-// 50979A
+// 50979a (client: 501511)
 void Server::MissionResultsTick() {
     this->UpdateMissionResults();
 }
 
-// 509042
+// 509042 (client: none)
 void Server::ProcessHatPackets() {
     NetStru1::HatConnector.ProcessConnections();
     Packet* pkt;
@@ -8291,7 +8312,7 @@ void Server::ProcessHatPackets() {
     }
 }
 
-// 5090FA
+// 5090fa (client: 501114)
 void Server::UpdateMissionResult(Player* player) {
     if (player->is_in_world == 0 || player->is_ai) {
         return;
@@ -8362,7 +8383,7 @@ void Server::UpdateMissionResult(Player* player) {
     }
 }
 
-// 5096E4
+// 5096e4 (client: 5014cc)
 void Server::UpdateMissionResults() {
     POSITION pos = g_PlayersList->list.GetHeadPosition();
     while (pos != nullptr) {
@@ -8371,7 +8392,7 @@ void Server::UpdateMissionResults() {
     }
 }
 
-// 4FA5C4
+// 4fa5c4 (client: none)
 void Server::SendArenaResults() {
     LogMessage("Sending arena results to hat");
     CTime now = CTime::GetTickCount();
@@ -8394,7 +8415,7 @@ void Server::SendArenaResults() {
     NetStru1::HatConnector.SendHatRawString(result, result.GetLength());
 }
 
-// 4FA01F
+// 4fa01f (client: none) - Arena mode file list setup
 void Server::SetupArenaFileList() {
     this->arena_names.SetSize(0, -1);
     this->arena_scores.SetSize(0, -1);
@@ -8402,7 +8423,7 @@ void Server::SetupArenaFileList() {
     this->map_elapsed_time2 = 0;
 }
 
-// 4ED2DC
+// 4ed2dc (client: 4f25d6)
 void Server::SaveGame(CString* filename) {
     LogMessage("Saving to:" + *filename);
 
@@ -8507,7 +8528,7 @@ void Server::SaveGame(CString* filename) {
     file.Close();
 }
 
-// 4F3188
+// 4f3188 (client: 4f54f6) - deserialise saved game state from archive
 void Server::SerializeGame(CArchive& ar) {
     if (ar.IsStoring()) {
         ar << this->tick;
@@ -8678,7 +8699,7 @@ void Server::SerializeGame(CArchive& ar) {
     this->script_settings->Serialize(ar);
 }
 
-// 4EDB83
+// 4edb83 (client: 4f2955) - Load saved game file
 int32_t Server::LoadSavedGame(const CString& filename) {
     LogMessage("Loading from:" + filename);
     CFile file;
@@ -8753,7 +8774,7 @@ int32_t Server::LoadSavedGame(const CString& filename) {
     return 0;
 }
 
-// 509879
+// 509879 (client: 50157b) - Summon a unit; returns the new unit (or nullptr on failure)
 Human* Server::SummonUnit(CString* unit_name, Unit* origin, int32_t is_hero) {
     Unit* unit = new Unit(*unit_name);
 
@@ -8799,7 +8820,7 @@ Human* Server::SummonUnit(CString* unit_name, Unit* origin, int32_t is_hero) {
     return static_cast<Human*>(unit);
 }
 
-// 4F8B74
+// 4f8b74 (client: none) - Spawn random sack on map
 void Server::SpawnRandomSack() {
     uint8_t x = (uint8_t)(Random0N(MapStuff_Instance->GetWidth() - 20) + 10);
     uint8_t y = (uint8_t)(Random0N(MapStuff_Instance->GetHeight() - 20) + 10);
@@ -8821,7 +8842,7 @@ void Server::SpawnRandomSack() {
     this->srv_stru1->sack_list->DumpInventoryAt(&pos, inv, 0, 0);
 }
 
-// 4F8FBF
+// 4f8fbf (client: none) - Called when all team-game players are ready (sub-step)
 void Server::UpdateQuestRune(int32_t team, int32_t picked_up) {
     const char* rune_name = team ? "Quest RuneA" : "Quest RuneF";
 

@@ -18,7 +18,7 @@
 static const uint16_t warrior_spells[] = { spell::stone_curse, spell::drain_life };
 static const uint16_t mage_spells[] = { spell::fire_arrow, spell::lightning, spell::prismatic_spray, spell::stone_curse, spell::drain_life, spell::ice_missile, spell::stone_missile };
 
-// 54C6DD
+// 54c6dd (client: 52f6d1)
 void __cdecl StackItemInArray(CArray<Item*>* arr, Item* item) {
     for (int32_t i = 0; i < arr->GetSize(); i++) {
         if (item->IsSimpleItem() != 0 && (*arr)[i]->IsSimilar(item)) {
@@ -30,7 +30,7 @@ void __cdecl StackItemInArray(CArray<Item*>* arr, Item* item) {
     arr->SetAtGrow(arr->GetSize(), item);
 }
 
-// 54C42A
+// 54c42a (client: 52f43e)
 static int32_t __cdecl CompareItemsForSort(const void* a, const void* b) {
     Item* item_a = *(Item**)a;
     Item* item_b = *(Item**)b;
@@ -66,12 +66,12 @@ static int32_t __cdecl CompareItemsForSort(const void* a, const void* b) {
     return 0;
 }
 
-// 54C556
+// 54c556 (client: 52f566)
 void __cdecl SortItems(CArray<Item*>* arr) {
     qsort(arr->GetData(), arr->GetSize(), sizeof(Item*), CompareItemsForSort);
 }
 
-// 54F04F
+// 54f04f (client: 530e71)
 Effect* __cdecl RollCastSpellEffect(int32_t is_warrior, int32_t magic_volume, int32_t budget, int32_t max_attempts) {
     Effect* effect = new Effect();
     effect->effect_id = modifier::castspell;
@@ -101,19 +101,19 @@ Effect* __cdecl RollCastSpellEffect(int32_t is_warrior, int32_t magic_volume, in
     return effect;
 }
 
-// 54A13B
+// 54a13b (client: 422960)
 ShopAssortment::ShopAssortment() {
     this->min_cost = 0;
     this->max_cost = 0;
     this->Reset();
 }
 
-// 54A2DD
+// 54a2dd (client: 422cd0)
 ShopAssortment::~ShopAssortment() {
     this->ClearItems();
 }
 
-// 54EDE9
+// 54ede9 (client: 530be6)
 Effect* __cdecl RollItemEffect(int32_t is_warrior, int32_t item_type, int32_t sub_type, int32_t magic_volume, int32_t budget, int32_t exp, int32_t max_attempts) {
     if (budget <= 0 || magic_volume <= 0) {
         return nullptr;
@@ -193,7 +193,7 @@ Effect* __cdecl RollItemEffect(int32_t is_warrior, int32_t item_type, int32_t su
     return effect;
 }
 
-// 54BF6B
+// 54bf6b (client: 52f209)
 void ShopAssortment::GenerateAssortment(AssortGenParams* params) {
     this->ClearItems();
     this->min_cost = params->min_cost;
@@ -216,7 +216,7 @@ void ShopAssortment::GenerateAssortment(AssortGenParams* params) {
     }
 }
 
-// 54BC09
+// 54bc09 (client: 52f180) - ClearItemsArray: delete all items
 void ShopAssortment::ClearItems() {
     for (int32_t i = 0; i < this->items.GetSize(); i++) {
         delete this->items[i];
@@ -224,7 +224,7 @@ void ShopAssortment::ClearItems() {
     this->items.SetSize(0, -1);
 }
 
-// 54C08A
+// 54c08a (client: 52f328) - reset fields
 void ShopAssortment::Reset() {
     this->arr.SetSize(0x400, -1);
     for (int32_t i = 0; i < this->arr.GetSize(); i++) {
@@ -234,7 +234,7 @@ void ShopAssortment::Reset() {
     this->edge_weight = 1.0 / std::exp(2.56);
 }
 
-// 54ACCB
+// 54accb (client: 52e8ec) - AddItemsFlags
 void ShopAssortment::AddItemsFlags(CArray<WorldEquip>* items, AssortFlags flags) {
     uint32_t is_magic = flags.generate_magic;
     uint32_t material_flags = flags.material_mask;
@@ -282,7 +282,7 @@ void ShopAssortment::AddItemsFlags(CArray<WorldEquip>* items, AssortFlags flags)
     }
 }
 
-// 54A420
+// 54a420 (client: 52e4fd) - AddItems
 void ShopAssortment::AddItems(CArray<WorldEquip>* items, int32_t shape, int32_t mat, int32_t item_type, int32_t is_magic) {
     for (int32_t i = 1; i < items->GetSize(); i++) {
         if ((((*items)[i].shape_material_matrix[shape] >> mat) & 1) == 0) {
@@ -340,7 +340,7 @@ void ShopAssortment::AddItems(CArray<WorldEquip>* items, int32_t shape, int32_t 
     }
 }
 
-// 54AF21
+// 54af21 (client: 52eb53) - AddMagicItems
 void ShopAssortment::AddMagicItems(CArray<MagicItem>* items) {
     // First pass: spell books
     for (int32_t spell_id = 1; spell_id <= spell::max_spell_id; spell_id++) {
@@ -402,7 +402,7 @@ void ShopAssortment::AddMagicItems(CArray<MagicItem>* items) {
     }
 }
 
-// 54D423
+// 54d423 (client: 52fc89)
 Inventory* ShopAssortment::ArrangeShelfs(int32_t max_count, int32_t max_same, int32_t min_cost, int32_t max_cost, CArray<Item*>* output) {
     CArray<Item*> item_array;
 
@@ -566,7 +566,7 @@ Inventory* ShopAssortment::ArrangeShelfs(int32_t max_count, int32_t max_same, in
     return nullptr;
 }
 
-// 54EA76
+// 54ea76 (client: 53087f) - add magic to item
 int32_t ShopAssortment::AddMagicToItem(Item* item) {
     int32_t is_warrior = (item->world_equip->Values()[0].suitable_for & equip_suitable::warrior) != 0;
     int32_t item_type = item->item_type;

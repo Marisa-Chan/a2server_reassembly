@@ -12,16 +12,16 @@ class NetStru2;
 __pragma(pack(push, 1))
 class Packet {
 public:
-    static Packet Inst; //in asm 6b0c00
+    static Packet Inst; // 6b0c00
 public:
-    Packet(); //in asm 52681f (client: 515651)
-    Packet(const Packet* src);  // client: 515688
+    Packet(); // 52681f (client: 515651)
+    Packet(const Packet* src); // 526856 (client: 515688)
 public:
-    virtual ~Packet();
-    virtual Packet* Duplicate();  // client: 54bc40
-    virtual void WriteTo(NetStru2*);  // client: 5156b9
-    virtual void ReadFrom(NetStru2*);  // client: 5156e9
-    virtual uint32_t GetDataSize();// { return 1; } (client: 54a510)
+    virtual ~Packet(); // server: none (client: 54a470) - inlined in 5799d0 on server
+    virtual Packet* Duplicate(); // 579940 (client: 54a490)
+    virtual void WriteTo(NetStru2*); // 526887 (client: 5156b9)
+    virtual void ReadFrom(NetStru2*); // 5268b7 (client: 5156e9)
+    virtual uint32_t GetDataSize(); // 5799c0 (client: 54a510) - { return 1; }
 
 public:
 
@@ -38,15 +38,15 @@ ASSERT_SIZE(Packet, 0xa);
 __pragma(pack(push, 1))
 class Packet2Dwords : public Packet {
 public:
-    static Packet2Dwords Inst; //in asm 6d0788
+    static Packet2Dwords Inst; // 6d0788
 public:
-    Packet2Dwords();  // client: 515881
-    Packet2Dwords(const Packet2Dwords* src);  // client: 516806
+    Packet2Dwords(); // 526b44 (client: 515976)
+    Packet2Dwords(const Packet2Dwords* src); // 526b77 (client: 5159a9)
 
 public:
-    virtual ~Packet2Dwords();  // client: 4019b0
-    virtual Packet* Duplicate() override;  // client: 54a490
-    virtual uint32_t GetDataSize() override;  // client: 54b020
+    virtual ~Packet2Dwords(); // 579a80 (client: 54a5d0)
+    virtual Packet* Duplicate() override; // 57a210 (client: 54b0c0)
+    virtual uint32_t GetDataSize() override; // 57a290 (client: 54b140)
 public:
     union {
         int32_t param1;
@@ -77,19 +77,19 @@ ASSERT_SIZE(Packet2Dwords, 0x12);
 __pragma(pack(push, 1))
 class PacketJoin : public Packet {
 public:
-    static PacketJoin Inst; //in asm 6ce560
+    static PacketJoin Inst; // 6ce560
 
 public:
-    PacketJoin(); // in asm 526c12 (client: 515aac)
-    PacketJoin(const PacketJoin* src);  // client: 515aec
+    PacketJoin(); // 526c12 (client: 515aac)
+    PacketJoin(const PacketJoin* src); // 526c52 (client: 515aec)
     PacketJoin(CString name); // 526d59 (client: 515bf3)
 
 public:
-    virtual ~PacketJoin();  // client: 515ce9
-    virtual Packet* Duplicate() override;  // client: 54b240
-    virtual void WriteTo(NetStru2*) override;  // client: 515d77
-    virtual void ReadFrom(NetStru2*) override;  // client: 515db6
-    virtual uint32_t GetDataSize() override;  // client: 54b2c0
+    virtual ~PacketJoin(); // 526e4f (client: 515ce9)
+    virtual Packet* Duplicate() override; // 57a390 (client: 54b240)
+    virtual void WriteTo(NetStru2*) override; // 526ede (client: 515d77)
+    virtual void ReadFrom(NetStru2*) override; // 526f1d (client: 515db6)
+    virtual uint32_t GetDataSize() override; // 57a410 (client: 54b2c0)
 
 public:
     union {
@@ -117,18 +117,18 @@ ASSERT_SIZE(PacketJoin, 0x410);
 __pragma(pack(push, 1))
 class PacketTerrain : public Packet {
 public:
-    static PacketTerrain Inst; //in asm 6e9db0
+    static PacketTerrain Inst; // 6e9db0
 
 public:
-    PacketTerrain(); //527346 (client: 516317)
-    PacketTerrain(const PacketTerrain* src); //527365 (client: 516336)
+    PacketTerrain(); // 527346 (client: 516317)
+    PacketTerrain(const PacketTerrain* src); // 527365 (client: 516336)
 
 public:
-    virtual ~PacketTerrain();  // client: 54a610
-    virtual Packet* Duplicate() override;  // client: 54b930
-    virtual void WriteTo(NetStru2*) override;  // client: 516378
-    virtual void ReadFrom(NetStru2*) override;  // client: 51639f
-    virtual uint32_t GetDataSize() override;  // client: 54b9b0
+    virtual ~PacketTerrain(); // 579ac0 (client: 54a610)
+    virtual Packet* Duplicate() override; // 57aaa0 (client: 54b930)
+    virtual void WriteTo(NetStru2*) override; // 5273a7 (client: 516378)
+    virtual void ReadFrom(NetStru2*) override; // 5273ce (client: 51639f)
+    virtual uint32_t GetDataSize() override; // 57ab20 (client: 54b9b0)
 
 public:
     
@@ -149,13 +149,13 @@ public:
     static PacketUnitUpdate Inst; // 6D1180
 public:
     PacketUnitUpdate(); // 527987 (client: 516957)
-    PacketUnitUpdate(const PacketUnitUpdate* src); // 5279A6 (vtable-only ctor used in Duplicate) (client: 516976)
+    PacketUnitUpdate(const PacketUnitUpdate* src); // 5279a6 (client: 516976) - (vtable-only ctor used in Duplicate)
 public:
-    virtual ~PacketUnitUpdate();  // client: 54bda0
-    virtual Packet* Duplicate() override; // 57AE70 (client: 54bd00)
-    virtual void WriteTo(NetStru2*) override; // 5279C7 (client: 516997)
-    virtual void ReadFrom(NetStru2*) override; // 527A6C (client: 516a3c)
-    virtual uint32_t GetDataSize() override; // 57AEF0 (client: 54bd80)
+    virtual ~PacketUnitUpdate(); // 579c00 (client: 54a750)
+    virtual Packet* Duplicate() override; // 57ae70 (client: 54bd00)
+    virtual void WriteTo(NetStru2*) override; // 5279c7 (client: 516997)
+    virtual void ReadFrom(NetStru2*) override; // 527a6c (client: 516a3c)
+    virtual uint32_t GetDataSize() override; // 57aef0 (client: 54bd80)
 public:
     uint32_t data_offset;  // +0x0A  bytes already written into data[]
     uint32_t flags_size;    // +0x0E  (purpose unknown)
@@ -163,13 +163,28 @@ public:
     uint32_t flags_mask;   // +0x14  bitmask of fields that follow in data[]
     uint8_t  data[0x400];  // +0x18  packed field values
 
-    // Helpers mirroring 527B25 / 527B60 / 527B9D in asm
-    void PutByte(uint32_t flag, uint8_t  val) { this->flags_mask |= flag; this->data[this->data_offset++] = val; }
-    void PutWord(uint32_t flag, uint16_t val) { this->flags_mask |= flag; *reinterpret_cast<uint16_t*>(this->data + this->data_offset) = val; this->data_offset += 2; }
-    void PutInt(uint32_t flag, uint32_t val){ this->flags_mask |= flag; *reinterpret_cast<uint32_t*>(this->data + this->data_offset) = val; this->data_offset += 4; }
+    // 527b25 (client: 516af5)
+    void PutByte(uint32_t flag, uint8_t  val) {
+        this->flags_mask |= flag;
+        this->data[this->data_offset++] = val;
+    }
 
-    uint32_t CalcFlagsSize();
-    uint32_t CalcDataSize();
+    // 527b60 (client: 516b30)
+    void PutWord(uint32_t flag, uint16_t val) {
+        this->flags_mask |= flag;
+        *reinterpret_cast<uint16_t*>(this->data + this->data_offset) = val;
+        this->data_offset += 2;
+    }
+
+    // 527b9d (client: 516b6d)
+    void PutInt(uint32_t flag, uint32_t val) {
+        this->flags_mask |= flag;
+        *reinterpret_cast<uint32_t*>(this->data + this->data_offset) = val;
+        this->data_offset += 4;
+    }
+
+    uint32_t CalcFlagsSize(); // 527bd8 (client: 516ba8)
+    uint32_t CalcDataSize(); // 527c3b (client: 516c0b)
 };
 __pragma(pack(pop))
 ASSERT_SIZE(PacketUnitUpdate, 0x418);
@@ -186,11 +201,11 @@ class PacketWord : public Packet {
 public:
     static PacketWord Inst; // 6E9B40
 public:
-    PacketWord(); // 5268FC (client: 515651)
-    PacketWord(const PacketWord* src);  // client: 515651
+    PacketWord(); // 5268fc (client: 51572e)
+    PacketWord(const PacketWord* src); // C++ copy ctor (no retail twin)
 public:
-    virtual ~PacketWord();  // client: 54a520
-    virtual uint32_t GetDataSize() override; // 57A0A0 (client: 54a510)
+    virtual ~PacketWord(); // 579a00 (client: 54a550)
+    virtual uint32_t GetDataSize() override; // 57a0a0 (client: 54af50)
 public:
     uint16_t value; // +0xA  (= 0 in ctor)
 };
@@ -211,13 +226,13 @@ public:
     static PacketGroupOrder Inst; // 6D1670
 public:
     PacketGroupOrder(); // 526924 (client: 515756)
-    PacketGroupOrder(const PacketGroupOrder* src);  // client: 515756
-    void AppendWord(uint16_t val); // 52695A (client: 51578c)
+    PacketGroupOrder(const PacketGroupOrder* src); // C++ copy ctor (no retail twin)
+    void AppendWord(uint16_t val); // 52695a (client: 51578c)
 public:
-    virtual ~PacketGroupOrder();  // client: 54afb0
-    virtual void WriteTo(NetStru2*) override; // 52699A (client: 5157cc)
-    virtual void ReadFrom(NetStru2*) override; // 5269C3 (client: 5157f5)
-    virtual uint32_t GetDataSize() override;   // 57A0E0 (client: 54af90)
+    virtual ~PacketGroupOrder(); // 579a20 (client: 54a570)
+    virtual void WriteTo(NetStru2*) override; // 52699a (client: 5157cc)
+    virtual void ReadFrom(NetStru2*) override; // 5269c3 (client: 5157f5)
+    virtual uint32_t GetDataSize() override; // 57a0e0 (client: 54af90)
 public:
     uint16_t x;       // +0xA
     uint8_t  y;       // +0xC
@@ -273,11 +288,11 @@ class PacketItemTransfer : public Packet {
 public:
     static PacketItemTransfer Inst; // 6B1650
 public:
-    PacketItemTransfer(); // 526A07 (client: 51572e)
-    PacketItemTransfer(const PacketItemTransfer* src);  // client copy ctor: no twin found (client: 51572e)
+    PacketItemTransfer(); // 526a07 (client: 515839)
+    PacketItemTransfer(const PacketItemTransfer* src); // C++ copy ctor (no retail twin)
 public:
-    virtual ~PacketItemTransfer();  // client: 54af60
-    virtual uint32_t GetDataSize() override; // 57A130 (client: 54af50)
+    virtual ~PacketItemTransfer(); // 579a40 (client: 54a590)
+    virtual uint32_t GetDataSize() override; // 57a130 (client: 54afe0)
 public:
     uint16_t unit_id;     // +0xA
     TransferSource type;  // +0xC (= TRANSFER_SRC_NONE in ctor)
@@ -317,11 +332,11 @@ class PacketEnterGame : public Packet {
 public:
     static PacketEnterGame Inst; // 6B1670
 public:
-    PacketEnterGame(); // 526A4F (client: 515839)
-    PacketEnterGame(const PacketEnterGame* src);  // client copy ctor: no twin found (client: 515839)
+    PacketEnterGame(); // 526a4f (client: 515881)
+    PacketEnterGame(const PacketEnterGame* src); // C++ copy ctor (no retail twin)
 public:
-    virtual ~PacketEnterGame();  // client: 54aff0
-    virtual uint32_t GetDataSize() override; // 57A170 (client: 54afe0)
+    virtual ~PacketEnterGame(); // 579a60 (client: 54a5b0)
+    virtual uint32_t GetDataSize() override; // 57a170 (client: 54b020)
 public:
     uint32_t value1;  // +0xA (= 0 in ctor)
     uint32_t value2;  // +0xE (= 0 in ctor)
@@ -343,12 +358,12 @@ class PacketDword : public Packet {
 public:
     static PacketDword Inst; // 6CDB78
 public:
-    PacketDword(); // 526BB0 (client: 515976)
-    PacketDword(const PacketDword* src); // 526BD9 (client: 516806)
+    PacketDword(); // 526bb0 (client: 515a16)
+    PacketDword(const PacketDword* src); // 526bd9 (client: 515a3f)
 public:
-    virtual ~PacketDword();  // client: 54b150
-    virtual Packet* Duplicate() override; // 57A2D0 (client: 54b0c0)
-    virtual uint32_t GetDataSize() override;  // client: 54b140
+    virtual ~PacketDword(); // 579aa0 (client: 54a5f0)
+    virtual Packet* Duplicate() override; // 57a2d0 (client: 54b180)
+    virtual uint32_t GetDataSize() override; // 57a350 (client: 54b200)
 public:
     uint32_t value; // +0xA (= 0 in ctor)
 };
@@ -367,12 +382,12 @@ class PacketUnitAction : public Packet {
 public:
     static PacketUnitAction Inst; // 70A7D0
 public:
-    PacketUnitAction(); // 526F68  sets id = 0x6B (client: 515a16)
-    PacketUnitAction(const PacketUnitAction* src); // 526F8E (client: 515a3f)
+    PacketUnitAction(); // 526f68 (client: 515e01) - sets id = 0x6B
+    PacketUnitAction(const PacketUnitAction* src); // 526f8e (client: 515e27)
 public:
-    virtual ~PacketUnitAction();  // client: 54b210
-    virtual Packet* Duplicate() override; // 57A480 (client: 54b180)
-    virtual uint32_t GetDataSize() override;
+    virtual ~PacketUnitAction(); // 579b00 (client: 54a650)
+    virtual Packet* Duplicate() override; // 57a480 (client: 54b310)
+    virtual uint32_t GetDataSize() override; // 57a500 (client: 54b390)
 public:
     uint16_t unit_id; // +0xA
     uint8_t angle; // +0xC
@@ -408,12 +423,12 @@ class PacketSack : public Packet {
 public:
     static PacketSack Inst; // 6CE970
 public:
-    PacketSack(); // 526FC7 (client: 515e01)
-    PacketSack(const PacketSack* src); // 526FE6 (client: 515e27)
+    PacketSack(); // 526fc7 (client: 515e94)
+    PacketSack(const PacketSack* src); // 526fe6 (client: 515eb3)
 public:
-    virtual ~PacketSack();  // client: 54b3a0
-    virtual Packet* Duplicate() override; // 57A540 (client: 54b310)
-    virtual uint32_t GetDataSize() override; // 57A5C0 (client: 54b390)
+    virtual ~PacketSack(); // 579b20 (client: 54a670)
+    virtual Packet* Duplicate() override; // 57a540 (client: 54b3d0)
+    virtual uint32_t GetDataSize() override; // 57a5c0 (client: 54b450)
 public:
     uint16_t unit_id; // 0xa
     uint8_t gap_c;
@@ -437,12 +452,12 @@ class PacketMoveBroadcast : public Packet {
 public:
     static PacketMoveBroadcast Inst; // 6A6A70
 public:
-    PacketMoveBroadcast(); // 52701F  sets id = 0x86 (client: 515e94)
-    PacketMoveBroadcast(const PacketMoveBroadcast* src); // 52705A (client: 515eb3)
+    PacketMoveBroadcast(); // 52701f (client: 515f20) - sets id = 0x86
+    PacketMoveBroadcast(const PacketMoveBroadcast* src); // 52705a (client: 515f5b)
 public:
-    virtual ~PacketMoveBroadcast();  // client: 54b460
-    virtual Packet* Duplicate() override; // 57A600 (client: 54b3d0)
-    virtual uint32_t GetDataSize() override; // 57A680 (client: 54b450)
+    virtual ~PacketMoveBroadcast(); // 579b40 (client: 54a690)
+    virtual Packet* Duplicate() override; // 57a600 (client: 54b490)
+    virtual uint32_t GetDataSize() override; // 57a680 (client: 54b510)
 public:
     uint16_t unit_id;  // +0xA
     uint8_t type_id;  // +0xC (= 0 in ctor)
@@ -465,12 +480,12 @@ class PacketEffect : public Packet {
 public:
     static PacketEffect Inst; // 6CDB28
 public:
-    PacketEffect(); // 527093 (client: 515f20)
-    PacketEffect(const PacketEffect* src); // 5270B9 (client: 515f5b)
+    PacketEffect(); // 527093 (client: 515fc8)
+    PacketEffect(const PacketEffect* src); // 5270b9 (client: 515fee)
 public:
-    virtual ~PacketEffect();  // client: 54b520
-    virtual Packet* Duplicate() override; // 57A6C0 (client: 54b490)
-    virtual uint32_t GetDataSize() override;
+    virtual ~PacketEffect(); // 579b60 (client: 54a6b0)
+    virtual Packet* Duplicate() override; // 57a6c0 (client: 54b550)
+    virtual uint32_t GetDataSize() override; // 57a740 (client: 54b5d0)
 public:
     uint16_t unit_id;    // +0xA
     uint8_t effect_type;  // +0xC (= 0 in ctor)
@@ -490,12 +505,12 @@ class PacketAoeZone : public Packet {
 public:
     static PacketAoeZone Inst; // 6B37A8
 public:
-    PacketAoeZone(); // 5270F2  sets id = 0x87 (client: 51605b)
-    PacketAoeZone(const PacketAoeZone* src); // 527126 (client: 515fee)
+    PacketAoeZone(); // 5270f2 (client: 51605b) - sets id = 0x87
+    PacketAoeZone(const PacketAoeZone* src); // 527126 (client: 51608f)
 public:
-    virtual ~PacketAoeZone();  // client: 54b5e0
-    virtual Packet* Duplicate() override; // 57A780 (client: 54b550)
-    virtual uint32_t GetDataSize() override; // 57A800 (client: 54b5d0)
+    virtual ~PacketAoeZone(); // 579b80 (client: 54a6d0)
+    virtual Packet* Duplicate() override; // 57a780 (client: 54b610)
+    virtual uint32_t GetDataSize() override; // 57a800 (client: 54b690)
 public:
     uint8_t type_id;    // +0xA
     uint8_t x;    // +0xB; `x` coordinate of top-left corner of AoE zone
@@ -520,12 +535,12 @@ class PacketRangedAttack : public Packet {
 public:
     static PacketRangedAttack Inst; // 6B37C8
 public:
-    PacketRangedAttack(); // 52715F (client: 51605b)
-    PacketRangedAttack(const PacketRangedAttack* src); // 527187 (client: 51608f)
+    PacketRangedAttack(); // 52715f (client: 5160fc)
+    PacketRangedAttack(const PacketRangedAttack* src); // 527187 (client: 516124)
 public:
-    virtual ~PacketRangedAttack();  // client: 54b6a0
-    virtual Packet* Duplicate() override; // 57A840 (client: 54b610)
-    virtual uint32_t GetDataSize() override;
+    virtual ~PacketRangedAttack(); // 579ba0 (client: 54a6f0)
+    virtual Packet* Duplicate() override; // 57a840 (client: 54b6d0)
+    virtual uint32_t GetDataSize() override; // 57a8c0 (client: 54b750)
 public:
     uint16_t  unit_id; // +0xA
     uint16_t target_id;   // +0xC (= 0 in ctor)
@@ -549,14 +564,14 @@ class PacketFileChunk : public Packet {
 public:
     static PacketFileChunk Inst; // 6D1888
 public:
-    PacketFileChunk(); // 5271C0 (client: 516191)
-    PacketFileChunk(const PacketFileChunk* src); // 5271DF (client: 5161b0)
+    PacketFileChunk(); // 5271c0 (client: 516191)
+    PacketFileChunk(const PacketFileChunk* src); // 5271df (client: 5161b0)
 public:
-    virtual ~PacketFileChunk();  // client: 54b830
-    virtual Packet* Duplicate() override;     // 57A900 (client: 54b790)
+    virtual ~PacketFileChunk(); // 579c40 (client: 54a790)
+    virtual Packet* Duplicate() override; // 57a900 (client: 54b790)
     virtual void WriteTo(NetStru2*) override; // 527220 (client: 5161f1)
     virtual void ReadFrom(NetStru2*) override; // 527246 (client: 516217)
-    virtual uint32_t GetDataSize() override;   // 57A980 (client: 54b810)
+    virtual uint32_t GetDataSize() override; // 57a980 (client: 54b810)
 public:
     uint8_t  preamble[0x20]; // +0xA..+0x2b  (32 bytes of fixed player fields)
     uint32_t offset;         // +0x2a
@@ -586,13 +601,13 @@ public:
     static PacketData Inst; // 6B37D8
 public:
     PacketData(); // 527283 (client: 516254)
-    PacketData(const PacketData* src); // 5272A2 (client: 516273)
+    PacketData(const PacketData* src); // 5272a2 (client: 516273)
 public:
-    virtual ~PacketData();  // client: 54b900
-    virtual Packet* Duplicate() override;     // 57A9D0 (client: 54b860)
-    virtual void WriteTo(NetStru2*) override; // 5272E3 (client: 5162b4)
+    virtual ~PacketData(); // 579ae0 (client: 54a630)
+    virtual Packet* Duplicate() override; // 57a9d0 (client: 54b860)
+    virtual void WriteTo(NetStru2*) override; // 5272e3 (client: 5162b4)
     virtual void ReadFrom(NetStru2*) override; // 527309 (client: 5162da)
-    virtual uint32_t GetDataSize() override;   // 57AA50 (client: 54b8e0)
+    virtual uint32_t GetDataSize() override; // 57aa50 (client: 54b8e0)
 public:
     uint32_t count;    // +0xA  byte length of data[]
     uint8_t  data[0x10000];  // +0xE  variable-length payload (actual size = count)
@@ -638,16 +653,16 @@ class PacketUnitStateVec : public Packet {
 public:
     static PacketUnitStateVec Inst; // 6C5AF8
 public:
-    PacketUnitStateVec(); // 527415  sets id = 0x76 (client: 5163e6)
+    PacketUnitStateVec(); // 527415 (client: 5163e6) - sets id = 0x76
     PacketUnitStateVec(const PacketUnitStateVec* src); // 527473 (client: 516443)
 public:
-    virtual ~PacketUnitStateVec();  // client: 54baa0
-    virtual Packet* Duplicate() override;     // 57AB70 (client: 54ba00)
-    virtual void WriteTo(NetStru2*) override; // 5274CC (client: 51649c)
+    virtual ~PacketUnitStateVec(); // 527456 (client: 516427)
+    virtual Packet* Duplicate() override; // 57ab70 (client: 54ba00)
+    virtual void WriteTo(NetStru2*) override; // 5274cc (client: 51649c)
     virtual void ReadFrom(NetStru2*) override; // 527528 (client: 5164f8)
-    virtual uint32_t GetDataSize() override;   // 57ABF0 (client: 54ba80)
-    void AppendByteByte(uint8_t a, uint8_t b, uint8_t* slot); // 5275F8 (client: 5165c8)
-    void AppendByteInt(uint8_t a, int32_t v, uint8_t* slot);  // 5276E0 (client: 5165c8)
+    virtual uint32_t GetDataSize() override; // 57abf0 (client: 54ba80)
+    void AppendByteByte(uint8_t a, uint8_t b, uint8_t* slot); // 5275f8 (client: 5165c8)
+    void AppendByteInt(uint8_t a, int32_t v, uint8_t* slot); // 5276e0 (client: 5166b0)
 public:
     uint16_t building_id;    // +0xA
     ItemListMode mode; // +0xC
@@ -674,12 +689,12 @@ class PacketBuildingHp : public Packet {
 public:
     static PacketBuildingHp Inst; // 6A6A88
 public:
-    PacketBuildingHp(); // 527810  sets id = 0x82 (client: 5160fc)
+    PacketBuildingHp(); // 527810 (client: 5167e0) - sets id = 0x82
     PacketBuildingHp(const PacketBuildingHp* src); // 527836 (client: 516806)
 public:
-    virtual ~PacketBuildingHp();  // client: 54b760
-    virtual Packet* Duplicate() override; // 57AC40 (client: 54b6d0)
-    virtual uint32_t GetDataSize() override;
+    virtual ~PacketBuildingHp(); // 579bc0 (client: 54a710)
+    virtual Packet* Duplicate() override; // 57ac40 (client: 54bad0)
+    virtual uint32_t GetDataSize() override; // 57acc0 (client: 54bb50)
 public:
     uint16_t building_id; // +0xA
     int16_t hp; // +0xC
@@ -701,13 +716,13 @@ class PacketUnitEquipment : public Packet {
 public:
     static PacketUnitEquipment Inst; // 6D0628
 public:
-    PacketUnitEquipment(); // 52786F  sets id = 0 (client: 51683f)
+    PacketUnitEquipment(); // 52786f (client: 51683f) - sets id = 0
     PacketUnitEquipment(const PacketUnitEquipment* src); // 527895 (client: 516865)
 public:
-    virtual ~PacketUnitEquipment();  // client: 54bc10
-    virtual Packet* Duplicate() override; // 57AD00 (client: 54bb90)
+    virtual ~PacketUnitEquipment(); // 579c20 (client: 54a770)
+    virtual Packet* Duplicate() override; // 57ad00 (client: 54bb90)
     virtual void ReadFrom(NetStru2* net) override;
-    virtual uint32_t GetDataSize() override; // 5278CE  variable (5..29) (client: 51689e)
+    virtual uint32_t GetDataSize() override; // 5278ce (client: 51689e) - variable (5.29)
 public:
     uint16_t unit_id;       // +0xA
     uint16_t flags;           // +0xC  bitmask of included fields (bits 0..11)
@@ -728,12 +743,12 @@ class PacketUnitHp : public Packet {
 public:
     static PacketUnitHp Inst; // 6CDB88
 public:
-    PacketUnitHp(); // 52792F (client: 5167e0)
-    PacketUnitHp(const PacketUnitHp* src); // 52794E (client: 516806)
+    PacketUnitHp(); // 52792f (client: 5168ff)
+    PacketUnitHp(const PacketUnitHp* src); // 52794e (client: 51691e)
 public:
-    virtual ~PacketUnitHp();  // client: 54bb60
-    virtual Packet* Duplicate() override; // 57ADB0 (client: 54bad0)
-    virtual uint32_t GetDataSize() override; // 57AE30 (client: 54bb50)
+    virtual ~PacketUnitHp(); // 579be0 (client: 54a730)
+    virtual Packet* Duplicate() override; // 57adb0 (client: 54bc40)
+    virtual uint32_t GetDataSize() override; // 57ae30 (client: 54bcc0)
 public:
     uint16_t unit_id; // +0xA
     int16_t hp; // +0xC

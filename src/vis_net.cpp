@@ -28,7 +28,7 @@
 char g_EmptyStrSrvScreenText[4]; //659a48 zeroed buffer used to clear the server screen text box
 char g_EmptyStrMapTooltip[4]; //659a30 "" placeholder tooltip for net map entries with an unprintable tooltip
 
-// Still referenced from ASM: ostream::operator<< passes it as the "" pad string and a
+// ostream::operator<< passes it as the "" pad string and a
 // RegQueryValueExA caller passes it as the "" value name, so it keeps C linkage.
 extern "C" {
     char g_EmptyStrNetChatText[4]; //659a5c zeroed buffer used to clear the net chat text box
@@ -37,7 +37,7 @@ extern "C" {
 static char* netdlg_selected_name = nullptr;    // 659960 "-COMPUTERNAME-" anchor used to sort sessions
 
 
-// 44791E
+// 44791e (client: 449fed)
 static int __cdecl CompareSessionsByName(const void* elem1, const void* elem2) {
     if (strcmp((const char*)elem1, netdlg_selected_name) == 0) {
         return -1;
@@ -51,7 +51,7 @@ static int __cdecl CompareSessionsByName(const void* elem1, const void* elem2) {
 
 
 
-// 447105
+// 447105 (client: 4497d4)
 static int EnumSessionsPump() {
     MSG msg;
     if (PeekMessageA(&msg, nullptr, 0, 0, PM_REMOVE) != 0) {
@@ -73,7 +73,7 @@ static int EnumSessionsPump() {
 
 
 
-// 447842
+// 447842 (client: 449f11)
 static char* ExtractFirstWord(const char* str) {
     const char* word = str;
     while (isalpha(*word) == 0) {
@@ -93,12 +93,12 @@ static char* ExtractFirstWord(const char* str) {
     return buf;
 }
 
-// 44D8F0
+// 44d8f0 (client: 450c18)
 int32_t VisNetMapSelection::OnKeyDown(uint32_t wparam) {
     return this->VisWindow::OnKeyDown(wparam);
 }
 
-// 44AAE5
+// 44aae5 (client: 44d212)
 void VisNetMapSelection::ScanMapsThread() {
     char path[MAX_PATH];
     WIN32_FIND_DATAA find_data;
@@ -156,14 +156,14 @@ void VisNetMapSelection::ScanMapsThread() {
 }
 
 
-// 44AF45
+// 44af45 (client: 44d672)
 VisNetMapSelection::VisNetMapSelection(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CString* pMapName)
 : VisWindow(_id, l, t, r, b, nullptr), thread(VisNetMapThreadProc, this) {
     this->p_mapname = pMapName;
 }
 
 
-// 44AFD8 (scalar deleting dtor ??_G at 44FEA0)
+// 44afd8 (client: 44d705) - (scalar deleting dtor ??_G at 44FEA0)
 VisNetMapSelection::~VisNetMapSelection() {
     for (int32_t i = 0; i < this->avail_maps.GetSize(); i++) {
         delete this->avail_maps.GetAt(i);
@@ -171,7 +171,7 @@ VisNetMapSelection::~VisNetMapSelection() {
 }
 
 
-// 44AEEF
+// 44aeef (client: 44d61c)
 void VisNetMapSelection::StopThread() {
     SetEvent(this->stop_event);
     if (this->thread.m_hThread != nullptr) {
@@ -182,7 +182,7 @@ void VisNetMapSelection::StopThread() {
 }
 
 
-// 44D13D
+// 44d13d (client: 450465)
 void VisNetMapSelection::AddNetMapInfo(NetMapInfo* info) {
     this->avail_maps.Add(info);
     VisListBox* map_list = (VisListBox*)this->FindChild(1);
@@ -204,7 +204,7 @@ void VisNetMapSelection::AddNetMapInfo(NetMapInfo* info) {
 }
 
 
-// 44C788
+// 44c788 (client: 44faad)
 void VisNetMapSelection::VMethod26() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     this->mode = (main_wnd->sessionMode != SESSION_SINGLEPLAYER);
@@ -281,7 +281,7 @@ void VisNetMapSelection::VMethod26() {
 }
 
 
-// 44D275
+// 44d275 (client: 45059d)
 int32_t VisNetMapSelection::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     switch (msg) {
@@ -402,12 +402,12 @@ int32_t VisNetMapSelection::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lpar
 }
 
 
-// 450080 (the CPtrArray `colors` member at 0x94 is member-constructed by the compiler)
+// 450080 (client: 4542a0) - (the CPtrArray `colors` member at 0x94 is member-constructed by the compiler)
 VisNetChatList::VisNetChatList(int32_t _id, const RECT& r, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _scrollid, const char* hint)
     : VisListBox(_id, r, _font, _clr1, _clr2, _scrollid, hint) {
 }
 
-// 44c63d
+// 44c63d (client: 44f962)
 void VisNetChatList::DrawItem(int32_t idx, CPoint pos, uint16_t* clr) {
     if (!this->IsValidIndex(idx)) {
         return;
@@ -430,12 +430,12 @@ void VisNetChatList::DrawItem(int32_t idx, CPoint pos, uint16_t* clr) {
 }
 
 
-// 450180 (the CPtrArray `colors` member at 0x94 is member-constructed by the compiler)
+// 450180 (client: 4543a0) - (the CPtrArray `colors` member at 0x94 is member-constructed by the compiler)
 VisNetPlayerList::VisNetPlayerList(int32_t _id, const RECT& r, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _scrollid, const char* hint)
     : VisListBox(_id, r, _font, _clr1, _clr2, _scrollid, hint) {
 }
 
-// 44c71d
+// 44c71d (client: 44fa42)
 void VisNetPlayerList::DrawItem(int32_t idx, CPoint pos, uint16_t* clr) {
     if (!this->IsValidIndex(idx)) {
         return;
@@ -446,13 +446,13 @@ void VisNetPlayerList::DrawItem(int32_t idx, CPoint pos, uint16_t* clr) {
 }
 
 
-// 44ffd0
+// 44ffd0 (client: 4541f0)
 VisNetMapList::VisNetMapList(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _scrollid, const char* hint, int32_t* p_selected_map_index)
     : VisListBox(_id, l, t, r, b, _font, _clr1, _clr2, _scrollid, hint) {
     this->p_selected_map_index = p_selected_map_index;
 }
 
-// 44b09e
+// 44b09e (client: 44d7cb)
 void VisNetMapList::DrawItem(int32_t idx, CPoint pos, uint16_t* clr) {
     if (!this->IsValidIndex(idx)) {
         return;
@@ -502,7 +502,7 @@ void VisNetMapList::DrawItem(int32_t idx, CPoint pos, uint16_t* clr) {
     this->font->DrawTextWithShadow(pos.x, pos.y, txt_patch.GetLine(level + 0x62), CGameFont::ALIGN_LEFT_TOP, clr, 1);
 }
 
-// 44b2bf
+// 44b2bf (client: 44d9ec)
 const char* VisNetMapList::GetHint() {
     CRect client;
     this->ClientRectToScreen(&client, this->rect);
@@ -526,12 +526,12 @@ const char* VisNetMapList::GetHint() {
 }
 
 
-// 450920
+// 450920 (client: 4546e0)
 VisServerScreenRadio::VisServerScreenRadio(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint)
     : VisRadioType1(_id, l, t, r, b, _font, _clr, hint) {
 }
 
-// 4db3ad
+// 4db3ad (client: 4dfd32)
 void VisServerScreenRadio::VMethod7() {
     CRect r;
     this->ClientRectToScreen(&r, this->rect);
@@ -586,7 +586,7 @@ void VisServerScreenRadio::VMethod7() {
     UnlockSurface2();
 }
 
-// 4db615
+// 4db615 (client: 4dff9a)
 int32_t VisServerScreenRadio::GetIndex(int32_t y) {
     CRect client;
     this->ClientRectToScreen(&client, this->rect);
@@ -594,12 +594,12 @@ int32_t VisServerScreenRadio::GetIndex(int32_t y) {
 }
 
 
-// 450280
+// 450280 (client: 4544a0)
 VisNetChatTextBox::VisNetChatTextBox(int32_t _id, const RECT& r, CGameFont* _font, uint16_t* _clr, const char* hint)
     : VisTextBox(_id, r, _font, _clr, hint) {
 }
 
-// 4502c0
+// 4502c0 (client: 454540)
 int32_t VisNetChatTextBox::OnKeyDown(uint32_t wparam) {
     if (wparam == VK_RETURN) {
         char buf[256];
@@ -615,7 +615,7 @@ int32_t VisNetChatTextBox::OnKeyDown(uint32_t wparam) {
     return VisTextBox::OnKeyDown(wparam);
 }
 
-// 446567
+// 446567 (client: 448c36)
 void VisNetDlg::CreateSessionList() {
     int32_t x = (this->rect.Width() - 0xB0) / 2;
     int32_t y = this->rect.Height() - 0x90;
@@ -671,7 +671,7 @@ void VisNetDlg::CreateSessionList() {
     exit_btn->SetLeftObj(this->FindChild(0xE));
 }
 
-// 447C27
+// 447c27 (client: 44a2f6)
 void VisNetDlg::CachePlayerRows() {
     for (int32_t i = 0; i < this->cached_player_rows.GetSize(); i++) {
         CStringArray* row = this->cached_player_rows.GetAt(i);
@@ -711,7 +711,7 @@ void VisNetDlg::CachePlayerRows() {
 }
 
 
-// 44797E
+// 44797e (client: 44a04d)
 void VisNetDlg::FillServerList() {
     VisListBox* server_list = (VisListBox*)this->FindChild(1);
     int32_t count = server_list->GetItemCount();
@@ -751,7 +751,7 @@ void VisNetDlg::FillServerList() {
 }
 
 
-// 447B3C
+// 447b3c (client: 44a20b)
 void VisNetDlg::UpdatePlayerList() {
     VisListBox* player_list = (VisListBox*)this->FindChild(7);
     int32_t count = player_list->GetItemCount();
@@ -772,7 +772,7 @@ void VisNetDlg::UpdatePlayerList() {
     player_list->VMethod9();
 }
 
-// 447173
+// 447173 (client: 449842)
 void VisNetDlg::RefreshSessions() {
     uint32_t timeout = 0;
     int32_t provider = g_CLlDriver.GetProvider();
@@ -789,7 +789,7 @@ void VisNetDlg::RefreshSessions() {
     PostMessageA(g_MainWndHWND, 0x471, 0, 0);
 }
 
-// 447214
+// 447214 (client: 4498e3)
 int32_t VisNetDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
@@ -905,7 +905,7 @@ int32_t VisNetDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
 }
 
 
-// 446E97
+// 446e97 (client: 449566)
 void VisNetDlg::VMethod26() {
     int32_t provider = g_CLlDriver.GetProvider();
     if (provider == PROVIDER_SERIAL || provider == PROVIDER_MODEM) {
@@ -931,7 +931,7 @@ void VisNetDlg::VMethod26() {
 }
 
 
-// 4478E9
+// 4478e9 (client: 4e4833)
 int32_t VisNetDlg::OnKeyDown(uint32_t wparam) {
     if (wparam == VK_ESCAPE) {
         return this->MsgProc(VIS_MSG_NET_NEW_SESSION, 0, 0);
@@ -940,7 +940,7 @@ int32_t VisNetDlg::OnKeyDown(uint32_t wparam) {
 }
 
 
-// 4464C7
+// 4464c7 (client: 448b96)
 VisNetDlg::VisNetDlg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, AvailNetSession* _sessions)
 : VisWindow(_id, l, t, r, b, nullptr) {
     this->sessions = _sessions;
@@ -949,12 +949,12 @@ VisNetDlg::VisNetDlg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, Av
 }
 
 
-// 44FA90
+// 44fa90 (client: 453980)
 VisNetDlg::~VisNetDlg()
 {}
 
 
-// 4ADAB6
+// 4adab6 (client: 4b23f6)
 void VisFameDocument::VMethod26() {
     this->fame = nullptr;
     this->bmp_sheet = nullptr;
@@ -968,7 +968,7 @@ void VisFameDocument::VMethod26() {
     this->visible_flag = 0;
 }
 
-// 44DBE0
+// 44dbe0 (client: 450f0b)
 void VisServerScreen::VMethod7() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     CString str;
@@ -1095,7 +1095,7 @@ void VisServerScreen::VMethod7() {
 }
 
 
-// 44D909
+// 44d909 (client: 450c31)
 void VisServerScreen::VMethod26() {
     this->scroll_pos = 0;
 
@@ -1123,7 +1123,7 @@ void VisServerScreen::VMethod26() {
                                   g_font2, clrsh_ShockingBlack, nullptr));
 }
 
-// 44E6DE
+// 44e6de (client: 451a03)
 int32_t VisServerScreen::OnKeyDown(uint32_t wparam) {
     if (wparam == VK_RETURN) {  // Enter: send the chat text box content
         PacketJoin& pkt = PacketJoin::Inst;
@@ -1151,7 +1151,7 @@ int32_t VisServerScreen::OnKeyDown(uint32_t wparam) {
 }
 
 
-// 44E7C8
+// 44e7c8 (client: 451aed)
 int32_t VisServerScreen::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     switch (msg) {
     case VIS_MSG_CLOSE_SCREEN:  // "disconnect" button
@@ -1176,19 +1176,19 @@ int32_t VisServerScreen::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
 }
 
 
-// 44DBAE
+// 44dbae (client: 450ed9)
 void VisServerScreen::VMethod8(CRect* rect) {
     FillRectColorSimple(rect->left, rect->top, rect->right, rect->bottom, 0);
 }
 
 
-// 44e469
+// 44e469 (client: 451794)
 VisServerScreen::VisServerScreen(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, GM_a28* log)
 : VisScreen(_id, l, t, r, b, nullptr) {
     this->msg_log = log;
 }
 
-// 44878A
+// 44878a (client: 44ae5c)
 int32_t VisNetPhoneBook::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     switch (msg) {
     case VIS_MSG_LIST_ACTIVATE:
@@ -1273,7 +1273,7 @@ int32_t VisNetPhoneBook::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
 }
 
 
-// 447EF2
+// 447ef2 (client: 44a5c1)
 void VisNetPhoneBook::VMethod26() {
     g_CLlDriver.EnumAddresses(&this->enum_addresses, &this->enum_addresses_num);
 
@@ -1353,23 +1353,23 @@ void VisNetPhoneBook::VMethod26() {
 }
 
 
-// 447ea8
+// 447ea8 (client: 44a577)
 VisNetPhoneBook::VisNetPhoneBook(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, PhoneBook* _book)
 : VisWindow(_id, l, t, r, b, nullptr) {
     this->phones = _book;
     this->enum_addresses = nullptr;
 }
 
-// 44FB30
+// 44fb30 (client: 453a30)
 VisListBoxPhoneBook::VisListBoxPhoneBook(int32_t _id, const RECT& r, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _entry_height, const char* hint, CStringArray* _bound_entries)
     : VisListBox(_id, r, _font, _clr1, _clr2, _entry_height, hint) {
     this->bound_entries = _bound_entries;
 }
 
-// 44fca0 (deleting dtor ??_G at 44FC70; the complete dtor only calls the base dtor)
+// 44fca0 (client: 453ba0) - (deleting dtor ??_G at 44FC70; the complete dtor only calls the base dtor)
 VisListBoxPhoneBook::~VisListBoxPhoneBook() = default;
 
-// 44FB80
+// 44fb80 (client: 453a80)
 int32_t VisListBoxPhoneBook::OnKeyDown(uint32_t wparam) {
     if (wparam == VK_DELETE) {
         if (this->selected_index >= 0) {
@@ -1390,7 +1390,7 @@ int32_t VisListBoxPhoneBook::OnKeyDown(uint32_t wparam) {
 }
 
 
-// 448708
+// 448708 (client: 44adda)
 void VisNetPhoneBook::UpdateConnectButton(const char* str) {
     VisButton* connect_btn = (VisButton*)this->FindChild(10);
     if (str != nullptr && this->enum_addresses_num != 0) {
@@ -1403,13 +1403,13 @@ void VisNetPhoneBook::UpdateConnectButton(const char* str) {
 }
 
 
-// 448cd5
+// 448cd5 (client: 44b3a7)
 VisNetSerialSettings::VisNetSerialSettings(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, ComSettings* _com)
 : VisWindow(_id, l, t, r, b, nullptr) {
     this->pcom = _com;
 }
 
-// 449903
+// 449903 (client: 44bfd5)
 void VisNetSerialSettings::SaveComSettings() {
     char buffer[64];
 
@@ -1459,7 +1459,7 @@ void VisNetSerialSettings::SaveComSettings() {
 }
 
 
-// 448d15
+// 448d15 (client: 44b3e7)
 void VisNetSerialSettings::VMethod26() {
     VisLabel* title = new VisLabel(-1, 0x28, 0x14, this->rect.Width() - 0x28, 0x2c,
         txt_dialogs.GetLine(0x94), g_font1, p_clrsh_Black, CGameFont::ALIGN_HCENTER);
@@ -1603,7 +1603,7 @@ void VisNetSerialSettings::VMethod26() {
 }
 
 
-// 449c98
+// 449c98 (client: 44c36a)
 int32_t VisNetSerialSettings::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     switch (msg) {
     case VIS_MSG_CLOSE_SCREEN: {
@@ -1652,16 +1652,16 @@ int32_t VisNetSerialSettings::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lp
     }
 }
 
-// 449F06
+// 449f06 (client: 44c5d8)
 VisNetTcpIp::VisNetTcpIp(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CString* _ip)
     : VisMessageBox(_id, l, t, r, b, (const void*)_ip, txt_dialogs.GetLine(0x74), 1, txt_dialogs.GetLine(0x95)) {
     this->ip = _ip;
 }
 
-// 44FD10 (this address is the deleting dtor ??_G; the real dtor 44FD40 only calls the base dtor)
+// 44fd40 (client: 453c40) - (this address is the deleting dtor ??_G; the real dtor 44FD40 only calls the base dtor)
 VisNetTcpIp::~VisNetTcpIp() = default;
 
-// 449F67
+// 449f67 (client: 44c639)
 void VisNetTcpIp::VMethod31(int32_t code) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     if (code == VIS_MSG_HIDE_SCREEN) {
@@ -1676,7 +1676,7 @@ void VisNetTcpIp::VMethod31(int32_t code) {
     }
 }
 
-// 44A014
+// 44a014 (client: 44c6e6)
 CVisualObject* VisNetTcpIp::VMethod30(const void* data, const RECT& r) {
     VisTextBox* textbox = new VisTextBox(2, r.left, r.top, r.right, r.top + 0x18, g_font1, clrsh_TechBlack, txt_dialogs.GetLine(0x75));
     this->AddChild(textbox);
@@ -1684,7 +1684,7 @@ CVisualObject* VisNetTcpIp::VMethod30(const void* data, const RECT& r) {
     return textbox;
 }
 
-// 44604C
+// 44604c (client: 44871d)
 CVisualObject* VisConnectionDlg::VMethod30(const void* data, const RECT& r) {
     RECT& rect = const_cast<RECT&>(r);
     rect.right -= 0x18;
@@ -1730,7 +1730,7 @@ CVisualObject* VisConnectionDlg::VMethod30(const void* data, const RECT& r) {
     return list;
 }
 
-// 445EBD
+// 445ebd (client: 44858e)
 void VisConnectionDlg::VMethod31(int32_t code) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     if (code == VIS_MSG_HIDE_SCREEN) {
@@ -1758,14 +1758,14 @@ void VisConnectionDlg::VMethod31(int32_t code) {
     }
 }
 
-// 445E52
+// 445e52 (client: 448523)
 VisConnectionDlg::VisConnectionDlg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, int32_t* _payload)
     : VisMessageBox(_id, l, t, r, b, _payload, txt_dialogs.GetLine(0x50), 1, txt_dialogs.GetLine(0x92)) {
     this->protocols = nullptr;
     this->pSelected = _payload;
 }
 
-// 44FA40
+// 44fa40 (client: 453930)
 VisConnectionDlg::~VisConnectionDlg() {
 }
 

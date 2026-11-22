@@ -88,7 +88,8 @@ GameDataRes g_GameDataRes; // 6d0668
 
 int32_t g_EnableVideo = 1; //62f87c  client:5fb96c
 
-void GameSettings::Init() { // 442386
+// 442386 (client: 444958)
+void GameSettings::Init() {
     MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
     this->pGameSpeed = &mwnd->game_speed;
     this->pFormationMode = &mwnd->vis_map_context->formation;
@@ -101,7 +102,8 @@ void GameSettings::Init() { // 442386
     this->pMessageColors = &g_MessageColors;
 }
 
-void GameSettings::Load(HKEY& rkey) { //442420
+// 442420 (client: 4449f2)
+void GameSettings::Load(HKEY& rkey) {
     DWORD sz = 4;
     RegQueryValueExA(rkey, "GameSpeed", nullptr, nullptr, (LPBYTE)this->pGameSpeed, &sz);
     RegQueryValueExA(rkey, "FormationMode", nullptr, nullptr, (LPBYTE)this->pFormationMode, &sz);
@@ -120,7 +122,7 @@ void GameSettings::Load(HKEY& rkey) { //442420
     RegQueryValueExA(rkey, "MessageColors", nullptr, nullptr, (LPBYTE)this->pMessageColors, &sz);
 }
 
-// 4421be
+// 4421be (client: 444790)
 void GameSettings::Save(HKEY& rkey) {
     DWORD cbData = 4;
 
@@ -141,7 +143,7 @@ void GameSettings::Save(HKEY& rkey) {
     RegSetValueExA(rkey, "MessageColors", 0, REG_DWORD, (const BYTE*)this->pMessageColors, cbData);
 }
 
-// 4a9f90
+// 4a9f90 (client: 4adfc0)
 DistortMap::DistortMap(int32_t outer, int32_t inner) {
     int32_t radius = (int32_t)sqrt((double)(outer * outer - (outer - inner) * (outer - inner)));
     this->radius = radius;
@@ -154,7 +156,7 @@ DistortMap::DistortMap(int32_t outer, int32_t inner) {
     this->BuildScaleTable();
 }
 
-// 4aa04f
+// 4aa04f (client: 4ae07f)
 DistortMap::~DistortMap() {
     for (int32_t i = 0; i < this->radius; i++) {
         delete[] this->offsets[i];
@@ -162,7 +164,7 @@ DistortMap::~DistortMap() {
     delete[] this->offsets;
 }
 
-// 47619a
+// 47619a (client: 479ee6)
 void FreeDistortMap() {
     free(g_ItemNamePktData);
     if (g_DistortMap != nullptr) {
@@ -170,7 +172,7 @@ void FreeDistortMap() {
     }
 }
 
-// 4aa0af
+// 4aa0af (client: 4ae0df)
 void DistortMap::BuildScaleTable() {
     // scale[i] = i / (outer * sin(atan(i / (outer - inner))))
     double* scale = new double[this->radius];
@@ -198,7 +200,7 @@ void DistortMap::BuildScaleTable() {
     delete[] scale;
 }
 
-// 4AA29B
+// 4aa29b (client: 4ae2cb)
 void DistortMap::RenderDistort(int32_t x, int32_t y) {
     CRect clip;
     GetClipRect(&clip);
@@ -248,7 +250,7 @@ void DistortMap::RenderDistort(int32_t x, int32_t y) {
     }
 }
 
-// 475E7A
+// 475e7a (client: 479bc6)
 void InitCpuAndDistTables() {
     // In vanilla, here they checked if `CPUID` was available, and if yes --- called it to check if MMX is supported.
     // We just hardcode the MMX flag to 1, because where would you get a non-MMX CPU nowadays?
@@ -293,7 +295,7 @@ void InitCpuAndDistTables() {
 }
 
 
-// 43A857
+// 43a857 (client: 43cc47)
 void __cdecl PostConsoleLine(const char* source) {
 #if (defined(A2TANGAR_HAT) && !defined(A2CLIENT)) || defined(A2CLIENT_PATCH)
     // redir_log (server 43A872) / CHAT_logStrings (client 4021FE): write to Tangar's timestamped log file.
@@ -326,13 +328,13 @@ void __cdecl PostConsoleLine(const char* source) {
     file.WriteString(timestamp + source + "\n");
 }
 
-// 43AA23
+// 43aa23 (client: 43ce08)
 void LogMessage(CString message) {
     PostConsoleLine(message);
 }
 
+// 4758cd (client: 47961d)
 void ReadFileToString(const char* fname, CString* str) {
-    //4758cd
 
     File2 f;
     f.Open(fname, 0);
@@ -351,7 +353,7 @@ void ReadFileToString(const char* fname, CString* str) {
     free(buf);
 }
 
-// 476b21
+// 476b21 (client: 47a86d)
 void ParseTunes() {
     for (int32_t i = 0; i < txt_tunes.GetCount(); i++) {
         CString line(txt_tunes.GetLine(i));
@@ -363,12 +365,13 @@ void ParseTunes() {
 }
 
 
+// 4a4720 (client: 4a8090)
 int32_t GetRandS16(int32_t range) {
-    //4a4720
     return ((rand() * range) / 32767) % range;
 }
 
-int32_t ParseConfig(const char* fname) { // 4f7188
+// 4f7188 (client: 4f8233)
+int32_t ParseConfig(const char* fname) {
 #if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
     // Tangar config v2.0: the patched server replaces the stock parser
     // wholesale with the manager's ReadConfig (imp_ParseConfig takeover at
@@ -424,7 +427,7 @@ int32_t ParseConfig(const char* fname) { // 4f7188
             lowered.TrimLeft();
             lowered.TrimRight();
             if (lowered.GetLength() == 0) {
-                continue; // Empty maps lines don't increment line_num (matches original ASM)
+                continue; // Empty maps lines don't increment line_num (matches original)
             }
             if (eq_pos == -1) {
                 g_ServerConfig.map_names.SetAtGrow(g_ServerConfig.map_names.GetSize(), lowered);
@@ -589,8 +592,8 @@ int32_t ParseConfig(const char* fname) { // 4f7188
 
 
 
+// 4823bd (client: 48626d)
 BOOL GameApp::InitInstance() {
-    //4823bd
 #ifdef A2CLIENT
     g_IsServer = 0;
 #else
@@ -970,7 +973,8 @@ BOOL GameApp::InitInstance() {
     return TRUE;
 }
 
-BOOL GameApp::OnIdle(LONG lCount) { //4835b0
+// 4835b0 (client: 4872dc)
+BOOL GameApp::OnIdle(LONG lCount) {
     static uint32_t idle_tick = 0;
 
     MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
@@ -1018,7 +1022,8 @@ BOOL GameApp::OnIdle(LONG lCount) { //4835b0
     return 1;
 }
 
-int GameApp::ExitInstance() { //4833f1
+// 4833f1 (client: 48711d)
+int GameApp::ExitInstance() {
 #if (defined(A2TANGAR_HAT) && !defined(A2CLIENT)) || defined(A2CLIENT_PATCH)
     Config::ExitingCleanly = true;
 #endif
@@ -1085,23 +1090,25 @@ int GameApp::ExitInstance() { //4833f1
 
 
 
-int IsLateCampaignMission() { //497490
+// 497490 (client: 49a8b0)
+int IsLateCampaignMission() {
     return ScenarioGetVar(0x300) > 0x77;
 }
 
 
-void SrandInit() { //5421e9
+// 5421e9 (client: 5296c9)
+void SrandInit() {
     srand(timeGetTime());
 }
 
-// 5421FD
 // Returns rand() / 32767.0 in [0, 1].
+// 5421fd (client: 5296dd) - returns rand()/RAND_MAX in [0,1)
 double __cdecl Rand01() {
     return (double)rand() / 32767.0;
 }
 
-// 542216
 // Returns a uniform integer in [0, n].
+// 542216 (client: 5296f6) - returns [0, n]
 int32_t __cdecl Random0N(int32_t n) {
     if (n == 0) {
         return 0;
@@ -1109,14 +1116,14 @@ int32_t __cdecl Random0N(int32_t n) {
     return (int32_t)(((int64_t)rand() * (n + 1)) / 0x8000);
 }
 
-// 54223F
 // Returns a uniform integer in [1, n].
+// 54223f (client: 52971f) - returns [1, n]
 int32_t __cdecl Random1N(int32_t n) {
     return Random0N(n - 1) + 1;
 }
 
-// 5498B8
 // Pick a random (shape_id, material_id, item_data_id) combo from an equip table, skipping empty shape/material slots.
+// 5498b8 (client: 52dcaf)
 void __cdecl RollItemDataId(CArray<WorldEquip>* table, int32_t* shape_id, int32_t* material_id, int32_t* item_data_id, int32_t min_id) {
     while (true) {
         *item_data_id = Random0N(table->GetSize() - 1 - min_id) + min_id;
@@ -1140,8 +1147,8 @@ void __cdecl RollItemDataId(CArray<WorldEquip>* table, int32_t* shape_id, int32_
     } while (((*table)[*item_data_id].shape_material_matrix.data()[*shape_id] & (1 << *material_id)) == 0);
 }
 
-// 549372
 // Create item of given category in price range.
+// 549372 (client: 52d7df) - create item of given category in price range
 Item* __cdecl RollItemInPriceRange(CString category, int32_t min_price, int32_t max_price) {
     Item* item = nullptr;
     if (max_price - min_price < 10) {
@@ -1224,7 +1231,7 @@ Item* __cdecl RollItemInPriceRange(CString category, int32_t min_price, int32_t 
     return RollRandomItem(min_price, max_price);
 }
 
-// 41D723
+// 41d723 (client: 41efa5)
 void __stdcall ShowRoleKeyDialog(const char* str) {
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
     VisRoleKeyScreen* screen = new VisRoleKeyScreen(9, 0x1E, 0x78, 0x262, 0x168, CString(str));
@@ -1238,8 +1245,8 @@ void __stdcall ShowRoleKeyDialog(const char* str) {
     wnd->PopUpScreen(screen);
 }
 
-// 5499A6
 // Create a random item (level = min value, max_gold = max value).
+// 5499a6 (client: 52dd92)
 Item* __cdecl RollRandomItem(int32_t level, int32_t max_gold) {
     double roll = Rand01();
     const char* category;
@@ -1256,7 +1263,8 @@ Item* __cdecl RollRandomItem(int32_t level, int32_t max_gold) {
 }
 
 
-int32_t __cdecl AppGetWorkingDir(int maxchar, char* buf) { //4761dd
+// 4761dd (client: 479f29)
+int32_t __cdecl AppGetWorkingDir(int maxchar, char* buf) {
     int ln = strlen(g_WorkingDir);
     if (ln > maxchar) {
         ln = maxchar;
@@ -1267,7 +1275,8 @@ int32_t __cdecl AppGetWorkingDir(int maxchar, char* buf) { //4761dd
     return ln;
 }
 
-int __cdecl AppHasAnySaveFile() { // 440d96
+// 440d96 (client: 4431fd)
+int __cdecl AppHasAnySaveFile() {
     char buf[260];
     AppGetWorkingDir(260 - 1, buf);
 
@@ -1283,11 +1292,13 @@ int __cdecl AppHasAnySaveFile() { // 440d96
     return 1;
 }
 
-int __cdecl SaveListCompare(const void* data1, const void* data2) { // 43ea5b
+// 43ea5b (client: 440ebf)
+int __cdecl SaveListCompare(const void* data1, const void* data2) {
     return CompareFileTime(&((WIN32_FIND_DATAA*)data1)->ftLastWriteTime, &((WIN32_FIND_DATAA*)data2)->ftLastWriteTime);
 }
 
-void __cdecl AppFindSavesList(CArray<WIN32_FIND_DATAA>* list, int p) { //43eaa0
+// 43eaa0 (client: 440f04)
+void __cdecl AppFindSavesList(CArray<WIN32_FIND_DATAA>* list, int p) {
     char buf[260];
     AppGetWorkingDir(260 - 1, buf);
 
@@ -1323,7 +1334,8 @@ void __cdecl AppFindSavesList(CArray<WIN32_FIND_DATAA>* list, int p) { //43eaa0
 }
 
 
-void LogWarning(const CString& msg) { //59b753
+// 59b753 (client: 56a603)
+void LogWarning(const CString& msg) {
     CString str("WARNING! : ");
     str += msg;
     if (g_Server->multiplayer == 0) {

@@ -38,7 +38,7 @@
 
 IMPLEMENT_SERIAL(Inn, Building, 1); // 637330.
 
-// 56046B
+// 56046b (client: 539266)
 Inn::Inn() {
     this->has_kill_all_humans = 0;
     this->has_kill_all_monsters = 0;
@@ -48,7 +48,7 @@ Inn::Inn() {
     this->quest_roll_counter = 0;
 }
 
-// 5605CC
+// 5605cc (client: 539332)
 Inn::Inn(uint8_t type_id, TokenPos* pos) : Building(type_id, pos, 0, 0) {
     this->has_kill_all_humans = 0;
     this->has_kill_all_monsters = 0;
@@ -58,7 +58,7 @@ Inn::Inn(uint8_t type_id, TokenPos* pos) : Building(type_id, pos, 0, 0) {
     this->quest_roll_counter = 0;
 }
 
-// 56073E
+// 56073e (client: 53940c)
 Inn::~Inn() {
     POSITION pos = this->quest_map_per_player.GetStartPosition();
     while (pos) {
@@ -70,6 +70,7 @@ Inn::~Inn() {
 }
 
 // Helper: store a new quest as active_quest.
+// split from 562148 (client: 53a15e)
 static Quest* MakeActiveQuest(Inn* inn, Quest* q) {
     q->quest_map = nullptr;
     inn->active_quest = q;
@@ -77,13 +78,14 @@ static Quest* MakeActiveQuest(Inn* inn, Quest* q) {
 }
 
 // Helper: register quest (initialize, set state, register in quest_map)
+// split from 562148 (client: 53a15e)
 static void RegisterQuest(Inn* inn, Quest* q, int quest_id, int player_id, int building_id, int obj, int landmark_id, int limit, int reward) {
     q->Initialize(quest_id, player_id, building_id, obj, landmark_id, limit, reward);
     q->quest_data.state = Quest::STATE_INN_CANDIDATE;
     inn->quest_map->RegisterQuest(q);
 }
 
-// 567B4D
+// 567b4d (client: 53de79) - Check if this player has a quest taken in this inn.
 bool Inn::HasQuest(Player* player) {
     if (!this->quest_map_per_player.Lookup(player->player_id, this->quest_map)) {
         return false;
@@ -91,7 +93,7 @@ bool Inn::HasQuest(Player* player) {
     return this->quest_map->quests_map.GetCount() > 0;
 }
 
-// 562148
+// 562148 (client: 53a15e)
 void Inn::InnCreateQuests(Player* player) {
     // ---- QuestMap lookup / creation ----
     if (!this->quest_map_per_player.Lookup(player->player_id, this->quest_map)) {
@@ -725,7 +727,7 @@ void Inn::InnCreateQuests(Player* player) {
     }
 }
 
-// 567D74
+// 567d74 (client: 53df77)
 void Inn::RegenTick() {
     // Phase 1: Remove visitors whose owner has disconnected (field_0x43 == 0).
     POSITION pos = this->unit_list.unit_list.GetHeadPosition();
@@ -827,6 +829,7 @@ static const std::array<int, 22> TeachSpellIDs = {
 };
 
 // Helper to delete all items in a CArray<Item*> and clear it.
+// split from 565307 (client: 53c371)
 static void DeleteItemArray(CArray<Item*>& arr) {
     for (int i = 0; i < arr.GetSize(); i++) {
         if (arr[i]) {
@@ -837,6 +840,7 @@ static void DeleteItemArray(CArray<Item*>& arr) {
 }
 
 // Helper to pick one random item from candidates, add to results, delete the rest.
+// split from 565307 (client: 53c371)
 static bool PickOneRandom(CArray<Item*>& candidates, CArray<Item*>& results) {
     if (candidates.GetSize() == 0) {
         return false;
@@ -854,7 +858,7 @@ static bool PickOneRandom(CArray<Item*>& candidates, CArray<Item*>& results) {
     return true;
 }
 
-// 565307
+// 565307 (client: 53c371) - Generate reward items for completed quest
 void Inn::InnReward(Player* player) {
     int reward = 0;
 
@@ -1304,7 +1308,7 @@ void Inn::InnReward(Player* player) {
     this->rewards_per_player[player->player_id] = inv;
 }
 
-// 567A25
+// 567a25 (client: 53ddf5) - Find active quest for player at this inn.
 Quest* Inn::FindActiveQuest(Player* player) {
     POSITION quest_it = g_QuestMap.quests_map.GetStartPosition();
     while (quest_it) {
@@ -1318,7 +1322,7 @@ Quest* Inn::FindActiveQuest(Player* player) {
     return nullptr;
 }
 
-// 560C67
+// 560c67 (client: 539510)
 void Inn::UpdateQuests(Unit* unit) {
     Player* player = unit->pOwner;
     this->DeleteCompletedQuests(player);
@@ -1339,7 +1343,7 @@ void Inn::UpdateQuests(Unit* unit) {
     }
 }
 
-// 567C21
+// 567c21 (client: 53dec1)
 void Inn::DeleteCompletedQuests(Player* player) {
     POSITION pos = g_QuestMap.quests_map.GetStartPosition();
     while (pos) {
@@ -1356,6 +1360,7 @@ void Inn::DeleteCompletedQuests(Player* player) {
 // RemoveUnit вЂ” Handle inn quest/reward interaction.
 // Called when a humanoid finishes interacting with the inn.
 // `id`: < 0x100 = reward item index, >= 0x100 = accepted quest's `quest_id`.
+// 560dc2 (client: 5395df)
 void Inn::RemoveUnit(Humanoid* humanoid, int32_t id) {
     // Look up the unit by the building id
     Unit* found = this->unit_list.FindById(humanoid->building_id);

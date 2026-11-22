@@ -45,13 +45,13 @@ std::array<CString, 10> MALE_HUMAN_NAMES = {"", "Biker", "Vasya", "Duke Killer",
 // 6d0768
 std::array<CString, 7> FEMALE_HUMAN_NAMES = {"", "Lady Moro", "Reniesta", "Scilla", "Red Hat", "Alice", "Khisanth"};
 
-//52e9e3
+// 52e9e3 (client: 51aea2)
 EquipmentExtra::EquipmentExtra() = default;
-//52eaa3
+// 52eaa3 (client: 51af62)
 EquipmentExtra& EquipmentExtra::operator=(const EquipmentExtra&) = default;
 
+// 52ec3d (client: 51b0f8)
 void EquipmentExtra::Serialize(CArchive& ar) {
-    //52ec3d
     if (ar.IsStoring()) {
         //ar.Write(this, sizeof(EquipmentExtra));
         ar.Write(this, 0x40);
@@ -61,8 +61,8 @@ void EquipmentExtra::Serialize(CArchive& ar) {
     }
 }
 
+// 52ea17 (client: 51aed6)
 void EquipmentExtra::SetToUnit(Unit *unit) {
-    //52ea17
     unit->speed = this->speed;
     unit->carrying_body_100g = this->carrying_body_100g;
     unit->hp_max = this->hp_max;
@@ -72,8 +72,8 @@ void EquipmentExtra::SetToUnit(Unit *unit) {
     unit->protections = this->protections;
 }
 
+// 52eb64 (client: 51b023)
 void EquipmentExtra::AddToUnit(Unit *unit) {
-    //52eb64
     unit->speed += this->speed;
 
     if (unit->speed < 6) {
@@ -94,49 +94,50 @@ void EquipmentExtra::AddToUnit(Unit *unit) {
 
 
 /***************   Unit   *******************/
+// 528aef (client: 51781c)
 Unit::Unit() {
-    //528aef
     this->InitDefaults("");
     this->last_hit_by = nullptr;
     this->last_hit_spell_id = 0;
     this->spell = nullptr;
 }
 
+// 528c97 (client: 517932)
 Unit::Unit(const CString &str) {
-    //528c97
     this->InitDefaults(str);
     this->last_hit_by = nullptr;
     this->last_hit_spell_id = 0;
     this->spell = nullptr;
 }
 
+// 528e24 (client: 517a2b)
 Unit::Unit(const CString &str, const TokenPos *pos)
     : Token(pos) {
-    //528e24
     this->InitDefaults(str);
     this->last_hit_by = nullptr;
     this->last_hit_spell_id = 0;
     this->spell = nullptr;
 }
 
+// 528fb7 (client: 517b28)
 Unit::Unit(const TokenPos *pos)
     : Token(pos) {
-    //528fb7
     this->InitDefaults("");
     this->last_hit_by = nullptr;
     this->last_hit_spell_id = 0;
     this->spell = nullptr;
 }
 
+// 529167 (client: 517c44)
 Unit::Unit(const TokenPos *pos, Player *player)
     : Token(pos, player) {
-    //529167
     this->InitDefaults("");
     this->last_hit_by = nullptr;
     this->last_hit_spell_id = 0;
     this->spell = nullptr;
 }
 
+// 52a330 (client: 51897e)
 Unit::~Unit() {
     Unit::ReleaseObjects();
 }
@@ -144,7 +145,7 @@ Unit::~Unit() {
 
 // Free functions called from VMethod2.
 // Distance to target in sub-cells (1/256), adjusted for both units' sizes.
-// 5364D5
+// 5364d5 (client: 52061a)
 int16_t __cdecl CalcMeleeDist(Unit* self, Unit* target) {
     int32_t dx = abs(self->GetRightXx() - target->GetRightXx());
     int32_t dy = abs(self->GetBottomYy() - target->GetBottomYy());
@@ -157,7 +158,7 @@ int16_t __cdecl CalcMeleeDist(Unit* self, Unit* target) {
 }
 
 // Attack a unit.
-// 53685B
+// 53685b (client: 520927)
 void __cdecl ExecuteMeleeAttack(Unit* self, Unit* target) {
     if (target == nullptr || target->pOwner == nullptr || self == nullptr || self->pOwner == nullptr) {
         return;
@@ -200,7 +201,7 @@ void __cdecl ExecuteMeleeAttack(Unit* self, Unit* target) {
 
 // Attack a building.
 // WAT: in vanilla they're actually passing a `Unit*` and force-cast it to `Building*`.
-// 536A62
+// 536a62 (client: 520b16)
 void __cdecl ExecuteRangedAttack(Unit* self, Unit* target) {
     if (target == nullptr || self == nullptr || self->hp <= 0 || self->pOwner == nullptr) {
         return;
@@ -220,7 +221,7 @@ void __cdecl ExecuteRangedAttack(Unit* self, Unit* target) {
 }
 
 // Clamps experience gain to the max gain for the given skill level.
-// 530DCB
+// 530dcb (client: 51cb80)
 uint32_t __cdecl ClampExperienceGain(uint32_t experience, int32_t skill_level) {
     int32_t max_gain = ExperienceTable::GetExp(skill_level + 1) - ExperienceTable::GetExp(skill_level);
     if (g_Server->multiplayer != 0) {
@@ -233,7 +234,7 @@ uint32_t __cdecl ClampExperienceGain(uint32_t experience, int32_t skill_level) {
 }
 
 // Start attack.
-// 536630
+// 536630 (client: 52076b)
 void __cdecl CalcAttackCharge(Unit* self, Unit* target, int32_t* out_charge) {
     *out_charge = 0;
     if (target == nullptr || target->pOwner == nullptr || self == nullptr || self->pOwner == nullptr || self->hp <= 0) {
@@ -259,7 +260,7 @@ void __cdecl CalcAttackCharge(Unit* self, Unit* target, int32_t* out_charge) {
 }
 
 // Execute attack.
-// 53678F
+// 53678f (client: 52085b)
 void __cdecl ExecuteAttack(Unit* self, Unit* target) {
     if (target == nullptr) {
         return;
@@ -276,7 +277,7 @@ void __cdecl ExecuteAttack(Unit* self, Unit* target) {
 }
 
 
-// 5593b6
+// 5593b6 (client: 53633a)
 void Unit::Serialize(CArchive& ar) {
     Token::Serialize(ar);
 
@@ -449,7 +450,7 @@ void Unit::Serialize(CArchive& ar) {
 }
 
 
-// 55A9C5
+// 55a9c5 (client: 536c19)
 void Unit::FixupPointers() {
     Token::FixupPointers();
 
@@ -519,7 +520,7 @@ void Unit::FixupPointers() {
 }
 
 
-// 52963B
+// 52963b (client: 51807f)
 void Unit::CopyFrom(Unit* unit) {
     // Copy Token base fields
     this->building_id = unit->building_id;
@@ -653,7 +654,7 @@ void Unit::CopyFrom(Unit* unit) {
 }
 
 
-// 52BAD9
+// 52bad9 (client: 51985d)
 void Unit::RegenTick() {
     if (this->some_state == EXEC_DEAD) {
         return;
@@ -707,7 +708,7 @@ void Unit::RegenTick() {
     }
 }
 
-// 52A857
+// 52a857 (client: 518d2f)
 void Unit::ProcessEffects() {
     if (this->some_state == EXEC_DEAD) {
         return;
@@ -972,24 +973,28 @@ void Unit::ProcessEffects() {
     }
 }
 
+// 57b790 (client: 54c350) - TokenSize
 int32_t Unit::GetTokenSize() {
     return this->token_size;
 }
 
+// 57b7b0 (client: 54c370) - MovementType
 int32_t Unit::GetMovementType() {
     return this->movement_type;
 }
 
+// 57b840 (client: 54c400) - IsUnit
 int32_t Unit::IsUnit() {
     return 1;
 }
 
+// 57b850 (client: 54c410) - IsHumanoid
 int32_t Unit::IsHumanoid() {
     return 0;
 }
 
+// 52a504 (client: 518a17)
 void Unit::ReleaseObjects() {
-    // 52a504
     if (this->some_item && this->some_item->item_id.slot == item_slot::magic_item) {
         #ifdef A2SERVER_PATCH
         // bug_0002: some_item can be a zombie (destroyed earlier, zeroed
@@ -1047,12 +1052,14 @@ void Unit::ReleaseObjects() {
     }
 }
 
+// 52c8e5 (client: 51a457)
 Item *Unit::UseItem(Item *item) {
     Item *itm = item->Equip(this);
     this->RecalcExperience();
     return itm;
 }
 
+// 52c914 (client: 51a486)
 void Unit::UseItemOrStash(Item *item) {
     Item* itm = item->Equip(this);
     if (itm) {
@@ -1061,6 +1068,7 @@ void Unit::UseItemOrStash(Item *item) {
     }
 }
 
+// 52c957 (client: 51a4c9)
 Item* Unit::Unequip(Item* item) {
     if (item) {
         item->Unequip(this);
@@ -1069,13 +1077,15 @@ Item* Unit::Unequip(Item* item) {
     return item;
 }
 
+// 57b7d0 (client: 54c390)
 void Unit::UnequipAll()
 {}
 
+// 57b7e0 (client: 54c3a0)
 void Unit::AwardKillMoney(Unit*)
 {}
 
-// 536B31
+// 536b31 (client: 520be5)
 uint32_t Unit::RollDamage(UnitToHit* unit_to_hit, Unit* attacker) {
     if (this->pOwner) {
         this->pOwner->ResetAfkTimer();
@@ -1255,6 +1265,7 @@ uint32_t Unit::RollDamage(UnitToHit* unit_to_hit, Unit* attacker) {
 #endif
 }
 
+// 52f566 (client: 51b4fa)
 void Unit::RecalcStats() {
     if (!this->pOwner) {
         this->mp2 = this->mp_max;
@@ -1263,14 +1274,16 @@ void Unit::RecalcStats() {
     }
 }
 
+// 57b7f0 (client: 54c3b0)
 uint32_t Unit::RecalcExperience() {
     return this->_exp;
 }
 
+// 52fed7 (client: 51bcab)
 void Unit::GiveLevelReward()
 {}
 
-// 5371F7
+// 5371f7 (client: 52124c)
 void Unit::AddExperience(uint32_t newExp, Unit *target, int32_t sphere) {
     this->experience += newExp;
     if (target && target->hp < 0) {
@@ -1278,15 +1291,19 @@ void Unit::AddExperience(uint32_t newExp, Unit *target, int32_t sphere) {
     }
 }
 
+// 57b810 (client: 54c3d0)
 void Unit::AwardKillExperience(Unit*, int32_t)
 {}
 
+// 57b820 (client: 54c3e0)
 void Unit::AwardDamageExperience(Unit*, uint32_t, int32_t)
 {}
 
+// 57b830 (client: 54c3f0)
 void Unit::AwardCastExperience(Unit*, int32_t)
 {}
 
+// 52a771 (client: 518c4b)
 int32_t Unit::GetCorpseDecayTime() {
     #ifdef A2SERVER_PATCH
     // bug_0004: monster_info may be null (guards the whole deref chain)
@@ -1297,7 +1314,7 @@ int32_t Unit::GetCorpseDecayTime() {
     return this->monster_info->Values()[0].dying_time;
 }
 
-// 52C757
+// 52c757 (client: 51a2f7) - Find first Effect in _effects list matching the given itemDataID.
 Effect* Unit::FindEnchantment(uint16_t effect_id) {
     for (POSITION p = this->_effects.GetHeadPosition(); p != nullptr; ) {
         Effect* e = this->_effects.GetNext(p);
@@ -1308,7 +1325,7 @@ Effect* Unit::FindEnchantment(uint16_t effect_id) {
     return nullptr;
 }
 
-// 52A215
+// 52a215 (client: 518863) - Initialize default unit stats (for newly created units)
 void Unit::InitDefaultStats() {
     this->state = ORDER_GUARD_POSITION;
     this->body = 30;
@@ -1340,7 +1357,7 @@ void Unit::InitDefaultStats() {
     this->max_range = 1;
 }
 
-// 52C409
+// 52c409 (client: 519fb1) - Return unit to map.
 int32_t Unit::ReturnToMap() {
 #ifdef A2TANGAR_HAT
     // add_player_to_map hook (52C409): skip if already on the map ((unit_attrs & 8) == 0)
@@ -1388,7 +1405,7 @@ int32_t Unit::ReturnToMap() {
     return 1;
 }
 
-// 52C98B
+// 52c98b (client: 51a4fd) - Pick up a sack into this unit's bag
 void Unit::PickUpSack(Sack* sack) {
     if (sack == nullptr) {
         return;
@@ -1550,7 +1567,7 @@ void Unit::PickUpSack(Sack* sack) {
     g_NetStru1_main.SendUnitUpdate(this, nullptr, update_mask | UNIT_UPD_INVENTORY_WEIGHT_SPEED, EQUIP_SLOTS_ALL, 0, 0);
 }
 
-// 52D94E
+// 52d94e (client: 51a673) - Kill this unit (sets some_state to 0x10 and runs death cleanup)
 void Unit::Die() {
     // Summoned units: remove completely, don't leave a corpse.
     if (this->summon_id != 0) {
@@ -1735,42 +1752,42 @@ void Unit::Die() {
     this->DecayTick();
 }
 
-// 52BABD
+// 52babd (client: 519841) - last_action_tick
 int32_t Unit::GetTicksSinceAction() {
     return g_Server->tick - this->last_action_tick;
 }
 
-// 59A030
+// 59a030 (client: 569320) - Returns movement type.
 int32_t Unit::MovementType() {
     return this->GetMovementType();
 }
 
-// 5B6FB0
+// 5b6fb0 (client: 5444d0) - IsMage.
 int32_t Unit::IsMage() {
     return this->unit_attrs & ATTR_MAGE;
 }
 
-// 528725
+// 528725 (client: 517475) - Returns x bottom-right extent (sub-cell units).
 uint16_t Unit::GetRightXx() {
     return this->position->GetXx() + ((this->GetTokenSize() & 0xFF) - 1) * 0x80;
 }
 
-// 528763
+// 528763 (client: 5174b1) - Returns y bottom-right extent (sub-cell units).
 uint16_t Unit::GetBottomYy() {
     return this->position->GetYy() + ((this->GetTokenSize() & 0xFF) - 1) * 0x80;
 }
 
-// 5287C4
+// 5287c4 (client: 517510) - Check if this unit needs a refresh for the given player.
 int Unit::NeedsRefreshFor(Player* player) {
     return (this->sent_to_mask & player->vision_sharing_id) == 0;
 }
 
-// 5287EC
+// 5287ec (client: 517538) - Mark this unit as not needing the refresh for the given player.
 void Unit::ClearRefreshFor(Player* player) {
     this->sent_to_mask |= player->vision_sharing_id;
 }
 
-// 52D904
+// 52d904 (client: 51a629) - Defense value for quests. Flyers get +25, mages get +50.
 int32_t Unit::GetQuestDefense() {
     int32_t result = this->protections.defense;
     if (this->movement_type == 3) {
@@ -1782,7 +1799,7 @@ int32_t Unit::GetQuestDefense() {
     return result;
 }
 
-// 52A790
+// 52a790 (client: 518c68) - Add inventory weight and notify clients after item change.
 void Unit::AddCarriedWeight(int32_t delta_weight) {
     int32_t old_ratio = this->carrying_weight_100g / this->carrying_body_100g;
 
@@ -1801,7 +1818,7 @@ void Unit::AddCarriedWeight(int32_t delta_weight) {
     }
 }
 
-// 52C4DF
+// 52c4df (client: 51a087) - Add HP (clamped to hp_max, triggers regen if newly positive)
 void Unit::AddHp(int16_t amount) {
     this->item_op_dirty_flags |= UNIT_UPD_HP;
     int16_t old_hp = this->hp;
@@ -1812,7 +1829,7 @@ void Unit::AddHp(int16_t amount) {
     }
 }
 
-// 52C58F
+// 52c58f (client: 51a137) - Revive unit (set flags, reset subcell, call VMethod18, notify world)
 void Unit::Revive() {
     this->item_op_dirty_flags |= UNIT_UPD_HP | UNIT_UPD_HP_MP_MAX | UNIT_UPD_EXP_SPHERE0;
     // Inline 58FD16: reset subcell position to cell center.
@@ -1827,7 +1844,7 @@ void Unit::Revive() {
     g_World->ResetUnitToHold(this);
 }
 
-// 52C641
+// 52c641 (client: 51a1e9)
 void Unit::ResetActionState() {
     this->CancelQueuedSpell();
     if (this->attack_ready == 0 && this->some_item != nullptr && this->some_item->item_id.slot == item_slot::magic_item) {
@@ -1843,7 +1860,7 @@ void Unit::ResetActionState() {
     this->state = ORDER_IDLE;
 }
 
-// 52E7FA
+// 52e7fa (client: 51acbb) - Corpse: decrement HP and recalculate decay.
 void Unit::DecayTick() {
     if (this->hp < -10000) {
         return;
@@ -1891,7 +1908,7 @@ void Unit::DecayTick() {
     }
 }
 
-// 52931B
+// 52931b (client: 517d64)
 void Unit::InitDefaults(const CString& str) {
     this->last_hit_by = nullptr;
     this->last_hit_spell_id = 0;
@@ -1945,14 +1962,14 @@ void Unit::InitDefaults(const CString& str) {
     }
 }
 
-// 537251
+// 537251 (client: 52129d) - Apply invincibility (god-mode) enchantments to unit
 void Unit::ApplyInvincibility() {
     this->equipment_extra.protections.magic_protections.fill(100);
     this->equipment_extra.protections.weapon_protections.fill(100);
     this->RecalcStats();
 }
 
-// 52C813
+// 52c813 (client: 51a348)
 void Unit::CancelQueuedSpell() {
     if (this->some_item == nullptr || this->some_item->item_type == Item::ItemType::WEAPON) {
         return;
@@ -1974,12 +1991,12 @@ void Unit::CancelQueuedSpell() {
     LogMessage("Unit: Canceling wrong spell from item(scroll?)");
 }
 
-// 52D8D3
+// 52d8d3 (client: 51a5f8) - Create a sack from this unit's inventory and money.
 void Unit::CreateSackFromInventory(Inventory* inventory, int32_t money, int32_t is_main_player_unit) {
     g_Server->srv_stru1->sack_list->DropInventoryAt(this->position, inventory, money, is_main_player_unit);
 }
 
-// 52C163
+// 52c163 (client: 519ea6)
 void Unit::RemoveFromMap() {
     if ((this->unit_attrs & ATTR_PHASED_OUT) != 0) {
         return;
@@ -1995,7 +2012,7 @@ void Unit::RemoveFromMap() {
     g_NetStru1_main.SendUnitVisibility(this, 0, this->pOwner);
 }
 
-// 52C36D
+// 52c36d (client: 519f1b)
 void Unit::AddToMap(uint8_t x, uint8_t y, uint8_t flags) {
     if (!this->PlaceOnMap(x, y, flags)) {
         CString msg("Unit can't enter map - no free place");
@@ -2008,7 +2025,7 @@ void Unit::AddToMap(uint8_t x, uint8_t y, uint8_t flags) {
     g_NetStru1_main.SendUnitVisibility(this, 0, nullptr);
 }
 
-// 52BF3D
+// 52bf3d (client: 519c8c) - Place unit on map; returns nonzero on success
 int Unit::PlaceOnMap(uint8_t x, uint8_t y, uint8_t size) {
     uint32_t size_u32 = size;
     int32_t max_tries = size_u32 * size_u32 / 2 + 1;
@@ -2058,7 +2075,7 @@ int Unit::PlaceOnMap(uint8_t x, uint8_t y, uint8_t size) {
     return MapStuff_Instance->PlaceUnit(this);
 }
 
-// 52BDD7
+// 52bdd7 (client: 519b30) - Process movement step
 void Unit::ProcessMoveStep(uint16_t xx, uint16_t yy, uint8_t eye0, uint8_t eye1) {
     uint16_t cur_xx = this->position->GetXx();
     uint16_t cur_yy = this->position->GetYy();
@@ -2078,7 +2095,7 @@ void Unit::ProcessMoveStep(uint16_t xx, uint16_t yy, uint8_t eye0, uint8_t eye1)
     }
 }
 
-// 52ec7a
+// 52ec7a (client: 51b12f)
 void Unit::ApplyMonsterInfo(const CArray<MonsterInfoData>& values) {
     const MonsterInfoData& data = values[0];
 
@@ -2204,12 +2221,12 @@ void Unit::ApplyMonsterInfo(const CArray<MonsterInfoData>& values) {
 }
 
 // HasEnchantment.
-// 52C735
+// 52c735 (client: 51a2d5) - HasEnchantment.
 int32_t Unit::HasEnchantment(uint8_t spell_id) {
     return (this->enchantments & (1 << spell_id));
 }
 
-// 52F5BB
+// 52f5bb (client: 51b54f) - clamped spell power for sphere: max(0, skill_levels[sphere] + mind - 30)
 uint8_t Unit::GetSpellPower(uint8_t sphere) {
     int32_t power = this->hit_values.skill_levels[sphere & 0xFF] + this->mind - 30;
     if (power < 0) {
@@ -2218,7 +2235,7 @@ uint8_t Unit::GetSpellPower(uint8_t sphere) {
     return power;
 }
 
-// 52F601
+// 52f601 (client: 51b595)
 void Unit::InitFromMonsterName(const CString& name) {
     this->typeId = 0;
 
@@ -2326,6 +2343,7 @@ void Unit::InitFromMonsterName(const CString& name) {
     g_World->InitUnitCombatProfile(this);
 }
 
+// split from 52d94e (client: 51a673)
 Inventory* Unit::DetachInventory() {
     Inventory* tmp = this->inventory;
     this->inventory = new Inventory();
@@ -2368,7 +2386,7 @@ IMPLEMENT_SERIAL(Humanoid, Unit, 1);
 */
 
 
-// 55c760
+// 55c760 (client: 5374ea)
 void Humanoid::Serialize(CArchive& ar) {
     Unit::Serialize(ar);
     if (ar.IsStoring()) {
@@ -2384,18 +2402,18 @@ void Humanoid::Serialize(CArchive& ar) {
     }
 }
 
+// 52ff9e (client: 51bd6f)
 Humanoid::Humanoid() {
-    //52ff9e
     this->InitStats();
 }
 
+// 52fff2 (client: 51bdc3)
 Humanoid::Humanoid(const TokenPos *tpos)
  :Unit(tpos) {
-    //52fff2
     this->InitStats();
 }
 
-// 53004c
+// 53004c (client: 51be1d)
 void Humanoid::InitStats() {
     for (int32_t i = 0; i < 13; i++) {
         this->equipment[i] = nullptr;
@@ -2423,28 +2441,28 @@ void Humanoid::InitStats() {
     this->eye->SetPathMaskByMovement(this);
 }
 
+// 53015b (client: 51bf2c)
 Humanoid::~Humanoid() {
-    //53015b
     Humanoid::ReleaseObjects();
 }
 
+// 55ab26 (client: 536c9c)
 void Humanoid::FixupPointers() {
-    //55ab26
     Unit::FixupPointers();
 }
 
+// 57bb50 (client: 54c710)
 int32_t Humanoid::IsUnit() {
-    //57bb50
     return 1;
 }
 
+// 57bb60 (client: 54c720)
 int32_t Humanoid::IsHumanoid() {
-    //57bb60
     return 1;
 }
 
+// 5301ac (client: 51bf7d)
 void Humanoid::ReleaseObjects() {
-    //5301ac
     Unit::ReleaseObjects();
     for (int i = 1; i < this->equipment.size(); i++) {
         Item*& rEq = this->equipment[i];
@@ -2455,7 +2473,7 @@ void Humanoid::ReleaseObjects() {
     }
 }
 
-// 5303e3
+// 5303e3 (client: 51c1af)
 Item* Humanoid::UseItem(Item* item) {
     if (item->IsKindOf(RUNTIME_CLASS(Armor)) || item->IsKindOf(RUNTIME_CLASS(Weapon)) || item->IsKindOf(RUNTIME_CLASS(Shield))) {
         int32_t suitable_for = item->world_equip->Values().GetData()->suitable_for;
@@ -2469,16 +2487,16 @@ Item* Humanoid::UseItem(Item* item) {
     return item->Equip(this);
 }
 
+// 5304b2 (client: 51c274)
 void Humanoid::UseItemOrStash(Item *item) {
-    //5304b2
     Item *itm = this->UseItem(item);
     if (itm) {
         this->inventory->PutItemIntoBagAtDefault(itm);
     }
 }
 
+// 5304e8 (client: 51c2aa)
 Item *Humanoid::Unequip(Item* item) {
-    //5304e8
     if (item) {
         item->Unequip(this);
     }
@@ -2486,8 +2504,8 @@ Item *Humanoid::Unequip(Item* item) {
 }
 
 
+// 530511 (client: 51c2d3)
 void Humanoid::UnequipAll() {
-    //530511
     for (int i = 1; i < this->equipment.size(); i++) {
         Item *itm = this->equipment[i];
         this->Unequip(itm);
@@ -2495,7 +2513,7 @@ void Humanoid::UnequipAll() {
     }
 }
 
-// 53111b
+// 53111b (client: 51ceb7)
 void Humanoid::AwardKillMoney(Unit* unit) {
     if (g_Server->multiplayer == 0) {
         return;
@@ -2509,8 +2527,8 @@ void Humanoid::AwardKillMoney(Unit* unit) {
     this->pOwner->AddMoney(unit->_exp, 1);
 }
 
+// 5315ec (client: 51d2a7)
 void Humanoid::RecalcStats() {
-    // 005315ec
     const bool fighter = (this->unit_attrs & Unit::ATTR_MAGE) == 0;
     const bool female = (this->typeId == unit_type::hero_fighter_female || this->typeId == unit_type::hero_mage_female);
 
@@ -2741,8 +2759,8 @@ void Humanoid::RecalcStats() {
     }
 }
 
+// 537199 (client: 5211ee)
 uint32_t Humanoid::RecalcExperience() {
-    //537199
     uint32_t exps = 0;
     for (uint32_t ex : this->experience_per_sphere) {
         exps += ex;
@@ -2752,7 +2770,7 @@ uint32_t Humanoid::RecalcExperience() {
     return this->_exp;
 }
 
-// 530745
+// 530745 (client: 51c507)
 void Humanoid::AddExperience(uint32_t new_exp, Unit* target, int32_t sphere) {
     #ifdef A2SERVER_PATCH
     // imp_GMNoLevelUp hook (530745): full GMs (GMF_ANY) don't level up
@@ -2902,7 +2920,7 @@ void Humanoid::AddExperience(uint32_t new_exp, Unit* target, int32_t sphere) {
     }
 }
 
-// 530e52   
+// 530e52 (client: 51cc07)
 void Humanoid::AwardKillExperience(Unit* unit, int32_t spell_id) {
     if (spell_id != 0 && (this->unit_attrs & Unit::ATTR_MAGE) == 0) {
         return;
@@ -2934,7 +2952,7 @@ void Humanoid::AwardKillExperience(Unit* unit, int32_t spell_id) {
     }
 }
 
-// 530fc1
+// 530fc1 (client: 51cd64)
 void Humanoid::AwardDamageExperience(Unit* unit, uint32_t damage, int32_t spell_id) {
     if (spell_id != 0 && (this->unit_attrs & Unit::ATTR_MAGE) == 0) {
         return;
@@ -2949,7 +2967,7 @@ void Humanoid::AwardDamageExperience(Unit* unit, uint32_t damage, int32_t spell_
     }
 }
 
-// 531090
+// 531090 (client: 51ce2b)
 void Humanoid::AwardCastExperience(Unit*, int32_t spell_id) {
     int32_t sphere = 0;
     if (spell_id != 0 && (this->unit_attrs & Unit::ATTR_MAGE) != 0) {
@@ -2963,7 +2981,7 @@ void Humanoid::AwardCastExperience(Unit*, int32_t spell_id) {
     this->AddExperience(xp, nullptr, sphere);
 }
 
-// 530394
+// 530394 (client: 51c162)
 int32_t Humanoid::GetCorpseDecayTime() {
     if (this->monster_info->Values().GetSize() == 0) {
         return 8;
@@ -2976,7 +2994,7 @@ int32_t Humanoid::GetCorpseDecayTime() {
 }
 
 // Copy stats and equipment from another humanoid.
-// 530231
+// 530231 (client: 51c002) - Copy stats and equipment from another humanoid.
 void Humanoid::CopyFrom(Humanoid* other) {
     this->Unit::CopyFrom(other);
 
@@ -2995,7 +3013,7 @@ void Humanoid::CopyFrom(Humanoid* other) {
     }
 }
 
-// 53116B
+// 53116b (client: 51cefe) - Reduce humanoid's skills and revive the unit.
 void Humanoid::ReviveWithPenalty() {
     #ifdef A2SERVER_PATCH
     // player_respawned_init hook (53118A)
@@ -3040,7 +3058,7 @@ void Humanoid::ReviveWithPenalty() {
     this->Revive();
 }
 
-// 531418
+// 531418 (client: 51d0d3) - Recalculate experience from skills.
 void Humanoid::RecalcExperienceFromSkills() {
     this->experience = 0;
     for (int32_t i = 0; i < this->experience_per_sphere.size(); i++) {
@@ -3052,7 +3070,7 @@ void Humanoid::RecalcExperienceFromSkills() {
     }
 }
 
-// 533345
+// 533345 (client: 51eb95) - Character creation: set skills and give initial weapon.
 void Humanoid::InitCreationSkills(int8_t main_skill, int8_t skill_level) {
     CString m;
     m.Format("InitCreationSkills: (main skill %d, level %d)", main_skill, skill_level);
@@ -3134,7 +3152,7 @@ void Humanoid::InitCreationSkills(int8_t main_skill, int8_t skill_level) {
     }
 }
 
-// 532DDE
+// 532dde (client: 51e92e)
 void Humanoid::ApplyHumanInfo(CArray<HumanInfoData>* data) {
     #ifdef A2SERVER_PATCH
     // bug_0007: empty human info array (null m_pData) - skip applying the data
@@ -3233,17 +3251,17 @@ IMPLEMENT_SERIAL(Human, Humanoid, 1);
 * operator>>       532311
 */
 
+// 53232d (client: 51dfb3)
 Human::Human() {
-    //53232d
     this->InitFromName(CString("Man_Unarmed"), 0, nullptr);
 }
 
+// 53239a (client: 51e020)
 Human::Human(const CString& hname, int32_t t, const char* unk) {
-    //53239a
     this->InitFromName(hname, t, unk);
 }
 
-// 532587
+// 532587 (client: 51e20d)
 void Human::InitFromName(CString hname, int32_t is_hero, const char* unk) {
     this->typeId = 0;
     bool load_equipment = (unk == nullptr);
@@ -3359,10 +3377,11 @@ void Human::InitFromName(CString hname, int32_t is_hero, const char* unk) {
     }
 }
 
+// 57bbd0 (client: 54c7b0)
 Human::~Human()
 {}
 
-// 55C81C
+// 55c81c (client: 53759d)
 void Human::Serialize(CArchive& ar) {
     Humanoid::Serialize(ar);
     if (!ar.IsStoring()) {
@@ -3374,7 +3393,7 @@ void Human::Serialize(CArchive& ar) {
     }
 }
 
-// 5339a6
+// 5339a6 (client: 51f1b1)
 void Human::GiveLevelReward() {
     int32_t level = (this->_exp > 1000) ? (this->_exp / 10) : 0;
     Item* item = RollRandomItem(level, this->_exp);

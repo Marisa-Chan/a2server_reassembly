@@ -20,9 +20,9 @@ public:
     TableLine(); // 512b33 (client: 50642b)
 
 public: // VTable at 60eae8.
-    virtual void Serialize(CArchive& ar) override;  // client: 506f55
-    virtual void ParseValues(CString line, int32_t values_count, double* out_values);  // client: 5064df
-    virtual void ParseValue(CString str, int32_t type_id, int32_t* out_value, double* out_double);  // client: 506744
+    virtual void Serialize(CArchive& ar) override; // 513a4f (client: 506f55)
+    virtual void ParseValues(CString line, int32_t values_count, double* out_values); // 512c4d (client: 5064df)
+    virtual void ParseValue(CString str, int32_t type_id, int32_t* out_value, double* out_double); // 5131c1 (client: 506744)
 
 public:
     CString name;
@@ -93,7 +93,7 @@ public: // VTable at 60eb40.
 public:
     MagicItem(); // 572740 (client: 5435c0)
 
-    void ParseLine(CString line); // 513B68 (client: 50705c)
+    void ParseLine(CString line); // 513b68 (client: 50705c)
 
 public:
     CString effect;
@@ -108,7 +108,7 @@ public: // VTable at 60eb20.
 public:
     MatShape(); // 572590 (client: 543550)
 
-    void ParseLine(CString line); // 5780B0 (client: 5482e0)
+    void ParseLine(CString line); // 5780b0 (client: 5482e0)
 
     CArray<int32_t>& Values() {
         return this->ValuesAs<int32_t>();
@@ -144,7 +144,7 @@ public: // VTable at 60ebc0.
 public:
     BuildingInfo(); // 572f70 (client: 543960)
 
-    void ParseLine(CString line); // 5782B0 (client: 548240)
+    void ParseLine(CString line); // 5782b0 (client: 5485d0)
 
     CArray<BuildingInfoData>& Values() {
         return this->ValuesAs<BuildingInfoData>();
@@ -243,7 +243,7 @@ public: // VTable at 60eb60.
 public:
     MagicInfo(); // 5729e0 (client: 543710)
 
-    void ParseLine(CString line); // 578120 (client: 548240)
+    void ParseLine(CString line); // 578120 (client: 5483b0)
 
     CArray<MagicInfoData>& Values() {
         return this->ValuesAs<MagicInfoData>();
@@ -390,7 +390,7 @@ public: // VTable at 60eba0.
 public:
     HumanInfo(); // 572d80 (client: 543870)
 
-    void ParseLine(CString line); // 578220 (client: 548450)
+    void ParseLine(CString line); // 578220 (client: 548510)
 
     CArray<HumanInfoData>& Values() {
         return this->ValuesAs<HumanInfoData>();
@@ -440,7 +440,7 @@ public: // VTable at 60ebe0.
 public:
     SpellInfo(); // 573120 (client: 5439d0)
 
-    void ParseLine(CString line); // 578320 (client: 50705c)
+    void ParseLine(CString line); // 578320 (client: 548670)
 
     CArray<SpellInfoData>& Values() {
         return this->ValuesAs<SpellInfoData>();
@@ -472,35 +472,35 @@ struct GameDataRes {
     int loaded;
 
 public:
-    GameDataRes(); // 509e1a
-    ~GameDataRes(); // 56f280
+    GameDataRes(); // 509e1a (client: 5019b3)
+    ~GameDataRes(); // 56f280 (client: 540f70)
 
-    int ParseWorldIn(const CString& str); //50a15f (client: 501ab3)
-    int ParseDataBin(const CString& path); //50D421 (client: 502b5a)
-    int ParseTxtFiles(const CString& path); //50A345 (client: 501c9e)
-    void WriteDataBin(const CString& path); //50D7C2 (client: 502eec)
-    void Serialize(CArchive& ar); //50E0F0 (client: 503833)
-    Item* FindItemTemplate(CString* name); // Look up an item template by name (client: 504609)
-    int GetMonsterTableIndex(uint8_t type, uint8_t face); // Get monster table index by type and face
-    Item* CreateItem(uint8_t slot, uint8_t shape_id, uint8_t material_id, uint8_t item_data_id); // 510F88 (client: 504b43): Create an item.
-    Item* CreateItemById(uint16_t item_id); // Create a new item instance by item data ID (client: 504aab)
-    int GetRandomRecruitIndex(int experience); // Get random recruitable monster index for inn reward (client: 503646)
-    int GetMonsterDataIndex(uint8_t type_id, uint8_t face); // Get monster data index from encoded item type/face (client: 5034d2)
+    int ParseWorldIn(const CString& str); // 50a15f (client: 501ab3)
+    int ParseDataBin(const CString& path); // 50d421 (client: 502b5a)
+    int ParseTxtFiles(const CString& path); // 50a345 (client: 501c9e)
+    void WriteDataBin(const CString& path); // 50d7c2 (client: 502eec)
+    void Serialize(CArchive& ar); // 50e0f0 (client: 503833)
+    Item* FindItemTemplate(CString* name); // 510502 (client: 504609) - Look up an item template by name
+    int GetMonsterTableIndex(uint8_t type, uint8_t face); // 5126a2 (client: 50625b) - Get monster table index by type and face
+    Item* CreateItem(uint8_t slot, uint8_t shape_id, uint8_t material_id, uint8_t item_data_id); // 510f88 (client: 504b43) - Create an item.
+    Item* CreateItemById(uint16_t item_id); // 510ee6 (client: 504aab) - Create a new item instance by item data ID
+    int GetRandomRecruitIndex(int experience); // 50df19 (client: 503646) - Get random recruitable monster index for inn reward
+    int GetMonsterDataIndex(uint8_t type_id, uint8_t face); // 50ddae (client: 5034d2) - Get monster data index from encoded item type/face
 
-    uint8_t FindShapeIndex(CString* name, CString* out); // 50D8BA (client: 502fe1): Find shape index by item name string
-    uint8_t FindMaterialIndex(CString* name, CString* out); // 50DA04 (client: 50312d): Find material index by item name string
-    CString* SplitItemName(CString* out1, const CString* in_name, CString* base_name_out); // 50DB4E (client: 503270): Extract base name and braced property from item name
-    void StripMaterialPrefix(int material_id, CString* name); // 50DC69 (client: 50338b): Strip material-specific prefix from item name
+    uint8_t FindShapeIndex(CString* name, CString* out); // 50d8ba (client: 502fe1) - Find shape index by item name string
+    uint8_t FindMaterialIndex(CString* name, CString* out); // 50da04 (client: 50312d) - Find material index by item name string
+    CString* SplitItemName(CString* out1, const CString* in_name, CString* base_name_out); // 50db4e (client: 503270) - Extract base name and braced property from item name
+    void StripMaterialPrefix(int material_id, CString* name); // 50dc69 (client: 50338b) - Strip material-specific prefix from item name
 
-    void PostProcessMagicData(); // 514BE7: post-process magic data after parsing Magic.txt
+    void PostProcessMagicData(); // 514be7 (client: 507ea7) - post-process magic data after parsing Magic.txt
 
-    int32_t FindHumanByServerId(int32_t id); //5125a8 (client: 506157)
-    int32_t FindMonsterByServerId(int32_t id); //512625 (client: 5061d9)
+    int32_t FindHumanByServerId(int32_t id); // 5125a8 (client: 506157)
+    int32_t FindMonsterByServerId(int32_t id); // 512625 (client: 5061d9)
 };
 ASSERT_OFFSET(GameDataRes, magic_items, 0x64);
 ASSERT_OFFSET(GameDataRes, humans, 0xa0);
 ASSERT_SIZE(GameDataRes, 0xf4);
 
-void __stdcall SplitCsvLine(CString line, int count, CStringArray* items);
+void __stdcall SplitCsvLine(CString line, int count, CStringArray* items); // 514085 (client: 507515)
 
 #endif

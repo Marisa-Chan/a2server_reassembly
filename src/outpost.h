@@ -16,18 +16,18 @@ public:
     DECLARE_SERIAL(Outpost); // Runtime class definition at 637240.
 
 public: // VTable at 60f3b8.
-    Outpost(); // 54326A (client: 52a1e8)
-    Outpost(TokenPos* pos); // 5432DF (client: 52a25d)
-    virtual ~Outpost() override;  // client: 52a348
+    Outpost(); // 54326a (client: 52a1e8)
+    Outpost(TokenPos* pos); // 5432df (client: 52a25d)
+    virtual ~Outpost() override; // 5433ca (client: 52a348)
 
 public:
-    virtual int32_t IsOutpost() override;
-    virtual void RegenTick() override;  // client: 52a524
+    virtual int32_t IsOutpost() override; // 57c4f0 (client: 54d610)
+    virtual void RegenTick() override; // 5438ed (client: 52a524)
 
 public:
-    void RestoreOriginalUnits(Group* group); // Repop the group. (client: 52a72f)
-    void FillUnits(Group* group); // 54361E (client: 52a3cb)
-    void Reset(); // Initializes fields.
+    void RestoreOriginalUnits(Group* group); // 543ec3 (client: 52a72f) - Repop the group.
+    void FillUnits(Group* group); // 54361e (client: 52a3cb)
+    void Reset(); // 54335a (client: 52a2d8) - Initializes fields.
 
 public:
     UnitList units_original;

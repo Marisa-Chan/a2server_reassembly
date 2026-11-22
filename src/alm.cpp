@@ -8,14 +8,14 @@
 //GetRuntimeClass 43C030
 IMPLEMENT_DYNAMIC(MapPlayerData, CObject); // original RTTI name: "CPlayer"
 
-// 43C040
+// 43c040 (client: 43e450)
 MapPlayerData::MapPlayerData() {
     this->gold = 0;
     this->flags = 0;
     this->diplomacy.SetSize(0x20, -1);
 }
 
-// 43C17F
+// 43c17f (client: 43e58f)
 MapPlayerData::MapPlayerData(int32_t index, int32_t color) {
     this->index = index;
     this->color = color;
@@ -25,7 +25,7 @@ MapPlayerData::MapPlayerData(int32_t index, int32_t color) {
     this->diplomacy.SetSize(0x20, -1);
 }
 
-// 43C0BE
+// 43c0be (client: 43e4ce)
 MapPlayerData::MapPlayerData(const MapPlayerData& other) {
     this->index = other.index;
     this->token_id = other.token_id;
@@ -36,32 +36,32 @@ MapPlayerData::MapPlayerData(const MapPlayerData& other) {
     this->diplomacy.Copy(other.diplomacy);
 }
 
-// 43C270
+// 43c270 (client: 43e680)
 MapPlayerData::~MapPlayerData() {}
 
-// 43C225
+// 43c225 (client: 43e635)
 void MapPlayerData::Dump(CDumpContext& dc) const {
     #ifdef _DEBUG // Only debug builds define `operator<<`.
     dc << "CPlayer";
     #endif
 }
 
-// 41EDF0
+// 41edf0 (client: 420c00)
 int32_t MapPlayerData::IsMuted(int32_t idx) {
     return this->diplomacy[idx] & DIPLO_MUTE;
 }
 
-// 41EE20
+// 41ee20 (client: 420c30)
 uint32_t MapPlayerData::IsHostile(int32_t idx) {
     return this->diplomacy[idx] & DIPLO_WAR;
 }
 
-// 41EE50
+// 41ee50 (client: 420610)
 int32_t MapPlayerData::SharesVisionWithUs(int32_t idx) {
     return this->diplomacy[idx] & DIPLO_SHARED_VISION;
 }
 
-// 56E910
+// 56e910 (client: 540a16)
 MapLogicData::MapLogicData() {
     this->name[0] = '\0';
     this->type_id = 0;
@@ -73,7 +73,7 @@ MapLogicData::MapLogicData() {
     this->exec_once_flag = 0;
 }
 
-// 56ED8C
+// 56ed8c (client: 540e09)
 MapEffectData::MapEffectData() {
     this->effect_id = 0;
     this->sack = nullptr;
@@ -86,7 +86,7 @@ MapEffectData::MapEffectData() {
     this->spell_strength = 0;
 }
 
-// 56EAC7
+// 56eac7 (client: 540bcd)
 MapSackData::MapSackData() {
     this->unit_id = 0;
     this->x = 0;
@@ -94,7 +94,7 @@ MapSackData::MapSackData() {
     this->gold = 0;
 }
 
-// 5693A3
+// 5693a3 (client: 53ea3a)
 MapAlm::MapAlm(const char* filename) {
     this->map_width = 0x10;
     this->map_height = 0x10;
@@ -472,7 +472,7 @@ MapAlm::MapAlm(const char* filename) {
     }
 }
 
-// 56D92A
+// 56d92a (client: 540449)
 MapAlm::~MapAlm() {
     if (this->map_heights != nullptr) {
         delete[] this->map_heights;

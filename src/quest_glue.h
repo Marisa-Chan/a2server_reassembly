@@ -17,19 +17,19 @@ struct World;
 // Some object used to tie an inn and a quest.
 class QuestInnGlue : public CObject {
 public: // VTable at 60fde8.
-    virtual ~QuestInnGlue();  // client: 589050
-    virtual void ProcessQuests();  // client: 5386f6
-    virtual void ProcessEscortTarget(Quest* quest);  // client: 588620
-    virtual void ProcessDeliverItem(Quest* quest);  // client: 588738
-    virtual void ProcessInterceptGroup(Quest* quest);  // client: 5888aa
-    virtual void SpawnZombieMobs(Quest* quest);  // client: 5889ff
-    virtual void SpawnSkeletonMobs(Quest* quest);  // client: 588c04
-    virtual void SpawnGhostMobs(Quest* quest);  // client: 588e0a
-    virtual uint8_t GetX();  // client: 589010
-    virtual uint8_t GetY();  // client: 58902b
+    virtual ~QuestInnGlue(); // 5bb380 (client: 589080)
+    virtual void ProcessQuests(); // 55f589 (client: 5386f6)
+    virtual void ProcessEscortTarget(Quest* quest); // 5ba920 (client: 588620)
+    virtual void ProcessDeliverItem(Quest* quest); // 5baa38 (client: 588738)
+    virtual void ProcessInterceptGroup(Quest* quest); // 5babaa (client: 5888aa)
+    virtual void SpawnZombieMobs(Quest* quest); // 5bacff (client: 5889ff)
+    virtual void SpawnSkeletonMobs(Quest* quest); // 5baf04 (client: 588c04)
+    virtual void SpawnGhostMobs(Quest* quest); // 5bb10a (client: 588e0a)
+    virtual uint8_t GetX(); // 5bb310 (client: 589010)
+    virtual uint8_t GetY(); // 5bb32b (client: 58902b)
 
 public:
-    QuestInnGlue(int32_t building_id, TokenPos* pos, World* world, int32_t max_dist); // 5BA8E0 (client: 5885e0)
+    QuestInnGlue(int32_t building_id, TokenPos* pos, World* world, int32_t max_dist); // 5ba8e0 (client: 5885e0)
 
 public:
     uint32_t building_id;

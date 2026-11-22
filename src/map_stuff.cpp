@@ -35,7 +35,7 @@ CString g_MissionBriefing; //660de8
 CStringArray g_MissionFailures; //660f18
 CStringArray g_MissionSubjs; //660ea8
 
-// 587E19
+// 587e19 (client: 5572c9)
 MapStuff::MapStuff(MapAlm* alm, UnitList* unit_list) {
     this->scratch_cell_state.Null();
     this->gap_0x58d88.Null();
@@ -43,11 +43,11 @@ MapStuff::MapStuff(MapAlm* alm, UnitList* unit_list) {
     this->InitFromAlm(alm);
 }
 
-// 587F70
+// 587f70 (client: 557420)
 MapStuff::~MapStuff() {
 }
 
-// 58E891
+// 58e891 (client: 55dd41)
 void MapStuff::InitFromUnitList(UnitList* unit_list) {
     this->all_units = unit_list;
     this->scan_presence_grid.unit_list = unit_list;
@@ -144,6 +144,7 @@ void MapStuff::InitFromUnitList(UnitList* unit_list) {
 }
 
 // Marks an 8-tile-thick obstacle border around the map edges — 58E670
+// 58e670 (client: 55db20) - Marks an 8-tile-thick obstacle border around the map edges
 void MapStuff::MarkMapBorder() {
     if (this->map_width == this->map_height) {
         for (int32_t i = 0; i < this->map_width; i++) {
@@ -176,7 +177,7 @@ void MapStuff::MarkMapBorder() {
     }
 }
 
-// 58F166
+// 58f166 (client: 55e616)
 void MapStuff::InitFromAlm(MapAlm* alm) {
     this->map_width = alm->map_width;
     this->map_height = alm->map_height;
@@ -232,6 +233,7 @@ void MapStuff::InitFromAlm(MapAlm* alm) {
 // Computes edge-blended walk cost + classification code for a terrain cell (bits 0-9 of a
 // landscape tile: bits 0-3 = weight index, bits 4-5 = sub index, bits 6-9 = direction pair
 // index, bits 8-9 == 2 selects a special-case path). 58F48D
+// 58f48d (client: 55e93d) - Computes edge-blended walk cost + classification code for a terrain cell
 uint8_t MapStuff::CalcTerrainWalkCost(uint16_t terrain_code, uint8_t* out_walk_cost) {
     uint8_t result = 0xFF;
     *out_walk_cost = 8;
@@ -282,6 +284,7 @@ uint8_t MapStuff::CalcTerrainWalkCost(uint16_t terrain_code, uint8_t* out_walk_c
 }
 
 // Shared by GetFacingTo/GetFacingFor/ClassifyDirection16
+// split from 592831 (client: 561ce1)
 uint8_t MapStuff::ClassifyDirection16(int32_t dx, int32_t dy) {
     uint16_t abs_dx = abs(dx);
     uint16_t abs_dy = abs(dy);
@@ -311,6 +314,7 @@ uint8_t MapStuff::ClassifyDirection16(int32_t dx, int32_t dy) {
 }
 
 // Shared by GetFacingTo/GetFacingFor
+// split from 591424 (client: 5608d4)
 uint8_t MapStuff::ClassifyFacing16(int32_t dx, int32_t dy) {
     uint8_t raw = this->ClassifyDirection16(dx, dy);
     if (raw != 0) {
@@ -319,14 +323,14 @@ uint8_t MapStuff::ClassifyFacing16(int32_t dx, int32_t dy) {
     return (raw >> 1) << 5;
 }
 
-// 591424
+// 591424 (client: 5608d4) - Compute facing direction from unit to target.
 uint8_t MapStuff::GetFacingTo(Unit* unit, Unit* target) {
     int32_t dx = target->GetRightXx() - unit->GetRightXx();
     int32_t dy = target->GetBottomYy() - unit->GetBottomYy();
     return this->ClassifyFacing16(dx, dy);
 }
 
-// 59166C
+// 59166c (client: 560b1c) - Pick rotation angle for the unit to look at `yx`.
 uint8_t MapStuff::GetFacingFor(Unit* unit, PosYX yx) {
     int32_t dx = yx.x - unit->position->GetX();
     int32_t dy = yx.y - unit->position->GetY();
@@ -355,7 +359,7 @@ static bool TangarOnCast(Unit* unit) {
 }
 #endif
 
-// 58FE6D
+// 58fe6d (client: 55f31d) - Check if unit faces target and is in range.
 int MapStuff::FacesTargetInRange(Unit* unit, Unit* target, uint8_t max_range) {
     unit->position->IsAtCellCenter();
     uint8_t current_facing = unit->eye->facing;
@@ -375,7 +379,7 @@ int MapStuff::FacesTargetInRange(Unit* unit, Unit* target, uint8_t max_range) {
     return 0;
 }
 
-// 58FEDA
+// 58feda (client: 55f38a) - Check if unit faces yx and is in range.
 int MapStuff::FacesPosInRange(Unit* unit, PosYX yx, uint8_t max_range) {
     unit->position->IsAtCellCenter();
     uint8_t current_facing = unit->eye->facing;
@@ -396,7 +400,7 @@ int MapStuff::FacesPosInRange(Unit* unit, PosYX yx, uint8_t max_range) {
     return 0;
 }
 
-// 58FF51
+// 58ff51 (client: 55f401) - AI movement tick for unit toward yx.
 void MapStuff::MoveStepTowardPos(Unit* unit, PosYX yx, uint8_t max_range) {
     uint8_t distance = this->ChebyshevDistance(unit->position->GetYX(), yx);
     int32_t in_cell_middle = unit->position->IsAtCellCenter();
@@ -468,7 +472,7 @@ void MapStuff::MoveStepTowardPos(Unit* unit, PosYX yx, uint8_t max_range) {
     }
 }
 
-// 59028D
+// 59028d (client: 55f73d) - AI movement tick for unit pursuing target.
 void MapStuff::MoveStepTowardUnit(Unit* unit, Unit* target, uint8_t max_range) {
     PosYX target_yx = target->position->GetYX();
     uint8_t range = this->GetRangeTo(unit, target);
@@ -547,7 +551,7 @@ void MapStuff::MoveStepTowardUnit(Unit* unit, Unit* target, uint8_t max_range) {
     this->AdvancePathList2(unit);
 }
 
-// 5913BD
+// 5913bd (client: 56086d) - Movement time for unit entering tile (x,y).
 int16_t MapStuff::GetTileMoveTime(Unit* unit, uint8_t x, uint8_t y) {
     uint8_t type = (uint8_t)unit->GetMovementType();
     if (type == 1) {
@@ -565,7 +569,7 @@ int16_t MapStuff::GetTileMoveTime(Unit* unit, uint8_t x, uint8_t y) {
     return 0;
 }
 
-// 58FB12 --- Reconciles eye position1/rotation-target state against the unit's current tile.
+// 58fb12 (client: 55efc2) - Reconciles eye position1/rotation-target state against the unit's current tile.
 void MapStuff::SyncEyeState(Unit* unit) {
     uint16_t old_x = unit->position->GetXx();
     uint16_t old_y = unit->position->GetYy();
@@ -599,7 +603,7 @@ void MapStuff::SyncEyeState(Unit* unit) {
     }
 }
 
-// 590678
+// 590678 (client: 55fb28)
 void MapStuff::UpdateEyeMoveTime(Unit* unit) {
     uint16_t prev_yx = unit->position->CompatGetYX();
     this->SyncEyeState(unit);
@@ -629,7 +633,7 @@ void MapStuff::UpdateEyeMoveTime(Unit* unit) {
     }
 }
 
-// 5907BE
+// 5907be (client: 55fc6e)
 void MapStuff::AdvancePathList2(Unit* unit) {
     if (unit->list2.IsEmpty()) {
         this->StepRotateToTarget(unit);
@@ -656,7 +660,7 @@ void MapStuff::AdvancePathList2(Unit* unit) {
     }
 }
 
-// 58FD2F
+// 58fd2f (client: 55f1df) - Rotates eye->facing toward eye->target_facing by up to rotation_speed.
 void MapStuff::StepRotateToTarget(Unit* unit) {
     uint8_t orig_facing = unit->eye->facing;
 
@@ -677,7 +681,7 @@ void MapStuff::StepRotateToTarget(Unit* unit) {
     }
 }
 
-// 590F94
+// 590f94 (client: 560444)
 void MapStuff::SetFacing(Unit* unit, uint8_t facing) {
     unit->eye->target_facing = facing;
 
@@ -712,7 +716,7 @@ void MapStuff::SetFacing(Unit* unit, uint8_t facing) {
     }
 }
 
-// 590902
+// 590902 (client: 55fdb2)
 void MapStuff::PickNextPathTarget(Unit* unit, Unit* target) {
     int32_t distance = 0;
     int32_t kind = 0;
@@ -751,7 +755,7 @@ void MapStuff::PickNextPathTarget(Unit* unit, Unit* target) {
     }
 }
 
-// 58E407
+// 58e407 (client: 55d8b7) - Check if sack can be placed on map
 int MapStuff::CanPlaceSack(Sack* sack) {
     if (this->Obstacle2At(sack->position->CompatGetYX()).TestBits(obstacle_flag::land)) {
         return 0;
@@ -778,7 +782,7 @@ int MapStuff::CanPlaceSack(Sack* sack) {
     return 1;
 }
 
-// 596576
+// 596576 (client: 565a26) - Apply terrain modification from 6-byte src buffer at yx
 int MapStuff::ApplyTerrainMod(uint16_t yx, void* src) {
     if (this->Obstacle2At(yx).TestBits(obstacle_flag::land)) {
         return 0;
@@ -803,7 +807,7 @@ int MapStuff::ApplyTerrainMod(uint16_t yx, void* src) {
     return 1;
 }
 
-// 5964D7
+// 5964d7 (client: 565987) - Gather units near yx within range into out_list.
 void MapStuff::GatherUnitsNear(uint16_t yx, uint8_t range, Player* owner, UnitList* out_list) {
     out_list->unit_list.RemoveAll();
     if (this->all_units == nullptr) {
@@ -822,7 +826,7 @@ void MapStuff::GatherUnitsNear(uint16_t yx, uint8_t range, Player* owner, UnitLi
     }
 }
 
-// 5948B0
+// 5948b0 (client: 563d60) - encode map terrain into encode_buf
 void MapStuff::EncodeTerrain(CWordArray* encode_buf) {
     encode_buf->RemoveAll();
 
@@ -858,7 +862,7 @@ void MapStuff::EncodeTerrain(CWordArray* encode_buf) {
     }
 }
 
-// 594076
+// 594076 (client: 563526)
 bool MapStuff::IsInMapBounds(uint8_t x, uint8_t y) const {
     if (x < this->map_min_x || x > this->map_max_x) {
         return false;
@@ -869,7 +873,7 @@ bool MapStuff::IsInMapBounds(uint8_t x, uint8_t y) const {
     return true;
 }
 
-// 59190D
+// 59190d (client: 560dbd) - Visibility/range check between two units.
 int MapStuff::GetRangeTo(Unit* target, Unit* observer) {
     int32_t target_size = target->GetTokenSize();
     int32_t observer_size = observer->GetTokenSize();
@@ -893,7 +897,7 @@ int MapStuff::GetRangeTo(Unit* target, Unit* observer) {
     return (range >> 8) + 1;
 }
 
-// 597140
+// 597140 (client: 566590)
 int MapStuff::IsAreaClear(Unit* unit, PosYX yx, int32_t flag) {
     int32_t size = unit->GetTokenSize();
 
@@ -912,7 +916,7 @@ int MapStuff::IsAreaClear(Unit* unit, PosYX yx, int32_t flag) {
     return 1;
 }
 
-// 58AEEF
+// 58aeef (client: 55a39f) - Checks whether unit can occupy cell (x,y), triggering any spell tile in the process.
 int32_t MapStuff::CanOccupyCell(Unit* unit, uint8_t x, uint8_t y) {
     PosYX yx(x, y);
     int32_t movement_type = unit->MovementType();
@@ -973,7 +977,7 @@ int32_t MapStuff::CanOccupyCell(Unit* unit, uint8_t x, uint8_t y) {
     return 0;
 }
 
-// 58AD4A
+// 58ad4a (client: 55a1fa) - Place unit on map at current TokenPos position
 int MapStuff::PlaceUnit(Unit* unit) {
     int32_t size = unit->GetTokenSize();
 
@@ -1004,7 +1008,8 @@ int MapStuff::PlaceUnit(Unit* unit) {
     return 1;
 }
 
-void MapStuff::ApplyCellState(CellState& cell) { //58b5d6
+// 58b5d6 (client: 55aa86)
+void MapStuff::ApplyCellState(CellState& cell) {
 
     PosYX pos = cell.cell_yx;
     Obstacle old = this->ObstacleAt(pos);
@@ -1056,7 +1061,8 @@ void MapStuff::ApplyCellState(CellState& cell) { //58b5d6
     }
 }
 
-int MapStuff::RestoreCellState(PosYX yx) { //58b4a6
+// 58b4a6 (client: 55a956)
+int MapStuff::RestoreCellState(PosYX yx) {
     if (!this->cell_states.Lookup(yx.val, this->scratch_cell_state)) {
         return 0;
     }
@@ -1073,7 +1079,8 @@ int MapStuff::RestoreCellState(PosYX yx) { //58b4a6
     return 1;
 }
 
-void MapStuff::ClearBlockerAt(Unit* unit, PosYX yx) { //596d3e
+// 596d3e (client: 5661ee)
+void MapStuff::ClearBlockerAt(Unit* unit, PosYX yx) {
     if (this->ObstacleAt(yx).TestBits(obstacle_flag::cell_state) && this->cell_states.Lookup(yx.val, this->scratch_cell_state)) {
         if ((unit->GetMovementType() & 0xff) == 3) {
             if (this->scratch_cell_state.dynamic_blocker == unit) {
@@ -1093,7 +1100,8 @@ void MapStuff::ClearBlockerAt(Unit* unit, PosYX yx) { //596d3e
     }
 }
 
-void MapStuff::SnapshotCellState(PosYX yx) { //58b3e0
+// 58b3e0 (client: 55a890)
+void MapStuff::SnapshotCellState(PosYX yx) {
     if (!this->cell_states.Lookup(yx.val, this->scratch_cell_state)) {
         this->scratch_cell_state.Null();
         this->scratch_cell_state.walk_cost = this->WalkCostAt(yx);
@@ -1106,7 +1114,8 @@ void MapStuff::SnapshotCellState(PosYX yx) { //58b3e0
     }
 }
 
-void MapStuff::SetBlockerAt(Unit* unit, PosYX yx) { //596e0e
+// 596e0e (client: 5662be)
+void MapStuff::SetBlockerAt(Unit* unit, PosYX yx) {
     if (this->ObstacleAt(yx).TestBits(obstacle_flag::cell_state) == 0 || !this->cell_states.Lookup(yx.val, this->scratch_cell_state)) {
         this->SnapshotCellState(yx);
 
@@ -1132,7 +1141,8 @@ void MapStuff::SetBlockerAt(Unit* unit, PosYX yx) { //596e0e
     this->cell_states[yx.val] = scratch_cell_state;
 }
 
-void MapStuff::MoveUnitBlockers(Unit* unit, PosYX yx, uint8_t t) { //5969c6
+// 5969c6 (client: 565e76)
+void MapStuff::MoveUnitBlockers(Unit* unit, PosYX yx, uint8_t t) {
     int sz = unit->GetTokenSize();
     this->footprint_scratch.fill(0);
     for (int j = 0; j < sz + 2; j++) {
@@ -1197,12 +1207,12 @@ void MapStuff::MoveUnitBlockers(Unit* unit, PosYX yx, uint8_t t) { //5969c6
 
 
 
-// 5955B5
+// 5955b5 (client: 564a65)
 ScanPresenceGrid::ScanPresenceGrid() {
     memset(this->control, 0, sizeof(this->control));
 }
 
-// 596047
+// 596047 (client: 5654f7) - Register area effect into the scan grid (RegisterAreaEffect)
 void ScanPresenceGrid::RegisterAreaEffect(AreaEffect* ae) {
     int32_t x_sec = (ae->position->GetX() >> 3) + 1;
     int32_t y_sec = (ae->position->GetY() >> 3) + 1;
@@ -1212,7 +1222,7 @@ void ScanPresenceGrid::RegisterAreaEffect(AreaEffect* ae) {
     ae->seen_by_mask |= (uint16_t)this->sector_grid[x_sec - 1][y_sec - 1];
 }
 
-// 5957E2
+// 5957e2 (client: 564c92) - OR the unit owner's vision mask into the 5x5 sector block around the unit
 void ScanPresenceGrid::MarkWatchedSector(Unit* unit) {
     if (!unit->pOwner->is_ai) {
         int32_t x_sec = (unit->position->GetX() >> 3) + 1;
@@ -1227,7 +1237,7 @@ void ScanPresenceGrid::MarkWatchedSector(Unit* unit) {
     }
 }
 
-// 595F46
+// 595f46 (client: 5653f6) - Mark unit detected when its sector is watched
 void ScanPresenceGrid::DetectWatchedUnit(Unit* unit) {
     uint32_t sector = this->sector_grid[(unit->position->GetX() >> 3) + 1][(unit->position->GetY() >> 3) + 1];
     if (sector != 0) {
@@ -1241,7 +1251,7 @@ void ScanPresenceGrid::DetectWatchedUnit(Unit* unit) {
     }
 }
 
-// 5963B9
+// 5963b9 (client: 565869) - Clear the sector grid and reset per-unit/per-group detection state
 void ScanPresenceGrid::ClearPresenceGrid() {
     memset(this->sector_grid, 0, sizeof(this->sector_grid));
     POSITION player_it = g_PlayersList->list.GetHeadPosition();
@@ -1264,7 +1274,7 @@ void ScanPresenceGrid::ClearPresenceGrid() {
     }
 }
 
-// 596131
+// 596131 (client: 5655e1) - Rebuild presence grid from all active units/players
 void ScanPresenceGrid::RebuildPresenceGrid() {
     this->ClearPresenceGrid();
     this->num_detected = 0;
@@ -1311,7 +1321,7 @@ void ScanPresenceGrid::RebuildPresenceGrid() {
 
 
 
-// 599FF0
+// 599ff0 (client: 5692e0)
 FieldBlock54190::FieldBlock54190() {
     this->gap_0x0 = 0;
     this->gap_0x4 = 0;
@@ -1322,7 +1332,7 @@ uint8_t g_FieldBlock5859cData0[4] = {};
 uint8_t g_FieldBlock5859cData1[4] = {};
 uint8_t g_FieldBlock5859cData2[8] = {};
 
-// 5A3180
+// 5a3180 (client: 4cc890)
 FieldBlock5859c::FieldBlock5859c() {
     this->gap_0x0 = g_FieldBlock5859cData0;
     this->gap_0x4 = g_FieldBlock5859cData1;
@@ -1330,7 +1340,8 @@ FieldBlock5859c::FieldBlock5859c() {
     this->gap_0xc = 0;
 }
 
-int CellState::IsEmpty() const { //58bef6
+// 58bef6 (client: 55b3a6)
+int CellState::IsEmpty() const {
     if (this->small_unit != nullptr ||
         this->large_unit != nullptr ||
         this->building != nullptr ||
@@ -1344,7 +1355,8 @@ int CellState::IsEmpty() const { //58bef6
     return 1;
 }
 
-void CellState::Null() { //58a3da
+// 58a3da (client: 55988a)
+void CellState::Null() {
     this->walk_cost = 0;
     this->obstacle = 0;
     this->effect_count = 0;
@@ -1365,7 +1377,7 @@ void CellState::Null() { //58a3da
     this->cell_yx = 0;
 }
 
-// 59423F
+// 59423f (client: 5636ef) - Remaps stale on-disk pointer fields through g_Server's pointer remap table.
 void CellState::RelinkPointers() {
     void* remapped;
 
@@ -1396,7 +1408,8 @@ void CellState::RelinkPointers() {
 
 
 
-void __cdecl MissionGetBriefing(CString* out) { //4e13db
+// 4e13db (client: 4e5d5c)
+void __cdecl MissionGetBriefing(CString* out) {
     out->Empty();
     int pos = g_MissionText.Find("#briefing");
     if (pos != -1) {
@@ -1410,7 +1423,8 @@ void __cdecl MissionGetBriefing(CString* out) { //4e13db
     }
 }
 
-void __cdecl MissionGetFailure(int32_t idx, CString* out) { //4e14a4
+// 4e14a4 (client: 4e5e25)
+void __cdecl MissionGetFailure(int32_t idx, CString* out) {
     out->Empty();
 
     CString str;
@@ -1428,7 +1442,8 @@ void __cdecl MissionGetFailure(int32_t idx, CString* out) { //4e14a4
     }
 }
 
-void __cdecl MissionGetTips(int32_t idx, CString* out) { //4e15b9
+// 4e15b9 (client: 4e5f3a)
+void __cdecl MissionGetTips(int32_t idx, CString* out) {
     out->Empty();
 
     CString str;
@@ -1446,7 +1461,8 @@ void __cdecl MissionGetTips(int32_t idx, CString* out) { //4e15b9
     }
 }
 
-void __cdecl MissionGetSubj(int32_t idx, CString* out) { //4e16ce
+// 4e16ce (client: 4e604f)
+void __cdecl MissionGetSubj(int32_t idx, CString* out) {
     out->Empty();
 
     CString str;
@@ -1464,7 +1480,8 @@ void __cdecl MissionGetSubj(int32_t idx, CString* out) { //4e16ce
     }
 }
 
-void __cdecl MissionGetLocName(int32_t t, int32_t idx, CString* out) { //4e17e3
+// 4e17e3 (client: 4e6164)
+void __cdecl MissionGetLocName(int32_t t, int32_t idx, CString* out) {
     out->Empty();
 
     CString str;
@@ -1487,7 +1504,8 @@ void __cdecl MissionGetLocName(int32_t t, int32_t idx, CString* out) { //4e17e3
 }
 
 
-void __cdecl MissionGetDescription(int32_t t, int32_t idx, CString* out) { //4e1915
+// 4e1915 (client: 4e6296)
+void __cdecl MissionGetDescription(int32_t t, int32_t idx, CString* out) {
     out->Empty();
 
     CString str;
@@ -1509,7 +1527,7 @@ void __cdecl MissionGetDescription(int32_t t, int32_t idx, CString* out) { //4e1
     }
 }
 
-// 58CA1B
+// 58ca1b (client: 55becb) - Get unit at map coordinate yx
 Unit* MapStuff::GetUnitAt(PosYX yx) {
     if (!this->ObstacleAt(yx).TestBits(obstacle_flag::cell_state)) {
         return nullptr;
@@ -1520,7 +1538,7 @@ Unit* MapStuff::GetUnitAt(PosYX yx) {
     return this->scratch_cell_state.small_unit;
 }
 
-// 5897AA
+// 5897aa (client: 558c5a) - Build a temporary UnitList of units around yx
 UnitList* MapStuff::BuildNearbyUnitList(PosYX yx, uint8_t range) {
     this->nearby_units.unit_list.RemoveAll();
 
@@ -1572,7 +1590,7 @@ UnitList* MapStuff::BuildNearbyUnitList(PosYX yx, uint8_t range) {
     return &this->nearby_units;
 }
 
-// 58CB5A
+// 58cb5a (client: 55c00a) - Get small unit occupying cell yx
 Unit* MapStuff::GetSmallUnitAt(uint16_t yx) {
     if (!this->ObstacleAt(yx).TestBits(obstacle_flag::cell_state)) {
         return nullptr;
@@ -1583,7 +1601,7 @@ Unit* MapStuff::GetSmallUnitAt(uint16_t yx) {
     return this->scratch_cell_state.small_unit;
 }
 
-// 58CBB9
+// 58cbb9 (client: 55c069) - Get large unit occupying cell yx
 Unit* MapStuff::GetLargeUnitAt(uint16_t yx) {
     if (!this->ObstacleAt(yx).TestBits(obstacle_flag::cell_state)) {
         return nullptr;
@@ -1594,14 +1612,14 @@ Unit* MapStuff::GetLargeUnitAt(uint16_t yx) {
     return this->scratch_cell_state.large_unit;
 }
 
-// 58826D
+// 58826d (client: 55771d)
 void MapStuff::FindPath(Unit* unit, uint8_t x, uint8_t y, int32_t flag, Unit* target) {
     uint8_t cur_x = unit->position->GetX();
     uint8_t cur_y = unit->position->GetY();
     this->FindPathInternal(unit, cur_x, cur_y, x, y, flag, target);
 }
 
-// 58B27F
+// 58b27f (client: 55a72f) - Clear unit occupancy from cell (x,y), refresh state, cache eye position
 int MapStuff::ClearUnitCell(Unit* unit, uint8_t x, uint8_t y) {
     PosYX yx(x, y);
     if (!this->cell_states.Lookup(yx.val, this->scratch_cell_state)) {
@@ -1634,7 +1652,7 @@ int MapStuff::ClearUnitCell(Unit* unit, uint8_t x, uint8_t y) {
     return 1;
 }
 
-// 58B1D7
+// 58b1d7 (client: 55a687) - Check if unit fits/can be placed over all cells at its current position
 int MapStuff::UnitFitsAt(Unit* unit) {
     int32_t size = unit->GetTokenSize() & 0xFF;
     uint8_t x = unit->position->GetX();
@@ -1650,14 +1668,14 @@ int MapStuff::UnitFitsAt(Unit* unit) {
     return 1;
 }
 
-// 58B593
+// 58b593 (client: 55aa43) - Refresh derived obstacle bits for cell yx from its stored cell state
 void MapStuff::RefreshCellObstacles(PosYX yx) {
     if (this->cell_states.Lookup(yx.val, this->scratch_cell_state)) {
         this->ApplyCellState(this->scratch_cell_state);
     }
 }
 
-// 58E611
+// 58e611 (client: 55dac1) - Get sack at cell yx if the cell has a stored state
 Sack* MapStuff::GetSackInCell(uint16_t yx) {
     if (!this->ObstacleAt(yx).TestBits(obstacle_flag::cell_state)) {
         return nullptr;
@@ -1668,7 +1686,7 @@ Sack* MapStuff::GetSackInCell(uint16_t yx) {
     return this->scratch_cell_state.sack;
 }
 
-// 59449A
+// 59449a (client: 56394a) - Clear building from the cell state at yx
 int MapStuff::ClearCellBuilding(Building* building, PosYX yx) {
     if (!this->cell_states.Lookup(yx.val, this->scratch_cell_state)) {
         return 0;
@@ -1683,7 +1701,7 @@ int MapStuff::ClearCellBuilding(Building* building, PosYX yx) {
     return 1;
 }
 
-// 594A2D --- collect passable sack cells in expanding rings around the unit, up to its scan range
+// 594a2d (client: 563edd) - collect passable sack cells in expanding rings around the unit. - collect passable sack cells in expanding rings around the unit, up to its scan range
 void MapStuff::CollectSackCells(Unit* unit, int32_t flag) {
     uint16_t yx = unit->position->CompatGetYX();
     uint8_t range = unit->scan_range >> 8;
@@ -1722,7 +1740,7 @@ void MapStuff::CollectSackCells(Unit* unit, int32_t flag) {
     }
 }
 
-// 594C4B --- check whether cell yx holds a sack and is passable for unit
+// 594c4b (client: 5640fb) - check whether cell yx holds a sack and is passable for unit.
 int32_t MapStuff::IsPassableSackCell(Unit* unit, uint16_t yx) {
     if (this->GetSackInCell(yx) != nullptr && this->IsCellPassableDynamic(unit, yx) != 0) {
         return 1;
@@ -1730,7 +1748,7 @@ int32_t MapStuff::IsPassableSackCell(Unit* unit, uint16_t yx) {
     return 0;
 }
 
-// 595468
+// 595468 (client: 564918) - Check if unit can move onto and off of yx (both directions clear)
 int MapStuff::CanTraverseCell(Unit* unit, PosYX yx) {
     if (!this->IsAreaClear(unit, yx, 0)) {
         return 0;
@@ -1741,13 +1759,13 @@ int MapStuff::CanTraverseCell(Unit* unit, PosYX yx) {
     return 1;
 }
 
-// 58E3D1 --- add unit to map
+// 58e3d1 (client: 55d881) - add unit to map
 int MapStuff::AddUnitToMap(Unit* unit) {
     this->MoveUnitBlockers(unit, PosYX(0, 0), 2);
     return this->UnitFitsAt(unit) != 0;
 }
 
-// 58E525 --- remove a sack token from the map
+// 58e525 (client: 55d9d5) - Remove a sack token from the map
 void MapStuff::RemoveSack(Sack* sack) {
     PosYX yx = sack->position->CompatGetYX();
     if (this->cell_states.Lookup(yx.val, this->scratch_cell_state)) {
@@ -1760,18 +1778,18 @@ void MapStuff::RemoveSack(Sack* sack) {
     }
 }
 
-// 58E5C7 --- look up sack at map position
+// 58e5c7 (client: 55da77) - Look up sack at map position
 Sack* MapStuff::GetSackAt(uint16_t x, uint16_t y) {
     PosYX yx((uint8_t)x, (uint8_t)y);
     return this->GetSackInCell(yx.val);
 }
 
-// 58E5F3
+// 58e5f3 (client: 55daa3)
 Sack* MapStuff::GetSackAtPos(TokenPos* pos) {
     return this->GetSackInCell(pos->CompatGetYX());
 }
 
-// 590F0A --- check if unit can be placed at current position
+// 590f0a (client: 5603ba) - Check if unit can be placed at current position
 int MapStuff::CanPlaceUnit(Unit* unit) {
     PosYX yx = unit->position->CompatGetYX();
     if (!this->IsAreaClear(unit, yx, 0)) {
@@ -1783,19 +1801,19 @@ int MapStuff::CanPlaceUnit(Unit* unit) {
     return 1;
 }
 
-// 5918B8
+// 5918b8 (client: 560d68)
 void MapStuff::FaceTarget(Unit* unit, Unit* target) {
     uint8_t facing = this->GetFacingTo(unit, target);
     this->SetFacing(unit, facing);
 }
 
-// 5918E2
+// 5918e2 (client: 560d92)
 void MapStuff::FacePosition(Unit* unit, PosYX yx) {
     uint8_t facing = this->GetFacingFor(unit, yx);
     this->SetFacing(unit, facing);
 }
 
-// 593AA4
+// 593aa4 (client: 562f54)
 uint16_t MapStuff::PeekNextStep(Unit* unit) {
     if (unit->list1.IsEmpty()) {
         return 0;
@@ -1809,14 +1827,14 @@ uint16_t MapStuff::PeekNextStep(Unit* unit) {
     return 0;
 }
 
-// 593B29 --- Chebyshev distance between two YX positions
+// 593b29 (client: 562fd9) - Chebyshev distance between two YX positions.
 uint8_t MapStuff::ChebyshevDistance(PosYX yx1, PosYX yx2) {
     uint8_t dx = abs(yx1.x - yx2.x);
     uint8_t dy = abs(yx1.y - yx2.y);
     return (std::max)(dx, dy);
 }
 
-// 58AB48 --- serialize obstacle/cell state
+// 58ab48 (client: 559ff8) - Serialize - serialize obstacle/cell state
 void MapStuff::Serialize(CArchive& ar) {
     CList<uint32_t> obstacle_diffs;
 
@@ -1852,8 +1870,9 @@ void MapStuff::Serialize(CArchive& ar) {
     }
 }
 
-// 594125 --- post-load map relink helper: remaps stale on-disk pointers in
+// post-load map relink helper: remaps stale on-disk pointers in
 // each cell_states entry via g_Server's pointer remap table (RelinkPointers).
+// 594125 (client: 5635d5) - Post-load map relink helper
 void MapStuff::RelinkAfterLoad() {
     POSITION pos = this->cell_states.GetStartPosition();
     while (pos != nullptr) {
@@ -1865,7 +1884,7 @@ void MapStuff::RelinkAfterLoad() {
     }
 }
 
-// 5943D0 --- set building pointer in cell state at yx
+// 5943d0 (client: 563880) - set building pointer in cell state at yx
 int MapStuff::SetCellBuilding(Building* building, uint16_t yx) {
     if (this->cell_states.Lookup(yx, this->scratch_cell_state)) {
         if (this->scratch_cell_state.building != nullptr) {
@@ -1886,7 +1905,7 @@ int MapStuff::SetCellBuilding(Building* building, uint16_t yx) {
     return 1;
 }
 
-// 5945EF --- remove building from map
+// 5945ef (client: 563a9f) - Remove building from map
 int32_t MapStuff::RemoveBuilding(Building* building) {
     int bit_index = 0;
     for (int row = 0; row < building->height; row++) {
@@ -1904,7 +1923,7 @@ int32_t MapStuff::RemoveBuilding(Building* building) {
     return 1;
 }
 
-// 59451F --- place building on the map
+// 59451f (client: 5639cf) - Place building on the map
 int32_t MapStuff::PlaceBuilding(Building* building) {
     int bit_index = 0;
     for (int row = 0; row < building->height; row++) {
@@ -1922,7 +1941,7 @@ int32_t MapStuff::PlaceBuilding(Building* building) {
     return 1;
 }
 
-// 594EBA --- register area effect into cell state at yx
+// 594eba (client: 56436a) - register area effect into cell state at yx
 int MapStuff::RegisterAreaEffectCell(AreaEffect* ae, uint16_t yx) {
     if (!this->cell_states.Lookup(yx, this->scratch_cell_state)) {
         this->SnapshotCellState(yx);
@@ -1943,7 +1962,7 @@ int MapStuff::RegisterAreaEffectCell(AreaEffect* ae, uint16_t yx) {
     return 1;
 }
 
-// 595073 --- remove area effect from cell state at yx
+// 595073 (client: 564523) - remove area effect from cell state at yx
 int MapStuff::RemoveAreaEffectAt(AreaEffect* ae, uint16_t yx) {
     if (!this->cell_states.Lookup(yx, this->scratch_cell_state)) {
         return 0;
@@ -1967,7 +1986,7 @@ int MapStuff::RemoveAreaEffectAt(AreaEffect* ae, uint16_t yx) {
     return 1;
 }
 
-// 59536C --- get pointer to area_effects[6] array at cell yx
+// 59536c (client: 56481c) - Get pointer to area_effects[6] array at cell yx.
 AreaEffect** MapStuff::GetAreaEffectsAt(uint32_t yx) {
     uint16_t key = (uint16_t)yx;
     if (!this->ObstacleAt(key).TestBits(obstacle_flag::cell_state)) {
@@ -1979,7 +1998,7 @@ AreaEffect** MapStuff::GetAreaEffectsAt(uint32_t yx) {
     return this->scratch_cell_state.area_effects.data();
 }
 
-// 5953CB --- check if area effect covers cell coord
+// 5953cb (client: 56487b) - Check if area effect covers cell coord
 AreaEffect* MapStuff::AreaEffectCovers(AreaEffect* ae, uint16_t coord) {
     if (!this->ObstacleAt(coord).TestBits(obstacle_flag::cell_state)) {
         return nullptr;
@@ -1991,12 +2010,12 @@ AreaEffect* MapStuff::AreaEffectCovers(AreaEffect* ae, uint16_t coord) {
     return this->scratch_cell_state.area_effects[idx];
 }
 
-// 595438 --- check if area effect can be applied at (x, y)
+// 595438 (client: 5648e8) - Check if area effect can be applied at (x, y)
 int MapStuff::CanApplyAreaEffect(AreaEffect* ae, uint8_t x, uint8_t y) {
     return this->AreaEffectCovers(ae, PosYX(x, y).val) != nullptr;
 }
 
-// 595561 --- smallest angular difference between two facing bytes.
+// 595561 (client: 564a11) - smallest angular difference between two facing bytes.
 uint8_t MapStuff::FacingDiff(uint8_t a, uint8_t b) {
     uint8_t diff = std::abs(a - b);
     if (diff > 0x80) {
@@ -2005,7 +2024,7 @@ uint8_t MapStuff::FacingDiff(uint8_t a, uint8_t b) {
     return diff;
 }
 
-// 5954AC --- teleport unit to (x, y)
+// 5954ac (client: 56495c) - Teleport unit to (x, y)
 void MapStuff::TeleportUnit(Unit* unit, uint8_t x, uint8_t y) {
     PosYX yx(x, y);
     if (!this->CanTraverseCell(unit, yx)) {
@@ -2019,6 +2038,7 @@ void MapStuff::TeleportUnit(Unit* unit, uint8_t x, uint8_t y) {
 }
 
 // Shared by RelaxCostsMap1Queue2/RelaxCostsMap1Queue1/RelaxCostsMap2Queue2/RelaxCostsMap2Queue1.
+// split from 597bb0 (client: 567000)
 void MapStuff::PropagateNeighborCost(uint16_t yx, uint8_t flag_byte, int32_t cond_flag, Obstacle* obstacle_map, uint16_t& queue_tail, uint16_t* queue) {
     static const int32_t offsets[8] = { -0x101, -0xFF, 0xFF, 0x101, -0x100, -1, 1, 0x100 };
     uint16_t source_cost = this->path_cost[yx];
@@ -2048,27 +2068,27 @@ void MapStuff::PropagateNeighborCost(uint16_t yx, uint8_t flag_byte, int32_t con
     }
 }
 
-// 597BB0
+// 597bb0 (client: 567000) - Relax 8-neighbor path costs of yx against obstacle_map, queue into dynamic ring buffer
 void MapStuff::RelaxCostsMap1Queue2(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag) {
     this->PropagateNeighborCost(yx, flag_byte, cond_flag, this->obstacle_map, this->dynamic_queue_count, this->path_queue_dynamic);
 }
 
-// 5983D0
+// 5983d0 (client: 567820) - Relax 8-neighbor path costs of yx against obstacle_map, queue into static ring buffer
 void MapStuff::RelaxCostsMap1Queue1(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag) {
     this->PropagateNeighborCost(yx, flag_byte, cond_flag, this->obstacle_map, this->static_queue_count, this->path_queue_static);
 }
 
-// 598BF0
+// 598bf0 (client: 568040) - Relax 8-neighbor path costs of yx against obstacle_map2, queue into dynamic ring buffer
 void MapStuff::RelaxCostsMap2Queue2(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag) {
     this->PropagateNeighborCost(yx, flag_byte, cond_flag, this->obstacle_map2, this->dynamic_queue_count, this->path_queue_dynamic);
 }
 
-// 599410
+// 599410 (client: 568860) - Relax 8-neighbor path costs of yx against obstacle_map2, queue into static ring buffer
 void MapStuff::RelaxCostsMap2Queue1(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag) {
     this->PropagateNeighborCost(yx, flag_byte, cond_flag, this->obstacle_map2, this->static_queue_count, this->path_queue_static);
 }
 
-// 5882AE --- pathfinding BFS from (cur_x, cur_y) to (x, y)
+// 5882ae (client: 55775e) - pathfinding BFS from (cur_x, cur_y) to (x, y)
 void MapStuff::FindPathInternal(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y, int32_t flag, Unit* target) {
     PosYX dest(x, y);
     int32_t unit_size = unit->GetTokenSize();
@@ -2255,6 +2275,7 @@ void MapStuff::FindPathInternal(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_
 // Shared by ExpandCostsStaticQueue2/ExpandCostsStaticQueue1/ExpandCostsDynamicQueue1/ExpandCostsDynamicQueue2: recomputes movement cost to each
 // of the 9 neighbor cells (including self) around (x,y) in the path_cost cost grid,
 // gated by the given passability check, and enqueues improved cells into the given queue.
+// split from 597290 (client: 5666e0)
 void MapStuff::ExpandCostGridNeighbors(Unit* unit, uint8_t x, uint8_t y, PassableCheckFn passable, uint8_t* out_x, uint8_t* out_y, uint16_t& out_count) {
     for (int8_t dx = -1; dx <= 1; dx++) {
         for (int8_t dy = -1; dy <= 1; dy++) {
@@ -2290,26 +2311,30 @@ void MapStuff::ExpandCostGridNeighbors(Unit* unit, uint8_t x, uint8_t y, Passabl
     }
 }
 
-// 597290 --- expands the static-path cost grid from (x,y) using IsCellPassableStatic as the passability
+// expands the static-path cost grid from (x,y) using IsCellPassableStatic as the passability
 // check, queueing improved neighbors into queue2 (field_0x50008[0x2000/0x3000], dynamic_queue_count).
+// 597290 (client: 5666e0) - Expand path_cost cost grid from (x,y), gated by IsCellPassableStatic, queueing improved cells into queue2
 void MapStuff::ExpandCostsStaticQueue2(Unit* unit, uint8_t x, uint8_t y) {
     this->ExpandCostGridNeighbors(unit, x, y, &MapStuff::IsCellPassableStatic, this->path_queue_scratch + 0x2000, this->path_queue_scratch + 0x3000, this->dynamic_queue_count);
 }
 
-// 5974B0 --- expands the static-path cost grid from (x,y) using IsCellPassableStatic as the passability
+// expands the static-path cost grid from (x,y) using IsCellPassableStatic as the passability
 // check, queueing improved neighbors into queue1 (field_0x50008[0/0x1000], static_queue_count).
+// 5974b0 (client: 566900) - Expand path_cost cost grid from (x,y), gated by IsCellPassableStatic, queueing improved cells into queue1
 void MapStuff::ExpandCostsStaticQueue1(Unit* unit, uint8_t x, uint8_t y) {
     this->ExpandCostGridNeighbors(unit, x, y, &MapStuff::IsCellPassableStatic, this->path_queue_scratch, this->path_queue_scratch + 0x1000, this->static_queue_count);
 }
 
-// 5976D0 --- expands the dynamic-path cost grid from (x,y) using IsCellPassableDynamic as the passability
+// expands the dynamic-path cost grid from (x,y) using IsCellPassableDynamic as the passability
 // check, queueing improved neighbors into queue2 (field_0x50008[0x2000/0x3000], dynamic_queue_count).
+// 5976d0 (client: 566b20) - Expand path_cost cost grid from (x,y), gated by IsCellPassableDynamic, queueing improved cells into queue2
 void MapStuff::ExpandCostsDynamicQueue2(Unit* unit, uint8_t x, uint8_t y) {
     this->ExpandCostGridNeighbors(unit, x, y, &MapStuff::IsCellPassableDynamic, this->path_queue_scratch + 0x2000, this->path_queue_scratch + 0x3000, this->dynamic_queue_count);
 }
 
-// 597990 --- expands the dynamic-path cost grid from (x,y) using IsCellPassableDynamic as the passability
+// expands the dynamic-path cost grid from (x,y) using IsCellPassableDynamic as the passability
 // check, queueing improved neighbors into queue1 (field_0x50008[0/0x1000], static_queue_count).
+// 597990 (client: 566de0) - Expand path_cost cost grid from (x,y), gated by IsCellPassableDynamic, queueing improved cells into queue1
 void MapStuff::ExpandCostsDynamicQueue1(Unit* unit, uint8_t x, uint8_t y) {
     this->ExpandCostGridNeighbors(unit, x, y, &MapStuff::IsCellPassableDynamic, this->path_queue_scratch, this->path_queue_scratch + 0x1000, this->static_queue_count);
 }
@@ -2319,6 +2344,7 @@ void MapStuff::ExpandCostsDynamicQueue1(Unit* unit, uint8_t x, uint8_t y) {
 // walk_cost_map at the current work position), appending each visited cell to `path`. On
 // success (reached (cur_x,cur_y) within 1000 steps) drops the initial (x,y) entry from the
 // front of `path`; on failure (gave up) clears `path` entirely.
+// split from 5890cc (client: 55857c)
 void MapStuff::WalkCostPath(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y, CList<PosYX>& path) {
     path.AddHead(PosYX(x, y));
 
@@ -2384,26 +2410,28 @@ void MapStuff::WalkCostPath(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x,
     path.RemoveHead();
 }
 
-// 5890CC --- builds unit->list1 with a cost-grid-guided path from (x,y) back to (cur_x,cur_y).
+// 5890cc (client: 55857c) - Builds unit->list1 with a cost-grid-guided path from (x,y) back to (cur_x,cur_y)
 void MapStuff::BuildPathList1(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y) {
     this->WalkCostPath(unit, cur_x, cur_y, x, y, unit->list1);
 }
 
-// 5893C6 --- builds unit->list2 with a cost-grid-guided path from (x,y) back to (cur_x,cur_y).
+// builds unit->list2 with a cost-grid-guided path from (x,y) back to (cur_x,cur_y).
 // Similar to BuildPathList1, but uses list2 instead of list1.
+// 5893c6 (client: 558876) - Builds unit->list2 with a cost-grid-guided path from (x,y) back to (cur_x,cur_y)
 void MapStuff::BuildPathList2(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y) {
     this->WalkCostPath(unit, cur_x, cur_y, x, y, unit->list2);
 }
 
-// 592831
+// split from 592831 (client: 561ce1) - Classifies 16-way direction/octant from target toward unit. `this` is unused.
 uint8_t MapStuff::ClassifyDirection16(Unit* target, Unit* unit) {
     int32_t dx = unit->GetRightXx() - target->GetRightXx();
     int32_t dy = unit->GetBottomYy() - target->GetBottomYy();
     return this->ClassifyDirection16(dx, dy);
 }
 
-// 592A48 --- find the lowest-cost cell in an expanding box around target, walking along the box
+// find the lowest-cost cell in an expanding box around target, walking along the box
 // perimeter starting from where the unit->target line of sight crosses it.
+// 592a48 (client: 561ef8)
 uint16_t MapStuff::PickAttackPosition(Unit* unit, Unit* target) {
     int32_t box_max_x = target->position->GetX() + target->GetTokenSize();
     int32_t box_max_y = target->position->GetY() + target->GetTokenSize();
@@ -2527,8 +2555,9 @@ uint16_t MapStuff::PickAttackPosition(Unit* unit, Unit* target) {
     return PosYX((uint8_t)best_x, (uint8_t)best_y).val;
 }
 
-// 593134 --- search outward ring by ring (up to `radius` rings) from `yx` for the cell with the
+// search outward ring by ring (up to `radius` rings) from `yx` for the cell with the
 // lowest path_cost cost-grid value. Returns 0 if none found within range.
+// 593134 (client: 5625e4)
 int16_t MapStuff::FindCheapestCellNear(Unit* unit, int32_t zero, uint16_t yx, uint32_t radius) {
     uint16_t best_cost = 0xFFFF;
     uint16_t best_yx = 0;
@@ -2567,7 +2596,7 @@ int16_t MapStuff::FindCheapestCellNear(Unit* unit, int32_t zero, uint16_t yx, ui
     return best_cost == 0xFFFF ? 0 : (int16_t)best_yx;
 }
 
-// 5936D2 --- Project a point `range` tiles away from unit along the line from packed_yyxx through the unit, clamped to the map with an 8-tile border.
+// 5936d2 (client: 562b82) - Project a point `range` tiles away from unit along the line from packed_yyxx through the unit, clamped to the map with an 8-tile border.
 int16_t MapStuff::ClampPosToMap(Unit* unit, uint32_t packed_yyxx, uint8_t range) {
     uint16_t target_xx = packed_yyxx & 0xFFFF;
     uint16_t target_yy = packed_yyxx >> 16;
@@ -2624,39 +2653,39 @@ int16_t MapStuff::ClampPosToMap(Unit* unit, uint32_t packed_yyxx, uint8_t range)
     return PosYX((uint8_t)out_x, (uint8_t)out_y).val;
 }
 
-// 59A6F0 --- get pointer into walk_cost_map for (x, y)
+// 59a6f0 (client: 5699e0) - Get pointer into walk_cost_map for (x,y) - get pointer into walk_cost_map for (x, y)
 uint8_t* MapStuff::GetWalkCostMapAt(uint8_t x, uint8_t y) {
     return &this->WalkCostAt(PosYX(x, y));
 }
 
-// 59A670 --- get pointer into path_cost cost grid for (x, y)
+// 59a670 (client: 569960) - Get pointer into path_cost cost grid for (x,y) - get pointer into path_cost cost grid for (x, y)
 uint16_t* MapStuff::GetCostGridAt(uint8_t x, uint8_t y) {
     return &this->path_cost[PosYX(x, y).val];
 }
 
-// 5946BF --- get building at (x, y); callers use the result as Unit*
+// 5946bf (client: 563b6f) - get building at (x, y); callers use the result as Unit*
 Unit* MapStuff::GetBuildingUnitAt(uint8_t x, uint8_t y) {
     return (Unit*)this->GetBuildingAt(PosYX(x, y).val);
 }
 
-// 594768 --- set bit 0x10 in both obstacle maps at (x, y)
+// 594768 (client: 563c18) - set bit 0x10 in both obstacle maps at (x, y)
 void MapStuff::BlockCell(uint8_t x, uint8_t y) {
     PosYX yx(x, y);
     this->ObstacleAt(yx).SetBits(obstacle_flag::dynamic_block);
     this->Obstacle2At(yx).SetBits(obstacle_flag::dynamic_block);
 }
 
-// 594E65 --- register area effect at (x, y)
+// 594e65 (client: 564315) - register area effect at (x, y)
 void MapStuff::RegisterAreaEffectAt(AreaEffect* ae, uint8_t x, uint8_t y) {
     this->RegisterAreaEffectCell(ae, PosYX(x, y).val);
 }
 
-// 59501E --- remove area effect from (x, y)
+// 59501e (client: 5644ce) - remove area effect from (x, y)
 void MapStuff::PlaceAreaEffectAt(AreaEffect* ae, uint8_t x, uint8_t y) {
     this->RemoveAreaEffectAt(ae, PosYX(x, y).val);
 }
 
-// 594709
+// 594709 (client: 563bb9)
 Building* MapStuff::GetBuildingAt(uint16_t yx) {
     if (!this->ObstacleAt(yx).TestBits(obstacle_flag::cell_state)) {
         return nullptr;
@@ -2667,12 +2696,12 @@ Building* MapStuff::GetBuildingAt(uint16_t yx) {
     return this->scratch_cell_state.building;
 }
 
-// 58BFA3 --- Chebyshev distance between two (x, y) points
+// 58bfa3 (client: 55b453) - Chebyshev distance between two (x,y) points. - Chebyshev distance between two (x, y) points
 int32_t MapStuff::ChebyshevDistanceXY(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2) {
     return (std::max)(abs(x1 - x2), abs(y1 - y2));
 }
 
-// 593C9A --- Returns unit's speed, overridden by group_sub->speed_override if nonzero. `this` is unused.
+// 593c9a (client: 56314a) - Returns unit's speed, overridden by group_sub->speed_override if nonzero. `this` is unused.
 int32_t MapStuff::GetEffectiveSpeed(Unit* unit) {
     uint8_t override_speed = unit->group->group_sub->speed_override;
     if (override_speed != 0) {
@@ -2681,7 +2710,7 @@ int32_t MapStuff::GetEffectiveSpeed(Unit* unit) {
     return (int16_t)unit->speed;
 }
 
-// 594C87 --- Walk cost at yx, adjusted for area effects when the cell is occupied.
+// 594c87 (client: 564137) - Walk cost at yx, adjusted for area effects when the cell is occupied.
 uint8_t MapStuff::GetWalkCost(uint16_t yx) {
     if (!this->ObstacleAt(yx).TestBits(obstacle_flag::cell_state)) {
         return this->WalkCostAt(yx);
@@ -2705,7 +2734,7 @@ uint8_t MapStuff::GetWalkCost(uint16_t yx) {
     return this->WalkCostAt(yx);
 }
 
-// 593CD5 --- Computes movement step magnitude/heading toward yx.
+// 593cd5 (client: 563185) - Computes movement step magnitude/heading toward yx.
 int32_t MapStuff::CalcMoveStep(Unit* unit, uint16_t yx, uint8_t val) {
     uint8_t dir = (val + 0x10) >> 5;
     uint16_t yx2 = yx + this->neighbor_yx[dir];
@@ -2773,7 +2802,7 @@ int32_t MapStuff::CalcMoveStep(Unit* unit, uint16_t yx, uint8_t val) {
     return speed;
 }
 
-// 596F80 --- checks whether unit can occupy the size x size box of cells at yx, per obstacle_map
+// 596f80 (client: 566430) - checks whether unit can occupy the size x size box of cells at yx, per obstacle_map
 int32_t MapStuff::IsCellPassableStatic(Unit* unit, uint16_t yx) {
     int8_t size = unit->GetTokenSize();
     for (int32_t i = 0; i < size; i++) {
@@ -2786,7 +2815,7 @@ int32_t MapStuff::IsCellPassableStatic(Unit* unit, uint16_t yx) {
     return 1;
 }
 
-// 5978F0 --- Passability check used by ExpandCostsDynamicQueue2/ExpandCostsDynamicQueue1; same as IsCellPassableStatic but against obstacle_map2
+// 5978f0 (client: 566d40) - Passability check used by ExpandCostsDynamicQueue2/ExpandCostsDynamicQueue1 - Passability check used by ExpandCostsDynamicQueue2/ExpandCostsDynamicQueue1; same as IsCellPassableStatic but against obstacle_map2
 int32_t MapStuff::IsCellPassableDynamic(Unit* unit, uint16_t yx) {
     int8_t size = unit->GetTokenSize();
     for (int32_t i = 0; i < size; i++) {
@@ -2799,8 +2828,9 @@ int32_t MapStuff::IsCellPassableDynamic(Unit* unit, uint16_t yx) {
     return 1;
 }
 
-// 58A158 --- classifies direction/octant (0-7, shifted << 5) from unit's position toward yx.
+// classifies direction/octant (0-7, shifted << 5) from unit's position toward yx.
 // If yx is exactly at the unit's current position, keeps the unit's current eye angle instead.
+// 58a158 (client: 559608) - Classifies direction/octant from unit's position toward yx.
 int32_t MapStuff::ClassifyDirection8(Unit* unit, uint16_t yx) {
     PosYX target(yx);
     int32_t dxx = (target.x << 8) + 0x80 - unit->position->GetXx();
@@ -2834,7 +2864,7 @@ int32_t MapStuff::ClassifyDirection8(Unit* unit, uint16_t yx) {
     return dir << 5;
 }
 
-// 591A96 --- Chebyshev-like distance between yx1 and yx2 for a unit of a given size.
+// 591a96 (client: 560f46) - Chebyshev-like distance between yx1 and yx2 for a unit of a given size.
 uint8_t MapStuff::BoxDistance(uint16_t yx1, uint16_t yx2, int32_t size) {
     PosYX p1(yx1);
     PosYX p2(yx2);
@@ -2856,7 +2886,7 @@ uint8_t MapStuff::BoxDistance(uint16_t yx1, uint16_t yx2, int32_t size) {
     return (std::max)(dx, dy);
 }
 
-// 4a952b
+// 4a952b (client: 4ad552)
 void Scenario::UpdateTerrainShading(int32_t x, int32_t y, uint32_t w, uint32_t h) {
     this->inv_sun_angle = g_DeltaCLR.sun_angle;
     this->abrightness = (uint8_t)g_DeltaCLR.brightness;
@@ -2915,7 +2945,7 @@ void Scenario::UpdateTerrainShading(int32_t x, int32_t y, uint32_t w, uint32_t h
     }
 }
 
-// 4a7b79
+// 4a7b79 (client: 4abba9)
 double Scenario::GetRenderSunAngle() {
     double result;
     if (this->inv_sun_angle >= 0.0 || this->inv_sun_angle <= -0.05) {
@@ -2930,7 +2960,7 @@ double Scenario::GetRenderSunAngle() {
     return result;
 }
 
-// 41ef60
+// 41ef60 (client: 4202a0)
 int32_t Scenario::IsInShadedBounds(int32_t x, int32_t y) {
     if (x < 7 || y < 7 || this->width - 7 <= x || this->height - 7 <= y) {
         return 0;
@@ -2938,7 +2968,7 @@ int32_t Scenario::IsInShadedBounds(int32_t x, int32_t y) {
     return 1;
 }
 
-// 4a9468
+// 4a9468 (client: 4ad48f)
 Scenario::~Scenario() {
     if (this->landscape != nullptr) {
         free(this->landscape);
@@ -2954,7 +2984,7 @@ Scenario::~Scenario() {
     }
 }
 
-// 4a7a50
+// 4a7a50 (client: 4aba80)
 Scenario::Scenario() {
     this->landscape = nullptr;
     this->map_heights = nullptr;
@@ -2962,7 +2992,7 @@ Scenario::Scenario() {
     this->overlay_map = nullptr;
 }
 
-// 4a7bec
+// 4a7bec (client: 4abc1c)
 Scenario::Scenario(const char* fname) {
     MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 
@@ -3165,7 +3195,7 @@ Scenario::Scenario(const char* fname) {
     }
 }
 
-// 44EC40
+// 44ec40 (client: 451f65)
 bool Scenario::ReadAlmInfo(NetMapInfo* info) {
     File2* file = new File2();
     file->Open(info->mapid, 0, NULL);
@@ -3233,7 +3263,7 @@ bool Scenario::ReadAlmInfo(NetMapInfo* info) {
     return false;
 }
 
-// 4a7b3c
+// 4a7b3c (client: 4abb6c)
 void __cdecl ReadRecord(char* buf, File2* file) {
     uint32_t header[2];
     file->Read(header, 8);

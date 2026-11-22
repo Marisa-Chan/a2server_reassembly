@@ -168,10 +168,10 @@ struct UnitEye {
     uint8_t gap_0xb3;
 
 public:
-    UnitEye(); // 58BE86 (client: 55b336)
-    uint8_t GetFacingHalf(); // 58C00E (client: 55b4be)
-    void SetPathMaskByMovement(Unit* unit); // 5925C9 (client: 561a79)
-    int CheckRotation(Unit* unit, uint8_t* out_dir, uint8_t eye0, uint8_t eye1); // 59367D (client: 562b2d)
+    UnitEye(); // 58be86 (client: 55b336)
+    uint8_t GetFacingHalf(); // 58c00e (client: 55b4be)
+    void SetPathMaskByMovement(Unit* unit); // 5925c9 (client: 561a79)
+    int CheckRotation(Unit* unit, uint8_t* out_dir, uint8_t eye0, uint8_t eye1); // 59367d (client: 562b2d)
 };
 ASSERT_OFFSET(UnitEye, counter, 0x78);
 ASSERT_OFFSET(UnitEye, place_x, 0x82);
@@ -262,9 +262,9 @@ struct UnitEye2 {
     CList<uint16_t>* positions_list;
 
 public:
-    UnitEye2(); // 5A4E83 (client: 572ff3)
-    ~UnitEye2(); // 5A4F30 (client: 47b660)
-    void Serialize(CArchive& ar); // 5B031B (client: 57E48B)
+    UnitEye2(); // 5a4e83 (client: 572ff3)
+    ~UnitEye2(); // 5a4f30 (client: 5730a0)
+    void Serialize(CArchive& ar); // 5b031b (client: 57e48b)
 };
 ASSERT_OFFSET(UnitEye2, known_spells, 0x7c);
 ASSERT_SIZE(UnitEye2, 0xb8);

@@ -64,7 +64,8 @@ ScenarioLocation g_scenarioLocationMission110(1, 110, 448, 140, 0, 0); //10035fb
 
 
 
-void InitAllScenatioLocations() { //10001a0f
+// scenario.dll: 10001a0f
+void InitAllScenatioLocations() {
     g_allLocations.RemoveAll();
     g_allLocations.AddTail(&g_scenarioLocationTown1_1);
     g_allLocations.AddTail(&g_scenarioLocationTown1_2);
@@ -118,7 +119,8 @@ void InitAllScenatioLocations() { //10001a0f
 }
 
 
-void __stdcall ScenarioEnterInn(int32_t *ids, int32_t* ids_num) { // 1000286b
+// scenario.dll: 1000286b
+void __stdcall ScenarioEnterInn(int32_t *ids, int32_t* ids_num) {
     *ids_num = 0;
 
     switch (g_scenarioState.scenarioChapter) {
@@ -389,38 +391,46 @@ void __stdcall ScenarioEnterInn(int32_t *ids, int32_t* ids_num) { // 1000286b
 }
 
 
-void __stdcall ScenarioEnterLocation(ScenarioLocation* loc) { //10001d22
+// scenario.dll: 10001d22
+void __stdcall ScenarioEnterLocation(ScenarioLocation* loc) {
     g_currentScenarioLocation = loc;
     for (int i = 0; i < 16; i++) {
         g_scenarioState.currentLocationTransientFlags[i] = 0;
     }
 }
 
-int32_t __stdcall ScenarioEnterShop() { //1000285f
+// scenario.dll: 1000285f
+int32_t __stdcall ScenarioEnterShop() {
     return 0;
 }
 
-CList<ScenarioLocation*>* __stdcall ScenarioGetAvailableLocations() { //100037de
+// scenario.dll: 100037de
+CList<ScenarioLocation*>* __stdcall ScenarioGetAvailableLocations() {
     return &g_availableLocations;
 }
 
-CList<ScenarioLocation*>* __stdcall ScenarioGetAllLocations() { //100038d2
+// scenario.dll: 100038d2
+CList<ScenarioLocation*>* __stdcall ScenarioGetAllLocations() {
     return &g_allLocations;
 }
 
-ScenarioLocation* __stdcall ScenarioGetCurrentLocation() { //100038c8
+// scenario.dll: 100038c8
+ScenarioLocation* __stdcall ScenarioGetCurrentLocation() {
     return g_currentScenarioLocation;
 }
 
-AssortGenParams* __stdcall ScenarioGetShopAssortment() { //100037e8
+// scenario.dll: 100037e8
+AssortGenParams* __stdcall ScenarioGetShopAssortment() {
     return g_ShopsAssortment[g_currentScenarioLocation->GetId()];
 }
 
-int32_t __stdcall ScenarioGetVar(int32_t id) { //10001cfd
+// scenario.dll: 10001cfd
+int32_t __stdcall ScenarioGetVar(int32_t id) {
     return g_scenarioState.vars[id];
 }
 
-int32_t __stdcall ScenarioIsMissionAvailable(int32_t id) { //10003871
+// scenario.dll: 10003871
+int32_t __stdcall ScenarioIsMissionAvailable(int32_t id) {
     for (POSITION pos = g_availableLocations.GetHeadPosition(); pos;) {
         ScenarioLocation* loc = g_availableLocations.GetNext(pos);
         if (loc->GetKind() == 1 && loc->GetId() == id) {
@@ -430,7 +440,8 @@ int32_t __stdcall ScenarioIsMissionAvailable(int32_t id) { //10003871
     return 0;
 }
 
-int32_t __stdcall ScenarioIsTownAvailable(int32_t id) { //10003800
+// scenario.dll: 10003800
+int32_t __stdcall ScenarioIsTownAvailable(int32_t id) {
     for (POSITION pos = g_availableLocations.GetHeadPosition(); pos;) {
         ScenarioLocation* loc = g_availableLocations.GetNext(pos);
         if (loc->GetKind() == 2) {
@@ -443,11 +454,13 @@ int32_t __stdcall ScenarioIsTownAvailable(int32_t id) { //10003800
 }
 
 
-void __stdcall ScenarioLeaveInn() { //100032bb
+// scenario.dll: 100032bb
+void __stdcall ScenarioLeaveInn() {
 }
 
 
-void ScenarioMakeTownAvailable(int32_t id) { //1000199f
+// scenario.dll: 1000199f
+void ScenarioMakeTownAvailable(int32_t id) {
     for (POSITION pos = g_allLocations.GetHeadPosition(); pos;) {
         ScenarioLocation* loc = g_allLocations.GetNext(pos);
         if (loc->GetKind() == 2 && loc->GetId() == id) {
@@ -459,7 +472,8 @@ void ScenarioMakeTownAvailable(int32_t id) { //1000199f
     }
 }
 
-void ScenarioMakeMissionAvailable(int32_t id) { //1000192f
+// scenario.dll: 1000192f
+void ScenarioMakeMissionAvailable(int32_t id) {
     for (POSITION pos = g_allLocations.GetHeadPosition(); pos;) {
         ScenarioLocation* loc = g_allLocations.GetNext(pos);
         if (loc->GetKind() == 1 && loc->GetId() == id) {
@@ -472,6 +486,7 @@ void ScenarioMakeMissionAvailable(int32_t id) { //1000192f
 }
 
 
+// split from scenario.dll: 10002806
 int32_t ScenarioOnCompleted(int32_t* loc, int32_t id) {
     g_scenarioState.locationTransitionStateLowConfidence = 0;
 
@@ -755,7 +770,8 @@ int32_t ScenarioOnCompleted(int32_t* loc, int32_t id) {
 }
 
 
-int32_t __stdcall ScenarioLeaveLocation(int32_t* loc) { //10002806
+// scenario.dll: 10002806
+int32_t __stdcall ScenarioLeaveLocation(int32_t* loc) {
     *loc = -1;
 
     if (!g_currentScenarioLocation) {
@@ -776,10 +792,12 @@ int32_t __stdcall ScenarioLeaveLocation(int32_t* loc) { //10002806
     return ScenarioOnCompleted(loc, g_currentScenarioLocation->GetId());
 }
 
-void __stdcall ScenarioLeaveShop() { // 10002866
+// scenario.dll: 10002866
+void __stdcall ScenarioLeaveShop() {
 }
 
-void __stdcall ScenarioLoad(CFile* fl) { //10003686
+// scenario.dll: 10003686
+void __stdcall ScenarioLoad(CFile* fl) {
     fl->Read(&g_scenarioState, 0x1000);
 
     for (int i = 0; i < 4; i++) {
@@ -816,7 +834,8 @@ void __stdcall ScenarioLoad(CFile* fl) { //10003686
     g_currentScenarioLocation = g_availableLocations.GetAt(pos);
 }
 
-void __stdcall ScenarioSave(CFile* fl) { //10003585
+// scenario.dll: 10003585
+void __stdcall ScenarioSave(CFile* fl) {
     fl->Write(&g_scenarioState, 0x1000);
     for (int i = 0; i < 4; i += 1) {
         for (int j = 0; j < 4; j += 1) {
@@ -841,7 +860,8 @@ void __stdcall ScenarioSave(CFile* fl) { //10003585
 
 
 
-void __stdcall ScenarioNewGame() { //100033be
+// scenario.dll: 100033be
+void __stdcall ScenarioNewGame() {
     memset(&g_scenarioState, 0, 0x1000);
 
     InitAllScenatioLocations();
@@ -893,11 +913,13 @@ void __stdcall ScenarioNewGame() { //100033be
 }
 
 
-void __stdcall ScenarioSetVar(int32_t id, int32_t value) { //10001d0e
+// scenario.dll: 10001d0e
+void __stdcall ScenarioSetVar(int32_t id, int32_t value) {
     g_scenarioState.vars[id] = value;
 }
 
-void __stdcall ScenarioTalkTo(uint32_t t) { //100032c0
+// scenario.dll: 100032c0
+void __stdcall ScenarioTalkTo(uint32_t t) {
     ScenarioTavernEntryId talk(t);
     uint32_t entry = talk.entry_id;
     uint32_t id = talk.talk_or_mission_id;
@@ -931,13 +953,15 @@ void __stdcall ScenarioTalkTo(uint32_t t) { //100032c0
 }
 
 
-void ScenarioLocation::Read(CFile* fl) { //10003a20
+// scenario.dll: 10003a20
+void ScenarioLocation::Read(CFile* fl) {
     fl->Read(&this->id, 4);
     fl->Read(&this->kind, 4);
     fl->Read(&this->rect, sizeof(CRect));
 }
 
-void ScenarioLocation::Write(CFile* fl) { //10003990
+// scenario.dll: 10003990
+void ScenarioLocation::Write(CFile* fl) {
     fl->Write(&this->id, 4);
     fl->Write(&this->kind, 4);
     fl->Write(&this->rect, sizeof(CRect));

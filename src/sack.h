@@ -17,18 +17,18 @@ public:
     DECLARE_SERIAL(Sack); // Runtime class definition at 637318.
 
 public: // VTable at 60f640.
-    virtual ~Sack(); // 553f6a
+    virtual ~Sack(); // 553f6a (client: 53451e)
     virtual void Serialize(CArchive& ar) override; // 55c889 (client: 537600)
     virtual void RegenTick() override; // 57dd30 (client: 54ee70)
-    virtual void ProcessEffects() override; // 553f8b
+    virtual void ProcessEffects() override; // 57dd40 (client: 54ee80)
 
 public:
-    Sack();  // client: 534311
-    Sack(const TokenPos* pos);  // client: 5343a5
-    Sack(const TokenPos* pos, Inventory* inv);  // client: 53443f
+    Sack(); // 553d5d (client: 534311)
+    Sack(const TokenPos* pos); // 553df1 (client: 5343a5)
+    Sack(const TokenPos* pos, Inventory* inv); // 553e8b (client: 53443f)
 
     void Init(); // 553eee (client: 5344a2)
-    void CalcContentsValue(); // 55401E
+    void CalcContentsValue(); // 55401e (client: 5345b7)
 
 public:
     int32_t money;

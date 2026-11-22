@@ -6,7 +6,7 @@
 #include "unit.h"
 
 
-// 58BE86
+// 58be86 (client: 55b336)
 UnitEye::UnitEye() {
     memset(this, 0, sizeof(UnitEye));
     this->path_mask = path_mask::land;
@@ -15,12 +15,12 @@ UnitEye::UnitEye() {
     this->scan_radius_base = 5;
 }
 
-// 58C00E
+// 58c00e (client: 55b4be)
 uint8_t UnitEye::GetFacingHalf() {
     return (uint8_t)(this->facing + 8) >> 4;
 }
 
-// 5925C9
+// 5925c9 (client: 561a79)
 void UnitEye::SetPathMaskByMovement(Unit* unit) {
     uint8_t movement_type = unit->MovementType();
     if (movement_type == 1) {
@@ -32,7 +32,7 @@ void UnitEye::SetPathMaskByMovement(Unit* unit) {
     }
 }
 
-// 59367D
+// 59367d (client: 562b2d)
 int UnitEye::CheckRotation(Unit* unit, uint8_t* out_dir, uint8_t eye0, uint8_t angle) {
     if (angle == this->target_facing) {
         return 0;
@@ -41,7 +41,7 @@ int UnitEye::CheckRotation(Unit* unit, uint8_t* out_dir, uint8_t eye0, uint8_t a
     return 1;
 }
 
-// 5A4E83
+// 5a4e83 (client: 572ff3)
 UnitEye2::UnitEye2() {
     memset(this, 0, sizeof(UnitEye2));
     this->seeInvisible = 1;
@@ -49,13 +49,13 @@ UnitEye2::UnitEye2() {
     this->positions_list = new CList<uint16_t>();
 }
 
-// 5A4F30
+// 5a4f30 (client: 5730a0)
 UnitEye2::~UnitEye2() {
     delete this->positions_list;
     this->positions_list = nullptr;
 }
 
-// 5B031B
+// 5b031b (client: 57e48b)
 void UnitEye2::Serialize(CArchive& ar) {
     if (ar.IsStoring()) {
         ar.Write(this, 0xB8);

@@ -47,37 +47,37 @@ enum {
 class CMousePointer : public CObject {
     DECLARE_DYNAMIC(CMousePointer);
 public:
-    virtual ~CMousePointer();  // client: 42886c
+    virtual ~CMousePointer(); // 42693e (client: 42886c)
 
-    CMousePointer(); //4264eb (client: 428419)
+    CMousePointer(); // 4264eb (client: 428419)
 
-    void DisableHint(); //438830 (client: 4019b0)
-    void EnableHint(); //438810 (client: 43aa40)
-    CSprite256* GetCursorSprite(); //438810 (client: 43aa40)
-    CRect& GetSelectFrame(); //41ed20 (client: 4208a0)
-    int32_t GetSelectState(); //41ed00 (client: 420880)
-    int32_t GetX(); //41ecc0 (client: 420840)
-    int32_t GetY(); //41ece0 (client: 420860)
+    void DisableHint(); // 438830 (client: 43aa60)
+    void EnableHint(); // 438810 (client: 43aa40)
+    CSprite256* GetCursorSprite(); // 41eca0 (client: 420820)
+    CRect& GetSelectFrame(); // 41ed20 (client: 4208a0)
+    int32_t GetSelectState(); // 41ed00 (client: 420880)
+    int32_t GetX(); // 41ecc0 (client: 420840)
+    int32_t GetY(); // 41ece0 (client: 420860)
 
-    void CheckHintValues(); //42709f (client: 428fcd)
-    void DrawToScreen(); //426ce2 (client: 428c10)
-    void EraseCursor(); //426df7 (client: 428d25)
-    void ForceDisableHint(); //4287d9 (client: 42a6f5)
-    void Paint(); //426ca3 (client: 428bd1)
-    void PaintHint(); //4282bb (client: 42a1e9)
-    void PaintSelectFrame(); //427e71 (client: 429d9f)
-    void Repaint(CPoint point); //426eb6 (client: 428de4)
-    void RepaintHint(); //428779 (client: 42a695)
-    void ResetNext400msg(); //42707e (client: 428fac)
-    void ResetStates(); //427e23 (client: 429d51)
-    void SaveScreenParts(const CRect& rect); //427912 (client: 429840)
-    void SaveScreenParts2(const CRect& rect); //42751c (client: 42944a)
-    void SetCursor(CSprite256* spr, int32_t off_x, int32_t off_y, int32_t count, int32_t delay); //426aa5 (client: 4289d3)
-    void StartSelect(const CPoint& point); //427db1 (client: 429cdf)
-    void Unpaint(); //426c64 (client: 428b92)
-    void UnpaintSelectFrame(); //428051 (client: 429f7f)
-    void Update(); //4271e6 (client: 429114)
-    void UpdateHint(); //42819d (client: 42a0cb)
+    void CheckHintValues(); // 42709f (client: 428fcd)
+    void DrawToScreen(); // 426ce2 (client: 428c10)
+    void EraseCursor(); // 426df7 (client: 428d25)
+    void ForceDisableHint(); // 4287d9 (client: 42a6f5)
+    void Paint(); // 426ca3 (client: 428bd1)
+    void PaintHint(); // 4282bb (client: 42a1e9)
+    void PaintSelectFrame(); // 427e71 (client: 429d9f)
+    void Repaint(CPoint point); // 426eb6 (client: 428de4)
+    void RepaintHint(); // 428779 (client: 42a695)
+    void ResetNext400msg(); // 42707e (client: 428fac)
+    void ResetStates(); // 427e23 (client: 429d51)
+    void SaveScreenParts(const CRect& rect); // 427912 (client: 429840)
+    void SaveScreenParts2(const CRect& rect); // 42751c (client: 42944a)
+    void SetCursor(CSprite256* spr, int32_t off_x, int32_t off_y, int32_t count, int32_t delay); // 426aa5 (client: 4289d3)
+    void StartSelect(const CPoint& point); // 427db1 (client: 429cdf)
+    void Unpaint(); // 426c64 (client: 428b92)
+    void UnpaintSelectFrame(); // 428051 (client: 429f7f)
+    void Update(); // 4271e6 (client: 429114)
+    void UpdateHint(); // 42819d (client: 42a0cb)
 
 public:
     CSprite256* cursor_sprite;
@@ -114,13 +114,13 @@ ASSERT_SIZE(CMousePointer, 0xa4);
 
 class CCursor : public CObject {
 public:
-    virtual ~CCursor(); //47cf99 (client: 480e53)
-    CCursor() = default; //47ce1f (client: 480cd9)
-    CCursor(const char* fname, int32_t xof, int32_t yof, int32_t delay); //47ce66 (client: 480d20)
+    virtual ~CCursor(); // 47cf99 (client: 480e53)
+    CCursor() = default; // 47ce1f (client: 480cd9)
+    CCursor(const char* fname, int32_t xof, int32_t yof, int32_t delay); // 47ce66 (client: 480d20)
 
-    void Use(); //47d025 (client: 480edf)
+    void Use(); // 47d025 (client: 480edf)
 
-    CSprite256* GetSprite() const { return this->sprite; }; //41f8d0 (client: 4208c0)
+    CSprite256* GetSprite() const { return this->sprite; }; // 41f8d0 (client: 4208c0)
 public:
     CSprite256* sprite = nullptr;
     int32_t x_off = 0;
@@ -131,6 +131,6 @@ public:
 ASSERT_SIZE(CCursor, 0x18);
 
 
-void LoadCursors(); //47d05d (client: 480f17)
-void DeleteCursors(); //47daf0 (client: 4819aa)
-int __cdecl ApplyCursor(CCursor* cur); //4750d0 (client: 477ed0)
+void LoadCursors(); // 47d05d (client: 480f17)
+void DeleteCursors(); // 47daf0 (client: 4819aa)
+int __cdecl ApplyCursor(CCursor* cur); // 4750d0 (client: 477ed0)

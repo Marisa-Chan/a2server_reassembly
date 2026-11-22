@@ -94,14 +94,14 @@ static bool GetWindowScreenRect(MainWindow* wnd, RECT* out_rect) {
 
 
 
-//495033
+// 495033 (client: 499b5c)
 CListBox2::CListBox2() = default;
 
-//495052
+// 495052 (client: 499b7b)
 CListBox2::~CListBox2() = default;
 
+// 49506e (client: 499b97)
 const AFX_MSGMAP* CListBox2::GetMessageMap() const {
-    //49506e
     return &CListBox2::messageMap;
 }
 
@@ -116,10 +116,12 @@ const AFX_MSGMAP_ENTRY CListBox2::_messageEntries[] =
     {0, 0, 0, 0, AfxSig_end, (AFX_PMSG)0 }
 };
 
+// 49507e (client: 499ba7)
 void CListBox2::OnKeyDown(UINT, UINT, UINT) {
     this->Default();
 }
 
+// 49509f (client: 499bc8)
 void CListBox2::OnLButtonDblClk(UINT, CPoint) {
     this->Default();
 }
@@ -135,11 +137,13 @@ void CListBox2::OnLButtonDblClk(UINT, CPoint) {
 
 
 
+// 494ec0 (client: 499a1b)
 CEdit2::CEdit2() = default;
+// 494edf (client: 499a3a)
 CEdit2::~CEdit2() = default;
 
+// 494efb (client: 499a56)
 const AFX_MSGMAP* CEdit2::GetMessageMap() const {
-    //494efb
     return &CEdit2::messageMap;
 }
 
@@ -153,6 +157,7 @@ const AFX_MSGMAP_ENTRY CEdit2::_messageEntries[] =
     {0, 0, 0, 0, AfxSig_end, (AFX_PMSG)0}
 };
 
+// 494f0b (client: 499a66)
 void CEdit2::OnKeyDown(UINT nChar, UINT nRepcnt, UINT nFlags) {
     this->Default();
 
@@ -197,11 +202,12 @@ void CEdit2::OnKeyDown(UINT nChar, UINT nRepcnt, UINT nFlags) {
 
 
 
-// 4951bd
+// 4951bd (client: 499ca2)
 ServerControlDialog::ServerControlDialog(CWnd* parent_window)
     : CDialog(0x6b, parent_window) {
 }
 
+// 496900 (client: 49ae70)
 ServerControlDialog::~ServerControlDialog() {
 }
 
@@ -224,7 +230,7 @@ const AFX_MSGMAP_ENTRY ServerControlDialog::_messageEntries[] =
     {0, 0, 0, 0, AfxSig_end, (AFX_PMSG)0 }
 };
 
-// 4952fa
+// 4952fa (client: 499cc9)
 void ServerControlDialog::DoDataExchange(CDataExchange* pDX) {
     CDialog::DoDataExchange(pDX);
     DDX_Control(pDX, 0x3f9, this->edit_5c);
@@ -241,17 +247,17 @@ void ServerControlDialog::DoDataExchange(CDataExchange* pDX) {
     DDV_MaxChars(pDX, this->str_27c, 2);
 }
 
-//495429
+// 495429 (client: 499ce2)
 const AFX_MSGMAP* ServerControlDialog::GetMessageMap() const {
     return &ServerControlDialog::messageMap;
 }
 
-// 495439
+// 495439 (client: 499cf2) - ON_WM_DESTROY
 void ServerControlDialog::OnDestroy() {
     CWnd::OnDestroy();
 }
 
-// 49544C
+// 49544c (client: 499d05) - ON_COMMAND 0x3f5
 void ServerControlDialog::OnCommand3f5() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     if (main_wnd->SetSpeed(main_wnd->game_speed - 1)) {
@@ -260,7 +266,7 @@ void ServerControlDialog::OnCommand3f5() {
     }
 }
 
-// 49549B
+// 49549b (client: 499d2f) - ON_COMMAND 0x3f6
 void ServerControlDialog::OnCommand3f6() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     if (main_wnd->SetSpeed(main_wnd->game_speed + 1)) {
@@ -269,7 +275,7 @@ void ServerControlDialog::OnCommand3f6() {
     }
 }
 
-// 4956d5
+// 4956d5 (client: 499ec7) - ON_WM_CLOSE
 void ServerControlDialog::OnClose() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     main_wnd->server_ctrl_shown = 0;
@@ -284,7 +290,7 @@ void ServerControlDialog::OnClose() {
     this->DestroyWindow();
 }
 
-// 495774
+// 495774 (client: none) - ON_COMMAND 0x3ff
 void ServerControlDialog::OnCommand3ff() {
     if (g_Server != nullptr && !g_HatLLDriver.IsListen()) {
         g_Server->hat_disconnect_tick = 1;
@@ -292,7 +298,7 @@ void ServerControlDialog::OnCommand3ff() {
     this->UpdateControlStates();
 }
 
-// 4957ad
+// 4957ad (client: none) - ON_COMMAND 0x3f7
 void ServerControlDialog::OnCommand3f7() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     g_Server->KickAllPlayers();
@@ -300,7 +306,7 @@ void ServerControlDialog::OnCommand3f7() {
     this->UpdateControlStates();
 }
 
-// 4957e2
+// 4957e2 (client: none) - ON_COMMAND 0x3fb
 void ServerControlDialog::OnCommand3fb() {
     this->UpdateData(1);
 
@@ -312,13 +318,13 @@ void ServerControlDialog::OnCommand3fb() {
     this->UpdateControlStates();
 }
 
-// 49583e
+// 49583e (client: none) - ON_COMMAND 0x3fe
 void ServerControlDialog::OnCommand3fe() {
     g_ShutdownIn = 0x7fffffff;
     this->UpdateControlStates();
 }
 
-// 49585B
+// 49585b (client: none) - update control states.
 void ServerControlDialog::UpdateControlStates() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
@@ -361,6 +367,7 @@ void ServerControlDialog::UpdateControlStates() {
     this->UpdateData(0);
 }
 
+// 4954ea (client: 499d59)
 void ServerControlDialog::OnCommandUnknown() {
     if (g_Server == nullptr) {
         return;
@@ -415,6 +422,7 @@ void ServerControlDialog::OnCommandUnknown() {
 
 
 
+// 483d54 (client: 4879f0)
 const AFX_MSGMAP* MainWindow::GetMessageMap() const {
     return &MainWindow::messageMap;
 }
@@ -450,7 +458,7 @@ const AFX_MSGMAP_ENTRY MainWindow::_messageEntries[] =
     {0, 0, 0, 0, AfxSig_end, (AFX_PMSG)0}
 };
 
-// 486a2f
+// 486a2f (client: 48a72c)
 void MainWindow::OnSysKeyDown(UINT key, UINT repeat, UINT flags) {
     if (this->input_locked == 0) {
         if (key == VK_F10) {
@@ -483,7 +491,7 @@ void MainWindow::OnSysKeyDown(UINT key, UINT repeat, UINT flags) {
     g_mousept.ForceDisableHint();
 }
 
-// 483ea8
+// 483ea8 (client: 487b44)
 void MainWindow::OnDestroy() {
 #ifdef A2CLIENT_PATCH
     if (IsWindowedClientMode()) {
@@ -523,7 +531,7 @@ void MainWindow::OnDestroy() {
     CFrameWnd::OnDestroy();
 }
 
-// 494c91
+// 494c91 (client: 4997ec)
 void MainWindow::PlayDefaultMusic() {
     if (g_SoundSettings.music_allowed != 0) {
         CStringArray* plist = new CStringArray();
@@ -559,8 +567,7 @@ void MainWindow::PlayDefaultMusic() {
     }
 }
 
-// 490f6c
-// client 49547a
+// 490f6c (client: 49547a)
 int32_t MainWindow::WaitHatConnection() {
     uint32_t start_time = timeGetTime();
     g_GameStatusCode = SESSION_ERROR_NONE;
@@ -636,7 +643,7 @@ int32_t MainWindow::WaitHatConnection() {
     return 1;
 }
 
-// 494a9e
+// 494a9e (client: 4995f9)
 void MainWindow::ClearDiplomacyEntries() {
     for (int32_t i = 0; i < this->diplomacy_entries->GetSize(); i++) {
         DiplomacyEntry* entry = (*this->diplomacy_entries)[i];
@@ -657,6 +664,7 @@ void MainWindow::ClearDiplomacyEntries() {
 }
 
 // 49152f  client 495c94
+// 49152f (client: 495c94)
 int32_t MainWindow::WaitConnectionCharacterJoin() {
     if (this->vis_map_context->SendEnterGameAndWait() == 0) {
         VisMessageBoxWithList* mbox;
@@ -686,7 +694,7 @@ int32_t MainWindow::WaitConnectionCharacterJoin() {
     return 1;
 }
 
-// 48d815
+// 48d815 (client: 491c7e)
 void MainWindow::ShowCurrentTownDialog() {
     CStringArray* plist = new CStringArray();
 #ifdef A2CLIENT_PATCH
@@ -726,8 +734,7 @@ void MainWindow::ShowCurrentTownDialog() {
     g_Cursors[0]->Use();
 }
 
-// 491142
-// client: 4958ac
+// 491142 (client: 4958ac)
 int32_t MainWindow::ConnectToServerAddress() {
 #ifdef A2CLIENT
     this->serverBootstrapEnabled = 0;
@@ -806,6 +813,7 @@ int32_t MainWindow::ConnectToServerAddress() {
 }
 
 // 4863f6 client 48a097
+// 4863f6 (client: 48a097)
 void MainWindow::OnKeyDown(UINT key, UINT repeat, UINT flags) {
     if (this->input_locked == 0) {
 #ifdef A2CLIENT_PATCH
@@ -1016,7 +1024,7 @@ void MainWindow::OnKeyDown(UINT key, UINT repeat, UINT flags) {
     g_mousept.ForceDisableHint();
 }
 
-// 495010
+// 495010 (client: none)
 void MainWindow::BeginShutdown() {
 #ifndef A2CLIENT
     g_Server->KickAllPlayers();
@@ -1026,7 +1034,7 @@ void MainWindow::BeginShutdown() {
 #endif
 }
 
-// 4863c6
+// 4863c6 (client: 48a067)
 void MainWindow::OnSetFocus(CWnd* pOldWnd) {
     this->has_focus = 1;
     g_kbMenuState = 0;
@@ -1038,7 +1046,7 @@ void MainWindow::OnSetFocus(CWnd* pOldWnd) {
 #endif
 }
 
-// 48cc87
+// 48cc87 (client: 490e11)
 void MainWindow::ApplyCursorClip() {
 #ifdef A2CLIENT_PATCH
     if (IsWindowedClientMode()) {
@@ -1051,7 +1059,7 @@ void MainWindow::ApplyCursorClip() {
     ClipCursor(&this->clip_cursor_rect);
 }
 
-// 48b01d
+// 48b01d (client: 48effb)
 void MainWindow::OnKillFocus(CWnd* pNewWnd) {
     this->Default();
     this->has_focus = 0;
@@ -1069,7 +1077,7 @@ void MainWindow::OnKillFocus(CWnd* pNewWnd) {
 #endif
 }
 
-// 4949f9
+// 4949f9 (client: 499554)
 void MainWindow::OnClose() {
 #ifdef A2CLIENT_PATCH
     if (IsWindowedClientMode()) {
@@ -1083,7 +1091,7 @@ void MainWindow::OnClose() {
     CFrameWnd::OnClose();
 }
 
-// 495743
+// 495743 (client: none)
 void MainWindow::MarkHatSessionEnded() {
     if (g_Server != nullptr) {
         if (g_HatLLDriver.IsListen() == 0) {
@@ -1092,7 +1100,7 @@ void MainWindow::MarkHatSessionEnded() {
     }
 }
 
-// 494e8e
+// 494e8e (client: 4999e9)
 void MainWindow::OnSize(UINT nType, int cx, int cy) {
     CFrameWnd::OnSize(nType, cx, cy);
     if (g_IsServer != 0) {
@@ -1100,7 +1108,7 @@ void MainWindow::OnSize(UINT nType, int cx, int cy) {
     }
 }
 
-// 486391
+// 486391 (client: 48a02a)
 BOOL MainWindow::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message) {
     if (g_IsServer == 0) {
         SetCursor((HCURSOR)nullptr);
@@ -1114,7 +1122,7 @@ BOOL MainWindow::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message) {
     return 1;
 }
 
-// 486c25
+// 486c25 (client: 48a922)
 void MainWindow::OnSysKeyUp(UINT key, UINT repeat, UINT flags) {
     if (this->input_locked == 0 && key == VK_MENU) {
         g_kbMenuState = 0;
@@ -1123,13 +1131,13 @@ void MainWindow::OnSysKeyUp(UINT key, UINT repeat, UINT flags) {
     g_mousept.ForceDisableHint();
 }
 
-// 48a35f
+// 48a35f (client: 48e5ec)
 void MainWindow::OnChar(UINT ch, UINT repeat, UINT flags) {
     this->vis_root->MsgProc(WM_CHAR, ch, 0);
     this->Default();
 }
 
-// 4919c7
+// 4919c7 (client: 496227)
 void MainWindow::OpenConsoleInput() {
     this->vis_map_context->full_redraw_requested = 1;
     this->vis_map_context->AddChild(this->vis_1200);
@@ -1139,7 +1147,7 @@ void MainWindow::OpenConsoleInput() {
     this->console_active = 1;
 }
 
-// 478130
+// 478130 (client: 47be70)
 void MainWindow::UnloadTerrainTiles() {
     LoadTerrainTiles(0);
     if (g_TerDirtBmp != nullptr) {
@@ -1148,7 +1156,7 @@ void MainWindow::UnloadTerrainTiles() {
     }
 }
 
-// 486bb0
+// 486bb0 (client: 48a8ad)
 void MainWindow::OnKeyUp(UINT key, UINT repeat, UINT flags) {
     if (this->input_locked == 0) {
         if (key == VK_SHIFT) {
@@ -1163,8 +1171,8 @@ void MainWindow::OnKeyUp(UINT key, UINT repeat, UINT flags) {
     g_mousept.ForceDisableHint();
 }
 
-// 48cb3c
 // client: 490ce4 — no NetStru1/hat-connector teardown after Close()
+// 48cb3c (client: 490ce4)
 void MainWindow::DestroyServer() {
     if (g_Server != nullptr) {
         delete g_Server;
@@ -1182,7 +1190,7 @@ void MainWindow::DestroyServer() {
     this->last_tic_time = 0x7fffffff;
 }
 
-// 48d125
+// 48d125 (client: 4912a9)
 void MainWindow::ShowFameHallDocDlg() {
     if (g_mousept.GetSelectState() != 0) {
         g_mousept.ResetStates();
@@ -1198,7 +1206,7 @@ void MainWindow::ShowFameHallDocDlg() {
     g_Cursors[0]->Use();
 }
 
-// 494a31
+// 494a31 (client: 49958c)
 void MainWindow::ModalScreen(VisScreen* scr) {
     this->PopUpScreen(scr);
 
@@ -1218,7 +1226,7 @@ void MainWindow::ModalScreen(VisScreen* scr) {
     this->PostMessage(MAIN_MSG_CHILD_CLOSED, (WPARAM)scr, 0);
 }
 
-// 48cbe2
+// 48cbe2 (client: 490d6c)
 void MainWindow::UpdateMapRect() {
     CRect rect(*this->vis_map_context->GetRect());
 
@@ -1244,7 +1252,7 @@ void MainWindow::UpdateMapRect() {
 }
 
 #ifndef A2CLIENT
-// 495b9c
+// 495b9c (client: none)
 void MainWindow::OnNcMouseMove(UINT nHitTest, CPoint point) {
     switch (nHitTest) {
     case 4:
@@ -1273,7 +1281,7 @@ void MainWindow::OnNcMouseMove(UINT nHitTest, CPoint point) {
 }
 #endif
 
-// 48cca1
+// 48cca1 (client: 490e2b)
 void MainWindow::SetItemCursor(TokenEntry* entry, int32_t idx, const char* str, int32_t tab) {
     this->item_cursor = new CCursor(str, 0x28, 0x28, 1000000000);
     this->drag_src_slot = idx;
@@ -1281,7 +1289,7 @@ void MainWindow::SetItemCursor(TokenEntry* entry, int32_t idx, const char* str, 
     this->drag_entry = entry;
 }
 
-// 484a1a
+// 484a1a (client: 4886b4)
 void MainWindow::OnPaint() {
     if (g_ddraw != nullptr) {
         CRect rect;
@@ -1299,7 +1307,7 @@ void MainWindow::OnPaint() {
 }
 
 #ifndef A2CLIENT
-// 495ab2
+// 495ab2 (client: none)
 void MainWindow::OnSizing(UINT nSide, LPRECT rect) {
     switch (nSide) {
     case 1:
@@ -1329,7 +1337,7 @@ void MainWindow::OnSizing(UINT nSide, LPRECT rect) {
 }
 #endif
 
-// 4950c0
+// 4950c0 (client: 499be9)
 void MainWindow::ShowServerControlDialog() {
     if (this->server_ctrl_dlg == nullptr) {
         this->server_ctrl_dlg = new ServerControlDialog(nullptr);
@@ -1348,6 +1356,7 @@ void MainWindow::ShowServerControlDialog() {
 }
 
 // 4919b1 client 49619e
+// 4919b1 (client: 49619e)
 void MainWindow::ProcessPlayersTick() {
 #ifndef A2CLIENT
     g_Server->ProcessPlayers();
@@ -1363,7 +1372,7 @@ void MainWindow::ProcessPlayersTick() {
 #endif
 }
 
-// 485aed
+// 485aed (client: 489786)
 void MainWindow::ClearVisualTree() {
     this->vis_right_panel->RemoveAllChilds();
     this->vis_root->RemoveAllChilds();
@@ -1411,7 +1420,7 @@ void MainWindow::ClearVisualTree() {
     delete this->vis_famedocument;
 }
 
-// 484022
+// 484022 (client: 487cbe)
 int MainWindow::OnCreate(LPCREATESTRUCT lpCreateStruct) {
     if (CFrameWnd::OnCreate(lpCreateStruct) == -1) {
         return -1;
@@ -1433,7 +1442,7 @@ int MainWindow::OnCreate(LPCREATESTRUCT lpCreateStruct) {
 }
 
 #ifndef A2CLIENT
-// 495c6e
+// 495c6e (client: none)
 void MainWindow::OnNcLButtonDown(UINT nHitTest, CPoint point) {
     switch (nHitTest) {
     case 4:
@@ -1463,7 +1472,8 @@ void MainWindow::OnNcLButtonDown(UINT nHitTest, CPoint point) {
 #endif
 
 
-MainWindow::MainWindow() { //4837e1
+// 4837e1 (client: 48750d)
+MainWindow::MainWindow() {
     this->diplomacy_entries = new CArray<DiplomacyEntry*>; //avoid struct with only one this field
 
     this->vis_root = nullptr;
@@ -1584,12 +1594,14 @@ MainWindow::MainWindow() { //4837e1
 }
 
 
-MainWindow::~MainWindow() { // 4961b0
+// 4961b0 (client: 49a500)
+MainWindow::~MainWindow() {
     delete this->diplomacy_entries;
 }
 
 
-void MainWindow::CreateUI() { //484ab0
+// 484ab0 (client: 48874a)
+void MainWindow::CreateUI() {
     this->vis_root = new CVisualObject(0, 0, 0, g_ScreenSize.right, g_ScreenSize.bottom, nullptr);
     this->vis_map_context = new VisPlayingArea(0, 0, g_ScreenSize.right - 160, g_ScreenSize.bottom);
     this->vis_right_panel = new VisRightPanel(4, g_ScreenSize.right - 160, 0, g_ScreenSize.right, g_ScreenSize.bottom);
@@ -1634,7 +1646,8 @@ void MainWindow::CreateUI() { //484ab0
     this->vis_tavkaarg->VMethod26();
 }
 
-void MainWindow::LoadData() { //483d64
+// 483d64 (client: 487a00)
+void MainWindow::LoadData() {
 
     g_ter_tiles.fill(nullptr);
     LoadCursors();
@@ -1652,7 +1665,8 @@ void MainWindow::LoadData() { //483d64
     this->music_player->SetVolume(g_SoundSettings.mus_pos);
 }
 
-void PhoneBook::Load(HKEY& rkey) { //43ce7d
+// 43ce7d (client: 43f28d)
+void PhoneBook::Load(HKEY& rkey) {
     DWORD sz = 4;
     int32_t num = 0;
     RegQueryValueExA(rkey, "phonebooksize", nullptr, nullptr, (LPBYTE)&num, &sz);
@@ -1668,7 +1682,7 @@ void PhoneBook::Load(HKEY& rkey) { //43ce7d
     }
 }
 
-// 43cf29
+// 43cf29 (client: 43f339)
 void PhoneBook::Save(HKEY& rkey) {
     char data[64];
     char name[64];
@@ -1683,7 +1697,8 @@ void PhoneBook::Save(HKEY& rkey) {
     }
 }
 
-void HatSettings::Load(HKEY& rkey) { //43d249
+// 43d249 (client: 43f65a)
+void HatSettings::Load(HKEY& rkey) {
     char buf[256];
 
     DWORD sz = 255;
@@ -1742,7 +1757,7 @@ void HatSettings::Load(HKEY& rkey) { //43d249
 #endif
 }
 
-// 43d51b
+// 43d51b (client: 43f95c)
 void HatSettings::Save(HKEY& rkey) {
     char buf[256];
     DWORD cbData;
@@ -1803,7 +1818,8 @@ static const char* VIRTUALSTORE_SETTINGS_KEY =
     "Software\\Classes\\VirtualStore\\MACHINE\\SOFTWARE\\WOW6432Node\\1C\\Allods 2";
 #endif
 
-void MainWindow::LoadSettings() { //441a03
+// 441a03 (client: 443fd2)
+void MainWindow::LoadSettings() {
     g_settings.Init();
     this->last_protocol = 0;
     this->com_settings.Reset();
@@ -1850,7 +1866,7 @@ void MainWindow::LoadSettings() { //441a03
 }
 
 
-// 441b1e
+// 441b1e (client: 4440ed)
 void SaveSettings() {
     HKEY regkey;
 #ifdef A2CLIENT_PATCH
@@ -1886,7 +1902,8 @@ void SaveSettings() {
 }
 
 
-void MainWindow::SetControlPositions() { //484127
+// 484127 (client: 487dc3)
+void MainWindow::SetControlPositions() {
     CRect r;
     GetClientRect(&r);
     this->static2.SetWindowPos(NULL, 0, 0, r.right, 40, SWP_NOREPOSITION);
@@ -1910,6 +1927,7 @@ void MainWindow::SetControlPositions() { //484127
 #ifndef A2CLIENT
 // Game loop tick processing function
 // Called from GameApp::OnIdle when server is active
+// 48a756 (client: 48e9d4) - Game loop tick processing function, called from GameApp::OnIdle when server is active.
 void MainWindow::IdleLoop() {
 #ifndef A2SERVER_PATCH
     try {
@@ -2088,7 +2106,7 @@ void MainWindow::IdleLoop() {
 #endif
 }
 #else
-// client 48e9d4
+// 48a756 (client: 48e9d4) - Game loop tick processing function, called from GameApp::OnIdle when server is active.
 void MainWindow::IdleLoop() {
     g_mousept.Update();
 
@@ -2120,7 +2138,8 @@ void MainWindow::IdleLoop() {
 #endif
 
 
-void MainWindow::ServerTickPump() { //484259
+// 484259 (client: 487ef5)
+void MainWindow::ServerTickPump() {
     if (!g_Server) {
         return;
     }
@@ -2246,8 +2265,8 @@ void MainWindow::ServerTickPump() { //484259
 }
 
 
+// 48dc02 (client: 492068)
 int MainWindow::SetSpeed(int speed) {
-    //48dc02
     int32_t old_speed = this->game_speed;
 
     if (speed < 0) {
@@ -2301,8 +2320,8 @@ int MainWindow::SetSpeed(int speed) {
 
 
 
+// 48cbc8 (client: 490d52)
 BOOL MainWindow::UpdateClipCursor() {
-    //48cbc8
 #ifdef A2CLIENT_PATCH
     if (IsWindowedClientMode()) {
         if (GetWindowScreenRect(this, &this->clip_cursor_rect)) {
@@ -2319,9 +2338,8 @@ BOOL MainWindow::UpdateClipCursor() {
 
 
 #ifdef A2CLIENT
+// 48d49b (client: 491619)
 void MainWindow::Proc_421() {
-    // 48d49b
-    // client: 491619
     this->net_session.internet_game = 0;
     this->net_session.connect_address.Empty();
     this->net_session.hat_id = 0;
@@ -2373,9 +2391,9 @@ void MainWindow::Proc_421() {
     g_InGame = 0;
 }
 #else
+// 48d49b (client: 491619)
 void MainWindow::Proc_421()
 {
-    //48d49b
 
     net_session.internet_game = 0;
     net_session.connect_address.Empty();
@@ -2385,8 +2403,8 @@ void MainWindow::Proc_421()
 #endif
 
 
+// 485a41 (client: 4896db)
 void MainWindow::ShowRightPanelInfo() {
-    //485a41
     this->vis_right_panel->RemoveAllChilds();
     this->vis_right_panel->AddChild(this->vis_charinfo);
 
@@ -2400,14 +2418,14 @@ void MainWindow::ShowRightPanelInfo() {
 }
 
 
+// 438d10 (client: 43aaf0)
 int32_t CGameSession::GetStringArray1Size() {
-    //438d10
     return this->characterRosterNames.GetSize();
 }
 
 
+// 48cd44 (client: 490ece)
 void MainWindow::ResetItemCursor() {
-    //48cd44
     if (!this->drag_entry) {
         return;
     }
@@ -2423,7 +2441,7 @@ void MainWindow::ResetItemCursor() {
 }
 
 
-// 445a46
+// 445a46 (client: 448117)
 DiplomacyEntry::DiplomacyEntry(const char* _name, int e, int a, int s, int m) {
     this->name = new char[strlen(_name) + 1];
     strcpy(this->name, _name);
@@ -2433,13 +2451,14 @@ DiplomacyEntry::DiplomacyEntry(const char* _name, int e, int a, int s, int m) {
     this->mute = m;
 }
 
-//445aa9
+// 445aa9 (client: 44817a)
 DiplomacyEntry::~DiplomacyEntry() {
     if (this->name) {
         delete this->name;
     }
 }
 
+// 48b061 (client: 48f03f)
 void MainWindow::Proc_44c(CVisualObject* obj) {
     this->app_initialized = 1;
 
@@ -2882,8 +2901,8 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
 }
 
 
+// server: none (client: 4953b4)
 int32_t MainWindow::ClientWaitErrCode() {
-    // client: 4953b4
     g_GameStatusCode = SESSION_ERROR_NONE;
 
     int32_t starttime = GetTickCount();
@@ -2911,7 +2930,8 @@ int32_t MainWindow::ClientWaitErrCode() {
     return (g_GameStatusCode & 0xff) - 0x18;
 }
 
-void MainWindow::ShowCharacterLoaderDialog() { //48cff7
+// 48cff7 (client: 491181)
+void MainWindow::ShowCharacterLoaderDialog() {
     g_Cursors[CURSOR_WAIT]->Use();
 
     this->vis_charinfo->info_mode = 1;
@@ -2930,7 +2950,8 @@ void MainWindow::ShowCharacterLoaderDialog() { //48cff7
 }
 
 
-void MainWindow::ShowCharInfoPane() { //491a49
+// 491a49 (client: 4962a9)
+void MainWindow::ShowCharInfoPane() {
     g_Cursors[CURSOR_WAIT]->Use();
 
     this->vis_charinfo->info_mode = 1;
@@ -2955,7 +2976,8 @@ void MainWindow::ShowCharInfoPane() { //491a49
 
 
 
-void MainWindow::AutosaveGame() { // 48f905
+// 48f905 (client: 493d5d)
+void MainWindow::AutosaveGame() {
     if (this->sessionMode == SESSION_LOCAL_BATTLE) {
         CString local_2a4 = this->last_save_info.filename;
         g_Server->SaveGame(&local_2a4);
@@ -3109,7 +3131,8 @@ void MainWindow::AutosaveGame() { // 48f905
 }
 
 
-void MainWindow::EnterSinglePlayerMode() { // 4903d0
+// 4903d0 (client: 494822)
+void MainWindow::EnterSinglePlayerMode() {
 
     this->sessionMode = SESSION_SINGLEPLAYER;
 
@@ -3148,7 +3171,8 @@ void MainWindow::EnterSinglePlayerMode() { // 4903d0
     }
 }
 
-void MainWindow::EnterServerMode() { //491822
+// 491822 (client: 49600f)
+void MainWindow::EnterServerMode() {
     this->sessionMode = SESSION_SERVER;
 
     g_NetStru1_main.SetLLDriver(&g_CLlDriver);
@@ -3163,7 +3187,8 @@ void MainWindow::EnterServerMode() { //491822
     PostMessage(MAIN_MSG_SELECT_MAP, 0, 0);
 }
 
-int MainWindow::StartServerSession(int mode) { //48ca7e
+// 48ca7e (client: 490c26)
+int MainWindow::StartServerSession(int mode) {
     g_DeferredEventIds.RemoveAll();
 
     g_Server = new Server();
@@ -3177,7 +3202,8 @@ int MainWindow::StartServerSession(int mode) { //48ca7e
 }
 
 
-void MainWindow::EnterClientMode() { // 4918ae
+// 4918ae (client: 49609b)
+void MainWindow::EnterClientMode() {
 
     this->sessionMode = SESSION_CLIENT;
 
@@ -3205,8 +3231,8 @@ void MainWindow::EnterClientMode() { // 4918ae
 }
 
 
-void MainWindow::PlayVideo(int32_t vid_id) { //491f7d
-    // client: 4967d2
+// 491f7d (client: 4967d2)
+void MainWindow::PlayVideo(int32_t vid_id) {
     // Retail gated the whole body on a CD-present flag (0062f87c) that a
     // catch handler cleared when the video directory was missing; we run
     // without a CD (same call as MAIN_MSG_SHOW_CUTSCENES above).
@@ -3257,8 +3283,8 @@ void MainWindow::PlayVideo(int32_t vid_id) { //491f7d
 }
 
 
-LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 486c6c
-    // client: 48a969
+// 486c6c (client: 48a969)
+LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) {
 
     switch (message) {
     default:
@@ -4305,7 +4331,8 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) { // 
 }
 
 
-void MainWindow::PopUpScreen(VisScreen* screen) { //48d26a
+// 48d26a (client: 4913eb) - popup screen
+void MainWindow::PopUpScreen(VisScreen* screen) {
     if (screen == this->vis_msgbox_list) {
         this->dialogsMask |= DIALOG_MASK_MSGBOX_LIST;
     } else {
@@ -4338,7 +4365,7 @@ void MainWindow::PopUpScreen(VisScreen* screen) { //48d26a
     }
 }
 
-// client: 41be72
+// server: none (client: 41be72)
 void MainWindow::SendHatJoinName(CString name) {
     PacketJoin* pkt = &PacketJoin::Inst;
     pkt->from_player_id = 0;
@@ -4348,7 +4375,8 @@ void MainWindow::SendHatJoinName(CString name) {
     g_NetStru1_local.QueuePacketSend(pkt);
 }
 
-void MainWindow::ShowGlobalMapDialog() { //48d34b    g_Cursors[CURSOR_WAIT]->Use();
+// 48d34b (client: 4914c9) - g_Cursors[CURSOR_WAIT]->Use()
+void MainWindow::ShowGlobalMapDialog() {
 
     this->vis_root->AddChild(this->vis_globalmap);
     this->vis_globalmap->VMethod28();
@@ -4368,7 +4396,8 @@ void MainWindow::ShowGlobalMapDialog() { //48d34b    g_Cursors[CURSOR_WAIT]->Use
     g_Cursors[CURSOR_DEFAULT]->Use();
 }
 
-void MainWindow::BeginLocalCharacterSetup() { // 48f79d
+// 48f79d (client: 493bf5)
+void MainWindow::BeginLocalCharacterSetup() {
     g_mousept.DisableHint();
 
     strcpy(this->m_GameSession.character_name, "Self");
@@ -4399,7 +4428,8 @@ void MainWindow::BeginLocalCharacterSetup() { // 48f79d
     this->vis_globalmap->RebuildScenarioLocations();
 }
 
-int MainWindow::GetSaveFileInBattle() { // 48de6f
+// 48de6f (client: 4922d2)
+int MainWindow::GetSaveFileInBattle() {
     File2 f;
     f.Open(this->last_save_info.filename, CFile::modeRead);
     f.Seek(4, 0);
@@ -4415,7 +4445,8 @@ int MainWindow::GetSaveFileInBattle() { // 48de6f
     return reg.GetInt("CurrentState", "InBattle", 1);
 }
 
-int MainWindow::RunSessionBootstrap(int mode) { // 48e502
+// 48e502 (client: 492961)
+int MainWindow::RunSessionBootstrap(int mode) {
 
     this->vis_map_context->scenario = nullptr;
     g_Cursors[CURSOR_WAIT]->Use();
@@ -4696,7 +4727,8 @@ int MainWindow::RunSessionBootstrap(int mode) { // 48e502
     return 1;
 }
 
-void MainWindow::ShowMainRightPanel() { // 485969
+// 485969 (client: 489603)
+void MainWindow::ShowMainRightPanel() {
     this->vis_right_panel->RemoveAllChilds();
     this->vis_right_panel->AddChild(this->vis_minimap);
     this->vis_right_panel->AddChild(this->vis_ordertoolbar);
@@ -4711,7 +4743,8 @@ void MainWindow::ShowMainRightPanel() { // 485969
     this->dialogsMask = DIALOG_MASK_INGAME;
 }
 
-void MainWindow::LoadObjectGfx() { // 47a5e6
+// 47a5e6 (client: 47e4a0)
+void MainWindow::LoadObjectGfx() {
     RegFile reg("graphics\\objects\\objects.reg");
     int count = reg.GetInt("Global", "FileCount", 0);
     int obj_count = reg.GetInt("Global", "ObjectCount", 0);
@@ -4828,7 +4861,8 @@ void MainWindow::LoadObjectGfx() { // 47a5e6
     }
 }
 
-void MainWindow::LoadStructureGfx() { //47efdf
+// 47efdf (client: 482e99)
+void MainWindow::LoadStructureGfx() {
     RegFile reg("graphics\\structures\\structures.reg");
 
     char buf[64];
@@ -4898,7 +4932,8 @@ void MainWindow::LoadStructureGfx() { //47efdf
     }
 }
 
-void MainWindow::LoadProjectileGfx() { //47e612
+// 47e612 (client: 4824cc)
+void MainWindow::LoadProjectileGfx() {
 
     RegFile reg("graphics\\projectiles\\projectiles.reg");
     int count = reg.GetInt("Global", "Count", 0);
@@ -4957,7 +4992,8 @@ void MainWindow::LoadProjectileGfx() { //47e612
 }
 
 
-void MainWindow::LoadSavegame() { //48df44
+// 48df44 (client: 4923a7)
+void MainWindow::LoadSavegame() {
     File2 fil;
 
     fil.Open(this->last_save_info.filename, CFile::modeRead);
@@ -5039,7 +5075,8 @@ void MainWindow::LoadSavegame() { //48df44
 
 
 
-void MainWindow::UnloadMapAssets() { //48f6f7
+// 48f6f7 (client: 493b50)
+void MainWindow::UnloadMapAssets() {
 
     this->vis_map_context->StopAmbientSounds();
     if (g_SoundSettings.music_allowed != 0) {
@@ -5061,7 +5098,8 @@ void MainWindow::UnloadMapAssets() { //48f6f7
     this->dialogsMask &= ~DIALOG_MASK_INGAME;
 }
 
-void MainWindow::UnloadProjectileInfos() { //47eab6
+// 47eab6 (client: 482970)
+void MainWindow::UnloadProjectileInfos() {
     for (int i = 0; i < g_ProjectileInfos.GetSize(); i++) {
         ProjectileInfo* inf = g_ProjectileInfos[i];
         if (inf) {
@@ -5088,7 +5126,8 @@ void MainWindow::UnloadProjectileInfos() { //47eab6
     }
 }
 
-void MainWindow::UnloadStructureInfos() { //47f5e4
+// 47f5e4 (client: 48349e)
+void MainWindow::UnloadStructureInfos() {
     for (int i = 0; i < g_StructuresInfo.GetSize(); i++) {
         StructureInfo* inf = g_StructuresInfo[i];
         if (inf) {
@@ -5099,7 +5138,8 @@ void MainWindow::UnloadStructureInfos() { //47f5e4
 }
 
 
-void MainWindow::UnloadObjectGfx() { //47ad28
+// 47ad28 (client: 47ebe2)
+void MainWindow::UnloadObjectGfx() {
     for (int i = 0; i < g_GfxFiles.GetSize(); i++) {
         delete g_GfxFiles[i];
     }
@@ -5111,7 +5151,8 @@ void MainWindow::UnloadObjectGfx() { //47ad28
 }
 
 
-void MainWindow::InitNewCampaignSession() { //48dd3a
+// 48dd3a (client: 4921a0)
+void MainWindow::InitNewCampaignSession() {
     this->local_game = 1;
     this->sessionMode = SESSION_LOCAL_BATTLE;
 
@@ -5142,7 +5183,8 @@ void MainWindow::InitNewCampaignSession() { //48dd3a
 }
 
 
-void MainWindow::ShowStartGameSetupForNewSession() { //491b3e
+// 491b3e (client: 49639b)
+void MainWindow::ShowStartGameSetupForNewSession() {
     g_Cursors[CURSOR_WAIT]->Use();
 
     this->vis_right_panel->MsgProc(VIS_MSG_SET_MAP_CONTEXT, (uint32_t)this->vis_map_context, 0); //FIXME
@@ -5179,7 +5221,8 @@ void MainWindow::ShowStartGameSetupForNewSession() { //491b3e
 }
 
 
-void MainWindow::ShowStartupLogoDialog() { // 48dba0
+// 48dba0 (client: 492009)
+void MainWindow::ShowStartupLogoDialog() {
     this->vis_root->AddChild(this->vis_logownd);
     this->vis_logownd->VMethod28();
 
@@ -5188,7 +5231,8 @@ void MainWindow::ShowStartupLogoDialog() { // 48dba0
 }
 
 
-void MainWindow::ShowCreditsDialog() { // 48da66
+// 48da66 (client: 491ecf)
+void MainWindow::ShowCreditsDialog() {
     this->vis_root->AddChild(this->vis_credits);
     this->vis_credits->VMethod28();
     this->vis_root->VMethod9();
@@ -5205,7 +5249,8 @@ void MainWindow::ShowCreditsDialog() { // 48da66
     }
 }
 
-void MainWindow::ShowFameHallDialog() { //48d096
+// 48d096 (client: 49121d)
+void MainWindow::ShowFameHallDialog() {
     g_Cursors[CURSOR_WAIT]->Use();
 
     this->vis_root->AddChild(this->vis_famehall);
@@ -5221,7 +5266,8 @@ void MainWindow::ShowFameHallDialog() { //48d096
 }
 
 
-void MainWindow::ShowShopDialog(uint32_t id) { //48cdce
+// 48cdce (client: 490f58)
+void MainWindow::ShowShopDialog(uint32_t id) {
     if (g_mousept.GetSelectState() != 0) {
         g_mousept.ResetStates();
         this->ApplyCursorClip();
@@ -5279,7 +5325,8 @@ void MainWindow::ShowShopDialog(uint32_t id) { //48cdce
 
 
 
-void MainWindow::ShowInnDialog(uint32_t id, int32_t interact_target) { //48d4da
+// 48d4da (client: 491943)
+void MainWindow::ShowInnDialog(uint32_t id, int32_t interact_target) {
     if (g_mousept.GetSelectState() != 0) {
         g_mousept.ResetStates();
         this->ApplyCursorClip();
@@ -5361,7 +5408,8 @@ void MainWindow::ShowInnDialog(uint32_t id, int32_t interact_target) { //48d4da
 }
 
 
-void MainWindow::RemoteGameIdle() { //48acac
+// 48acac (client: 48eb54)
+void MainWindow::RemoteGameIdle() {
     if (g_NetStru1_local.IsActive() == 0 && this->shutdown_pending == 0) {
         this->vis_root->MsgProc(VIS_MSG_CLOSE_SCREEN, 0, 0);
         PostMessage(MAIN_MSG_LEAVE_TO_NETWORK_MENU, 0, 0);
@@ -5461,7 +5509,8 @@ void MainWindow::RemoteGameIdle() { //48acac
     }
 }
 
-void MainWindow::SingleGameTimedIdle() { //48a543
+// 48a543 (client: 48e7d0)
+void MainWindow::SingleGameTimedIdle() {
     g_mousept.Update();
 
     //uint32_t ticks = timeGetTime();
@@ -5520,7 +5569,8 @@ void MainWindow::SingleGameTimedIdle() { //48a543
     g_mousept.Update();
 }
 
-void MainWindow::SingleGameIdle() { //48a3a2
+// 48a3a2 (client: 48e62f)
+void MainWindow::SingleGameIdle() {
     g_mousept.Update();
 
     g_Server->ServerTic();
@@ -5571,7 +5621,8 @@ void MainWindow::SingleGameIdle() { //48a3a2
     g_mousept.Update();
 }
 
-void MainWindow::StartHatDedicatedServer() { //49172d
+// 49172d (client: 495dd8)
+void MainWindow::StartHatDedicatedServer() {
     //CHECK IN Allods2.exe
     this->sessionMode = SESSION_SERVER;
     g_NetStru1_main.SetLLDriver(&g_CLlDriver);
@@ -5595,7 +5646,8 @@ void MainWindow::StartHatDedicatedServer() { //49172d
     PasswordManager::manager.OpenFile("passbase.txt");
 }
 
-void MainWindow::SpawnScenarioMissionUnits(int32_t id, const CDWordArray& array) { //50260a
+// 50260a (client: 4fc408)
+void MainWindow::SpawnScenarioMissionUnits(int32_t id, const CDWordArray& array) {
     for (int i = 0; i < array.GetSize(); i++) {
         uint16_t uid = array[i];
 
@@ -5659,7 +5711,8 @@ break;
 }
 
 
-int32_t MainWindow::RunModalLoopServer() { //49057b
+// 49057b (client: none)
+int32_t MainWindow::RunModalLoopServer() {
     MSG msg;
 
     LockSurface2();
@@ -5793,7 +5846,8 @@ int32_t MainWindow::RunModalLoopServer() { //49057b
 }
 
 
-int32_t MainWindow::RunModalLoopClient() { //client 4949cd
+// server: none (client: 4949cd)
+int32_t MainWindow::RunModalLoopClient() {
     MSG msg;
 
 #ifdef A2CLIENT_PATCH
@@ -5892,7 +5946,8 @@ int32_t MainWindow::RunModalLoopClient() { //client 4949cd
 }
 
 #ifdef A2CLIENT
-int32_t MainWindow::ClientRefreshUpdateCharacters() { // client 494f53
+// server: none (client: 494f53)
+int32_t MainWindow::ClientRefreshUpdateCharacters() {
     MSG msg;
 
     LockSurface2();
@@ -5958,7 +6013,8 @@ int32_t MainWindow::ClientRefreshUpdateCharacters() { // client 494f53
 }
 #endif
 
-int32_t MainWindow::CheckWebVersion(const CString& addr) { //4e5466
+// 4e5466 (client: 4ea996)
+int32_t MainWindow::CheckWebVersion(const CString& addr) {
     HINTERNET agent = InternetOpenA("RageOfMages2", 0, 0, 0, 0);
     if (!agent) {
         return 0;
@@ -5991,7 +6047,7 @@ int32_t MainWindow::CheckWebVersion(const CString& addr) { //4e5466
     DWORD readed = 0;
 
     // FIX (deliberate deviation from vanilla): the retail binary accumulates chunks
-    // into the fixed 0x40000 buffer with no bounds check (disasm 4e5657-565d,
+    // into the fixed 0x40000 buffer with no bounds check (see 4e5657-4e565d,
     // buf_pos += readed), writing past the buffer on responses larger than 256KB.
     // Cap each read at the remaining space and stop when the buffer is full — the
     // server-list parse below only needs a fraction of that.
@@ -6053,7 +6109,8 @@ int32_t MainWindow::CheckWebVersion(const CString& addr) { //4e5466
     return 1;
 }
 
-int32_t MainWindow::LeaveServerMode() { //490eb3
+// 490eb3 (client: 4952fb)
+int32_t MainWindow::LeaveServerMode() {
 
 #ifdef A2CLIENT
     g_NetStru1_local.SendHatLogout();
@@ -6100,8 +6157,8 @@ int32_t MainWindow::LeaveServerMode() { //490eb3
 
 
 
+// 491d8a (client: 4965e4)
 void MainWindow::ShowNoCDIntro() {
-//491d8a  client: 4965e4
 
     dialogsMask |= DIALOG_MASK_VIDEO;
 
@@ -6152,8 +6209,8 @@ void MainWindow::ShowNoCDIntro() {
 }
 
 
+// 492193 (client: 4969e3)
 int MainWindow::PlayIntroVideos() {
-//492193  client: 4969e3
     music_player->OnEndTrack();
 
     if (!g_EnableVideo)
@@ -6187,16 +6244,18 @@ int MainWindow::PlayIntroVideos() {
 
 
 
-CGameSession::CGameSession() { //49248a
+// 49248a (client: 496cd5)
+CGameSession::CGameSession() {
     //fields init in defination
     strcpy(this->character_name, "Self");
 }
 
-CGameSession::~CGameSession() { //4960f0
+// 4960f0 (client: 49a430)
+CGameSession::~CGameSession() {
 }
 
+// 493ffe (client: 498ac8)
 int CGameSession::SubmitCharacterSetupAndWaitForSelectedUnit() {
-    //493ffe
     g_GameStatusCode = SESSION_ERROR_NONE;
 
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
@@ -6246,7 +6305,8 @@ int CGameSession::SubmitCharacterSetupAndWaitForSelectedUnit() {
 }
 
 
-void CGameSession::ResetCharacter() { //493d8d
+// 493d8d (client: 498857)
+void CGameSession::ResetCharacter() {
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 
     if (wnd->sessionMode == SESSION_LOCAL_BATTLE) {
@@ -6305,6 +6365,7 @@ void CGameSession::ResetCharacter() { //493d8d
 }
 
 
+// 494687 (client: 499165)
 void CGameSession::ResetUnitClass() {
     this->body = 0;
     this->main_sphere = 0;
@@ -6312,7 +6373,8 @@ void CGameSession::ResetUnitClass() {
 }
 
 
-void CGameSession::RecreateCUnit() { //4941c0
+// 4941c0 (client: 498ca1)
+void CGameSession::RecreateCUnit() {
     MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
     CUnit* cu = mwnd->vis_map_context->GetUnit_3f6c();
     if (cu) {
@@ -6364,7 +6426,8 @@ void CGameSession::RecreateCUnit() { //4941c0
 }
 
 
-void CGameSession::LoadCharacterRosterEntry(int32_t idx) { //492c66
+// 492c66 (client: 497585)
+void CGameSession::LoadCharacterRosterEntry(int32_t idx) {
     this->selectedCharacterRosterFileIndex = idx;
 
     MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
@@ -6542,7 +6605,8 @@ void CGameSession::LoadCharacterRosterEntry(int32_t idx) { //492c66
     }
 }
 
-void CGameSession::InitializeNewCharacterSession(int tp, const char* name) { //493ab6
+// 493ab6 (client: 498483)
+void CGameSession::InitializeNewCharacterSession(int tp, const char* name) {
     MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 
     this->hat_id = mwnd->net_session.hat_id;
@@ -6589,7 +6653,8 @@ void CGameSession::InitializeNewCharacterSession(int tp, const char* name) { //4
     this->RecreateCUnit();
 }
 
-void CGameSession::SetNameAndColor(char* name) { //49381c
+// 49381c (client: 498167)
+void CGameSession::SetNameAndColor(char* name) {
     MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
     CUnit* unit = mwnd->vis_map_context->GetUnit_3f6c();
 
@@ -6628,7 +6693,8 @@ void CGameSession::SetNameAndColor(char* name) { //49381c
     WritePlayerFile(this->characterRosterFilePaths[this->selectedCharacterRosterFileIndex], &info, nullptr, nullptr, nullptr, nullptr, nullptr, 0);
 }
 
-void CGameSession::AutosaveCharacter() { //4946e0
+// 4946e0 (client: 4991ec)
+void CGameSession::AutosaveCharacter() {
     MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
     if (mwnd->sessionMode == SESSION_LOCAL_BATTLE) {
         return;
@@ -6678,7 +6744,8 @@ void CGameSession::AutosaveCharacter() { //4946e0
     this->last_autosave_tick = GetTickCount();
 }
 
-void CGameSession::SaveShortcuts() { //4948b2
+// 4948b2 (client: 4993e7)
+void CGameSession::SaveShortcuts() {
     MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
     if (mwnd->sessionMode == SESSION_LOCAL_BATTLE) {
         return;
@@ -6696,7 +6763,8 @@ void CGameSession::SaveShortcuts() { //4948b2
     WritePlayerFile(this->characterRosterFilePaths[this->selectedCharacterRosterFileIndex], nullptr, nullptr, nullptr, nullptr, nullptr, buffer, buf - buffer);
 }
 
-void CGameSession::DeleteSelectedCharacter() { //493cd8 client 4986a3
+// 493cd8 (client: 4973a4) - client 4986a3
+void CGameSession::DeleteSelectedCharacter() {
 #ifdef A2CLIENT
     MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
     if (mwnd->hat_settings.ishat && mwnd->net_session.internet_game) {
@@ -6722,7 +6790,8 @@ void CGameSession::DeleteSelectedCharacter() { //493cd8 client 4986a3
     this->LoadCharacterRosterEntry(this->selectedCharacterRosterFileIndex - 1);
 }
 
-void CGameSession::SaveKillStats() { //494982
+// 494982 (client: 4994b7)
+void CGameSession::SaveKillStats() {
     MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
     if (mwnd->sessionMode == SESSION_LOCAL_BATTLE) {
         return;
@@ -6737,7 +6806,8 @@ void CGameSession::SaveKillStats() { //494982
     WritePlayerFile(this->characterRosterFilePaths[this->selectedCharacterRosterFileIndex], nullptr, nullptr, map->kill_stats.data(), nullptr, nullptr, nullptr, 0);
 }
 
-void CGameSession::SetCharacterStats(int32_t body, int32_t reaction, int32_t mind, int32_t spirit, int32_t main_sphere) { //494148
+// 494148 (client: 498c2a)
+void CGameSession::SetCharacterStats(int32_t body, int32_t reaction, int32_t mind, int32_t spirit, int32_t main_sphere) {
     MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
     CUnit* unit = mwnd->vis_map_context->GetUnit_3f6c();
 
@@ -6752,14 +6822,16 @@ void CGameSession::SetCharacterStats(int32_t body, int32_t reaction, int32_t min
     this->RecreateCUnit();
 }
 
-CString CGameSession::GetSelectedRosterPath() { //420070
+// 420070 (client: 420ca0)
+CString CGameSession::GetSelectedRosterPath() {
     if (this->selectedCharacterRosterFileIndex < this->characterRosterFilePaths.GetSize()) {
         return this->characterRosterFilePaths[this->selectedCharacterRosterFileIndex];
     }
     return CString();
 }
 
-void CGameSession::AutosaveTick() { //4946ae
+// 4946ae (client: 49918c)
+void CGameSession::AutosaveTick() {
     DWORD tick = GetTickCount();
 #ifdef A2CLIENT
     MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
@@ -6772,11 +6844,13 @@ void CGameSession::AutosaveTick() { //4946ae
     }
 }
 
-UserShortcut::UserShortcut() { //4971a0
+// 4971a0 (client: 49ac10)
+UserShortcut::UserShortcut() {
     this->SetNull();
 }
 
-UserShortcut::~UserShortcut() { //41e493
+// 41e493 (client: 41fd13)
+UserShortcut::~UserShortcut() {
     if (this->mods_size) {
         if (this->mods) {
             free(this->mods);
@@ -6787,14 +6861,16 @@ UserShortcut::~UserShortcut() { //41e493
     }
 }
 
-void UserShortcut::SetNull() { //4971c0
+// 4971c0 (client: 49ac30)
+void UserShortcut::SetNull() {
     this->mods_size = 0;
     this->item_id = 0;
     this->kind = 0;
     this->mods = nullptr;
 }
 
-int UserShortcut::ToBuffer(uint8_t** buf) { //41e5ed
+// 41e5ed (client: 41fe6d)
+int UserShortcut::ToBuffer(uint8_t** buf) {
     uint8_t* data = *buf;
     *(uint16_t*)data = this->kind;
     data += 2;
@@ -6811,7 +6887,8 @@ int UserShortcut::ToBuffer(uint8_t** buf) { //41e5ed
 }
 
 
-int32_t UserShortcut::MatchesItem(TokenEntry* entry) { //41e3af
+// 41e3af (client: 41fc31)
+int32_t UserShortcut::MatchesItem(TokenEntry* entry) {
     if (entry == nullptr) {
         return 0;
     }
@@ -6834,7 +6911,8 @@ int32_t UserShortcut::MatchesItem(TokenEntry* entry) { //41e3af
     return 1;
 }
 
-void UserShortcut::SetItem(TokenEntry* entry) { //41e343
+// 41e343 (client: 41fbc5)
+void UserShortcut::SetItem(TokenEntry* entry) {
     this->kind = 2;
     this->item_id = entry->item_id;
     this->mods_size = entry->mods_size;
@@ -6845,19 +6923,22 @@ void UserShortcut::SetItem(TokenEntry* entry) { //41e343
     }
 }
 
-int32_t UserShortcut::IsSpellShortcut(short spell_id) { //41e456
+// 41e456 (client: 41fcd6)
+int32_t UserShortcut::IsSpellShortcut(short spell_id) {
     if (this->kind == 1 && this->item_id == (uint16_t)spell_id) {
         return 1;
     }
     return 0;
 }
 
-void UserShortcut::SetSpell(short spell_id) { //41e323
+// 41e323 (client: 41fba5)
+void UserShortcut::SetSpell(short spell_id) {
     this->kind = 1;
     this->item_id = spell_id;
 }
 
-void UserShortcut::WriteToFile(CFile* f) { //41e4d3
+// 41e4d3 (client: 41fd53)
+void UserShortcut::WriteToFile(CFile* f) {
     f->Write(&this->kind, 2);
     f->Write(&this->item_id, 2);
     f->Write(&this->mods_size, 4);
@@ -6866,7 +6947,8 @@ void UserShortcut::WriteToFile(CFile* f) { //41e4d3
     }
 }
 
-void UserShortcut::ReadFromFile(CFile* f) { //41e53b
+// 41e53b (client: 41fdbb)
+void UserShortcut::ReadFromFile(CFile* f) {
     if (this->mods_size != 0) {
         if (this->mods) {
             free(this->mods);
@@ -6887,7 +6969,8 @@ void UserShortcut::ReadFromFile(CFile* f) { //41e53b
 }
 
 
-void UserShortcut::LoadFromBuffer(uint8_t** buf) { //41e689
+// 41e689 (client: 41ff09)
+void UserShortcut::LoadFromBuffer(uint8_t** buf) {
     uint8_t* data = *buf;
 
     if (this->mods_size != 0) {

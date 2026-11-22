@@ -18,7 +18,7 @@
 
 IMPLEMENT_SERIAL(Effect, Token, 1); // 637098.
 
-// 53f761
+// 53f761 (client: 526e61)
 void Effect::ApplyToUnit(Unit* unit) {
     if (this->itemDataID == spell::poison_cloud) {
         int32_t damage = -this->spell_or_damage;
@@ -59,7 +59,7 @@ void Effect::ApplyToUnit(Unit* unit) {
 }
 
 
-// 53EDB0
+// 53edb0 (client: 5268e7) - Returns true if both effects have matching effect_id, usage_type, and spell values
 int Effect::Matches(Effect* other) {
     return this->effect_id == other->effect_id &&
            usage_type == other->usage_type &&
@@ -68,8 +68,8 @@ int Effect::Matches(Effect* other) {
 }
 
 
+// 53ec02 (client: 526739)
 Effect::Effect() {
-    //53ec02
     this->typeId = 0;
     this->effect_id = 0;
     this->usage_type = 0;
@@ -80,8 +80,8 @@ Effect::Effect() {
 }
 
 
+// 53ec55 (client: 52678c)
 Effect::Effect(const CString& name) {
-    //53ec55
     Effect* tmp = CreateFromString(name);
     if (tmp) {
         this->effect_id = tmp->effect_id;
@@ -102,9 +102,9 @@ Effect::Effect(const CString& name) {
     }
 }
 
+// 53ed4d (client: 526884)
 Effect::Effect(const Effect* src)
 : Token(*src) {
-    //53ed4d
     this->effect_id = src->effect_id;
     this->usage_type = src->usage_type;
     this->spell_or_damage = src->spell_or_damage;
@@ -113,12 +113,12 @@ Effect::Effect(const Effect* src)
     this->caster = src->caster;
 }
 
+// 57c350 (client: 54ce00)
 Effect::~Effect() {
-    //57c350
 }
 
+// 53e1ce (client: 5262d9)
 void Effect::Serialize(CArchive& ar) {
-    //53e1ce
     Token::Serialize(ar);
     if (ar.IsStoring()) {
         ar << this->effect_id;
@@ -136,7 +136,7 @@ void Effect::Serialize(CArchive& ar) {
 }
 
 
-// 53ee54
+// 53ee54 (client: 52698b)
 void Effect::TickOnUnit(Unit* unit) {
     if ((this->usage_type & USAGE_TICKING_MASK) == 0) {
         return;
@@ -161,7 +161,7 @@ void Effect::TickOnUnit(Unit* unit) {
     }
 }
 
-// 53efb2
+// 53efb2 (client: 526afe)
 void Effect::RemoveFromUnit(Unit* unit) {
     unit->item_op_dirty_flags = 0;
     if ((this->usage_type & USAGE_TICKING_MASK) != 0 && (this->itemDataID == spell::bless || this->itemDataID == spell::curse)) {
@@ -251,7 +251,7 @@ void Effect::RemoveFromUnit(Unit* unit) {
     g_NetStru1_main.SendUnitUpdate(unit, nullptr, unit->item_op_dirty_flags, EQUIP_SLOTS_ALL, 0, 0);
 }
 
-// 53FA2B
+// 53fa2b (client: 527122)
 void Effect::ApplyStatDelta(Unit* unit, int32_t stack_delta) {
 #ifdef A2SERVER_PATCH
     // test_health hook (53FA2B): block single-use health potions when SVF_NOHEALING is active.
@@ -562,7 +562,7 @@ void Effect::ApplyStatDelta(Unit* unit, int32_t stack_delta) {
     unit->RecalcStats();
 }
 
-// 53f92c
+// 53f92c (client: 527023)
 void Effect::ModifyVision(Unit* unit) {
     if (this->itemDataID == spell::light) {
         if (unit->IsHumanoid() == 0) {
@@ -580,7 +580,7 @@ void Effect::ModifyVision(Unit* unit) {
     }
 }
 
-// 541c87
+// 541c87 (client: 52915e)
 int32_t Effect::CalcScrollPrice() {
     if (this->effect_id == modifier::castspell) {
 #ifdef A2CLIENT_PATCH
@@ -606,7 +606,7 @@ int32_t Effect::CalcScrollPrice() {
     return this->_exp;
 }
 
-// 541d59
+// 541d59 (client: 52921c)
 int32_t Effect::CalcChargePercent(double mana) {
     int32_t result = 1;
     if ((this->usage_type & USAGE_TICKING_MASK) == 0) {
@@ -634,7 +634,7 @@ int32_t Effect::CalcChargePercent(double mana) {
     return result;
 }
 
-// 541eb5
+// 541eb5 (client: 529380)
 void Effect::RollStrength(int32_t power) {
     int32_t r = Random1N(power);
     if (this->effect_id == modifier::castspell) {
@@ -658,7 +658,7 @@ void Effect::RollStrength(int32_t power) {
     }
 }
 
-// 541FD7
+// 541fd7 (client: 5294a4) - Compute effect level from budget and magic volume
 int32_t Effect::CalcEffectLevel(int32_t budget, int32_t magic_volume) {
     const MagicInfoData* magic_data = &g_GameDataRes.magics[this->effect_id].Values()[0];
     int32_t max_level = magic_volume / magic_data->mana_cost;
@@ -691,7 +691,7 @@ int32_t Effect::CalcEffectLevel(int32_t budget, int32_t magic_volume) {
     return level;
 }
 
-// 541A5D
+// 541a5d (client: 528f6d)
 int32_t Effect::ParseUsage(CString* str, int32_t* out_value) {
     str->TrimLeft();
     str->TrimRight();
@@ -738,7 +738,7 @@ static const char* const g_EffectNames[50] = {
     "damageearth", "damageastral", "damagebonus"
 };
 
-// 541046
+// 541046 (client: 5285cb)
 Effect* Effect::CreateFromString(const CString& effect_str) {
     if (effect_str.GetLength() == 0) {
         return nullptr;
@@ -839,7 +839,7 @@ Effect* Effect::CreateFromString(const CString& effect_str) {
     return effect;
 }
 
-// 54180C
+// 54180c (client: 528d43)
 void Effect::ParseDmg(CString* str, uint8_t* dmg_min, uint8_t* dmg_spread) {
     int32_t dash_pos = str->Find('-');
     if (dash_pos == -1) {
@@ -865,7 +865,7 @@ static const char* const g_SpellNames[30] = {
     "summon", "drain_life", "shield", "curse", "slow"
 };
 
-// 541963
+// 541963 (client: 528e94)
 int32_t Effect::GetSpellIDByName(CString* name) {
     for (int32_t i = 0; i < 30; i++) {
         if (*name == g_SpellNames[i]) {
@@ -875,7 +875,7 @@ int32_t Effect::GetSpellIDByName(CString* name) {
     return -1;
 }
 
-// 5418F1
+// 5418f1 (client: 528e22)
 int32_t Effect::_StrToInt(CString* str) {
     str->TrimLeft();
     str->TrimRight();
@@ -883,7 +883,7 @@ int32_t Effect::_StrToInt(CString* str) {
     return Effect::AtoI(&span);
 }
 
-// 5419C3
+// 5419c3 (client: 528edb)
 int32_t Effect::AtoI(CString* str) {
     int32_t value = 0;
     if (str->GetLength() != 0) {
@@ -893,7 +893,7 @@ int32_t Effect::AtoI(CString* str) {
     return value;
 }
 
-// 540941
+// 540941 (client: 527fe9)
 int32_t Effect::EffectPrice() {
     if (this->effect_id == 0) {
         return 0;
@@ -906,41 +906,41 @@ int32_t Effect::EffectPrice() {
     }
 }
 
-// 540A33
+// 540a33 (client: 5280eb)
 int64_t Effect::MagicPriceBonus(int32_t total) {
     return (int64_t)((std::pow(1.5, total / 70.0) + 1.0) * total * 50.0);
 }
 
 IMPLEMENT_SERIAL(DirectDamage, Effect, 1); // 6370b0
 
-// 540B21
+// 540b21 (client: 5281d6)
 DirectDamage::DirectDamage() {
     this->caster = nullptr;
 }
 
-// 540B82
+// 540b82 (client: 528237)
 DirectDamage::DirectDamage(uint8_t hand_damage_min, uint8_t hand_damage_spread) {
     this->caster = nullptr;
     this->unit_to_hit.hand_damage_min = hand_damage_min;
     this->unit_to_hit.hand_damage_spread = hand_damage_spread;
 }
 
-// 540BF7
+// 540bf7 (client: 5282ac)
 DirectDamage::DirectDamage(DirectDamage* src) : Effect(src) {
     this->unit_to_hit = src->unit_to_hit;
     this->caster = src->caster;
 }
 
-// 57C120 / 57C370
+// 57c120 (client: 54cde0)
 DirectDamage::~DirectDamage() {}
 
-// 53E422
+// 53e422 (client: 526379)
 void DirectDamage::Serialize(CArchive& ar) {
     Effect::Serialize(ar);
     this->unit_to_hit.Serialize(ar);
 }
 
-// 540C77
+// 540c77 (client: 52832c)
 void DirectDamage::RemoveFromUnit(Unit* unit) {
     // WAT: that shouldn't be possible if the input is actually a `Unit*` and not a `Token*`.
     // Looks like in vanilla they're passing `Token*` and force-casting it. Eugh.

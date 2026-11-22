@@ -50,20 +50,20 @@ public:
     };
 
 public: // VTable at 60f378
-    virtual ~Building();  // client: 529d8e
-    virtual void RegenTick() override;  // client: 529e08
-    virtual void Serialize(CArchive& ar) override;  // client: 529f6d
-    virtual int32_t IsBuilding() override;  // client: 54d380
-    virtual int32_t IsOutpost();  // client: 54d390
+    virtual ~Building(); // 54293a (client: 529d8e)
+    virtual void RegenTick() override; // 5429b6 (client: 529e08)
+    virtual void Serialize(CArchive& ar) override; // 542ce7 (client: 529f6d)
+    virtual int32_t IsBuilding() override; // 57c3a0 (client: 54d380)
+    virtual int32_t IsOutpost(); // 57c3b0 (client: 54d390)
 
 public:
-    Building(uint8_t type_id, TokenPos* pos, uint8_t width, uint8_t height); // 542599 (client: 5299f8)
-    Building(); // 54242A (client: 5298ee)
+    Building(uint8_t type_id, TokenPos* pos, uint8_t width, uint8_t height); // 542599 (client: 529a5d)
+    Building(); // 54242a (client: 5298ee)
     Building(const CString& name); // 542534 (client: 5299f8)
-    Building(TokenPos* pos); // 5424AC (client: 529a5d)
-    void InitFromTable(uint8_t width, uint8_t height); // Initialize building from info table and place on map. (client: 529c04)
-    void InitByName(const CString& name); // Initialize building fields and look up type by name. (client: 529ae6)
-    int32_t RollDamage(UnitToHit* to_hit, Unit* caster); // Building attack. (client: 529e83)
+    Building(TokenPos* pos); // 5424ac (client: 529970)
+    void InitFromTable(uint8_t width, uint8_t height); // 5427ac (client: 529c04) - Initialize building from info table and place on map.
+    void InitByName(const CString& name); // 542624 (client: 529ae6) - Initialize building fields and look up type by name.
+    int32_t RollDamage(UnitToHit* to_hit, Unit* caster); // 542a31 (client: 529e83) - Building attack.
 
 public:
     BuildingInfo* building_info;
@@ -90,10 +90,10 @@ public:
     DECLARE_SERIAL(Pointer);
 
 public:
-    Pointer(uint8_t type_id, TokenPos* pos, uint8_t width, uint8_t height); // 5A3140 (client: 5712b0)
-    Pointer(); // default, used by CreateObject (client: 54d350)
-    virtual ~Pointer() override;  // client: 54d3d0
-    virtual void Serialize(CArchive& ar) override;  // client: 52a0ec
+    Pointer(uint8_t type_id, TokenPos* pos, uint8_t width, uint8_t height); // 5a3140 (client: 5712b0)
+    Pointer(); // 54235d (client: 54d350) - default, used by CreateObject
+    virtual ~Pointer() override; // 57c3f0 (client: 54d3d0)
+    virtual void Serialize(CArchive& ar) override; // 5430fb (client: 52a0ec)
 
 public:
     int32_t script_instance_id;

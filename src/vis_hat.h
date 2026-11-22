@@ -10,11 +10,11 @@ class VisHatServerListDlg : public VisMessageBox {
 public:
     virtual ~VisHatServerListDlg(); // 44fd90 (client: 453c90)
 
-    VisHatServerListDlg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, HatSettings* hat); //44a0e2 (client: 44c5d8)
+    VisHatServerListDlg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, HatSettings* hat); // 44a0e2 (client: 44c7b7)
 
-    virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 44A8A8 (client: 44cfd5)
-    virtual CVisualObject* VMethod30(const void* data, const RECT& r) override; // 44A34D (client: 44ca33)
-    virtual void VMethod31(int32_t code) override; // 44A140 (client: 44c815)
+    virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 44a8a8 (client: 44cfd5)
+    virtual CVisualObject* VMethod30(const void* data, const RECT& r) override; // 44a34d (client: 44ca33)
+    virtual void VMethod31(int32_t code) override; // 44a140 (client: 44c815)
 public:
     HatSettings* hat_settings;
 };
@@ -39,14 +39,14 @@ ASSERT_SIZE(VisHatBrowserList, 0x98);
 //60a9b8
 class VisHatBrowserDlg : public VisWindow {
 public:
-    virtual ~VisHatBrowserDlg(); // 44FED0 (client: 453e10)
+    virtual ~VisHatBrowserDlg(); // 44ff00 (client: 44e6a3)
 
-    virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 44C1A9 (client: 44f11d)
-    virtual void VMethod26() override; // 44BC6C (client: 44e774)
+    virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 44c1a9 (client: 44f11d)
+    virtual void VMethod26() override; // 44bc6c (client: 44e774)
 
-    VisHatBrowserDlg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //44bc35 (client: 44e568)
+    VisHatBrowserDlg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); // 44bc35 (client: 44e568)
 
-    static UINT __cdecl ThreadProc(void*); //44e391
+    static UINT __cdecl ThreadProc(void*); // server: none (client: 44e391)
 
     // client-only web-browser glue. The retail client's browser object is installed by the
     // a2mgr.dll mod layer; every use is gated on browser != 0, so an un-hooked client (and
@@ -64,11 +64,11 @@ ASSERT_SIZE(VisHatBrowserDlg, 0x94);
 // (The client label "MusicPlayer" on this class is a mislabel; the real MusicPlayer is in sound.h.)
 class HatPlayerListWindow : public VisMessageBox {
 public:
-    ~HatPlayerListWindow(); // client: 452837 (deleting dtor 454940)
-    int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // client: 452a02
-    CVisualObject* VMethod30(const void* payload, const RECT& r) override; // client: 452897
+    ~HatPlayerListWindow(); // server: none (client: 452837) - (deleting dtor 454940)
+    int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // server: none (client: 452a02)
+    CVisualObject* VMethod30(const void* payload, const RECT& r) override; // server: none (client: 452897)
 
-    HatPlayerListWindow(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const void* _payload, int32_t _mode); // client: 4527dd
+    HatPlayerListWindow(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const void* _payload, int32_t _mode); // server: none (client: 4527dd)
 
 public:
     int32_t mode; // 0x78 — 0 = plain dialog, !=0 = GM ack line on OK
@@ -79,10 +79,10 @@ ASSERT_SIZE(HatPlayerListWindow, 0x7c);
 // (The client label "CSpriteFont16" on this class is a mislabel; the real font class has vtable 5d74f0.)
 class HatPlayerScoreList : public VisListBox {
 public:
-    ~HatPlayerScoreList(); // client: 454a20 (deleting dtor 4549f0)
-    void DrawItem(int32_t idx, CPoint pos, uint16_t* clr) override; // client: 45265b
+    ~HatPlayerScoreList(); // server: none (client: 454a20) - (deleting dtor 4549f0)
+    void DrawItem(int32_t idx, CPoint pos, uint16_t* clr) override; // server: none (client: 45265b)
 
-    HatPlayerScoreList(int32_t _id, const RECT& r, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _scrollid, const char* hint); // client: 454970
+    HatPlayerScoreList(int32_t _id, const RECT& r, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _scrollid, const char* hint); // server: none (client: 454970)
 
 public:
     CArray<uint32_t> scores; // 0x94 — parallel to entries, one dword per player
@@ -92,10 +92,10 @@ ASSERT_SIZE(HatPlayerScoreList, 0xa8);
 // client 5da840
 class VisHatSession : public VisScreen {
 public:
-    VisHatSession(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4e850e (client: 4e850e)
+    VisHatSession(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); // server: none (client: 4e850e)
 
-    virtual void VMethod7() override; // 4e8545 (client: 4e8545)
-    virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override { return 0; }; // 4e9ce0 (client: 4e9ce0)
+    virtual void VMethod7() override; // server: none (client: 4e8545)
+    virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override { return 0; }; // server: none (client: 4e9ce0)
 };
 
 
@@ -126,7 +126,7 @@ struct HatBrowserProgress {
     uint32_t timestamp;
     CRITICAL_SECTION cs;
 
-    static void InitBuf(uint8_t* buf, int32_t ln) { //4b2187
+    static void InitBuf(uint8_t* buf, int32_t ln) { // server: none (client: 4b2187)
         buf[0] = 8;
         buf[1] = 0;
         *(uint16_t*)(buf + 2) = 0;
@@ -135,7 +135,7 @@ struct HatBrowserProgress {
         memset(buf + 0xc, 'E', ln - 0xc);
     }
 
-    static uint32_t CalcCrc(void* ibuf, int32_t ln) { //4b2113
+    static uint32_t CalcCrc(void* ibuf, int32_t ln) { // server: none (client: 4b2113)
         uint16_t* buf = (uint16_t*)ibuf;
         uint32_t crc = 0;
         for (; ln > 1; ln -= 2) {
@@ -149,11 +149,11 @@ struct HatBrowserProgress {
         crc = (crc >> 16) + (crc & 0xffff);
         return ~(crc + (crc >> 0x10));
     }
-    HatBrowserProgress(); // 4b18c0
-    ~HatBrowserProgress();
-    void Init(const char* hst); // 4b1a9b - resolve host, open the ICMP socket, arm the session
-    void PingServer(); // 4b1dbb - send one ICMP echo and read the reply
-    int32_t GetPingError(); // 453df0 - returns error
+    HatBrowserProgress(); // server: none (client: 4b18c0)
+    ~HatBrowserProgress(); // server: none (client: 4b1a22)
+    void Init(const char* hst); // server: none (client: 4b1a9b) - resolve host, open the ICMP socket, arm the session
+    void PingServer(); // server: none (client: 4b1dbb) - send one ICMP echo and read the reply
+    int32_t GetPingError(); // server: none (client: 453df0) - returns error
 };
 #endif
 

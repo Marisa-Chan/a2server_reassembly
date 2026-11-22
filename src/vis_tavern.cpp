@@ -70,7 +70,7 @@ static uint32_t tavscene_ambient_ts = 0;    // 665D7C
 static int32_t tavscene_anim_state = 0;     // 665D80 0=none, 1=anims[3], 2=anims[2]
 static int32_t tavscene_anim_substate = 0;  // 665D84 1=playing forward, -1=playing backward
 
-// 49E34F
+// 49e34f (client: 4a237d)
 void VisTav::VMethod28() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     g_mousept.DisableHint();
@@ -200,7 +200,7 @@ void VisTav::VMethod28() {
 }
 
 
-// 49EB6C
+// 49eb6c (client: 4a2b9a)
 void VisTav::DoClose(uint32_t code) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
@@ -259,7 +259,7 @@ void VisTav::DoClose(uint32_t code) {
 }
 
 
-// 49DDAF
+// 49ddaf (client: 4a1ddd)
 void VisTav::VMethod26() {
     this->dialog_active = 0;
     for (int32_t i = 0; i < 13; i++) {
@@ -281,7 +281,7 @@ void VisTav::VMethod26() {
 }
 
 
-// 49E082
+// 49e082 (client: 4a20b0)
 int32_t VisTav::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
@@ -315,7 +315,7 @@ int32_t VisTav::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
 }
 
 
-// 49F298
+// 49f298 (client: 4a32c6)
 void VisTav::VMethod30() {
     this->VMethod31();
     ReloadSfx(&this->sounds[0].sample, "SFX\\Town\\Inn\\drink.wav");
@@ -334,7 +334,7 @@ void VisTav::VMethod30() {
 }
 
 
-// 49F3D7
+// 49f3d7 (client: 4a3405)
 void VisTav::VMethod31() {
     for (int32_t i = 0; i < 13; i++) {
         FreeSfxSample(&this->sounds[i].sample);
@@ -342,13 +342,13 @@ void VisTav::VMethod31() {
 }
 
 
-// 49DB79
+// 49db79 (client: 4a1ba7)
 VisTav::VisTav(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr) {
 }
 
 
-// 49E261
+// 49e261 (client: 4a228f)
 int32_t VisTav::OnMouseMove(uint32_t wparam, CPoint pos) {
     CRect r = this->right_panel->GetRect() + this->rect.TopLeft();
     if (!r.PtInRect(pos)) {
@@ -359,7 +359,7 @@ int32_t VisTav::OnMouseMove(uint32_t wparam, CPoint pos) {
 }
 
 
-// 49EECD
+// 49eecd (client: 4a2efb)
 void VisTav::SelectPrevPartyUnit() {
     this->map_context->MsgProc(VIS_MSG_CANCEL_ORDER, 0, 0);
 
@@ -374,7 +374,7 @@ void VisTav::SelectPrevPartyUnit() {
 }
 
 
-// 49EE36
+// 49ee36 (client: 4a2e64)
 void VisTav::SelectNextPartyUnit() {
     this->map_context->MsgProc(VIS_MSG_CANCEL_ORDER, 0, 0);
 
@@ -388,7 +388,7 @@ void VisTav::SelectNextPartyUnit() {
 }
 
 
-// 49EF63
+// 49ef63 (client: 4a2f91)
 void VisTav::ShowHireResponseDialog() {
     CUnit* unit = this->avail_entries[this->selection_index];
     int32_t entry = this->FindEntryIndexForUnit(unit);
@@ -410,7 +410,7 @@ void VisTav::ShowHireResponseDialog() {
 }
 
 
-// 49F179
+// 49f179 (client: 4a31a7)
 void VisTav::ShowReservedNpcTalk() {
     CUnit* unit = this->reserved_entries[this->selection_index - this->avail_entries.GetSize()];
     int32_t entry = this->FindEntryIndexForUnit(unit);
@@ -425,7 +425,7 @@ void VisTav::ShowReservedNpcTalk() {
 }
 
 
-// 49F0DA
+// 49f0da (client: 4a3108)
 void VisTav::RetalkAvailNpc() {
     CUnit* unit = this->avail_entries[this->selection_index];
     int32_t entry = this->FindEntryIndexForUnit(unit);
@@ -439,7 +439,7 @@ void VisTav::RetalkAvailNpc() {
 }
 
 
-// 49E2E3
+// 49e2e3 (client: 4a2311)
 int32_t VisTav::FindEntryIndexForUnit(CUnit* unit) {
     for (int32_t i = 0; i < this->entrie_id.GetSize(); i++) {
         if (unit->serverId == ScenarioTavernEntryId(this->entrie_id[i]).entry_id) {
@@ -450,7 +450,7 @@ int32_t VisTav::FindEntryIndexForUnit(CUnit* unit) {
 }
 
 
-// 49EDEC
+// 49edec (client: 4a2e1a)
 void VisTav::CloseDialog() {
     this->MsgProc(VIS_MSG_HIDE_SCREEN, 0, 0);
 
@@ -461,7 +461,7 @@ void VisTav::CloseDialog() {
 }
 
 
-// 49E233
+// 49e233 (client: 4a2261)
 int32_t VisTav::OnKeyDown(uint32_t wparam) {
     if (wparam == VK_ESCAPE) {
         this->CloseDialog();
@@ -471,7 +471,7 @@ int32_t VisTav::OnKeyDown(uint32_t wparam) {
 }
 
 
-// 49E044
+// 49e044 (client: 4a2072)
 void VisTav::VMethod7() {
     if (this->dialog_active != 0) {
         VisScreen::VMethod7();
@@ -481,12 +481,12 @@ void VisTav::VMethod7() {
 }
 
 
-// 49E075
+// 49e075 (client: 4a20a3)
 void VisTav::VMethod8(CRect* rect) {
 }
 
 
-// 49DC33
+// 49dc33 (client: 4a1c61)
 VisTav::~VisTav() {
     this->VMethod31();
     this->avail_entries.RemoveAll();
@@ -508,7 +508,7 @@ VisTav::~VisTav() {
 }
 
 
-// 49934D
+// 49934d (client: 49d36d)
 const char* VisTavLeftPanel::GetHint() {
     if (this->vis_tav->dialog_active == 0) {
         return nullptr;
@@ -551,7 +551,7 @@ const char* VisTavLeftPanel::GetHint() {
 }
 
 
-// 4995D1
+// 4995d1 (client: 49d5f1)
 void VisTavLeftPanel::LoadLeftPanelBmps() {
     this->FreeLeftPanelBmps();
     this->bmp_left_stats = new CBmp64("graphics\\Interface\\Inn\\LeftStats.bmp");
@@ -561,7 +561,7 @@ void VisTavLeftPanel::LoadLeftPanelBmps() {
 }
 
 
-// 4996AB
+// 4996ab (client: 49d6cb)
 void VisTavLeftPanel::FreeLeftPanelBmps() {
     if (this->bmp_left_stats != nullptr) {
         delete this->bmp_left_stats;
@@ -574,7 +574,7 @@ void VisTavLeftPanel::FreeLeftPanelBmps() {
 }
 
 
-// 497990
+// 497990 (client: 49b9b0)
 VisTavLeftPanel::VisTavLeftPanel(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisTav* tav)
 : CVisualObject(_id, l, t, r, b, nullptr) {
     this->vis_tav = tav;
@@ -582,7 +582,7 @@ VisTavLeftPanel::VisTavLeftPanel(int32_t _id, int32_t l, int32_t t, int32_t r, i
 }
 
 
-// 4A3E10
+// 497a21 (client: 49ba41)
 VisTavLeftPanel::~VisTavLeftPanel() {
     if (this->portrait_bmp != nullptr) {
         delete this->portrait_bmp;
@@ -593,7 +593,7 @@ VisTavLeftPanel::~VisTavLeftPanel() {
 }
 
 
-// 497ACE
+// 497ace (client: 49baee)
 void VisTavLeftPanel::InitLeftPanel() {
     this->flags |= 2;
     CRect client_rect;
@@ -608,13 +608,13 @@ void VisTavLeftPanel::InitLeftPanel() {
 }
 
 
-// 497EC1
+// 497ec1 (client: 49bee1)
 int32_t VisTavLeftPanel::OnLButtonDown(uint32_t wparam, CPoint pos) {
     return 0;
 }
 
 
-// 497ED0
+// 497ed0 (client: 49bef0)
 void VisTavLeftPanel::VMethod7() {
     if (this->vis_tav->selection_index < 0) {
         this->DrawUnitPanel(nullptr);
@@ -626,7 +626,7 @@ void VisTavLeftPanel::VMethod7() {
 }
 
 
-// 497F82
+// 497f82 (client: 49bfa2)
 void VisTavLeftPanel::DrawUnitPanel(CUnit* unit) {
     CRect screen_rect;
     CRect rect_1C(CPoint(0xC, 0), CSize(0xA0, 0xEE));
@@ -871,7 +871,7 @@ void VisTavLeftPanel::DrawUnitPanel(CUnit* unit) {
 }
 
 
-// 497E06
+// 497e06 (client: 49be26)
 void VisTavLeftPanel::SelectRosterEntry(int32_t idx) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
@@ -886,8 +886,7 @@ void VisTavLeftPanel::SelectRosterEntry(int32_t idx) {
 }
 
 
-// 49A30A
-// client: 49e32a
+// 49a30a (client: 49e32a)
 int32_t VisTavRightPanel::OnLButtonUp(uint32_t wparam, CPoint pos) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
@@ -973,7 +972,7 @@ int32_t VisTavRightPanel::OnLButtonUp(uint32_t wparam, CPoint pos) {
 }
 
 
-// 499A67
+// 499a67 (client: 49da87)
 void VisTavRightPanel::LoadRightPanelBmps() {
     this->FreeRightPanelBmps();
     this->bmp_btn_on[0] = new CBmp64("graphics\\interface\\Inn\\button1on.bmp");
@@ -993,7 +992,7 @@ void VisTavRightPanel::LoadRightPanelBmps() {
 }
 
 
-// 49A8FA
+// 49a8fa (client: 49e929) - client FreeBitmaps restructured away (42d41b is VisCharGenAction::UpdateMouseOver)
 void VisTavRightPanel::UpdateHoveredButton(uint32_t wparam, CPoint pos) {
     int32_t index = this->HitTestButton(pos);
     if (index < 0 || (wparam & 1) != 0) {
@@ -1008,7 +1007,7 @@ void VisTavRightPanel::UpdateHoveredButton(uint32_t wparam, CPoint pos) {
 }
 
 
-// 49A873
+// 49a873 (client: 49e8a2)
 int32_t VisTavRightPanel::HitTestButton(CPoint pos) {
     CPoint tav_topleft = this->vis_tav->rect.TopLeft();
     CPoint pt(pos.x - tav_topleft.x, pos.y - tav_topleft.y);
@@ -1022,7 +1021,7 @@ int32_t VisTavRightPanel::HitTestButton(CPoint pos) {
 }
 
 
-// 4998C2
+// 4998c2 (client: 49d8e2)
 void VisTavRightPanel::InitRightPanel() {
     this->pressed_btn = -1;
     this->hovered_btn = -1;
@@ -1043,7 +1042,7 @@ void VisTavRightPanel::InitRightPanel() {
 }
 
 
-// 4997C6
+// 4997c6 (client: 49d7e6)
 VisTavRightPanel::VisTavRightPanel(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisTav* tav)
 : CVisualObject(_id, l, t, r, b, nullptr) {
     this->vis_tav = tav;
@@ -1051,39 +1050,39 @@ VisTavRightPanel::VisTavRightPanel(int32_t _id, int32_t l, int32_t t, int32_t r,
 }
 
 
-// 4A3E40
+// 499862 (client: 49d882)
 VisTavRightPanel::~VisTavRightPanel() {
     this->FreeRightPanelBmps();
 }
 
 
-// 4A4710
+// 4a4710 (client: 4a7eb0)
 const char* VisTavRightPanel::GetHint() {
     return nullptr;
 }
 
 
-// 49A84E
+// 49a84e (client: 49e87d)
 void VisTavRightPanel::ResetButtonStates() {
     this->pressed_btn = -1;
     this->hovered_btn = -1;
 }
 
 
-// 49A26E
+// 49a26e (client: 49e28e)
 int32_t VisTavRightPanel::OnMouseMove(uint32_t wparam, CPoint pos) {
     this->UpdateHoveredButton(wparam, pos);
     return 0;
 }
 
 
-// 49A2E6
+// 49a2e6 (client: 49e306)
 int32_t VisTavRightPanel::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
     return this->OnLButtonDown(wparam, pos);
 }
 
 
-// 49A291
+// 49a291 (client: 49e2b1)
 int32_t VisTavRightPanel::OnLButtonDown(uint32_t wparam, CPoint pos) {
     this->pressed_btn = this->HitTestButton(pos);
     if (this->pressed_btn == 2) {
@@ -1093,7 +1092,7 @@ int32_t VisTavRightPanel::OnLButtonDown(uint32_t wparam, CPoint pos) {
 }
 
 
-// 499CDF
+// 499cdf (client: 49dcff) - client FreeBitmaps restructured away (both client 283b FreeBitmaps fns belong to VisCharGenAction 42d704 / VisCharSellectButtons 432ae6)
 void VisTavRightPanel::FreeRightPanelBmps() {
     for (int32_t i = 0; i < 3; i++) {
         if (this->bmp_btn_on[i] != nullptr) {
@@ -1113,7 +1112,7 @@ void VisTavRightPanel::FreeRightPanelBmps() {
 }
 
 
-// 49A973
+// 49a973 (client: 49e9a2)
 void VisTavRightPanel::UpdateButtonLabels() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
@@ -1151,7 +1150,7 @@ void VisTavRightPanel::UpdateButtonLabels() {
 }
 
 
-// 499DFA
+// 499dfa (client: 49de1a)
 void VisTavRightPanel::VMethod7() {
     CPoint tav_topleft = this->vis_tav->rect.TopLeft();
     if (this->vis_tav->dialog_active == 0) {
@@ -1198,7 +1197,7 @@ void VisTavRightPanel::VMethod7() {
 }
 
 
-// 4010EE
+// 4010ee (client: 4010ee)
 void VisTavSceneAnim::LoadAnimFrames(CStringArray* names) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
@@ -1216,7 +1215,7 @@ void VisTavSceneAnim::LoadAnimFrames(CStringArray* names) {
 }
 
 
-// 4014F2
+// 4014f2 (client: 4014f1)
 void VisTavSceneAnim::FreeAnimFrames() {
     if (this->frames.GetSize() == 0 && this->current_frame != nullptr) {
         delete this->current_frame;
@@ -1233,7 +1232,7 @@ void VisTavSceneAnim::FreeAnimFrames() {
 }
 
 
-// 4015C6
+// 4015c6 (client: 4015c5)
 bool VisTavSceneAnim::StepForward() {
     if (this->frame_idx == this->frames.GetUpperBound()) {
         return false;
@@ -1244,7 +1243,7 @@ bool VisTavSceneAnim::StepForward() {
 }
 
 
-// 401613
+// 401613 (client: 401612)
 bool VisTavSceneAnim::StepBackward() {
     if (this->frame_idx == 0) {
         return false;
@@ -1255,19 +1254,19 @@ bool VisTavSceneAnim::StepBackward() {
 }
 
 
-// 401659
+// 401659 (client: 401658)
 void VisTavSceneAnim::NextFrame() {
     this->frame_idx = (this->frame_idx + 1) % this->frames.GetUpperBound();
     this->current_frame = this->frames.GetAt(this->frame_idx);
 }
 
 
-// 4016EF
+// 4016ef (client: 4016ee)
 void VisTavSceneAnim::Draw(int32_t x, int32_t y) {
     this->current_frame->Draw(x, y, 0, 0, 0);
 }
 
-// 49B22F
+// 49b22f (client: 49f25e)
 void VisTavScene::VMethod7() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
@@ -1409,7 +1408,7 @@ void VisTavScene::VMethod7() {
 }
 
 
-// 49D5F9
+// 49d5f9 (client: 4a1627)
 void VisTavScene::VMethod29() {
     delete this->bmp_man_back;
     this->bmp_man_back = nullptr;
@@ -1442,7 +1441,7 @@ void VisTavScene::VMethod29() {
 }
 
 
-// 49CED4
+// 49ced4 (client: 4a0f02)
 void VisTavScene::VMethod26() {
     this->avail_sprites.SetSize(this->vis_tav->avail_entries.GetSize(), -1);
     this->avail_frames.SetSize(this->vis_tav->avail_entries.GetSize(), -1);
@@ -1474,7 +1473,7 @@ void VisTavScene::VMethod26() {
 }
 
 
-// 49D2BB
+// 49d2bb (client: 4a12e9)
 void VisTavScene::VMethod28() {
     this->VMethod29();
     this->bmp_man_back = new CBmp64("graphics\\Interface\\Inn\\manback.bmp");
@@ -1501,7 +1500,7 @@ void VisTavScene::VMethod28() {
 }
 
 
-// 49CD2B
+// 49cd2b (client: 4a0d59)
 const char* VisTavScene::GetHint() {
     CPoint tav_topleft = this->vis_tav->rect.TopLeft();
     CPoint pt = CPoint(g_mousept.GetX(), g_mousept.GetY()) - tav_topleft;
@@ -1527,7 +1526,7 @@ const char* VisTavScene::GetHint() {
 }
 
 
-// 49D8E8
+// 49d8e8 (client: 4a1916)
 int32_t VisTavScene::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
@@ -1566,7 +1565,7 @@ int32_t VisTavScene::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
 }
 
 
-// 49D1B0
+// 49d1b0 (client: 4a11de)
 void VisTavScene::VMethod27() {
     for (int32_t i = 0; i < this->avail_sprites.GetSize(); i++) {
         if (this->avail_sprites[i] != nullptr) {
@@ -1586,7 +1585,7 @@ void VisTavScene::VMethod27() {
 }
 
 
-// 49DA98
+// 49da98 (client: 4a1ac6)
 int32_t VisTavScene::OnLButtonDown(uint32_t wparam, CPoint pos) {
     int32_t idx = this->HitTestRoster(&pos);
     if (idx == -1) {
@@ -1597,19 +1596,19 @@ int32_t VisTavScene::OnLButtonDown(uint32_t wparam, CPoint pos) {
 }
 
 
-// 49D8D9
+// 49d8d9 (client: 4a1907)
 int32_t VisTavScene::OnMouseMove(uint32_t wparam, CPoint pos) {
     return 0;
 }
 
 
-// 4A3E70
+// 49ae99 (client: 49eec8)
 VisTavScene::~VisTavScene() {
     this->VMethod29();
 }
 
 
-// 49AD56
+// 49ad56 (client: 49ed85)
 VisTavScene::VisTavScene(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisTav* tav)
 : CVisualObject(_id, l, t, r, b, nullptr) {
     this->vis_tav = tav;
@@ -1617,7 +1616,7 @@ VisTavScene::VisTavScene(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b
 }
 
 
-// 49BC23
+// 49bc23 (client: 49fc52)
 void VisTavScene::DrawQuestRoster() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     CPoint tav_topleft = this->vis_tav->rect.TopLeft();
@@ -1728,7 +1727,7 @@ void VisTavScene::DrawQuestRoster() {
 }
 
 
-// 49AF8C
+// 49af8c (client: 49efbb)
 void VisTavScene::InitSceneRects() {
     CPoint base(this->rect.left + 0x10, this->rect.bottom);
 
@@ -1758,7 +1757,7 @@ void VisTavScene::InitSceneRects() {
 }
 
 
-// 49CAB8
+// 49cab8 (client: 4a0ae6)
 int32_t VisTavScene::HitTestRoster(CPoint* pos) {
     CPoint tav_topleft = this->vis_tav->rect.TopLeft();
     CPoint pt = *pos - tav_topleft;
@@ -1804,7 +1803,7 @@ int32_t VisTavScene::HitTestRoster(CPoint* pos) {
     return -1;
 }
 
-// 4A0673
+// 4a0673 (client: 4a46a1)
 void VisTavSceneDruid::VMethod7() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     VisTavDruid* tav_druid = (VisTavDruid*)this->vis_tav;
@@ -1984,11 +1983,11 @@ void VisTavSceneDruid::VMethod7() {
 }
 
 
-// 4A3FC0
+// 4a3fc0 (client: 4a80e0)
 VisTavSceneDruid::~VisTavSceneDruid() {}
 
 
-// 4A05A0
+// 4a05a0 (client: 4a45ce)
 VisTavSceneDruid::VisTavSceneDruid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisTav* tav)
 : VisTavScene(_id, l, t, r, b, tav) {
     this->ambient_last_tick = timeGetTime();
@@ -1997,7 +1996,7 @@ VisTavSceneDruid::VisTavSceneDruid(int32_t _id, int32_t l, int32_t t, int32_t r,
 }
 
 
-// 4A158F
+// 4a158f (client: 4a55bd)
 void VisTavSceneDruid::VMethod29() {
     delete this->bmp_man_back;
     this->bmp_man_back = nullptr;
@@ -2032,7 +2031,7 @@ void VisTavSceneDruid::VMethod29() {
 }
 
 
-// 4A11E3
+// 4a11e3 (client: 4a5211)
 void VisTavSceneDruid::VMethod28() {
     this->VMethod29();
     this->bmp_man_back = new CBmp64("graphics\\Interface\\Inn\\manback.bmp");
@@ -2060,7 +2059,7 @@ void VisTavSceneDruid::VMethod28() {
     }
 }
 
-// 4A2BB8
+// 4a2bb8 (client: 4a6be6)
 void VisTavSceneKaarg::VMethod7() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     VisTavKaarg* tav_kaarg = (VisTavKaarg*)this->vis_tav;
@@ -2265,7 +2264,7 @@ void VisTavSceneKaarg::VMethod7() {
 }
 
 
-// 4A2AA4
+// 4a2aa4 (client: 4a6ad2)
 VisTavSceneKaarg::VisTavSceneKaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisTav* tav)
 : VisTavScene(_id, l, t, r, b, tav) {
     this->ambient1_last_tick = timeGetTime();
@@ -2275,11 +2274,11 @@ VisTavSceneKaarg::VisTavSceneKaarg(int32_t _id, int32_t l, int32_t t, int32_t r,
 }
 
 
-// 4A40C0
+// 4a40c0 (client: 4a81e0)
 VisTavSceneKaarg::~VisTavSceneKaarg() {}
 
 
-// 4A3B25
+// 4a3b25 (client: 4a7b53)
 void VisTavSceneKaarg::VMethod29() {
     delete this->bmp_man_back;
     this->bmp_man_back = nullptr;
@@ -2312,7 +2311,7 @@ void VisTavSceneKaarg::VMethod29() {
 }
 
 
-// 4A37E7
+// 4a37e7 (client: 4a7815)
 void VisTavSceneKaarg::VMethod28() {
     this->VMethod29();
     this->bmp_man_back = new CBmp64("graphics\\Interface\\Inn\\manback.bmp");
@@ -2339,7 +2338,7 @@ void VisTavSceneKaarg::VMethod28() {
 }
 
 
-// 49FAAA
+// 49faaa (client: 4a3ad8)
 void VisTavDruid::VMethod28() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     g_mousept.DisableHint();
@@ -2463,7 +2462,7 @@ void VisTavDruid::VMethod28() {
 }
 
 
-// 4A0278
+// 4a0278 (client: 4a42a6)
 void VisTavDruid::DoClose(uint32_t code) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
@@ -2522,7 +2521,7 @@ void VisTavDruid::DoClose(uint32_t code) {
 }
 
 
-// 49F51B
+// 49f51b (client: 4a3549)
 void VisTavDruid::VMethod26() {
     this->dialog_active = 0;
     for (int32_t i = 0; i < 13; i++) {
@@ -2547,7 +2546,7 @@ void VisTavDruid::VMethod26() {
 }
 
 
-// 49F7B0
+// 49f7b0 (client: 4a37de)
 void VisTavDruid::VMethod30() {
     this->VMethod31();
     ReloadSfx(&this->sounds[5].sample, "SFX\\Add.wav");
@@ -2571,7 +2570,7 @@ void VisTavDruid::VMethod30() {
 }
 
 
-// 49F961
+// 49f961 (client: 4a398f)
 void VisTavDruid::VMethod31() {
     FreeSfxSample(&this->sounds[5].sample);
     FreeSfxSample(&this->sounds[6].sample);
@@ -2586,18 +2585,18 @@ void VisTavDruid::VMethod31() {
 }
 
 
-// 4A3F70
+// 4a3f70 (client: 4a8070)
 VisTavDruid::~VisTavDruid() {
 }
 
 
-// 49F4E6
+// 49f4e6 (client: 4a3514)
 VisTavDruid::VisTavDruid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisTav(_id, l, t, r, b) {
 }
 
 
-// 4A1BA2
+// 4a1ba2 (client: 4a5bd0)
 void VisTavKaarg::VMethod28() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     g_mousept.DisableHint();
@@ -2739,7 +2738,7 @@ void VisTavKaarg::VMethod28() {
 }
 
 
-// 4A2448
+// 4a2448 (client: 4a6476)
 void VisTavKaarg::DoClose(uint32_t code) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
@@ -2800,7 +2799,7 @@ void VisTavKaarg::DoClose(uint32_t code) {
 }
 
 
-// 4A190D
+// 4a190d (client: 4a593b)
 void VisTavKaarg::VMethod26() {
     this->dialog_active = 0;
     for (int32_t i = 0; i < 13; i++) {
@@ -2825,7 +2824,7 @@ void VisTavKaarg::VMethod26() {
 }
 
 
-// 4A26D9
+// 4a26d9 (client: 4a6707)
 void VisTavKaarg::VMethod30() {
     this->VMethod31();
     ReloadSfx(&this->sounds[5].sample, "SFX\\Add.wav");
@@ -2848,7 +2847,7 @@ void VisTavKaarg::VMethod30() {
 }
 
 
-// 4A2873
+// 4a2873 (client: 4a68a1)
 void VisTavKaarg::VMethod31() {
     FreeSfxSample(&this->sounds[5].sample);
     FreeSfxSample(&this->sounds[6].sample);
@@ -2863,13 +2862,13 @@ void VisTavKaarg::VMethod31() {
 }
 
 
-// 4A18D8
+// 4a18d8 (client: 4a5906)
 VisTavKaarg::VisTavKaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisTav(_id, l, t, r, b) {
 }
 
 
-// 4A4070
+// 4a4070 (client: 4a8190)
 VisTavKaarg::~VisTavKaarg() {
 }
 

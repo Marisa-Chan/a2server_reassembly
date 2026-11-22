@@ -10,13 +10,13 @@
 #include "resource.h"
 #include "sound.h"
 
+// 4c6e49 (client: 4cb7e9)
 SmackerPlayer::SmackerPlayer() {
-    // 4c6e49
     memset(this->fade_palette, 0, sizeof(this->fade_palette));
 }
 
+// 4c6f60 (client: 4cb900)
 SmackerPlayer::~SmackerPlayer() {
-    // 4c6f60
     this->hwnd = nullptr;
     this->Stop();
     delete[] this->fades;
@@ -27,26 +27,28 @@ SmackerPlayer::~SmackerPlayer() {
     this->pan_count = 0;
 }
 
+// 497510 (client: 49abf0)
 void SmackerPlayer::SetHwnd(HWND hwnd) {
     // 497510. Only fed to the RAD SDK (palette focus bookkeeping); the
     // libsmacker renderer does not use it.
     this->hwnd = hwnd;
 }
 
+// 4974e0 (client: 49abc0)
 void SmackerPlayer::SetPos(int32_t x, int32_t y) {
-    // 4974e0
     this->pos_x = x;
     this->pos_y = y;
 }
 
+// 4c779d (client: 4cc13c)
 void SmackerPlayer::SetPaneSize(int32_t r, int32_t b) {
     // 4c779d (writes the right/bottom borders)
     this->pane_r = r;
     this->pane_b = b;
 }
 
+// 4c775a (client: 4cc0f9)
 void SmackerPlayer::GetVideoSize(int32_t* w, int32_t* h) const {
-    // 4c775a
     if (this->video == nullptr) {
         *w = 0;
         *h = 0;
@@ -56,6 +58,7 @@ void SmackerPlayer::GetVideoSize(int32_t* w, int32_t* h) const {
     }
 }
 
+// 4c77c2 (client: 4cc161) - (+ 4c733e)
 bool SmackerPlayer::Open(const char* path, int32_t pane_w, int32_t pane_h) {
     // 4c77c2 (+ 4c733e): read the per-video .cfg, open the smk, set the pane.
     this->Stop();
@@ -308,6 +311,7 @@ void SmackerPlayer::WriteAudioChunk(const uint8_t* data, uint32_t size) {
     }
 }
 
+// 4c7556 (client: 4cbef5) - (+ the wrapper free of 4c6db3, done in Stop/dtor)
 void SmackerPlayer::Close() {
     // 4c7556 (SmackClose + SmackSoundOnOff(smk, 0))
     if (this->audio_buffer != nullptr) {
@@ -338,12 +342,14 @@ void SmackerPlayer::Close() {
     }
 }
 
+// 4c7d14 (client: 4cc6b3)
 void SmackerPlayer::Stop() {
     // 4c7d14 = close (4c7556) + drop the DirectDraw surface wrapper (4c6db3,
     // a no-op for libsmacker - we render through the shared backbuffer).
     this->Close();
 }
 
+// 4c70a1 (client: 4cba41) - SmackDoFrame + SmackBlitSetPalette + SmackBlit + unlock/present
 void SmackerPlayer::RenderFrame() {
     // 4c70a1: while a fading is active, scale the frame palette by the fade
     // factor (factor accumulates per frame, char-truncated like the binary's
@@ -413,6 +419,7 @@ void SmackerPlayer::RenderFrame() {
     FlushScreen();
 }
 
+// 4c716a (client: 4cbb0a) - (obj, 1)
 bool SmackerPlayer::DoFrame() {
     // 4c716a(obj, 1): block until the frame is due, apply triggers, render,
     // advance. Returns false after the last frame has been rendered.
@@ -478,6 +485,7 @@ bool SmackerPlayer::DoFrame() {
     return true;
 }
 
+// 49229c (client: 496ae7)
 int32_t PlaySmackerVideo(HWND hwnd, const char* path) {
     // 49229c (client: 496ae7, line-identical)
     SmackerPlayer player;

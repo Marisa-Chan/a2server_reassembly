@@ -27,7 +27,7 @@
 #include "gameplay.h"
 #include "vis_playing_area.h"
 
-// 4AE7A3
+// 4ae7a3 (client: 4b30e3)
 void VisFameDocument::VMethod7() {
     CPoint top_left = this->rect.TopLeft();
     if (this->visible_flag != 0) {
@@ -53,7 +53,7 @@ void VisFameDocument::VMethod7() {
 }
 
 
-// 4ADD24
+// 4add24 (client: 4b2664)
 void VisFameDocument::LoadBitmaps() {
     this->FreeBitmaps();
     this->bmp_sheet = new CBmp64("graphics\\interface\\Docs\\sheet.bmp");
@@ -76,7 +76,7 @@ void VisFameDocument::LoadBitmaps() {
 }
 
 
-// 4AE17A
+// 4ae17a (client: 4b2aba)
 void VisFameDocument::FreeBitmaps() {
     if (this->bmp_sheet != nullptr) {
         delete this->bmp_sheet;
@@ -109,7 +109,7 @@ void VisFameDocument::FreeBitmaps() {
 }
 
 
-// 4AE41B
+// 4ae41b (client: 4b2d5b)
 void VisFameDocument::ClearDocs() {
     if (this->fame != nullptr) {
         for (int32_t i = 0; i < this->fame->m_Documents.GetSize(); i++) {
@@ -119,7 +119,7 @@ void VisFameDocument::ClearDocs() {
 }
 
 
-// 4AE3C6
+// 4ae3c6 (client: 4b2d06)
 void VisFameDocument::LoadDocs() {
     this->ClearDocs();
     for (int32_t i = 0; i < this->fame->m_Documents.GetSize(); i++) {
@@ -128,7 +128,7 @@ void VisFameDocument::LoadDocs() {
 }
 
 
-// 4AE952
+// 4ae952 (client: 4b3292)
 int32_t VisFameDocument::UpdateButtons(CPoint pos, bool is_down) {
     pos -= this->rect.TopLeft();
     if (this->rect_prev.PtInRect(pos)) {
@@ -157,7 +157,7 @@ int32_t VisFameDocument::UpdateButtons(CPoint pos, bool is_down) {
 }
 
 
-// 4AEC7A
+// 4aec7a (client: 4b35ba)
 void VisFameDocument::UpdateArrowStates() {
     if (this->selected_doc == 0) {
         if (this->fame->m_Documents[0].top_line == 0) {
@@ -174,7 +174,7 @@ void VisFameDocument::UpdateArrowStates() {
 }
 
 
-// 4AE638
+// 4ae638 (client: 4b2f78)
 void VisFameDocument::NextDoc() {
     Fame2& doc = this->fame->m_Documents[this->selected_doc];
     if (!doc.ScrollDown()) {
@@ -188,7 +188,7 @@ void VisFameDocument::NextDoc() {
 }
 
 
-// 4AE6B3
+// 4ae6b3 (client: 4b2ff3)
 void VisFameDocument::PrevDoc() {
     Fame2& doc = this->fame->m_Documents[this->selected_doc];
     if (doc.ScrollUp() == 0) {
@@ -201,7 +201,7 @@ void VisFameDocument::PrevDoc() {
 }
 
 
-// 4AE57F
+// 4ae57f (client: 4b2ebf)
 int32_t VisFameDocument::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     if (msg == VIS_MSG_FRAME_TICK) {
         this->VMethod9();
@@ -210,7 +210,7 @@ int32_t VisFameDocument::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
 }
 
 
-// 4AE5BE
+// 4ae5be (client: 4b2efe)
 int32_t VisFameDocument::OnMouseMove(uint32_t wparam, CPoint pos) {
     int32_t hit = this->UpdateButtons(pos, (wparam & 1) != 0);
     this->UpdateArrowStates();
@@ -222,7 +222,7 @@ int32_t VisFameDocument::OnMouseMove(uint32_t wparam, CPoint pos) {
 }
 
 
-// 4AE607
+// 4ae607 (client: 4b2f47)
 int32_t VisFameDocument::OnLButtonDown(uint32_t wparam, CPoint pos) {
     this->UpdateButtons(pos, (wparam & 1) != 0);
     this->UpdateArrowStates();
@@ -230,7 +230,7 @@ int32_t VisFameDocument::OnLButtonDown(uint32_t wparam, CPoint pos) {
 }
 
 
-// 4AE717
+// 4ae717 (client: 4b3057)
 int32_t VisFameDocument::OnLButtonUp(uint32_t wparam, CPoint pos) {
     int32_t hit = this->UpdateButtons(pos, (wparam & 1) != 0);
     if (hit == 1) {
@@ -246,7 +246,7 @@ int32_t VisFameDocument::OnLButtonUp(uint32_t wparam, CPoint pos) {
 }
 
 
-// 4AE473
+// 4ae473 (client: 4b2db3)
 void VisFameDocument::VMethod28() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     this->fame = &main_wnd->m_FameHall;
@@ -266,7 +266,7 @@ void VisFameDocument::VMethod28() {
 }
 
 
-// 4AE534
+// 4ae534 (client: 4b2e74)
 void VisFameDocument::DoClose(uint32_t code) {
     this->VMethod9();
     this->visible_flag = 0;
@@ -277,41 +277,40 @@ void VisFameDocument::DoClose(uint32_t code) {
 }
 
 
-// 4AE791
+// 4ae791 (client: 4b30d1)
 int32_t VisFameDocument::OnKeyDown(uint32_t wparam) {
     (void)wparam;
     return 1;
 }
 
 
-// 4AE926
+// 4ae926 (client: 4b3266)
 void VisFameDocument::VMethod8(CRect* rect) {
     (void)rect;
 }
 
 
-// 4AEDA0
+// 4aeda0 (client: 4b36e0)
 const char* VisFameDocument::GetHint() {
     return nullptr;
 }
 
 
-// 4AD961
+// 4ad961 (client: 4b22a1)
 VisFameDocument::VisFameDocument(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr) {
     this->VMethod26();
 }
 
 
-// 4ADA2A (scalar deleting dtor ??_G at 4AED50)
+// 4ada2a (client: 4b236a) - (scalar deleting dtor ??_G at 4AED50)
 VisFameDocument::~VisFameDocument() {
     this->FreeBitmaps();
     this->ClearDocs();
 }
 
 
-// 45D7F9
-// client: 461429
+// 45d7f9 (client: 461429)
 void VisFameHall::VMethod7() {
     CPoint top_left = this->rect.TopLeft();
     CString str;
@@ -338,7 +337,7 @@ void VisFameHall::VMethod7() {
 }
 
 
-// 45CE6E
+// 45ce6e (client: 460a9e)
 void VisFameHall::VMethod26() {
     this->bmp_bkg = nullptr;
     this->bmp_close_off = nullptr;
@@ -350,7 +349,7 @@ void VisFameHall::VMethod26() {
 }
 
 
-// 45D5F0
+// 45d5f0 (client: 461220)
 int32_t VisFameHall::OnMouseMove(uint32_t wparam, CPoint pos) {
     CPoint top_left = this->rect.TopLeft();
     if (g_mousept.GetCursorSprite() != g_Cursors[CURSOR_SELECT]->GetSprite()) {
@@ -369,7 +368,7 @@ int32_t VisFameHall::OnMouseMove(uint32_t wparam, CPoint pos) {
 }
 
 
-// 45D6C3
+// 45d6c3 (client: 4612f3)
 int32_t VisFameHall::OnLButtonDown(uint32_t wparam, CPoint pos) {
     CPoint top_left = this->rect.TopLeft();
     if ((this->close_rect + top_left).PtInRect(pos)) {
@@ -382,7 +381,7 @@ int32_t VisFameHall::OnLButtonDown(uint32_t wparam, CPoint pos) {
 }
 
 
-// 45D773
+// 45d773 (client: 4613a3)
 int32_t VisFameHall::OnLButtonUp(uint32_t wparam, CPoint pos) {
     CPoint top_left = this->rect.TopLeft();
     if ((this->close_rect + top_left).PtInRect(pos)) {
@@ -392,7 +391,7 @@ int32_t VisFameHall::OnLButtonUp(uint32_t wparam, CPoint pos) {
 }
 
 
-// 45D222
+// 45d222 (client: 460e52)
 void VisFameHall::VMethod28() {
     g_mousept.DisableHint();
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
@@ -409,7 +408,7 @@ void VisFameHall::VMethod28() {
 }
 
 
-// 45D57F
+// 45d57f (client: 4611af)
 int32_t VisFameHall::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     if (msg == VIS_MSG_FRAME_TICK) {
         this->CVisualObject::VMethod9();
@@ -418,7 +417,7 @@ int32_t VisFameHall::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
 }
 
 
-// 45D2D9
+// 45d2d9 (client: 460f09)
 void VisFameHall::DoClose(uint32_t code) {
     this->visible_flag = 0;
     this->FreeBitmaps();
@@ -430,31 +429,31 @@ void VisFameHall::DoClose(uint32_t code) {
 }
 
 
-// 45D5BE
+// 45d5be (client: 4611ee)
 int32_t VisFameHall::OnKeyDown(uint32_t wparam) {
     return this->VisScreen::OnKeyDown(wparam);
 }
 
 
-// 45D5D7
+// 45d5d7 (client: 461207)
 int32_t VisFameHall::OnChar(uint32_t wparam) {
     return this->CVisualObject::OnChar(wparam);
 }
 
 
-// 45DB50
+// 45db50 (client: 4616c0)
 const char* VisFameHall::GetHint() {
     return nullptr;
 }
 
 
-// 45DA6A
+// 45da6a (client: 461692)
 void VisFameHall::VMethod8(CRect* rect) {
     (void)rect;
 }
 
 
-// 45CFAE
+// 45cfae (client: 460bde)
 void VisFameHall::UpdateRects() {
     for (int32_t i = 0; i < this->name_rects.GetSize(); i++) {
         int32_t font_h = g_font4->GetHeight();
@@ -466,7 +465,7 @@ void VisFameHall::UpdateRects() {
 }
 
 
-// 45D32E
+// 45d32e (client: 460f5e)
 void VisFameHall::LoadBitmaps() {
     this->FreeBitmaps();
 #ifdef A2CLIENT_PATCH
@@ -480,7 +479,7 @@ void VisFameHall::LoadBitmaps() {
 }
 
 
-// 45D44A
+// 45d44a (client: 46107a)
 void VisFameHall::FreeBitmaps() {
     if (this->bmp_bkg != nullptr) {
         delete this->bmp_bkg;
@@ -498,34 +497,34 @@ void VisFameHall::FreeBitmaps() {
 }
 
 
-// 45D542
+// 45d542 (client: 461172)
 void VisFameHall::LoadSounds() {
     ReloadSfx(&this->snd_close, "SFX\\ChrGen\\Ok.wav");
 }
 
 
-// 45D563
+// 45d563 (client: 461193)
 void VisFameHall::FreeSounds() {
     FreeSfxSample(&this->snd_close);
 }
 
 
-// 45CD35
+// 45cd35 (client: 460965)
 VisFameHall::VisFameHall(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr) {
     this->VMethod26();
 }
 
 
-// 45CDE2 (complete dtor ??1; deleting dtor ??_G at 45DA90)
+// 45cde2 (client: 460a12) - body (??_G deleting dtor at 45DA90) - (complete dtor ??1; deleting dtor ??_G at 45DA90)
 VisFameHall::~VisFameHall() {
     this->FreeBitmaps();
     this->FreeSounds();
 }
 
 
+// 4abdab (client: 4afdbb)
 Fame2::Fame2() {
-    //4abdab
     this->doc_id = -1;
     this->is_text = 1;
     this->picture = nullptr;
@@ -534,8 +533,8 @@ Fame2::Fame2() {
     this->top_line = 0;
 }
 
+// 4ac27f (client: 4b028f)
 void Fame2::Clear() {
-    //4ac27f
     if (this->picture) {
         delete this->picture;
     }
@@ -545,26 +544,26 @@ void Fame2::Clear() {
     this->str_arr.RemoveAll();
 }
 
+// 4abf0f (client: 4aff1f)
 void Fame2::SetDocument(int32_t doc_id, uint32_t is_text) {
-    //4abf0f
     this->Clear();
     this->doc_id = doc_id;
     this->is_text = is_text;
 }
 
 
+// 4ad880 (client: 4b0ca0)
 int32_t Fame2::GetDocId() {
-    //4ad880
     return this->doc_id;
 }
 
+// 4ad890 (client: 4b0cb0)
 uint32_t Fame2::GetIsText() {
-    //4ad890
     return this->is_text;
 }
 
+// 4abd30 (client: 4afd40)
 void Fame2::operator=(const Fame2& b) {
-    //4abd30
     this->doc_id = b.doc_id;
     this->is_text = b.is_text;
     this->picture = b.picture;
@@ -574,7 +573,8 @@ void Fame2::operator=(const Fame2& b) {
     this->top_line = b.top_line;
 }
 
-bool Fame2::ScrollDown() { //4abf35
+// 4abf35 (client: 4aff45)
+bool Fame2::ScrollDown() {
     int32_t next = this->top_line + 0x15;
     if (next < this->str_arr.GetSize()) {
         this->top_line = next;
@@ -583,7 +583,8 @@ bool Fame2::ScrollDown() { //4abf35
     return false;
 }
 
-int32_t Fame2::ScrollUp() { //4abf72
+// 4abf72 (client: 4aff82)
+int32_t Fame2::ScrollUp() {
     if (this->top_line == 0) {
         return 0;
     }
@@ -594,7 +595,8 @@ int32_t Fame2::ScrollUp() { //4abf72
     return 1;
 }
 
-void Fame2::Draw(int32_t x, int32_t y) { //4abfb1
+// 4abfb1 (client: 4affc1)
+void Fame2::Draw(int32_t x, int32_t y) {
     if (this->is_text == 0) {
         if (this->picture) {
             this->picture->Draw(x + this->rect.left, y + this->rect.top, 0, 0, 0);
@@ -607,7 +609,8 @@ void Fame2::Draw(int32_t x, int32_t y) { //4abfb1
     g_font4->DrawTextLines(r, this->top_line, this->top_line + 0x15, this->str_arr, clr, 0);
 }
 
-void Fame2::LoadDocument() { //4ac0af
+// 4ac0af (client: 4b00bf)
+void Fame2::LoadDocument() {
     this->Clear();
     this->rect = CRect(CPoint(0x5c, 0x48), CSize(0x1c8, 0x158));
 
@@ -627,30 +630,30 @@ void Fame2::LoadDocument() { //4ac0af
     this->top_line = 0;
 }
 
+// 4ac2e3 (client: 4b02f3)
 CFameHall::CFameHall() {
-    //4ac2e3
     this->m_nTotalTime = 0;
     this->m_nDifficultyWeight = 0;
     this->m_nMaxEntries = 10;
 }
 
+// 4ac352 (client: 4b0362)
 CFameHall::~CFameHall() {
-    //4ac352
 }
 
+// 4ac3af (client: 4b03bf)
 void CFameHall::ZeroFactors() {
-    //4ac3af
     this->m_nTotalTime = 0;
     this->m_nDifficultyWeight = 0;
 }
 
+// 497270 (client: 499fd0)
 void CFameHall::SetDifficulty(uint32_t difficulty) {
-    //497270
     this->difficulty = difficulty;
 }
 
+// 4ac566 (client: 4b0576)
 uint32_t CFameHall::AddTextDocument(int32_t doc_id) {
-    //4ac566
     for (uint32_t i = 0; i < this->m_Documents.GetSize(); i++) {
         Fame2& fame = this->m_Documents[i];
         if (fame.GetDocId() == doc_id && fame.GetIsText() != 0) {
@@ -666,8 +669,8 @@ uint32_t CFameHall::AddTextDocument(int32_t doc_id) {
 }
 
 
+// 4acafa (client: 4b0b0a)
 void CFameHall::SeedDefaultEntries() {
-    //4acafa
     Fame1 fame;
     int32_t tval = 70000;
     for (int i = 0; i < 9; i++) {
@@ -684,7 +687,7 @@ void CFameHall::SeedDefaultEntries() {
 
 
 
-// 4ac839
+// 4ac839 (client: 4b0849) - save m_Entries to file
 void CFameHall::SaveEntries(CFile* file) {
     int32_t count = this->m_Entries.GetSize();
     file->Write(&count, 4);
@@ -701,8 +704,8 @@ void CFameHall::SaveEntries(CFile* file) {
     }
 }
 
+// 4ac945 (client: 4b0955)
 void CFameHall::LoadEntries(CFile* file) {
-    //4ac945
     uint32_t num;
     file->Read(&num, 4);
     
@@ -728,7 +731,8 @@ void CFameHall::LoadEntries(CFile* file) {
     }
 }
 
-void CFameHall::SaveDocuments(CFile* file) { //  4ac706
+// 4ac706 (client: 4b0716)
+void CFameHall::SaveDocuments(CFile* file) {
     int32_t num = this->m_Documents.GetSize();
     file->Write(&num, 4);
 
@@ -743,7 +747,8 @@ void CFameHall::SaveDocuments(CFile* file) { //  4ac706
     file->Write(&this->m_nDifficultyWeight, 4);
 }
 
-void CFameHall::LoadDocuments(CFile* file) { // 4ac7a2
+// 4ac7a2 (client: 4b07b2)
+void CFameHall::LoadDocuments(CFile* file) {
     int32_t cnt;
     file->Read(&cnt, 4);
     this->m_Documents.SetSize(cnt);
@@ -759,8 +764,8 @@ void CFameHall::LoadDocuments(CFile* file) { // 4ac7a2
 }
 
 
+// 4ac3ce (client: 4b03de)
 void CFameHall::AddEntry(const Fame1& fame) {
-    //4ac3ce
     if (this->m_Entries.GetSize() == 0) {
         this->m_Entries.Add(fame);
     } else {
@@ -782,12 +787,13 @@ void CFameHall::AddEntry(const Fame1& fame) {
     }
 }
 
+// 420050 (client: 420c80)
 void CFameHall::AddDifficultyPoint() {
-    //420050
     this->m_nDifficultyWeight++;
 }
 
-void CFameHall::SubmitScore() { //4ac498
+// 4ac498 (client: 4b04a8)
+void CFameHall::SubmitScore() {
     Fame1 fm;
     MainWindow *mwnd = (MainWindow*)AfxGetMainWnd();
     CUnit* unit = mwnd->vis_map_context->GetUnit_3f6c();

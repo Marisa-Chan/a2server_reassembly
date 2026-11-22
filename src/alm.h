@@ -67,9 +67,9 @@ public:
 
     virtual void Dump(CDumpContext& dc) const override; // 43c225 (client: 43e635)
 
-    uint32_t IsHostile(int32_t idx);  // client: 420640
-    int32_t IsMuted(int32_t idx);  // client: 420660
-    int32_t SharesVisionWithUs(int32_t idx);  // client: 420610
+    uint32_t IsHostile(int32_t idx); // 41ee20 (client: 420c30)
+    int32_t IsMuted(int32_t idx); // 41edf0 (client: 420c00)
+    int32_t SharesVisionWithUs(int32_t idx); // 41ee50 (client: 420610)
 };
 ASSERT_SIZE(MapPlayerData, 0x4c);
 
@@ -84,7 +84,7 @@ public:
     uint32_t exec_once_flag;
 
 public:
-    MapLogicData(); // 56E910 (client: 540a16)
+    MapLogicData(); // 56e910 (client: 540a16)
 };
 ASSERT_SIZE(MapLogicData, 0x31c);
 
@@ -108,7 +108,7 @@ public:
     uint32_t gold;
 
 public:
-    MapSackData(); // 56EAC7 (client: 540bcd)
+    MapSackData(); // 56eac7 (client: 540bcd)
 };
 ASSERT_SIZE(MapSackData, 0x4c);
 
@@ -139,7 +139,7 @@ public:
     CArray<MapEffectModifier> modifiers_data;
 
 public:
-    MapEffectData(); // 56ED8C (client: 540e09)
+    MapEffectData(); // 56ed8c (client: 540e09)
 };
 #pragma pack(pop)
 ASSERT_OFFSET(MapEffectData, type_id, 0x16);
@@ -302,8 +302,8 @@ public:
     CArray<MapUnitData*> units_datas;
 
 public:
-    MapAlm(const char* filename); // 5693A3 (client: 53ea3a)
-    ~MapAlm(); // 56D92A
+    MapAlm(const char* filename); // 5693a3 (client: 53ea3a)
+    ~MapAlm(); // 56d92a (client: 540449)
 };
 ASSERT_OFFSET(MapAlm, effects, 0x2fc);
 ASSERT_SIZE(MapAlm, 0x3b8);

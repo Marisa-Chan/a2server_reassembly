@@ -7,33 +7,33 @@
 //60c9b0
 class VisInvBase : public CVisualObject {
 public:
-    VisInvBase(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4a4938 (client: 4a8968)
+    VisInvBase(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); // 4a4938 (client: 4a8968)
 
-    virtual ~VisInvBase(); // 4A77D0 (client: 4ab830)
+    virtual ~VisInvBase(); // 4a4acc (client: 4a8afc)
     virtual const char* GetHint() override; // 4a4cf8 (client: 4a8d28)
-    virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 4A5DE0 (client: 4a9e0f)
-    virtual int32_t VMethod26(TokenEntry* o, int32_t idx); //4a554f (client: 4a957e)
-    virtual int32_t VMethod27(TokenEntry* o); //4a56c3 (client: 4a96f2)
-    virtual TokenEntry* VMethod28(uint32_t id); //4a57a1 (client: 4a97d0)
-    virtual TokenEntry* VMethod29(TokenEntry* o, int32_t num); //4a58dc (client: 4a990b)
-    virtual int32_t VMethod30(int32_t x, int32_t y); //4a79a0 (client: 4ab800)
-    virtual int32_t VMethod31(const CPoint* pt); //4a7990 (client: 4ab810)
-    virtual void VMethod32(CArray<TokenEntry*>* arr); //4a4da9 (client: 4a8dd9)
-    virtual void VMethod33(CGameObject* uni); //4a4d05 (client: 4a8d35)
-    virtual void VMethod34(); //4a4e28 (client: 4a8e58)
-    virtual void VMethod35(); //4a4c2f (client: 4a8c5f)
-    virtual TokenEntry* VMethod36(int32_t idx, int32_t num); //4a5aae (client: 4a9add)
-    virtual int32_t VMethod37(int32_t idx); //4a5c39 (client: 4a9c68)
-    virtual int32_t VMethod38(); //4a79b0 (client: 4ab820)
+    virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 4a5de0 (client: 4a9e0f)
+    virtual int32_t VMethod26(TokenEntry* o, int32_t idx); // 4a554f (client: 4a957e)
+    virtual int32_t VMethod27(TokenEntry* o); // 4a56c3 (client: 4a96f2)
+    virtual TokenEntry* VMethod28(uint32_t id); // 4a57a1 (client: 4a97d0)
+    virtual TokenEntry* VMethod29(TokenEntry* o, int32_t num); // 4a58dc (client: 4a990b)
+    virtual int32_t VMethod30(int32_t x, int32_t y); // 4a79a0 (client: 4ab810)
+    virtual int32_t VMethod31(const CPoint* pt); // 4a7990 (client: 4ab800)
+    virtual void VMethod32(CArray<TokenEntry*>* arr); // 4a4da9 (client: 4a8dd9)
+    virtual void VMethod33(CGameObject* uni); // 4a4d05 (client: 4a8d35)
+    virtual void VMethod34(); // 4a4e28 (client: 4a8e58)
+    virtual void VMethod35(); // 4a4c2f (client: 4a8c5f)
+    virtual TokenEntry* VMethod36(int32_t idx, int32_t num); // 4a5aae (client: 4a9add)
+    virtual int32_t VMethod37(int32_t idx); // 4a5c39 (client: 4a9c68)
+    virtual int32_t VMethod38(); // 4a79b0 (client: 4ab820)
 
-    int32_t GetVisibleStart(); //46fb90 (client: 472fd0)
-    int32_t HasAnimatingCells(); //41f940 (client: 4207b0)
-    void RefreshCellSprites(); //4a4ebc (client: 4a8eec)
-    void InitGlowOffsets(); //4a4bcb (client: 4a8bfb)
-    void ScrollCellsBack(); //4a5350 (client: 4a937f) in asm
-    void ScrollCellsForward(); //4a51c9 (client: 4a91f8) in asm
-    void TickCellAnims(); //4a5e12 (client: 4a9e41) in asm
-    void DrawGlowTrail(int32_t x, int32_t y, int32_t idx); //4a5fab (client: 4a9fda) in asm
+    int32_t GetVisibleStart(); // 46fb90 (client: 472fd0)
+    int32_t HasAnimatingCells(); // 41f940 (client: 4207b0)
+    void RefreshCellSprites(); // 4a4ebc (client: 4a8eec)
+    void InitGlowOffsets(); // 4a4bcb (client: 4a8bfb)
+    void ScrollCellsBack(); // 4a5350 (client: 4a937f)
+    void ScrollCellsForward(); // 4a51c9 (client: 4a91f8)
+    void TickCellAnims(); // 4a5e12 (client: 4a9e41)
+    void DrawGlowTrail(int32_t x, int32_t y, int32_t idx); // 4a5fab (client: 4a9fda)
 
 public:
     CArray<CSprite256*> spr_cells;
@@ -52,7 +52,7 @@ ASSERT_SIZE(VisInvBase, 0x20ac);
 //60ca60
 class VisInvType1 : public VisInvBase {
 public:
-    virtual ~VisInvType1(); // 4A7830 (client: 4aba40)
+    virtual ~VisInvType1(); // 4a7830 (client: 4aba40)
 #ifdef A2CLIENT_PATCH
     // Tangar pack_scrolling (PSCRL_gameInventory, client vtable slot 0x5D8BAC):
     // the retail class inherits CVisualObject::OnKeyDown; the patched client
@@ -60,24 +60,24 @@ public:
     virtual int32_t OnKeyDown(uint32_t wparam) override;
 #endif
 
-    virtual const char* GetHint() override; // 4A765D (client: 4ab68b)
-    virtual void VMethod7() override; // 4A6449 (client: 4aa478)
-    virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 4A7441 (client: 4ab46f)
-    virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 4A716F (client: 4ab19d)
-    virtual int32_t OnWmUser(uint32_t wparam, CPoint pos) override; // 4A741D (client: 4ab44b)
-    virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 4A6E57 (client: 4aae86)
-    virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 4A70EC (client: 4ab11a)
-    virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos) override; // 4A6F44 (client: 4aaf73)
+    virtual const char* GetHint() override; // 4a765d (client: 4ab68b)
+    virtual void VMethod7() override; // 4a6449 (client: 4aa478)
+    virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 4a7441 (client: 4ab46f)
+    virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 4a716f (client: 4ab19d)
+    virtual int32_t OnWmUser(uint32_t wparam, CPoint pos) override; // 4a741d (client: 4ab44b)
+    virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 4a6e57 (client: 4aae86)
+    virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 4a70ec (client: 4ab11a)
+    virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos) override; // 4a6f44 (client: 4aaf73)
     virtual int32_t OnRButtonDown(uint32_t wparam, CPoint pos) override; // 4a6f32 (client: 4aaf61)
     virtual int32_t OnRButtonUp(uint32_t wparam, CPoint pos) override; // 4a715d (client: 4ab18b)
     virtual int32_t OnRButtonDblClk(uint32_t wparam, CPoint pos) override; // 4a70da (client: 4ab108)
 
-    virtual int32_t VMethod26(TokenEntry* o, int32_t idx) override; // 4A79F0 (client: 4ab9d0)
-    virtual int32_t VMethod27(TokenEntry* o) override; // 4A79C0 (client: 4ab9a0)
-    virtual int32_t VMethod30(int32_t x, int32_t y) override; // 4A6D11 (client: 4aad40)
+    virtual int32_t VMethod26(TokenEntry* o, int32_t idx) override; // 4a79f0 (client: 4ab9d0)
+    virtual int32_t VMethod27(TokenEntry* o) override; // 4a79c0 (client: 4ab9a0)
+    virtual int32_t VMethod30(int32_t x, int32_t y) override; // 4a6d11 (client: 4aad40)
     virtual int32_t VMethod38() override; // 4a7a20 (client: 4aba00)
 
-    VisInvType1(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4a630b (client: 4aa33a) in asm
+    VisInvType1(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); // 4a630b (client: 4aa33a)
 
 public:
 };
@@ -86,36 +86,36 @@ ASSERT_SIZE(VisInvType1, 0x20ac);
 //60d0e8
 class VisInvExtBase : public VisInvBase {
 public:
-    VisInvExtBase(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); //4b4a0c (client: 4b93dc) in asm
-    virtual ~VisInvExtBase(); // 4B4AEC (client: 4b94bc)
+    VisInvExtBase(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); // 4b4a0c (client: 4b93dc)
+    virtual ~VisInvExtBase(); // 4b4aec (client: 4b94bc)
 
-    virtual const char* GetHint() override; // 4B4C64 (client: 4b9634)
-    virtual void VMethod7() override; // 4B5072 (client: 4b9a42)
-    virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 4B5BBE (client: 4ba58d)
-    virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 4B5D19 (client: 4ba6e8)
-    virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 4B5D5C (client: 4ba72b)
-    virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos) override; // 4B5F3F (client: 4ba90d)
+    virtual const char* GetHint() override; // 4b4c64 (client: 4b9634)
+    virtual void VMethod7() override; // 4b5072 (client: 4b9a42)
+    virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 4b5bbe (client: 4ba58d)
+    virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 4b5d19 (client: 4ba6e8)
+    virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 4b5d5c (client: 4ba72b)
+    virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos) override; // 4b5f3f (client: 4ba90d)
     virtual int32_t OnRButtonDown(uint32_t wparam, CPoint pos) override; // 4b62a2 (client: 4bac6c)
     virtual int32_t OnRButtonUp(uint32_t wparam, CPoint pos) override; // 4b62b4 (client: 4bac7e)
     virtual int32_t OnRButtonDblClk(uint32_t wparam, CPoint pos) override; // 4b62c6 (client: 4bac90)
 
-    virtual int32_t VMethod30(int32_t x, int32_t y) override; // 4B4FA3 (client: 4b9973)
-    virtual int32_t VMethod31(const CPoint* pt) override; // 4B4E88 (client: 4b9858)
-    virtual void VMethod32(CArray<TokenEntry*>* arr) override;  // client: 4b9761
-    virtual int32_t VMethod38() override;  // client: 4be810
+    virtual int32_t VMethod30(int32_t x, int32_t y) override; // 4b4fa3 (client: 4b9973)
+    virtual int32_t VMethod31(const CPoint* pt) override; // 4b4e88 (client: 4b9858)
+    virtual void VMethod32(CArray<TokenEntry*>* arr) override; // 4b4d91 (client: 4b9761)
+    virtual int32_t VMethod38() override; // 4b9e40 (client: 4be810)
 
-    virtual void VMethod39();  // client: 4be800
-    virtual void VMethod40(CArray<TokenEntry*>* arr);  // client: 4b977a
-    virtual void VMethod41();  // client: 4be820
-    virtual void VMethod42();  // client: 4be830
+    virtual void VMethod39(); // 4b9e30 (client: 4be800)
+    virtual void VMethod40(CArray<TokenEntry*>* arr); // 4b4daa (client: 4b977a)
+    virtual void VMethod41(); // 4b9e50 (client: 4be820)
+    virtual void VMethod42(); // 4b9e60 (client: 4be830)
 
-    int32_t EndItemDrag(); //4b5b81 (client: 4ba550) in asm
-    int32_t StartItemDrag(int32_t idx); //4b5a6c (client: 4ba43b) in asm
-    void FreeSpeechSfx(); //4b4ba9 (client: 461193) in asm
-    void FreeGridSfx(); //4b4c1c (client: 4b95ec)
-    void LoadGridSfx(); //4b4bc5 (client: 4b9595)
-    void RefreshGrid(); //4b4d33 (client: 4b9703)
-    void ClampVisibleStart(); //4b4fd1 (client: 4b99a1)
+    int32_t EndItemDrag(); // 4b5b81 (client: 4ba550)
+    int32_t StartItemDrag(int32_t idx); // 4b5a6c (client: 4ba43b)
+    void FreeSpeechSfx(); // 4b4ba9 (client: 4b9579)
+    void FreeGridSfx(); // 4b4c1c (client: 4b95ec)
+    void LoadGridSfx(); // 4b4bc5 (client: 4b9595)
+    void RefreshGrid(); // 4b4d33 (client: 4b9703)
+    void ClampVisibleStart(); // 4b4fd1 (client: 4b99a1)
 
 public:
     VisShop* shop;
@@ -131,35 +131,35 @@ ASSERT_SIZE(VisInvExtBase, 0x20c8);
 //60d1a8
 class VisInvExtType1 : public VisInvExtBase {
 public:
-    virtual ~VisInvExtType1(); // 4B9CB0 (client: 4be680)
+    virtual ~VisInvExtType1(); // 4b6522 (client: 4baeec)
 
-    virtual const char* GetHint() override; // 4B6F8D (client: 4bb957)
-    virtual void VMethod7() override; // 4B70C0 (client: 4bba8a)
+    virtual const char* GetHint() override; // 4b6f8d (client: 4bb957)
+    virtual void VMethod7() override; // 4b70c0 (client: 4bba8a)
 
-    virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 4B7690 (client: 4bc05a)
-    virtual int32_t OnWmUser(uint32_t wparam, CPoint pos) override; // 4B7433 (client: 4bbdfd)
-    virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 4B7562 (client: 4bbf2c)
+    virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 4b7690 (client: 4bc05a)
+    virtual int32_t OnWmUser(uint32_t wparam, CPoint pos) override; // 4b7433 (client: 4bbdfd)
+    virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 4b7562 (client: 4bbf2c)
     virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 4b7412 (client: 4bbddc)
-    virtual int32_t OnKeyDown(uint32_t wparam) override; // 4B777C (client: 4bc146)
+    virtual int32_t OnKeyDown(uint32_t wparam) override; // 4b777c (client: 4bc146)
 
-    virtual int32_t VMethod26(TokenEntry* o, int32_t idx) override; // 4B790D (client: 4bc2d7)
-    virtual TokenEntry* VMethod29(TokenEntry* o, int32_t num) override; // 4B7A9F (client: 4bc469)
+    virtual int32_t VMethod26(TokenEntry* o, int32_t idx) override; // 4b790d (client: 4bc2d7)
+    virtual TokenEntry* VMethod29(TokenEntry* o, int32_t num) override; // 4b7a9f (client: 4bc469)
 
-    virtual int32_t VMethod37(int32_t idx) override;  // client: 4bc6e6
-    virtual int32_t VMethod38() override;  // client: 4be840
-    virtual void VMethod39() override;  // client: 4bb710
+    virtual int32_t VMethod37(int32_t idx) override; // 4b7d1c (client: 4bc6e6)
+    virtual int32_t VMethod38() override; // 4b9e70 (client: 4be840)
+    virtual void VMethod39() override; // 4b6d46 (client: 4bb710)
 
-    virtual void VMethod41() override;  // client: 4bb006
-    virtual void VMethod42() override;  // client: 4bb591
+    virtual void VMethod41() override; // 4b663c (client: 4bb006)
+    virtual void VMethod42() override; // 4b6bc7 (client: 4bb591)
 
-    void ClearCategoryGrids(); //4b7859 (client: 4bc223)
-    void SelectCategoryGrid(int32_t category); //4b73e4 (client: 4bbdae)
-    void DrawUpArrowHover(); //4b7264 (client: 4bbc2e) in asm
-    void DrawUpArrowIdle(); //4b72c1 (client: 4bbc8b) in asm
-    void DrawDownArrowHover(); //4b731e (client: 4bbce8) in asm
-    void DrawDownArrowIdle(); //4b7381 (client: 4bbd4b) in asm
+    void ClearCategoryGrids(); // 4b7859 (client: 4bc223)
+    void SelectCategoryGrid(int32_t category); // 4b73e4 (client: 4bbdae)
+    void DrawUpArrowHover(); // 4b7264 (client: 4bbc2e)
+    void DrawUpArrowIdle(); // 4b72c1 (client: 4bbc8b)
+    void DrawDownArrowHover(); // 4b731e (client: 4bbce8)
+    void DrawDownArrowIdle(); // 4b7381 (client: 4bbd4b)
 
-    VisInvExtType1(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); //4b63f7 (client: 4badc1) in asm
+    VisInvExtType1(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); // 4b63f7 (client: 4badc1)
 
 public:
     int32_t gap_0x20c8; //unk type
@@ -177,46 +177,46 @@ ASSERT_SIZE(VisInvExtType1, 0x2150);
 //60d910
 class VisInvExtType1Kaarg : public VisInvExtType1 {
 public:
-    virtual void VMethod41() override; //4b69ee (client: 4bb3b8) in asm
+    virtual void VMethod41() override; // 4b69ee (client: 4bb3b8)
 
-    VisInvExtType1Kaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); //4c6cd0 (client: 4cb670) in asm
+    VisInvExtType1Kaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); // 4c6cd0 (client: 4cb670)
 };
 ASSERT_SIZE(VisInvExtType1Kaarg, 0x2150);
 
 //60d850
 class VisInvExtType1Druid : public VisInvExtType1 {
 public:
-    virtual void VMethod41() override; //4b6815 (client: 4bb1df) in asm
+    virtual void VMethod41() override; // 4b6815 (client: 4bb1df)
 
-    VisInvExtType1Druid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); //4c6c40 (client: 4cb5e0) in asm
+    VisInvExtType1Druid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); // 4c6c40 (client: 4cb5e0)
 };
 ASSERT_SIZE(VisInvExtType1Druid, 0x2150);
 
 //60d268
 class VisInvExtType2 : public VisInvExtBase {
 public:
-    virtual ~VisInvExtType2(); // 4B9CE0 (client: 4be6b0)
+    virtual ~VisInvExtType2(); // 4b80d9 (client: 4bcaa3)
 
-    virtual const char* GetHint() override; // 4B8339 (client: 4bcd03)
-    virtual void VMethod7() override; // 4B846C (client: 4bce36)
+    virtual const char* GetHint() override; // 4b8339 (client: 4bcd03)
+    virtual void VMethod7() override; // 4b846c (client: 4bce36)
 
-    virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 4B88EC (client: 4bd2b6)
-    virtual int32_t OnWmUser(uint32_t wparam, CPoint pos) override; // 4B877A (client: 4bd144)
-    virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 4B87CE (client: 4bd198)
+    virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 4b88ec (client: 4bd2b6)
+    virtual int32_t OnWmUser(uint32_t wparam, CPoint pos) override; // 4b877a (client: 4bd144)
+    virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 4b87ce (client: 4bd198)
     virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 4b87ad (client: 4bd177)
 
-    virtual int32_t VMethod26(TokenEntry* o, int32_t idx) override; // 4B9ED0 (client: 4be8a0)
-    virtual int32_t VMethod27(TokenEntry* o) override; // 4B9EA0 (client: 4be870)
+    virtual int32_t VMethod26(TokenEntry* o, int32_t idx) override; // 4b9ed0 (client: 4be8a0)
+    virtual int32_t VMethod27(TokenEntry* o) override; // 4b9ea0 (client: 4be870)
 
-    virtual int32_t VMethod38() override;  // client: 4be8d0
-    virtual void VMethod39() override;  // client: 4bcacc
+    virtual int32_t VMethod38() override; // 4b9f00 (client: 4be8d0)
+    virtual void VMethod39() override; // 4b8102 (client: 4bcacc)
 
-    void DrawUpArrowHover(); //4b860e (client: 4bcfd8) in asm
-    void DrawUpArrowIdle(); //4b8666 (client: 4bd030) in asm
-    void DrawDownArrowHover(); //4b86be (client: 4bd088) in asm
-    void DrawDownArrowIdle(); //4b871c (client: 4bd0e6) in asm
+    void DrawUpArrowHover(); // 4b860e (client: 4bcfd8)
+    void DrawUpArrowIdle(); // 4b8666 (client: 4bd030)
+    void DrawDownArrowHover(); // 4b86be (client: 4bd088)
+    void DrawDownArrowIdle(); // 4b871c (client: 4bd0e6)
 
-    VisInvExtType2(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); //4b7fe5 (client: 4bc9af) in asm
+    VisInvExtType2(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); // 4b7fe5 (client: 4bc9af)
 public:
     int32_t gap_0x20c8; //unk type
     CRect up_arrow_rect;
@@ -227,35 +227,35 @@ ASSERT_SIZE(VisInvExtType2, 0x20ec);
 //60d328
 class VisInvExtType3 : public VisInvExtBase {
 public:
-    virtual ~VisInvExtType3(); // 4B9D10 (client: 4be6e0)
+    virtual ~VisInvExtType3(); // 4b8cc5 (client: 4bd68f)
 
-    virtual const char* GetHint() override; // 4B90CF (client: 4bda99)
-    virtual void VMethod7() override; // 4B9155 (client: 4bdb1f)
+    virtual const char* GetHint() override; // 4b90cf (client: 4bda99)
+    virtual void VMethod7() override; // 4b9155 (client: 4bdb1f)
 
-    virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 4B92F9 (client: 4bdcc3)
+    virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 4b92f9 (client: 4bdcc3)
 
     virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 4b93ae (client: 4bdd78)
-    virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 4B93CF (client: 4bdd99)
+    virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 4b93cf (client: 4bdd99)
     virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos) override; // 4b9436 (client: 4bde00)
 
-    virtual int32_t VMethod26(TokenEntry* o, int32_t idx) override; // 4B9457 (client: 4bde21)
-    virtual int32_t VMethod27(TokenEntry* o) override; // 4B949A (client: 4bde64)
+    virtual int32_t VMethod26(TokenEntry* o, int32_t idx) override; // 4b9457 (client: 4bde21)
+    virtual int32_t VMethod27(TokenEntry* o) override; // 4b949a (client: 4bde64)
 
-    virtual TokenEntry* VMethod36(int32_t idx, int32_t num) override;  // client: 4be606
-    virtual int32_t VMethod37(int32_t idx) override;  // client: 4be15a
-    virtual int32_t VMethod38() override;  // client: 4be8e0
-    virtual void VMethod39() override;  // client: 4bd864
+    virtual TokenEntry* VMethod36(int32_t idx, int32_t num) override; // 4b9c3c (client: 4be606)
+    virtual int32_t VMethod37(int32_t idx) override; // 4b9790 (client: 4be15a)
+    virtual int32_t VMethod38() override; // 4b9f10 (client: 4be8e0)
+    virtual void VMethod39() override; // 4b8e9a (client: 4bd864)
 
-    virtual void VMethod41() override;  // client: 4bd70d
-    virtual void VMethod42() override;  // client: 4bd80d
+    virtual void VMethod41() override; // 4b8d43 (client: 4bd70d)
+    virtual void VMethod42() override; // 4b8e43 (client: 4bd80d)
 
-    virtual TokenEntry* VMethod43(int32_t id1, int32_t id2);  // client: 4bdf8f
+    virtual TokenEntry* VMethod43(int32_t id1, int32_t id2); // 4b95c5 (client: 4bdf8f)
 
-    int32_t IsBuyGridFull(TokenEntry* entry); //4b91f9 (client: 4bdbc3) in asm
-    VisInvExtType3(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); //4b8bba (client: 4bd584) in asm
+    int32_t IsBuyGridFull(TokenEntry* entry); // 4b91f9 (client: 4bdbc3)
+    VisInvExtType3(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); // 4b8bba (client: 4bd584)
 
-    void ClearBuyEntries(); //4b970e (client: 4be0d8)
-    int32_t DropDraggedItem(int32_t idx); //4b9b2f (client: 4be4f9) in asm
+    void ClearBuyEntries(); // 4b970e (client: 4be0d8)
+    int32_t DropDraggedItem(int32_t idx); // 4b9b2f (client: 4be4f9)
 public:
     int32_t gap_0x20c8; //unk type
     CRect up_arrow_rect;
@@ -269,32 +269,32 @@ ASSERT_SIZE(VisInvExtType3, 0x2108);
 // VTable at 60da00
 class VisSpellBook : public CVisualObject {
 public:
-    virtual ~VisSpellBook(); // 4CB020 (client: 4cf9a0)
+    virtual ~VisSpellBook(); // 4cb050 (client: 4cf9d0)
 
-    virtual const char* GetHint() override; // 4C9A6F (client: 4ce3ff)
-    virtual void VMethod7() override; // 4CA2A1 (client: 4cec31)
-    virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 4CAAD7 (client: 4cf465)
-    virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 4CAF8C (client: 4cf912)
-    virtual int32_t OnWmUser(uint32_t wparam, CPoint pos) override; // 4CAFF5 (client: 4cf97b)
-    virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 4CAD6A (client: 4cf6f0)
-    virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 4CAEA6 (client: 4cf82c)
-    virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos) override; // 4CADEE (client: 4cf774)
-    virtual int32_t OnRButtonDown(uint32_t wparam, CPoint pos) override; // 4CADD2 (client: 4cf758)
-    virtual int32_t OnRButtonUp(uint32_t wparam, CPoint pos) override; // 4CAF70 (client: 4cf8f6)
+    virtual const char* GetHint() override; // 4c9a6f (client: 4ce3ff)
+    virtual void VMethod7() override; // 4ca2a1 (client: 4cec31)
+    virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 4caad7 (client: 4cf465)
+    virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 4caf8c (client: 4cf912)
+    virtual int32_t OnWmUser(uint32_t wparam, CPoint pos) override; // 4caff5 (client: 4cf97b)
+    virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 4cad6a (client: 4cf6f0)
+    virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 4caea6 (client: 4cf82c)
+    virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos) override; // 4cadee (client: 4cf774)
+    virtual int32_t OnRButtonDown(uint32_t wparam, CPoint pos) override; // 4cadd2 (client: 4cf758)
+    virtual int32_t OnRButtonUp(uint32_t wparam, CPoint pos) override; // 4caf70 (client: 4cf8f6)
     virtual int32_t OnRButtonDblClk(uint32_t wparam, CPoint pos) override; // 4cae94 (client: 4cf81a)
-    virtual int32_t OnKeyDown(uint32_t wparam) override; // 4CAC9B (client: 4cf621)
+    virtual int32_t OnKeyDown(uint32_t wparam) override; // 4cac9b (client: 4cf621)
 
-    void ClearSpellSelection(); // client: 4cf3f7 (client: 4cf3f7)
+    void ClearSpellSelection(); // 4caa69 (client: 4cf3f7)
 
-    int32_t HitTestSpellCell(CPoint* pos); //4ca7c2 (client: 4cf150) in asm
-    void SelectScrollEntry(int32_t idx); //4ca925 (client: 4cf2b3) in asm
-    int32_t IsSpellAvailable(int32_t id); //4ca89b (client: 4cf229)
-    int32_t IsSpellEffectActive(int32_t id); //4ca8e0 (client: 4cf26e)
-    int32_t GetActiveSlot(); //41f9b0 (client: 4208e0)
-    int32_t HasSelectedSpell(); //41f9e0 (client: 420910)
-    int32_t NeedsUnitTarget(); //4caaa7 (client: 4cf435)
+    int32_t HitTestSpellCell(CPoint* pos); // 4ca7c2 (client: 4cf150)
+    void SelectScrollEntry(int32_t idx); // 4ca925 (client: 4cf2b3)
+    int32_t IsSpellAvailable(int32_t id); // 4ca89b (client: 4cf229)
+    int32_t IsSpellEffectActive(int32_t id); // 4ca8e0 (client: 4cf26e)
+    int32_t GetActiveSlot(); // 41f9b0 (client: 4208e0)
+    int32_t HasSelectedSpell(); // 41f9e0 (client: 420910)
+    int32_t NeedsUnitTarget(); // 4caaa7 (client: 4cf435)
 
-    VisSpellBook(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4c99c7 (client: 4ce357)
+    VisSpellBook(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); // 4c99c7 (client: 4ce357)
 
 public:
     int32_t dirty;

@@ -6,6 +6,7 @@
 #include <cstring>
 
 // 5A4F6E - GroupSub constructor
+// 5a4f6e (client: 5730de)
 GroupSub::GroupSub() {
     // Clear the entire structure to zeroes.
     memset(this, 0, sizeof(GroupSub));
@@ -16,15 +17,15 @@ GroupSub::GroupSub() {
     this->list = new CList<uint16_t>();
 }
 
+// 5a500c (client: 57317c)
 GroupSub::~GroupSub() {
-    //5a500c
     if (this->list) {
         delete this->list;
     }
 }
 
+// 5b0429 (client: 57e599)
 void GroupSub::Serialize(CArchive& ar) {
-    //5b0429
     if (ar.IsLoading()) {
         ar.Read(this, 0x50);
         this->list = new CList<uint16_t>();
@@ -39,6 +40,7 @@ void GroupSub::Serialize(CArchive& ar) {
 
 
 // 554D9E - Group constructor
+// 554d9e (client: 534b65) - Constructor
 Group::Group() {
     this->saved_ptr = 0;
     this->owner = nullptr;
@@ -48,8 +50,8 @@ Group::Group() {
     this->group_sub = new GroupSub();
 }
 
+// 554eea (client: 534c21)
 Group::~Group() {
-    //554eea
     while (!this->unit_list.IsEmpty()) {
         Unit* unit = this->unit_list.RemoveHead();
         if (unit) {
@@ -63,8 +65,8 @@ Group::~Group() {
 }
 
 
+// 55c94d (client: 537654)
 void Group::Serialize(CArchive& ar) {
-    //55c94d
     this->some_list.Serialize(ar);
     this->group_sub->Serialize(ar);
 
@@ -106,8 +108,8 @@ void Group::Serialize(CArchive& ar) {
 }
 
 
+// 5552e6 (client: 534cf4) - Remove unit from group
 void Group::RemoveUnit(Unit* unit) {
-    //5552e6
     POSITION pos = this->unit_list.Find(unit);
     if (pos != NULL) {
         this->unit_list.RemoveAt(pos);
@@ -116,8 +118,8 @@ void Group::RemoveUnit(Unit* unit) {
     unit->group = nullptr;
 }
 
+// 555176 (client: 534cae) - Add unit to group
 void Group::AddUnit(Unit* unit) {
-    //555176
     if (unit->group) {
         unit->group->RemoveUnit(unit);
     }
@@ -129,7 +131,7 @@ void Group::AddUnit(Unit* unit) {
 }
 
 
-// 599F00
+// 599f00 (client: 569210) - Avoid it, use `unit_list.GetHead()` instead.
 Unit* Group::GetHeadUnit() {
     if (this->unit_list.IsEmpty()) {
         return nullptr;
@@ -138,7 +140,7 @@ Unit* Group::GetHeadUnit() {
 }
 
 
-// 599F20
+// 599f20 (client: 547970) - Avoid it, use `unit_list.GetNext()` instead (this method is O(N) for no reason).
 Unit* Group::GetNextUnit(Unit* unit) {
     POSITION it = this->unit_list.Find(unit);
     if (it == nullptr) {
@@ -155,20 +157,20 @@ Unit* Group::GetNextUnit(Unit* unit) {
 
 
 
+// 5555f2 (client: 534d7b)
 GroupList::GroupList() {
-    //5555f2
 }
 
+// 555874 (client: 534e74)
 GroupList::~GroupList() {
-    //555874
     while (this->groups.GetCount()) {
         Group* grp = this->groups.RemoveHead();
         delete grp;
     }
 }
 
+// 55564e (client: 534d91)
 Group* GroupList::AllocGroup() {
-    //55564e
     
     POSITION pos = this->groups.GetHeadPosition();
     while (pos != NULL) {
@@ -188,7 +190,7 @@ Group* GroupList::AllocGroup() {
 
 
 
-// 558BE1
+// 558be1 (client: 536115)
 void GroupList::Serialize(CArchive& ar) {
     if (ar.IsStoring()) {
         int32_t count = this->groups.GetCount();

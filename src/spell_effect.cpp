@@ -11,8 +11,8 @@
 #include "unit.h"
 #include "world.h"
 
-// 5365AB
 // Distance between two TokenPos positions in sub-cell units.
+// 5365ab (client: 5206ea)
 uint32_t __cdecl CalcWalkDist(TokenPos* a, TokenPos* b) {
     int32_t dx = a->GetXx() - b->GetXx();
     int32_t dy = a->GetYy() - b->GetYy();
@@ -104,7 +104,7 @@ const int32_t g_AcidWaveB[6][41] = {
 // 636488
 IMPLEMENT_SERIAL(SpellEffect, Token, 1);
 
-// 537371
+// 537371 (client: 5213ba)
 SpellEffect::SpellEffect() : Token() {
     this->typeId = 0;
     this->caster = nullptr;
@@ -115,7 +115,7 @@ SpellEffect::SpellEffect() : Token() {
     this->notified_mask = 0;
 }
 
-// 5373CC
+// 5373cc (client: 521415)
 SpellEffect::SpellEffect(const TokenPos* pos) : Token(pos) {
     this->typeId = 0;
     this->caster = nullptr;
@@ -126,10 +126,10 @@ SpellEffect::SpellEffect(const TokenPos* pos) : Token(pos) {
     this->notified_mask = 0;
 }
 
-// 57c080
+// 57c080 (client: 54ccd0)
 SpellEffect::~SpellEffect() {}
 
-// 53E44A
+// 53e44a (client: 5263a1)
 void SpellEffect::Serialize(CArchive& ar) {
     Token::Serialize(ar);
     if (ar.IsStoring()) {
@@ -141,17 +141,17 @@ void SpellEffect::Serialize(CArchive& ar) {
     }
 }
 
-// 53742d
+// 53742d (client: 521476)
 void SpellEffect::ProcessEffects() {}
 
-// 537438
+// 537438 (client: 521481)
 void SpellEffect::ExpireOnUnit(Unit* /*unit*/) {}
 
 
 // 6364A0
 IMPLEMENT_SERIAL(PointEffect, SpellEffect, 1);
 
-// 5375A4
+// 5375a4 (client: 5215ea)
 void PointEffect::FinishHit() {
     // Clean up effect caster if caster has no owner.
     if (this->effect != nullptr && this->effect->caster != nullptr && this->effect->caster->pOwner == nullptr) {
@@ -192,26 +192,26 @@ void PointEffect::FinishHit() {
     this->expired = 1;
 }
 
-// 5374FC
+// 5374fc (client: 521542)
 PointEffect::PointEffect() : SpellEffect() {
     this->target = nullptr;
     this->effect = nullptr;
 }
 
-// 53752F
+// 53752f (client: 521575)
 PointEffect::PointEffect(Effect* effect, Unit* target) : SpellEffect() {
     this->target = target;
     this->effect = effect;
     *this->position = *target->position;
 }
 
-// 537703
+// 537703 (client: 521741)
 PointEffect::~PointEffect() {
     delete this->effect;
     this->effect = nullptr;
 }
 
-// 53E6D4
+// 53e6d4 (client: 5264d1)
 void PointEffect::Serialize(CArchive& ar) {
     SpellEffect::Serialize(ar);
 
@@ -231,12 +231,12 @@ void PointEffect::Serialize(CArchive& ar) {
     }
 }
 
-// 57C0A0
+// 57c0a0 (client: 54ccf0)
 void PointEffect::ProcessEffects() {
     this->FinishHit();
 }
 
-// 53E7F2
+// 53e7f2 (client: 52654d)
 void PointEffect::FixupPointers() {
     Token::FixupPointers();
     if (this->effect != nullptr) {
@@ -245,12 +245,12 @@ void PointEffect::FixupPointers() {
 }
 
 
-// 5382FB
+// 5382fb (client: 522300)
 void AreaEffect::ExpireOnUnit(Unit* unit) {
     this->effect->RemoveFromUnit(unit);
 }
 
-// 53831D
+// 53831d (client: 522322)
 void AreaEffect::DamageUnit(Unit* unit) {
     if (unit == nullptr || this->itemDataID == spell::wall_of_earth) {
         return;
@@ -297,7 +297,7 @@ void AreaEffect::DamageUnit(Unit* unit) {
     }
 }
 
-// 537C8C
+// 537c8c (client: 521cc5)
 void AreaEffect::ApplyDistribution() {
     if (g_GameDataRes.spells[this->itemDataID].Values()[0].distribution == Spell::DIST_LONG_WALL) {
         this->ApplyWaveDistribution();
@@ -306,7 +306,7 @@ void AreaEffect::ApplyDistribution() {
     }
 }
 
-// 538897
+// 538897 (client: 52286a) - Map area-effect layer index from effect type.
 uint32_t AreaEffect::GetLayerIndex() const {
     switch (this->itemDataID) {
     case spell::wall_of_fire:
@@ -325,7 +325,7 @@ uint32_t AreaEffect::GetLayerIndex() const {
     }
 }
 
-// 53822C
+// 53822c (client: 522235)
 void AreaEffect::ApplyRadiusRing() {
     uint8_t x = this->position->GetX();
     uint8_t y = this->position->GetY();
@@ -339,7 +339,7 @@ void AreaEffect::ApplyRadiusRing() {
     this->zone_active = 0;
 }
 
-// 5384FF
+// 5384ff (client: 5224fa)
 void AreaEffect::BroadcastAndApply() {
     g_NetStru1_main.SendAreaEffect(this, 1);
 
@@ -366,7 +366,7 @@ void AreaEffect::BroadcastAndApply() {
     this->expired = 1;
 }
 
-// 538137
+// 538137 (client: 522160)
 void AreaEffect::ApplyAtCell(uint8_t x, uint8_t y, bool spread_damage) {
     uint16_t yx = PosYX(x, y).val;
     Unit* unit = MapStuff_Instance->GetBuildingUnitAt(x, y);
@@ -388,7 +388,7 @@ void AreaEffect::ApplyAtCell(uint8_t x, uint8_t y, bool spread_damage) {
     }
 }
 
-// 53868D
+// 53868d (client: 52267c)
 void AreaEffect::ApplyCellLayer(uint8_t x, uint8_t y) {
     AreaEffect** layers = MapStuff_Instance->GetAreaEffectsAt(PosYX(x, y).val);
     if (layers == nullptr) {
@@ -434,7 +434,7 @@ void AreaEffect::ApplyCellLayer(uint8_t x, uint8_t y) {
     }
 }
 
-// 53801A
+// 53801a (client: 522043)
 void AreaEffect::ApplyAroundPosition() {
     uint8_t x = this->position->GetX();
     uint8_t y = this->position->GetY();
@@ -456,7 +456,7 @@ void AreaEffect::ApplyAroundPosition() {
     this->zone_active = 1;
 }
 
-// 537F2C
+// 537f2c (client: 521f57)
 void AreaEffect::ApplyWaveDistribution() {
     uint8_t x = this->position->GetX();
     uint8_t y = this->position->GetY();
@@ -475,7 +475,7 @@ void AreaEffect::ApplyWaveDistribution() {
     this->zone_active = 1;
 }
 
-// 537CD6
+// 537cd6 (client: 521d0d) - Acid stream and blizzard effects.
 void AreaEffect::TickAcidBlizzard() {
     if (this->duration--) {
         return;
@@ -517,14 +517,14 @@ void AreaEffect::TickAcidBlizzard() {
 // 6364B8
 IMPLEMENT_SERIAL(AreaEffect, SpellEffect, 1);
 
-// 537846
+// 537846 (client: 521881)
 AreaEffect::AreaEffect() : SpellEffect() {
     this->effect = nullptr;
     this->TokenID = 0;
     this->zone_active = 0;
 }
 
-// 537880
+// 537880 (client: 5218bb)
 AreaEffect::AreaEffect(Effect* effect, TokenPos* pos, uint8_t range) : SpellEffect(pos) {
     this->effect = effect;
     this->TokenID = 0;
@@ -534,13 +534,13 @@ AreaEffect::AreaEffect(Effect* effect, TokenPos* pos, uint8_t range) : SpellEffe
     this->duration = 0;
 }
 
-// 5378D8
+// 5378d8 (client: 521913)
 AreaEffect::~AreaEffect() {
     delete this->effect;
     this->effect = nullptr;
 }
 
-// 53E81F
+// 53e81f (client: 52657a)
 void AreaEffect::Serialize(CArchive& ar) {
     SpellEffect::Serialize(ar);
     if (ar.IsStoring()) {
@@ -560,7 +560,7 @@ void AreaEffect::Serialize(CArchive& ar) {
     }
 }
 
-// 537964
+// 537964 (client: 52199f)
 void AreaEffect::ProcessEffects() {
     if (this->TokenID & AreaEffect::MODE_PHASED_WAVE) {
         this->TickAcidBlizzard();
@@ -597,7 +597,7 @@ void AreaEffect::ProcessEffects() {
     }
 }
 
-// 53EB1E
+// 53eb1e (client: 526658)
 void AreaEffect::FixupPointers() {
     Token::FixupPointers();
     if (this->effect != nullptr) {
@@ -607,13 +607,13 @@ void AreaEffect::FixupPointers() {
 
 IMPLEMENT_SERIAL(SpellTransport, SpellEffect, 1); // 636FC8
 
-// 5389E2
+// 5389e2 (client: 5229b2)
 SpellTransport::SpellTransport() : SpellEffect() {
     this->spell_effect = nullptr;
     this->area_effect = nullptr;
 }
 
-// 538A15
+// 538a15 (client: 5229e5)
 SpellTransport::SpellTransport(SpellEffect* spell_effect, TokenPos* from_position, int16_t speed) : SpellEffect(from_position) {
     this->spell_effect = spell_effect;
     this->area_effect = nullptr;
@@ -621,17 +621,17 @@ SpellTransport::SpellTransport(SpellEffect* spell_effect, TokenPos* from_positio
     this->duration = (int16_t)(dist / speed);
 }
 
-// 538A9E
+// 538a9e (client: 522a6e)
 SpellTransport::SpellTransport(AreaEffect* ae, TokenPos* from_position, int16_t speed) : SpellEffect(from_position) {
     this->spell_effect = nullptr;
     this->area_effect = ae;
-    // WAT: dereferencing `this->spell_effect` is guaranteed to crash. This function has no callers in ASM.
+    // WAT: dereferencing `this->spell_effect` is guaranteed to crash. This function has no callers.
     // I guess they meant `area_effect` instead?
     int32_t dist = (int32_t)CalcWalkDist(from_position, this->spell_effect->position);
     this->duration = (int16_t)(dist / speed);
 }
 
-// 538B27
+// 538b27 (client: 522af7)
 SpellTransport::~SpellTransport() {
     if (this->spell_effect != nullptr) {
         delete this->spell_effect;
@@ -643,7 +643,7 @@ SpellTransport::~SpellTransport() {
     }
 }
 
-// 53E588
+// 53e588 (client: 526404)
 void SpellTransport::Serialize(CArchive& ar) {
     SpellEffect::Serialize(ar);
     if (ar.IsStoring()) {
@@ -657,7 +657,7 @@ void SpellTransport::Serialize(CArchive& ar) {
     }
 }
 
-// 538BF4
+// 538bf4 (client: 522bc4)
 void SpellTransport::ProcessEffects() {
     this->duration--;
     if (this->duration < 1) {
@@ -669,7 +669,7 @@ void SpellTransport::ProcessEffects() {
     }
 }
 
-// 53E68D
+// 53e68d (client: 52648a)
 void SpellTransport::FixupPointers() {
     Token::FixupPointers();
     if (this->spell_effect != nullptr) {
@@ -681,7 +681,7 @@ void SpellTransport::FixupPointers() {
 }
 
 
-// 537AE8
+// 537ae8 (client: 521b21)
 void WavePattern::SetWaveTable(const int32_t* table) {
     this->x_offsets = table + 1;
     this->y_offsets = table + 21;
@@ -690,7 +690,7 @@ void WavePattern::SetWaveTable(const int32_t* table) {
     this->y_mult = 1;
 }
 
-// 537B2B
+// 537b2b (client: 521b64)
 void WavePattern::SetWaveTables(const int32_t* table_a, const int32_t* table_b, uint8_t direction) {
     this->x_offsets = table_b + 1;
     this->y_offsets = table_b + 21;

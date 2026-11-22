@@ -35,7 +35,7 @@
 
 World* g_World; // 6a8b8c
 
-// 5B5855
+// 5b5855 (client: 5839c5)
 Diplomacy::Diplomacy() {
     std::memset(this->diplomacy, 0, sizeof(this->diplomacy));
     this->flags[0] = 1;
@@ -44,7 +44,7 @@ Diplomacy::Diplomacy() {
     this->flags[3] = 0;
 }
 
-// 5B545F
+// 5b545f (client: 5835cf) - Register player in the diplomacy matrix.
 void Diplomacy::RegisterPlayer(Player* player) {
     int32_t player_id = player->player_id;
     
@@ -75,7 +75,7 @@ void Diplomacy::RegisterPlayer(Player* player) {
     this->diplomacy[player_id][player_id] = (DIPLO_VISION_SHARE | DIPLO_ALLIANCE);
 }
 
-// 5A4B1A
+// 5a4b1a (client: 572c8a)
 World::World(MapStuff* map_stuff, PlayersList* players_list) {
     this->Init();
     this->ResetMatchState();
@@ -88,7 +88,7 @@ World::World(MapStuff* map_stuff, PlayersList* players_list) {
     this->skip_presence_grid = 0;
 }
 
-// 5A4D38
+// 5a4d38 (client: 572ea8)
 World::~World() {
     delete this->trigger_checks;
     delete this->trigger_actions;
@@ -97,7 +97,7 @@ World::~World() {
     this->Destroy();
 }
 
-// 5A4757
+// 5a4757 (client: 5728c7)
 void World::ResetMatchState() {
     this->duration4 = 0;
     this->duration4_low = 0;
@@ -140,17 +140,17 @@ void World::ResetMatchState() {
     this->triggers = new CList<Trigger>();
 }
 
-// 5A44C5
+// 5a44c5 (client: 572635)
 void World::ReinitState() {
     this->InitState();
 }
 
-// 5A44DB
+// 5a44db (client: 57264b)
 void World::BeginDestroy() {
     this->DestroyState();
 }
 
-// 5A3F3A
+// 5a3f3a (client: 5720aa)
 void World::InitState() {
     this->ConstructMembers();
     this->duration4 = 0;
@@ -160,20 +160,18 @@ void World::InitState() {
     this->counter = 0;
 }
 
-// 5A3F88
+// 5a3f88 (client: 5720f8)
 void World::DestroyState() {
     this->DestroyMembers();
 }
 
 // (Re)initialize the world's runtime state and load AI settings from ai.reg.
-// 5A3F9B
+// 5a3f9b (client: 57210b)
 void World::ConstructMembers() {
     this->gap_0x0 = 0x8000;
     std::srand(static_cast<uint32_t>(std::time(nullptr)));
 
-    // Reconstruct members in place. CObject-derived types provide a placement
-    // new without a matching placement delete; this is expected for in-place
-    // reconstruction and matches the original ASM behavior.
+    // Reconstruct members in-place.
     new (&this->perf_tick) Perf();
     new (&this->perf_presence) Perf();
     new (&this->perf_triggers) Perf();
@@ -215,17 +213,14 @@ void World::ConstructMembers() {
     delete reg;
 }
 
-// 5A4284
+// 5a4284 (client: 5723f4)
 void World::DestroyMembers() {
-    // The original ASM manually destroyed members in reverse declaration order here.
-    // In C++, the compiler-generated ~World destructor handles all member destruction,
-    // so this helper is now a no-op.
 }
 
 // Populate the attack-target list (targets) and non-attack-target list
 // (non_targets) for `unit` by scanning all units in `pList`.
 // Invisible enemies that no group member can see are excluded.
-// 5A3AD6
+// 5a3ad6 (client: 571c46) - Populate attack/non-attack target lists for unit from pList.
 void World::SplitTargetLists(Unit* unit, UnitList* pList) {
     this->targets.unit_list.RemoveAll();
     this->non_targets.unit_list.RemoveAll();
@@ -274,7 +269,7 @@ void World::SplitTargetLists(Unit* unit, UnitList* pList) {
 // Filter a UnitList by enemy/allied relationship and visibility.
 // Removes units where diplomacy&1 == flag, and invisible units
 // that no member of unit's group can see.
-// 5A3896
+// 5a3896 (client: 571a06) - filter a UnitList by enemy/allied relationship.
 void World::FilterByRelation(Unit* unit, UnitList* list, int32_t flag) {
     if (list == nullptr) {
         return;
@@ -313,7 +308,7 @@ void World::FilterByRelation(Unit* unit, UnitList* list, int32_t flag) {
 // Filter a UnitList to keep only allied units that are visible to `unit`'s group.
 // Removes non-allies (diplomacy bit 2 not set) and invisible allies that no group
 // member can see.
-// 5A39AD
+// 5a39ad (client: 571b1d) - filter UnitList for CastSelfHealOrBuff.
 void World::FilterBuffTargets(Unit* unit, UnitList* list) {
     if (list == nullptr) {
         return;
@@ -350,7 +345,7 @@ void World::FilterBuffTargets(Unit* unit, UnitList* list) {
 }
 
 // Build a temporary UnitList of enemy units near `yx` that `caster` can see.
-// 5A3808
+// 5a3808 (client: 571978) - Get nearby enemy UnitList for caster at yx.
 UnitList* World::GetNearbyEnemies(Unit* caster, PosYX yx) {
     uint8_t range = caster->eye->scan_radius_base;
     UnitList* list = this->map_stuff->BuildNearbyUnitList(yx, range);
@@ -359,7 +354,7 @@ UnitList* World::GetNearbyEnemies(Unit* caster, PosYX yx) {
 }
 
 // Build a temporary UnitList of allied units near `yx` that `caster` can see.
-// 5A384F
+// 5a384f (client: 5719bf) - Get nearby ally UnitList for caster at yx.
 UnitList* World::GetNearbyAllies(Unit* caster, PosYX yx) {
     uint8_t range = caster->eye->scan_radius_base;
     UnitList* list = this->map_stuff->BuildNearbyUnitList(yx, range);
@@ -367,8 +362,9 @@ UnitList* World::GetNearbyAllies(Unit* caster, PosYX yx) {
     return list;
 }
 
-// 5AD0B3 — compute an attack preference score for `unit` against `target`.
+// compute an attack preference score for `unit` against `target`.
 // Returns 0xFFFFFF when the target should be ignored.
+// 5ad0b3 (client: 57b223)
 int32_t World::GetAttackDecision(Unit* unit, Unit* target) {
     PosYX target_yx = target->position->CompatGetYX();
     PosYX unit_yx = unit->position->CompatGetYX();
@@ -425,7 +421,7 @@ int32_t World::GetAttackDecision(Unit* unit, Unit* target) {
     return score;
 }
 
-// 5ADD64 — build a nearby-friendly-unit list from `group` into nearby_list.
+// 5add64 (client: 57bed4) - Build nearby friendly unit list from `group`. - build a nearby-friendly-unit list from `group` into nearby_list.
 void World::BuildAllyList(Group* group) {
     this->nearby_list.unit_list.RemoveAll();
 
@@ -480,7 +476,7 @@ void World::BuildAllyList(Group* group) {
     }
 }
 
-// 5ADB16 — build a nearby-friendly-unit list from `group`, then filter by relationship to the group's first unit.
+// 5adb16 (client: 57bc86) - build a nearby-friendly-unit list from `group`, then filter by relationship to the group's first unit.
 void World::ScanNearbyUnits(Group* group) {
     this->nearby_list.unit_list.RemoveAll();
 
@@ -537,7 +533,7 @@ void World::ScanNearbyUnits(Group* group) {
     }
 }
 
-// 5AEF66
+// 5aef66 (client: 57d0d6)
 void World::AiAggroBrain(Group* group) {
     this->ScanNearbyUnits(group);
     this->AssignBestTargets(group);
@@ -552,7 +548,7 @@ void World::AiAggroBrain(Group* group) {
     }
 }
 
-// 5AF805
+// 5af805 (client: 57d975)
 void World::SetWithdrawThresholds(int32_t a, int32_t b, int32_t c, Player* player) {
     UnitList* unit_list = this->map_stuff->all_units;
     if (unit_list == nullptr) {
@@ -582,7 +578,7 @@ void World::SetWithdrawThresholds(int32_t a, int32_t b, int32_t c, Player* playe
     }
 }
 
-// 5AFA01
+// 5afa01 (client: 57db71)
 void World::SetWimpyThresholds(int32_t a, int32_t b, int32_t c, Player* player) {
     UnitList* unit_list = this->map_stuff->all_units;
     if (unit_list == nullptr) {
@@ -614,7 +610,7 @@ void World::SetWimpyThresholds(int32_t a, int32_t b, int32_t c, Player* player) 
 
 // Record a PvP hit: set attacker->target war, conditionally set reverse war,
 // and increment target's hit counter when hit_flag is nonzero.
-// 5B5643
+// 5b5643 (client: 5837b3)
 void Diplomacy::RecordHostility(Unit* attacker, Unit* target, int32_t hit_flag) {
     if (attacker->pOwner == nullptr || target->pOwner == nullptr) {
         return;
@@ -659,7 +655,7 @@ void Diplomacy::RecordHostility(Unit* attacker, Unit* target, int32_t hit_flag) 
 }
 
 // Check if two units are at war.
-// 5B5816
+// 5b5816 (client: 583986) - Check if unit1's owner is at war with unit2's owner.
 bool World::AreAtWar(Unit* unit1, Unit* unit2) {
 #ifdef A2SERVER_PATCH
     if (unit2->pOwner == nullptr || unit1->pOwner == nullptr) {
@@ -671,7 +667,7 @@ bool World::AreAtWar(Unit* unit1, Unit* unit2) {
 
 // Packed distance/facing metric between two units:
 // high byte = distance, low byte = rotation for unit1 to unit2.
-// 5B5C2B
+// 5b5c2b (client: 583d9b) - packed distance/facing metric between two units
 uint16_t World::PackDistFacing(Unit* unit1, Unit* unit2) {
     uint16_t result = (uint8_t)this->map_stuff->GetRangeTo(unit1, unit2);
     result = result << 8;
@@ -684,7 +680,7 @@ uint16_t World::PackDistFacing(Unit* unit1, Unit* unit2) {
 // Fills the two scratch lists via ScanNearbyUnits, keeps the `rays` closest
 // candidates (list-27 distances are biased by <<8 so list-26 units win ties),
 // adds `target` first, then trims the list back down to `rays` entries.
-// 5B5CA8
+// 5b5ca8 (client: 583e18) - collect units hit by a multi-ray spell
 void World::CollectRayTargets(Unit* caster, Unit* target, CList<Unit*>* units, uint32_t rays, uint32_t max_range) {
     units->RemoveAll();
     this->RecordUnitHit(caster, target, 0);
@@ -732,7 +728,7 @@ void World::CollectRayTargets(Unit* caster, Unit* target, CList<Unit*>* units, u
     for (int32_t i = 0; i < ray_count; i++) {
         for (int32_t j = 0; j < count; j++) {
             if (dist_arr[j] < best_dist[i]) {
-                best_dist[i] = (uint16_t)dist_arr[j]; // Low word only, matches the ASM.
+                best_dist[i] = (uint16_t)dist_arr[j]; // Low word only, matches the original.
                 best_idx[i] = j;
             }
         }
@@ -753,7 +749,7 @@ void World::CollectRayTargets(Unit* caster, Unit* target, CList<Unit*>* units, u
     }
 }
 
-// 5ABB32
+// 5abb32 (client: 579ca2)
 uint8_t World::CanClaimMoveCell(Unit* unit, PosYX yx) {
     Unit* unit_at_yx = this->map_stuff->GetUnitAt(yx);
 
@@ -805,7 +801,7 @@ uint8_t World::CanClaimMoveCell(Unit* unit, PosYX yx) {
     return 0;
 }
 
-// 5AB62E
+// 5ab62e (client: 57979e)
 uint32_t World::ComputeListAvgPos(UnitList* list) {
     int count = list->unit_list.GetCount();
     if (count == 0) {
@@ -828,7 +824,7 @@ uint32_t World::ComputeListAvgPos(UnitList* list) {
     return (avg_yy << 16) + avg_xx;
 }
 
-// 5AEC20
+// 5aec20 (client: 57cd90)
 void World::AiAttackBrain(Group* group, uint16_t target_yx) {
     this->ScanNearbyUnits(group);
     this->AssignNearbyTargets(group);
@@ -848,7 +844,7 @@ void World::AiAttackBrain(Group* group, uint16_t target_yx) {
     }
 }
 
-// 5AECE7
+// 5aece7 (client: 57ce57)
 void World::AiSwarmBrain(Group* group, uint16_t target_yx) {
     this->ScanNearbyUnits(group);
     if (this->nearby_list.unit_list.GetCount() == 0) {
@@ -867,7 +863,7 @@ void World::AiSwarmBrain(Group* group, uint16_t target_yx) {
     }
 }
 
-// 5AB719
+// 5ab719 (client: 579889) - Compute average position of units in a group.
 uint32_t World::ComputeGroupAvgPos(Group* group) {
     int count = group->unit_list.GetCount();
     if (count == 0) {
@@ -925,7 +921,7 @@ uint32_t World::ComputeGroupAvgPos(Group* group) {
 
 // Server turn tick: rebuild presence grid, run world updates, process each
 // player's groups, and log turn timing statistics when tracing is enabled.
-// 5ABD16
+// 5abd16 (client: 579e86)
 void World::ProcessTick(PlayersList* players) {
     this->perf_tick.Begin();
     if (this->skip_presence_grid == 0) {
@@ -967,6 +963,7 @@ void World::ProcessTick(PlayersList* players) {
     }
 }
 
+// 5b0724 (client: 57e894)
 void World::ProcessTriggers() {
     this->trigger_variables[999] += 1;
     this->EvaluateTriggerChecks();
@@ -975,7 +972,7 @@ void World::ProcessTriggers() {
 }
 
 // Evaluate map triggers and run their actions when all conditions pass.
-// 5B0A6A
+// 5b0a6a (client: 57ebda)
 void World::ExecuteTriggerActions() {
     POSITION trigger_it = this->triggers->GetHeadPosition();
     while (trigger_it != nullptr) {
@@ -1019,7 +1016,7 @@ void World::ExecuteTriggerActions() {
 }
 
 // Try to cast a healing/buff spell on the caster or the most-damaged nearby ally.
-// 5A845B
+// 5a845b (client: 5765cb) - AI mage retreat helper: cast healing/buff on self or most-damaged ally.
 void World::CastSelfHealOrBuff(Unit* unit) {
     if (unit->spell_book == nullptr) {
         return;
@@ -1068,7 +1065,7 @@ void World::CastSelfHealOrBuff(Unit* unit) {
 
 // Set up an autobuff cast action on caster targeting target (or the nearest
 // eligible unit when target is null). If no target is found the caster idles.
-// 5A85F4
+// 5a85f4 (client: 576764) - Set up autobuff cast action for caster.
 void World::BeginAutobuffCast(Unit* caster, Unit* target, Spell* spell) {
     #ifdef A2SERVER_PATCH
     // bug_001A: target->eye2 may be null (or target may be a Building) - treat as unavailable when invalid
@@ -1113,7 +1110,7 @@ void World::BeginAutobuffCast(Unit* caster, Unit* target, Spell* spell) {
 
 // Fallback buff selection for CastSelfHealOrBuff: pick a random allied unit from `list`
 // and attempt to cast heal/buff spells on it.
-// 5B6862
+// 5b6862 (client: 5849d2) - fallback buff selection for CastSelfHealOrBuff.
 void World::PickFallbackBuff(Unit* unit, UnitList* list) {
     // Heal self.
     if (unit->hp != unit->hp_max) {
@@ -1187,7 +1184,7 @@ void World::PickFallbackBuff(Unit* unit, UnitList* list) {
 
 // Pick a spell from the caster's spellbook and start casting it at the
 // appropriate target (self, target unit, or target position).
-// 5A6801
+// 5a6801 (client: 574971) - pick and start casting a known spell.
 void World::CastKnownSpell(Unit* caster, Unit* target, int32_t spell_id) {
     Spell* spell = caster->spell_book->GetSpell(spell_id);
     if (spell == nullptr) {
@@ -1270,7 +1267,7 @@ void World::CastKnownSpell(Unit* caster, Unit* target, int32_t spell_id) {
 
 // Pick a random unit near pos_yx that is an enemy (is_defensive=0) or ally
 // (is_defensive=1) of owner, skipping invisible units.
-// 5B61D0
+// 5b61d0 (client: 584340)
 Unit* World::PickRelationUnitNear(uint16_t pos_yx, uint8_t byte_0x3c, Player* owner, int32_t is_defensive) {
     this->map_stuff->GatherUnitsNear(pos_yx, byte_0x3c, owner, &this->nearby_list);
 
@@ -1301,7 +1298,7 @@ Unit* World::PickRelationUnitNear(uint16_t pos_yx, uint8_t byte_0x3c, Player* ow
 }
 
 // Process pending virtual casters and fire their spells into the world.
-// 5B6346
+// 5b6346 (client: 5844b6)
 void World::ProcessVirtualCasters() {
     CList<VirtualCaster*>& vc_list = g_Server->srv_stru1->virtual_casters_list;
     POSITION it = vc_list.GetHeadPosition();
@@ -1316,7 +1313,7 @@ void World::ProcessVirtualCasters() {
     }
 }
 
-// 5A9961
+// 5a9961 (client: 577ad1)
 void World::OrderSwarmTo(Unit* unit, uint8_t x, uint8_t y) {
     this->BeginUnitOrder(unit);
 #if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
@@ -1330,7 +1327,7 @@ void World::OrderSwarmTo(Unit* unit, uint8_t x, uint8_t y) {
     unit->eye2->cast_action = 0;
 }
 
-// 5A99C7
+// 5a99c7 (client: 577b37)
 void World::OrderGatherLoot(Unit* unit) {
     this->BeginUnitOrder(unit);
 #if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
@@ -1345,7 +1342,7 @@ void World::OrderGatherLoot(Unit* unit) {
 
 // Record a PvP hit: mark the attacker in UnitEye2, update diplomacy, push a combat
 // action onto the world's action list, and store the retaliation cell.
-// 5AA581
+// 5aa581 (client: 5786f1) - Record PvP hit and update combat log
 void World::RecordUnitHit(Unit* target, Unit* attacker, int32_t hit_flag) {
     attacker->eye2->engaged = 1;
     attacker->eye2->position3 = target->position->CompatGetYX();
@@ -1376,7 +1373,7 @@ void World::RecordUnitHit(Unit* target, Unit* attacker, int32_t hit_flag) {
     }
 }
 
-// 5AAA89
+// 5aaa89 (client: 578bf9)
 void World::ChaseOrCast(Unit* unit) {
 #ifdef A2TANGAR_HAT
     // imp_distance_bug_fix hook (5AAA8D): state 13 is "cast point spell from
@@ -1396,7 +1393,7 @@ void World::ChaseOrCast(Unit* unit) {
     }
 }
 
-// 5A9B6B — AI tick for a monster unit.
+// 5a9b6b (client: 577cdb) - AI tick for a monster unit?
 void World::MonsterAiTick(Unit* unit) {
     if (this->skip_presence_grid == 0 && unit->group->group_sub->presence_detected == 0 && unit->eye2->ai_state == 0) {
         unit->some_state = Unit::EXEC_SPECIAL;
@@ -1555,7 +1552,7 @@ void World::MonsterAiTick(Unit* unit) {
     }
 }
 
-// 5AAC17 — pick a melee/cast target for a monster unit.
+// 5aac17 (client: 578d87) - pick a melee/cast target for a monster unit.
 void World::AcquireNearestTarget(Unit* unit) {
     this->nearby_list.unit_list.RemoveAll();
 
@@ -1622,7 +1619,7 @@ void World::AcquireNearestTarget(Unit* unit) {
 
 // Target-pursuit spell selection for AI-controlled mages.
 // Returns 1 if a cast action was set up, 0 otherwise.
-// 5A6ED9
+// 5a6ed9 (client: 575049) - target-pursuit check.
 int32_t World::ShouldPursueTarget(Unit* caster, Unit* target) {
     if (caster->eye2->spell_id == 0) {
         return 0;
@@ -1766,7 +1763,7 @@ int32_t World::ShouldPursueTarget(Unit* caster, Unit* target) {
 }
 
 // Check if `caster` should autobuff `target` based on diplomacy and settings.
-// 5A7A1C
+// 5a7a1c (client: 575b8c) - Check if `unit` should autobuff `other` (diplomacy/settings check).
 int32_t World::ShouldAutobuff(Unit* caster, Unit* target) {
     uint8_t relation = this->diplomacy.diplomacy[caster->pOwner->player_id][target->pOwner->player_id] & (DIPLO_WAR | DIPLO_ALLIANCE);
 
@@ -1794,7 +1791,7 @@ int32_t World::ShouldAutobuff(Unit* caster, Unit* target) {
 }
 
 // Autobuff handler: pick and cast healing/buff spells on self or allies.
-// 5A7B44
+// 5a7b44 (client: 575cb4) - Autobuff handler: pick and cast buff spells on self or allies.
 void World::DoAutobuff(Unit* unit) {
     if (unit->mp < 5) {
         unit->eye2->cast_action = 0;
@@ -1843,7 +1840,7 @@ void World::DoAutobuff(Unit* unit) {
                 continue;
             }
 
-            // WAT: I guess the value should be cast before division? But ASM does it like this.
+            // WAT: I guess the value should be cast before division? But original does it like this.
             double ratio = other->hp / other->hp_max;
             if (ratio < best_ratio) {
                 best_ratio = ratio;
@@ -2004,7 +2001,7 @@ void World::DoAutobuff(Unit* unit) {
 }
 
 // Run trigger action.
-// 5B0E08
+// 5b0e08 (client: 57ef78) - Run script by instance ID
 void World::DoScriptInstID(int32_t script_id) {
     TriggerAction action = (*this->trigger_actions)[script_id];
 
@@ -2105,33 +2102,33 @@ void World::DoScriptInstID(int32_t script_id) {
     }
 }
 
-// 5b37f3 — Increment mission stage
+// 5b37f3 (client: 581963) - Increment mission stage
 void World::ScriptOP_0x01(TriggerAction*) {
     this->mission_state++;
     this->trigger_variables[902]++;
 }
 
-// 5b3b11 — Send message
+// 5b3b11 (client: 581c81) - Send message
 void World::ScriptOP_0x02(TriggerAction* action) {
     g_NetStru1_main.SendGameEvent(nullptr, action->data[0], 0);
 }
 
-// 5b3b33 — Set value to variable
+// 5b3b33 (client: 581ca3) - Set value to variable
 void World::ScriptOP_0x03(TriggerAction* action) {
     this->trigger_variables[action->data[0]] = action->data[1];
 }
 
-// 5b3b79 — Force "Mission Complete" state
+// 5b3b79 (client: 581ce9) - Force "Mission Complete" state
 void World::ScriptOP_0x04(TriggerAction*) {
     this->mission_complete++;
 }
 
-// 5b3b9b — Force "Mission Fail" state
+// 5b3b9b (client: 581d0b) - Force "Mission Fail" state
 void World::ScriptOP_0x05(TriggerAction* action) {
     this->mission_fail = action->data[0];
 }
 
-// 5b3bb7 — Group Command
+// 5b3bb7 (client: 581d27) - Group Command
 void World::ScriptOP_0x06(TriggerAction* action) {
     Group* group = action->group;
     switch (action->data[0]) {
@@ -2171,17 +2168,17 @@ void World::ScriptOP_0x06(TriggerAction* action) {
     }
 }
 
-// 5b3b56 — Set formation
+// 5b3b56 (client: 581cc6) - Set formation
 void World::ScriptOP_0x07(TriggerAction* action) {
     this->SetFormation(action->player, action->data[0]);
 }
 
-// 5b3ae1 — Increment variable
+// 5b3ae1 (client: 581c51) - Increment variable
 void World::ScriptOP_0x08(TriggerAction* action) {
     this->trigger_variables[action->data[0]]++;
 }
 
-// 5b3d75 — Change diplomacy
+// 5b3d75 (client: 581ee5) - Change diplomacy
 void World::ScriptOP_0x0a(TriggerAction* action) {
     uint32_t player1_id = action->data[0];
     uint32_t player2_id = action->data[1];
@@ -2195,7 +2192,7 @@ void World::ScriptOP_0x0a(TriggerAction* action) {
     }
 }
 
-// 5b3e56 — Give item from one unit (action->unit) to another (action->multi)
+// 5b3e56 (client: 581fc6) - Give item from one unit (action->unit) to another (action->multi)
 void World::ScriptOP_0x0b(TriggerAction* action) {
     #ifdef A2SERVER_PATCH
     // bug_001B: action->unit can be null - skip the script op
@@ -2212,7 +2209,7 @@ void World::ScriptOP_0x0b(TriggerAction* action) {
     }
 }
 
-// 5b3ed4 — Add item to unit's inventory
+// 5b3ed4 (client: 582044) - Add item to unit's inventory
 void World::ScriptOP_0x0c(TriggerAction* action) {
     Item* item = g_GameDataRes.CreateItemById(action->item_id);
     if (item) {
@@ -2221,7 +2218,7 @@ void World::ScriptOP_0x0c(TriggerAction* action) {
     g_NetStru1_main.SendMonsterInventory(action->unit, action->unit->pOwner, 0, 0);
 }
 
-// 5b3f2f — Remove item from unit's inventory
+// 5b3f2f (client: 58209f) - Remove item from unit's inventory
 void World::ScriptOP_0x0d(TriggerAction* action) {
     Item* item = action->unit->inventory->TakeItemById(action->item_id);
     if (item) {
@@ -2230,7 +2227,7 @@ void World::ScriptOP_0x0d(TriggerAction* action) {
     g_NetStru1_main.SendMonsterInventory(action->unit, action->unit->pOwner, 0, 0);
 }
 
-// 5b408d — kill unit
+// 5b408d (client: 5821fd) - kill unit
 void World::ScriptOP_0x0e(TriggerAction* action) {
     #ifdef A2SERVER_PATCH
     // bug_001C: action->unit can be null - skip the script op
@@ -2241,7 +2238,7 @@ void World::ScriptOP_0x0e(TriggerAction* action) {
     g_NetStru1_main.SendHumanoidProps(action->unit, action->unit->pOwner, EQUIP_SLOTS_ALL);
 }
 
-// 5b40ba — kill unit (same as 0x0e)
+// 5b40ba (client: 58222a) - kill unit (same as 0x0e)
 void World::ScriptOP_0x0f(TriggerAction* action) {
     #ifdef A2SERVER_PATCH
     // bug_001D: action->unit can be null - skip the script op
@@ -2252,35 +2249,35 @@ void World::ScriptOP_0x0f(TriggerAction* action) {
     g_NetStru1_main.SendHumanoidProps(action->unit, action->unit->pOwner, EQUIP_SLOTS_ALL);
 }
 
-// 5b40e7 — Phase out unit
+// 5b40e7 (client: 582257) - Phase out unit
 void World::ScriptOP_0x10(TriggerAction* action) {
     action->unit->RemoveFromMap();
 }
 
-// 5b40ff — Phase in unit
+// 5b40ff (client: 58226f) - Phase in unit
 void World::ScriptOP_0x11(TriggerAction* action) {
     action->unit->ReturnToMap();
 }
 
-// 5b4117 — Polymorph unit: phase out true form (action->unit), place polymorphed form (action->multi) at same position
+// 5b4117 (client: 582287) - Polymorph unit: phase out true form (action->unit), place polymorphed form (action->multi) at same position
 void World::ScriptOP_0x12(TriggerAction* action) {
     action->unit->RemoveFromMap();
     Unit* polymorh_as = (Unit*)action->multi;
     polymorh_as->AddToMap(action->unit->position->GetX(), action->unit->position->GetY(), 3);
 }
 
-// 5b415a — Change unit's owner
+// 5b415a (client: 5822ca) - Change unit's owner
 void World::ScriptOP_0x13(TriggerAction* action) {
     g_Server->srv_stru1->TransferUnitOwnership(action->unit, action->player);
 }
 
-// 5b41f9 — Drop all: destroy all items in unit's inventory
+// 5b41f9 (client: 582369) - Drop all
 void World::ScriptOP_0x14(TriggerAction* action) {
     action->unit->CreateSackFromInventory(action->unit->inventory, 0, 0);
     action->unit->inventory = new Inventory();
 }
 
-// 5b4287 — Make spell effect: from=(data[0], data[1]), to=(data[2], data[3]), spell=data[4], power=data[5]
+// 5b4287 (client: 5823f7) - Make spell effect: from=(data[0], data[1]), to=(data[2], data[3]), spell=data[4], power=data[5]
 void World::ScriptOP_0x15(TriggerAction* action) {
     uint8_t from_x = action->data[0], from_y = action->data[1];
     uint8_t to_x = action->data[2], to_y = action->data[3];
@@ -2291,7 +2288,7 @@ void World::ScriptOP_0x15(TriggerAction* action) {
     g_Server->srv_stru1->MakeAreaSpellEffect(from_x, from_y, to_x, to_y, spell_id, power);
 }
 
-// 5b4183 — Change group's owner
+// 5b4183 (client: 5822f3) - Change group's owner
 void World::ScriptOP_0x16(TriggerAction* action) {
     for (POSITION pos = action->group->unit_list.GetHeadPosition(); pos != nullptr; ) {
         Unit* unit = action->group->unit_list.GetNext(pos);
@@ -2299,12 +2296,12 @@ void World::ScriptOP_0x16(TriggerAction* action) {
     }
 }
 
-// 5b41d8 — Give money to player
+// 5b41d8 (client: 582348) - Give money to player
 void World::ScriptOP_0x17(TriggerAction* action) {
     action->player->AddMoney(action->data[0], 0);
 }
 
-// 5b4309 — Cast spell to unit: from=(data[0], data[1]), spell=data[2], power=data[3]
+// 5b4309 (client: 582479) - Cast spell to unit: from=(data[0], data[1]), spell=data[2], power=data[3]
 void World::ScriptOP_0x18(TriggerAction* action) {
     uint8_t from_x = action->data[0], from_y = action->data[1];
     uint32_t spell_id = action->data[2];
@@ -2312,7 +2309,7 @@ void World::ScriptOP_0x18(TriggerAction* action) {
     g_Server->srv_stru1->MakeTargetSpellEffect(from_x, from_y, action->unit, spell_id, power);
 }
 
-// 5b4347 — Set trap: spell=data[0], power=data[1], trigger=(data[2],data[3]), source=(data[4],data[5]), target=(gap[0],gap[4])
+// 5b4347 (client: 5824b7) - Set trap: spell=data[0], power=data[1], trigger=(data[2],data[3]), source=(data[4],data[5]), target=(gap[0],gap[4])
 void World::ScriptOP_0x19(TriggerAction* action) {
     uint8_t spell_id = action->data[0];
     uint8_t power = action->data[1];
@@ -2336,12 +2333,12 @@ void World::ScriptOP_0x19(TriggerAction* action) {
     this->map_stuff->ApplyTerrainMod(trigger_yx, src);
 }
 
-// 5b4428 — Set building's health
+// 5b4428 (client: 582598) - Set building's health
 void World::ScriptOP_0x1a(TriggerAction* action) {
     action->building->hp = action->data[0];
 }
 
-// 5b4446 — Teleport unit
+// 5b4446 (client: 5825b6) - Teleport unit
 void World::ScriptOP_0x1b(TriggerAction* action) {
     this->map_stuff->TeleportUnit(action->unit, action->data[0], action->data[1]);
     if (action->unit->pOwner->is_ai) {
@@ -2349,7 +2346,7 @@ void World::ScriptOP_0x1b(TriggerAction* action) {
     }
 }
 
-// 5b4494 — Give All: transfer all items from `action->unit` to `action->multi`
+// 5b4494 (client: 582604) - Give All: transfer all items from `action->unit` to `action->multi`
 void World::ScriptOP_0x1c(TriggerAction* action) {
     Unit* target = (Unit*)action->multi;
     target->inventory->TransferFrom(action->unit->inventory);
@@ -2358,7 +2355,7 @@ void World::ScriptOP_0x1c(TriggerAction* action) {
     g_NetStru1_main.SendMonsterInventory(target, target->pOwner, 0, 0);
 }
 
-// 5b455f — Tile Spell Duration: set duration of spell (data[2]) at tile (data[0], data[1])
+// 5b455f (client: 5826cf) - Tile Spell Duration: set duration of spell (data[2]) at tile (data[0], data[1])
 void World::ScriptOP_0x1d(TriggerAction* action) {
     uint16_t yx = (action->data[1] << 8) | action->data[0];
     AreaEffect** slots = this->map_stuff->GetAreaEffectsAt(yx);
@@ -2373,7 +2370,7 @@ void World::ScriptOP_0x1d(TriggerAction* action) {
     }
 }
 
-// 5b45e8 — Unit Spell Duration: update spell_value of effect matching spell ID (data[0]) on unit
+// 5b45e8 (client: 582758) - Unit Spell Duration: update spell_value of effect matching spell ID (data[0]) on unit
 void World::ScriptOP_0x1e(TriggerAction* action) {
     for (POSITION pos = action->unit->_effects.GetHeadPosition(); pos != nullptr; ) {
         Effect* effect = action->unit->_effects.GetNext(pos);
@@ -2383,7 +2380,7 @@ void World::ScriptOP_0x1e(TriggerAction* action) {
     }
 }
 
-// 5b4646 — Repop Delay
+// 5b4646 (client: 5827b6) - Repop Delay
 void World::ScriptOP_0x1f(TriggerAction* action) {
     BuildingsList* buildings = g_Server->srv_stru1->building_list;
     for (POSITION pos = buildings->GetHeadPosition(); pos != nullptr; ) {
@@ -2397,7 +2394,7 @@ void World::ScriptOP_0x1f(TriggerAction* action) {
     }
 }
 
-// 5b46bb — Phase Out Group
+// 5b46bb (client: 58282b) - Phase Out Group
 void World::ScriptOP_0x20(TriggerAction* action) {
     for (POSITION pos = action->group->unit_list.GetHeadPosition(); pos != nullptr; ) {
         Unit* unit = action->group->unit_list.GetNext(pos);
@@ -2405,7 +2402,7 @@ void World::ScriptOP_0x20(TriggerAction* action) {
     }
 }
 
-// 5b46ff — Phase In Group
+// 5b46ff (client: 58286f) - Phase In Group
 void World::ScriptOP_0x21(TriggerAction* action) {
     for (POSITION pos = action->group->unit_list.GetHeadPosition(); pos != nullptr; ) {
         Unit* unit = action->group->unit_list.GetNext(pos);
@@ -2413,7 +2410,7 @@ void World::ScriptOP_0x21(TriggerAction* action) {
     }
 }
 
-// 5b4743 — Set Unit Parameter
+// 5b4743 (client: 5828b3) - Set Unit Parameter
 void World::ScriptOP_0x22(TriggerAction* action) {
     switch (action->data[0]) { // parameter
         case 6: // hp
@@ -2429,12 +2426,12 @@ void World::ScriptOP_0x22(TriggerAction* action) {
     g_NetStru1_main.BroadcastTokenState(action->unit, action->unit->pOwner, 0);
 }
 
-// 5b382a — Set Scenario Variable
+// 5b382a (client: 58199a) - Set Scenario Variable
 void World::ScriptOP_0x23(TriggerAction* action) {
     ScenarioSetVar(action->data[0], action->data[1]);
 }
 
-// 5b39df — Set Subobjective
+// 5b39df (client: 581b4f) - Set Subobjective
 void World::ScriptOP_0x24(TriggerAction* action) {
     int32_t subobjective_key = action->data[0] + 0x2f0;
     switch (action->data[1]) {
@@ -2461,7 +2458,7 @@ void World::ScriptOP_0x24(TriggerAction* action) {
     }
 }
 
-// 5b3fa7 — Remove item from everybody's inventory
+// 5b3fa7 (client: 582117) - Remove item from everybody's inventory
 void World::ScriptOP_0x26(TriggerAction* action) {
     UnitList* list = this->map_stuff->all_units;
     if (!list) {
@@ -2477,13 +2474,14 @@ void World::ScriptOP_0x26(TriggerAction* action) {
     }
 }
 
-// 5b4070 — Suspend group
+// 5b4070 (client: 5821e0) - Suspend group
 void World::ScriptOP_0x27(TriggerAction* action) {
     action->group->group_sub->active = 0;
 }
 
 
-uint8_t World::UnitMaxRange(Unit* unit) { //5a6adb
+// 5a6adb (client: 574c4b) - Get effective max cast range for unit.
+uint8_t World::UnitMaxRange(Unit* unit) {
 #ifdef A2SERVER_PATCH
     if (unit->eye2->spell_id != 0 && unit->spell_book != nullptr) {
 #else
@@ -2497,7 +2495,7 @@ uint8_t World::UnitMaxRange(Unit* unit) { //5a6adb
     return unit->max_range;
 }
 
-// 5A5E54 — build active/alternate target lists around unit.
+// 5a5e54 (client: 573fc4) - build active/alternate target lists around unit.
 void World::BuildTargetLists(Unit* unit) {
     Visibility* visibility = &this->map_stuff->visibility;
     visibility->ClearVisScratch();
@@ -2542,7 +2540,7 @@ void World::BuildTargetLists(Unit* unit) {
     }
 }
 
-// 5A607B — idle/wander helper: choose the best target from the active/alternate lists.
+// 5a607b (client: 5741eb) - idle/wander helper. - idle/wander helper: choose the best target from the active/alternate lists.
 void World::DoGuardScan(Unit* unit) {
     uint8_t max_range = this->UnitMaxRange(unit);
     uint8_t best_range = max_range + 1;
@@ -2617,7 +2615,7 @@ void World::DoGuardScan(Unit* unit) {
     }
 }
 
-// 5A6B48
+// 5a6b48 (client: 574cb8)
 void World::DoAttackTarget(Unit* unit, Unit* target) {
     Unit* chosen_target = target;
     int32_t chosen_spell = 0;
@@ -2687,7 +2685,7 @@ void World::DoAttackTarget(Unit* unit, Unit* target) {
 // Pick a random affordable non-defensive spell from the caster's spellbook and
 // start casting it at the provided target. Falls back to DoAttackTarget for units
 // with high mind when the random roll is low.
-// 5B6632
+// 5b6632 (client: 5847a2) - AI mage spell selection: pick a random affordable non-defensive spell.
 int32_t World::PickAttackSpell(Unit* unit, Unit* target) {
     if (unit->mind >= 60 && this->RandomScaled(100) < 30) {
         this->DoAttackTarget(unit, target);
@@ -2715,7 +2713,7 @@ int32_t World::PickAttackSpell(Unit* unit, Unit* target) {
 }
 
 // Set unit to idle/wander (param=0) or retreat (param!=0).
-// 5A6E2C
+// 5a6e2c (client: 574f9c) - Set unit to idle/wander (retreat=0) or retreat (retreat!=0).
 void World::SetIdleOrRetreat(Unit* unit, int retreat) {
     if (retreat == 0) {
         this->DoGuardScan(unit);
@@ -2724,7 +2722,7 @@ void World::SetIdleOrRetreat(Unit* unit, int retreat) {
     }
 }
 
-// 5A6E59
+// 5a6e59 (client: 574fc9) - retreat helper.
 void World::DoRetreat(Unit* unit) {
     if (unit->pOwner->is_ai) {
         unit->eye2->cast_action = 0x0B;
@@ -2736,7 +2734,7 @@ void World::DoRetreat(Unit* unit) {
     }
 }
 
-// 5A8709
+// 5a8709 (client: 576879) - set unit to pursue the chosen target.
 void World::PursueTarget(Unit* unit, Unit* target) {
     if (unit->IsMage() && !unit->pOwner->is_ai && this->ShouldPursueTarget(unit, target)) {
         return;
@@ -2748,7 +2746,7 @@ void World::PursueTarget(Unit* unit, Unit* target) {
 }
 
 // Pick spell by number if the unit knows it and has enough MP.
-// 5A79D6
+// 5a79d6 (client: 575b46) - Pick spell by number if unit has enough MP.
 Spell* World::GetCastableSpell(Unit* unit, int32_t spell_number, int32_t /*flag*/) {
     Spell* spell = unit->spell_book->GetSpell(spell_number);
     if (spell == nullptr || unit->mp < spell->mana_cost) {
@@ -2773,7 +2771,7 @@ Spell* World::GetAutobuffSpell(Unit* unit, int32_t spell_number) {
 }
 
 // Check whether `other` is within `spell`'s max range from `unit`.
-// 5A7AF7
+// 5a7af7 (client: 575c67) - Check if `other` is in range of spell from `unit`.
 int32_t World::IsSpellInRange(Unit* unit, Unit* other, Spell* spell) {
     PosYX other_yx = other->position->GetYX();
     PosYX unit_yx = unit->position->GetYX();
@@ -2782,7 +2780,7 @@ int32_t World::IsSpellInRange(Unit* unit, Unit* other, Spell* spell) {
 }
 
 // Set up a single-target cast action for `unit` on `target` using `spell`.
-// 5A92AF
+// 5a92af (client: 57741f)
 void World::OrderCastAtUnit(Unit* unit, Unit* target, Spell* spell) {
     this->BeginUnitOrder(unit);
     unit->state = Unit::ORDER_CAST_UNIT;
@@ -2792,7 +2790,8 @@ void World::OrderCastAtUnit(Unit* unit, Unit* target, Spell* spell) {
     unit->eye2->cast_action = 0;
 }
 
-void World::PrepareUnitOrder(Unit* unit) { //5a9832
+// 5a9832 (client: 5779a2)
+void World::PrepareUnitOrder(Unit* unit) {
     if (unit->eye->facing != unit->eye->target_facing) {
         unit->eye->target_facing = unit->eye->facing;
     }
@@ -2810,25 +2809,28 @@ void World::PrepareUnitOrder(Unit* unit) { //5a9832
     unit->some_state = Unit::EXEC_IDLE;
 }
 
-void World::BeginUnitOrder(Unit* unit) { //5a9ac4
+// 5a9ac4 (client: 577c34)
+void World::BeginUnitOrder(Unit* unit) {
     this->PrepareUnitOrder(unit);
     unit->eye2->has_command = 0;
 }
 
-void World::OrderHoldPosition(Unit* unit) { //5a93f4
+// 5a93f4 (client: 577564)
+void World::OrderHoldPosition(Unit* unit) {
     this->BeginUnitOrder(unit);
     unit->state = Unit::ORDER_HOLD_POSITION;
     unit->eye2->position1 = unit->position->GetYX();
     unit->eye2->cast_action = 0;
 }
 
-void World::ResetUnitToHold(Unit* unit) { //5a9a6a
+// 5a9a6a (client: 577bda) - World callback: register newly summoned/placed unit
+void World::ResetUnitToHold(Unit* unit) {
     this->BeginUnitOrder(unit);
     this->OrderHoldPosition(unit);
 }
 
 // Reset unit to idle and register it in the world.
-// 5A9A8F
+// 5a9a8f (client: 577bff) - reset unit to idle.
 void World::ResetUnitToIdle(Unit* unit) {
     this->PrepareUnitOrder(unit);
     this->ResetUnitToHold(unit);
@@ -2836,7 +2838,7 @@ void World::ResetUnitToIdle(Unit* unit) {
 }
 
 // Toggle a unit between state 2 and a full idle reset.
-// 5AA8ED
+// 5aa8ed (client: 578a5d)
 void World::FinishSwarmArrival(Unit* unit) {
     if (unit->some_state == Unit::EXEC_PICKUP) {
         this->ResetUnitToIdle(unit);
@@ -2846,7 +2848,7 @@ void World::FinishSwarmArrival(Unit* unit) {
 }
 
 // Set unit to pursue `target`; if not centered in a cell, mark it for movement.
-// 5AA91B
+// 5aa91b (client: 578a8b)
 void World::StepTowardUnit(Unit* unit, Unit* target) {
     this->map_stuff->MoveStepTowardUnit(unit, target, unit->eye2->max_range);
     if (!unit->position->IsAtCellCenter()) {
@@ -2857,7 +2859,7 @@ void World::StepTowardUnit(Unit* unit, Unit* target) {
 }
 
 // Turn unit to face `facing`; if the facing changed, mark state as 1.
-// 5AAF84
+// 5aaf84 (client: 5790f4) - turn unit to face target.
 void World::TurnToFacing(Unit* unit, uint8_t facing) {
     uint8_t old_facing = unit->eye->facing;
     this->map_stuff->SetFacing(unit, facing);
@@ -2866,7 +2868,8 @@ void World::TurnToFacing(Unit* unit, uint8_t facing) {
     }
 }
 
-void World::ClearGroupOrders(Group* grp) { //5acd4c
+// 5acd4c (client: 57aebc)
+void World::ClearGroupOrders(Group* grp) {
     for (POSITION it = grp->unit_list.GetHeadPosition(); it != nullptr;) {
         Unit* unit = grp->unit_list.GetNext(it);
         this->BeginUnitOrder(unit);
@@ -2875,7 +2878,8 @@ void World::ClearGroupOrders(Group* grp) { //5acd4c
     grp->group_sub->order = GroupSub::ORDER_DEFAULT;
 }
 
-void World::GroupAggressiveStance(Group* grp) { //5aca54
+// 5aca54 (client: 57abc4)
+void World::GroupAggressiveStance(Group* grp) {
     this->ClearGroupOrders(grp);
     for (POSITION it = grp->unit_list.GetHeadPosition(); it != nullptr;) {
         Unit* unit = grp->unit_list.GetNext(it);
@@ -2884,13 +2888,14 @@ void World::GroupAggressiveStance(Group* grp) { //5aca54
     grp->group_sub->order = GroupSub::ORDER_AGGRESSIVE;
 }
 
-void World::ProcessAnimateDeadGroup(Group* group) { // 5acdf4
+// 5acdf4 (client: 57af64) - World callback for animate-dead group
+void World::ProcessAnimateDeadGroup(Group* group) {
     this->ClearGroupOrders(group);
     this->GroupAggressiveStance(group);
 }
 
 // Group move command.
-// 5AC289
+// 5ac289 (client: 57a3f9) - Group move command.
 void World::GroupMoveCommand(Group* group, uint8_t x, uint8_t y) {
     this->ClearGroupOrders(group);
 
@@ -2943,23 +2948,23 @@ void World::GroupMoveCommand(Group* group, uint8_t x, uint8_t y) {
 }
 
 // Group swarm command. Same as move, but mode is 5.
-// 5AC507
+// 5ac507 (client: 57a677) - Group swarm command.
 void World::GroupSwarmCommand(Group* group, uint8_t x, uint8_t y) {
     this->GroupMoveCommand(group, x, y);
     group->group_sub->order = GroupSub::ORDER_SWARM;
 }
 
-// 5A457A
+// 5a457a (client: 5726ea)
 void World::Init() {
     this->ReinitState();
 }
 
-// 5A4590
+// 5a4590 (client: 572700)
 void World::Destroy() {
     this->BeginDestroy();
 }
 
-// 5AA78C
+// 5aa78c (client: 5788fc)
 void World::StartAttack(Unit* unit) {
     unit->eye2->ai_state = 1;
     unit->eye2->counter = 0;
@@ -2968,7 +2973,7 @@ void World::StartAttack(Unit* unit) {
 }
 
 // Refresh group_sub position/range fields from ComputeGroupAvgPos results.
-// 5AC137
+// 5ac137 (client: 57a2a7) - Refresh group_sub position/range fields.
 void World::RefreshGroupGuardAnchor(Group* group) {
     this->ComputeGroupAvgPos(group);
     group->group_sub->gap_0x0 = group->group_sub->avg_pos;
@@ -2977,7 +2982,7 @@ void World::RefreshGroupGuardAnchor(Group* group) {
 }
 
 // Issue a move-to-point command to `group`.
-// 5AC785
+// 5ac785 (client: 57a8f5)
 void World::GroupAttackMoveCommand(Group* group, uint8_t x, uint8_t y) {
     this->ClearGroupOrders(group);
     group->group_sub->order = GroupSub::ORDER_ATTACK_MOVE;
@@ -2985,7 +2990,7 @@ void World::GroupAttackMoveCommand(Group* group, uint8_t x, uint8_t y) {
 }
 
 // Issue a respawn/return command to `group` using the lead unit's position.
-// 5AC7C8
+// 5ac7c8 (client: 57a938)
 void World::GroupRoamCommand(Group* group) {
     this->ClearGroupOrders(group);
     group->group_sub->order = GroupSub::ORDER_ROAM;
@@ -2996,7 +3001,7 @@ void World::GroupRoamCommand(Group* group) {
 
 // Issue a guard/hold command to `group`.
 // range=0 means use the world's MinimalGuardRange.
-// 5AC8A2
+// 5ac8a2 (client: 57aa12) - Group guard command, range=0 means use world's MinimalGuardRange.
 void World::GroupGuardCommand(Group* group, uint8_t range) {
     this->ClearGroupOrders(group);
 
@@ -3020,7 +3025,7 @@ void World::GroupGuardCommand(Group* group, uint8_t range) {
     group->group_sub->gap_0x39 = 0;
 }
 
-// 5A9087 — order `unit` to attack `target`.
+// 5a9087 (client: 5771f7) - order `unit` to attack `target`.
 void World::OrderEngageTarget(Unit* unit, Unit* target) {
     if (unit == target) {
         this->ResetUnitToHold(unit);
@@ -3033,7 +3038,7 @@ void World::OrderEngageTarget(Unit* unit, Unit* target) {
     }
 }
 
-// 5A930F — order `unit` to area-cast `spell` at (x, y).
+// 5a930f (client: 57747f) - group area-cast setup. - order `unit` to area-cast `spell` at (x, y).
 void World::OrderAreaCast(Unit* unit, uint8_t x, uint8_t y, Spell* spell) {
     this->BeginUnitOrder(unit);
     unit->state = Unit::ORDER_CAST_POS;
@@ -3043,7 +3048,7 @@ void World::OrderAreaCast(Unit* unit, uint8_t x, uint8_t y, Spell* spell) {
     unit->eye2->cast_action = 0;
 }
 
-// 5A943B — helper used by GroupStopCommand: set unit to retreat/evade state.
+// 5a943b (client: 5775ab) - helper for GroupStopCommand. - helper used by GroupStopCommand: set unit to retreat/evade state.
 void World::OrderStandGround(Unit* unit) {
     this->BeginUnitOrder(unit);
     unit->state = Unit::ORDER_STAND_GROUND;
@@ -3051,7 +3056,7 @@ void World::OrderStandGround(Unit* unit) {
     unit->eye2->cast_action = 0;
 }
 
-// 5A9482 — order `unit` to follow/guard `target` (state 8).
+// 5a9482 (client: 5775f2) - order `unit` to follow/guard `target` (state 8).
 void World::OrderAttackTarget(Unit* unit, Unit* target, uint8_t range) {
     this->BeginUnitOrder(unit);
     if (unit == target) {
@@ -3064,7 +3069,7 @@ void World::OrderAttackTarget(Unit* unit, Unit* target, uint8_t range) {
     }
 }
 
-// 5A9501 — order `unit` to attack `target` (state 0x11).
+// 5a9501 (client: 577671) - order `unit` to attack `target` (state 0x11).
 void World::OrderFollowTarget(Unit* unit, Unit* target, uint8_t range) {
     this->BeginUnitOrder(unit);
     if (unit == target) {
@@ -3077,7 +3082,7 @@ void World::OrderFollowTarget(Unit* unit, Unit* target, uint8_t range) {
     }
 }
 
-// 5A9580 — order `unit` to move to (x, y) using path-list.
+// 5a9580 (client: 5776f0) - order `unit` to move to (x, y) using path-list.
 void World::OrderPatrolTo(Unit* unit, uint8_t x, uint8_t y) {
     this->BeginUnitOrder(unit);
     unit->state = Unit::ORDER_PATROL_STEP;
@@ -3091,14 +3096,14 @@ void World::OrderPatrolTo(Unit* unit, uint8_t x, uint8_t y) {
     this->map_stuff->visibility.ScanUnitVisibility(unit, unit->position->CompatGetYX());
 }
 
-// 5A9918 — helper used by GroupGoHomeCommand: set unit to idle/wander state 0x16.
+// 5a9918 (client: 577a88) - helper for GroupGoHomeCommand. - helper used by GroupGoHomeCommand: set unit to idle/wander state 0x16.
 void World::OrderTeleportHome(Unit* unit) {
     this->BeginUnitOrder(unit);
     unit->state = Unit::ORDER_RETURN_HOME;
     unit->eye2->cast_action = 0;
 }
 
-// 5AA426 — turn unit to face `facing`; if already facing, clear cast action.
+// 5aa426 (client: 578596) - turn unit to face `facing`; if already facing, clear cast action.
 void World::DoTurnTo(Unit* unit, uint8_t facing) {
     if (unit->eye->facing != facing) {
         this->map_stuff->SetFacing(unit, facing);
@@ -3109,7 +3114,7 @@ void World::DoTurnTo(Unit* unit, uint8_t facing) {
     }
 }
 
-// 5AA7CF — commit a targeted spell cast from eye2 setup.
+// 5aa7cf (client: 57893f) - commit a targeted spell cast from eye2 setup.
 void World::StartCastAtUnit(Unit* unit) {
     unit->eye2->ai_state = 2;
     unit->eye2->counter = 0;
@@ -3122,7 +3127,7 @@ void World::StartCastAtUnit(Unit* unit) {
     }
 }
 
-// 5AA84F — commit an area spell cast from eye2 setup.
+// 5aa84f (client: 5789bf) - commit an area spell cast from eye2 setup.
 void World::StartAreaCast(Unit* unit) {
     unit->eye2->ai_state = 2;
     unit->eye2->counter = 0;
@@ -3137,7 +3142,7 @@ void World::StartAreaCast(Unit* unit) {
 }
 
 // Order a unit to interact with/enter a building.
-// 5A90F4
+// 5a90f4 (client: 577264)
 void World::OrderEnterBuilding(Unit* unit, Building* building) {
     this->BeginUnitOrder(unit);
     unit->state = Unit::ORDER_ENTER_BUILDING;
@@ -3161,28 +3166,28 @@ void World::OrderEnterBuilding(Unit* unit, Building* building) {
     }
 }
 
-// 5AC881
+// 5ac881 (client: 57a9f1)
 void World::GroupAttackMove(Group* group, uint8_t x, uint8_t y) {
     this->GroupSwarmCommand(group, x, y);
 }
 
-// 5AF683
+// 5af683 (client: 57d7f3)
 void World::SetFormation(Player* player, uint8_t formation) {
     player->settings->formation = formation;
 }
 
-// 5AFBFD
+// 5afbfd (client: 57dd6d) - increments joined_count
 void World::IncrementJoinedCount() {
     this->joined_count++;
 }
 
-// 5B2E7A
+// 5b2e7a (client: 580fea) - Post-load world relink helper
 void World::RelinkPointers() {
     this->diplomacy.world = this;
 }
 
 // Serialize/Deserialize world state.
-// 5B0556
+// 5b0556 (client: 57e6c6) - Serialize
 void World::Serialize(CArchive& ar) {
     if (ar.IsStoring()) {
         ar.Write(this->trigger_variables, sizeof(this->trigger_variables));
@@ -3211,22 +3216,22 @@ void World::Serialize(CArchive& ar) {
     }
 }
 
-// 5B6F30
+// 5b6f30 (client: 584ff0) - rand() wrapper.
 int32_t RandInt() {
     return std::rand();
 }
 
-// 5B6F40
+// 5b6f40 (client: 585000)
 int32_t World::RandomScaled(int32_t multiplier) {
     return (RandInt() * multiplier) / this->gap_0x0;
 }
 
-// 5B6F60
+// 5b6f60 (client: 585020)
 int32_t World::RandomRange(int32_t min, int32_t max) {
     return (RandInt() * ((max - min) + 1)) / this->gap_0x0 + min;
 }
 
-// 5A8EFB — set unit movement target, clamped to map bounds.
+// 5a8efb (client: 57706b) - Set unit movement target, clamped to map bounds.
 void World::OrderMoveTo(Unit* unit, uint8_t x, uint8_t y) {
     this->BeginUnitOrder(unit);
 
@@ -3249,7 +3254,7 @@ void World::OrderMoveTo(Unit* unit, uint8_t x, uint8_t y) {
     unit->eye2->cast_action = 1;
 }
 
-// 5AA375 — set a unit to move/cast toward `yx`.
+// 5aa375 (client: 5784e5) - set a unit to move/cast toward `yx`.
 void World::DoMoveStepTo(Unit* unit, PosYX yx, uint8_t max_range) {
     unit->eye->moving_to = 1;
 
@@ -3267,7 +3272,7 @@ void World::DoMoveStepTo(Unit* unit, PosYX yx, uint8_t max_range) {
     unit->some_state = Unit::EXEC_STEP;
 }
 
-// 5AA485 — pick a new random wander facing for a monster unit.
+// 5aa485 (client: 5785f5) - pick a new random wander facing for a monster unit.
 void World::DoIdleFidget(Unit* unit) {
     if (unit->eye->facing == unit->eye->target_facing) {
         if (unit->eye2->engaged == 0 && RandInt() >= 205) {
@@ -3284,7 +3289,7 @@ void World::DoIdleFidget(Unit* unit) {
     unit->some_state = Unit::EXEC_STEP;
 }
 
-// 5AAB85 — resume moving toward the unit's current command target.
+// 5aab85 (client: 578cf5) - resume moving toward the unit's current command target.
 void World::ApproachBuilding(Unit* unit_same, Unit* unit) {
     int result = this->map_stuff->FacesPosInRange(unit, unit->eye2->command_to, unit->eye2->max_range);
     if (result != 0) {
@@ -3299,7 +3304,7 @@ void World::ApproachBuilding(Unit* unit_same, Unit* unit) {
     }
 }
 
-// 5AAEBC — start a melee/cast action against the unit's current target.
+// 5aaebc (client: 57902c) - start a melee/cast action against the unit's current target.
 void World::TickRangedApproach(Unit* unit) {
     if (unit->IsMage()) {
         uint8_t max_range = this->UnitMaxRange(unit);
@@ -3319,7 +3324,7 @@ void World::TickRangedApproach(Unit* unit) {
     }
 }
 
-// 5A3C5F — move unconscious targets out of the active target list into the alternate list.
+// 5a3c5f (client: 571dcf) - move unconscious targets out of nearby_list into unconscious_list. - move unconscious targets out of the active target list into the alternate list.
 void World::PruneUnconsciousTargets() {
     this->unconscious_list.unit_list.RemoveAll();
 
@@ -3336,7 +3341,7 @@ void World::PruneUnconsciousTargets() {
 
 // Filter a UnitList by movement type for short-range units.
 // Removes units whose movement type is 3 (flyers?) when `unit` has a max range below 2.
-// 5A3DC9
+// 5a3dc9 (client: 571f39) - helper for GetNearbyUnits.
 void World::RemoveAirborneTargets(Unit* unit, UnitList* list) {
     if (list == nullptr) {
         return;
@@ -3354,7 +3359,7 @@ void World::RemoveAirborneTargets(Unit* unit, UnitList* list) {
     }
 }
 
-// 5AC206 — order a group to area-cast a spell at (x, y).
+// 5ac206 (client: 57a376) - order a group to area-cast a spell at (x, y).
 void World::GroupCastAtPositionCommand(Group* group, uint8_t x, uint8_t y, Spell* spell) {
     this->ClearGroupOrders(group);
 
@@ -3371,7 +3376,7 @@ void World::GroupCastAtPositionCommand(Group* group, uint8_t x, uint8_t y, Spell
     group->group_sub->order = GroupSub::ORDER_DEFAULT;
 }
 
-// 5AC983 — place a newly respawned group into the world.
+// 5ac983 (client: 57aaf3) - Place a newly respawned group into the world.
 void World::PlaceRespawnedGroup(Group* group, int guard_range) {
     this->ClearGroupOrders(group);
 
@@ -3398,7 +3403,7 @@ void World::PlaceRespawnedGroup(Group* group, int guard_range) {
     group->group_sub->gap_0x39 = 0;
 }
 
-// 5AF6F5 — initialize combat withdrawal thresholds for a unit.
+// 5af6f5 (client: 57d865) - initialize combat withdrawal thresholds for a unit.
 void World::InitUnitCombatProfile(Unit* unit) {
     if (unit->IsHumanoid() == 0) {
         return;
@@ -3422,7 +3427,7 @@ void World::InitUnitCombatProfile(Unit* unit) {
     }
 }
 
-// 5A9383
+// 5a9383 (client: 5774f3)
 void World::OrderGuardPosition(Unit* unit) {
     this->BeginUnitOrder(unit);
     unit->state = Unit::ORDER_GUARD_POSITION;
@@ -3434,7 +3439,7 @@ void World::OrderGuardPosition(Unit* unit) {
     unit->eye2->cast_action = 0;
 }
 
-// 5AA97E
+// 5aa97e (client: 578aee)
 void World::ChaseOrAttack(Unit* unit) {
     if (this->map_stuff->FacesTargetInRange(unit, unit->eye2->unit, this->UnitMaxRange(unit)) == 0) {
         this->StepTowardUnit(unit, unit->eye2->unit);
@@ -3445,7 +3450,7 @@ void World::ChaseOrAttack(Unit* unit) {
     }
 }
 
-// 5AA9F6
+// 5aa9f6 (client: 578b66)
 void World::CheckMoveArrival(Unit* unit) {
     if (unit->position->CompatGetYX() == unit->eye2->command_to && unit->position->IsAtCellCenter() != 0) {
         if (unit->some_state == Unit::EXEC_PICKUP) {
@@ -3460,7 +3465,7 @@ void World::CheckMoveArrival(Unit* unit) {
     }
 }
 
-// 5AAB08
+// 5aab08 (client: 578c78)
 void World::ChaseOrAreaCast(Unit* unit) {
     if (this->map_stuff->FacesPosInRange(unit, PosYX(unit->eye2->cast_pos), unit->eye2->max_range) == 0) {
         this->DoMoveStepTo(unit, PosYX(unit->eye2->cast_pos), unit->eye2->max_range);
@@ -3470,7 +3475,7 @@ void World::ChaseOrAreaCast(Unit* unit) {
     }
 }
 
-// 5ABF50
+// 5abf50 (client: 57a0c0)
 void World::ProcessPlayerGroupAi(Player* player) {
     POSITION it = player->group_list->groups.GetHeadPosition();
     while (it != nullptr) {
@@ -3483,7 +3488,7 @@ void World::ProcessPlayerGroupAi(Player* player) {
     }
 }
 
-// 5ABFBC
+// 5abfbc (client: 57a12c)
 void World::ProcessGroupAi(Group* group) {
     this->FlagEmptyGroup(group);
     uint8_t cmd = group->group_sub->order;
@@ -3526,7 +3531,7 @@ void World::ProcessGroupAi(Group* group) {
     this->ProcessGroupRecall(group);
 }
 
-// 5AED8D
+// 5aed8d (client: 57cefd)
 void World::AiRoamBrain(Group* group) {
     uint8_t max_distance = 0;
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
@@ -3557,7 +3562,7 @@ void World::AiRoamBrain(Group* group) {
     group->group_sub->order_age++;
 }
 
-// 5A6EA5
+// 5a6ea5 (client: 575015) - idle/wander helper.
 void World::IdleSelfBuff(Unit* unit) {
     if (unit->IsMage()) {
         this->DoAutobuff(unit);
@@ -3566,7 +3571,7 @@ void World::IdleSelfBuff(Unit* unit) {
     }
 }
 
-// 5AB35B
+// 5ab35b (client: 5794cb)
 void World::DoScriptedPatrol(Unit* unit) {
     uint8_t v14 = this->waypoint_table[1];
     bool nearby = false;
@@ -3621,13 +3626,13 @@ void World::DoScriptedPatrol(Unit* unit) {
     }
 }
 
-// 5A8778
+// 5a8778 (client: 5768e8)
 void World::DoMoveStep(Unit* unit, uint16_t target_yx) {
     unit->eye2->cast_action = 1;
     unit->eye2->command_to = target_yx;
 }
 
-// 5A57E8
+// 5a57e8 (client: 573958)
 void World::PickHealSpell(Unit* unit, Unit* target) {
     int32_t spell_id = 0;
     bool did_cast = false;
@@ -3654,7 +3659,7 @@ void World::PickHealSpell(Unit* unit, Unit* target) {
     }
 }
 
-// 5A65BB — pick a nearby target for `unit` from units around `target`.
+// 5a65bb (client: 57472b) - pick a nearby target for `unit` from units around `target`.
 void World::PickAdjacentEnemy(Unit* unit, Unit* target) {
     UnitList* list = this->GetNearbyUnits(target);
     if (list == nullptr || list->unit_list.GetCount() == 0) {
@@ -3705,7 +3710,7 @@ void World::PickAdjacentEnemy(Unit* unit, Unit* target) {
     }
 }
 
-// 5A5568
+// 5a5568 (client: 5736d8)
 void World::TickAttackTarget(Unit* unit, Unit* target) {
     uint8_t range = unit->eye2->range;
     uint8_t distance = this->map_stuff->ChebyshevDistanceXY(
@@ -3735,7 +3740,7 @@ void World::TickAttackTarget(Unit* unit, Unit* target) {
     }
 }
 
-// 5A56D7
+// 5a56d7 (client: 573847)
 void World::TickFollowTarget(Unit* unit, Unit* target) {
     uint8_t range = unit->eye2->range;
     uint8_t distance = this->map_stuff->ChebyshevDistanceXY(
@@ -3756,7 +3761,7 @@ void World::TickFollowTarget(Unit* unit, Unit* target) {
     }
 }
 
-// 5A8885
+// 5a8885 (client: 5769f5)
 void World::DoTeleportHome(Unit* unit) {
     if (unit->spell_book != nullptr) {
         if (this->GetCastableSpell(unit, spell::teleport, 0) != nullptr) {
@@ -3790,7 +3795,7 @@ void World::DoTeleportHome(Unit* unit) {
     }
 }
 
-// 5A8A55
+// 5a8a55 (client: 576bc5)
 void World::TeleportToSafety(Unit* unit) {
     uint8_t range = (unit->scan_range >> 8) + 1;
     PosYX pos = unit->position->GetYX();
@@ -3831,7 +3836,7 @@ void World::TeleportToSafety(Unit* unit) {
     }
 }
 
-// 5A8DBC
+// 5a8dbc (client: 576f2c) - helper for FleeFromEnemies.
 void World::TeleportAwayFromEnemies(Unit* unit) {
     uint8_t range = (unit->scan_range >> 8) - 1;
     PosYX pos = unit->position->GetYX();
@@ -3861,7 +3866,7 @@ void World::TeleportAwayFromEnemies(Unit* unit) {
 
 // Check whether the unit is below its wimpy threshold and has nearby enemies.
 // Returns 1 if the unit should flee, 0 otherwise.
-// 5A89D5
+// 5a89d5 (client: 576b45) - helper for ProcessUnitRecall.
 int32_t World::WantsRetreat(Unit* unit) {
     if (unit->hp > unit->eye2->wimpy) {
         return 0;
@@ -3876,7 +3881,7 @@ int32_t World::WantsRetreat(Unit* unit) {
 
 // Check whether the unit is below its withdraw threshold and has nearby enemies.
 // Returns 1 if the unit should teleport away, 0 otherwise.
-// 5A8BDA
+// 5a8bda (client: 576d4a) - helper for ProcessUnitRecall.
 int32_t World::MustFlee(Unit* unit) {
     if (unit->hp > unit->eye2->withdraw) {
         return 0;
@@ -3888,7 +3893,7 @@ int32_t World::MustFlee(Unit* unit) {
     return list->unit_list.GetCount() != 0 ? 1 : 0;
 }
 
-// 5A8CD8
+// 5a8cd8 (client: 576e48) - helper for ProcessUnitRecall.
 void World::FleeFromEnemies(Unit* unit) {
     if (unit->spell_book != nullptr) {
         if (this->GetCastableSpell(unit, spell::teleport, 0) != nullptr) {
@@ -3909,7 +3914,7 @@ void World::FleeFromEnemies(Unit* unit) {
     }
 }
 
-// 5A59E2
+// 5a59e2 (client: 573b52)
 void World::DoPatrolTick(Unit* unit) {
     unit->eye2->cast_action = 0;
     if (unit->eye2->patrol_reanchor != 0) {
@@ -3939,12 +3944,12 @@ void World::DoPatrolTick(Unit* unit) {
     }
 }
 
-// 5A5B49
+// 5a5b49 (client: 573cb9)
 void World::AdvancePatrolStep(Unit* unit) {
     this->AdvancePatrol(unit);
 }
 
-// 5A647C — helper for state 10/24 unit actions.
+// 5a647c (client: 5745ec) - helper for state 10/24 unit actions.
 void World::AdvancePatrol(Unit* unit) {
     if (unit->eye2->position1.val == 0) {
         unit->eye2->position1 = unit->position->GetYX();
@@ -3972,13 +3977,13 @@ void World::AdvancePatrol(Unit* unit) {
     }
 }
 
-// 5A6DA3
+// 5a6da3 (client: 574f13)
 void World::BeginEnterBuilding(Unit* unit, Building* building) {
     unit->eye2->cast_action = 0xF;
     unit->eye2->enter_building = building;
 }
 
-// 5A551C
+// 5a551c (client: 57368c) - set up a position-targeted cast action.
 void World::BeginPositionCast(Unit* unit, uint16_t pos_yx, Spell* spell) {
     unit->eye2->cast_action = 9;
     unit->eye2->cast_pos = pos_yx;
@@ -3987,14 +3992,14 @@ void World::BeginPositionCast(Unit* unit, uint16_t pos_yx, Spell* spell) {
 }
 
 // Build a temporary UnitList of units near `unit` using the unit's eye range.
-// 5A3791
+// 5a3791 (client: 571901) - helper for GetNearbyUnits.
 UnitList* World::BuildNearbyList(Unit* unit) {
     uint8_t range = unit->eye->scan_radius_base;
     PosYX yx = unit->position->CompatGetYX();
     return this->map_stuff->BuildNearbyUnitList(yx, range);
 }
 
-// 5A37C5
+// 5a37c5 (client: 571935) - get nearby UnitList around unit.
 UnitList* World::GetNearbyUnits(Unit* unit) {
     UnitList* list = this->BuildNearbyList(unit);
     this->FilterByRelation(unit, list, 0);
@@ -4002,7 +4007,7 @@ UnitList* World::GetNearbyUnits(Unit* unit) {
     return list;
 }
 
-// 5A54B8
+// 5a54b8 (client: 573628)
 void World::DoAttackMove(Unit* unit, uint16_t command_to) {
     UnitList* list = this->GetNearbyEnemies(unit, unit->position->GetYX());
     if (list != nullptr && list->unit_list.GetCount() != 0) {
@@ -4012,7 +4017,7 @@ void World::DoAttackMove(Unit* unit, uint16_t command_to) {
     }
 }
 
-// 5A87A3
+// 5a87a3 (client: 576913)
 void World::DoSwarmMoveStep(Unit* unit, uint16_t pos_yx) {
     if (pos_yx != unit->position->CompatGetYX()) {
         this->DoMoveStep(unit, pos_yx);
@@ -4022,7 +4027,7 @@ void World::DoSwarmMoveStep(Unit* unit, uint16_t pos_yx) {
     }
 }
 
-// 5A8829
+// 5a8829 (client: 576999)
 void World::BeginChase(Unit* unit, Unit* target, uint8_t range) {
     unit->eye2->cast_action = 4;
     unit->eye2->unit3 = target;
@@ -4033,7 +4038,7 @@ void World::BeginChase(Unit* unit, Unit* target, uint8_t range) {
     }
 }
 
-// 5A6789
+// 5a6789 (client: 5748f9)
 void World::DoGatherLootStep(Unit* unit) {
     this->map_stuff->CollectSackCells(unit, 1);
     if (this->map_stuff->sack_cells.GetCount() == 0) {
@@ -4045,7 +4050,7 @@ void World::DoGatherLootStep(Unit* unit) {
 }
 
 // Reset unit state and set a movement target from two packed bytes.
-// 5A925C
+// 5a925c (client: 5773cc) - helper for DoScriptedWalk.
 void World::OrderWalkTo(Unit* unit, uint8_t a, uint8_t b) {
     this->BeginUnitOrder(unit);
     unit->state = Unit::ORDER_ATTACK_MOVE;
@@ -4053,7 +4058,7 @@ void World::OrderWalkTo(Unit* unit, uint8_t a, uint8_t b) {
     unit->eye2->cast_action = 0;
 }
 
-// 5AB5E3
+// 5ab5e3 (client: 579753)
 void World::DoScriptedWalk(Unit* unit) {
     this->DoMoveStep(unit, 0x4F5B);
     if (unit->position->GetX() > 0x58) {
@@ -4061,7 +4066,7 @@ void World::DoScriptedWalk(Unit* unit) {
     }
 }
 
-// 5AF5DC
+// 5af5dc (client: 57d74c) - helper for ProcessGroupRecall.
 void World::ProcessUnitRecall(Unit* unit) {
     if (this->WantsRetreat(unit) != 0) {
         this->DoTeleportHome(unit);
@@ -4070,12 +4075,12 @@ void World::ProcessUnitRecall(Unit* unit) {
     }
 }
 
-// 5ABCFD
+// 5abcfd (client: 579e6d)
 void World::RunUnitAi(Unit* unit) {
     this->ProcessUnitAi(unit);
 }
 
-// 5A5155
+// 5a5155 (client: 5732c5) - helper for RunUnitAi.
 void World::ProcessUnitAi(Unit* unit) {
     if (!unit->pOwner->is_ai) {
         this->ProcessUnitState(unit);
@@ -4084,12 +4089,12 @@ void World::ProcessUnitAi(Unit* unit) {
     }
 }
 
-// 5A5188
+// 5a5188 (client: 5732f8) - AI wrapper for ProcessUnitState.
 void World::RunAiUnitState(Unit* unit) {
     this->ProcessUnitState(unit);
 }
 
-// 5A51A1
+// 5a51a1 (client: 573311) - per-state unit action dispatcher.
 void World::ProcessUnitState(Unit* unit) {
 #ifdef A2SERVER_PATCH
     if (unit->state == Unit::ORDER_ATTACK_UNIT && unit->eye2->unit != nullptr && unit->eye2->unit->IsUnit() && unit->eye2->unit->some_state == Unit::EXEC_DEAD) {
@@ -4172,28 +4177,28 @@ void World::ProcessUnitState(Unit* unit) {
     }
 }
 
-// 5AE5C0
+// 5ae5c0 (client: 57c730)
 void World::JitterGuardRangeWide(Group* group) {
     uint8_t base = group->group_sub->guard_range_base;
     int32_t r = this->RandomRange(-1, 1);
     group->group_sub->guard_range = base + r + 4;
 }
 
-// 5AE5F5
+// 5ae5f5 (client: 57c765)
 void World::JitterGuardRange(Group* group) {
     uint8_t base = group->group_sub->guard_range_base;
     int32_t r = this->RandomRange(-1, 1);
     group->group_sub->guard_range = base + r;
 }
 
-// 5AF623
+// 5af623 (client: 57d793)
 void World::FlagEmptyGroup(Group* group) {
     if (group->unit_list.GetCount() == 0) {
         group->group_sub->order = GroupSub::ORDER_IDLE_ALL;
     }
 }
 
-// 5AEFE5
+// 5aefe5 (client: 57d155)
 void World::AiStandBrain(Group* group) {
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
         Unit* unit = group->unit_list.GetNext(it);
@@ -4201,7 +4206,7 @@ void World::AiStandBrain(Group* group) {
     }
 }
 
-// 5AF022
+// 5af022 (client: 57d192)
 void World::IdleGroupUnits(Group* group) {
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
         Unit* unit = group->unit_list.GetNext(it);
@@ -4209,7 +4214,7 @@ void World::IdleGroupUnits(Group* group) {
     }
 }
 
-// 5AF061
+// 5af061 (client: 57d1d1)
 void World::AiMoveBrain(Group* group, uint16_t yx) {
     this->ComputeGroupAvgPos(group);
 
@@ -4245,7 +4250,7 @@ void World::AiMoveBrain(Group* group, uint16_t yx) {
     }
 }
 
-// 5AF646
+// 5af646 (client: 57d7b6)
 void World::ProcessGroupRecall(Group* group) {
     for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
         Unit* unit = group->unit_list.GetNext(it);
@@ -4253,7 +4258,7 @@ void World::ProcessGroupRecall(Group* group) {
     }
 }
 
-// 5AB92C
+// 5ab92c (client: 579a9c)
 void World::UpdateGroupCenter(Group* group) {
     int32_t count = group->unit_list.GetCount();
     if (count == 0) {
@@ -4298,7 +4303,7 @@ void World::UpdateGroupCenter(Group* group) {
     group->group_sub->max_dist_plus_scan = max_sum;
 }
 
-// 5AD2C1
+// 5ad2c1 (client: 57b431)
 int32_t World::GetTargetScore(Unit* unit, Unit* target) {
     PosYX unit_yx = unit->position->GetYX();
     PosYX target_yx = target->position->GetYX();
@@ -4344,7 +4349,7 @@ int32_t World::GetTargetScore(Unit* unit, Unit* target) {
     return score;
 }
 
-// 5AE471
+// 5ae471 (client: 57c5e1)
 void World::AssignBestTargets(Group* group) {
     if (group->unit_list.GetCount() == 0 || this->nearby_list.unit_list.GetCount() == 0) {
         for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
@@ -4375,7 +4380,7 @@ void World::AssignBestTargets(Group* group) {
     }
 }
 
-// 5A3D12
+// 5a3d12 (client: 571e82)
 void World::PruneNearbyUnits(uint16_t pos_yx, uint8_t max_distance) {
     CList<Unit*>& unit_list = this->nearby_list.unit_list;
     POSITION it = unit_list.GetHeadPosition();
@@ -4390,7 +4395,7 @@ void World::PruneNearbyUnits(uint16_t pos_yx, uint8_t max_distance) {
     }
 }
 
-// 5AE2D4
+// 5ae2d4 (client: 57c444)
 void World::AssignNearbyTargets(Group* group) {
     if (group->unit_list.GetCount() == 0 || this->nearby_list.unit_list.GetCount() == 0) {
         for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
@@ -4425,7 +4430,7 @@ void World::AssignNearbyTargets(Group* group) {
     }
 }
 
-// 5AE628
+// 5ae628 (client: 57c798)
 void World::AiGuardBrain(Group* group) {
     this->UpdateGroupCenter(group);
     this->ScanNearbyUnits(group);
@@ -4465,7 +4470,7 @@ void World::AiGuardBrain(Group* group) {
     }
 }
 
-// 5AE7C3
+// 5ae7c3 (client: 57c933)
 void World::AiDefendBrain(Group* group) {
     this->UpdateGroupCenter(group);
     this->ScanNearbyUnits(group);
@@ -4525,7 +4530,7 @@ void World::AiDefendBrain(Group* group) {
     }
 }
 
-// 5AC80F
+// 5ac80f (client: 57a97f)
 void World::GroupAttackCommand(Group* group, Unit* target) {
     this->ClearGroupOrders(group);
 
@@ -4539,7 +4544,7 @@ void World::GroupAttackCommand(Group* group, Unit* target) {
     }
 }
 
-// 5ACB4D
+// 5acb4d (client: 57acbd)
 void World::GroupAttackTargetCommand(Group* group, Unit* target, uint8_t range) {
     this->ClearGroupOrders(group);
 
@@ -4549,7 +4554,7 @@ void World::GroupAttackTargetCommand(Group* group, Unit* target, uint8_t range) 
     }
 }
 
-// 5ACB9E
+// 5acb9e (client: 57ad0e)
 void World::GroupFollowCommand(Group* group, Unit* target, uint8_t range) {
     this->ClearGroupOrders(group);
 
@@ -4559,7 +4564,7 @@ void World::GroupFollowCommand(Group* group, Unit* target, uint8_t range) {
     }
 }
 
-// 5ACBEF
+// 5acbef (client: 57ad5f)
 void World::GroupPatrolCommand(Group* group, uint8_t x, uint8_t y) {
     this->ClearGroupOrders(group);
 
@@ -4569,7 +4574,7 @@ void World::GroupPatrolCommand(Group* group, uint8_t x, uint8_t y) {
     }
 }
 
-// 5AC187
+// 5ac187 (client: 57a2f7)
 void World::GroupCastAtUnitCommand(Group* group, Unit* target, Spell*) {
     this->ClearGroupOrders(group);
 
@@ -4586,7 +4591,7 @@ void World::GroupCastAtUnitCommand(Group* group, Unit* target, Spell*) {
     group->group_sub->order = GroupSub::ORDER_DEFAULT;
 }
 
-// 5ACAA7 — order group to retreat/evade (state 0x13).
+// 5acaa7 (client: 57ac17) - order group to retreat/evade (state 0x13).
 void World::GroupStopCommand(Group* group) {
     this->ClearGroupOrders(group);
 
@@ -4598,7 +4603,7 @@ void World::GroupStopCommand(Group* group) {
     group->group_sub->order = GroupSub::ORDER_STAND;
 }
 
-// 5ACAFA — order group to idle/wander (state 0).
+// 5acafa (client: 57ac6a) - order group to idle/wander (state 0).
 void World::GroupGoHomeCommand(Group* group) {
     this->ClearGroupOrders(group);
 
@@ -4610,7 +4615,7 @@ void World::GroupGoHomeCommand(Group* group) {
     group->group_sub->order = GroupSub::ORDER_DEFAULT;
 }
 
-// 5B0762 — evaluate pending trigger checks.
+// 5b0762 (client: 57e8d2) - evaluate pending trigger checks.
 void World::EvaluateTriggerChecks() {
     TriggerCheck local;
 
@@ -4622,7 +4627,7 @@ void World::EvaluateTriggerChecks() {
     }
 }
 
-// 5B081E — trigger-check dispatcher.
+// 5b081e (client: 57e98e) - trigger-check dispatcher.
 void World::DispatchTriggerCheck(TriggerCheck* check) {
     switch (check->type) {
     case trigger_check_op::group_unit_count:           this->CheckOP_1(check); break;
@@ -4655,12 +4660,12 @@ void World::DispatchTriggerCheck(TriggerCheck* check) {
     }
 }
 
-// 5B2E91
+// 5b2e91 (client: 581001) - How many units contains this group
 void World::CheckOP_1(TriggerCheck* check) {
     this->trigger_variables[check->id] = check->group->unit_list.GetCount();
 }
 
-// 5B2EF9
+// 5b2ef9 (client: 581069) - Is unit in a box
 void World::CheckOP_2(TriggerCheck* check) {
     uint8_t x = check->unit->position->GetX();
     uint8_t y = check->unit->position->GetY();
@@ -4671,7 +4676,7 @@ void World::CheckOP_2(TriggerCheck* check) {
     }
 }
 
-// 5B2F9A
+// 5b2f9a (client: 58110a) - Is unit in a circle
 void World::CheckOP_3(TriggerCheck* check) {
     TokenPos* pos = check->unit->position;
     int32_t distance = this->map_stuff->ChebyshevDistanceXY(pos->GetX(), pos->GetY(), check->data[0], check->data[1]);
@@ -4682,14 +4687,14 @@ void World::CheckOP_3(TriggerCheck* check) {
     }
 }
 
-// 5B3071
+// 5b3071 (client: 5811e1) - Get unit parameter
 void World::CheckOP_4(TriggerCheck* check) {
     if (check->data[0] == modifier::health) {
         this->trigger_variables[check->id] = check->unit->hp;
     }
 }
 
-// 5B2EB8
+// 5b2eb8 (client: 581028) - Is unit alive?
 void World::CheckOP_5(TriggerCheck* check) {
     if (check->unit->some_state == Unit::EXEC_DEAD) {
         this->trigger_variables[check->id] = 0;
@@ -4698,7 +4703,7 @@ void World::CheckOP_5(TriggerCheck* check) {
     }
 }
 
-// 5B3131
+// 5b3131 (client: 5812a1) - Distance between units
 void World::CheckOP_6(TriggerCheck* check) {
     Unit* other = static_cast<Unit*>(check->multi);
 
@@ -4711,13 +4716,13 @@ void World::CheckOP_6(TriggerCheck* check) {
     }
 }
 
-// 5B3016
+// 5b3016 (client: 581186) - Distance from point to unit
 void World::CheckOP_7(TriggerCheck* check) {
     TokenPos* pos = check->unit->position;
     this->trigger_variables[check->id] = this->map_stuff->ChebyshevDistanceXY(pos->GetX(), pos->GetY(), check->data[0], check->data[1]);
 }
 
-// 5B30AD
+// 5b30ad (client: 58121d) - How many units this player have
 void World::CheckOP_8(TriggerCheck* check) {
     int32_t count = 0;
     CList<Group*>& groups = check->player->group_list->groups;
@@ -4728,7 +4733,7 @@ void World::CheckOP_8(TriggerCheck* check) {
     this->trigger_variables[check->id] = count;
 }
 
-// 5B31C9
+// 5b31c9 (client: 581339) - Is unit make attack
 void World::CheckOP_9(TriggerCheck* check) {
     if (check->unit->eye2->cast_action == 5) {
         this->trigger_variables[check->id] = check->unit->eye2->unit->TokenID;
@@ -4737,13 +4742,13 @@ void World::CheckOP_9(TriggerCheck* check) {
     }
 }
 
-// 5B3222
+// 5b3222 (client: 581392) - Get diplomacy
 void World::CheckOP_10(TriggerCheck* check) {
     int other_id = static_cast<Player*>(check->multi)->player_id;
     this->trigger_variables[check->id] = this->diplomacy.diplomacy[check->player->player_id][other_id] & (DIPLO_WAR | DIPLO_ALLIANCE);
 }
 
-// 5B3273
+// 5b3273 (client: 5813e3) - Item in inventory, same as check 17.
 void World::CheckOP_12(TriggerCheck* check) {
     if (check->unit->inventory->FindItemById(check->item_id) != nullptr) {
         this->trigger_variables[check->id] = 1;
@@ -4752,7 +4757,7 @@ void World::CheckOP_12(TriggerCheck* check) {
     }
 }
 
-// 5B32CF
+// 5b32cf (client: 58143f) - Get sack
 void World::CheckOP_14(TriggerCheck* check) {
     if (this->map_stuff->GetSackAt(check->data[0], check->data[1]) != nullptr) {
         this->trigger_variables[check->id] = 1;
@@ -4761,7 +4766,7 @@ void World::CheckOP_14(TriggerCheck* check) {
     }
 }
 
-// 5B3324
+// 5b3324 (client: 581494) - Distance to nearest units of player
 void World::CheckOP_15(TriggerCheck* check) {
     int32_t best = 0xFF;
     CList<Group*>& groups = check->player->group_list->groups;
@@ -4778,7 +4783,7 @@ void World::CheckOP_15(TriggerCheck* check) {
     this->trigger_variables[check->id] = best;
 }
 
-// 5B33F0
+// 5b33f0 (client: 581560) - Item to point
 void World::CheckOP_16(TriggerCheck* check) {
     if (check->unit->inventory->FindItemById(check->item_id) != nullptr) {
         this->trigger_variables[check->id] = this->map_stuff->ChebyshevDistanceXY(check->unit->position->GetX(), check->unit->position->GetY(), check->data[0], check->data[1]);
@@ -4787,7 +4792,7 @@ void World::CheckOP_16(TriggerCheck* check) {
     }
 }
 
-// 5B347A
+// 5b347a (client: 5815ea) - Item in inventory
 void World::CheckOP_17(TriggerCheck* check) {
     if (check->unit->inventory->FindItemById(check->item_id) != nullptr) {
         this->trigger_variables[check->id] = 1;
@@ -4796,19 +4801,19 @@ void World::CheckOP_17(TriggerCheck* check) {
     }
 }
 
-// 5B34C9
+// 5b34c9 (client: 581639) - VIP
 void World::CheckOP_18(TriggerCheck* check) {
     if (check->unit->some_state == Unit::EXEC_DEAD) {
         this->mission_fail += 1;
     }
 }
 
-// 5B34F7
+// 5b34f7 (client: 581667) - Return value of variable
 void World::CheckOP_19(TriggerCheck* check) {
     this->trigger_variables[check->id] = this->trigger_variables[check->data[0]];
 }
 
-// 5B3525
+// 5b3525 (client: 581695) - How many buildings this player have
 void World::CheckOP_20(TriggerCheck* check) {
     int32_t count = 0;
     BuildingsList* buildings = g_Server->srv_stru1->building_list;
@@ -4821,12 +4826,12 @@ void World::CheckOP_20(TriggerCheck* check) {
     this->trigger_variables[check->id] = count;
 }
 
-// 5B35A0
+// 5b35a0 (client: 581710) - Health of building
 void World::CheckOP_21(TriggerCheck* check) {
     this->trigger_variables[check->id] = check->building->hp;
 }
 
-// 5B35C6
+// 5b35c6 (client: 581736) - Teleportation
 void World::CheckOP_22(TriggerCheck* check) {
     PosYX yx(check->data[0], check->data[1]);
     Unit* unit = this->map_stuff->GetSmallUnitAt(yx.val);
@@ -4838,17 +4843,17 @@ void World::CheckOP_22(TriggerCheck* check) {
     }
 }
 
-// 5B3644
+// 5b3644 (client: 5817b4) - Get Scenario Variable
 void World::CheckOP_23(TriggerCheck* check) {
     this->trigger_variables[check->id] = ScenarioGetVar(check->data[0]);
 }
 
-// 5B366D
+// 5b366d (client: 5817dd) - Get Subobjective
 void World::CheckOP_24(TriggerCheck* check) {
     this->trigger_variables[check->id] = ScenarioGetVar(check->data[0] + 752);
 }
 
-// 5B369C
+// 5b369c (client: 58180c) - Spell on Tile
 void World::CheckOP_25(TriggerCheck* check) {
     PosYX yx(check->data[0], check->data[1]);
     AreaEffect** effects = this->map_stuff->GetAreaEffectsAt(yx.val);
@@ -4861,7 +4866,7 @@ void World::CheckOP_25(TriggerCheck* check) {
     }
 }
 
-// 5B3720
+// 5b3720 (client: 581890) - Spell on Unit
 void World::CheckOP_26(TriggerCheck* check) {
     if ((check->unit->enchantments & (1 << check->data[0])) == 0) {
         this->trigger_variables[check->id] = 0;
@@ -4870,7 +4875,7 @@ void World::CheckOP_26(TriggerCheck* check) {
     }
 }
 
-// 5B3776
+// 5b3776 (client: 5818e6) - Centered on Tile
 void World::CheckOP_27(TriggerCheck* check) {
     TokenPos* pos = check->unit->position;
     if (pos->GetX() == check->data[1] && pos->GetY() == check->data[2] && pos->IsAtCellCenter() != 0) {

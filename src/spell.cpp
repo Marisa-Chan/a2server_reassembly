@@ -26,7 +26,8 @@ IMPLEMENT_SERIAL(Spell, CObject, 1);
 IMPLEMENT_SERIAL(SpellBook, CObject, 1);
 
 
-void Spell::Serialize(CArchive& ar) { // 53cf8d
+// 53cf8d (client: 525c30)
+void Spell::Serialize(CArchive& ar) {
     if (ar.IsStoring()) {
         ar.Write(&this->spell_id, 1);
         ar.Write(&this->max_range, 1);
@@ -48,13 +49,15 @@ void Spell::Serialize(CArchive& ar) { // 53cf8d
     }
 }
 
-Spell::Spell() { // 538fa5
+// 538fa5 (client: 522cfd)
+Spell::Spell() {
     this->spell_info = nullptr;
     this->is_defensive = false;
     this->spell_id = 0;
 }
 
-Spell::Spell(uint8_t id) { // 538fdd
+// 538fdd (client: 522d34)
+Spell::Spell(uint8_t id) {
     this->spell_info = nullptr;
     this->is_defensive = false;
     this->spell_id = 0;
@@ -63,7 +66,8 @@ Spell::Spell(uint8_t id) { // 538fdd
     this->Init();
 }
 
-Spell::Spell(const CString& name) { // 539055
+// 539055 (client: 522dab)
+Spell::Spell(const CString& name) {
     this->spell_info = nullptr;
     this->is_defensive = false;
     this->spell_id = 0;
@@ -85,10 +89,12 @@ Spell::Spell(const CString& name) { // 539055
     }
 }
 
-Spell::~Spell() //5392fe
+// 5392fe (client: 523042)
+Spell::~Spell()
 {}
 
-void Spell::Init() { //5391ab
+// 5391ab (client: 522ef5)
+void Spell::Init() {
 #ifdef A2CLIENT_PATCH
     // p10st2.xck (522f14 -> 6e20f9): also reject spell_id > 0x1D (spell::max_spell_id)
     if (this->spell_id == 0 || this->spell_id > spell::max_spell_id) {
@@ -106,7 +112,7 @@ void Spell::Init() { //5391ab
     }
 }
 
-// 53939E
+// 53939e (client: 5230e1) - Checks if it's area spell (spell target == 2).
 int Spell::IsAreaSpell(uint8_t, uint8_t) {
     #ifdef A2SERVER_PATCH
     // bug_0008: null spell_info or empty values array -> not an area spell
@@ -118,12 +124,12 @@ int Spell::IsAreaSpell(uint8_t, uint8_t) {
     return this->spell_info->Values().GetData()[0].spell_target == Spell::TARGET_AREA;
 }
 
-// 5393C7
+// 5393c7 (client: 523108) - Checks if spell_target == 1 (unit-targeted).
 int Spell::IsUnitSpell() {
     return this->spell_info->Values().GetData()[0].spell_target == Spell::TARGET_UNIT;
 }
 
-// 53940D
+// 53940d (client: 52314a)
 void Spell::SetPowerFromCaster(Unit* unit) {
     const SpellInfoData& info = this->spell_info->Values().GetData()[0];
     int32_t power = unit->hit_values.skill_levels[info.sphere] + unit->mind - 30;
@@ -136,7 +142,7 @@ void Spell::SetPowerFromCaster(Unit* unit) {
     this->SetPower(power);
 }
 
-// 539C49
+// 539c49 (client: 5238cb)
 void Spell::ExecuteRaySpell(Unit* caster, Unit* target) {
     int32_t rays = 7;
     if (caster->some_item != nullptr) {
@@ -163,14 +169,14 @@ void Spell::ExecuteRaySpell(Unit* caster, Unit* target) {
     }
 }
 
-// 539F21
+// 539f21 (client: 523a46) - Execute targeted spell
 void Spell::ExecuteOnTarget(Unit* caster, Unit* target) {
     if (this->spell_id != spell::prismatic_spray) {
         this->ExecuteAtArea(caster, target, 0, 0);
     }
 }
 
-// 539541
+// 539541 (client: 523278)
 void Spell::SetPower(uint32_t power) {
     const SpellInfoData& info = this->spell_info->Values().GetData()[0];
     uint8_t power_byte = power;
@@ -257,10 +263,10 @@ void Spell::SetPower(uint32_t power) {
     }
 }
 
-// Distance between two TokenPos positions in sub-cell units (still in asm).
+// Distance between two TokenPos positions in sub-cell units.
 uint32_t __cdecl CalcWalkDist(TokenPos* a, TokenPos* b);
 
-// 539958
+// 539958 (client: 52365f) - Validate and start cast; returns nonzero if accepted
 int32_t Spell::StartCast(Unit* caster, Unit* target, int8_t x, int8_t y) {
     if ((caster->unit_attrs & Unit::ATTR_MAGE) && caster->some_item == nullptr) {
         if (this->mana_cost > caster->mp) {
@@ -329,7 +335,7 @@ int32_t Spell::StartCast(Unit* caster, Unit* target, int8_t x, int8_t y) {
     return 1;
 }
 
-// 53D368
+// 53d368 (client: 525dc4)
 SpellBook::~SpellBook() {
     #ifdef A2SERVER_PATCH
     // bug_000F: spells.m_pData can be null (corrupted array) - skip the loop
@@ -343,7 +349,7 @@ SpellBook::~SpellBook() {
     }
 }
 
-// 53DDA4
+// 53dd9a (client: 5261f1)
 void SpellBook::Serialize(CArchive& ar) {
     if (ar.IsStoring()) {
         ar << this->current_spell_index;
@@ -363,7 +369,7 @@ void SpellBook::Serialize(CArchive& ar) {
     }
 }
 
-// 53DD3D
+// 53dd3d (client: 526190) - Calculate spellbook bitmask for this unit's spells.
 int32_t SpellBook::CalcSpellMask() {
     int32_t mask = 0;
     for (int32_t i = 1; i < this->spells.GetSize(); i++) {
@@ -374,7 +380,7 @@ int32_t SpellBook::CalcSpellMask() {
     return mask;
 }
 
-// 53D7F0
+// 53d7f0 (client: 525f8a) - Add/replace a spell in the book
 void SpellBook::SetSpell(int32_t spell_id, Spell* spell) {
     if (spell_id < this->spells.GetSize()) {
         delete this->spells[spell_id];
@@ -384,8 +390,8 @@ void SpellBook::SetSpell(int32_t spell_id, Spell* spell) {
     this->spells[spell_id] = spell;
 }
 
+// 53dbc5 (client: 5260d0)
 void SpellBook::RefreshForHumanoid(Humanoid* humanoid) {
-    //53dbc5
     for (int index = 1; index < this->spells.GetSize(); ++index) {
         Spell* spell = this->spells[index];
         if (spell != nullptr) {
@@ -404,7 +410,7 @@ void SpellBook::RefreshForHumanoid(Humanoid* humanoid) {
     }
 }
 
-// 539F5A
+// 539f5a (client: 523a7f) - Execute area spell
 void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
     if (this->spell_info == nullptr) {
         return;
@@ -975,7 +981,8 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
     }
 }
 
-Spell* SpellBook::GetSpell(int spell_id) { // 53db79 // Look up spell in book by id
+// 53db79 (client: 52607d) - Look up spell in book by id
+Spell* SpellBook::GetSpell(int spell_id) {
     if ((uint32_t)spell_id >= this->spells.GetSize()) {
         return nullptr;
     }

@@ -6,7 +6,7 @@
 
 QuestMap g_QuestMap; // 6ce4d8
 
-// 55D579
+// 55d579 (client: 537b72)
 QuestMap::QuestMap() {
     this->assoc = nullptr;
     this->quest = nullptr;
@@ -14,7 +14,7 @@ QuestMap::QuestMap() {
     this->building_id = 0;
 }
 
-// 580F70 / 55D915
+// 55d915 (client: 537c83)
 QuestMap::~QuestMap() {
     POSITION quest_pos = this->quests_map.GetStartPosition();
     while (quest_pos != nullptr) {
@@ -38,7 +38,7 @@ QuestMap::~QuestMap() {
     this->building_id = 0;
 }
 
-// 55DE84
+// 55de84 (client: 537e01)
 void QuestMap::ProcessQueuedEvents() {
     while (this->substructs.GetCount() != 0) {
         QuestSubstruct* sub = this->substructs.RemoveHead();
@@ -50,13 +50,13 @@ void QuestMap::ProcessQueuedEvents() {
     }
 }
 
-// 55E00C
+// 55e00c (client: 537e5f)
 void QuestMap::ProcessDeferredEvents() {
     this->ProcessInnGlues();
     this->ProcessQueuedEvents();
 }
 
-// 55E027
+// 55e027 (client: 537e7a)
 void QuestMap::ProcessInnGlues() {
     this->assoc = this->glues_map.GetStartPosition();
     while (this->assoc != nullptr) {
@@ -69,7 +69,7 @@ void QuestMap::ProcessInnGlues() {
     }
 }
 
-// 55D6F7
+// 55d6f7 (client: 537bfe) - Reset quest state
 void QuestMap::DeleteGlues() {
     POSITION pos = this->glues_map.GetStartPosition();
     while (pos != nullptr) {
@@ -81,7 +81,7 @@ void QuestMap::DeleteGlues() {
     this->glues_map.RemoveAll();
 }
 
-// 55DD10
+// 55dd10 (client: 537dbb) - Fire a quest event
 void QuestMap::QueueEvent(int32_t event_type, int32_t a, int32_t b) {
     QuestSubstruct* sub = new QuestSubstruct;
     sub->event_type = event_type;
@@ -90,7 +90,7 @@ void QuestMap::QueueEvent(int32_t event_type, int32_t a, int32_t b) {
     this->substructs.AddTail(sub);
 }
 
-// 55E24A
+// 55e24a (client: 537f4f)
 void QuestMap::RegisterQuest(Quest* quest) {
     this->quests_map[quest->quest_data.quest_id] = quest;
     quest->quest_map = this;
@@ -104,7 +104,7 @@ void QuestMap::RegisterQuest(Quest* quest) {
     }
 }
 
-// 55E5FB
+// 55e5fb (client: 537fba) - Remove quest from quest map flags
 void QuestMap::UnregisterQuest(Quest* quest) {
     this->flags[quest->quest_data.player_id] |= QuestMap::FLAG_UNREGISTERED;
     this->quests_map.RemoveKey(quest->quest_data.quest_id);
@@ -122,13 +122,13 @@ void QuestMap::UnregisterQuest(Quest* quest) {
     }
 }
 
-// 55EA81
+// 55ea81 (client: 53805d) - Add QuestInnGlue to quest map
 void QuestMap::AddInnGlue(QuestInnGlue* glue) {
     this->glues_map.SetAt(glue->building_id, glue);
     glue->quest_map = this;
 }
 
-// 55ECFE
+// 55ecfe (client: 538089)
 void QuestMap::RemovePlayerQuests(int32_t player_id) {
     this->assoc = this->quests_map.GetStartPosition();
     while (this->assoc != nullptr) {
@@ -146,7 +146,7 @@ void QuestMap::RemovePlayerQuests(int32_t player_id) {
     }
 }
 
-// 55e129
+// 55e129 (client: 537ed5)
 int32_t QuestMap::OnEvent(int32_t event_type, int32_t a, int32_t b) {
     POSITION quest_pos = this->quests_map.GetStartPosition();
     while (quest_pos != nullptr) {
@@ -162,7 +162,7 @@ int32_t QuestMap::OnEvent(int32_t event_type, int32_t a, int32_t b) {
     return 0;
 }
 
-// 55EE42
+// 55ee42 (client: 538128)
 Quest* QuestMap::CreateQuest(int quest_kind) {
     switch (quest_kind) {
     case Quest::KIND_KILL_MOB:
@@ -194,7 +194,7 @@ Quest* QuestMap::CreateQuest(int quest_kind) {
     }
 }
 
-// 55F441
+// 55f441 (client: 53865b)
 int32_t QuestMap::PickRandomOtherInn(int32_t building_id_) {
     if (this->glues_map.GetCount() < 2) {
         return 0;
@@ -217,7 +217,7 @@ int32_t QuestMap::PickRandomOtherInn(int32_t building_id_) {
     return this->building_id;
 }
 
-// 4a47a0
+// 4a47a0 (client: 4a7e90)
 int32_t QuestMap::FindQuest(uint32_t id, Quest** out) {
     return this->quests_map.Lookup(id, *out);
 }

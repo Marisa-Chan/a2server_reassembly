@@ -13,14 +13,14 @@
 #include "patch/config_new.h"
 #endif
 
-// 5A5047
+// 5a5047 (client: 5731b7)
 Settings::Settings() {
     memset(this, 0, sizeof(Settings));
     this->formation    = 2;
     this->autobuff_mask = AutoCastSettings::ALL;
 }
 
-// 534118
+// 534118 (client: 51f914)
 Player::Player() {
     this->player_id = 0;
     this->hat_player_id = 0;
@@ -65,7 +65,7 @@ Player::Player() {
     this->afk_notify_tick = 0;
 }
 
-// 5B051F
+// 5b051f (client: 57e68f)
 void Settings::Serialize(CArchive& ar) {
     if (ar.IsStoring()) {
         ar.Write(this, sizeof(Settings));
@@ -74,7 +74,7 @@ void Settings::Serialize(CArchive& ar) {
     }
 }
 
-// 55B343
+// 55b343 (client: 536ee7)
 void Player::Serialize(CArchive& ar) {
     if (ar.IsStoring()) {
         ar << this->name;
@@ -164,7 +164,7 @@ void Player::Serialize(CArchive& ar) {
     }
 }
 
-// 53442F
+// 53442f (client: 51fbc2)
 Player::~Player() {
     // Unregister from world: clear presence flag at diplomacy[0][player_id]
     if (g_World) {
@@ -199,7 +199,7 @@ IMPLEMENT_SERIAL(Player, CObject, 1);
 
 
 
-// 534AC1
+// 534ac1 (client: 51fe74)
 void Player::AddMoney(int32_t amount, uint32_t notify_flag) {
 #ifdef A2TANGAR_HAT
     // imp_FixMoney hook (534AC1): clamp player gold at INT32_MAX and drop excess into a ground sack.
@@ -248,7 +248,7 @@ void Player::AddMoney(int32_t amount, uint32_t notify_flag) {
 #endif
 }
 
-// 534B17
+// 534b17 (client: none) - Initialize inactivity timer (sets this+0A90h/0A94h from GetTickCount)
 void Player::StartAfkTimer() {
     if (this->afk_expire_tick == 0) {
         this->afk_expire_tick = GetTickCount() + 30500;
@@ -256,7 +256,7 @@ void Player::StartAfkTimer() {
     }
 }
 
-// 534B59
+// 534b59 (client: none) - Reset inactivity timer and notify NetStru1
 void Player::ResetAfkTimer() {
     if (this->afk_expire_tick != 0) {
         this->afk_expire_tick = 0;
@@ -271,14 +271,14 @@ void Player::ResetAfkTimer() {
     }
 }
 
+// 534778 (client: 51fda1)
 void Player::Deactivate() {
-    //534778
     this->is_active = 0;
     this->is_logged_in = 0;
     this->drop_deadline_tick16 = g_Server->tick16;
 }
 
-// 5346AC
+// 5346ac (client: 51fd40) - Kill all of this player's units on the map
 void Player::KillAllUnits() {
     POSITION it = this->unit_list->unit_list.GetHeadPosition();
     while (it != nullptr) {
@@ -287,7 +287,7 @@ void Player::KillAllUnits() {
     }
 }
 
-// 5347A1
+// 5347a1 (client: 51fdca) - Remove a unit from this player's unit list (PlayerRemoveUnit)
 void Player::RemoveUnitFromGroup(Unit* unit) {
     Group* group = unit->group;
     if (group == nullptr) {
@@ -309,7 +309,7 @@ void Player::RemoveUnitFromGroup(Unit* unit) {
     }
 }
 
-// 534A74
+// 534a74 (client: 51fe27)
 void Player::RemoveUnit(Unit* unit) {
     this->RemoveUnitFromGroup(unit);
     delete unit;
@@ -321,13 +321,15 @@ void Player::RemoveUnit(Unit* unit) {
 namespace ExperienceTable {
 static int32_t g_ExperienceLevelTable[150];
 
-void InitTable() { //53069e
+// 53069e (client: 51c460)
+void InitTable() {
     for (int i = 0; i < 150; i++) {
         g_ExperienceLevelTable[i] = (pow(1.1, i) - 1.0) * 1000.0;
     }
 }
 
-int32_t __cdecl GetLevel(uint32_t ex) { //5306ea
+// 5306ea (client: 51c4ac)
+int32_t __cdecl GetLevel(uint32_t ex) {
     for (int i = 0; i < 150; i++) {
         if (ex < g_ExperienceLevelTable[i + 1]) {
             return i;
@@ -336,7 +338,8 @@ int32_t __cdecl GetLevel(uint32_t ex) { //5306ea
     return g_ExperienceLevelTable[149];  // WAT !?   may be return index(149)?
 }
 
-int32_t __cdecl GetExp(uint32_t lvl) { //530726
+// 530726 (client: 51c4e8)
+int32_t __cdecl GetExp(uint32_t lvl) {
     if (lvl >= 150) {
         lvl = 149;
     }

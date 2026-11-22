@@ -38,8 +38,8 @@ char g_HintBuf[223]; //4c9a6f GetHint static buffer
 
 
 
+// 4d6d40 (client: 4db650)
 CVisualObject::CVisualObject() {
-    //4d6d40
     this->parent = nullptr;
     this->cursor_over_obj = nullptr;
     this->focus_obj = nullptr;
@@ -56,8 +56,8 @@ CVisualObject::CVisualObject() {
     this->caption_obj = nullptr;
 }
 
+// 4d6f5f (client: 4db86f)
 CVisualObject::CVisualObject(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const char* str) {
-    //4d6f5f
     this->parent = nullptr;
     this->cursor_over_obj = nullptr;
     this->focus_obj = nullptr;
@@ -78,8 +78,8 @@ CVisualObject::CVisualObject(int32_t _id, int32_t l, int32_t t, int32_t r, int32
     this->caption_obj = nullptr;
 }
 
+// 4d6e50 (client: 4db760)
 CVisualObject::CVisualObject(int32_t _id, const RECT& r, const char* str) {
-    //4d6e50
     this->parent = nullptr;
     this->cursor_over_obj = nullptr;
     this->focus_obj = nullptr;
@@ -102,8 +102,8 @@ CVisualObject::CVisualObject(int32_t _id, const RECT& r, const char* str) {
 }
 
 
+// 4d707a (client: 4db98a)
 CVisualObject::~CVisualObject() {
-    //4d707a
     for (int32_t i = 0; i < this->childs.GetSize(); i++) {
         CVisualObject* obj = this->childs[i];
         if (obj) {
@@ -113,15 +113,15 @@ CVisualObject::~CVisualObject() {
 }
 
 
+// 4d82b3 (client: 4dcbc3)
 void CVisualObject::Dump(CDumpContext& dc) const {
-    //4d82b3
     
     //dc << "CVisualObject";
 }
 
 
+// 4d7c15 (client: 4dc525)
 const char* CVisualObject::GetHint() {
-    //4d7c15
 
     if (this->TestFlags(FLAG_HIDDEN)) {
         return nullptr;
@@ -130,15 +130,15 @@ const char* CVisualObject::GetHint() {
     return this->hint;
 }
 
+// 4d7bf9 (client: 4dc509)
 void CVisualObject::SetHint(const char* _name) {
-    //4d7bf9
 
     this->hint = _name;
 }
 
 
+// 4d7a03 (client: 4dc313)
 void CVisualObject::ChangeFlags(uint32_t _flags, bool setunset) {
-    //4d7a03
 
     if (setunset) {
         this->flags |= _flags;
@@ -147,7 +147,7 @@ void CVisualObject::ChangeFlags(uint32_t _flags, bool setunset) {
     }
 }
 
-// 4386e0
+// 4386e0 (client: 43ad20)
 uint32_t IsDefaultNpcName(const char* name) {
     if (strcmp(txt_npcnames.GetLine(0x17), name) == 0) {
         return 1;
@@ -168,15 +168,15 @@ uint32_t IsDefaultNpcName(const char* name) {
 }
 
 
+// 4d79ed (client: 4dc2fd)
 uint32_t CVisualObject::TestFlags(uint32_t _flags) {
-    //4d79ed
 
     return this->flags & _flags;
 }
 
 
+// 4d7a3a (client: 4dc34a)
 void CVisualObject::SetCursorOver(bool isOver) {
-    //4d7a3a
 
     this->ChangeFlags(FLAG_OVERCURSOR, isOver);
 
@@ -191,8 +191,8 @@ void CVisualObject::SetCursorOver(bool isOver) {
 }
 
 
+// 4d7aa9 (client: 4dc3b9)
 void CVisualObject::SetFocus(bool isFocus) {
-    //4d7aa9
 
     this->ChangeFlags(FLAG_FOCUS, isFocus);
 
@@ -216,8 +216,8 @@ void CVisualObject::SetFocus(bool isFocus) {
 }
 
 
+// 4d7c40 (client: 4dc550)
 void CVisualObject::VMethod7() {
-    //4d7c40
 
     if (this->TestFlags(FLAG_HIDDEN)) {
         return;
@@ -232,13 +232,13 @@ void CVisualObject::VMethod7() {
 }
 
 
+// 41ed60 (client: 420190)
 void CVisualObject::VMethod8(CRect* rect) {
-    //41ed60
 }
 
 
+// 4d7cc8 (client: 4dc5d8)
 void CVisualObject::VMethod9() {
-    //4d7cc8
     if (this->TestFlags(FLAG_HIDDEN)) {
         return;
     }
@@ -252,15 +252,15 @@ void CVisualObject::VMethod9() {
 }
 
 
+// 4d7d03 (client: 4dc613)
 void CVisualObject::VMethod10() {
-    //4d7d03
     CRect r = this->ClientRectToScreen(this->rect);
     gfxFlushRect(r);
 }
 
 
+// 4d7d99 (client: 4dc6a9)
 void CVisualObject::WriteData(void* buf) {
-    //4d7d99
 
     for (uint32_t i = 0; i < this->childs.GetSize(); i++) {
         CVisualObject* obj = this->childs[i];
@@ -270,8 +270,8 @@ void CVisualObject::WriteData(void* buf) {
 }
 
 
+// 4d7d37 (client: 4dc647)
 uint32_t CVisualObject::DataSize() {
-    //4d7d37
 
     uint32_t sz = 0;
     for (uint32_t i = 0; i < this->childs.GetSize(); i++) {
@@ -281,8 +281,8 @@ uint32_t CVisualObject::DataSize() {
 }
 
 
+// 4d7e02 (client: 4dc712)
 void CVisualObject::ReadData(const void* buf) {
-    //4d7e02
 
     for (uint32_t i = 0; i < this->childs.GetSize(); i++) {
         CVisualObject* obj = this->childs[i];
@@ -292,64 +292,64 @@ void CVisualObject::ReadData(const void* buf) {
 }
 
 
+// 41ed70 (client: 420950)
 int32_t CVisualObject::OnMouseMove(uint32_t wparam, CPoint pos) {
-    //41ed70
     return 0;
 }
 
+// 41ed80 (client: 4201a0)
 int32_t CVisualObject::OnWmUser(uint32_t wparam, CPoint pos) {
-    //41ed80
     return 0;
 }
 
+// 438850 (client: 43a7c0)
 int32_t CVisualObject::OnLButtonDown(uint32_t wparam, CPoint pos) {
-    //438850
     return 0;
 }
 
+// 438860 (client: 43a7d0)
 int32_t CVisualObject::OnLButtonUp(uint32_t wparam, CPoint pos) {
-    //438860
     return 0;
 }
 
+// 438870 (client: 43a7e0)
 int32_t CVisualObject::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
-    //438870
     return 0;
 }
 
+// 438880 (client: 43a600)
 int32_t CVisualObject::OnRButtonDown(uint32_t wparam, CPoint pos) {
-    //438880
     return 0;
 }
 
+// 438890 (client: 43a610)
 int32_t CVisualObject::OnRButtonUp(uint32_t wparam, CPoint pos) {
-    //438890
     return 0;
 }
 
+// 41ed90 (client: 4201b0)
 int32_t CVisualObject::OnRButtonDblClk(uint32_t wparam, CPoint pos) {
-    //41ed90
     return 0;
 }
 
+// 4388a0 (client: 43a620)
 int32_t CVisualObject::OnKeyDown(uint32_t wparam) {
-    //4388a0
     return 0;
 }
 
+// 41eda0 (client: 4201c0)
 int32_t CVisualObject::OnKeyUp(uint32_t wparam) {
-    //41eda0
     return 0;
 }
 
+// 4388b0 (client: 43a630)
 int32_t CVisualObject::OnChar(uint32_t wparam) {
-    //4388b0
     return 0;
 }
 
 
+// 4d7fc9 (client: 4dc8d9)
 int32_t CVisualObject::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
-    //4d7fc9
 
     int32_t res = 0;
     if (msg >= WM_KEYDOWN && msg <= WM_CHAR) {
@@ -404,8 +404,8 @@ int32_t CVisualObject::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
 }
 
 
+// 4d7e6b (client: 4dc77b)
 int32_t CVisualObject::MsgProcOnChilds(uint32_t msg, uint32_t wparam, uint32_t lparam) {
-    //4d7e6b
     CPoint mouse(lparam & 0xffff, lparam >> 16);
     
     bool isMouseEvent = false;
@@ -432,22 +432,22 @@ int32_t CVisualObject::MsgProcOnChilds(uint32_t msg, uint32_t wparam, uint32_t l
     return 0;
 }
 
+// split from 4d71f3 (client: 4dbb03)
 void CVisualObject::ClientPtToScreen(CPoint* out, const CPoint& _point) {
-    //4d71f3
     *out = _point;
     for (CVisualObject* pobj = this->parent; pobj; pobj = pobj->parent) {
         *out += pobj->rect.TopLeft();
     }
 }
 
+// split from 4d7283 (client: 4dbb93)
 void CVisualObject::ClientRectToScreen(CRect* out, const CRect& _rect) {
-    //4d7283
     this->ClientPtToScreen(&(out->TopLeft()), _rect.TopLeft());
     this->ClientPtToScreen(&(out->BottomRight()), _rect.BottomRight());
 }
 
+// split from 4d71f3 (client: 4dbb03)
 CPoint CVisualObject::ClientPtToScreen(const CPoint& _point) {
-    //4d71f3
     CPoint out = _point;
     for (CVisualObject* pobj = this->parent; pobj; pobj = pobj->parent) {
         out += pobj->rect.TopLeft();
@@ -455,8 +455,8 @@ CPoint CVisualObject::ClientPtToScreen(const CPoint& _point) {
     return out;
 }
 
+// split from 4d7283 (client: 4dbb93)
 CRect CVisualObject::ClientRectToScreen(const CRect& _rect) {
-    //4d7283
     CRect out;
     out.TopLeft() = this->ClientPtToScreen(_rect.TopLeft());
     out.BottomRight() = this->ClientPtToScreen(_rect.BottomRight());
@@ -464,14 +464,14 @@ CRect CVisualObject::ClientRectToScreen(const CRect& _rect) {
 }
 
 
+// 4d72c4 (client: 4dbbd4)
 void CVisualObject::AddChild(CVisualObject* obj) {
-    //4d72c4
     this->childs.Add(obj);
     obj->parent = this;
 }
 
+// 4d72e9 (client: 4dbbf9)
 void CVisualObject::RemoveChild(CVisualObject* obj) {
-    //4d72e9
     for (uint32_t i = 0; i < this->childs.GetSize(); i++) {
         if (this->childs[i] == obj) {
             this->childs.RemoveAt(i);
@@ -496,8 +496,8 @@ void CVisualObject::RemoveChild(CVisualObject* obj) {
     }
 }
 
+// 4d7393 (client: 4dbca3)
 void CVisualObject::RemoveChildById(int32_t _id) {
-    //4d7393
     for (uint32_t i = 0; i < this->childs.GetSize(); i++) {
         CVisualObject* obj = this->childs[i];
         if (obj->id == _id) {
@@ -520,8 +520,8 @@ void CVisualObject::RemoveChildById(int32_t _id) {
     }
 }
 
+// 4d78d4 (client: 4dc1e4)
 void CVisualObject::RemoveAllChilds() {
-    //4d78d4
     for (uint32_t i = 0; i < this->childs.GetSize(); i++) {
         this->childs[i]->parent = nullptr;
     }
@@ -533,8 +533,8 @@ void CVisualObject::RemoveAllChilds() {
     this->last_focus_obj = nullptr;
 }
 
+// 4d7430 (client: 4dbd40)
 void CVisualObject::DestroyChild(CVisualObject* obj) {
-    //4d7430
     for (uint32_t i = 0; i < this->childs.GetSize(); i++) {
         if (this->childs[i] == obj) {
             this->childs.RemoveAt(i);
@@ -555,8 +555,8 @@ void CVisualObject::DestroyChild(CVisualObject* obj) {
     }
 }
 
+// 4d74cf (client: 4dbddf)
 void CVisualObject::DestroyChildById(int32_t _id) {
-    //4d74cf
     for (uint32_t i = 0; i < this->childs.GetSize(); i++) {
         CVisualObject* obj = this->childs[i];
         if (obj->id == _id) {
@@ -579,8 +579,8 @@ void CVisualObject::DestroyChildById(int32_t _id) {
     }
 }
 
+// 4d7950 (client: 4dc260)
 void CVisualObject::DestroyAllChilds() {
-    //4d7950
     for (uint32_t i = 0; i < this->childs.GetSize(); i++) {
         delete this->childs[i];
     }
@@ -592,8 +592,8 @@ void CVisualObject::DestroyAllChilds() {
     this->last_focus_obj = nullptr;
 }
 
+// 4d7873 (client: 4dc183)
 CVisualObject* CVisualObject::FindChild(int32_t _id) {
-    //4d7873
     for (uint32_t i = 0; i < this->childs.GetSize(); i++) {
         CVisualObject* obj = this->childs[i];
         if (obj->id == _id) {
@@ -604,8 +604,8 @@ CVisualObject* CVisualObject::FindChild(int32_t _id) {
 }
 
 
+// 4d7b48 (client: 4dc458)
 CVisualObject* CVisualObject::GetChildAt(POINT pt) {
-    //4d7b48
     for (int32_t i = this->childs.GetSize() - 1; i >= 0; i--) {
         CVisualObject* ret = this->childs[i]->GetChildAt(pt);
         if (ret) {
@@ -620,37 +620,37 @@ CVisualObject* CVisualObject::GetChildAt(POINT pt) {
     return nullptr;
 }
 
+// 4d82cd (client: 4dcbdd)
 void CVisualObject::SetLeftObj(CVisualObject* obj) {
-    //4d82cd
     this->left_obj = obj;
     obj->right_obj = this;
 }
 
+// 4d82ec (client: 4dcbfc)
 void CVisualObject::SetRightObj(CVisualObject* obj) {
-    //4d82ec
     this->right_obj = obj;
     obj->left_obj = this;
 }
 
+// 4d830b (client: 4dcc1b)
 void CVisualObject::SetUpObj(CVisualObject* obj) {
-    //4d830b
     this->up_obj = obj;
     obj->down_obj = this;
 }
 
+// 4d832a (client: 4dcc3a)
 void CVisualObject::SetDownObj(CVisualObject* obj) {
-    //4d832a
     this->down_obj = obj;
     obj->up_obj = this;
 }
 
+// 4d8349 (client: 4dcc59)
 void CVisualObject::SetCaptionLabel(VisLabel* obj) {
-    //4d8349
     this->caption_obj = obj;
 }
 
+// 4d7816 (client: 4dc126)
 void CVisualObject::FocusTo(CVisualObject* obj, bool update) {
-    //4d7816
     if (this->focus_obj) {
         CVisualObject* oldo = this->focus_obj;
         oldo->SetFocus(false);
@@ -665,8 +665,8 @@ void CVisualObject::FocusTo(CVisualObject* obj, bool update) {
     }
 }
 
+// 4d7674 (client: 4dbf84)
 void CVisualObject::TabFocus(bool forward, bool update) {
-    //4d7674
     int inc = 1;
     if (forward) {
         inc = 1;
@@ -731,16 +731,17 @@ void CVisualObject::TabFocus(bool forward, bool update) {
     }
 }
 
+// split from 4d7178 (client: 4dba88)
 void CVisualObject::SetRect(RECT r) {
-    //4d7178
     this->rect = r;
 }
 
+// split from 4d7178 (client: 4dba88)
 void CVisualObject::SetRect(const RECT* r) {
-    //4d7140
     this->rect = *r;
 }
 
+// split from 4d7178 (client: 4dba88)
 void CVisualObject::SetRect(int32_t l, int32_t t, int32_t r, int32_t b) {
     this->rect.left = l;
     this->rect.top = t;
@@ -753,13 +754,13 @@ void CVisualObject::SetRect(int32_t l, int32_t t, int32_t r, int32_t b) {
 
 
 
+// 4d835f (client: 4dcc6f)
 VisLabel::VisLabel() {
-    //4d835f
 }
 
+// 4d8453 (client: 4dcd63)
 VisLabel::VisLabel(int32_t _id, const RECT& r, const char* _text, CGameFont* _font, uint16_t* colorsh, uint32_t align)
     : CVisualObject(_id, r, nullptr) {
-    //4d8453
 
     this->text = _text;
     this->font = _font;
@@ -767,9 +768,9 @@ VisLabel::VisLabel(int32_t _id, const RECT& r, const char* _text, CGameFont* _fo
     this->align_flags = align;
 }
 
+// 4d83b6 (client: 4dccc6)
 VisLabel::VisLabel(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const char* _text, CGameFont* _font, uint16_t* colorsh, uint32_t align)
     : CVisualObject(_id, l, t, r, b, nullptr) {
-    //4d83b6
 
     this->text = _text;
     this->font = _font;
@@ -777,13 +778,13 @@ VisLabel::VisLabel(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, cons
     this->align_flags = align;
 }
 
+// 4e3ba0 (client: 453f10)
 VisLabel::~VisLabel() {
-    //4e3ba0
 }
 
 
+// 4d84e4 (client: 4dcdf4)
 void VisLabel::VMethod7() {
-    //4d84e4
     if (this->parent) {
         CRect res = this->ClientRectToScreen(this->rect);
 
@@ -816,8 +817,8 @@ void VisLabel::VMethod7() {
     }
 }
 
+// 4d85e6 (client: 4dcef6)
 void VisLabel::SetActiveColor(bool isActive) {
-    //4d85e6
     if (isActive) {
         this->color_sh = p_clrsh_Gold;
     } else {
@@ -827,12 +828,12 @@ void VisLabel::SetActiveColor(bool isActive) {
 }
 
 
+// 450a40 (client: 453330)
 VisButton::~VisButton() {
-    //450a40
 }
 
+// 4d8f7e (client: 4dd88a)
 void VisButton::VMethod7() {
-    //4d8f7e
     if (!this->parent) {
         return;
     }
@@ -894,8 +895,8 @@ void VisButton::VMethod7() {
     UnlockSurface2();
 }
 
+// 4d958f (client: 4dde8b)
 int32_t VisButton::OnMouseMove(uint32_t wparam, CPoint pos) {
-    //4d958f
     if (!this->parent || this->TestFlags(FLAG_ENABLED) == 0) {
         return 0;
     }
@@ -927,8 +928,8 @@ int32_t VisButton::OnMouseMove(uint32_t wparam, CPoint pos) {
     return 0;
 }
 
+// 4d96a1 (client: 4ddf9d)
 int32_t VisButton::OnLButtonDown(uint32_t wparam, CPoint pos) {
-    //4d96a1
     if (!this->parent || this->TestFlags(FLAG_ENABLED) == 0) {
         return 0;
     }
@@ -941,8 +942,8 @@ int32_t VisButton::OnLButtonDown(uint32_t wparam, CPoint pos) {
     return 1;
 }
 
+// 4d96e8 (client: 4ddfe4)
 int32_t VisButton::OnLButtonUp(uint32_t wparam, CPoint pos) {
-    //4d96e8
     if (!this->parent || this->TestFlags(FLAG_ENABLED) == 0) {
         return 0;
     }
@@ -961,8 +962,8 @@ int32_t VisButton::OnLButtonUp(uint32_t wparam, CPoint pos) {
     return 1;
 }
 
+// 4d9783 (client: 4de07f)
 int32_t VisButton::OnKeyDown(uint32_t wparam) {
-    //4d9783
     if (!this->parent || this->TestFlags(FLAG_ENABLED) == 0) {
         return 0;
     }
@@ -975,8 +976,8 @@ int32_t VisButton::OnKeyDown(uint32_t wparam) {
     return 1;
 }
 
+// 4d97d4 (client: 4de0d0)
 int32_t VisButton::OnChar(uint32_t wparam) {
-    //4d97d4
     if (!this->parent || this->TestFlags(FLAG_ENABLED) == 0) {
         return 0;
     }
@@ -989,9 +990,9 @@ int32_t VisButton::OnChar(uint32_t wparam) {
     return 1;
 }
 
+// 4d8e2d (client: 4dd73b)
 VisButton::VisButton(int32_t _id, const RECT& r, const char* _caption, CGameFont* _font, uint16_t* _clr, int32_t _msgid, int32_t _charid, const char* hint)
 : CVisualObject(_id, r, hint) {
-    //4d8e2d
     this->caption = _caption;
     this->font = _font;
     this->msgid = _msgid;
@@ -1014,9 +1015,9 @@ VisButton::VisButton(int32_t _id, const RECT& r, const char* _caption, CGameFont
     this->flags |= FLAG_CAN_FOCUS;
 }
 
+// 4d8cd0 (client: 4dd5e0)
 VisButton::VisButton(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const char* _caption, CGameFont* _font, uint16_t* _clr, int32_t _msgid, int32_t _charid, const char* hint)
 : CVisualObject(_id, l, t, r, b, hint) {
-    //4d8cd0
     this->caption = _caption;
     this->font = _font;
     this->msgid = _msgid;
@@ -1039,8 +1040,8 @@ VisButton::VisButton(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, co
     this->flags |= FLAG_CAN_FOCUS;
 }
 
+// 4d94b5 (client: 4dddb1)
 void VisButton::SetDowned(bool down) {
-    //4d94b5
     if (!down) {
         this->downed = 0;
         if (this->TestFlags(FLAG_OVERCURSOR)) {
@@ -1062,16 +1063,17 @@ void VisButton::SetDowned(bool down) {
 
 
 
+// 4e3e80 (client: 4e9260)
 VisScrollBar::~VisScrollBar() {
-    //4e3e80
 }
 
+// 4de6df (client: 4e3060)
 void VisScrollBar::SetCursorOver(bool isOver) {
-    //4de6df
     CVisualObject::SetCursorOver(isOver);
     this->is_mouse_over = isOver;
 }
 
+// 4de12c (client: 4e2aad)
 void VisScrollBar::VMethod7() {
     if (!this->parent) {
         return;
@@ -1157,8 +1159,8 @@ void VisScrollBar::VMethod7() {
 }
 
 
+// 4de0d0 (client: 4e2a51)
 void VisScrollBar::VMethod9() {
-    //4de0d0
     if (g_IsServer == 0) {
         this->VMethod7();
         CRect tr = this->ClientRectToScreen(this->rect);
@@ -1169,23 +1171,23 @@ void VisScrollBar::VMethod9() {
 
 
 
+// 4e3d90 (client: 4e9bc0)
 void VisScrollBar::WriteData(void* buf) {
-    //4e3d90
     VisScrollBar::Data* dat = (VisScrollBar::Data*)buf;
     dat->v = this->val;
     dat->vmax = this->val_max;
 }
 
 
+// 4e3dc0 (client: 4e9bf0)
 void VisScrollBar::ReadData(const void* buf) {
-    //4e3dc0
     const VisScrollBar::Data* dat = (const VisScrollBar::Data*)buf;
     this->val = dat->v;
     this->val_max = dat->vmax;
 }
 
+// 4df055 (client: 4e39d6)
 int32_t VisScrollBar::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
-    //4df055
     if (msg == VIS_MSG_SCROLLBAR_RESIZE) {
         this->UpdateRects();
     }
@@ -1193,8 +1195,8 @@ int32_t VisScrollBar::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     return CVisualObject::MsgProc(msg, wparam, lparam);
 }
 
+// 4deb32 (client: 4e34b3)
 int32_t VisScrollBar::OnMouseMove(uint32_t wparam, CPoint pos) {
-    //4deb32
     if (!this->parent || this->TestFlags(FLAG_ENABLED) == 0) {
         return 0;
     }
@@ -1279,8 +1281,8 @@ int32_t VisScrollBar::OnMouseMove(uint32_t wparam, CPoint pos) {
 }
 
 
+// 4deebd (client: 4e383e)
 int32_t VisScrollBar::OnWmUser(uint32_t wparam, CPoint pos) {
-    //4deebd
     if (!this->parent || this->TestFlags(FLAG_ENABLED) == 0) {
         return 0;
     }
@@ -1301,8 +1303,8 @@ int32_t VisScrollBar::OnWmUser(uint32_t wparam, CPoint pos) {
 }
 
 
+// 4de701 (client: 4e3082)
 int32_t VisScrollBar::OnLButtonDown(uint32_t wparam, CPoint pos) {
-    //4de701
     if (!this->parent || this->TestFlags(FLAG_ENABLED) == 0) {
         return 0;
     }
@@ -1372,8 +1374,8 @@ int32_t VisScrollBar::OnLButtonDown(uint32_t wparam, CPoint pos) {
 }
 
 
+// 4defc7 (client: 4e3948)
 int32_t VisScrollBar::OnLButtonUp(uint32_t wparam, CPoint pos) {
-    //4defc7
     if (!this->parent || this->TestFlags(FLAG_ENABLED) == 0) {
         return 0;
     }
@@ -1389,8 +1391,8 @@ int32_t VisScrollBar::OnLButtonUp(uint32_t wparam, CPoint pos) {
 }
 
 
+// 4e3df0 (client: 4e9c20)
 int32_t VisScrollBar::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
-    //4e3df0
     if (this->OnLButtonDown(wparam, pos) != 0 && this->OnLButtonUp(wparam, pos) != 0) {
         return 1;
     }
@@ -1398,8 +1400,8 @@ int32_t VisScrollBar::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
 }
 
 
+// 4df087 (client: 4e3a08)
 int32_t VisScrollBar::OnKeyDown(uint32_t wparam) {
-    //4df087
     if (this->TestFlags(FLAG_FOCUS) == 0 || this->rect.Height() >= this->rect.Width()) {
         return CVisualObject::OnKeyDown(wparam);
     }
@@ -1435,9 +1437,9 @@ int32_t VisScrollBar::OnKeyDown(uint32_t wparam) {
     return 0;
 }
 
+// 4dde6a (client: 4e27eb)
 VisScrollBar::VisScrollBar(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const char* hint)
 : CVisualObject(_id, l, t, r, b, hint) {
-    //4dde6a
     this->dirty = 0;
     this->val = 0;
     this->val_max = 0;
@@ -1451,8 +1453,8 @@ VisScrollBar::VisScrollBar(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t
 }
 
 
+// 4de086 (client: 4e2a07)
 void VisScrollBar::SetPos(int32_t pos, int32_t pos_max) {
-    //4de086
     if (pos_max > -1) {
         this->val_max = pos_max;
     }
@@ -1465,8 +1467,8 @@ void VisScrollBar::SetPos(int32_t pos, int32_t pos_max) {
 }
 
 
+// 4ddacf (client: 4e2450)
 void VisScrollBar::UpdateRects() {
-    //4ddacf
     this->dirty = 1;
 
     CRect rt = this->ClientRectToScreen(this->rect);
@@ -1483,8 +1485,8 @@ void VisScrollBar::UpdateRects() {
 }
 
 
+// 4ddc41 (client: 4e25c2)
 void VisScrollBar::UpdateHBoxes() {
-    //4ddc41
 
     CRect rt = this->ClientRectToScreen(this->rect);
     if (rt.Height() < rt.Width()) {
@@ -1500,8 +1502,8 @@ void VisScrollBar::UpdateHBoxes() {
 }
 
 
+// 4dddbe (client: 4e273f)
 int32_t VisScrollBar::GetValHPos(int32_t x) {
-    //4dddbe
     CRect rt = this->ClientRectToScreen(this->rect);
     int32_t p = this->val_max * (x - (rt.left + 2 + rt.Height())) / (rt.Width() - (rt.Height() * 2 - 8) - 12);
     if (p < 0) {
@@ -1518,10 +1520,11 @@ int32_t VisScrollBar::GetValHPos(int32_t x) {
 
 
 
-VisListBox::~VisListBox() = default; //44f430
+// 44f430 (client: 452f50)
+VisListBox::~VisListBox() = default;
 
+// 4dc11d (client: 4e0aa0)
 void VisListBox::VMethod7() {
-    //4dc11d
     if (!this->parent) {
         return;
     }
@@ -1563,23 +1566,23 @@ void VisListBox::VMethod7() {
     UnlockSurface2();
 }
 
+// 4dc0bc (client: 4e0a3f)
 void VisListBox::WriteData(void* buf) {
-    //4dc0bc
     ((CStringArray*)buf)->Copy(this->entries);
 }
 
+// 4507e0 (client: 452ef0)
 uint32_t VisListBox::DataSize() {
-    //4507e0
     return 4; //???
 }
 
+// 4dc0ea (client: 4e0a6d)
 void VisListBox::ReadData(const void* buf) {
-    //4dc0ea
     this->entries.Copy(**(const CStringArray**)buf);
 }
 
+// 4dc62f (client: 4e0fb2)
 int32_t VisListBox::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
-    //4dc62f
     int32_t res = CVisualObject::MsgProc(msg, wparam, lparam);
     if (res != 0) {
         return res;
@@ -1624,8 +1627,8 @@ int32_t VisListBox::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     return 0;
 }
 
+// 4dc8a4 (client: 4e1227)
 int32_t VisListBox::OnMouseMove(uint32_t wparam, CPoint pos) {
-    //4dc8a4
     if (this->TestFlags(FLAG_FOCUS) == 0) {
         this->parent->FocusTo(this, true);
     }
@@ -1638,8 +1641,8 @@ int32_t VisListBox::OnMouseMove(uint32_t wparam, CPoint pos) {
 }
 
 
+// 4dc73f (client: 4e10c2)
 int32_t VisListBox::OnLButtonDown(uint32_t wparam, CPoint pos) {
-    //4dc73f
 
     int32_t idx = this->YToIndex(pos.y);
     if (idx < this->num_vis_entry) {
@@ -1664,22 +1667,22 @@ int32_t VisListBox::OnLButtonDown(uint32_t wparam, CPoint pos) {
     return 1;
 }
 
+// 4dc832 (client: 4e11b5)
 int32_t VisListBox::OnLButtonUp(uint32_t wparam, CPoint pos) {
-    //4dc832
     this->parent->MsgProc(VIS_MSG_LIST_SELECT, this->id, this->selected_index);
     return 1;
 }
 
 
+// 4dc86b (client: 4e11ee)
 int32_t VisListBox::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
-    //4dc86b
     this->parent->MsgProc(VIS_MSG_LIST_ACTIVATE, this->id, this->selected_index);
     return 1;
 }
 
 
+// 4dc8f6 (client: 4e1279)
 int32_t VisListBox::OnKeyDown(uint32_t wparam) {
-    //4dc8f6
 
     if (this->TestFlags(FLAG_FOCUS) == 0) {
         return CVisualObject::OnKeyDown(wparam);
@@ -1722,16 +1725,16 @@ int32_t VisListBox::OnKeyDown(uint32_t wparam) {
 }
 
 
+// 4dc528 (client: 4e0eab)
 int32_t VisListBox::IsValidIndex(int32_t idx) {
-    //4dc528
     if (idx > -1 && idx < this->entries.GetSize()) {
         return 1;
     }
     return 0;
 }
 
+// 4dc560 (client: 4e0ee3)
 void VisListBox::DrawItem(int32_t idx, CPoint pos, uint16_t* clr) {
-    //4dc560
     if (!this->IsValidIndex(idx)) {
         return;
     }
@@ -1749,8 +1752,8 @@ void VisListBox::DrawItem(int32_t idx, CPoint pos, uint16_t* clr) {
     SetClipRect(tmp);
 }
 
+// 4dbe7f (client: 4e0802)
 void VisListBox::SelectItem(int32_t idx) {
-    //4dbe7f
     // Note: vanilla clamps only the upper bound, a negative idx keeps its value through
     // the vis_start_index logic (selecting nothing) and lands in selected_index.
     if (idx < 0) {
@@ -1781,13 +1784,13 @@ void VisListBox::SelectItem(int32_t idx) {
     this->parent->MsgProc(VIS_MSG_SET_OPTION, this->id, this->selected_index);
 }
 
+// 4507c0 (client: 452ed0)
 int32_t VisListBox::GetItemCount() {
-    //4507c0
     return this->entries.GetSize();
 }
 
+// 4dc4ee (client: 4e0e71)
 void VisListBox::VMethod30(CPoint pos, const CRect& r) {
-    //4dc4ee
     CRect rt;
     rt.top = pos.y - 1;
     rt.left = pos.x;
@@ -1798,9 +1801,9 @@ void VisListBox::VMethod30(CPoint pos, const CRect& r) {
 }
 
 
+// 4dbd31 (client: 4e06b5)
 VisListBox::VisListBox(int32_t _id, const RECT& r, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _scrollid, const char* hint)
 : CVisualObject(_id, r, hint) {
-    //4dbd31
 
     this->entry_height = _font->GetHeight();
     this->entry_height_full = this->entry_height + 4;
@@ -1820,9 +1823,9 @@ VisListBox::VisListBox(int32_t _id, const RECT& r, CGameFont* _font, uint16_t* _
 }
 
 
+// 4dbc11 (client: 4e0596)
 VisListBox::VisListBox(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _scrollid, const char* hint)
 : CVisualObject(_id, l, t, r, b, hint) {
-    //4dbc11
 
     this->entry_height = _font->GetHeight();
     this->entry_height_full = this->entry_height + 4;
@@ -1842,20 +1845,20 @@ VisListBox::VisListBox(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, 
 }
 
 
+// 4dbfbb (client: 4e093e)
 void VisListBox::Down() {
-    //4dbfbb
     this->SelectItem(this->selected_index + 1);
 }
 
+// 4dbf89 (client: 4e090c)
 void VisListBox::Up() {
-    //4dbf89
     if (this->selected_index > 0) {
         this->SelectItem(this->selected_index - 1);
     }
 }
 
+// 4dc03b (client: 4e09be)
 void VisListBox::PageDown() {
-    //4dc03b
     if (this->selected_index == this->vis_start_index + this->num_vis_entry - 1) {
         this->SelectItem(this->vis_start_index + this->num_vis_entry + this->num_vis_entry - 1);
     } else {
@@ -1863,8 +1866,8 @@ void VisListBox::PageDown() {
     }
 }
 
+// 4dbfe1 (client: 4e0964)
 void VisListBox::PageUp() {
-    //4dbfe1
     if (this->selected_index == this->vis_start_index) {
         this->SelectItem(this->vis_start_index - this->num_vis_entry);
     } else {
@@ -1873,21 +1876,21 @@ void VisListBox::PageUp() {
 }
 
 
+// 4dbe45 (client: 4e07c8) - Get index of y coordinate
 int32_t VisListBox::YToIndex(int32_t y) {
-    //4dbe45
     return (y - this->ClientPtToScreen(this->rect.TopLeft()).y - 1) / this->entry_height_full;
 }
 
+// 4507f0 (client: 452ce0)
 void VisListBox::AddItem(const char* str) {
-    //4507f0
     this->entries.Add(str);
     if (this->selected_index < 0) {
         this->selected_index++;
     }
 }
 
+// 4507a0 (client: 452cc0)
 void VisListBox::SetSelectedIndex(int32_t idx) {
-    //4507a0
     // Note: vanilla stores the raw index with no clamping.
     if (idx < 0) {
         idx = 0;
@@ -1898,8 +1901,8 @@ void VisListBox::SetSelectedIndex(int32_t idx) {
     this->selected_index = idx;
 }
 
+// 4508b0 (client: 453180)
 CString& VisListBox::GetItem(int32_t idx) {
-    //4508b0
     // Vanilla: i = (idx < GetSize()) ? idx : GetSize(); no negative guard.
     if (idx < 0) {
         return this->entries[0];
@@ -1912,7 +1915,8 @@ CString& VisListBox::GetItem(int32_t idx) {
     return this->entries[this->entries.GetSize() - 1];
 }
 
-void VisListBox::RemoveItem(int32_t idx) { //450830
+// 450830 (client: 453130)
+void VisListBox::RemoveItem(int32_t idx) {
     this->entries.RemoveAt(idx);
     this->selected_index -= (this->entries.GetSize() == 0); // WAT?
 }
@@ -1920,11 +1924,11 @@ void VisListBox::RemoveItem(int32_t idx) { //450830
 
 
 
-VisTextBox::~VisTextBox() = default; //4503a0
+// 4503a0 (client: 454620)
+VisTextBox::~VisTextBox() = default;
 
+// 4d9a21 (client: 4de337)
 void VisTextBox::VMethod7() {
-    //4d9a21
-    // client: 4de337
     if (!this->parent) {
         return;
     }
@@ -1979,26 +1983,26 @@ void VisTextBox::VMethod7() {
     UnlockSurface2();
 }
 
+// 450440 (client: 454510)
 void VisTextBox::WriteData(void* buf) {
-    //450440
     strcpy((char*)buf, this->text);
 }
 
 
+// 450430 (client: 454500)
 uint32_t VisTextBox::DataSize() {
-    //450430
     return 4;
 }
 
 
+// 450410 (client: 4544e0)
 void VisTextBox::ReadData(const void* buf) {
-    //450410
     this->text = (const char*)buf;
 }
 
 
+// 4daa2b (client: 4df3b0)
 int32_t VisTextBox::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
-    //4daa2b
     if (msg == VIS_MSG_CURSOR_BLINK && (timeGetTime() - this->cursor_blink_ts) > 500) {
         this->cursor_blink_ts = timeGetTime();
         this->cursor_blink = 1 - this->cursor_blink;
@@ -2012,8 +2016,8 @@ int32_t VisTextBox::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
 }
 
 
+// 4da22e (client: 4debaf)
 int32_t VisTextBox::OnMouseMove(uint32_t wparam, CPoint pos) {
-    //4da22e
     if (!this->parent || this->TestFlags(FLAG_ENABLED) == 0) {
         return 0;
     }
@@ -2062,8 +2066,8 @@ int32_t VisTextBox::OnMouseMove(uint32_t wparam, CPoint pos) {
 }
 
 
+// 4da37c (client: 4decfd)
 int32_t VisTextBox::OnLButtonDown(uint32_t wparam, CPoint pos) {
-    //4da37c
     if (!this->parent || this->TestFlags(FLAG_ENABLED) == 0) {
         return 0;
     }
@@ -2080,8 +2084,8 @@ int32_t VisTextBox::OnLButtonDown(uint32_t wparam, CPoint pos) {
     return 1;
 }
 
+// 4da3ed (client: 4ded6e)
 int32_t VisTextBox::OnKeyDown(uint32_t wparam) {
-    //4da3ed
     if (this->TestFlags(FLAG_FOCUS) == 0) {
         return 0;
     }
@@ -2224,9 +2228,8 @@ int32_t VisTextBox::OnKeyDown(uint32_t wparam) {
 }
 
 
+// 4da96a (client: 4df2eb)
 int32_t VisTextBox::OnChar(uint32_t wparam) {
-    //4da96a
-    // client: 4df2eb
 
     if (isalnum(wparam) != 0 && this->TestFlags(FLAG_FOCUS) == 0) {
         this->parent->FocusTo(this, true);
@@ -2254,10 +2257,9 @@ int32_t VisTextBox::OnChar(uint32_t wparam) {
 }
 
 
+// 4d9891 (client: 4de195)
 VisTextBox::VisTextBox(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint)
 : CVisualObject(_id, l, t, r, b, hint) {
-    //4d9891
-    // client: 4de195
     this->font = _font;
     this->clr = _clr;
     this->text = "";
@@ -2274,9 +2276,9 @@ VisTextBox::VisTextBox(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, 
 }
 
 
+// 4d995f (client: 4de26c)
 VisTextBox::VisTextBox(int32_t _id, const RECT& r, CGameFont* _font, uint16_t* _clr, const char* hint)
 : CVisualObject(_id, r, hint) {
-    //4d995f
     this->font = _font;
     this->clr = _clr;
     this->text = "";
@@ -2292,15 +2294,15 @@ VisTextBox::VisTextBox(int32_t _id, const RECT& r, CGameFont* _font, uint16_t* _
 #endif
 }
 
+// 4da067 (client: 4de9e8)
 void VisTextBox::DelSelection() {
-    //4da067
     this->text = this->text.Left(this->select_start) + this->text.Right(this->text.GetLength() - this->select_end);
     this->select_end = this->select_start;
     this->cursor_pos = this->select_start;
 }
 
+// 4d9ef2 (client: 4de875)
 void VisTextBox::InsertChar(int32_t chr) {
-    //4d9ef2
     if (this->select_end != this->select_start && (this->select_end - this->select_start) > -1) {
         this->DelSelection();
     }
@@ -2313,14 +2315,14 @@ void VisTextBox::InsertChar(int32_t chr) {
     this->ResetBlink();
 }
 
+// 4daab3 (client: 4df438)
 void VisTextBox::ResetBlink() {
-    //4daab3
     this->cursor_blink_ts = timeGetTime();
     this->cursor_blink = 1;
 }
 
+// 4da153 (client: 4dead4)
 int32_t VisTextBox::GetCursorPosByX(int32_t x) {
-    //4da153
     CRect rt = this->ClientRectToScreen(this->rect);
 #if defined(A2CLIENT_PATCH) && defined(A2CLIENT)
     // Tangar GUI_textField_MeasurePosition (4DEAD4 entry takeover): more
@@ -2364,32 +2366,33 @@ int32_t VisTextBox::GetCursorPosByX(int32_t x) {
 }
 
 
-VisRadioBase::~VisRadioBase() = default; //4505b0
+// 4505b0 (client: 452c70)
+VisRadioBase::~VisRadioBase() = default;
 
+// 4daccd (client: 4df652)
 void VisRadioBase::SetCursorOver(bool isOver) {
-    //4daccd
     CVisualObject::SetCursorOver(isOver);
     this->mouse_over = isOver;
 }
 
+// 4504f0 (client: 452bb0)
 void VisRadioBase::WriteData(void* buf) {
-    //4504f0
     *(int32_t*)buf = this->selection;
 }
 
+// 4504e0 (client: 452ba0)
 uint32_t VisRadioBase::DataSize() {
-    //4504e0
     return 4;
 }
 
+// 4506c0 (client: 453740)
 void VisRadioBase::ReadData(const void* buf) {
-    //4506c0
     this->selection = *(const int32_t*)buf;
     this->selected = this->selection;
 }
 
+// 4dacef (client: 4df674)
 int32_t VisRadioBase::OnMouseMove(uint32_t wparam, CPoint pos) {
-    //4dacef
     if (!this->parent || this->TestFlags(FLAG_ENABLED) == 0) {
         return 0;
     }
@@ -2416,15 +2419,15 @@ int32_t VisRadioBase::OnMouseMove(uint32_t wparam, CPoint pos) {
     return 0;
 }
 
+// 4dac81 (client: 4df606)
 int32_t VisRadioBase::GetIndex(int32_t y) {
-    //4dac81
     CPoint t = this->ClientPtToScreen(this->rect.TopLeft());
     return (y - t.y) / gfx_radiob->GetHeight(0);
 }
 
+// 4dab2b (client: 4df4b0)
 VisRadioBase::VisRadioBase(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint)
 : CVisualObject(_id, l, t, r, b, hint) {
-    //4dab2b
     this->font = _font;
     this->clr = _clr;
     this->selection = 0;
@@ -2432,17 +2435,18 @@ VisRadioBase::VisRadioBase(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t
     this->selected = 0;
 }
 
+// 450470 (client: 452b30)
 void VisRadioBase::AddEntry(const char* etext) {
-    //450470
     this->entries.Add(etext);
 }
 
 
 
-VisRadioType1::~VisRadioType1() = default; //450590
+// 450590 (client: 452c50)
+VisRadioType1::~VisRadioType1() = default;
 
+// 4dadf8 (client: 4df77d)
 void VisRadioType1::VMethod7() {
-    //4dadf8
     CRect rt = this->ClientRectToScreen(this->rect);
     rt.bottom += 4;
     rt.right += 4;
@@ -2486,13 +2490,13 @@ void VisRadioType1::VMethod7() {
     UnlockSurface2();
 }
 
+// 450510 (client: 452bd0)
 void VisRadioType1::ReadData(const void* buf) {
-    //450510
     this->selection = *(const int32_t*)buf;
 }
 
+// 4db134 (client: 4dfab9)
 int32_t VisRadioType1::OnMouseMove(uint32_t wparam, CPoint pos) {
-    //4db134
     if (!this->parent || this->TestFlags(FLAG_ENABLED) == 0) {
         return 0;
     }
@@ -2517,8 +2521,8 @@ int32_t VisRadioType1::OnMouseMove(uint32_t wparam, CPoint pos) {
     return 0;
 }
 
+// 4db062 (client: 4df9e7)
 int32_t VisRadioType1::OnLButtonDown(uint32_t wparam, CPoint pos) {
-    //4db062
     if (!this->parent || this->TestFlags(FLAG_ENABLED) == 0) {
         return 0;
     }
@@ -2539,13 +2543,13 @@ int32_t VisRadioType1::OnLButtonDown(uint32_t wparam, CPoint pos) {
 }
 
 
+// 450530 (client: 452bf0)
 int32_t VisRadioType1::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
-    //450530
     return this->OnLButtonDown(wparam, pos);
 }
 
+// 4db2d3 (client: 4dfc58)
 int32_t VisRadioType1::OnKeyDown(uint32_t wparam) {
-    //4db2d3
     if (wparam == VK_DOWN && TestFlags(FLAG_FOCUS) != 0) {
         int32_t num = this->entries.GetSize();
         if (num <= 1) {
@@ -2578,8 +2582,8 @@ int32_t VisRadioType1::OnKeyDown(uint32_t wparam) {
 }
 
 
+// 4db20d (client: 4dfb92)
 int32_t VisRadioType1::OnChar(uint32_t wparam) {
-    //4db20d
     if (wparam != ' ' || this->TestFlags(FLAG_FOCUS) == 0) {
         return CVisualObject::OnChar(wparam);
     }
@@ -2596,17 +2600,18 @@ int32_t VisRadioType1::OnChar(uint32_t wparam) {
     return 1;
 }
 
+// 450490 (client: 452b50)
 VisRadioType1::VisRadioType1(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint)
  : VisRadioBase(_id, l, t, r, b, _font, _clr, hint) {
-    //450490
 }
 
 
-VisRadioType2::~VisRadioType2() = default; //450720
+// 450720 (client: 4537a0)
+VisRadioType2::~VisRadioType2() = default;
 
 
+// 4db680 (client: 4e0005)
 void VisRadioType2::VMethod7() {
-    //4db680
     CRect rt = this->ClientRectToScreen(this->rect);
     rt.bottom += 4;
     rt.right += 4;
@@ -2652,16 +2657,16 @@ void VisRadioType2::VMethod7() {
     UnlockSurface2();
 }
 
+// 4dbb7b (client: 4e0500)
 int32_t VisRadioType2::OnMouseMove(uint32_t wparam, CPoint pos) {
-    //4dbb7b
     if (!this->parent || this->TestFlags(FLAG_ENABLED) == 0) {
         return 0;
     }
     return VisRadioBase::OnMouseMove(wparam, pos);
 }
 
+// 4db8e7 (client: 4e026c)
 int32_t VisRadioType2::OnLButtonDown(uint32_t wparam, CPoint pos) {
-    //4db8e7
     if (!this->parent || this->TestFlags(FLAG_ENABLED) == 0) {
         return 0;
     }
@@ -2681,8 +2686,8 @@ int32_t VisRadioType2::OnLButtonDown(uint32_t wparam, CPoint pos) {
     return 1;
 }
 
+// 4dba0e (client: 4e0393)
 int32_t VisRadioType2::OnKeyDown(uint32_t wparam) {
-    //4dba0e
     if (wparam == VK_DOWN && TestFlags(FLAG_FOCUS) != 0) {
         int32_t num = this->entries.GetSize();
         if (num <= 0) {
@@ -2718,8 +2723,8 @@ int32_t VisRadioType2::OnKeyDown(uint32_t wparam) {
     return CVisualObject::OnKeyDown(wparam);
 }
 
+// 4db993 (client: 4e0318)
 int32_t VisRadioType2::OnChar(uint32_t wparam) {
-    //4db993
     if (wparam != ' ' || this->TestFlags(FLAG_FOCUS) == 0) {
         return CVisualObject::OnChar(wparam);
     }
@@ -2731,22 +2736,22 @@ int32_t VisRadioType2::OnChar(uint32_t wparam) {
     return 1;
 }
 
+// 450670 (client: 4536f0)
 VisRadioType2::VisRadioType2(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint)
 : VisRadioBase(_id, l, t, r, b, _font, _clr, hint) {
-    //450670
 }
 
 
 
+// 4df2c3 (client: 4e3c44)
 VisBitmap::~VisBitmap() {
-    //4df2c3
     if (this->bitmap) {
         delete this->bitmap;
     }
 }
 
+// 4df345 (client: 4e3cc6)
 void VisBitmap::VMethod7() {
-    //4df345
     if (!this->bitmap) {
         return;
     }
@@ -2774,27 +2779,27 @@ void VisBitmap::VMethod7() {
     UnlockSurface2();
 }
 
+// 4df23d (client: 4e3bbe)
 VisBitmap::VisBitmap(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* _bitmap, int32_t dtype)
 : CVisualObject(_id, l, t, r, b, nullptr) {
-    //4df23d
     this->bitmap = _bitmap;
     this->draw_type = dtype;
 }
 
+// 4df286 (client: 4e3c07)
 VisBitmap::VisBitmap(int32_t _id, const RECT& r, CGameBitmap* _bitmap, int32_t dtype)
 : CVisualObject(_id, r, nullptr) {
-    //4df286
     this->bitmap = _bitmap;
     this->draw_type = dtype;
 }
 
+// 4e3fb0 (client: 4e9c80)
 CGameBitmap* VisBitmap::GetBitmap() {
-    //4e3fb0
     return this->bitmap;
 }
 
+// 4e3fd0 (client: 4e9ca0)
 void VisBitmap::SetBitmap(CGameBitmap* bmp) {
-    //4e3fd0
     this->bitmap = bmp;
 }
 
@@ -2802,8 +2807,8 @@ void VisBitmap::SetBitmap(CGameBitmap* bmp) {
 
 
 
+// 4e4170 (client: 4e9510)
 void VisComboBoxText::VMethod7() {
-    //4e4170
     CRect rt = this->ClientRectToScreen(this->rect);
 
     LockSurface2();
@@ -2825,15 +2830,15 @@ void VisComboBoxText::VMethod7() {
     UnlockSurface2();
 }
 
+// 4e4120 (client: 4e94c0)
 VisComboBoxText::VisComboBoxText(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint)
 : VisTextBox(_id, l, t, r, b, _font, _clr, hint) {
-    //4e4120
 }
 
 
 
+// 4e4090 (client: 4e9430)
 int32_t VisComboBoxList::OnKeyDown(uint32_t wparam) {
-    //4e4090
     if (wparam == VK_RETURN) {
         ((VisComboBox*)this->parent)->ProcSelectList();
         return 1;
@@ -2841,14 +2846,14 @@ int32_t VisComboBoxList::OnKeyDown(uint32_t wparam) {
     return VisListBox::OnKeyDown(wparam);
 }
 
+// 4e4040 (client: 4e93e0)
 VisComboBoxList::VisComboBoxList(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _scrollid, const char* hint)
 : VisListBox(_id, l, t, r, b, _font, _clr1, _clr2, _scrollid, hint) {
-    //4e4040
 }
 
 
+// 4e1cb6 (client: 4e6637)
 void VisComboBoxButton::SetCursorOver(bool isOver) {
-    //4e1cb6
     CVisualObject::SetCursorOver(isOver);
 
     if (isOver) {
@@ -2863,8 +2868,8 @@ void VisComboBoxButton::SetCursorOver(bool isOver) {
 }
 
 
+// 4e1d7d (client: 4e66fe)
 void VisComboBoxButton::VMethod7() {
-    //4e1d7d
     CRect rt = this->ClientRectToScreen(this->rect);
     this->parent->VMethod8(&rt);
 
@@ -2875,18 +2880,18 @@ void VisComboBoxButton::VMethod7() {
     }
 }
 
+// 4e1d5c (client: 4e66dd)
 int32_t VisComboBoxButton::OnMouseMove(uint32_t wparam, CPoint pos) {
-    //4e1d5c
     return VisButton::OnMouseMove(wparam, pos);
 }
 
+// 4e1d3b (client: 4e66bc)
 int32_t VisComboBoxButton::OnLButtonDown(uint32_t wparam, CPoint pos) {
-    //4e1d3b
     return VisButton::OnLButtonDown(wparam, pos);
 }
 
+// 4e1c16 (client: 4e6597)
 int32_t VisComboBoxButton::OnLButtonUp(uint32_t wparam, CPoint pos) {
-    //4e1c16
     if (!this->parent || this->TestFlags(FLAG_ENABLED) == 0) {
         return 0;
     }
@@ -2905,32 +2910,32 @@ int32_t VisComboBoxButton::OnLButtonUp(uint32_t wparam, CPoint pos) {
     return 1;
 }
 
+// 4e1b5c (client: 4e64dd)
 VisComboBoxButton::VisComboBoxButton(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* _bitmap, int32_t _frm, int32_t _msgid, int32_t _charid, const char* hint)
 : VisButton(_id, l, t, r, b, "", g_font1, clrsh_TechBlack, _msgid, _charid, hint) {
-    //4e1b5c
     this->bitmap = _bitmap;
     this->frm = _frm;
 }
 
 
 
+// 4e2481 (client: 4e6e05)
 void VisComboBox::VMethod8(CRect* rect) {
-    //4e2481
     this->parent->VMethod8(rect);
 }
 
+// 4e201e (client: 4e69a2)
 void VisComboBox::VMethod9() {
-    //4e201e
     CVisualObject::VMethod9();
 }
 
+// 4e2031 (client: 4e69b5)
 void VisComboBox::WriteData(void* buf) {
-    //4e2031
     this->textbox->WriteData(buf);
 }
 
+// 4e22d8 (client: 4e6c5c)
 int32_t VisComboBox::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
-    //4e22d8
     if (msg == VIS_MSG_COMBO_TOGGLE) {
         this->ToggleList();
         return 1;
@@ -2957,13 +2962,13 @@ int32_t VisComboBox::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     return CVisualObject::MsgProc(msg, wparam, lparam);
 }
 
+// 4e2410 (client: 4e6d94)
 int32_t VisComboBox::OnLButtonDown(uint32_t wparam, CPoint pos) {
-    //4e2410
     return 1;
 }
 
+// 4e2422 (client: 4e6da6)
 int32_t VisComboBox::OnKeyDown(uint32_t wparam) {
-    //4e2422
     if (wparam != VK_DOWN || this->TestFlags(FLAG_FOCUS) == 0) {
         return CVisualObject::OnKeyDown(wparam);
 
@@ -2975,9 +2980,9 @@ int32_t VisComboBox::OnKeyDown(uint32_t wparam) {
     return 1;
 }
 
+// 4e1e10 (client: 4e6791)
 VisComboBox::VisComboBox(int32_t _id, CRect r, const char* hint)
 : CVisualObject(_id, r.left, r.top, r.right, r.top + 24, hint) {
-    //4e1e10
     this->textbox = new VisComboBoxText(1, 0, 0, (r.right - r.left) - 24, 24, g_font1, clrsh_TechBlack, hint);
     this->textbox->ChangeFlags(FLAG_ENABLED, false);
 
@@ -2996,8 +3001,8 @@ VisComboBox::VisComboBox(int32_t _id, CRect r, const char* hint)
     this->flags |= FLAG_CAN_FOCUS;
 }
 
+// 4e2053 (client: 4e69d7)
 void VisComboBox::AddItem(const char* str) {
-    //4e2053
     if (this->isEmpty) {
         this->textbox->ReadData(str);
         this->isEmpty = 0;
@@ -3006,8 +3011,8 @@ void VisComboBox::AddItem(const char* str) {
     this->listbox->AddItem(str);
 }
 
+// 4e2150 (client: 4e6ad4)
 void VisComboBox::ToggleList() {
-    //4e2150
     if (this->list_showed) {
         this->HideList();
         return;
@@ -3031,8 +3036,8 @@ void VisComboBox::ToggleList() {
     this->VMethod9();
 }
 
+// 4e20db (client: 4e6a5f)
 void VisComboBox::HideList() {
-    //4e20db
     this->SetCursorOver(false);
 
     this->list_showed = 0;
@@ -3046,8 +3051,8 @@ void VisComboBox::HideList() {
     this->VMethod9();
 }
 
+// 4e222a (client: 4e6bae)
 void VisComboBox::ProcSelectList() {
-    //4e222a
     if (this->list_showed != 0) {
         this->SetCursorOver(false);
         this->list_showed = 0;
@@ -3064,8 +3069,8 @@ void VisComboBox::ProcSelectList() {
     this->VMethod9();
 }
 
+// 4e2097 (client: 4e6a1b)
 void VisComboBox::SelectItem(int32_t index) {
-    //4e2097
     this->textbox->ReadData(this->listbox->GetItem(index));
     this->listbox->SetSelectedIndex(index);
 }
@@ -3073,8 +3078,8 @@ void VisComboBox::SelectItem(int32_t index) {
 
 
 
+// 4d8994 (client: 4dd2a4)
 void VisMultiText::VMethod7() {
-    //4d8994
     if (!this->parent) {
         return;
     }
@@ -3087,18 +3092,18 @@ void VisMultiText::VMethod7() {
     UnlockSurface2();
 }
 
+// 4d8b99 (client: 4dd4a9)
 int32_t VisMultiText::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
-    //4d8b99
     return VisListBox::MsgProc(msg, wparam, lparam);
 }
 
+// 4d8bba (client: 4dd4ca)
 int32_t VisMultiText::OnMouseMove(uint32_t wparam, CPoint pos) {
-    //4d8bba
     return CVisualObject::OnMouseMove(wparam, pos);
 }
 
+// 4d8bdb (client: 4dd4eb)
 int32_t VisMultiText::OnWmUser(uint32_t wparam, CPoint pos) {
-    //4d8bdb
     if ((wparam & 1) == 0 || this->scrollbox_id == 0) {
         return 1;
     }
@@ -3113,18 +3118,18 @@ int32_t VisMultiText::OnWmUser(uint32_t wparam, CPoint pos) {
     return 1;
 }
 
+// 4d8c3f (client: 4dd54f)
 int32_t VisMultiText::OnLButtonDown(uint32_t wparam, CPoint pos) {
-    //4d8c3f
     return CVisualObject::OnLButtonDown(wparam, pos);
 }
 
+// 4d8c60 (client: 4dd570)
 int32_t VisMultiText::OnKeyDown(uint32_t wparam) {
-    //4d8c60
     return VisListBox::OnKeyDown(wparam);
 }
 
+// 4d889d (client: 4dd1ad)
 void VisMultiText::SelectItem(int32_t idx) {
-    //4d889d
     if (idx < 0) {
         idx = 0;
     }
@@ -3148,6 +3153,7 @@ void VisMultiText::SelectItem(int32_t idx) {
 }
 
 
+// 4d86fb (client: 4dd00b)
 VisMultiText::VisMultiText(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const char* str, CGameFont* _font, uint16_t* _clr, int32_t dy)
 : VisListBox(_id, l, t, r, b, _font, _clr, nullptr, 0, nullptr) {
     this->text = str;
@@ -3166,6 +3172,7 @@ VisMultiText::VisMultiText(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t
     }
 }
 
+// 4d8629 (client: 4dcf39)
 VisMultiText::VisMultiText(int32_t _id, const RECT& r, const char* str, CGameFont* _font, uint16_t* _clr, int32_t dy)
 : VisListBox(_id, r, _font, _clr, nullptr, 0, nullptr) {
     this->text = str;
@@ -3184,8 +3191,8 @@ VisMultiText::VisMultiText(int32_t _id, const RECT& r, const char* str, CGameFon
     }
 }
 
+// 4d8816 (client: 4dd126)
 void VisMultiText::SetText(const char* _text) {
-    //4d8816
     // Note: vanilla does not store _text into the text member here (only the ctor does);
     // entries are rebuilt from _text but text keeps its ctor value.
     this->entries.Copy(this->font->StringArrayForRect(this->rect, _text));
@@ -3197,8 +3204,8 @@ void VisMultiText::SetText(const char* _text) {
     }
 }
 
+// 4d8a3b (client: 4dd34b)
 void VisMultiText::SizesCheck() {
-    //4d8a3b
     this->num_vis_entry = this->entries.GetSize();
 
     if (this->entry_height * num_vis_entry <= this->rect.Height()) {
@@ -3219,29 +3226,29 @@ void VisMultiText::SizesCheck() {
 }
 
 
-//4df4d1
+// 4df4d1 (client: 4e3e52)
 VisScreen::VisScreen() = default;
 
-//4df4fa
+// 4df4fa (client: 4e3e7b)
 VisScreen::VisScreen(int32_t _id, const RECT& r, CGameBitmap* _bitmap)
 : CVisualObject(_id, r, nullptr) {
     this->bitmap = _bitmap;
     VisScreen::VMethod26();
 }
 
-//4df56d
+// 4df56d (client: 4e3eee)
 VisScreen::VisScreen(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* _bitmap)
 : CVisualObject(_id, l, t, r, b, nullptr) {
     this->bitmap = _bitmap;
     VisScreen::VMethod26();
 }
 
-//4df5ec
+// 4df5ec (client: 4e3f6d)
 VisScreen::~VisScreen() {
     VisScreen::VMethod27();
 }
 
-//4df63d
+// 4df63d (client: 4e3fbe)
 void VisScreen::VMethod7() {
     CRect r = this->ClientRectToScreen(this->rect);
 
@@ -3250,7 +3257,7 @@ void VisScreen::VMethod7() {
     CVisualObject::VMethod7();
 }
 
-//4df67c
+// 4df67c (client: 4e3ffd)
 void VisScreen::VMethod8(CRect* r) {
     r->IntersectRect(r, &g_ScreenSize);
 
@@ -3318,8 +3325,8 @@ void VisScreen::VMethod8(CRect* r) {
 }
 
 
+// 4dfbcd (client: 4e454e)
 int32_t VisScreen::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
-    //4dfbcd
     if (msg == VIS_MSG_HIDE_SCREEN || msg == VIS_MSG_CLOSE_SCREEN) {
         if (this->is_active) {
             this->DoClose(msg);
@@ -3331,8 +3338,8 @@ int32_t VisScreen::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     }
 }
 
+// 4dfee7 (client: 4e4868)
 int32_t VisScreen::OnLButtonDown(uint32_t wparam, CPoint pos) {
-    //4dfee7
     if (this->cursor_over_obj_last == this->cursor_over_obj) {
         this->cursor_over_obj_last = nullptr;
         CVisualObject* obj = this->GetChildAt(pos);
@@ -3344,8 +3351,8 @@ int32_t VisScreen::OnLButtonDown(uint32_t wparam, CPoint pos) {
     return CVisualObject::OnLButtonDown(wparam, pos);
 }
 
+// 4dfc43 (client: 4e45c4)
 int32_t VisScreen::OnKeyDown(uint32_t wparam) {
-    //4dfc43
     switch (wparam) {
     case VK_TAB:
         this->TabFocus(g_kbShiftState == 0, true);
@@ -3387,22 +3394,23 @@ int32_t VisScreen::OnKeyDown(uint32_t wparam) {
 }
 
 
+// 450900 (client: 453380)
 void VisScreen::VMethod26() {
-    //450900
 }
 
+// 4388c0 (client: 43a9e0)
 void VisScreen::VMethod27() {
-    //4388c0
 }
 
+// 4dfb4f (client: 4e44d0)
 void VisScreen::VMethod28() {
-    //4dfb4f
     this->is_active = 1;
     this->SetCursorOver(true);
     this->SetFocus(true);
     this->TabFocus(true, false);
 }
 
+// 4dfb8a (client: 4e450b) - 29 method
 void VisScreen::DoClose(uint32_t code) {
     //4dfb8a 29 method
     if (this->is_active) {
@@ -3413,27 +3421,28 @@ void VisScreen::DoClose(uint32_t code) {
     }
 }
 
+// 4388d0 (client: 43ab60)
 int32_t VisScreen::GetCloseCode() {
-    //4388d0
     return this->exit_code;
 }
 
+// 4327b5 (client: 4348e6)
 void VisScreen::CloseOk() {
-    //4327b5
     this->MsgProc(VIS_MSG_HIDE_SCREEN, 0, 0);
 }
 
+// 4327d4 (client: 434905)
 void VisScreen::CloseCancel() {
-    //4327d4
     this->MsgProc(VIS_MSG_CLOSE_SCREEN, 0, 0);
 }
 
 
-VisWindow::~VisWindow()  //451a70
+// 451a70 (client: 452a70)
+VisWindow::~VisWindow()
 {}
 
+// 4dfeb2 (client: 449fb8)
 int32_t VisWindow::OnKeyDown(uint32_t wparam) {
-    //4dfeb2
     if (wparam == VK_ESCAPE) {
         return this->MsgProc(VIS_MSG_CLOSE_SCREEN, 0, 0);
     } else {
@@ -3441,14 +3450,14 @@ int32_t VisWindow::OnKeyDown(uint32_t wparam) {
     }
 }
 
+// 4dfdab (client: 4e472c)
 VisWindow::VisWindow(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* _bitmap)
 :VisScreen(_id, l, t, r, b, _bitmap) {
-    //4dfdab
     VisWindow::UpdateWinRect();
 }
 
+// 4dfe19 (client: 4e479a)
 void VisWindow::UpdateWinRect() {
-    //4dfe19
     int32_t w = ((this->rect.Width() - 8) / 96) * 96 + 8;
     int32_t h = ((this->rect.Height() - 104) / 64) * 64 + 104;
 
@@ -3459,7 +3468,7 @@ void VisWindow::UpdateWinRect() {
 }
 
 
-// 4e0071
+// 4e0071 (client: 4e49f2)
 int32_t VisRoleKeyScreen::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     if (msg != VIS_MSG_SPEECH_ADVANCE) {
         return this->VisScreen::MsgProc(msg, wparam, lparam);
@@ -3482,7 +3491,7 @@ int32_t VisRoleKeyScreen::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam
 }
 
 
-// 4e0027
+// 4e0027 (client: 4e49a8)
 int32_t VisRoleKeyScreen::OnKeyDown(uint32_t wparam) {
     if (wparam == VK_RETURN || wparam == VK_ESCAPE) {
         this->MsgProc(VIS_MSG_SPEECH_ADVANCE, 0, 0);
@@ -3492,14 +3501,14 @@ int32_t VisRoleKeyScreen::OnKeyDown(uint32_t wparam) {
 }
 
 
-// 4e012d
+// 4e012d (client: 4e4aae)
 void VisRoleKeyScreen::VMethod28() {
     this->AdvanceSpeechLine();
     this->VisScreen::VMethod28();
 }
 
 
-// 4e0148 (helper 4e0b20 inlined)
+// 4e0148 (client: 4e4ac9) - (helper 4e0b20 inlined)
 void VisRoleKeyScreen::DoClose(uint32_t code) {
     if (this->text_buf != nullptr) {
         free(this->text_buf);
@@ -3508,7 +3517,7 @@ void VisRoleKeyScreen::DoClose(uint32_t code) {
 }
 
 
-// 4e0169
+// 4e0169 (client: 4e4aea) - advance to next talk line
 bool VisRoleKeyScreen::AdvanceSpeechLine() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
@@ -3619,7 +3628,7 @@ bool VisRoleKeyScreen::AdvanceSpeechLine() {
 }
 
 
-// 4e0b43
+// 4e0b43 (client: 4e54c4)
 bool VisRoleKeyScreen::ParseSpeechLine(int32_t line_no, int32_t* out_id, CString* out_text, char** out_name, char** out_name_end, int32_t* out_music) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     char* p = this->text_buf;
@@ -3775,7 +3784,7 @@ bool VisRoleKeyScreen::ParseSpeechLine(int32_t line_no, int32_t* out_id, CString
 }
 
 
-// 4e0978
+// 4e0978 (client: 4e52f9)
 void VisRoleKeyScreen::LoadText() {
     CString key;
     key.Format("#%s", (const char*)this->role_name);
@@ -3805,11 +3814,11 @@ void VisRoleKeyScreen::LoadText() {
 }
 
 
-// 4e3f60
+// 4e3f60 (client: 4e9340)
 VisRoleKeyScreen::~VisRoleKeyScreen()
 {}
 
-// 4dff5c
+// 4dff5c (client: 4e48dd)
 VisRoleKeyScreen::VisRoleKeyScreen(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const CString& text)
 : VisWindow(_id, l, t, r, b, nullptr) {
     this->role_name = text;
@@ -3822,12 +3831,12 @@ VisRoleKeyScreen::VisRoleKeyScreen(int32_t _id, int32_t l, int32_t t, int32_t r,
 }
 
 
+// 444ff3 (client: 4476c1)
 VisMessageBox::~VisMessageBox() {
-    //444ff3
 }
 
+// 44500f (client: 4476dd)
 int32_t VisMessageBox::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
-    //44500f
     if (msg >= 0x445 && msg <= 0x44b) {
         int32_t res = VisScreen::MsgProc(VIS_MSG_CLOSE_SCREEN, wparam, lparam);
         this->exit_code = msg;
@@ -3839,9 +3848,8 @@ int32_t VisMessageBox::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
 }
 
 
+// 444086 (client: 446656)
 void VisMessageBox::VMethod26() {
-    //444086
-    // client: 446656
     CRect r2;
     if (this->text && strlen(this->text) > 0) {
         if (g_font1->GetStrWidth(this->text) > this->rect.Width()) {
@@ -4010,13 +4018,13 @@ void VisMessageBox::VMethod26() {
 }
 
 
+// 445084 (client: 447752)
 void VisMessageBox::VMethod31(int32_t code) {
-    //445084
 }
 
+// 44402b (client: 4465fb)
 VisMessageBox::VisMessageBox(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const void* _payload, const char* str2, int32_t btypes, const char* str3)
 : VisWindow(_id, l, t, r, b, nullptr) {
-    //44402b
     this->title = str2;
     this->text = str3;
     this->payload = _payload;
@@ -4024,15 +4032,17 @@ VisMessageBox::VisMessageBox(int32_t _id, int32_t l, int32_t t, int32_t r, int32
 }
 
 
-CVisualObject* VisMessageBoxWithList::VMethod30(const void* str, const RECT& r) { //4450d4
+// 4450d4 (client: 4477a2)
+CVisualObject* VisMessageBoxWithList::VMethod30(const void* str, const RECT& r) {
     VisMultiText* txt = new VisMultiText(2, r, (const char*)str, g_font1, p_clrsh_Black, 0);
     this->AddChild(txt);
     txt->SizesCheck();
     return txt;
 }
 
+// 445091 (client: 44775f)
 VisMessageBoxWithList::VisMessageBoxWithList(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const char* str1, const char* str2, int32_t btypes)
-: VisMessageBox(_id, l, t, r, b, str1, str2, btypes, nullptr) { //445091
+: VisMessageBox(_id, l, t, r, b, str1, str2, btypes, nullptr) {
 }
 
 
@@ -4042,7 +4052,7 @@ VisMessageBoxWithList::VisMessageBoxWithList(int32_t _id, int32_t l, int32_t t, 
 
 
 
-// 44aad6
+// 44aad6 (client: 44d203)
 UINT AFX_CDECL VisNetMapThreadProc(LPVOID pParam) {
     static_cast<VisNetMapSelection*>(pParam)->ScanMapsThread();
     return 0;
@@ -4051,31 +4061,31 @@ UINT AFX_CDECL VisNetMapThreadProc(LPVOID pParam) {
 
 
 
-// 450100 (deleting dtor ??_G; the complete dtor 450130 only destroys `colors` and the base)
+// 450130 (client: 454350) - (complete dtor 450130) - (deleting dtor ??_G; the complete dtor 450130 only destroys `colors` and the base)
 VisNetChatList::~VisNetChatList() = default;
 
 
 
 
-// 450200 (deleting dtor ??_G; the complete dtor 450230 only destroys `colors` and the base)
+// 450230 (client: 454450) - (complete dtor 450230) - (deleting dtor ??_G; the complete dtor 450230 only destroys `colors` and the base)
 VisNetPlayerList::~VisNetPlayerList() = default;
 
 
 
 
-// 450030 (deleting dtor ??_G; the complete dtor 450060 only calls the base dtor)
+// 450060 (client: 454280) - (complete dtor 450060) - (deleting dtor ??_G; the complete dtor 450060 only calls the base dtor)
 VisNetMapList::~VisNetMapList() = default;
 
 
 
 
-// 450970 (deleting dtor ??_G; the complete dtor 4509a0 only calls the base dtor)
+// 4509a0 (client: 454760) - (complete dtor 4509a0) - (deleting dtor ??_G; the complete dtor 4509a0 only calls the base dtor)
 VisServerScreenRadio::~VisServerScreenRadio() = default;
 
 
 
 
-// 450350 (deleting dtor ??_G; the complete dtor 450380 only calls the base dtor)
+// 450380 (client: 454600) - (complete dtor 450380) - (deleting dtor ??_G; the complete dtor 450380 only calls the base dtor)
 VisNetChatTextBox::~VisNetChatTextBox() = default;
 
 
@@ -4085,18 +4095,21 @@ VisNetChatTextBox::~VisNetChatTextBox() = default;
 
 
 
-VisMenuWnd::~VisMenuWnd() { //451a90
+// 451a90 (client: 453670)
+VisMenuWnd::~VisMenuWnd() {
 }
 
+// 451990 (client: 453430)
 VisMenuWnd::VisMenuWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* _bitmap, uint32_t unk, const CRect& _r)
-: VisWindow(_id, l, t, r, b, _bitmap) { //451990
+: VisWindow(_id, l, t, r, b, _bitmap) {
     this->element_rect = _r;
     this->gap_0x68 = unk;
     this->element_rect.left = 40;
     this->element_rect.right = this->rect.Width() - 48;
 }
 
-int32_t VisMenuWnd::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) { //440e54
+// 440e54 (client: 4432bb)
+int32_t VisMenuWnd::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     if (msg == VIS_MSG_MENU_BUTTON_CLICK) {
         if (wparam == 0) {
             return VisScreen::MsgProc(VIS_MSG_CLOSE_SCREEN, 0, 0);
@@ -4110,7 +4123,8 @@ int32_t VisMenuWnd::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) { //
     return VisScreen::MsgProc(msg, wparam, lparam);
 }
 
-int32_t VisMenuWnd::OnKeyDown(uint32_t wparam) { //440ece
+// 440ece (client: 443335)
+int32_t VisMenuWnd::OnKeyDown(uint32_t wparam) {
     if (wparam == VK_UP) {
         this->TabFocus(false, true);
         return 1;
@@ -4123,7 +4137,8 @@ int32_t VisMenuWnd::OnKeyDown(uint32_t wparam) { //440ece
 }
 
 
-void VisMenuWnd::AddElement(CVisualObject* obj, int32_t height) { //440e11
+// 440e11 (client: 443278)
+void VisMenuWnd::AddElement(CVisualObject* obj, int32_t height) {
     this->element_rect.top = this->element_rect.bottom;
     this->element_rect.bottom = this->element_rect.top + height;
 
@@ -4132,7 +4147,8 @@ void VisMenuWnd::AddElement(CVisualObject* obj, int32_t height) { //440e11
 }
 
 
-int32_t MenuButton::OnLButtonUp(uint32_t wparam, CPoint pos) { //4dd933
+// 4dd933 (client: 4e22b6)
+int32_t MenuButton::OnLButtonUp(uint32_t wparam, CPoint pos) {
     CRect r = this->ClientRectToScreen(this->rect);
 
     if (this->downed == 0) {
@@ -4148,7 +4164,8 @@ int32_t MenuButton::OnLButtonUp(uint32_t wparam, CPoint pos) { //4dd933
     return 1;
 }
 
-int32_t MenuButton::OnChar(uint32_t wparam) { //4dd9b3
+// 4dd9b3 (client: 4e2336)
+int32_t MenuButton::OnChar(uint32_t wparam) {
     if (!this->parent || this->TestFlags(FLAG_ENABLED) == 0) {
         return 0;
     }
@@ -4163,19 +4180,22 @@ int32_t MenuButton::OnChar(uint32_t wparam) { //4dd9b3
     return 1;
 }
 
+// 4509c0 (client: 453390)
 MenuButton::MenuButton(int32_t _id, const char* _caption, CGameFont* _font, uint16_t* _clr, int32_t _msgid, int32_t _charid, const char* hint)
-: VisButton(_id, 0, 0, 0, 0, _caption, _font, _clr, _msgid, _charid, hint) { //4509c0
+: VisButton(_id, 0, 0, 0, 0, _caption, _font, _clr, _msgid, _charid, hint) {
 }
 
+// 450bf0 (client: 4548f0)
 MenuButton::MenuButton(int32_t _id, const RECT& r, const char* _caption, CGameFont* _font, uint16_t* _clr, int32_t _msgid, int32_t _charid, const char* hint)
-: VisButton(_id, r, _caption, _font, _clr, _msgid, _charid, hint) { //450bf0
+: VisButton(_id, r, _caption, _font, _clr, _msgid, _charid, hint) {
 }
 
 
 
 
 
-const char* HintedListBox::GetHint() { //43ec67
+// 43ec67 (client: 4410cb)
+const char* HintedListBox::GetHint() {
     int32_t idx = this->YToIndex(g_mousept.GetY());
     if (idx >= this->num_vis_entry) {
         return nullptr;
@@ -4195,8 +4215,9 @@ const char* HintedListBox::GetHint() { //43ec67
     return str;
 }
 
+// 43ec05 (client: 441069)
 HintedListBox::HintedListBox(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _scrollid, const char* hint)
-: VisListBox(_id, l, t, r, b, _font, _clr1, _clr2, _scrollid, hint) { //43ec05
+: VisListBox(_id, l, t, r, b, _font, _clr1, _clr2, _scrollid, hint) {
 }
 
 
@@ -4272,7 +4293,7 @@ HintedListBox::HintedListBox(int32_t _id, int32_t l, int32_t t, int32_t r, int32
 
 
 
-// 44e4ce
+// 44e4ce (client: 4517f9)
 void ExecuteAdminChatCommand(const char* cmd) {
     CString s(cmd);
     s.MakeLower();
@@ -4303,24 +4324,24 @@ void ExecuteAdminChatCommand(const char* cmd) {
 
 
 
-// 450ab0 (deleting dtor ??_G; the complete dtor at 450AE0 only calls the base dtor)
+// 450ae0 (client: 4547e0) - (deleting dtor ??_G; the complete dtor at 450AE0 only calls the base dtor)
 VisServerScreen::~VisServerScreen() = default;
 
 
 
 
-// 44fae0 (deleting dtor ??_G; the complete dtor at 44FB10 only calls the base dtor)
+// 44fb10 (client: 453a10) - (deleting dtor ??_G; the complete dtor at 44FB10 only calls the base dtor)
 VisNetPhoneBook::~VisNetPhoneBook() = default;
 
 
 
 
-// 44fcc0 (deleting dtor ??_G; the complete dtor 44fcf0 only calls the base dtor)
+// 44fcf0 (client: 453bf0) - (deleting dtor ??_G; the complete dtor 44fcf0 only calls the base dtor)
 VisNetSerialSettings::~VisNetSerialSettings() = default;
 
 
 
-// 44b37a
+// 44b37a (client: 44daa7)
 int32_t GetFieldPos(CString str, int32_t field) {
     int32_t pos = 0;
     for (int32_t i = 0; i < field; i++) {

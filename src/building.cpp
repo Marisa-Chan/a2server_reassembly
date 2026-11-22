@@ -8,7 +8,7 @@
 //  542341   CArchive& AFXAPI operator>>(CArchive& ar, class_name* &pOb)  
 IMPLEMENT_SERIAL(Building, Token, 1);
 
-// 542599
+// 542599 (client: 529a5d)
 Building::Building(uint8_t type_id, TokenPos* pos, uint8_t width, uint8_t height)
     : Token(pos) {
     this->typeId = 0;
@@ -17,23 +17,23 @@ Building::Building(uint8_t type_id, TokenPos* pos, uint8_t width, uint8_t height
     this->InitFromTable(width, height);
 }
 
-// 5424AC
+// 5424ac (client: 529970)
 Building::Building(TokenPos* pos)
     : Token(pos) {
     this->InitByName("");
 }
 
-// 542534
+// 542534 (client: 5299f8)
 Building::Building(const CString& name) {
     this->InitByName(name);
 }
 
-// 54242A
+// 54242a (client: 5298ee)
 Building::Building() {
     this->InitByName("");
 }
 
-// 542624
+// 542624 (client: 529ae6) - Initialize building fields and look up type by name.
 void Building::InitByName(const CString& name) {
     this->object_info_id = 0;
     this->building_info = nullptr;
@@ -58,7 +58,7 @@ void Building::InitByName(const CString& name) {
     }
 }
 
-// 5427AC
+// 5427ac (client: 529c04) - Initialize building from info table and place on map.
 void Building::InitFromTable(uint8_t width, uint8_t height) {
     if (this->object_info_id == 0 || this->object_info_id >= g_GameDataRes.buildings.GetSize()) {
         return;
@@ -83,7 +83,7 @@ void Building::InitFromTable(uint8_t width, uint8_t height) {
     MapStuff_Instance->PlaceBuilding(this);
 }
 
-// 54293A
+// 54293a (client: 529d8e)
 Building::~Building() {
     if (this->building_id != 0) {
         BldIdSet_Unset((uint16_t)this->building_id);
@@ -93,7 +93,7 @@ Building::~Building() {
     }
 }
 
-// 542CE7
+// 542ce7 (client: 529f6d)
 void Building::Serialize(CArchive& ar) {
     Token::Serialize(ar);
     this->protections.Serialize(ar);
@@ -126,7 +126,7 @@ void Building::Serialize(CArchive& ar) {
 }
 
 // Replenishes magic wells every 60 ticks.
-// 5429b6
+// 5429b6 (client: 529e08)
 void Building::RegenTick() {
     if (g_Server->tick % 60 != 0) {
         return;
@@ -142,17 +142,17 @@ void Building::RegenTick() {
     g_NetStru1_main.BroadcastTokenState(this, nullptr, 0);
 }
 
-// 57c3a0
+// 57c3a0 (client: 54d380)
 int32_t Building::IsBuilding() {
     return 1;
 }
 
-// 57c3b0
+// 57c3b0 (client: 54d390)
 int32_t Building::IsOutpost() {
     return 0;
 }
 
-// 542A31
+// 542a31 (client: 529e83) - Building attack.
 int32_t Building::RollDamage(UnitToHit* to_hit, Unit* /*caster*/) {
     if (to_hit == nullptr || this->hp_max == 0) {
         return 0;
@@ -186,22 +186,22 @@ int32_t Building::RollDamage(UnitToHit* to_hit, Unit* /*caster*/) {
 
 IMPLEMENT_SERIAL(Pointer, Building, 1);
 
-// 5A3140
+// 5a3140 (client: 5712b0)
 Pointer::Pointer(uint8_t type_id, TokenPos* pos, uint8_t width, uint8_t height)
     : Building(type_id, pos, width, height) {
     this->script_instance_id = -1;
 }
 
-// 54235D
+// 54235d (client: 54d350) - default, used by CreateObject
 Pointer::Pointer()
     : Building() {
     this->script_instance_id = -1;
 }
 
-// 57C3F0
+// 57c3f0 (client: 54d3d0)
 Pointer::~Pointer() {}
 
-// 5430FB
+// 5430fb (client: 52a0ec)
 void Pointer::Serialize(CArchive& ar) {
     Building::Serialize(ar);
     if (ar.IsStoring()) {

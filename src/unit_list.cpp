@@ -25,12 +25,13 @@ static void TangarApplyDeathExpPenalty(Humanoid* unit, double mult) {
 }
 #endif
 
-//555a1d
+// 555a1d (client: 534ebc)
 UnitList::UnitList() = default;
 
-//555a8d
+// 555a8d (client: 534ede)
 UnitList::~UnitList() = default;
 
+// 558ef8 (client: 536222)
 void UnitList::Serialize(CArchive& ar) {
     //558ef8 - both binaries write the count as a raw 4-byte int (not WriteCount)
     if (ar.IsStoring()) {
@@ -53,8 +54,8 @@ void UnitList::Serialize(CArchive& ar) {
     }
 }
 
+// 5591da (client: 53623e)
 void UnitList::CallMethod5() {
-    //5591da
     POSITION pos = this->unit_list.GetHeadPosition();
     while (pos != NULL) {
         Unit* unit = this->unit_list.GetNext(pos);
@@ -62,24 +63,25 @@ void UnitList::CallMethod5() {
     }
 }
 
+// 555c1b (client: 534f4c)
 void UnitList::AddTail(Unit* unit) {
-    //555c1b
     this->unit_list.AddTail(unit);
 }
 
+// 555d67 (client: 534f68)
 void UnitList::AddTailAllocId(Unit* unit) {
-    //555d67
     this->unit_list.AddTail(unit);
     unit->building_id = g_buildingIdSet.AllocBit();
 }
 
+// 555f1c (client: 534fa3)
 void UnitList::AddTailId6xxx(Unit* unit) {
-    //555f1c
     this->unit_list.AddTail(unit);
     unit->building_id = 0x6000 + unit->TokenID;
 }
 
-void UnitList::Remove(Unit* unit) { //575aa0
+// 575aa0 (client: 546940) - Remove unit from list and in any do delete for this unit
+void UnitList::Remove(Unit* unit) {
     POSITION pos = this->unit_list.Find(unit);
     if (pos) {
         this->unit_list.RemoveAt(pos);
@@ -88,7 +90,7 @@ void UnitList::Remove(Unit* unit) { //575aa0
     delete unit;
 }
 
-// 5560D2
+// 5560d2 (client: 534fdf) - Look up unit in list by ID
 Unit* UnitList::FindById(uint16_t id) {
     POSITION it = this->unit_list.GetHeadPosition();
     while (it) {
@@ -100,7 +102,7 @@ Unit* UnitList::FindById(uint16_t id) {
     return nullptr;
 }
 
-// 556345
+// 556345 (client: 53517b) - Tick alive units and reap dead ones
 void UnitList::ProcessTick() {
     POSITION pos = this->unit_list.GetHeadPosition();
     while (pos != NULL) {
@@ -340,7 +342,7 @@ void UnitList::ProcessTick() {
     }
 }
 
-// 5561A1
+// 5561a1 (client: 535043)
 void UnitList::SendVisibilityUpdates() {
     POSITION it = this->unit_list.GetHeadPosition();
     while (it != NULL) {
@@ -362,7 +364,7 @@ void UnitList::SendVisibilityUpdates() {
 }
 
 // Clear this player's vision-sharing bit on every unit in the list.
-// 5579D8
+// 5579d8 (client: 535b23) - Clear unit vision mask bits for player across this list
 void UnitList::ClearSentToMask(Player* player) {
     POSITION it = this->unit_list.GetHeadPosition();
     while (it) {
@@ -392,6 +394,7 @@ static bool TangarOwnerHasMultipleSummons(Unit* unit) {
 }
 #endif
 
+// 5574b5 (client: 5358d9)
 void UnitList::RegenTick() {
     // Tick all units in this list (call VMethod1 on each)
     POSITION pos = this->unit_list.GetHeadPosition();
@@ -471,7 +474,7 @@ void UnitList::RegenTick() {
     }
 }
 
-// 557AB0
+// 557ab0 (client: 535b90) - Check if player has a rewarded unit
 int UnitList::CountKillableMonsters() {
     int32_t count = 0;
     for (POSITION it = this->unit_list.GetHeadPosition(); it != NULL; ) {

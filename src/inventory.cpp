@@ -1,12 +1,12 @@
 #include "inventory.h"
 
-// 551C0A
+// 551c0a (client: 5336d5)
 Inventory::Inventory() {
     this->default_position = 0x7FFF;
     this->total_weight = 0;
 }
 
-// 551E55
+// 551e55 (client: 533747)
 Inventory::Inventory(const Inventory* src) {
     for (POSITION pos = src->items.GetHeadPosition(); pos != nullptr;) {
         Item* item = src->items.GetNext(pos);
@@ -16,7 +16,7 @@ Inventory::Inventory(const Inventory* src) {
     this->total_weight = src->total_weight;
 }
 
-// 551C7A
+// 551c7a (client: 5336ff)
 Inventory::~Inventory() {
     for (POSITION pos = this->items.GetHeadPosition(); pos != nullptr;) {
         Item* item = this->items.GetNext(pos);
@@ -25,12 +25,12 @@ Inventory::~Inventory() {
     this->items.RemoveAll();
 }
 
-// 551fa3
+// 551fa3 (client: 5337e4)
 void Inventory::PutItemIntoBagAtDefault(Item* item) {
     this->PutItemIntoBag(this->default_position, item);
 }
 
-// 551fc3
+// 551fc3 (client: 533804)
 void Inventory::PutItemIntoBag(int32_t pos, Item* item) {
     if (!item) {
         return;
@@ -76,7 +76,7 @@ void Inventory::PutItemIntoBag(int32_t pos, Item* item) {
     this->total_weight += item->weight * item->count;
 }
 
-// 5524FA
+// 5524fa (client: 5339b8) - add item to inventory
 void Inventory::AddItem(int32_t amount, Item* item) {
     if (!item) {
         return;
@@ -119,7 +119,7 @@ void Inventory::AddItem(int32_t amount, Item* item) {
     this->total_weight += item->weight * item->count;
 }
 
-// 552A42
+// 552a42 (client: 533b7d) - Transfer all items from src into this inventory
 void Inventory::TransferFrom(Inventory* src) {
     if (!src || this->items.GetCount() >= 0x400) {
         return;
@@ -138,7 +138,7 @@ void Inventory::TransferFrom(Inventory* src) {
     delete src;
 }
 
-// 552B6B
+// 552b6b (client: 533c07) - Find item by item_id
 Item* Inventory::FindItemById(uint16_t item_id) {
     for (POSITION pos = this->items.GetHeadPosition(); pos != nullptr;) {
         Item* item = this->items.GetNext(pos);
@@ -149,7 +149,7 @@ Item* Inventory::FindItemById(uint16_t item_id) {
     return nullptr;
 }
 
-// 552C37
+// 552c37 (client: 533c61) - Remove and return item matching item_id from inventory
 Item* Inventory::TakeItemById(uint16_t item_id) {
     Item* item = this->FindItemById(item_id);
     if (!item) {
@@ -171,6 +171,7 @@ Item* Inventory::TakeItemById(uint16_t item_id) {
     return item;
 }
 
+// split from 552e42 (client: 533cd8)
 Item* Inventory::PeekItemAt(int32_t item_number, POSITION* out_pos) {
     if (item_number < 0 || item_number >= this->items.GetCount()) {
         return nullptr;
@@ -187,6 +188,7 @@ Item* Inventory::PeekItemAt(int32_t item_number, POSITION* out_pos) {
     return this->items.GetAt(it);
 }
 
+// split from 552e42 (client: 533cd8)
 Item* Inventory::TakeItemAtPos(POSITION it, int32_t count) {
     if (it == nullptr || count <= 0) {
         return nullptr;
@@ -210,7 +212,7 @@ Item* Inventory::TakeItemAtPos(POSITION it, int32_t count) {
     return item;
 }
 
-// 552E42
+// 552e42 (client: 533cd8)
 Item* Inventory::TakeItemAt(int32_t item_number, int32_t count) {
     POSITION it = nullptr;
     if (this->PeekItemAt(item_number, &it) == nullptr) {
@@ -219,7 +221,7 @@ Item* Inventory::TakeItemAt(int32_t item_number, int32_t count) {
     return this->TakeItemAtPos(it, count);
 }
 
-// 5530A2
+// 5530a2 (client: none) - Find item by name, returns nullptr if not found
 Item* Inventory::FindItemByName(const char* name) {
     for (POSITION pos = this->items.GetHeadPosition(); pos != nullptr;) {
         Item* item = this->items.GetNext(pos);
@@ -232,7 +234,8 @@ Item* Inventory::FindItemByName(const char* name) {
     return nullptr;
 }
 
-void Inventory::SerializeItems(CArchive& ar) { //Serialize items list. from 55cce4
+// split from 55cce4 (client: 53776f) - Serialize items list
+void Inventory::SerializeItems(CArchive& ar) {
     uint32_t cnt;
     if (ar.IsStoring()) {
         cnt = this->items.GetCount();
@@ -252,7 +255,7 @@ void Inventory::SerializeItems(CArchive& ar) { //Serialize items list. from 55cc
     }
 }
 
-// 55CCE4
+// 55cce4 (client: 53776f) - Serialize
 void Inventory::Serialize(CArchive& ar) {
     this->SerializeItems(ar);
 

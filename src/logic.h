@@ -49,7 +49,7 @@ struct TriggerAction {
 
 public:
     // 5afc9c
-    TriggerAction();  // client: 565b48
+    TriggerAction(); // 5afc9c (client: 57de0c)
 };
 ASSERT_OFFSET(TriggerAction, ref_kind, 0x30);
 ASSERT_OFFSET(TriggerAction, ref_scope, 0x3a);
@@ -65,8 +65,8 @@ public:
 
 public:
     // 5afc1d
-    TriggerCheck();  // client: 57dd8d
-    TriggerCheck& operator=(const TriggerCheck& other); // 5afc6f
+    TriggerCheck(); // 5afc1d (client: 57dd8d)
+    TriggerCheck& operator=(const TriggerCheck& other); // 5afc6f (client: 57dddf)
 };
 ASSERT_OFFSET(TriggerCheck, counter, 0x78);
 ASSERT_SIZE(TriggerCheck, 0x7c);
@@ -83,7 +83,7 @@ public:
 public:
     Trigger(); // 5afd79 (client: 57dee9)
     ~Trigger(); // 5afe3d (client: 57dfad)
-    Trigger& operator=(const Trigger& other); // 5b006e
+    Trigger& operator=(const Trigger& other); // 5b006e (client: 57e1de)
 };
 ASSERT_SIZE(Trigger, 0x18);
 
@@ -92,8 +92,8 @@ struct ScriptSettings {
     uint32_t script_tracing;
     uint8_t gap_0x8[392];
 
-    ScriptSettings() { memset(this, 0, sizeof(ScriptSettings)); } //5b67ee (client: 565b48)
-    void Serialize(CArchive& ar); // Serialize (client: 51b0f8)
+    ScriptSettings() { memset(this, 0, sizeof(ScriptSettings)); } // 5b67ee (client: 58495e)
+    void Serialize(CArchive& ar); // 5b681a (client: 58498a) - Serialize
 };
 ASSERT_SIZE(ScriptSettings, 0x190);
 

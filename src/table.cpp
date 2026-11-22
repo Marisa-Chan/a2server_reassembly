@@ -27,11 +27,11 @@ CStringArray g_MagicItemDisplayNames;
 
 IMPLEMENT_SERIAL(TableLine, CObject, 1); // 6362b0
 
-// 512B33
+// 512b33 (client: 50642b)
 TableLine::TableLine() {
 }
 
-// 513A4F
+// 513a4f (client: 506f55)
 void TableLine::Serialize(CArchive& ar) {
     if (ar.IsStoring()) {
         ar << this->name;
@@ -41,7 +41,7 @@ void TableLine::Serialize(CArchive& ar) {
     this->values.Serialize(ar);
 }
 
-// 512C4D
+// 512c4d (client: 5064df)
 void TableLine::ParseValues(CString line, int32_t values_count, double* out_values) {
     CString sanitized;
     sanitized.Empty();
@@ -83,7 +83,7 @@ void TableLine::ParseValues(CString line, int32_t values_count, double* out_valu
     }
 }
 
-// 5131C1
+// 5131c1 (client: 506744)
 void TableLine::ParseValue(CString str, int32_t type_id, int32_t* out_value, double* out_double) {
     if (type_id == 0) {
         this->name = str;
@@ -106,7 +106,7 @@ void TableLine::ParseValue(CString str, int32_t type_id, int32_t* out_value, dou
     }
 }
 
-// Inlined in ASM.
+// inlined in 510502 (client: 501c9e)
 uint32_t AlphaMask(CString str) {
     str.TrimLeft();
     str.TrimRight();
@@ -133,18 +133,18 @@ uint32_t AlphaMask(CString str) {
     return mask;
 }
 
-// 571E50
+// 571e50 (client: 5431e0)
 WorldEquip::WorldEquip() {
     for (int32_t i = 0; i < 7; i++) {
         this->shape_material_matrix[i] = 0;
     }
 }
 
-// 5724b0
+// 5724b0 (client: 5433c0)
 WorldEquip::~WorldEquip() {
 }
 
-// 513AA3
+// 513aa3 (client: 506fa3)
 void WorldEquip::Serialize(CArchive& ar) {
     TableLine::Serialize(ar);
 
@@ -157,7 +157,7 @@ void WorldEquip::Serialize(CArchive& ar) {
     this->string_array.Serialize(ar);
 }
 
-// 513268
+// 513268 (client: 5067f2)
 void WorldEquip::ParseValue(CString str, int32_t type_id, int32_t* out_value, double* out_double) {
     if (type_id == 1) {
         *out_value = 0;
@@ -192,27 +192,27 @@ void WorldEquip::ParseValue(CString str, int32_t type_id, int32_t* out_value, do
     }
 }
 
-// 578040
+// 578040 (client: 548240)
 void WorldEquip::ParseLine(CString line) {
     this->ParseValues(line, 0x11, nullptr);
 }
 
-// 513B68
+// 513b68 (client: 50705c)
 void MagicItem::ParseLine(CString line) {
     this->ParseValues(line, 2, nullptr);
     int32_t tabIndex = line.ReverseFind('\t');
     this->effect = line.Mid(tabIndex + 1);
 }
 
-// 572740
+// 572740 (client: 5435c0)
 MagicItem::MagicItem() {
 }
 
-// 5728F0
+// 5728f0 (client: 5436c0)
 MagicItem::~MagicItem() {
 }
 
-// 513C13
+// 513c13 (client: 507107)
 void MagicItem::Serialize(CArchive& ar) {
     TableLine::Serialize(ar);
 
@@ -225,25 +225,25 @@ void MagicItem::Serialize(CArchive& ar) {
     }
 }
 
-// 572850
+// 572850 (client: 543620)
 void MagicItem::ParseValue(CString str, int32_t type_id, int32_t* out_value, double* out_double) {
     TableLine::ParseValue(str, type_id, out_value, out_double);
 }
 
-// 572590
+// 572590 (client: 543550)
 MatShape::MatShape() {
 }
 
-// 572670
+// 572670 (client: 5435a0)
 MatShape::~MatShape() {
 }
 
-// 5780B0
+// 5780b0 (client: 5482e0)
 void MatShape::ParseLine(CString line) {
     this->ParseValues(line, 9, (double*)&this->data);
 }
 
-// 513B05
+// 513b05 (client: 506fff)
 void MatShape::Serialize(CArchive& ar) {
     if (ar.IsStoring()) {
         ar << this->name;
@@ -254,20 +254,20 @@ void MatShape::Serialize(CArchive& ar) {
     }
 }
 
-// 578120
+// 578120 (client: 5483b0)
 void MagicInfo::ParseLine(CString line) {
     this->ParseValues(line, 0x1c, nullptr);
 }
 
-// 5729E0
+// 5729e0 (client: 543710)
 MagicInfo::MagicInfo() {
 }
 
-// 572AC0
+// 572ac0 (client: 543760)
 MagicInfo::~MagicInfo() {
 }
 
-// 514085
+// 514085 (client: 507515)
 void __stdcall SplitCsvLine(CString line, int count, CStringArray* items) {
     static char quote_buf[0xA00];
 
@@ -310,22 +310,22 @@ void __stdcall SplitCsvLine(CString line, int count, CStringArray* items) {
     }
 }
 
-// 578190
+// 578190 (client: 548450)
 void MonsterInfo::ParseLine(CString line) {
     this->ParseValues(line, 0x3e, nullptr);
     SplitCsvLine(line, 2, &this->equipped_items);
 }
 
-// 572B90
+// 572b90 (client: 543780)
 MonsterInfo::MonsterInfo() {
     this->equipped_items.SetSize(2, -1);
 }
 
-// 572CA0
+// 572ca0 (client: 543820)
 MonsterInfo::~MonsterInfo() {
 }
 
-// 513C82
+// 513c82 (client: 507170)
 void MonsterInfo::ParseValue(CString str, int32_t type_id, int32_t* out_value, double* out_double) {
     if (out_value == nullptr) {
         TableLine::ParseValue(str, type_id, out_value, out_double);
@@ -370,7 +370,7 @@ void MonsterInfo::ParseValue(CString str, int32_t type_id, int32_t* out_value, d
     }
 }
 
-// 513FF6
+// 513ff6 (client: 507486)
 void MonsterInfo::Serialize(CArchive& ar) {
     TableLine::Serialize(ar);
 
@@ -385,22 +385,22 @@ void MonsterInfo::Serialize(CArchive& ar) {
     }
 }
 
-// 578220
+// 578220 (client: 548510)
 void HumanInfo::ParseLine(CString line) {
     this->ParseValues(line, 0x1a, nullptr);
     SplitCsvLine(line, 10, &this->equipped_items);
 }
 
-// 572D80
+// 572d80 (client: 543870)
 HumanInfo::HumanInfo() {
     this->equipped_items.SetSize(10, -1);
 }
 
-// 572E90
+// 572e90 (client: 543910)
 HumanInfo::~HumanInfo() {
 }
 
-// 5143A6
+// 5143a6 (client: 50781d)
 void HumanInfo::ParseValue(CString str, int32_t type_id, int32_t* out_value, double* out_double) {
     if (type_id == 0x1A) {
         *out_value = 0;
@@ -413,7 +413,7 @@ void HumanInfo::ParseValue(CString str, int32_t type_id, int32_t* out_value, dou
     TableLine::ParseValue(str, type_id, out_value, out_double);
 }
 
-// 514A3A
+// 514a3a (client: 507d03)
 void HumanInfo::Serialize(CArchive& ar) {
     TableLine::Serialize(ar);
 
@@ -428,20 +428,20 @@ void HumanInfo::Serialize(CArchive& ar) {
     }
 }
 
-// 5782B0
+// 5782b0 (client: 5485d0)
 void BuildingInfo::ParseLine(CString line) {
     this->ParseValues(line, 6, nullptr);
 }
 
-// 572F70
+// 572f70 (client: 543960)
 BuildingInfo::BuildingInfo() {
 }
 
-// 573050
+// 573050 (client: 5439b0)
 BuildingInfo::~BuildingInfo() {
 }
 
-// 514AC9
+// 514ac9 (client: 507d92)
 void BuildingInfo::ParseValue(CString str, int32_t type_id, int32_t* out_value, double* out_double) {
     if (5 <= type_id && type_id <= 6) {
         uint32_t mask = 0;
@@ -463,27 +463,27 @@ void BuildingInfo::ParseValue(CString str, int32_t type_id, int32_t* out_value, 
     TableLine::ParseValue(str, type_id, out_value, out_double);
 }
 
-// 514BCE
+// 514bce (client: 507e8e)
 void BuildingInfo::Serialize(CArchive& ar) {
     TableLine::Serialize(ar);
 }
 
-// 578320
+// 578320 (client: 548670)
 void SpellInfo::ParseLine(CString line) {
     this->ParseValues(line, 0x16, nullptr);
     int32_t tabIndex = line.ReverseFind('\t');
     this->effect = line.Mid(tabIndex + 1);
 }
 
-// 573120
+// 573120 (client: 5439d0)
 SpellInfo::SpellInfo() {
 }
 
-// 573210
+// 573210 (client: 543a60)
 SpellInfo::~SpellInfo() {
 }
 
-// 514F41
+// 514f41 (client: 507fe7)
 void SpellInfo::ParseValue(CString str, int32_t type_id, int32_t* out_value, double* out_double) {
     switch (type_id) {
     case 0:
@@ -551,7 +551,7 @@ void SpellInfo::ParseValue(CString str, int32_t type_id, int32_t* out_value, dou
     }
 }
 
-// 51520F
+// 51520f (client: 508293)
 void SpellInfo::Serialize(CArchive& ar) {
     TableLine::Serialize(ar);
 
@@ -562,14 +562,15 @@ void SpellInfo::Serialize(CArchive& ar) {
     }
 }
 
-// 509e1a
+// 509e1a (client: 5019b3)
 GameDataRes::GameDataRes() {
     this->loaded = 0;
 }
 
-GameDataRes::~GameDataRes() = default; // 56f280
+// 56f280 (client: 540f70)
+GameDataRes::~GameDataRes() = default;
 
-// 50E0F0
+// 50e0f0 (client: 503833)
 void GameDataRes::Serialize(CArchive& ar) {
     if (ar.IsStoring()) {
         g_MaterialDisplayNames.Serialize(ar);
@@ -706,7 +707,7 @@ void GameDataRes::Serialize(CArchive& ar) {
     }
 }
 
-// 50D8BA
+// 50d8ba (client: 502fe1) - Find shape index by item name string
 uint8_t GameDataRes::FindShapeIndex(CString* name, CString* out) {
     for (int32_t i = this->shapes.GetSize() - 1; i >= 0; i--) {
         int32_t pos = name->Find(this->shapes[i].name);
@@ -724,7 +725,7 @@ uint8_t GameDataRes::FindShapeIndex(CString* name, CString* out) {
     return item_shape::common;
 }
 
-// 50DA04
+// 50da04 (client: 50312d) - Find material index by item name string
 uint8_t GameDataRes::FindMaterialIndex(CString* name, CString* out) {
     for (int32_t i = this->materials.GetSize() - 1; i >= 0; i--) {
         int32_t pos = name->Find(this->materials[i].name);
@@ -742,7 +743,7 @@ uint8_t GameDataRes::FindMaterialIndex(CString* name, CString* out) {
     return material::none;
 }
 
-// 50DB4E
+// 50db4e (client: 503270) - Extract base name and braced property from item name
 CString* GameDataRes::SplitItemName(CString* out1, const CString* in_name, CString* base_name_out) {
     int32_t brace_open = in_name->Find('{');
     if (brace_open == -1) {
@@ -764,7 +765,7 @@ CString* GameDataRes::SplitItemName(CString* out1, const CString* in_name, CStri
     return out1;
 }
 
-// 510502
+// 510502 (client: 504609) - Look up an item template by name
 Item* GameDataRes::FindItemTemplate(CString* name) {
     CString base_name;
     CString extra;
@@ -829,7 +830,7 @@ Item* GameDataRes::FindItemTemplate(CString* name) {
     return nullptr;
 }
 
-// 510F88
+// 510f88 (client: 504b43) - Create an item.
 Item* GameDataRes::CreateItem(uint8_t slot, uint8_t shape_id, uint8_t material_id, uint8_t item_data_id) {
     if (slot == item_slot::weapon) {
         return new Weapon(shape_id, material_id, item_data_id);
@@ -846,7 +847,7 @@ Item* GameDataRes::CreateItem(uint8_t slot, uint8_t shape_id, uint8_t material_i
     return nullptr;
 }
 
-// 510EE6
+// 510ee6 (client: 504aab) - Create a new item instance by item data ID
 Item* GameDataRes::CreateItemById(uint16_t raw_item_id) {
     ItemId item_id = raw_item_id;
 
@@ -857,7 +858,7 @@ Item* GameDataRes::CreateItemById(uint16_t raw_item_id) {
     return this->CreateItem(item_id.slot, item_id.shape_id, item_id.material_id, item_id.equip_id);
 }
 
-// 50DC69
+// 50dc69 (client: 50338b) - Strip material-specific prefix from item name
 void GameDataRes::StripMaterialPrefix(int material_id, CString* name) {
     if (this->materials[material_id].name.Find("Leather") != -1) {
         name->TrimLeft();
@@ -868,7 +869,7 @@ void GameDataRes::StripMaterialPrefix(int material_id, CString* name) {
     }
 }
 
-// 50DDAE
+// 50ddae (client: 5034d2) - Get monster data index from encoded item type/face
 int GameDataRes::GetMonsterDataIndex(uint8_t type_id, uint8_t face) {
     if (type_id < unit_type::monster_first && type_id != unit_type::boss_a && type_id != unit_type::boss_b) {
         for (int32_t i = 1; i < this->humans.GetSize(); i++) {
@@ -887,7 +888,7 @@ int GameDataRes::GetMonsterDataIndex(uint8_t type_id, uint8_t face) {
     return 0;
 }
 
-// 50DF19
+// 50df19 (client: 503646) - Get random recruitable monster index for inn reward
 int GameDataRes::GetRandomRecruitIndex(int experience) {
     int result = 0;
     int best_exp = 1;
@@ -975,7 +976,7 @@ int GameDataRes::GetRandomRecruitIndex(int experience) {
     return result;
 }
 
-// 5126A2
+// 5126a2 (client: 50625b) - Get monster table index by type and face
 int GameDataRes::GetMonsterTableIndex(uint8_t type, uint8_t face) {
     for (int32_t i = this->monsters.GetSize() - 1; i > 0; i--) {
         if (this->monsters[i].values.GetSize() == 0) {
@@ -991,7 +992,8 @@ int GameDataRes::GetMonsterTableIndex(uint8_t type, uint8_t face) {
     return 0;
 }
 
-int32_t GameDataRes::FindHumanByServerId(int32_t id) { //5125a8
+// 5125a8 (client: 506157)
+int32_t GameDataRes::FindHumanByServerId(int32_t id) {
     for (int i = this->humans.GetSize() - 1; i > 0; i--) {
         if (this->humans[i].values.GetSize() && this->humans[i].Values()[0].server_id == id) {
             return i;
@@ -1000,7 +1002,8 @@ int32_t GameDataRes::FindHumanByServerId(int32_t id) { //5125a8
     return 0;
 }
 
-int32_t GameDataRes::FindMonsterByServerId(int32_t id) { //512625
+// 512625 (client: 5061d9)
+int32_t GameDataRes::FindMonsterByServerId(int32_t id) {
     for (int i = this->monsters.GetSize() - 1; i > 0; i--) {
         if (this->monsters[i].values.GetSize() && this->monsters[i].Values()[0].server_id == id) {
             return i;
@@ -1009,7 +1012,7 @@ int32_t GameDataRes::FindMonsterByServerId(int32_t id) { //512625
     return 0;
 }
 
-// 514BE7
+// 514be7 (client: 507ea7) - post-process magic data after parsing Magic.txt
 void GameDataRes::PostProcessMagicData() {
     CArray<int32_t>& base_values = this->magics[0].values;
     base_values.SetSize(28, -1);
@@ -1033,7 +1036,7 @@ void GameDataRes::PostProcessMagicData() {
 // The original returns an inverted convention (0 = ok, 1 = "not found"); the
 // migrated callers check !OpenText instead. It also consumes the first (header)
 // line via ReadString into a write-only global (006cf388 family), now a local.
-// 50a26b
+// 50a26b (client: 501bbf)
 int OpenText(const CString& path, CStdioFile& file) {
     BOOL success = file.Open(path, CFile::modeRead | CFile::typeText | CFile::shareDenyWrite);
     if (!success) {
@@ -1046,7 +1049,7 @@ int OpenText(const CString& path, CStdioFile& file) {
     return success;
 }
 
-// 50a345
+// 50a345 (client: 501c9e)
 int GameDataRes::ParseTxtFiles(const CString& path) {
     CString line;
     CStdioFile file;
@@ -1281,7 +1284,7 @@ int GameDataRes::ParseTxtFiles(const CString& path) {
     return 0;
 }
 
-// 50D421
+// 50d421 (client: 502b5a)
 int GameDataRes::ParseDataBin(const CString& path) {
     CFile file;
     CString filename = path + "Data.bin";
@@ -1332,7 +1335,7 @@ int GameDataRes::ParseDataBin(const CString& path) {
     return 0;
 }
 
-// 50D7C2
+// 50d7c2 (client: 502eec)
 void GameDataRes::WriteDataBin(const CString& path) {
     CFile file;
     CString filename = path + "Data.bin";
@@ -1347,7 +1350,7 @@ void GameDataRes::WriteDataBin(const CString& path) {
     file.Close();
 }
 
-// 50a15f
+// 50a15f (client: 501ab3)
 int GameDataRes::ParseWorldIn(const CString& path) {
     if (this->loaded != 0) {
         return 0;

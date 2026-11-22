@@ -29,11 +29,13 @@
 static uint8_t gmap_repaint_init = 0;     // 65FA30 init-done flag
 static uint32_t gmap_repaint_ts = 0;      // 65FA68 timestamp of the last throttled repaint
 
-void VisGlobalMap::RebuildScenarioLocations() { //47024a
+// 47024a (client: 473faa)
+void VisGlobalMap::RebuildScenarioLocations() {
     this->PopulateScenarioLocationFlags();
 }
 
-void VisGlobalMap::PopulateScenarioLocationFlags() { //47025d
+// 47025d (client: 473fbd)
+void VisGlobalMap::PopulateScenarioLocationFlags() {
     CList<ScenarioLocation*> *locs = ScenarioGetAllLocations();
     for (POSITION pos = locs->GetHeadPosition(); pos != nullptr;) {
         ScenarioLocation* loc = locs->GetNext(pos);
@@ -46,7 +48,7 @@ void VisGlobalMap::PopulateScenarioLocationFlags() { //47025d
 }
 
 
-// 4714E7
+// 4714e7 (client: 475245)
 void VisGlobalMap::VMethod7() {
     CPoint screen_pt = this->rect.TopLeft();
     int32_t screen_x = screen_pt.x;
@@ -198,7 +200,7 @@ void VisGlobalMap::VMethod7() {
 }
 
 
-// 471367
+// 471367 (client: 4750c5)
 void VisGlobalMap::DoClose(uint32_t code) {
     this->renderActiveFlag = 0;
     this->FreeBitmaps();
@@ -225,7 +227,7 @@ void VisGlobalMap::DoClose(uint32_t code) {
 }
 
 
-// 473195
+// 473195 (client: 476ee5)
 GMapThing::GMapThing() {
     for (int32_t x = 0; x < 640; x++) {
         for (int32_t y = 0; y < 480; y++) {
@@ -258,7 +260,7 @@ GMapThing::GMapThing() {
 }
 
 
-// 47362d
+// 47362d (client: 47737d)
 void GMapThing::BuildAdjacency() {
     CArray<CPoint> foundPoints;
     CArray<CPoint> reverseBuf;
@@ -297,7 +299,7 @@ void GMapThing::BuildAdjacency() {
 }
 
 
-// 4733cf
+// 4733cf (client: 47711f)
 GMapThing::~GMapThing() {
     this->FreePathmap();
     if (this->adjacencyMatrix != nullptr) {
@@ -317,7 +319,7 @@ GMapThing::~GMapThing() {
 }
 
 
-// 47391f
+// 47391f (client: 47766f)
 int32_t GMapThing::FloodFill(int32_t x, int32_t y, uint16_t mark, CArray<CPoint>* foundPoints) {
     int32_t centerOffset = y * 640 + x;
     for (int32_t nx = x - 1; nx <= x + 1; nx++) {
@@ -355,7 +357,7 @@ int32_t GMapThing::FloodFill(int32_t x, int32_t y, uint16_t mark, CArray<CPoint>
 }
 
 
-// 473508
+// 473508 (client: 477258)
 void GMapThing::LoadPathmap() {
     MainWindow* mainWnd = (MainWindow*)AfxGetMainWnd();
     this->FreePathmap();
@@ -367,7 +369,7 @@ void GMapThing::LoadPathmap() {
 }
 
 
-// 4735e2
+// 4735e2 (client: 477332)
 void GMapThing::FreePathmap() {
     if (this->pathmap != nullptr) {
         delete this->pathmap;
@@ -376,7 +378,7 @@ void GMapThing::FreePathmap() {
 }
 
 
-// 473b4a
+// 473b4a (client: 47789a)
 void* GMapThing::TakeAdjacency(void* nodePoints) {
     CArray<CPoint>*** matrix = this->adjacencyMatrix;
     this->adjacencyMatrix = nullptr;
@@ -385,7 +387,7 @@ void* GMapThing::TakeAdjacency(void* nodePoints) {
 }
 
 
-// 47115D
+// 47115d (client: 474ebb)
 void VisGlobalMap::VMethod28() {
     g_mousept.DisableHint();
     this->LoadBitmaps();
@@ -414,7 +416,7 @@ void VisGlobalMap::VMethod28() {
 }
 
 
-// 47031D
+// 47031d (client: 47407b)
 void VisGlobalMap::VMethod26() {
     this->hero_bmp = nullptr;
     this->routeAdjacencyMatrix = nullptr;
@@ -446,7 +448,7 @@ void VisGlobalMap::VMethod26() {
 }
 
 
-// 472729
+// 472729 (client: 476487)
 const char* VisGlobalMap::GetHint() {
     if (this->renderActiveFlag == 0) {
         return nullptr;
@@ -467,7 +469,7 @@ const char* VisGlobalMap::GetHint() {
 }
 
 
-// 473077
+// 473077 (client: 476dc7)
 int32_t VisGlobalMap::OnRButtonDown(uint32_t wparam, CPoint pos) {
     // Binary builds the popup rect from heroDrawPoint, which nothing ever
     // writes (stays (0,0) from the ctor) — vanilla quirk, kept faithfully.
@@ -484,7 +486,7 @@ int32_t VisGlobalMap::OnRButtonDown(uint32_t wparam, CPoint pos) {
     return 1;
 }
 
-// 472CC5
+// 472cc5 (client: 476a15)
 int32_t VisGlobalMap::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     if ((gmap_repaint_init & 1) == 0) {
         gmap_repaint_init |= 1;
@@ -500,7 +502,7 @@ int32_t VisGlobalMap::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
 }
 
 
-// 473038
+// 473038 (client: 476d88)
 int32_t VisGlobalMap::OnLButtonDown(uint32_t wparam, CPoint pos) {
     if (this->travelProgress == 0) {
         this->travelProgress = 8;
@@ -511,7 +513,7 @@ int32_t VisGlobalMap::OnLButtonDown(uint32_t wparam, CPoint pos) {
 }
 
 
-// 472D99
+// 472d99 (client: 476ae9)
 int32_t VisGlobalMap::OnMouseMove(uint32_t wparam, CPoint pos) {
     if (this->travelProgress == 0) {
         this->OnMapClick();
@@ -521,39 +523,39 @@ int32_t VisGlobalMap::OnMouseMove(uint32_t wparam, CPoint pos) {
 }
 
 
-// 473175
+// 473175 (client: 476ec5)
 int32_t VisGlobalMap::OnRButtonUp(uint32_t wparam, CPoint pos) {
     this->partDetailsRect.SetRectEmpty();
     return 1;
 }
 
 
-// 4726CC
+// 4726cc (client: 476444)
 int32_t VisGlobalMap::OnChar(uint32_t wparam) {
     this->FinishTravel();
     return 1;
 }
 
 
-// 4726E6
+// 4726e6 (client: 47642a)
 int32_t VisGlobalMap::OnKeyDown(uint32_t wparam) {
     this->FinishTravel();
     return 1;
 }
 
 
-// 474F10
+// 474f10 (client: 477c10)
 int32_t VisGlobalMap::OnLButtonUp(uint32_t wparam, CPoint pos) {
     return 0;
 }
 
 
-// 471F08
+// 471f08 (client: 475c66)
 void VisGlobalMap::VMethod8(CRect* rect) {
 }
 
 
-// 47001B (scalar deleting dtor ??_G at 473D70)
+// 47001b (client: 473d7b) - (scalar deleting dtor ??_G at 473D70)
 VisGlobalMap::~VisGlobalMap() {
     this->FreeBitmaps();
     this->locationHitRects.RemoveAll();
@@ -578,14 +580,14 @@ VisGlobalMap::~VisGlobalMap() {
 }
 
 
-// 46FD7B
+// 46fd7b (client: 473adb)
 VisGlobalMap::VisGlobalMap(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* btm)
     : VisScreen(_id, l, t, r, b, btm) {
     this->VMethod26();
 }
 
 
-// 4705C2
+// 4705c2 (client: 474320)
 void VisGlobalMap::LoadBitmaps() {
     this->FreeBitmaps();
     if (this->umoirMapMode != 0) {
@@ -640,7 +642,7 @@ void VisGlobalMap::LoadBitmaps() {
 }
 
 
-// 470CD9
+// 470cd9 (client: 474a37)
 void VisGlobalMap::FreeBitmaps() {
     if (this->gmap != nullptr) {
         delete this->gmap;
@@ -705,7 +707,7 @@ void VisGlobalMap::FreeBitmaps() {
 }
 
 
-// 472820
+// 472820 (client: 47657e)
 void VisGlobalMap::ComputeTravelRoute(int32_t fromX, int32_t fromY, int32_t toX, int32_t toY) {
     if (CPoint(fromX, fromY) != CPoint(toX, toY)) {
         int32_t from_node = 0;
@@ -742,7 +744,7 @@ void VisGlobalMap::ComputeTravelRoute(int32_t fromX, int32_t fromY, int32_t toX,
 }
 
 
-// 472DCA
+// 472dca (client: 476b1a)
 void VisGlobalMap::OnMapClick() {
     CPoint old_target = this->targetLocationPoint;
     CPoint mouse(g_mousept.GetX(), g_mousept.GetY());
@@ -775,7 +777,7 @@ void VisGlobalMap::OnMapClick() {
 }
 
 
-// 472D4B
+// 472d4b (client: 476a9b)
 void VisGlobalMap::UpdateHoveredLocation(CPoint pos) {
     CPoint screen_pt = this->rect.TopLeft();
     pos -= CSize(screen_pt.x, screen_pt.y);
@@ -783,7 +785,7 @@ void VisGlobalMap::UpdateHoveredLocation(CPoint pos) {
 }
 
 
-// 470504
+// 470504 (client: 474262)
 void VisGlobalMap::LoadSamples() {
     this->FreeSamples();
     ReloadSfx(&this->snd_scrollup.sample, "SFX\\ScrollUp.wav");
@@ -793,7 +795,7 @@ void VisGlobalMap::LoadSamples() {
 }
 
 
-// 470571
+// 470571 (client: 4742cf)
 void VisGlobalMap::FreeSamples() {
     FreeSfxSample(&this->snd_scrollup.sample);
     FreeSfxSample(&this->snd_scrolldn.sample);
@@ -802,7 +804,7 @@ void VisGlobalMap::FreeSamples() {
 }
 
 
-// 472684
+// 472684 (client: 4763e2)
 void VisGlobalMap::FinishTravel() {
     if (this->travelProgress != 0) {
         this->travelProgress = this->travelRoutePoints.GetSize() + 1;
@@ -811,7 +813,7 @@ void VisGlobalMap::FinishTravel() {
 }
 
 
-// 472ADA
+// 472ada (client: 476832)
 void VisGlobalMap::SearchRoute(uint16_t from, uint16_t to, GlobalMapRouteArray* route) {
     if (from == to) {
         if (route->routeCost < this->bestRouteCost) {

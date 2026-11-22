@@ -56,8 +56,8 @@ struct Settings {
     uint8_t more_fields[3];
 
 public:
-    Settings();  // client: 55b336
-    void Serialize(CArchive& ar);  // client: 51b0f8
+    Settings(); // 5a5047 (client: 5731b7)
+    void Serialize(CArchive& ar); // 5b051f (client: 57e68f)
 };
 ASSERT_OFFSET(Settings, autobuff_mask, 0x20);
 ASSERT_SIZE(Settings, 0x24);
@@ -70,8 +70,8 @@ public: // VTable at 0060f140.
 
     DECLARE_SERIAL(Player);
 
-    virtual ~Player();  // client: 51fbc2
-    virtual void Serialize(CArchive& ar);  // client: 536ee7
+    virtual ~Player(); // 53442f (client: 51fbc2)
+    virtual void Serialize(CArchive& ar); // 55b343 (client: 536ee7)
 
 public:
     uint16_t player_id;
@@ -125,17 +125,17 @@ public:
     uint8_t gap_0xa99[7];
 
 public:
-    Player();  // client: 51f914
+    Player(); // 534118 (client: 51f914)
 
 public:
-    void AddMoney(int32_t amount, uint32_t notify_flag);  // client: 51fe74
-    void KillAllUnits(); // Kill all of this player's units on the map
-    void StartAfkTimer(); // Initialize inactivity timer (sets this+0A90h/0A94h from GetTickCount)
-    void ResetAfkTimer(); // Reset inactivity timer and notify NetStru1
+    void AddMoney(int32_t amount, uint32_t notify_flag); // 534ac1 (client: 51fe74)
+    void KillAllUnits(); // 5346ac (client: 51fd40) - Kill all of this player's units on the map
+    void StartAfkTimer(); // 534b17 (client: none) - Initialize inactivity timer (sets this+0A90h/0A94h from GetTickCount)
+    void ResetAfkTimer(); // 534b59 (client: none) - Reset inactivity timer and notify NetStru1
 
-    void Deactivate(); //534778 (client: 51fda1)
+    void Deactivate(); // 534778 (client: 51fda1)
 
-    void RemoveUnitFromGroup(Unit* unit); // Remove a unit from this player's unit list (PlayerRemoveUnit) (client: 534f4c)
+    void RemoveUnitFromGroup(Unit* unit); // 5347a1 (client: 51fdca) - Remove a unit from this player's unit list (PlayerRemoveUnit)
     void RemoveUnit(Unit* unit); // 534a74 (client: 51fe27)
 };
 
@@ -146,9 +146,9 @@ ASSERT_SIZE(Player, 0xaa0);
 
 
 namespace ExperienceTable {
-    void InitTable(); //53069e (client: 51c460)
-    int32_t __cdecl GetLevel(uint32_t ex); //5306ea (client: 51c4ac)
-    int32_t __cdecl GetExp(uint32_t lvl); //530726 (client: 51c4e8)
+    void InitTable(); // 53069e (client: 51c460)
+    int32_t __cdecl GetLevel(uint32_t ex); // 5306ea (client: 51c4ac)
+    int32_t __cdecl GetExp(uint32_t lvl); // 530726 (client: 51c4e8)
 }
 
 

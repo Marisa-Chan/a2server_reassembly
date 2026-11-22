@@ -30,8 +30,9 @@ static const int32_t lizard_seq2[] = { 2, 3, 4, 5, 6, 7, 8, 8, 8, 8, 8, 8, 8, 8,
 static const int32_t lizard_seq3[] = { 2, 3, 4, 5, 6, 7, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 9, 0xA, 0xB, 0xC, 0xD, 0xE, 0xF, 0x10, 0x11, 0x12, 0x13, 0x13, 0x13, 0x13, 0x13, 0x13, 0x13, 0x13, 0x13, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1A, 0x1B, -1 };
 static const int32_t* const lizard_seqs[4] = { lizard_seq0, lizard_seq1, lizard_seq2, lizard_seq3 };
 
+// 44160e (client: 443bdd)
 TownMenuListDialogVisualObject::TownMenuListDialogVisualObject(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const CRect& _r)
-: VisMenuWnd(_id, l, t, r, b, nullptr, 0, _r) { //44160e
+: VisMenuWnd(_id, l, t, r, b, nullptr, 0, _r) {
     MenuButton* btn = new MenuButton(2, txt_dialogs.GetLine(34), g_font1, nullptr, 0x41a, 'S', ""); //Save the game
     this->AddElement(btn, 30);
 
@@ -48,14 +49,14 @@ TownMenuListDialogVisualObject::TownMenuListDialogVisualObject(int32_t _id, int3
     this->AddElement(btn, 30);
 }
 
-// 4CDA5C
+// 4cda5c (client: 4d23ac)
 VisTown::VisTown(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr) {
     this->VMethod26();
 }
 
 
-// 4D6B80, real body 4CDC78
+// 4cdc78 (client: 4d25c8)
 VisTown::~VisTown() {
     this->VMethod37();
     this->VMethod31();
@@ -67,7 +68,7 @@ VisTown::~VisTown() {
 }
 
 
-// 4CDDAD
+// 4cddad (client: 4d26fd)
 void VisTown::VMethod26() {
     for (int32_t i = 0; i < 14; i++) {
         this->sounds[i] = nullptr;
@@ -98,7 +99,7 @@ void VisTown::VMethod26() {
 }
 
 
-// 4CE002
+// 4ce002 (client: 4d2952)
 void VisTown::VMethod28() {
     g_mousept.DisableHint();
     this->VMethod36();
@@ -144,20 +145,20 @@ void VisTown::VMethod28() {
 }
 
 
-// 4CE719
+// 4ce719 (client: 4d3063)
 void VisTown::VMethod8(CRect* rect) {
     (void)rect;
 }
 
 
-// 4CE4E5
+// 4ce4e5 (client: 4d2e32)
 int32_t VisTown::OnMouseMove(uint32_t wparam, CPoint pos) {
     this->VMethod34(pos);
     return 0;
 }
 
 
-// 4CE4AF
+// 4ce4af (client: 4d2dfc)
 int32_t VisTown::OnKeyDown(uint32_t wparam) {
     if (wparam == VK_RETURN || wparam == VK_ESCAPE) {
         return 1;
@@ -166,7 +167,7 @@ int32_t VisTown::OnKeyDown(uint32_t wparam) {
 }
 
 
-// 4CE3B8
+// 4ce3b8 (client: 4d2d05)
 int32_t VisTown::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     MainWindow* mainwnd = (MainWindow*)AfxGetMainWnd();
     if (msg == VIS_MSG_FRAME_TICK) {
@@ -188,7 +189,7 @@ int32_t VisTown::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
 }
 
 
-// 4CE50A
+// 4ce50a (client: 4d2e57)
 int32_t VisTown::OnLButtonDown(uint32_t wparam, CPoint pos) {
     switch (this->VMethod33(pos)) {
     case 1:
@@ -217,7 +218,7 @@ int32_t VisTown::OnLButtonDown(uint32_t wparam, CPoint pos) {
 }
 
 
-// 4CE310
+// 4ce310 (client: 4d2c5d)
 void VisTown::DoClose(uint32_t code) {
     this->dialog_active = 0;
     if (this->tips != nullptr) {
@@ -231,7 +232,7 @@ void VisTown::DoClose(uint32_t code) {
 }
 
 
-// 4D1723
+// 4d1723 (client: 4d6054)
 void VisTown::VMethod30() {
     this->VMethod31();
     ReloadSfx(&this->sounds[0], "SFX\\Town\\Crowd.wav");
@@ -249,7 +250,7 @@ void VisTown::VMethod30() {
 }
 
 
-// 4D184A
+// 4d184a (client: 4d617b)
 void VisTown::VMethod31() {
     for (int32_t i = 0; i < 14; i++) {
         FreeSfxSample(&this->sounds[i]);
@@ -257,7 +258,7 @@ void VisTown::VMethod31() {
 }
 
 
-// 4D1602
+// 4d1602 (client: 4d5f33)
 const char* VisTown::GetHint() {
     if (this->dialog_active == 0) {
         return nullptr;
@@ -279,7 +280,7 @@ const char* VisTown::GetHint() {
 }
 
 
-// 4CE64B
+// 4ce64b (client: 4d2f98)
 int32_t VisTown::StartBirdFlight() {
     this->town_anim |= 0x80;
     this->bird_group_index = GetRandS16(3);
@@ -298,7 +299,7 @@ int32_t VisTown::StartBirdFlight() {
 }
 
 
-// 4CE726
+// 4ce726 (client: 4d3070)
 void VisTown::DrawBirdFlock() {
     int32_t done_count = 0;
     if ((this->town_anim & 0x80) != 0) {
@@ -320,11 +321,11 @@ void VisTown::DrawBirdFlock() {
 }
 
 
-// 4CE886
+// 4ce886 (client: 4d31cd)
 void VisTown::VMethod7() {
-    static uint8_t anim_init_flags;   // 6669BC in asm
-    static uint32_t hover_tick;       // 66699C in asm
-    static uint32_t bird_anim_delay;  // 6669C4 in asm
+    static uint8_t anim_init_flags; // 6669BC
+    static uint32_t hover_tick; // 66699C
+    static uint32_t bird_anim_delay; // 6669C4
 
     if (this->dialog_active == 0) {
         return;
@@ -427,19 +428,19 @@ void VisTown::VMethod7() {
 }
 
 
-// 4D1709
+// 4d1709 (client: 4d603a)
 void VisTown::VMethod32() {
     PlayAmbientSfx(this->sounds);
 }
 
 
-// 4D15E3
+// 4d15e3 (client: 4d5f14)
 void VisTown::VMethod39() {
     this->MsgProc(VIS_MSG_HIDE_SCREEN, 0, 0);
 }
 
 
-// 4D10F0
+// 4d10f0 (client: 4d5a27)
 int32_t VisTown::VMethod33(CPoint pos) {
     if (!this->rect.PtInRect(pos) || this->bmp_hover_mask == nullptr) {
         return -1;
@@ -471,7 +472,7 @@ int32_t VisTown::VMethod33(CPoint pos) {
 }
 
 
-// 4D1429
+// 4d1429 (client: 4d5d5a)
 void VisTown::VMethod34(CPoint pos) {
     int32_t mask = this->VMethod33(pos);
     this->guard_frame_step = 1;
@@ -513,7 +514,7 @@ void VisTown::VMethod34(CPoint pos) {
 }
 
 
-// 4D12CB
+// 4d12cb (client: 4d5c02)
 void VisTown::VMethod35() {
     uint32_t now = timeGetTime();
     if ((now - this->bbird_last_tick) > (uint32_t)this->bbird_delay) {
@@ -534,7 +535,7 @@ void VisTown::VMethod35() {
 }
 
 
-// 4D06AA
+// 4d06aa (client: 4d4ff1)
 void VisTown::AdvanceGuardAnim() {
     this->guard_frame += this->guard_frame_step;
     if (this->guard_frame_step == 1 && this->guard_sound == 0) {
@@ -560,7 +561,7 @@ void VisTown::AdvanceGuardAnim() {
 }
 
 
-// 4D07E8
+// 4d07e8 (client: 4d512f)
 void VisTown::AdvanceTavernAnim() {
     if (this->tavern_frame == 0) {
         StopSfx(&this->sounds[8]);
@@ -575,7 +576,7 @@ void VisTown::AdvanceTavernAnim() {
 }
 
 
-// 4D0884
+// 4d0884 (client: 4d56e7)
 void VisTown::AdvanceSignAnim() {
     if (this->sign_frame == 0) {
         CSound::Play((CSound&)this->sounds[6]);
@@ -589,7 +590,7 @@ void VisTown::AdvanceSignAnim() {
 }
 
 
-// 4D0913
+// 4d0913 (client: 4d525a)
 void VisTown::AdvanceGateAnim() {
     if (ScenarioGetVar(0x301) == 0) {
         this->door_frame = 8;
@@ -624,9 +625,9 @@ void VisTown::AdvanceGateAnim() {
 }
 
 
-// 4D0AD7
+// 4d0ad7 (client: 4d541c)
 void VisTown::AdvanceStarsAnim() {
-    static int32_t stars_repeat; // 6669d0 in asm
+    static int32_t stars_repeat; // 6669d0
     if (this->stars_frame == 0) {
         CSound::Play((CSound&)this->sounds[10]);
     }
@@ -645,9 +646,9 @@ void VisTown::AdvanceStarsAnim() {
 }
 
 
-// 4D0B95
+// 4d0b95 (client: 4d54da)
 void VisTown::AdvanceFighterAnim() {
-    static int32_t fighter_dir; // 6669d4 in asm
+    static int32_t fighter_dir; // 6669d4
     if (this->fighter_frame < 1 && fighter_dir == 0) {
         fighter_dir = (rand() % 100 > 0x5F) ? 1 : 0;
     } else if (this->fighter_frame == 10) {
@@ -661,9 +662,9 @@ void VisTown::AdvanceFighterAnim() {
 }
 
 
-// 4D0C6E
+// 4d0c6e (client: 4d55b3)
 void VisTown::AdvanceMageAnim() {
-    static int32_t mage_dir; // 6669d8 in asm
+    static int32_t mage_dir; // 6669d8
     if (this->mage_frame < 1 && mage_dir == 0) {
         mage_dir = (rand() % 100 > 0x5F) ? 1 : 0;
     } else if (this->mage_frame == 10) {
@@ -677,7 +678,7 @@ void VisTown::AdvanceMageAnim() {
 }
 
 
-// 4D0D47
+// 4d0d47 (client: 4d568c)
 void VisTown::AdvanceShopAnim() {
     this->shop_frame++;
     if (this->shop_frame == this->spr_shop->GetFrameCount()) {
@@ -687,7 +688,7 @@ void VisTown::AdvanceShopAnim() {
 }
 
 
-// 4D0DA2
+// 4d0da2 (client: 4d51cb)
 void VisTown::AdvanceFlugelAnim() {
     if (this->flugel_frame == 0) {
         CSound::Play((CSound&)this->sounds[5]);
@@ -701,7 +702,7 @@ void VisTown::AdvanceFlugelAnim() {
 }
 
 
-// 4D0F66
+// 4d0f66 (client: 4d58ab)
 void VisTown::AdvanceBlackBirdAnim() {
     if (this->spr_cur_bbird != nullptr && (this->town_anim & 0x200) != 0 && this->bbird_frame != -1) {
         this->bbird_frame++;
@@ -714,7 +715,7 @@ void VisTown::AdvanceBlackBirdAnim() {
 }
 
 
-// 4D1002
+// 4d1002 (client: 4d5940)
 void VisTown::AdvanceHorseAnim() {
     if (this->spr_cur_horse != nullptr && (this->town_anim & 0x100) != 0 && this->horse_frame != -1) {
         this->horse_frame++;
@@ -727,7 +728,7 @@ void VisTown::AdvanceHorseAnim() {
 }
 
 
-// 4D109E
+// 4d109e (client: 4d59d5)
 void VisTown::AdvanceDervishAnim() {
     if (this->spr_dervish == nullptr) {
         this->dervish_frame = -1;
@@ -737,7 +738,7 @@ void VisTown::AdvanceDervishAnim() {
 }
 
 
-// 4D0E31
+// 4d0e31 (client: 4d5776)
 void VisTown::VMethod38() {
     if ((this->town_anim & 1) != 0) {
         this->AdvanceShopAnim();
@@ -773,7 +774,7 @@ void VisTown::VMethod38() {
 }
 
 
-// 4CFD0E
+// 4cfd0e (client: 4d4655)
 void VisTown::VMethod37() {
     if (this->bmp_bkg != nullptr) {
         delete this->bmp_bkg;
@@ -881,7 +882,7 @@ void VisTown::VMethod37() {
 }
 
 
-// 4CEEEF
+// 4ceeef (client: 4d3836)
 void VisTown::VMethod36() {
     // spawn-point tables from the original data (634808/634830/634850)
     static const int32_t horse_spawn_tbl[5][2] = {
@@ -1011,7 +1012,7 @@ void VisTown::VMethod36() {
 }
 
 
-// 4D423A
+// 4d423a (client: 4d8b5e)
 VisTownKaarg::VisTownKaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisTown(_id, l, t, r, b) {
     for (int32_t i = 0; i < 3; i++) {
@@ -1030,18 +1031,18 @@ VisTownKaarg::VisTownKaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t
 }
 
 
-// 4D6C90
+// 4d6c90 (client: 4db5a0)
 VisTownKaarg::~VisTownKaarg() {
 }
 
 
-// 4D54B5
+// 4d54b5 (client: 4d9dd9)
 void VisTownKaarg::VMethod32() {
     PlayAmbientSfx(this->sounds);
 }
 
 
-// 4D54CF
+// 4d54cf (client: 4d9df3)
 void VisTownKaarg::VMethod30() {
     ReloadSfx(&this->snd_voice[0], "sfx\\town_kaarg\\Kvox2.wav");
     ReloadSfx(&this->snd_voice[1], "sfx\\town_kaarg\\Kvox3.wav");
@@ -1066,7 +1067,7 @@ void VisTownKaarg::VMethod30() {
 }
 
 
-// 4D5682
+// 4d5682 (client: 4d9fa6)
 void VisTownKaarg::VMethod31() {
     for (int32_t i = 0; i < 3; i++) {
         FreeSfxSample(&this->snd_voice[i]);
@@ -1084,7 +1085,7 @@ void VisTownKaarg::VMethod31() {
 }
 
 
-// 4D5C9A
+// 4d5c9a (client: 4da5be)
 void VisTownKaarg::VMethod34(CPoint pos) {
     int32_t mask = this->VMethod33(pos);
     this->guard_frame_step = 1;
@@ -1145,7 +1146,7 @@ void VisTownKaarg::VMethod34(CPoint pos) {
 }
 
 
-// 4D4866
+// 4d4866 (client: 4d918a)
 void VisTownKaarg::VMethod36() {
     this->VMethod37();
     this->bmp_hover_mask = new CBmp256("graphics\\interface\\town_kaarg\\townmask.bmp");
@@ -1229,7 +1230,7 @@ void VisTownKaarg::VMethod36() {
 }
 
 
-// 4D5112
+// 4d5112 (client: 4d9a36)
 void VisTownKaarg::VMethod37() {
     if (this->bmp_bkg != nullptr) {
         delete this->bmp_bkg;
@@ -1282,7 +1283,7 @@ void VisTownKaarg::VMethod37() {
 }
 
 
-// 4D6480
+// 4d6480 (client: 4dad9c)
 void VisTownKaarg::AdvanceGateAnim() {
     CPoint pt(g_mousept.GetX(), g_mousept.GetY());
     if (this->VMethod33(pt) != 8) {
@@ -1311,7 +1312,7 @@ void VisTownKaarg::AdvanceGateAnim() {
 }
 
 
-// 4D65DD
+// 4d65dd (client: 4daef7)
 void VisTownKaarg::AdvanceGirl1Anim() {
     this->bbird_frame++;
     if (this->bbird_frame == this->bmp_girl1[this->girl1_group].GetSize()) {
@@ -1322,7 +1323,7 @@ void VisTownKaarg::AdvanceGirl1Anim() {
 }
 
 
-// 4D6655
+// 4d6655 (client: 4daf6c)
 void VisTownKaarg::AdvanceGirl2Anim() {
     this->girl2_frame++;
     if (this->girl2_frame == this->bmp_girl2[this->girl2_group].GetSize()) {
@@ -1333,7 +1334,7 @@ void VisTownKaarg::AdvanceGirl2Anim() {
 }
 
 
-// 4D66CA
+// 4d66ca (client: 4dafe1)
 void VisTownKaarg::AdvanceGuardAnim() {
     this->fighter_frame++;
     if (this->fighter_frame == this->bmp_guard.GetSize()) {
@@ -1343,7 +1344,7 @@ void VisTownKaarg::AdvanceGuardAnim() {
 }
 
 
-// 4D6728
+// 4d6728 (client: 4db03c)
 void VisTownKaarg::AdvanceDervishAnim() {
     this->dervish_frame++;
     if (this->dervish_frame == this->bmp_dervish.GetSize()) {
@@ -1353,7 +1354,7 @@ void VisTownKaarg::AdvanceDervishAnim() {
 }
 
 
-// 4D6786
+// 4d6786 (client: 4db097)
 void VisTownKaarg::VMethod38() {
     if ((this->town_anim & 0x200) != 0) {
         this->AdvanceGirl1Anim();
@@ -1371,11 +1372,11 @@ void VisTownKaarg::VMethod38() {
 }
 
 
-// 4D5EF0
+// 4d5ef0 (client: 4da814)
 void VisTownKaarg::VMethod35() {
-    static uint8_t timer_init_flags; // 6669AC in asm
-    static uint32_t voice_delay;     // 666994 in asm
-    static uint32_t bird_delay;      // 6669B0 in asm
+    static uint8_t timer_init_flags; // 6669AC
+    static uint32_t voice_delay; // 666994
+    static uint32_t bird_delay; // 6669B0
 
     uint32_t now = timeGetTime();
     if ((now - this->dervish_tick) > (uint32_t)this->dervish_delay) {
@@ -1496,7 +1497,7 @@ void VisTownKaarg::VMethod35() {
 }
 
 
-// 4D6A1C
+// 4d6a1c (client: 4db32d)
 const char* VisTownKaarg::GetHint() {
     if (this->dialog_active == 0) {
         return nullptr;
@@ -1524,7 +1525,7 @@ const char* VisTownKaarg::GetHint() {
 }
 
 
-// 4D6802
+// 4d6802 (client: 4db113)
 int32_t VisTownKaarg::OnLButtonDown(uint32_t wparam, CPoint pos) {
     int32_t mask = this->VMethod33(pos);
     if (mask < 9) {
@@ -1564,7 +1565,7 @@ int32_t VisTownKaarg::OnLButtonDown(uint32_t wparam, CPoint pos) {
 }
 
 
-// 4D4592
+// 4d4592 (client: 4d8eb6)
 void VisTownKaarg::VMethod28() {
     g_mousept.DisableHint();
     this->VMethod36();
@@ -1607,11 +1608,11 @@ void VisTownKaarg::VMethod28() {
 }
 
 
-// 4D57B9
+// 4d57b9 (client: 4da0dd)
 void VisTownKaarg::VMethod7() {
-    static uint8_t anim_init_flags;  // 6669C0 in asm
-    static uint32_t hover_tick;      // 6669B8 in asm
-    static uint32_t bird_anim_delay; // 6669CC in asm
+    static uint8_t anim_init_flags; // 6669C0
+    static uint32_t hover_tick; // 6669B8
+    static uint32_t bird_anim_delay; // 6669CC
 
     if (this->dialog_active == 0) {
         return;
@@ -1670,7 +1671,7 @@ void VisTownKaarg::VMethod7() {
 }
 
 
-// 4D1AF8
+// 4d1af8 (client: 4d6429)
 VisTownDruid::VisTownDruid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisTown(_id, l, t, r, b) {
     for (int32_t i = 0; i < 4; i++) {
@@ -1697,18 +1698,18 @@ VisTownDruid::VisTownDruid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t
 }
 
 
-// 4D6BE0
+// 4d6be0 (client: 4db4f0)
 VisTownDruid::~VisTownDruid() {
 }
 
 
-// 4D2AE3
+// 4d2ae3 (client: 4d7414)
 void VisTownDruid::VMethod32() {
     PlayAmbientSfx(&this->snd_forest);
 }
 
 
-// 4D2AFF
+// 4d2aff (client: 4d7430)
 void VisTownDruid::VMethod30() {
     this->VMethod31();
     ReloadSfx(&this->snd_lizard[0], "sfx\\town_druid\\Dlizard1.wav");
@@ -1738,7 +1739,7 @@ void VisTownDruid::VMethod30() {
 }
 
 
-// 4D2D1B
+// 4d2d1b (client: 4d764c)
 void VisTownDruid::VMethod31() {
     for (int32_t i = 0; i < 4; i++) {
         FreeSfxSample(&this->snd_lizard[i]);
@@ -1761,7 +1762,7 @@ void VisTownDruid::VMethod31() {
     FreeSfxSample(&this->snd_wolf);
 }
 
-// 4D3384
+// 4d3384 (client: 4d7cb5)
 void VisTownDruid::AdvanceTavernAnim() {
     if (this->tavern_frame == 0) {
         StopSfx(&this->sounds[8]);
@@ -1778,7 +1779,7 @@ void VisTownDruid::AdvanceTavernAnim() {
 }
 
 
-// 4D3435
+// 4d3435 (client: 4d7d66)
 void VisTownDruid::AdvanceShopAnim() {
     if (this->shop_group >= 0) {
         this->shop_frame++;
@@ -1791,7 +1792,7 @@ void VisTownDruid::AdvanceShopAnim() {
 }
 
 
-// 4D34B6
+// 4d34b6 (client: 4d7de7)
 void VisTownDruid::AdvanceBugAnim() {
     if (this->bug_variant >= 0) {
         this->bug_frame++;
@@ -1804,7 +1805,7 @@ void VisTownDruid::AdvanceBugAnim() {
 }
 
 
-// 4D3520
+// 4d3520 (client: 4d7e4e)
 void VisTownDruid::AdvanceLizardAnim() {
     if (this->lizard_variant >= 0) {
         this->lizard_frame++;
@@ -1817,7 +1818,7 @@ void VisTownDruid::AdvanceLizardAnim() {
 }
 
 
-// 4D2153
+// 4d2153 (client: 4d6a84)
 void VisTownDruid::VMethod36() {
     this->VMethod37();
     this->bmp_hover_mask = new CBmp256("graphics\\interface\\town_druid\\townmask.bmp");
@@ -1878,7 +1879,7 @@ void VisTownDruid::VMethod36() {
 }
 
 
-// 4D27FF
+// 4d27ff (client: 4d7130)
 void VisTownDruid::VMethod37() {
     if (this->bmp_bkg != nullptr) {
         delete this->bmp_bkg;
@@ -1921,7 +1922,7 @@ void VisTownDruid::VMethod37() {
 }
 
 
-// 4D3EA7
+// 4d3ea7 (client: 4d87cb)
 void VisTownDruid::VMethod38() {
     if ((this->town_anim & 1) != 0) {
         this->AdvanceShopAnim();
@@ -1938,7 +1939,7 @@ void VisTownDruid::VMethod38() {
 }
 
 
-// 4D359C
+// 4d359c (client: 4d7ec8)
 void VisTownDruid::VMethod34(CPoint pos) {
     int32_t mask = this->VMethod33(pos);
     this->guard_frame_step = 1;
@@ -2021,11 +2022,11 @@ void VisTownDruid::VMethod34(CPoint pos) {
 }
 
 
-// 4D3922
+// 4d3922 (client: 4d824e)
 void VisTownDruid::VMethod35() {
-    static uint8_t timer_init_flags; // 666998 in asm
-    static uint32_t bird_delay;      // 6669A4 in asm
-    static uint32_t tree_delay;      // 6669B4 in asm
+    static uint8_t timer_init_flags; // 666998
+    static uint32_t bird_delay; // 6669A4
+    static uint32_t tree_delay; // 6669B4
 
     uint32_t now = timeGetTime();
     CPoint pt(g_mousept.GetX(), g_mousept.GetY());
@@ -2125,11 +2126,11 @@ void VisTownDruid::VMethod35() {
 }
 
 
-// 4D2E99
+// 4d2e99 (client: 4d77ca)
 void VisTownDruid::VMethod7() {
-    static uint8_t anim_init_flags;  // 6669A0 in asm
-    static uint32_t hover_tick;      // 6669A8 in asm
-    static uint32_t bird_anim_delay; // 6669C8 in asm
+    static uint8_t anim_init_flags; // 6669A0
+    static uint32_t hover_tick; // 6669A8
+    static uint32_t bird_anim_delay; // 6669C8
 
     if (this->dialog_active == 0) {
         return;
@@ -2195,7 +2196,7 @@ void VisTownDruid::VMethod7() {
 }
 
 
-// 4D1E80
+// 4d1e80 (client: 4d67b1)
 void VisTownDruid::VMethod28() {
     g_mousept.DisableHint();
     this->VMethod36();
@@ -2239,7 +2240,7 @@ void VisTownDruid::VMethod28() {
 }
 
 
-// 4D3F18
+// 4d3f18 (client: 4d883c)
 int32_t VisTownDruid::OnLButtonDown(uint32_t wparam, CPoint pos) {
     int32_t mask = this->VMethod33(pos);
     if (mask < 9) {
@@ -2267,7 +2268,3 @@ int32_t VisTownDruid::OnLButtonDown(uint32_t wparam, CPoint pos) {
     }
     return 1;
 }
-
-
-
-

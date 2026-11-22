@@ -28,7 +28,7 @@
 #include "gameplay.h"
 #include "vis_playing_area.h"
 
-// 4b9f20
+// 4b9f20 (client: 4be8f0)
 static int32_t __cdecl CompareShopTokenEntries(const void* a, const void* b) {
     TokenEntry* entry_a = *(TokenEntry**)a;
     TokenEntry* entry_b = *(TokenEntry**)b;
@@ -98,12 +98,12 @@ static int32_t __cdecl CompareShopTokenEntries(const void* a, const void* b) {
 }
 
 
-// 4ba1cc
+// 4ba1cc (client: 4beb9c)
 void __cdecl SortTokenEntries(CArray<TokenEntry*>* arr) {
     qsort(arr->GetData(), arr->GetSize(), sizeof(TokenEntry*), CompareShopTokenEntries);
 }
 
-// 4BA5A0
+// 4ba5a0 (client: 4bef70)
 VisShop::~VisShop() {
     this->FreeShopGfx();
     this->VMethod32();
@@ -140,7 +140,7 @@ VisShop::~VisShop() {
 }
 
 
-// 4BCD02
+// 4bcd02 (client: 4c16d3)
 void VisShop::CloseShopDialog() {
     if (this->spell_panel != nullptr) {
         this->ShowBuyPanel();
@@ -151,7 +151,7 @@ void VisShop::CloseShopDialog() {
 }
 
 
-// 4BA832
+// 4ba832 (client: 4bf202)
 int32_t VisShop::OnKeyDown(uint32_t wparam) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     if (wparam == VK_RETURN) {
@@ -168,7 +168,7 @@ int32_t VisShop::OnKeyDown(uint32_t wparam) {
 }
 
 
-// 4BB045
+// 4bb045 (client: 4bfa12)
 int32_t VisShop::OnLButtonUp(uint32_t wparam, CPoint pos) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     if (main_wnd->drag_entry != nullptr && this->spell_panel != nullptr) {
@@ -185,7 +185,7 @@ int32_t VisShop::OnLButtonUp(uint32_t wparam, CPoint pos) {
 }
 
 
-// 4BB79A
+// 4bb79a (client: 4c0167)
 void VisShop::VMethod8(CRect* rect) {
     CRect screen_rect;
     this->ClientRectToScreen(&screen_rect, this->rect);
@@ -197,7 +197,7 @@ void VisShop::VMethod8(CRect* rect) {
 }
 
 
-// 4BA342
+// 4ba342 (client: 4bed12)
 VisShop::VisShop(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* btm)
     : VisScreen(_id, l, t, r, b, btm) {
     this->placement_lock = 1;
@@ -214,7 +214,7 @@ VisShop::VisShop(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameB
 }
 
 
-// 4BD0FB
+// 4bd0fb (client: 4c1ac0)
 void VisShop::VMethod31() {
     this->VMethod32();
     ReloadSfx(&this->snd_notif, "SFX\\Town\\Shop\\nofit.wav");
@@ -234,10 +234,10 @@ void VisShop::VMethod31() {
 }
 
 
-// 4BCF2F
+// 4bcf2f (client: 4c18f4)
 void VisShop::VMethod30() {
-    static uint8_t snd_timing_init = 0; // 665DA8 in asm
-    static uint32_t last_snd_time; // 665DA0 in asm
+    static uint8_t snd_timing_init = 0; // 665DA8
+    static uint32_t last_snd_time; // 665DA0
 
     if ((snd_timing_init & 1) == 0) {
         snd_timing_init |= 1;
@@ -267,7 +267,7 @@ void VisShop::VMethod30() {
 }
 
 
-// 4BC0E7
+// 4bc0e7 (client: 4c0ab4)
 void VisShop::DoClose(uint32_t code) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
@@ -323,7 +323,7 @@ void VisShop::DoClose(uint32_t code) {
 }
 
 
-// 4BADCB
+// 4badcb (client: 4bf798)
 int32_t VisShop::OnMouseMove(uint32_t wparam, CPoint pos) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
@@ -367,7 +367,7 @@ int32_t VisShop::OnMouseMove(uint32_t wparam, CPoint pos) {
 }
 
 
-// 4BBD75
+// 4bbd75 (client: 4c0742)
 void VisShop::VMethod26() {
     this->tips = nullptr;
     this->to_buy = new VisInvExtType3(0x3EB, 0, 0x12F, 0x1E0, 0x186, this);
@@ -407,7 +407,7 @@ void VisShop::VMethod26() {
 }
 
 
-// 4BA892
+// 4ba892 (client: 4bf262)
 int32_t VisShop::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
@@ -515,7 +515,7 @@ int32_t VisShop::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
 }
 
 
-// 4BC32B
+// 4bc32b (client: 4c0cf8)
 void VisShop::VMethod28() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
@@ -609,14 +609,14 @@ void VisShop::VMethod28() {
 }
 
 
-// 4BCD79
+// 4bcd79 (client: 4c174a)
 void VisShop::ShowBuyPanel() {
     this->spell_panel = nullptr;
     this->AddChild(this->to_buy);
 }
 
 
-// 4BCD4B
+// 4bcd4b (client: 4c171c)
 void VisShop::ShowSpellPanel() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     this->spell_panel = main_wnd->vis_spellbook;
@@ -624,7 +624,7 @@ void VisShop::ShowSpellPanel() {
 }
 
 
-// 4BCEA4
+// 4bcea4 (client: 4c1875)
 void VisShop::ResetInfoPanelButtons() {
     this->buttons->ResetSelected();
     this->dirty &= ~0x200;
@@ -635,7 +635,7 @@ void VisShop::ResetInfoPanelButtons() {
 }
 
 
-// 4BC8D7
+// 4bc8d7 (client: 4c12a4)
 void VisShop::UpdateShopTips() {
     if (this->tips != nullptr) {
         if (this->to_buy->grid_source->GetSize() != 0 && this->tips_update_flag == 0) {
@@ -648,8 +648,7 @@ void VisShop::UpdateShopTips() {
 }
 
 
-// 4BCC38
-// client: 4c1604
+// 4bcc38 (client: 4c1604)
 void VisShop::ReturnPendingBuyItems() {
     TokenEntry* removed = nullptr;
     this->RecalcShopGold();
@@ -670,7 +669,7 @@ void VisShop::ReturnPendingBuyItems() {
 }
 
 
-// 4BD251
+// 4bd251 (client: 4c1c16)
 void VisShop::VMethod32() {
     FreeSfxSample(&this->snd_notif);
     FreeSfxSample(&this->snd_step1);
@@ -689,13 +688,13 @@ void VisShop::VMethod32() {
 }
 
 
-// 4C6B90
+// 4c6b90 (client: 4cb530)
 CString VisShop::VMethod33() {
     return CString();
 }
 
 
-// 4BCDA0
+// 4bcda0 (client: 4c1771)
 void VisShop::RecalcShopGold() {
     this->current_gold = this->gameplay->my_main_unit->gold;
     this->sell_gold = 0;
@@ -712,7 +711,7 @@ void VisShop::RecalcShopGold() {
 }
 
 
-// 4BB895
+// 4bb895 (client: 4c0262)
 void VisShop::SelectNextPartyUnit() {
     this->gameplay->MsgProc(VIS_MSG_CANCEL_ORDER, 0, 0);
     this->select_index++;
@@ -731,7 +730,7 @@ void VisShop::SelectNextPartyUnit() {
 }
 
 
-// 4BBA06
+// 4bba06 (client: 4c03d3)
 void VisShop::SelectPrevPartyUnit() {
     this->gameplay->MsgProc(VIS_MSG_CANCEL_ORDER, 0, 0);
     if (this->select_index != 0) {
@@ -751,7 +750,7 @@ void VisShop::SelectPrevPartyUnit() {
 }
 
 
-// 4BC97B
+// 4bc97b (client: 4c1348)
 void VisShop::CancelItemDrag() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     ApplyCursor(g_Cursors[0]);
@@ -784,7 +783,7 @@ void VisShop::CancelItemDrag() {
     main_wnd->ResetItemCursor();
 }
 
-// 4BBBD6
+// 4bbbd6 (client: 4c05a3)
 void VisShop::SetAssortmentCategory(int32_t category, CArray<TokenEntry*>* arr) {
     AfxGetMainWnd();
     for (int32_t i = 0; i < arr->GetSize(); i++) {
@@ -808,7 +807,7 @@ void VisShop::SetAssortmentCategory(int32_t category, CArray<TokenEntry*>* arr) 
 }
 
 
-// 4BB4FB
+// 4bb4fb (client: 4bfec8)
 void VisShop::FreeShopGfx() {
     if (this->spr_myitem != nullptr) {
         delete this->spr_myitem;
@@ -845,7 +844,7 @@ void VisShop::FreeShopGfx() {
 }
 
 
-// 4BB102
+// 4bb102 (client: 4bfacf)
 void VisShop::LoadShopGfx() {
     char fname[0x400];
 
@@ -873,7 +872,7 @@ void VisShop::LoadShopGfx() {
 }
 
 
-// 4BAD1D
+// 4bad1d (client: 4bf6ea)
 void VisShop::DrawInfoPanelEdge() {
     CRect screen_rect;
     this->ClientRectToScreen(&screen_rect, this->rect);
@@ -887,7 +886,7 @@ void VisShop::DrawInfoPanelEdge() {
 }
 
 
-// 4BD495
+// 4bd495 (client: 4c1e5a)
 VisShopCompass::VisShopCompass(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop)
     : CVisualObject(_id, l, t, r, b, nullptr) {
     CPoint topleft = this->rect.TopLeft();
@@ -927,7 +926,7 @@ VisShopCompass::VisShopCompass(int32_t _id, int32_t l, int32_t t, int32_t r, int
 }
 
 
-// 4BEB77
+// 4beb77 (client: 4c353c)
 void VisShopCompass::VMethod7() {
     static uint32_t last_frame_tick = timeGetTime() - 100;
     static uint32_t idle_tick = timeGetTime();
@@ -1011,8 +1010,7 @@ void VisShopCompass::VMethod7() {
 }
 
 
-// 4BF748
-// client: 4c410b
+// 4bf748 (client: 4c410b)
 int32_t VisShopCompass::OnLButtonDown(uint32_t wparam, CPoint pos) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     CPoint topleft = this->shop->rect.TopLeft();
@@ -1040,7 +1038,7 @@ int32_t VisShopCompass::OnLButtonDown(uint32_t wparam, CPoint pos) {
 }
 
 
-// 4BEA64
+// 4bea64 (client: 4c3429)
 const char* VisShopCompass::GetHint() {
     if (this->shop->dialog_active == 0) {
         return nullptr;
@@ -1062,7 +1060,7 @@ const char* VisShopCompass::GetHint() {
 }
 
 
-// 4BE238
+// 4be238 (client: 4c2bfd)
 void VisShopCompass::VMethod26() {
     this->VMethod27();
     this->frame_sprite = new CSprite256("graphics\\interface\\ShopFrame.256");
@@ -1074,7 +1072,7 @@ void VisShopCompass::VMethod26() {
 }
 
 
-// 4BE5DE
+// 4be5de (client: 4c2fa3)
 void VisShopCompass::VMethod28() {
     char fname[52];
 
@@ -1087,7 +1085,7 @@ void VisShopCompass::VMethod28() {
 }
 
 
-// 4BE6DF
+// 4be6df (client: 4c30a4)
 void VisShopCompass::VMethod29() {
     char fname[52];
 
@@ -1100,7 +1098,7 @@ void VisShopCompass::VMethod29() {
 }
 
 
-// 4BF4E8
+// 4bf4e8 (client: 4c3eab)
 int32_t VisShopCompass::VMethod37(int32_t arg) {
     if ((uint16_t)this->shop->select_category == (uint16_t)arg) {
         return 0;
@@ -1126,7 +1124,7 @@ int32_t VisShopCompass::VMethod37(int32_t arg) {
 }
 
 
-// 4BE45D
+// 4be45d (client: 4c2e22)
 void VisShopCompass::VMethod31(int32_t arg) {
     char fname[52];
 
@@ -1139,7 +1137,7 @@ void VisShopCompass::VMethod31(int32_t arg) {
 }
 
 
-// 4BE372
+// 4be372 (client: 4c2d37)
 void VisShopCompass::VMethod27() {
     if (this->frame_sprite != nullptr) {
         delete this->frame_sprite;
@@ -1156,7 +1154,7 @@ void VisShopCompass::VMethod27() {
 }
 
 
-// 4BE7E0
+// 4be7e0 (client: 4c31a5)
 void VisShopCompass::VMethod30() {
     char fname[52];
 
@@ -1167,7 +1165,7 @@ void VisShopCompass::VMethod30() {
 }
 
 
-// 4BE541
+// 4be541 (client: 4c2f06)
 void VisShopCompass::VMethod32(int32_t arg) {
     for (int32_t i = 0; i < 11; i++) {
         if (this->direction_frames[arg][i] != nullptr) {
@@ -1178,7 +1176,7 @@ void VisShopCompass::VMethod32(int32_t arg) {
 }
 
 
-// 4BE8B0
+// 4be8b0 (client: 4c3275)
 void VisShopCompass::VMethod33() {
     for (int32_t i = 0; i < 12; i++) {
         if (this->fwd_frames[i] != nullptr) {
@@ -1189,7 +1187,7 @@ void VisShopCompass::VMethod33() {
 }
 
 
-// 4BE92D
+// 4be92d (client: 4c32f2)
 void VisShopCompass::VMethod34() {
     for (int32_t i = 0; i < 12; i++) {
         if (this->ret_frames[i] != nullptr) {
@@ -1200,7 +1198,7 @@ void VisShopCompass::VMethod34() {
 }
 
 
-// 4BEA01
+// 4bea01 (client: 4c33c6)
 void VisShopCompass::VMethod36() {
     for (int32_t i = 0; i < 4; i++) {
         this->VMethod32(i);
@@ -1211,7 +1209,7 @@ void VisShopCompass::VMethod36() {
 }
 
 
-// 4BF6CE
+// 4bf6ce (client: 4c4091)
 int32_t VisShopCompass::OnMouseMove(uint32_t wparam, CPoint pos) {
     if (this->shop->hovered_region != this->VMethod38()) {
         this->shop->hovered_region = this->VMethod38();
@@ -1222,7 +1220,7 @@ int32_t VisShopCompass::OnMouseMove(uint32_t wparam, CPoint pos) {
 }
 
 
-// 4BE9AA
+// 4be9aa (client: 4c336f)
 void VisShopCompass::VMethod35() {
     if (this->trigger_bmp != nullptr) {
         delete this->trigger_bmp;
@@ -1231,14 +1229,14 @@ void VisShopCompass::VMethod35() {
 }
 
 
-// 4BE1DF
+// 4be1df (client: 4c2ba4)
 VisShopCompass::~VisShopCompass() {
     this->VMethod27();
     this->VMethod36();
 }
 
 
-// 4BFA01
+// 4bfa01 (client: 4c43bc)
 int32_t VisShopCompass::OnLButtonUp(uint32_t wparam, CPoint pos) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     if (main_wnd->drag_entry != nullptr) {
@@ -1251,12 +1249,12 @@ int32_t VisShopCompass::OnLButtonUp(uint32_t wparam, CPoint pos) {
 }
 
 
-// 4C6BC0
+// 4c6bc0 (client: 4cb560)
 int32_t VisShopCompass::VMethod38() {
     return 0x64;
 }
 
-// 4bf63f
+// 4bf63f (client: 4c4002)
 void VisShopCompass::AdvanceDirectionFrames(int32_t dir) {
     ++this->dir_frm[dir];
 
@@ -1269,7 +1267,7 @@ void VisShopCompass::AdvanceDirectionFrames(int32_t dir) {
 }
 
 
-// 4C247B
+// 4c247b (client: 4c6e34)
 VisShopCompassDruid::VisShopCompassDruid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop)
     : VisShopCompass(_id, l, t, r, b, shop) {
     CPoint topleft = this->rect.TopLeft();
@@ -1290,7 +1288,7 @@ VisShopCompassDruid::VisShopCompassDruid(int32_t _id, int32_t l, int32_t t, int3
 }
 
 
-// 4C30B4
+// 4c30b4 (client: 4c7a6d)
 void VisShopCompassDruid::VMethod7() {
     static uint32_t last_frame_tick = timeGetTime() - 100;
     static uint32_t idle_tick = timeGetTime();
@@ -1347,7 +1345,7 @@ void VisShopCompassDruid::VMethod7() {
 }
 
 
-// 4C2882
+// 4c2882 (client: 4c723b)
 void VisShopCompassDruid::VMethod26() {
     this->VMethod27();
     this->frame_sprite = new CSprite256("graphics\\interface\\shop_druid\\ShopFrame.256");
@@ -1364,7 +1362,7 @@ void VisShopCompassDruid::VMethod26() {
 }
 
 
-// 4C2B29
+// 4c2b29 (client: 4c74e2)
 void VisShopCompassDruid::VMethod27() {
     if (this->frame_sprite != nullptr) {
         delete this->frame_sprite;
@@ -1401,7 +1399,7 @@ void VisShopCompassDruid::VMethod27() {
 }
 
 
-// 4C2DBC
+// 4c2dbc (client: 4c7775)
 void VisShopCompassDruid::VMethod30() {
     char fname[52];
 
@@ -1423,7 +1421,7 @@ void VisShopCompassDruid::VMethod30() {
 }
 
 
-// 4C3690
+// 4c3690 (client: 4c8047)
 const char* VisShopCompassDruid::GetHint() {
     if (this->shop->dialog_active == 0) {
         return nullptr;
@@ -1445,7 +1443,7 @@ const char* VisShopCompassDruid::GetHint() {
 }
 
 
-// 4C4693
+// 4c4693 (client: 4c904a)
 VisShopCompassKaarg::VisShopCompassKaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop)
     : VisShopCompass(_id, l, t, r, b, shop) {
     CPoint topleft = this->rect.TopLeft();
@@ -1471,7 +1469,7 @@ VisShopCompassKaarg::VisShopCompassKaarg(int32_t _id, int32_t l, int32_t t, int3
 }
 
 
-// 4C4A78
+// 4c4a78 (client: 4c942f)
 void VisShopCompassKaarg::VMethod26() {
     this->VMethod27();
     this->frame_sprite = new CSprite256("graphics\\interface\\shop_kaarg\\ShopFrame.256");
@@ -1501,7 +1499,7 @@ void VisShopCompassKaarg::VMethod26() {
 }
 
 
-// 4C608E
+// 4c608e (client: 4caa2b)
 void VisShopCompassKaarg::VMethod7() {
     static uint32_t last_frame_tick = timeGetTime() - 100;
     static uint32_t idle_tick = timeGetTime();
@@ -1576,7 +1574,7 @@ void VisShopCompassKaarg::VMethod7() {
 }
 
 
-// 4C5A80
+// 4c5a80 (client: 4ca41d)
 void VisShopCompassKaarg::VMethod27() {
     if (this->frame_sprite != nullptr) {
         delete this->frame_sprite;
@@ -1619,7 +1617,7 @@ void VisShopCompassKaarg::VMethod27() {
 }
 
 
-// 4C5D96
+// 4c5d96 (client: 4ca733)
 void VisShopCompassKaarg::VMethod30() {
     char fname[52];
 
@@ -1641,7 +1639,7 @@ void VisShopCompassKaarg::VMethod30() {
 }
 
 
-// 4C6800
+// 4c6800 (client: 4cb19b)
 const char* VisShopCompassKaarg::GetHint() {
     if (this->shop->dialog_active == 0) {
         return nullptr;
@@ -1663,7 +1661,7 @@ const char* VisShopCompassKaarg::GetHint() {
 }
 
 
-// 4C65BA
+// 4c65ba (client: 4caf57)
 int32_t VisShopCompassKaarg::VMethod37(int32_t arg) {
     if ((uint16_t)this->shop->select_category == (uint16_t)arg) {
         return 0;
@@ -1695,7 +1693,7 @@ int32_t VisShopCompassKaarg::VMethod37(int32_t arg) {
 }
 
 
-// 4C359D
+// 4c359d (client: 4c7f56)
 int32_t VisShopCompassDruid::OnLButtonDown(uint32_t wparam, CPoint pos) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     CPoint topleft = this->shop->rect.TopLeft();
@@ -1711,7 +1709,7 @@ int32_t VisShopCompassDruid::OnLButtonDown(uint32_t wparam, CPoint pos) {
 }
 
 
-// 4C34E6
+// 4c34e6 (client: 4c7e9f)
 int32_t VisShopCompassDruid::VMethod37(int32_t arg) {
     if ((uint16_t)arg == 3 && this->IsDruidShopAvailable() == 0) {
         return 0;
@@ -1729,7 +1727,7 @@ int32_t VisShopCompassDruid::VMethod37(int32_t arg) {
 }
 
 
-// 4C2CED
+// 4c2ced (client: 4c76a6)
 void VisShopCompassDruid::VMethod32(int32_t arg) {
     for (int32_t i = 0; i < 11; i++) {
         if (this->direction_frames[arg][i] != nullptr) {
@@ -1740,7 +1738,7 @@ void VisShopCompassDruid::VMethod32(int32_t arg) {
 }
 
 
-// 4C2F00
+// 4c2f00 (client: 4c78b9)
 void VisShopCompassDruid::VMethod33() {
     for (int32_t i = 0; i < 12; i++) {
         if (this->fwd_frames[i] != nullptr) {
@@ -1751,7 +1749,7 @@ void VisShopCompassDruid::VMethod33() {
 }
 
 
-// 4C2F7D
+// 4c2f7d (client: 4c7936)
 void VisShopCompassDruid::VMethod34() {
     for (int32_t i = 0; i < 12; i++) {
         if (this->ret_frames[i] != nullptr) {
@@ -1762,7 +1760,7 @@ void VisShopCompassDruid::VMethod34() {
 }
 
 
-// 4C2FFA
+// 4c2ffa (client: 4c79b3)
 void VisShopCompassDruid::VMethod35() {
     if (this->trigger_bmp != nullptr) {
         delete this->trigger_bmp;
@@ -1771,7 +1769,7 @@ void VisShopCompassDruid::VMethod35() {
 }
 
 
-// 4C3051
+// 4c3051 (client: 4c7a0a)
 void VisShopCompassDruid::VMethod36() {
     for (int32_t i = 0; i < 4; i++) {
         this->VMethod32(i);
@@ -1782,30 +1780,30 @@ void VisShopCompassDruid::VMethod36() {
 }
 
 
-// 4C2CCE
+// 4c2cce (client: 4c7687)
 void VisShopCompassDruid::VMethod31(int32_t arg) {
     this->VMethod32(arg);
 }
 
 
-// 4C2D8A
+// 4c2d8a (client: 4c7743)
 void VisShopCompassDruid::VMethod28() {
     this->VMethod33();
 }
 
 
-// 4C2DA3
+// 4c2da3 (client: 4c775c)
 void VisShopCompassDruid::VMethod29() {
     this->VMethod34();
 }
 
 
-// 4C6A30
+// 4c6a30 (client: 4cb3d0)
 VisShopCompassDruid::~VisShopCompassDruid() {
 }
 
 
-// 4C2842
+// 4c2842 (client: 4c71fb)
 int32_t VisShopCompassDruid::IsDruidShopAvailable() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     if (main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
@@ -1818,7 +1816,7 @@ int32_t VisShopCompassDruid::IsDruidShopAvailable() {
 }
 
 
-// 4C671F
+// 4c671f (client: 4cb0bc)
 int32_t VisShopCompassKaarg::OnLButtonDown(uint32_t wparam, CPoint pos) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     CPoint topleft = this->shop->rect.TopLeft();
@@ -1834,7 +1832,7 @@ int32_t VisShopCompassKaarg::OnLButtonDown(uint32_t wparam, CPoint pos) {
 }
 
 
-// 4C5CC7
+// 4c5cc7 (client: 4ca664)
 void VisShopCompassKaarg::VMethod32(int32_t arg) {
     for (int32_t i = 0; i < 11; i++) {
         if (this->direction_frames[arg][i] != nullptr) {
@@ -1845,7 +1843,7 @@ void VisShopCompassKaarg::VMethod32(int32_t arg) {
 }
 
 
-// 4C5EDA
+// 4c5eda (client: 4ca877)
 void VisShopCompassKaarg::VMethod33() {
     for (int32_t i = 0; i < 12; i++) {
         if (this->fwd_frames[i] != nullptr) {
@@ -1856,7 +1854,7 @@ void VisShopCompassKaarg::VMethod33() {
 }
 
 
-// 4C5F57
+// 4c5f57 (client: 4ca8f4)
 void VisShopCompassKaarg::VMethod34() {
     for (int32_t i = 0; i < 12; i++) {
         if (this->ret_frames[i] != nullptr) {
@@ -1867,7 +1865,7 @@ void VisShopCompassKaarg::VMethod34() {
 }
 
 
-// 4C5FD4
+// 4c5fd4 (client: 4ca971)
 void VisShopCompassKaarg::VMethod35() {
     if (this->trigger_bmp != nullptr) {
         delete this->trigger_bmp;
@@ -1876,7 +1874,7 @@ void VisShopCompassKaarg::VMethod35() {
 }
 
 
-// 4C602B
+// 4c602b (client: 4ca9c8)
 void VisShopCompassKaarg::VMethod36() {
     for (int32_t i = 0; i < 4; i++) {
         this->VMethod32(i);
@@ -1887,30 +1885,30 @@ void VisShopCompassKaarg::VMethod36() {
 }
 
 
-// 4C5CA8
+// 4c5ca8 (client: 4ca645)
 void VisShopCompassKaarg::VMethod31(int32_t arg) {
     this->VMethod32(arg);
 }
 
 
-// 4C5D64
+// 4c5d64 (client: 4ca701)
 void VisShopCompassKaarg::VMethod28() {
     this->VMethod33();
 }
 
 
-// 4C5D7D
+// 4c5d7d (client: 4ca71a)
 void VisShopCompassKaarg::VMethod29() {
     this->VMethod34();
 }
 
 
-// 4C6AD0
+// 4c6ad0 (client: 4cb470)
 VisShopCompassKaarg::~VisShopCompassKaarg() {
 }
 
 
-// 4BFA5A
+// 4bfa5a (client: 4c4415)
 VisShopButtons::VisShopButtons(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop)
     : CVisualObject(_id, l, t, r, b, nullptr) {
     this->shop = shop;
@@ -1932,7 +1930,7 @@ VisShopButtons::VisShopButtons(int32_t _id, int32_t l, int32_t t, int32_t r, int
 }
 
 
-// 4C0020
+// 4c0020 (client: 4c49db)
 VisShopButtons::~VisShopButtons() {
     this->shop = nullptr;
     this->ReleaseBmp();
@@ -1940,13 +1938,13 @@ VisShopButtons::~VisShopButtons() {
 }
 
 
-// 4C6BD0
+// 4c6bd0 (client: 4cb570)
 int32_t VisShopButtons::VMethod30() {
     return 0x65;
 }
 
 
-// 4C10C4
+// 4c10c4 (client: 4c5a7d)
 int32_t VisShopButtons::OnMouseMove(uint32_t wparam, CPoint pos) {
     if (this->shop->hovered_region != this->VMethod30()) {
         this->shop->hovered_region = this->VMethod30();
@@ -1957,7 +1955,7 @@ int32_t VisShopButtons::OnMouseMove(uint32_t wparam, CPoint pos) {
 }
 
 
-// 4C1134
+// 4c1134 (client: 4c5aed)
 int32_t VisShopButtons::OnLButtonDown(uint32_t wparam, CPoint pos) {
     this->pressed_btn = this->GetButtonAt(pos);
     this->shop->dirty |= 0x20;
@@ -1973,7 +1971,7 @@ int32_t VisShopButtons::OnLButtonDown(uint32_t wparam, CPoint pos) {
 }
 
 
-// 4C11C2
+// 4c11c2 (client: 4c5b7b)
 int32_t VisShopButtons::OnLButtonUp(uint32_t wparam, CPoint pos) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     if (main_wnd->drag_entry != nullptr) {
@@ -2012,7 +2010,7 @@ int32_t VisShopButtons::OnLButtonUp(uint32_t wparam, CPoint pos) {
 }
 
 
-// 4C04B1
+// 4c04b1 (client: 4c4e6a)
 void VisShopButtons::VMethod7() {
     CPoint topleft = this->shop->rect.TopLeft();
     CString str;
@@ -2104,14 +2102,14 @@ void VisShopButtons::VMethod7() {
 }
 
 
-// 4C1358
+// 4c1358 (client: 4c5d11)
 void VisShopButtons::ResetSelected() {
     this->pressed_btn = -1;
     this->hovered_btn = -1;
 }
 
 
-// 4C0352
+// 4c0352 (client: 4c4d0b)
 void VisShopButtons::ReleaseBmp() {
     for (int32_t i = 0; i < 4; i++) {
         if (this->button_bmps[i] != nullptr) {
@@ -2129,7 +2127,7 @@ void VisShopButtons::ReleaseBmp() {
 }
 
 
-// 4C0088
+// 4c0088 (client: 4c4a43)
 void VisShopButtons::LoadBmp() {
     this->ReleaseBmp();
     CString base = "graphics\\interface\\";
@@ -2146,7 +2144,8 @@ void VisShopButtons::LoadBmp() {
     g_mousept.Update();
 }
 
-void VisShopButtons::UpdateHoveredState(uint32_t wparam, CPoint pos) { //4c14c4
+// 4c14c4 (client: 4c5e7d)
+void VisShopButtons::UpdateHoveredState(uint32_t wparam, CPoint pos) {
     int32_t idx = this->GetButtonAt(pos);
     if (idx < 0 || (wparam & 1) != 0) {
         if (idx < 0 || idx != this->pressed_btn || (wparam & 1) == 0) {
@@ -2161,7 +2160,8 @@ void VisShopButtons::UpdateHoveredState(uint32_t wparam, CPoint pos) { //4c14c4
     this->shop->dirty |= 0x20;
 }
 
-int32_t VisShopButtons::GetButtonAt(CPoint pos) { //4c137d
+// 4c137d (client: 4c5d36)
+int32_t VisShopButtons::GetButtonAt(CPoint pos) {
     CPoint pt = pos - this->shop->rect.TopLeft();
     int32_t idx = -1;
     for (int i = 0; i < 4; i++) {
@@ -2194,18 +2194,18 @@ int32_t VisShopButtons::GetButtonAt(CPoint pos) { //4c137d
 }
 
 
-// 4C69E0
+// 4c69e0 (client: 4cb380)
 VisShopDruid::~VisShopDruid() {
 }
 
 
-// 4C15AD
+// 4c15ad (client: 4c5f66)
 VisShopDruid::VisShopDruid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* btm)
     : VisShop(_id, l, t, r, b, btm) {
 }
 
 
-// 4C15E6
+// 4c15e6 (client: 4c5f9f)
 void VisShopDruid::VMethod26() {
     this->tips = nullptr;
     this->to_buy = new VisInvExtType3(0x3EB, 0, 0x12F, 0x1E0, 0x186, this);
@@ -2251,7 +2251,7 @@ void VisShopDruid::VMethod26() {
 }
 
 
-// 4C1B8B
+// 4c1b8b (client: 4c6544)
 void VisShopDruid::VMethod31() {
     this->VMethod32();
     ReloadSfx(&this->snd_notif, "SFX\\Town\\Shop\\nofit.wav");
@@ -2277,10 +2277,10 @@ void VisShopDruid::VMethod31() {
 }
 
 
-// 4C1958
+// 4c1958 (client: 4c6311)
 void VisShopDruid::VMethod30() {
-    static uint8_t snd_timing_init = 0; // 665D9C in asm
-    static uint32_t last_snd_time; // 665DD4 in asm
+    static uint8_t snd_timing_init = 0; // 665D9C
+    static uint32_t last_snd_time; // 665DD4
 
     if ((snd_timing_init & 1) == 0) {
         snd_timing_init |= 1;
@@ -2338,7 +2338,7 @@ void VisShopDruid::VMethod30() {
 }
 
 
-// 4C1E5C
+// 4c1e5c (client: 4c6815)
 void VisShopDruid::VMethod28() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
@@ -2437,7 +2437,7 @@ void VisShopDruid::VMethod28() {
 }
 
 
-// 4C1D25
+// 4c1d25 (client: 4c66de)
 void VisShopDruid::VMethod32() {
     FreeSfxSample(&this->snd_notif);
     FreeSfxSample(&this->snd_depart);
@@ -2462,13 +2462,13 @@ void VisShopDruid::VMethod32() {
 }
 
 
-// 4C6BE0
+// 4c6be0 (client: 4cb580)
 CString VisShopDruid::VMethod33() {
     return "shop_druid\\";
 }
 
 
-// 4C453D
+// 4c453d (client: 4c8ef4)
 void VisShopKaarg::VMethod32() {
     FreeSfxSample(&this->snd_notif);
     FreeSfxSample(&this->snd_depart);
@@ -2490,24 +2490,24 @@ void VisShopKaarg::VMethod32() {
 }
 
 
-// 4C6C10
+// 4c6c10 (client: 4cb5b0)
 CString VisShopKaarg::VMethod33() {
     return "shop_kaarg\\";
 }
 
 
-// 4C6A50
+// 4c6a80 (client: 4cb420)
 VisShopKaarg::~VisShopKaarg() {
 }
 
 
-// 4C37C5
+// 4c37c5 (client: 4c817c)
 VisShopKaarg::VisShopKaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* btm)
     : VisShop(_id, l, t, r, b, btm) {
 }
 
 
-// 4C43A3
+// 4c43a3 (client: 4c8d5a)
 void VisShopKaarg::VMethod31() {
     this->VMethod32();
     ReloadSfx(&this->snd_notif, "SFX\\Town\\Shop\\nofit.wav");
@@ -2530,10 +2530,10 @@ void VisShopKaarg::VMethod31() {
 }
 
 
-// 4C4170
+// 4c4170 (client: 4c8b27)
 void VisShopKaarg::VMethod30() {
-    static uint8_t snd_timing_init = 0; // 665DA4 in asm
-    static uint32_t last_snd_time; // 665DB8 in asm
+    static uint8_t snd_timing_init = 0; // 665DA4
+    static uint32_t last_snd_time; // 665DB8
 
     if ((snd_timing_init & 1) == 0) {
         snd_timing_init |= 1;
@@ -2581,7 +2581,7 @@ void VisShopKaarg::VMethod30() {
 }
 
 
-// 4C37FE
+// 4c37fe (client: 4c81b5)
 void VisShopKaarg::VMethod26() {
     this->tips = nullptr;
     this->to_buy = new VisInvExtType3(0x3EB, 0, 0x12F, 0x1E0, 0x186, this);
@@ -2627,7 +2627,7 @@ void VisShopKaarg::VMethod26() {
 }
 
 
-// 4C3B70
+// 4c3b70 (client: 4c8527)
 void VisShopKaarg::VMethod28() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
@@ -2726,14 +2726,14 @@ void VisShopKaarg::VMethod28() {
 }
 
 
-// 4BCCE1
+// 4bcce1 (client: 4c16b2)
 void VisShop::CancelAllPendingBuys() {
     this->ReturnPendingBuyItems();
     this->gameplay->SendShopTakeBack();
 }
 
 
-// 4BCAF1
+// 4bcaf1 (client: 4c14bd)
 void VisShop::CommitSell() {
     this->RecalcShopGold();
     if (this->sell_gold != 0) {
@@ -2744,7 +2744,7 @@ void VisShop::CommitSell() {
     }
 }
 
-// 4BCB63
+// 4bcb63 (client: 4c152f)
 int VisShop::CommitBuy() {
     this->RecalcShopGold();
 

@@ -4,17 +4,17 @@
 //660d68
 CArray<char*> TxtFile::AllLines;
 
-//475c6c
+// 475c6c (client: 4799b8)
 TxtFile::TxtFile() = default;
 
+// 43ccd0 (client: 43f070)
 TxtFile::~TxtFile() {
-    //43ccd0
 
     this->Free();
 }
 
+// 475de9 (client: 479b35)
 void TxtFile::Free() {
-    //475de9
     
     if (this->buffer) {
         for (int i = 0; i < AllLines.GetSize(); i++) {
@@ -28,8 +28,8 @@ void TxtFile::Free() {
     }
 }
 
+// 475ca9 (client: 4799f5)
 void TxtFile::LoadChunkFile(const char* fname) {
-    //475ca9
 
     File2 fil;
     fil.Open(fname, 0);
@@ -63,13 +63,13 @@ void TxtFile::LoadChunkFile(const char* fname) {
     }
 }
 
+// 475e57 (client: 479ba3)
 char* TxtFile::GetLine(int index) {
-    //475e57
     return AllLines[this->start_index + index];
 }
 
 
+// 43cd30 (client: 43f130)
 int TxtFile::GetCount() {
-    //43cd30
     return this->line_count;
 }

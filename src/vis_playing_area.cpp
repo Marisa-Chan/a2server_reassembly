@@ -49,7 +49,7 @@ int32_t g_SpellOffensive[24] = {1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 0, 
 CUnit g_CUnitStatic; //642a48
 
 
-//4216b0
+// 4216b0 (client: 423270)
 void __cdecl ReadKillStats(uint8_t* data, int32_t datasz, uint8_t** out, int32_t* outsz) {
     int32_t sz = *(int32_t*)data;
     data += 4;
@@ -91,6 +91,7 @@ void __cdecl ReadKillStats(uint8_t* data, int32_t datasz, uint8_t** out, int32_t
 #ifdef A2CLIENT
 // client: 41748d-4175da (packet 0x5c) / 417902-417a1b (packet 0xc3) — close shop/tavern/
 // popup/dialog-1200 overlays before showing a hat DM window
+// split from server: none (client: 40dac9) - client-only helper wrapping Allods2.exe + 417902: closes shop/tavern/popup/1200 overlays
 void VisPlayingArea::CloseHatOverlays() {
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
     if ((wnd->dialogsMask & DIALOG_MASK_SHOP) != 0) {
@@ -135,10 +136,8 @@ static CString TangarMapsPath(const CString& name) {
 }
 #endif
 
-// 40da14
-// client: 40dac9
+// 40da14 (client: 40dac9)
 int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
-    //40da14
     char buf[256];
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 
@@ -2589,8 +2588,8 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
     return 1;
 }
 
+// 41b2a4 (client: 41cb2c)
 void VisPlayingArea::SendChatPacket(const char* nam, int32_t token, int32_t playerid) {
-    //41b2a4
 
     PacketJoin* join = &PacketJoin::Inst;
     join->id = CHAT;
@@ -2620,8 +2619,8 @@ void VisPlayingArea::SendChatPacket(const char* nam, int32_t token, int32_t play
     }
 }
 
+// 41a8cc (client: 41c158)
 void VisPlayingArea::SendShopClose() {
-    //41a8cc
     PacketWord* pkt = &PacketWord::Inst;
 
     pkt->id = SHOP_CLOSE;
@@ -2635,8 +2634,8 @@ void VisPlayingArea::SendShopClose() {
 }
 
 
+// 40d7f3 (client: 40d87a)
 int32_t VisPlayingArea::SendEnterGameAndWait() {
-    //40d7f3  client: 40d87a
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 
     if (wnd->sessionMode == SESSION_SINGLEPLAYER && (wnd->net_session.internet_game == 0 || wnd->hat_settings.ishat == 0)) {
@@ -2741,8 +2740,8 @@ int32_t VisPlayingArea::SendEnterGameAndWait() {
 }
 
 
+// 40d4e2 (client: 40d569)
 int VisPlayingArea::ConnectAndJoinSession() {
-    //40d4e2
     g_GameStatusCode = SESSION_ERROR_NONE;
 
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
@@ -2780,8 +2779,8 @@ int VisPlayingArea::ConnectAndJoinSession() {
 
 
 
+// 41cbb8 (client: 41e43c) - 0041cbb8
 void VisPlayingArea::SendJoinMap() {
-    //0041cbb8
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 
     Packet2Dwords* pkt = &Packet2Dwords::Inst;
@@ -2799,8 +2798,8 @@ void VisPlayingArea::SendJoinMap() {
     g_NetStru1_local.QueuePacketSend(pkt);
 }
 
+// 41cc78 (client: 41e4fc)
 void VisPlayingArea::SendRequestUnitUpdateFile(const CString& fname) {
-    //41cc78
     PacketData* pkt = &PacketData::Inst;
 
     pkt->id = REQUEST_UNIT_UPDATE;
@@ -2823,7 +2822,8 @@ void VisPlayingArea::SendRequestUnitUpdateFile(const CString& fname) {
 
 
 
-void VisPlayingArea::ResetWorldState(int32_t arg) { // 41d2da
+// 41d2da (client: 41eb5c)
+void VisPlayingArea::ResetWorldState(int32_t arg) {
     this->my_unit = nullptr;
 
     if (!this->objects.IsEmpty()) {
@@ -2907,7 +2907,8 @@ void VisPlayingArea::ResetWorldState(int32_t arg) { // 41d2da
     g_mapmusicinfos.RemoveAll();
 }
 
-int32_t VisPlayingArea::IsBookOpen() { // 41b4b0
+// 41b4b0 (client: 41cd38)
+int32_t VisPlayingArea::IsBookOpen() {
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
     if (wnd->dialogsMask & DIALOG_MASK_SHOP) {
         return wnd->vis_root->FindChild(1000)->FindChild(MAP_CHILD_SPELL_BOOK) != nullptr;
@@ -2916,11 +2917,13 @@ int32_t VisPlayingArea::IsBookOpen() { // 41b4b0
     return this->FindChild(MAP_CHILD_SPELL_BOOK) != nullptr;
 }
 
-int32_t VisPlayingArea::IsBagOpen() { // 41b495
+// 41b495 (client: 41cd1d)
+int32_t VisPlayingArea::IsBagOpen() {
     return this->FindChild(MAP_CHILD_BAG) != nullptr;
 }
 
-void VisPlayingArea::SendPlayerName(CString str) { //41afcf
+// 41afcf (client: 41c857)
+void VisPlayingArea::SendPlayerName(CString str) {
     PacketJoin* pkt = &PacketJoin::Inst;
     pkt->id = REQUEST_SAVE_GAME;
     pkt->from_player_id = this->my_main_unit->index;
@@ -2930,7 +2933,8 @@ void VisPlayingArea::SendPlayerName(CString str) { //41afcf
     g_NetStru1_local.QueuePacketSend(pkt);
 }
 
-void VisPlayingArea::SendDiplomacyState() { //41a735
+// 41a735 (client: 41bfc1)
+void VisPlayingArea::SendDiplomacyState() {
     PacketTerrain* pkt = &PacketTerrain::Inst;
     pkt->id = SET_DIPLOMACY;
     pkt->from_player_id = this->my_main_unit->index;
@@ -2940,7 +2944,8 @@ void VisPlayingArea::SendDiplomacyState() { //41a735
     g_NetStru1_local.QueuePacketSend(pkt);
 }
 
-void VisPlayingArea::StopAmbientSounds() { //41c39c
+// 41c39c (client: 41dc24)
+void VisPlayingArea::StopAmbientSounds() {
     this->ambient_view_x = -1;
     this->ambient_view_y = -1;
     SoundChannel* ch1 = g_SfxArray[sfx_id::water_loop]->FindPlayingChannel();
@@ -2954,7 +2959,8 @@ void VisPlayingArea::StopAmbientSounds() { //41c39c
 }
 
 
-void VisPlayingArea::CleanupCompletedMissionMapState() { //41ce5a
+// 41ce5a (client: 41e6de)
+void VisPlayingArea::CleanupCompletedMissionMapState() {
     CDWordArray arr;
     for (POSITION it = this->objects.GetStartPosition(); it != nullptr;) {
         uint16_t key;
@@ -3038,7 +3044,8 @@ void VisPlayingArea::CleanupCompletedMissionMapState() { //41ce5a
     g_mapmusicinfos.RemoveAll();
 }
 
-void VisPlayingArea::UpdateSelectionState() { //416cf7
+// 416cf7 (client: 41850e)
+void VisPlayingArea::UpdateSelectionState() {
 
     MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
     this->selected_object_count = 0;
@@ -3144,7 +3151,8 @@ void VisPlayingArea::UpdateSelectionState() { //416cf7
 
 }
 
-void VisPlayingArea::UpdateSpellEffects(CUnit* unit) { //from 416cf7
+// split from 416cf7 (client: 41850e)
+void VisPlayingArea::UpdateSpellEffects(CUnit* unit) {
     for (int i = 0; i < unit->tokenEntries.GetSize(); i++) {
         TokenEntry* t = unit->tokenEntries[i];
         if (!t || t->GetType() != TokenEntry::TYPE_SPELL) {
@@ -3161,7 +3169,8 @@ void VisPlayingArea::UpdateSpellEffects(CUnit* unit) { //from 416cf7
     }
 }
 
-void VisPlayingArea::UpdateSpellModifiers(CUnit* unit) { //from 416cf7
+// split from 416cf7 (client: 41850e)
+void VisPlayingArea::UpdateSpellModifiers(CUnit* unit) {
     for (int i = 0; i < 24; i++) {
         if ((unit->availableSpellMask & (1 << i)) == 0) {
             continue;
@@ -3267,6 +3276,7 @@ void VisPlayingArea::UpdateSpellModifiers(CUnit* unit) { //from 416cf7
     }
 }
 
+// 417af6 (client: 4192c7)
 uint32_t VisPlayingArea::AvailableOrderMask() const {
     if ((this->selection_flags & SEL_FOREIGN) == 0) {
         if (this->selected_available_spell_mask != 0 || this->active_spell_effect_mask != 0) {
@@ -3279,7 +3289,8 @@ uint32_t VisPlayingArea::AvailableOrderMask() const {
     return 0;
 }
 
-void VisPlayingArea::SendGameMode(int32_t m) { //41cad0
+// 41cad0 (client: 41e354)
+void VisPlayingArea::SendGameMode(int32_t m) {
     Packet2Dwords *pkt = &Packet2Dwords::Inst;
     pkt->id = JOIN_MISSION;
     pkt->from_player_id = this->my_main_unit->index;
@@ -3289,7 +3300,8 @@ void VisPlayingArea::SendGameMode(int32_t m) { //41cad0
     g_NetStru1_local.QueuePacketSend(pkt);
 }
 
-void VisPlayingArea::SendWimpyMode(int32_t wim) { //41aaaa
+// 41aaaa (client: 41c336)
+void VisPlayingArea::SendWimpyMode(int32_t wim) {
     Packet2Dwords* pkt = &Packet2Dwords::Inst;
     pkt->id = SET_PARAMETER;
     pkt->from_player_id = this->my_main_unit->index;
@@ -3300,7 +3312,8 @@ void VisPlayingArea::SendWimpyMode(int32_t wim) { //41aaaa
     g_NetStru1_local.QueuePacketSend(pkt);
 }
 
-void VisPlayingArea::SendFormationMode(int32_t form) { // 41abd2
+// 41abd2 (client: 41c45e)
+void VisPlayingArea::SendFormationMode(int32_t form) {
     Packet2Dwords* pkt = &Packet2Dwords::Inst;
     pkt->id = SET_PARAMETER;
     pkt->from_player_id = this->my_main_unit->index;
@@ -3311,7 +3324,8 @@ void VisPlayingArea::SendFormationMode(int32_t form) { // 41abd2
     g_NetStru1_local.QueuePacketSend(pkt);
 }
 
-void VisPlayingArea::SendAutoCastSetting() { //41ab74
+// 41ab74 (client: 41c400)
+void VisPlayingArea::SendAutoCastSetting() {
     Packet2Dwords* pkt = &Packet2Dwords::Inst;
     pkt->id = SET_PARAMETER;
     pkt->from_player_id = this->my_main_unit->index;
@@ -3323,7 +3337,8 @@ void VisPlayingArea::SendAutoCastSetting() { //41ab74
 }
 
 
-void VisPlayingArea::RecalcVisibleMapHeight() { //41b6e0
+// 41b6e0 (client: 41cf68)
+void VisPlayingArea::RecalcVisibleMapHeight() {
     MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 
 #ifdef A2CLIENT_PATCH
@@ -3365,7 +3380,8 @@ void VisPlayingArea::RecalcVisibleMapHeight() { //41b6e0
     this->force_full_redraw = 1;
 }
 
-void VisPlayingArea::CloseSpellBook() { //41b636
+// 41b636 (client: 41cebe)
+void VisPlayingArea::CloseSpellBook() {
     MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 
     if ((mwnd->dialogsMask & DIALOG_MASK_SHOP) == 0) {
@@ -3382,7 +3398,8 @@ void VisPlayingArea::CloseSpellBook() { //41b636
 }
 
 
-void VisPlayingArea::OpenSpellBook() { // 41b509
+// 41b509 (client: 41cd91)
+void VisPlayingArea::OpenSpellBook() {
 
     MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 
@@ -3406,7 +3423,8 @@ void VisPlayingArea::OpenSpellBook() { // 41b509
     this->RecalcVisibleMapHeight();
 }
 
-void VisPlayingArea::CloseBag() { //41b40e
+// 41b40e (client: 41cc96)
+void VisPlayingArea::CloseBag() {
     MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 
     if (this->IsBookOpen()) {
@@ -3420,7 +3438,8 @@ void VisPlayingArea::CloseBag() { //41b40e
     this->RecalcVisibleMapHeight();
 }
 
-void VisPlayingArea::OpenBag() { // 41b381
+// 41b381 (client: 41cc09)
+void VisPlayingArea::OpenBag() {
     MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 
     if (this->IsBookOpen()) {
@@ -3433,6 +3452,7 @@ void VisPlayingArea::OpenBag() { // 41b381
     this->RecalcVisibleMapHeight();
 }
 
+// 41b10f (client: 41c997)
 void VisPlayingArea::SendRequestUnitsResend() {
     Packet* pkt = &Packet::Inst;
     pkt->id = REQUEST_UNITS_RESEND;
@@ -3441,6 +3461,7 @@ void VisPlayingArea::SendRequestUnitsResend() {
     g_NetStru1_local.QueuePacketSend(pkt);
 }
 
+// 41b064 (client: 41c8ec)
 void VisPlayingArea::SendCheatShop(int32_t arg1, int32_t arg2) {
     Packet2Dwords* pkt = &Packet2Dwords::Inst;
     pkt->id = CHEAT_SHOP;
@@ -3451,7 +3472,8 @@ void VisPlayingArea::SendCheatShop(int32_t arg1, int32_t arg2) {
     g_NetStru1_local.QueuePacketSend(pkt);
 }
 
-void VisPlayingArea::SendAdjustPlayerGoldAction(int32_t goldDelta) const { //41b0be
+// 41b0be (client: 41c946)
+void VisPlayingArea::SendAdjustPlayerGoldAction(int32_t goldDelta) const {
     Packet2Dwords* pkt = &Packet2Dwords::Inst;
     pkt->id = CHEAT_MONEY;
     pkt->param1 = goldDelta;
@@ -3460,7 +3482,8 @@ void VisPlayingArea::SendAdjustPlayerGoldAction(int32_t goldDelta) const { //41b
     g_NetStru1_local.QueuePacketSend(pkt);
 }
 
-void VisPlayingArea::ScrollMapX(int32_t dx) { //403f4f
+// 403f4f (client: 403ff6)
+void VisPlayingArea::ScrollMapX(int32_t dx) {
     this->scroll_dx += dx;
     if (this->scroll_dx + this->view_x < this->MapMinX()) {
         this->scroll_dx = this->MapMinX() - this->view_x;
@@ -3471,7 +3494,8 @@ void VisPlayingArea::ScrollMapX(int32_t dx) { //403f4f
     }
 }
 
-void VisPlayingArea::ScrollMapY(int32_t dy) { //403fc5
+// 403fc5 (client: 40406c)
+void VisPlayingArea::ScrollMapY(int32_t dy) {
     this->scroll_dy += dy;
     if (this->scroll_dy + this->view_y < this->MapMinY()) {
         this->scroll_dy = this->MapMinY() - this->view_y;
@@ -3482,7 +3506,8 @@ void VisPlayingArea::ScrollMapY(int32_t dy) { //403fc5
     }
 }
 
-void VisPlayingArea::OnOpenShopDialog() { //41a856
+// 41a856 (client: 41c0e2)
+void VisPlayingArea::OnOpenShopDialog() {
     PacketWord* pkt = &PacketWord::Inst;
     pkt->from_player_id = this->my_main_unit->index;
     pkt->to_player_id = 0;
@@ -3493,7 +3518,8 @@ void VisPlayingArea::OnOpenShopDialog() { //41a856
     ((MainWindow*)AfxGetMainWnd())->dialogsMask |= DIALOG_MASK_SHOP;
 }
 
-void VisPlayingArea::NetOnOpenInnDialog() { //41adbb
+// 41adbb (client: 41c647)
+void VisPlayingArea::NetOnOpenInnDialog() {
     PacketWord* pkt = &PacketWord::Inst;
     pkt->from_player_id = this->my_main_unit->index;
     pkt->to_player_id = 0;
@@ -3502,44 +3528,44 @@ void VisPlayingArea::NetOnOpenInnDialog() { //41adbb
     g_NetStru1_local.QueuePacketSend(pkt);
 }
 
-// 41F830
+// 41f830 (client: 420c60)
 CUnit* VisPlayingArea::GetUnit_3f6c() {
     return this->my_unit;
 }
 
-// 41F6D0
+// 41f6d0 (client: 420990)
 void VisPlayingArea::CycleFormation() {
     this->formation = (this->formation + 1) % 3;
     this->SendFormationMode(this->formation);
 }
 
-// 41F720
+// 41f720 (client: 4209e0)
 void VisPlayingArea::CycleWimpyMode() {
     this->wimpy = (this->wimpy + 1) % 3;
     this->SendWimpyMode(this->wimpy);
 }
 
-// 41F770
+// 41f770 (client: 420a30)
 void VisPlayingArea::ToggleShowHp() {
     this->show_hp = this->show_hp == 0;
 }
 
-// 41F7B0
+// 41f7b0 (client: 420a70)
 void VisPlayingArea::ToggleFlyingHp() {
     this->flying_hp = this->flying_hp == 0;
 }
 
-// 41F7F0
+// 41f7f0 (client: 420ab0)
 int32_t VisPlayingArea::GetWimpyMode() {
     return this->wimpy;
 }
 
-// 41F810
+// 41f810 (client: 420ad0)
 int32_t VisPlayingArea::GetFormation() {
     return this->formation;
 }
 
-// 416983
+// 416983 (client: 41819a)
 void VisPlayingArea::SelectControlGroup(int32_t digit) {
     for (POSITION it = this->objects.GetStartPosition(); it != nullptr;) {
         uint16_t key;
@@ -3554,7 +3580,7 @@ void VisPlayingArea::SelectControlGroup(int32_t digit) {
     this->UpdateSelectionState();
 }
 
-// 416A02
+// 416a02 (client: 418219)
 void VisPlayingArea::AssignControlGroup(int32_t digit) {
     if (this->selection_flags & SEL_FOREIGN) {
         return;
@@ -3573,7 +3599,7 @@ void VisPlayingArea::AssignControlGroup(int32_t digit) {
     this->UpdateSelectionState();
 }
 
-// 416AA6
+// 416aa6 (client: 4182bd)
 void VisPlayingArea::AddToControlGroup(int32_t digit) {
     if (this->selection_flags & SEL_FOREIGN) {
         return;
@@ -3592,7 +3618,7 @@ void VisPlayingArea::AddToControlGroup(int32_t digit) {
     this->UpdateSelectionState();
 }
 
-// 416B4A
+// 416b4a (client: 418361)
 void VisPlayingArea::SelectControlGroupAndCenter(int32_t digit) {
     int32_t sum_x = 0;
     int32_t sum_y = 0;
@@ -3618,7 +3644,7 @@ void VisPlayingArea::SelectControlGroupAndCenter(int32_t digit) {
     }
 }
 
-// 416C4C
+// 416c4c (client: 418463)
 void VisPlayingArea::SelectAllOwnUnits() {
     for (POSITION it = this->objects.GetStartPosition(); it != nullptr;) {
         uint16_t key;
@@ -3634,7 +3660,7 @@ void VisPlayingArea::SelectAllOwnUnits() {
     this->UpdateSelectionState();
 }
 
-// 4168BD
+// 4168bd (client: 4180d4)
 void VisPlayingArea::CancelOrderMode() {
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
     if (this->order_mode != ORDER_MODE_NONE) {
@@ -3655,7 +3681,7 @@ void VisPlayingArea::CancelOrderMode() {
     }
 }
 
-// 4167F7
+// 4167f7 (client: 41800e)
 void VisPlayingArea::ScrollViewTo(int32_t wparam, int32_t lparam) {
     if (this->scenario == nullptr) {
         return;
@@ -3678,14 +3704,14 @@ void VisPlayingArea::ScrollViewTo(int32_t wparam, int32_t lparam) {
     wnd->vis_minimap->MsgProc(VIS_MSG_DATA_REFRESH, 0, 0);
 }
 
-// 403F08
+// 403f08 (client: 403faf)
 void VisPlayingArea::SetScenario(Scenario* scen) {
     this->scenario = scen;
     this->map_width = this->scenario->GetWidth();
     this->map_height = this->scenario->GetHeight();
 }
 
-// 418F93
+// 418f93 (client: 41a74e)
 void VisPlayingArea::SetOrderMode(int32_t arg) {
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
     uint32_t avail = this->AvailableOrderMask();
@@ -3728,7 +3754,7 @@ void VisPlayingArea::SetOrderMode(int32_t arg) {
     }
 }
 
-// 419154
+// 419154 (client: 41a90f)
 void VisPlayingArea::SendGroupMove(uint16_t x, uint16_t y) {
     POSITION it = this->objects.GetStartPosition();
     PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
@@ -3755,7 +3781,7 @@ void VisPlayingArea::SendGroupMove(uint16_t x, uint16_t y) {
     }
 }
 
-// 419246
+// 419246 (client: 41a9ff)
 void VisPlayingArea::SendGroupAttack(uint16_t id) {
     POSITION it = this->objects.GetStartPosition();
     PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
@@ -3779,7 +3805,7 @@ void VisPlayingArea::SendGroupAttack(uint16_t id) {
     }
 }
 
-// 41930D
+// 41930d (client: 41aac4)
 void VisPlayingArea::SendGroupAttackMove(uint16_t x, uint16_t y) {
     POSITION it = this->objects.GetStartPosition();
     PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
@@ -3805,7 +3831,7 @@ void VisPlayingArea::SendGroupAttackMove(uint16_t x, uint16_t y) {
     }
 }
 
-// 4193E8
+// 4193e8 (client: 41ab9d)
 void VisPlayingArea::SendGroupGuard() {
     POSITION it = this->objects.GetStartPosition();
     PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
@@ -3828,7 +3854,7 @@ void VisPlayingArea::SendGroupGuard() {
     }
 }
 
-// 4194A2
+// 4194a2 (client: 41ac55)
 void VisPlayingArea::SendGroupAggressive() {
     POSITION it = this->objects.GetStartPosition();
     PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
@@ -3851,7 +3877,7 @@ void VisPlayingArea::SendGroupAggressive() {
     }
 }
 
-// 41955C
+// 41955c (client: 41ad0d)
 void VisPlayingArea::SendGroupAttackTarget(uint16_t id) {
     POSITION it = this->objects.GetStartPosition();
     CGameObject* obj;
@@ -3878,7 +3904,7 @@ void VisPlayingArea::SendGroupAttackTarget(uint16_t id) {
     }
 }
 
-// 41965D
+// 41965d (client: 41ae0a)
 void VisPlayingArea::SendGroupPatrol(uint16_t x, uint16_t y) {
     POSITION it = this->objects.GetStartPosition();
     PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
@@ -3904,7 +3930,7 @@ void VisPlayingArea::SendGroupPatrol(uint16_t x, uint16_t y) {
     }
 }
 
-// 41972F
+// 41972f (client: 41aeda)
 void VisPlayingArea::SendGroupCastAtPosition(uint16_t x, uint16_t y, int32_t spell) {
     POSITION it = this->objects.GetStartPosition();
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
@@ -3991,7 +4017,7 @@ void VisPlayingArea::SendGroupCastAtPosition(uint16_t x, uint16_t y, int32_t spe
     this->UpdateSelectionState();
 }
 
-// 419BA1
+// 419ba1 (client: 41b346)
 void VisPlayingArea::SendGroupCastAtUnit(uint16_t id, int32_t spell) {
     POSITION it = this->objects.GetStartPosition();
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
@@ -4075,7 +4101,7 @@ void VisPlayingArea::SendGroupCastAtUnit(uint16_t id, int32_t spell) {
     this->UpdateSelectionState();
 }
 
-// 40328E
+// 40328e (client: 403311)
 void VisPlayingArea::FreeTileGrids() {
     free(this->tile_units);
     free(this->tile_air_units);
@@ -4093,7 +4119,7 @@ void VisPlayingArea::FreeTileGrids() {
     free(this->height_cells);
 }
 
-// 40403B
+// 40403b (client: 4040e2)
 void VisPlayingArea::RebuildWorldGrids() {
     this->dirty_rect.SetRectEmpty();
     memset(this->tile_units, 0, this->tile_grid_bytes);
@@ -4238,7 +4264,7 @@ void VisPlayingArea::RebuildWorldGrids() {
     this->UpdateTileLight();
 }
 
-// 404912
+// 404912 (client: 4049b7)
 void VisPlayingArea::ApplyTerrainLightOverrides() {
     uint8_t* buf = this->scenario->GetOverlayMap();
     for (POSITION it = this->terrain_light_override_cells.GetStartPosition(); it != nullptr;) {
@@ -4263,7 +4289,7 @@ void VisPlayingArea::ApplyTerrainLightOverrides() {
     }
 }
 
-// 403B8F
+// 403b8f (client: 403c36)
 int32_t VisPlayingArea::StepShadowRay(int32_t arg1, int32_t arg2, int32_t arg3, int32_t arg4) {
     int32_t idx;
     if (arg2 > 0) {
@@ -4280,7 +4306,7 @@ int32_t VisPlayingArea::StepShadowRay(int32_t arg1, int32_t arg2, int32_t arg3, 
     return val <= 0;
 }
 
-// 41B155
+// 41b155 (client: 41c9dd)
 void VisPlayingArea::SendRequestRespawn() {
     Packet* pkt = &Packet::Inst;
     pkt->id = REQUEST_RESPAWN;
@@ -4289,7 +4315,7 @@ void VisPlayingArea::SendRequestRespawn() {
     g_NetStru1_local.QueuePacketSend(pkt);
 }
 
-// 41CE14
+// 41ce14 (client: 41e698)
 void VisPlayingArea::SendHurtSelf() {
     Packet* pkt = &Packet::Inst;
     pkt->id = HURT_SELF;
@@ -4298,7 +4324,7 @@ void VisPlayingArea::SendHurtSelf() {
     g_NetStru1_local.QueuePacketSend(pkt);
 }
 
-// 41AC2D
+// 41ac2d (client: 41c4b9)
 void VisPlayingArea::SendHotkeyBroadcast(int32_t id) {
     Packet2Dwords* pkt = &Packet2Dwords::Inst;
     pkt->id = SET_PARAMETER;
@@ -4309,7 +4335,7 @@ void VisPlayingArea::SendHotkeyBroadcast(int32_t id) {
     g_NetStru1_local.QueuePacketSend(pkt);
 }
 
-// 41AC88
+// 41ac88 (client: 41c514)
 void VisPlayingArea::SendDropGold(int32_t arg1, int32_t arg2) {
     Packet2Dwords* pkt = &Packet2Dwords::Inst;
     pkt->id = DROP_GOLD;
@@ -4320,7 +4346,7 @@ void VisPlayingArea::SendDropGold(int32_t arg1, int32_t arg2) {
     g_NetStru1_local.QueuePacketSend(pkt);
 }
 
-// 404A2C
+// 404a2c (client: 404ad1)
 void VisPlayingArea::UpdateTileLight() {
     int32_t delta = g_DeltaCLR.brightness;
     memset(this->tile_light, delta >> 2, this->tile_grid_bytes / 4);
@@ -4390,14 +4416,14 @@ void VisPlayingArea::UpdateTileLight() {
     }
 }
 
-// 404DA3
+// 404da3 (client: 404e40)
 void VisPlayingArea::AddHitRect(CRect* rect, uint16_t unit_id) {
     this->hit_rects.SetAtGrow(this->hit_count, *rect);
     this->hit_unit_ids.SetAtGrow(this->hit_count, unit_id);
     this->hit_count++;
 }
 
-// 41AB05
+// 41ab05 (client: 41c391)
 void VisPlayingArea::CycleAutoCastGroup() {
     int32_t mode = g_settings.AutoCasting & AutoCastSettings::TIER_MASK;
     if (mode == AutoCastSettings::TIER_LOW) {
@@ -4411,7 +4437,7 @@ void VisPlayingArea::CycleAutoCastGroup() {
     this->SendAutoCastSetting();
 }
 
-// 41A66E
+// 41a66e (client: 41befc)
 void VisPlayingArea::SendGroupEnterBuilding(uint16_t id) {
     POSITION it = this->objects.GetStartPosition();
     PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
@@ -4435,7 +4461,7 @@ void VisPlayingArea::SendGroupEnterBuilding(uint16_t id) {
     }
 }
 
-// 41A7C7
+// 41a7c7 (client: 41c053)
 void VisPlayingArea::SendItemOperation(uint8_t arg1, uint16_t arg2, uint8_t arg3, uint16_t arg4, uint16_t arg5) {
     PacketItemTransfer* pkt = &PacketItemTransfer::Inst;
     pkt->id = ITEM_OPERATION;
@@ -4450,7 +4476,7 @@ void VisPlayingArea::SendItemOperation(uint8_t arg1, uint16_t arg2, uint8_t arg3
     g_NetStru1_local.QueuePacketSend(pkt);
 }
 
-// 41A5B4
+// 41a5b4 (client: 41bd57)
 void VisPlayingArea::SendGroupStop() {
     PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
     pkt->id = GROUP_STOP;
@@ -4472,7 +4498,7 @@ void VisPlayingArea::SendGroupStop() {
     }
 }
 
-// 41A33F
+// 41a33f (client: 41bae8)
 void VisPlayingArea::SendGroupPickup(uint16_t x, uint16_t y) {
     POSITION it = this->objects.GetStartPosition();
     PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
@@ -4499,7 +4525,7 @@ void VisPlayingArea::SendGroupPickup(uint16_t x, uint16_t y) {
     }
 }
 
-// 41A425
+// 41a425 (client: 41bbcc)
 void VisPlayingArea::SendGroupGoHome() {
     POSITION it = this->objects.GetStartPosition();
     PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
@@ -4522,7 +4548,7 @@ void VisPlayingArea::SendGroupGoHome() {
     }
 }
 
-// 41A4DF
+// 41a4df (client: 41bc84)
 void VisPlayingArea::SendGroupGather() {
     PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
     pkt->id = GROUP_GATHER;
@@ -4545,7 +4571,7 @@ void VisPlayingArea::SendGroupGather() {
     }
 }
 
-// 4184B8
+// 4184b8 (client: 419c7d)
 int32_t VisPlayingArea::ScreenToTileRow(int32_t x, int32_t y) {
     int32_t tx = (x >> 5) + 3;
     int32_t frac = x & 0x1F;
@@ -4578,7 +4604,7 @@ int32_t VisPlayingArea::ScreenToTileRow(int32_t x, int32_t y) {
     return this->view_tiles_y + 4;
 }
 
-// 41864D
+// 41864d (client: 419e12)
 uint32_t VisPlayingArea::UpdateMouseHover() {
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
     uint32_t avail = HOVER_NONE;
@@ -4713,8 +4739,7 @@ uint32_t VisPlayingArea::UpdateMouseHover() {
     return avail;
 }
 
-// 40B314
-// client: 40b35f
+// 40b314 (client: 40b35f)
 void VisPlayingArea::UpdateMapCursor() {
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
     if (wnd->dialogsMask != DIALOG_MASK_INGAME) {
@@ -4932,7 +4957,7 @@ void VisPlayingArea::UpdateMapCursor() {
     }
 }
 
-// 404E1A
+// 404e1a (client: 404eb5)
 void VisPlayingArea::DrawTerrainFull() {
     AfxGetMainWnd();
     timeGetTime();
@@ -5000,7 +5025,7 @@ void VisPlayingArea::DrawTerrainFull() {
     }
 }
 
-// 405399
+// 405399 (client: 405434)
 void VisPlayingArea::DrawTerrainAnimated(int32_t arg) {
     //this->field_0x80->GetMapHeights();
     uint8_t* f18map = this->scenario->GetOverlayMap();
@@ -5064,7 +5089,7 @@ void VisPlayingArea::DrawTerrainAnimated(int32_t arg) {
     }
 }
 
-// 40587B
+// 40587b (client: 405908)
 void VisPlayingArea::DrawTerrainScrolled(int32_t arg) {
     AfxGetMainWnd();
     timeGetTime();
@@ -5137,7 +5162,7 @@ void VisPlayingArea::DrawTerrainScrolled(int32_t arg) {
     }
 }
 
-// 405D0E
+// 405d0e (client: 405d9b)
 void VisPlayingArea::RedrawLitTerrain() {
     AfxGetMainWnd();
     //this->field_0x80->GetMapHeights();
@@ -5213,7 +5238,7 @@ void VisPlayingArea::RedrawLitTerrain() {
     }
 }
 
-// 406F7B
+// 406f7b (client: 406fea)
 void VisPlayingArea::RenderWorldFrame() {
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
     if (wnd->dialogsMask != DIALOG_MASK_INGAME || this->scenario == nullptr) {
@@ -5945,18 +5970,18 @@ void VisPlayingArea::RenderWorldFrame() {
     this->prev_view_y = this->view_y;
 }
 
-// 406F1A
+// 406f1a (client: 406f89)
 void VisPlayingArea::VMethod7() {
     this->force_full_redraw = 1;
     this->RenderWorldFrame();
 }
 
-// 40C60F
+// 40c60f (client: 40c696)
 int32_t VisPlayingArea::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
     return this->OnLButtonDown(wparam, pos);
 }
 
-// 402af6 (client: 402af6 — only the CVisualObject id differs, see MAP_CONTEXT_ID)
+// 402af6 (client: 402af6) - ( — only the CVisualObject id differs, see MAP_CONTEXT_ID)
 VisPlayingArea::VisPlayingArea(int32_t l, int32_t t, int32_t r, int32_t b) : CVisualObject(MAP_CONTEXT_ID, l, t, r, b, nullptr) {
     this->scenario = nullptr;
     this->AllocTileGrids();
@@ -6025,7 +6050,7 @@ VisPlayingArea::VisPlayingArea(int32_t l, int32_t t, int32_t r, int32_t b) : CVi
 #endif
 }
 
-// 40AFC5
+// 40afc5 (client: 40b010)
 void VisPlayingArea::DrawTileOverlayFx(int32_t x, int32_t y, uint32_t flags, int32_t flag) {
     if ((flags & 8) != 0 && flag != 0) {
         ProjectileInfo* proj = g_ProjectileInfos[0xF];
@@ -6043,7 +6068,7 @@ void VisPlayingArea::DrawTileOverlayFx(int32_t x, int32_t y, uint32_t flags, int
     }
 }
 
-// 40B173
+// 40b173 (client: 40b1be)
 int32_t VisPlayingArea::IsGfxObjectHidden(int32_t gfx_id, int32_t x, int32_t y, int32_t height) {
     GfxObject* gobj = g_GfxObjects[gfx_id];
     int32_t min_tx = x - 1;
@@ -6074,7 +6099,7 @@ int32_t VisPlayingArea::IsGfxObjectHidden(int32_t gfx_id, int32_t x, int32_t y, 
     return 1;
 }
 
-// 402FB8
+// 402fb8 (client: 40303b)
 void VisPlayingArea::AllocTileGrids() {
 #ifdef A2CLIENT_PATCH
     this->view_tiles_x = (this->rect.Width() + 31) / 32;
@@ -6117,7 +6142,7 @@ void VisPlayingArea::AllocTileGrids() {
     this->msglog.SetRect(this->rect);
 }
 
-// 403730
+// 403730 (client: 4037d7)
 void VisPlayingArea::BuildShadowTables() {
     for (int32_t i = 0; i <= 0x14; i++) {
         for (int32_t j = 0; j <= 0x14; j++) {
@@ -6187,6 +6212,7 @@ static uint8_t TangarShadowGetHeight(int16_t x, int16_t y) {
 }
 #endif
 
+// 403ca0 (client: 403d47)
 void VisPlayingArea::BuildShadowField(CGameObject* obj) {
 #ifdef A2CLIENT_PATCH
     static CScanrangeCalc tangar_scanrange;
@@ -6243,7 +6269,7 @@ void VisPlayingArea::BuildShadowField(CGameObject* obj) {
 #endif
 }
 
-// 41C74B
+// 41c74b (client: 41dfd3)
 void VisPlayingArea::ApplyTileLightMask(int32_t x, int32_t y, int32_t w, int32_t h, int32_t unk1, uint8_t* dat, int32_t unk2) {
     uint8_t* overlay = this->scenario->GetOverlayMap();
     for (int32_t i = 0; i < w; i++) {
@@ -6301,7 +6327,7 @@ void VisPlayingArea::ApplyTileLightMask(int32_t x, int32_t y, int32_t w, int32_t
     }
 }
 
-// 41CB21
+// 41cb21 (client: 41e3a5)
 void VisPlayingArea::SendRequestMapInfo() {
     Packet2Dwords* pkt = &Packet2Dwords::Inst;
     pkt->id = REQUEST_MAP_INFO;
@@ -6310,7 +6336,7 @@ void VisPlayingArea::SendRequestMapInfo() {
     g_NetStru1_local.QueuePacketSend(pkt);
 }
 
-// 40C56C
+// 40c56c (client: 40c5f3)
 int32_t VisPlayingArea::OnRButtonDown(uint32_t wparam, CPoint pos) {
     if (this->TestFlags(FLAG_OVERCURSOR) == 0) {
         this->SetCursorOver(true);
@@ -6318,7 +6344,7 @@ int32_t VisPlayingArea::OnRButtonDown(uint32_t wparam, CPoint pos) {
     return 1;
 }
 
-// 40D4B2
+// 40d4b2 (client: 40d539)
 int32_t VisPlayingArea::OnChar(uint32_t wparam) {
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
     if ((wnd->dialogsMask & DIALOG_MASK_POPUP) != 0) {
@@ -6327,7 +6353,7 @@ int32_t VisPlayingArea::OnChar(uint32_t wparam) {
     return 1;
 }
 
-// 41CB67
+// 41cb67 (client: 41e3eb)
 void VisPlayingArea::SendRequestFileChunk(int32_t val) {
     Packet2Dwords* pkt = &Packet2Dwords::Inst;
     pkt->id = REQUEST_FILE_CHUNK;
@@ -6337,7 +6363,7 @@ void VisPlayingArea::SendRequestFileChunk(int32_t val) {
     g_NetStru1_local.QueuePacketSend(pkt);
 }
 
-// 40C510
+// 40c510 (client: 40c597)
 int32_t VisPlayingArea::OnLButtonDown(uint32_t wparam, CPoint pos) {
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
     if (wnd->dialogsMask != DIALOG_MASK_INGAME) {
@@ -6350,7 +6376,7 @@ int32_t VisPlayingArea::OnLButtonDown(uint32_t wparam, CPoint pos) {
     return 1;
 }
 
-// 40C59C
+// 40c59c (client: 40c623)
 int32_t VisPlayingArea::OnRButtonUp(uint32_t wparam, CPoint pos) {
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
     if (this->rbtn_drag == 0 && wnd->dialogsMask == DIALOG_MASK_INGAME) {
@@ -6363,7 +6389,7 @@ int32_t VisPlayingArea::OnRButtonUp(uint32_t wparam, CPoint pos) {
     return 1;
 }
 
-// 41da52
+// 41da52 (client: 41f2d4)
 CGameBitmap* VisPlayingArea::BuildUnitPortrait(int32_t serv_id) {
     // 630e28: portrait top-left inside the 0xa0*0xf0 infowindow picture, indexed by typeId - 0x40
     static const POINT projectile_portrait_pos[39] = {
@@ -6421,7 +6447,7 @@ CGameBitmap* VisPlayingArea::BuildUnitPortrait(int32_t serv_id) {
     return result;
 }
 
-// 41DF23
+// 41df23 (client: 41f7a5)
 CUnit* VisPlayingArea::FindUnitByServerId(int32_t serv_id) {
     CUnit* result = nullptr;
     POSITION it = this->objects.GetStartPosition();
@@ -6440,7 +6466,7 @@ CUnit* VisPlayingArea::FindUnitByServerId(int32_t serv_id) {
     return result;
 }
 
-// 41DFDB
+// 41dfdb (client: 41f85d)
 CUnit* VisPlayingArea::PickVoiceUnit() {
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
     if (wnd->sessionMode != SESSION_LOCAL_BATTLE) {
@@ -6484,7 +6510,7 @@ CUnit* VisPlayingArea::PickVoiceUnit() {
     return nullptr;
 }
 
-// 41D97E
+// 41d97e (client: 41f200)
 void VisPlayingArea::UpdateDayNightCycle(int32_t arg) {
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
     if ((wnd->dialogsMask & DIALOG_MASK_INGAME) == 0) {
@@ -6502,7 +6528,7 @@ void VisPlayingArea::UpdateDayNightCycle(int32_t arg) {
     }
 }
 
-// 40C83F
+// 40c83f (client: 40c8c6)
 int32_t VisPlayingArea::OnMouseMove(uint32_t wparam, CPoint pos) {
     if ((wparam & 2) != 0) {
         int32_t dx = pos.x - g_mousept.GetX();
@@ -6520,7 +6546,7 @@ int32_t VisPlayingArea::OnMouseMove(uint32_t wparam, CPoint pos) {
     return CVisualObject::OnMouseMove(wparam, pos);
 }
 
-// 41B7B7
+// 41b7b7 (client: 41d03f)
 void VisPlayingArea::ComputeSoundVolumePan(int32_t xpos, int32_t ypos, int32_t* pvol, int32_t* ppan) {
     int32_t center_x = (this->view_x << 8) + (this->view_tiles_x << 7);
     int32_t center_y = (this->view_y << 8) + (this->view_tiles_y << 7);
@@ -6572,7 +6598,7 @@ void VisPlayingArea::TangarHandleHotkey(uint32_t key) {
 }
 #endif
 
-// 40C902
+// 40c902 (client: 40c989)
 int32_t VisPlayingArea::OnKeyDown(uint32_t wparam) {
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 #ifdef A2CLIENT_PATCH
@@ -6831,7 +6857,7 @@ int32_t VisPlayingArea::OnKeyDown(uint32_t wparam) {
     return 0;
 }
 
-// 40BD34
+// 40bd34 (client: 40bdc1)
 void VisPlayingArea::UpdateWorld() {
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
     uint32_t update_selection = 0;
@@ -6906,7 +6932,7 @@ void VisPlayingArea::UpdateWorld() {
     }
 }
 
-// 417B42
+// 417b42 (client: 419313)
 void VisPlayingArea::IssueOrderAtCursor(CPoint* pt) {
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
     CRect select_rect = g_mousept.GetSelectFrame();
@@ -6973,7 +6999,7 @@ void VisPlayingArea::IssueOrderAtCursor(CPoint* pt) {
     }
 }
 
-// 417F09
+// 417f09 (client: 4196d2)
 void VisPlayingArea::SelectUnitsInRect(CRect* rect) {
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
     int32_t min_size = g_ScreenSize.right * 10 / 0x280;
@@ -7068,7 +7094,7 @@ void VisPlayingArea::SelectUnitsInRect(CRect* rect) {
     }
 }
 
-// 40C112
+// 40c112 (client: 40c199)
 void VisPlayingArea::TickLightningCells() {
     for (POSITION it = this->lightning_cells.GetStartPosition(); it != nullptr;) {
         uint16_t key;
@@ -7083,7 +7109,7 @@ void VisPlayingArea::TickLightningCells() {
     }
 }
 
-// 40C18B
+// 40c18b (client: 40c212)
 void VisPlayingArea::RebuildLandscapeOccupancy() {
     this->minimap_dirty = 1;
     this->full_redraw_requested = 1;
@@ -7100,7 +7126,7 @@ void VisPlayingArea::RebuildLandscapeOccupancy() {
     }
 }
 
-// 40C232
+// 40c232 (client: 40c2b9)
 int32_t VisPlayingArea::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
     int32_t result = CVisualObject::MsgProc(msg, wparam, lparam);
@@ -7171,7 +7197,7 @@ int32_t VisPlayingArea::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) 
     return result;
 }
 
-// 40C633
+// 40c633 (client: 40c6ba)
 int32_t VisPlayingArea::OnLButtonUp(uint32_t wparam, CPoint pos) {
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
     if (wnd->dialogsMask != DIALOG_MASK_INGAME) {
@@ -7205,7 +7231,7 @@ int32_t VisPlayingArea::OnLButtonUp(uint32_t wparam, CPoint pos) {
     return 1;
 }
 
-// 41C630
+// 41c630 (client: 41deb8)
 void VisPlayingArea::ApplyLandscapeFlags(CWordArray* data) {
     uint16_t flag = (*data)[0];
     if (flag != 0) {
@@ -7230,7 +7256,7 @@ void VisPlayingArea::ApplyLandscapeFlags(CWordArray* data) {
     }
 }
 
-// 41C4A1
+// 41c4a1 (client: 41dd29)
 void VisPlayingArea::LoadScenario(const char* name) {
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
     delete this->scenario;
@@ -7257,7 +7283,7 @@ void VisPlayingArea::LoadScenario(const char* name) {
     this->quest_map->RemovePlayerQuests(0);
 }
 
-// 403395
+// 403395 (client: 403418)
 VisPlayingArea::~VisPlayingArea() {
     delete this->scratch_tile;
     this->FreeTileGrids();
@@ -7297,7 +7323,7 @@ VisPlayingArea::~VisPlayingArea() {
     }
 }
 
-// 4764BC
+// 4764bc (client: 47a208)
 uint8_t* __cdecl UpdateDayNightLighting(int32_t val) {
     if (g_settings.ShowTimeFlow == 0) {
         g_DeltaCLR.r = 0;
@@ -7373,7 +7399,7 @@ uint8_t* __cdecl UpdateDayNightLighting(int32_t val) {
     return &g_DeltaCLR.r;
 }
 
-// 47fa75
+// 47fa75 (client: 48392f)
 void ReloadPalettes() {
     g_mousept.Update();
     for (int32_t i = 0; i < g_VFX_info.GetSize(); i++) {
@@ -7436,7 +7462,7 @@ void ReloadPalettes() {
     g_spr_backpack->ResetPalette(0x10, 2, 1);
 }
 
-// 477b59
+// 477b59 (client: 47b899)
 void __cdecl LoadTerrainTiles(uint32_t val) {
     if ((g_VideoOptionFlags & 2) != 0) {
         if (val != 0) {
@@ -7506,7 +7532,8 @@ void __cdecl LoadTerrainTiles(uint32_t val) {
     }
 }
 
-void LoadVfxData() { //47b24e
+// 47b24e (client: 47f108)
+void LoadVfxData() {
 
     RegFile reg("graphics\\units\\units.reg");
 
@@ -7703,7 +7730,8 @@ void LoadVfxData() { //47b24e
     }
 }
 
-void VisPlayingArea::UpdateAmbientSounds() { //41b8d0
+// 41b8d0 (client: 41d158)
+void VisPlayingArea::UpdateAmbientSounds() {
     MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 
     bool local_d8;
@@ -7928,7 +7956,8 @@ void VisPlayingArea::UpdateAmbientSounds() { //41b8d0
     }
 }
 
-void VisPlayingArea::MakeHeightCells() { //4065d3
+// 4065d3 (client: 406658)
+void VisPlayingArea::MakeHeightCells() {
     int8_t* hmap = this->scenario->GetMapHeights();
     for (int32_t y = -3; y <= this->view_tiles_y + 7; y++) {
         for (int32_t x = -3; x <= this->view_tiles_x + 3; x++) {
@@ -7966,7 +7995,8 @@ void VisPlayingArea::MakeHeightCells() { //4065d3
 
 
 
-void VisPlayingArea::ApplyDynamicLight(int32_t tx, int32_t ty, int32_t radius, int32_t brightness) { //406340
+// 406340 (client: 4063c5)
+void VisPlayingArea::ApplyDynamicLight(int32_t tx, int32_t ty, int32_t radius, int32_t brightness) {
     if (g_Animation == 0) {
         CRect local_2c((tx - this->view_x - 1 - radius) * 32, 
                        (ty - this->view_y - 1 - radius) * 32,
@@ -8022,7 +8052,7 @@ void VisPlayingArea::ApplyDynamicLight(int32_t tx, int32_t ty, int32_t radius, i
     }
 }
 
-// 41a001
+// 41a001 (client: 41b7a0)
 void VisPlayingArea::SendGroupSelfCast(int32_t idx) {
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
     PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
@@ -8088,7 +8118,7 @@ void VisPlayingArea::SendGroupSelfCast(int32_t idx) {
     this->UpdateSelectionState();
 }
 
-// 41ae1c
+// 41ae1c (client: 41c6a8)
 void VisPlayingArea::LeaveInn(int32_t serv_id) {
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
     if (wnd->sessionMode == SESSION_LOCAL_BATTLE) {
@@ -8125,7 +8155,7 @@ void VisPlayingArea::LeaveInn(int32_t serv_id) {
     }
 }
 
-// 41ace2
+// 41ace2 (client: 41c56e)
 void VisPlayingArea::SendAutoSpellSelect(int32_t spell_id) {
     Packet2Dwords* pkt = &Packet2Dwords::Inst;
     for (POSITION it = this->objects.GetStartPosition(); it != nullptr;) {
@@ -8144,7 +8174,7 @@ void VisPlayingArea::SendAutoSpellSelect(int32_t spell_id) {
     }
 }
 
-// 41e2af
+// 41e2af (client: 41fb31)
 int32_t VisPlayingArea::FindUnitByQuestFlag(int32_t id, CUnit** out) {
     for (POSITION it = this->objects.GetStartPosition(); it != nullptr;) {
         uint16_t key;
@@ -8161,7 +8191,7 @@ int32_t VisPlayingArea::FindUnitByQuestFlag(int32_t id, CUnit** out) {
     return 0;
 }
 
-// 40c0a8
+// 40c0a8 (client: 40c12f)
 uint32_t VisPlayingArea::FindObjectAtTile(int32_t x, int32_t y) {
     for (POSITION it = this->objects.GetStartPosition(); it != nullptr;) {
         uint16_t key;
@@ -8175,7 +8205,7 @@ uint32_t VisPlayingArea::FindObjectAtTile(int32_t x, int32_t y) {
     return 0;
 }
 
-// 41cda3
+// 41cda3 (client: 41e627)
 void VisPlayingArea::SendMapAnnouncement(const char* mapname) {
     PacketJoin* pkt = &PacketJoin::Inst;
     pkt->id = ANNOUNCEMENT;
@@ -8188,7 +8218,7 @@ void VisPlayingArea::SendMapAnnouncement(const char* mapname) {
     g_NetStru1_main.SendAllData();
 }
 
-// 41a942
+// 41a942 (client: 41c1ce)
 void VisPlayingArea::SendShopBuy() {
     PacketWord* pkt = &PacketWord::Inst;
     pkt->id = SHOP_BUY;
@@ -8198,7 +8228,7 @@ void VisPlayingArea::SendShopBuy() {
     g_NetStru1_local.QueuePacketSend(pkt);
 }
 
-// 41dfa6
+// 41dfa6 (client: 41f828)
 CUnit* VisPlayingArea::FindOrCreateUnitByServerId(int32_t serv_id) {
     CUnit* unit = this->FindUnitByServerId(serv_id);
     if (unit == nullptr) {
@@ -8207,7 +8237,7 @@ CUnit* VisPlayingArea::FindOrCreateUnitByServerId(int32_t serv_id) {
     return unit;
 }
 
-// 41a9f6
+// 41a9f6 (client: 41c282)
 void VisPlayingArea::SendShopTakeBack() {
     PacketWord* pkt = &PacketWord::Inst;
     pkt->id = SHOP_TAKE_BACK;
@@ -8217,7 +8247,7 @@ void VisPlayingArea::SendShopTakeBack() {
     g_NetStru1_local.QueuePacketSend(pkt);
 }
 
-// 41a99c
+// 41a99c (client: 41c228)
 void VisPlayingArea::SendShopSell() {
     PacketWord* pkt = &PacketWord::Inst;
     pkt->id = SHOP_SELL;
@@ -8227,7 +8257,7 @@ void VisPlayingArea::SendShopSell() {
     g_NetStru1_local.QueuePacketSend(pkt);
 }
 
-// 41de80
+// 41de80 (client: 41f702)
 CUnit* VisPlayingArea::CreateRemoteHeroStub(int32_t serv_id) {
     CUnit* unit = new CUnit();
     unit->unitFlags = UNIT_FLAG_REMOTE_HERO | UNIT_FLAG_CREATURE | UNIT_FLAG_FEMALE | UNIT_FLAG_MAGE;
@@ -8237,7 +8267,8 @@ CUnit* VisPlayingArea::CreateRemoteHeroStub(int32_t serv_id) {
     return unit;
 }
 
-void VisPlayingArea::SendGroupStopAfk() { //client: 41be0f
+// server: none (client: 41be0f)
+void VisPlayingArea::SendGroupStopAfk() {
     PacketGroupOrder* pkt = &PacketGroupOrder::Inst;
     pkt->id = GROUP_STOP_AFK;
     pkt->from_player_id = my_main_unit->index;

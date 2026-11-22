@@ -23,20 +23,20 @@ public: // VTable at 60f3f8.
     virtual void RegenTick() override; // 544629 (client: 52ad3e)
 
 public:
-    Shop(); // 5442ca
+    Shop(); // 5442ca (client: 52a9f2)
     Shop(const CString& name); // 5443ef (client: 52ab14)
     Shop(uint8_t type_id, TokenPos* pos); // 544495 (client: 52abb7)
 
-    void SellItemFor(Humanoid* humanoid, int amount, Item* item);  // client: 52aea8
-    Item* BuyItem(Humanoid* unit, int16_t src_slot, int32_t count);  // client: 52addc
-    void HandleItemOperation(Humanoid* unit, uint8_t op_type, int16_t src_slot, uint8_t dst_type, int16_t dst_word, int32_t count);  // client: 52ae00
-    void AttachUnit(Unit* unit); // Mine: attach unit to this building (client: 52ad6a)
-    void GenerateAssortment();  // client: 52ad54
+    void SellItemFor(Humanoid* humanoid, int amount, Item* item); // 544793 (client: 52aea8)
+    Item* BuyItem(Humanoid* unit, int16_t src_slot, int32_t count); // 5446c7 (client: 52addc)
+    void HandleItemOperation(Humanoid* unit, uint8_t op_type, int16_t src_slot, uint8_t dst_type, int16_t dst_word, int32_t count); // 5446eb (client: 52ae00)
+    void AttachUnit(Unit* unit); // 544655 (client: 52ad6a) - Mine: attach unit to this building
+    void GenerateAssortment(); // 54463f (client: 52ad54)
 
-    void ConfirmBuy(Unit* unit);  // client: 52ae30
-    void ConfirmSell(Unit* unit);  // client: 52ae4c
-    void ReturnItems(Unit* unit);  // client: 52ae8c
-    void CloseShop(Unit* unit);  // client: 52ad9a
+    void ConfirmBuy(Unit* unit); // 54471b (client: 52ae30)
+    void ConfirmSell(Unit* unit); // 544737 (client: 52ae4c)
+    void ReturnItems(Unit* unit); // 544777 (client: 52ae8c)
+    void CloseShop(Unit* unit); // 544685 (client: 52ad9a)
 
 public:
     CMultiShopTemplate* shop_template;

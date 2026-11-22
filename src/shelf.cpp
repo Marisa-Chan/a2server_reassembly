@@ -16,16 +16,16 @@
 
 IMPLEMENT_SERIAL(CMultiShopShelf, CObject, 1); // 637270
 
-// 544A9D
+// 544a9d (client: 52b138)
 CMultiShopShelf::CMultiShopShelf() {
     this->shelf_id = 0xFFFFFFFF;
 }
 
-// 544B0C
+// 544b0c (client: 52b199)
 CMultiShopShelf::~CMultiShopShelf() {
 }
 
-// 545865
+// 545865 (client: 52b591)
 void CMultiShopShelf::ClearItems() {
     for (int i = 0; i < this->items.GetSize(); i++) {
         #ifdef A2SERVER_PATCH
@@ -40,7 +40,7 @@ void CMultiShopShelf::ClearItems() {
     this->items.RemoveAll();
 }
 
-// 54546E
+// 54546e (client: 52b4fd) - remove item at index
 void CMultiShopShelf::RemoveItemAt(int32_t index) {
     if (index >= this->items.GetSize() || index < 0) {
         return;
@@ -48,7 +48,7 @@ void CMultiShopShelf::RemoveItemAt(int32_t index) {
     this->items.RemoveAt(index);
 }
 
-// 5453E8
+// 5453e8 (client: 52b473) - pick item from shelf
 Item* CMultiShopShelf::PickItem(int32_t slot, int32_t count) {
     if (slot >= this->items.GetSize() || slot < 0) {
         return nullptr;
@@ -64,7 +64,7 @@ Item* CMultiShopShelf::PickItem(int32_t slot, int32_t count) {
     return taken;
 }
 
-// 544BCE
+// 544bce (client: 52b1ed) - add item to shelf.
 int32_t CMultiShopShelf::AddItem(Item** item_ptr) {
     Item* item = *item_ptr;
     item->shelf_id = this->shelf_id;
@@ -83,7 +83,7 @@ int32_t CMultiShopShelf::AddItem(Item** item_ptr) {
     return 0;
 }
 
-// 545528
+// 545528 (client: 52b531) - decrease refcount of all items and remove them from the shelf
 void CMultiShopShelf::ReleaseItems() {
     for (int32_t i = 0; i < this->items.GetSize(); i++) {
         this->items[i]->shelf_refcount -= 1;
@@ -94,7 +94,7 @@ void CMultiShopShelf::ReleaseItems() {
 
 IMPLEMENT_SERIAL(CMultiShopInstance, CObject, 1); // 637288
 
-// 545BD7
+// 545bd7 (client: 52b62f)
 CMultiShopInstance::CMultiShopInstance() {
     this->unit = nullptr;
     this->shop_template = nullptr;
@@ -104,7 +104,7 @@ CMultiShopInstance::CMultiShopInstance() {
     this->shelves[3].shelf_id = 4;
 }
 
-// 545C8C
+// 545c8c (client: 52b6e3)
 CMultiShopInstance::~CMultiShopInstance() {
     for (size_t i = 0; i < this->shelves.size(); i++) {
         this->shelves[i].ReleaseItems();
@@ -126,7 +126,7 @@ static void LogMoneyCheatAttempt(Player* player) {
 }
 #endif
 
-// 545D5E
+// 545d5e (client: 52b7b4)
 void CMultiShopInstance::Sell() {
     bool any_sold = false;
 
@@ -174,7 +174,7 @@ void CMultiShopInstance::Sell() {
     g_NetStru1_main.SendUnitUpdate(this->unit, this->unit->pOwner, UNIT_UPD_INVENTORY_WEIGHT_SPEED, EQUIP_SLOTS_ALL, 0, 0);
 }
 
-// 546027
+// 546027 (client: 52b8fa)
 void CMultiShopInstance::Buy() {
     for (POSITION next_pos = this->inventory.items.GetHeadPosition(); next_pos != nullptr; ) {
         POSITION current_pos = next_pos;
@@ -209,24 +209,24 @@ void CMultiShopInstance::Buy() {
     g_NetStru1_main.SendUnitUpdate(this->unit, this->unit->pOwner, UNIT_UPD_INVENTORY_WEIGHT_SPEED, EQUIP_SLOTS_ALL, 0, 0);
 }
 
-// 546537
+// 546537 (client: 52bc62) - add item to inventory
 void CMultiShopInstance::SellItemFor(int32_t amount, Item* item) {
     this->inventory.AddItem(amount, item);
 }
 
-// 546557
+// 546557 (client: 52bc82) - pick item from inventory
 Item* CMultiShopInstance::PickItem(int32_t item_number, int32_t count) {
     return this->inventory.TakeItemAt(item_number, count);
 }
 
-// 546857
+// 546857 (client: 52be85)
 Unit* CMultiShopInstance::SetUnit(Unit* new_unit) {
     Unit* old_unit = this->unit;
     this->unit = new_unit;
     return old_unit;
 }
 
-// 5464B6
+// 5464b6 (client: 52bc0b)
 void CMultiShopInstance::SendShelfState(int32_t shelf_id) {
     if (shelf_id == 0) {
         Token* shop_token = nullptr;
@@ -239,7 +239,7 @@ void CMultiShopInstance::SendShelfState(int32_t shelf_id) {
     }
 }
 
-// 546577
+// 546577 (client: 52bca2)
 void CMultiShopInstance::MoveItems(uint8_t src_type, int16_t src_slot, uint8_t dst_type, int16_t dst_slot, int32_t count) {
     int32_t result = 0;
     Item* item = nullptr;
@@ -270,7 +270,7 @@ void CMultiShopInstance::MoveItems(uint8_t src_type, int16_t src_slot, uint8_t d
     }
 }
 
-// 54668B
+// 54668b (client: 52bdaa)
 void CMultiShopInstance::ReturnConsignedItems() {
     if (this->inventory.items.GetCount() == 0) {
         return;
@@ -292,7 +292,7 @@ void CMultiShopInstance::ReturnConsignedItems() {
     g_NetStru1_main.SendUnitUpdate(this->unit, this->unit->pOwner, UNIT_UPD_INVENTORY_WEIGHT_SPEED, EQUIP_SLOTS_ALL, 0, 0);
 }
 
-// 5462C8
+// 5462c8 (client: 52ba1d)
 int32_t CMultiShopInstance::StowItemInShelf(Item* item, int32_t dst_slot) {
     int32_t shelf_id = 0;
     int32_t result = 0;
@@ -345,7 +345,7 @@ int32_t CMultiShopInstance::StowItemInShelf(Item* item, int32_t dst_slot) {
 
 IMPLEMENT_SERIAL(CMultiShopTemplate, CObject, 1); // 6372a0
 
-// 54687B
+// 54687b (client: 52bea9)
 CMultiShopTemplate::CMultiShopTemplate() {
     this->active_instances = 0;
     this->refresh_assortment_counter = 0;
@@ -357,7 +357,7 @@ CMultiShopTemplate::CMultiShopTemplate() {
     this->shelves[3].shelf_id = 4;
 }
 
-// 546C72
+// 546c72 (client: 52bf83)
 CMultiShopTemplate::CMultiShopTemplate(Shop* shop) {
     this->active_instances = 0;
     this->refresh_assortment_counter = 0;
@@ -369,7 +369,7 @@ CMultiShopTemplate::CMultiShopTemplate(Shop* shop) {
     this->shelves[3].shelf_id = 4;
 }
 
-// 546DA4
+// 546da4 (client: 52c05e)
 CMultiShopTemplate::~CMultiShopTemplate() {
     for (int32_t i = 0; i < this->shop_instances.GetSize(); i++) {
         CMultiShopInstance* inst = this->shop_instances[i];
@@ -384,7 +384,7 @@ CMultiShopTemplate::~CMultiShopTemplate() {
     }
 }
 
-// 546F18
+// 546f18 (client: 52c16a)
 void CMultiShopTemplate::NotifyOtherInstances(CMultiShopInstance* inst, int shelf_id) {
     for (int32_t i = 0; i < this->shop_instances.GetSize(); i++) {
         CMultiShopInstance* other = this->shop_instances[i];
@@ -394,7 +394,7 @@ void CMultiShopTemplate::NotifyOtherInstances(CMultiShopInstance* inst, int shel
     }
 }
 
-// 54740C
+// 54740c (client: 52c395) - find shop instance index for unit's owner
 int CMultiShopTemplate::FindInstanceIndex(Unit* unit) {
     for (int32_t i = 0; i < this->shop_instances.GetSize(); i++) {
         if (this->shop_instances[i]->unit->pOwner == unit->pOwner) {
@@ -404,7 +404,7 @@ int CMultiShopTemplate::FindInstanceIndex(Unit* unit) {
     return -1;
 }
 
-// 547E91
+// 547e91 (client: 52ca6a) - refresh assortment if no live instances
 int CMultiShopTemplate::TryRefreshAssortment() {
     if (this->refresh_assortment_counter <= 0 || this->active_instances != 0) {
         return 0;
@@ -414,7 +414,7 @@ int CMultiShopTemplate::TryRefreshAssortment() {
     return 1;
 }
 
-// 547468
+// 547468 (client: 52c3ef) - find shop instance for player's unit
 CMultiShopInstance* CMultiShopTemplate::FindInstanceFor(Humanoid* humanoid) {
     int32_t index = this->FindInstanceIndex(humanoid);
     if (index == -1) {
@@ -423,14 +423,14 @@ CMultiShopInstance* CMultiShopTemplate::FindInstanceFor(Humanoid* humanoid) {
     return this->shop_instances[index];
 }
 
-// 54749F
+// 54749f (client: 52c428) - clear all shelf items
 void CMultiShopTemplate::ClearShelves() {
     for (int32_t i = 0; i < 4; i++) {
         this->shelves[i].ClearItems();
     }
 }
 
-// 547B7B
+// 547b7b (client: 52c76b)
 void CMultiShopTemplate::ConfirmBuy(Unit* unit) {
     CMultiShopInstance* instance = this->FindInstanceFor(static_cast<Humanoid*>(unit));
     if (instance == nullptr) {
@@ -440,7 +440,7 @@ void CMultiShopTemplate::ConfirmBuy(Unit* unit) {
     instance->Buy();
 }
 
-// 547BBC
+// 547bbc (client: 52c7ac)
 void CMultiShopTemplate::ConfirmSell(Unit* unit) {
     CMultiShopInstance* instance = this->FindInstanceFor(static_cast<Humanoid*>(unit));
     if (instance == nullptr) {
@@ -450,7 +450,7 @@ void CMultiShopTemplate::ConfirmSell(Unit* unit) {
     instance->Sell();
 }
 
-// 547D7F
+// 547d7f (client: 52c96f)
 void CMultiShopTemplate::ReturnConsignedItems(Unit* unit) {
     CMultiShopInstance* instance = this->FindInstanceFor(static_cast<Humanoid*>(unit));
     if (instance == nullptr) {
@@ -461,7 +461,7 @@ void CMultiShopTemplate::ReturnConsignedItems(Unit* unit) {
     instance->ReturnConsignedItems();
 }
 
-// 547BFD
+// 547bfd (client: 52c7ed)
 void CMultiShopTemplate::SellItemFor(Unit* unit, int amount, Item* item) {
     CMultiShopInstance* instance = this->FindInstanceFor(static_cast<Humanoid*>(unit));
     if (instance == nullptr) {
@@ -472,7 +472,7 @@ void CMultiShopTemplate::SellItemFor(Unit* unit, int amount, Item* item) {
     instance->SellItemFor(amount, item);
 }
 
-// 547C5A
+// 547c5a (client: 52c84a)
 Item* CMultiShopTemplate::BuyItem(Humanoid* humanoid, int16_t src_slot, int32_t count) {
     CMultiShopInstance* instance = this->FindInstanceFor(humanoid);
     if (instance == nullptr) {
@@ -483,7 +483,7 @@ Item* CMultiShopTemplate::BuyItem(Humanoid* humanoid, int16_t src_slot, int32_t 
     return instance->PickItem(src_slot, count);
 }
 
-// 547644
+// 547644 (client: 52c5bb)
 void CMultiShopTemplate::OpenShopFor(Unit* unit) {
 #ifdef A2SERVER_PATCH
     if (CMultiShopInstance* existing = this->FindInstanceFor(static_cast<Humanoid*>(unit))) {
@@ -504,7 +504,7 @@ void CMultiShopTemplate::OpenShopFor(Unit* unit) {
     shop_instance->SendShelfState(-1);
 }
 
-// 5474D8
+// 5474d8 (client: 52c461)
 void CMultiShopTemplate::GenerateAssortment() {
     if (this->active_instances > 0) {
         return;
@@ -527,7 +527,7 @@ void CMultiShopTemplate::GenerateAssortment() {
     }
 }
 
-// 546F8D
+// 546f8d (client: 52c1e1)
 CMultiShopInstance* CMultiShopTemplate::CreateInstance(Unit* unit) {
     CMultiShopInstance* instance = new CMultiShopInstance();
     instance->unit = unit;
@@ -549,7 +549,7 @@ CMultiShopInstance* CMultiShopTemplate::CreateInstance(Unit* unit) {
     return instance;
 }
 
-// 547CB9
+// 547cb9 (client: 52c8a9)
 void CMultiShopTemplate::HandleItemOperation(Humanoid* humanoid, uint8_t op_type, int16_t src_slot, uint8_t dst_type, int16_t dst_word, int32_t count) {
     CMultiShopInstance* shop_instance = this->FindInstanceFor(humanoid);
     if (shop_instance == nullptr) {
@@ -560,7 +560,7 @@ void CMultiShopTemplate::HandleItemOperation(Humanoid* humanoid, uint8_t op_type
     shop_instance->MoveItems(op_type, src_slot, dst_type, dst_word, count);
 }
 
-// 5479C6
+// 5479c6 (client: 52c630)
 void CMultiShopTemplate::CloseInstance(Humanoid* humanoid) {
     int32_t index = this->FindInstanceIndex(humanoid);
     if (index == -1) {
@@ -581,7 +581,7 @@ void CMultiShopTemplate::CloseInstance(Humanoid* humanoid) {
     this->TryRefreshAssortment();
 }
 
-// 547DD4
+// 547dd4 (client: 52c9c4)
 void CMultiShopTemplate::RefreshTick() {
     if (g_Server->multiplayer == 0) {
         return;

@@ -52,8 +52,8 @@ struct GameSettings {
     int32_t* pMessageColors = nullptr;
 
     void Init(); // 442386 (client: 444958)
-    void Load(HKEY& rkey); //442420 (client: 4449f2)
-    void Save(HKEY& rkey); //4421be (client: 444790)
+    void Load(HKEY& rkey); // 442420 (client: 4449f2)
+    void Save(HKEY& rkey); // 4421be (client: 444790)
 };
 ASSERT_SIZE(GameSettings, 0x3c);
 
@@ -73,7 +73,7 @@ public:
 public:
     DistortMap(int32_t outer, int32_t inner); // 4a9f90 (client: 4adfc0)
     ~DistortMap(); // 4aa04f (client: 4ae07f)
-    void BuildScaleTable(); // 4aa0af
+    void BuildScaleTable(); // 4aa0af (client: 4ae0df)
     void RenderDistort(int32_t x, int32_t y); // 4aa29b (client: 4ae2cb)
 };
 ASSERT_SIZE(DistortMap, 0x10);
@@ -91,39 +91,37 @@ public:
     static GameApp theApp;
 public:
 
-    virtual BOOL InitInstance() override;  // client: 48626d
-    virtual BOOL OnIdle(LONG lCount) override;  // client: 4872dc
-    virtual int ExitInstance() override;  // client: 48711d
+    virtual BOOL InitInstance() override; // 4823bd (client: 48626d)
+    virtual BOOL OnIdle(LONG lCount) override; // 4835b0 (client: 4872dc)
+    virtual int ExitInstance() override; // 4833f1 (client: 48711d)
 #if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
     virtual int DoMessageBox(LPCTSTR lpszPrompt, UINT nType, UINT nIDPrompt) override;
 #endif
 };
 
-void ReadFileToString(const char* fname, CString* str);
+void ReadFileToString(const char* fname, CString* str); // 4758cd (client: 47961d)
 
-int32_t GetRandS16(int32_t range);
+int32_t GetRandS16(int32_t range); // 4a4720 (client: 4a8090)
 
 
-void __cdecl PostConsoleLine(const char* source); // 43A857 (client: 43cc47)
+void __cdecl PostConsoleLine(const char* source); // 43a857 (client: 43cc47)
 
-/* in asm */
-void LogMessage(CString message); //43AA23 (client: 43ce08)
-void LogWarning(const CString& msg); //59b753 (client: 56a603)
+void LogMessage(CString message); // 43aa23 (client: 43ce08)
+void LogWarning(const CString& msg); // 59b753 (client: 56a603)
 
-int32_t ParseConfig(const char* fname); //4f7188 (client: 4f8233)
+int32_t ParseConfig(const char* fname); // 4f7188 (client: 4f8233)
 
-void ParseTunes(); //476b21 (client: 47a86d)
-void LoadFonts();  //460c37 (client: 464849)
-void LoadSettings(); //441a03 (client: 443fd2)
-void __cdecl SetMessageColors(uint32_t); //476de7 (client: 47ab33)
+void ParseTunes(); // 476b21 (client: 47a86d)
+void LoadFonts(); // 460c37 (client: 464849)
+void __cdecl SetMessageColors(uint32_t); // 476de7 (client: 47ab33)
 
-int IsLateCampaignMission(); //497490
+int IsLateCampaignMission(); // 497490 (client: 49a8b0)
 
-void SrandInit(); //5421e9 (client: 5296c9)
+void SrandInit(); // 5421e9 (client: 5296c9)
 
-int32_t __cdecl AppGetWorkingDir(int maxchar, char* buf); //4761dd (client: 479f29)
-int __cdecl AppHasAnySaveFile(); //440d96 (client: 4431fd)
-void __cdecl AppFindSavesList(CArray<WIN32_FIND_DATAA>* list, int p); //43eaa0 (client: 440f04)
+int32_t __cdecl AppGetWorkingDir(int maxchar, char* buf); // 4761dd (client: 479f29)
+int __cdecl AppHasAnySaveFile(); // 440d96 (client: 4431fd)
+void __cdecl AppFindSavesList(CArray<WIN32_FIND_DATAA>* list, int p); // 43eaa0 (client: 440f04)
 
 
 extern int32_t g_kbShiftState; //660f44
@@ -135,18 +133,18 @@ extern int32_t g_kbMenuState; //660f48
 extern GameDataRes g_GameDataRes; //6d0668
 extern PlayersList* g_PlayersList; //6cdb24
 
-int32_t __cdecl Random0N(int32_t n); // returns [0, n]
-int32_t __cdecl Random1N(int32_t n); // returns [1, n]
+int32_t __cdecl Random0N(int32_t n); // 542216 (client: 5296f6) - returns [0, n]
+int32_t __cdecl Random1N(int32_t n); // 54223f (client: 52971f) - returns [1, n]
 
 // RollRandomItem: Create a random item (level = item tier, max_gold = max price range).
-Item* __cdecl RollRandomItem(int32_t level, int32_t max_gold);
+Item* __cdecl RollRandomItem(int32_t level, int32_t max_gold); // 5499a6 (client: 52dd92)
 
-double __cdecl Rand01();                                        // 5421FD (client: 5296dd) - returns rand()/RAND_MAX in [0,1)
+double __cdecl Rand01(); // 5421fd (client: 5296dd) - returns rand()/RAND_MAX in [0,1)
 Item* __cdecl RollItemInPriceRange(CString category, int32_t min_price, int32_t max_price); // 549372 (client: 52d7df) - create item of given category in price range
-// 5498B8 - pick a random (shape, material, item_data_id) combo from an equip table, skipping empty shape/material slots
-void __cdecl RollItemDataId(CArray<WorldEquip>* table, int32_t* shape_id, int32_t* material_id, int32_t* item_data_id, int32_t min_id);
+// pick a random (shape, material, item_data_id) combo from an equip table, skipping empty shape/material slots
+void __cdecl RollItemDataId(CArray<WorldEquip>* table, int32_t* shape_id, int32_t* material_id, int32_t* item_data_id, int32_t min_id); // 5498b8 (client: 52dcaf)
 
-void __stdcall ShowRoleKeyDialog(const char* str); //41d723 (client: 41efa5)
+void __stdcall ShowRoleKeyDialog(const char* str); // 41d723 (client: 41efa5)
 
 
 
@@ -178,24 +176,24 @@ ASSERT_SIZE(ScenarioState, 0x1000);
 
 struct ScenarioLocation;
 
-int32_t __stdcall ScenarioGetVar(int32_t); //665a04 (client: 631474)
-void __stdcall ScenarioSetVar(int32_t, int32_t); //665a00 (client: 631470)
-void __stdcall ScenarioTalkTo(uint32_t); //665bd4 (client: 631644)
-void __stdcall ScenarioEnterLocation(ScenarioLocation* loc); //6659fc (client: 63146c)
-int32_t __stdcall ScenarioLeaveLocation(int32_t*); //6658c8 (client: 631338)
-int32_t __stdcall ScenarioEnterShop(); //665b0c (client: 63157c)
-void __stdcall ScenarioLeaveShop(); //665b08 (client: 631578)
-void __stdcall ScenarioEnterInn(int32_t*, int32_t*); //665be8 (client: 631658)
-void __stdcall ScenarioLeaveInn(); //6658f0 (client: 631360)
-void __stdcall ScenarioNewGame(); //6658cc (client: 63133c)
-void __stdcall ScenarioSave(CFile*); //6658d0 (client: 631340)
-void __stdcall ScenarioLoad(CFile*); //665bd8 (client: 631648)
-CList<ScenarioLocation*>* __stdcall ScenarioGetAvailableLocations(); //6658c4 (client: 631334)
-AssortGenParams* __stdcall ScenarioGetShopAssortment(); //665bdc (client: 63164c)
-int32_t __stdcall ScenarioIsTownAvailable(int32_t); //665cf4 (client: 631764)
-int32_t __stdcall ScenarioIsMissionAvailable(int32_t); //6659f8 (client: 631468)
-ScenarioLocation* __stdcall ScenarioGetCurrentLocation(); //6658f4 (client: 631364)
-CList<ScenarioLocation*>* __stdcall ScenarioGetAllLocations(); //665cf0 (client: 631760)
+int32_t __stdcall ScenarioGetVar(int32_t); // fnptr: 665a04 (client: 631474), scenario.dll: 10001cfd
+void __stdcall ScenarioSetVar(int32_t, int32_t); // fnptr: 665a00 (client: 631470), scenario.dll: 10001d0e
+void __stdcall ScenarioTalkTo(uint32_t); // fnptr: 665bd4 (client: 631644), scenario.dll: 100032c0
+void __stdcall ScenarioEnterLocation(ScenarioLocation* loc); // fnptr: 6659fc (client: 63146c), scenario.dll: 10001d22
+int32_t __stdcall ScenarioLeaveLocation(int32_t*); // fnptr: 6658c8 (client: 631338), scenario.dll: 10002806
+int32_t __stdcall ScenarioEnterShop(); // fnptr: 665b0c (client: 63157c), scenario.dll: 1000285f
+void __stdcall ScenarioLeaveShop(); // fnptr: 665b08 (client: 631578), scenario.dll: 10002866
+void __stdcall ScenarioEnterInn(int32_t*, int32_t*); // fnptr: 665be8 (client: 631658), scenario.dll: 1000286b
+void __stdcall ScenarioLeaveInn(); // fnptr: 6658f0 (client: 631360), scenario.dll: 100032bb
+void __stdcall ScenarioNewGame(); // fnptr: 6658cc (client: 63133c), scenario.dll: 100033be
+void __stdcall ScenarioSave(CFile*); // fnptr: 6658d0 (client: 631340), scenario.dll: 10003585
+void __stdcall ScenarioLoad(CFile*); // fnptr: 665bd8 (client: 631648), scenario.dll: 10003686
+CList<ScenarioLocation*>* __stdcall ScenarioGetAvailableLocations(); // fnptr: 6658c4 (client: 631334), scenario.dll: 100037de
+AssortGenParams* __stdcall ScenarioGetShopAssortment(); // fnptr: 665bdc (client: 63164c), scenario.dll: 100037e8
+int32_t __stdcall ScenarioIsTownAvailable(int32_t); // fnptr: 665cf4 (client: 631764), scenario.dll: 10003800
+int32_t __stdcall ScenarioIsMissionAvailable(int32_t); // fnptr: 6659f8 (client: 631468), scenario.dll: 10003871
+ScenarioLocation* __stdcall ScenarioGetCurrentLocation(); // fnptr: 6658f4 (client: 631364), scenario.dll: 100038c8
+CList<ScenarioLocation*>* __stdcall ScenarioGetAllLocations(); // fnptr: 665cf0 (client: 631760), scenario.dll: 100038d2
 
 
 

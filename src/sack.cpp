@@ -5,25 +5,25 @@ uint32_t BldIdSet_AllocBit();
 
 IMPLEMENT_SERIAL(Sack, Token, 1); // 637318
 
-// 553D5D
+// 553d5d (client: 534311)
 Sack::Sack() {
     this->inventory = new Inventory();
     this->Init();
 }
 
-// 553DF1
+// 553df1 (client: 5343a5)
 Sack::Sack(const TokenPos* pos) : Token(pos) {
     this->inventory = new Inventory();
     this->Init();
 }
 
-// 553E8B
+// 553e8b (client: 53443f)
 Sack::Sack(const TokenPos* pos, Inventory* inv) : Token(pos) {
     this->inventory = inv;
     this->Init();
 }
 
-// 553eee
+// 553eee (client: 5344a2)
 void Sack::Init() {
     this->money = 0;
     this->needs_save = 0;
@@ -36,7 +36,7 @@ void Sack::Init() {
     this->resend_mask = 0xFFFF;
 }
 
-// 55401E
+// 55401e (client: 5345b7)
 void Sack::CalcContentsValue() {
     this->_exp = this->money;
     for (POSITION pos = this->inventory->items.GetHeadPosition(); pos != nullptr;) {
@@ -45,14 +45,14 @@ void Sack::CalcContentsValue() {
     }
 }
 
-// 553F6A
+// 553f6a (client: 53451e)
 Sack::~Sack() {
     BldIdSet_Unset(this->building_id);
     delete this->inventory;
     this->inventory = nullptr;
 }
 
-// 55C889
+// 55c889 (client: 537600)
 void Sack::Serialize(CArchive& ar) {
     Token::Serialize(ar);
     if (ar.IsStoring()) {
@@ -63,10 +63,10 @@ void Sack::Serialize(CArchive& ar) {
     this->inventory->Serialize(ar);
 }
 
-// 57dd30
+// 57dd30 (client: 54ee70)
 void Sack::RegenTick() {
 }
 
-// 57dd40
+// 57dd40 (client: 54ee80)
 void Sack::ProcessEffects() {
 }

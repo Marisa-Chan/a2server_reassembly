@@ -6,14 +6,15 @@
 #endif
 
 
-void BuildingsList::RegenTick() { // 55817b
+// 55817b (client: 535e9e)
+void BuildingsList::RegenTick() {
     for (POSITION pos = GetHeadPosition(); pos != nullptr;) {
         Building* bld = GetNext(pos);
         bld->RegenTick();
     }
 }
 
-// 558055
+// 558055 (client: 535de3) - Find inn owned by given player
 Building* BuildingsList::FindPlayerInn(Player* player) {
     for (POSITION it = this->GetHeadPosition(); it != nullptr;) {
         Building* building = this->GetNext(it);
@@ -24,7 +25,7 @@ Building* BuildingsList::FindPlayerInn(Player* player) {
     return nullptr;
 }
 
-// 558128
+// 558128 (client: 535e4b) - Find building at exact position (adjusts pos by -1)
 Building* BuildingsList::FindNearby(TokenPos* pos) {
     TokenPos adjusted(pos->GetX() - 1, pos->GetY() - 1, MapStuff_Instance);
     return this->FindNearbyExact(&adjusted);
@@ -78,7 +79,7 @@ Inn* BuildingsList::FindNearestInn(TokenPos* pos) {
 }
 #endif
 
-// 557DB2
+// 557db2 (client: 535cc5) - Look up building by ID
 Building* BuildingsList::FindById(uint16_t id) {
     for (POSITION it = this->GetHeadPosition(); it != nullptr;) {
         Building* building = this->GetNext(it);
@@ -89,7 +90,7 @@ Building* BuildingsList::FindById(uint16_t id) {
     return nullptr;
 }
 
-// 557EA5
+// 557ea5 (client: 535d09) - Get nearest building at position
 Building* BuildingsList::FindNearbyExact(TokenPos* pos) {
     for (POSITION it = this->GetHeadPosition(); it != nullptr;) {
         Building* building = this->GetNext(it);
@@ -100,7 +101,7 @@ Building* BuildingsList::FindNearbyExact(TokenPos* pos) {
     return nullptr;
 }
 
-// 557F69
+// 557f69 (client: 535d62) - Find nearest building to position
 Building* BuildingsList::FindClosest(TokenPos* pos) {
     int32_t best_distance = 0x7FFF;
     Building* best_building = nullptr;
@@ -117,13 +118,13 @@ Building* BuildingsList::FindClosest(TokenPos* pos) {
     return best_building;
 }
 
-// 558228
+// 558228 (client: 535ee0) - AddTailAndSetID
 void BuildingsList::AddBuilding(Building* building) {
     this->AddTail(building);
     building->building_id = building->TokenID + 0x6000;
 }
 
-// 558908
+// 558908 (client: 5360fc) - Serialize
 void BuildingsList::Serialize(CArchive& ar) {
     if (ar.IsStoring()) {
         ar << this->GetCount();

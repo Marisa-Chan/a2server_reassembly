@@ -14,7 +14,7 @@
 #include "unit.h"
 #include "world.h"
 
-// 5BA8E0
+// 5ba8e0 (client: 5885e0)
 QuestInnGlue::QuestInnGlue(int32_t building_id, TokenPos* pos, World* world, int32_t max_dist) {
     this->building_id = building_id;
     this->position = pos;
@@ -22,11 +22,11 @@ QuestInnGlue::QuestInnGlue(int32_t building_id, TokenPos* pos, World* world, int
     this->max_dist = max_dist;
 }
 
-// 5BB350 / 5BB380
+// 5bb380 (client: 589080)
 QuestInnGlue::~QuestInnGlue() {
 }
 
-// 55F589
+// 55f589 (client: 5386f6)
 void QuestInnGlue::ProcessQuests() {
     POSITION pos = this->map.GetStartPosition();
     while (pos != nullptr) {
@@ -46,7 +46,7 @@ void QuestInnGlue::ProcessQuests() {
     }
 }
 
-// 5BA920
+// 5ba920 (client: 588620)
 void QuestInnGlue::ProcessEscortTarget(Quest* quest) {
     int32_t inn_id = quest->GetGlueParam();
     if (quest->target_object == 0) {
@@ -72,7 +72,7 @@ void QuestInnGlue::ProcessEscortTarget(Quest* quest) {
     this->quest_map->QueueEvent(Quest::EVENT_UNIT_REACHED_INN, inn_id, this->building_id << 16);
 }
 
-// 5BAA38
+// 5baa38 (client: 588738)
 void QuestInnGlue::ProcessDeliverItem(Quest* quest) {
     uint16_t item_type = (uint16_t)quest->GetGlueParam() | 0xE00;
     bool found = false;
@@ -106,7 +106,7 @@ void QuestInnGlue::ProcessDeliverItem(Quest* quest) {
     }
 }
 
-// 5BABAA
+// 5babaa (client: 5888aa)
 void QuestInnGlue::ProcessInterceptGroup(Quest* quest) {
     int32_t group_id = quest->GetGlueParam();
     bool found = false;
@@ -150,7 +150,7 @@ void QuestInnGlue::ProcessInterceptGroup(Quest* quest) {
     }
 }
 
-// 5BACFF
+// 5bacff (client: 5889ff)
 void QuestInnGlue::SpawnZombieMobs(Quest* quest) {
     const uint16_t mob_type_id = 0x52; // F_Zombie.1
 
@@ -204,7 +204,7 @@ void QuestInnGlue::SpawnZombieMobs(Quest* quest) {
     }
 }
 
-// 5BAF04
+// 5baf04 (client: 588c04)
 void QuestInnGlue::SpawnSkeletonMobs(Quest* quest) {
     const uint16_t mob_type_id = 0x59; // F_Skeleton.1
     
@@ -257,7 +257,7 @@ void QuestInnGlue::SpawnSkeletonMobs(Quest* quest) {
     this->quest_map->QueueEvent(Quest::EVENT_SKELETONS_RAISED, (hp_sum << 16) | count, (this->building_id << 16) | player_id);
 }
 
-// 5BB10A
+// 5bb10a (client: 588e0a)
 void QuestInnGlue::SpawnGhostMobs(Quest* quest) {
     const uint16_t mob_type_id = 0x45; // Ghost
 
@@ -311,12 +311,12 @@ void QuestInnGlue::SpawnGhostMobs(Quest* quest) {
     this->quest_map->QueueEvent(Quest::EVENT_GHOSTS_RAISED, (hp_sum << 16) | count, (this->building_id << 16) | player_id);
 }
 
-// 5BB310
+// 5bb310 (client: 589010)
 uint8_t QuestInnGlue::GetX() {
     return this->position->GetX();
 }
 
-// 5BB32B
+// 5bb32b (client: 58902b)
 uint8_t QuestInnGlue::GetY() {
     return this->position->GetY();
 }

@@ -19,7 +19,7 @@ public:
     void* TakeAdjacency(void* nodePoints); // 473b4a (client: 47789a)
 
     void LoadPathmap(); // 473508 (client: 477258)
-    void FreePathmap(); // 4735e2 (client: 42cab2)
+    void FreePathmap(); // 4735e2 (client: 477332)
     void BuildAdjacency(); // 47362d (client: 47737d)
     int32_t FloodFill(int32_t x, int32_t y, uint16_t mark, CArray<CPoint>* foundPoints); // 47391f (client: 47766f)
 
@@ -37,28 +37,28 @@ ASSERT_SIZE(GMapThing, 0x9602c);
 //60b760
 class VisGlobalMap : public VisScreen {
 public:
-    virtual ~VisGlobalMap(); // 473D70 (client: 477c20)
+    virtual ~VisGlobalMap(); // 47001b (client: 473d7b)
 
     virtual const char* GetHint() override; // 472729 (client: 476487)
-    virtual void VMethod7() override; // 4714E7 (client: 475245)
+    virtual void VMethod7() override; // 4714e7 (client: 475245)
     virtual void VMethod8(CRect* rect) override; // 471f08 (client: 475c66)
-    virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 472CC5 (client: 476a15)
-    virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 472D99 (client: 476ae9)
+    virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 472cc5 (client: 476a15)
+    virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 472d99 (client: 476ae9)
     virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 473038 (client: 476d88)
     virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 474f10 (client: 477c10)
     virtual int32_t OnRButtonDown(uint32_t wparam, CPoint pos) override; // 473077 (client: 476dc7)
     virtual int32_t OnRButtonUp(uint32_t wparam, CPoint pos) override; // 473175 (client: 476ec5)
-    virtual int32_t OnKeyDown(uint32_t wparam) override; // 4726E6 (client: 47642a)
-    virtual int32_t OnChar(uint32_t wparam) override; // 4726CC (client: 476444)
+    virtual int32_t OnKeyDown(uint32_t wparam) override; // 4726e6 (client: 47642a)
+    virtual int32_t OnChar(uint32_t wparam) override; // 4726cc (client: 476444)
 
-    virtual void VMethod26() override; // 47031D (client: 47407b)
-    virtual void VMethod28() override; // 47115D (client: 474ebb)
+    virtual void VMethod26() override; // 47031d (client: 47407b)
+    virtual void VMethod28() override; // 47115d (client: 474ebb)
     virtual void DoClose(uint32_t code) override; // 471367 (client: 4750c5)
 
-    void SetTravelOrigin(const CPoint& pt) { this->currentLocationPoint = pt; } //4972a0 (client: 4210f0)
+    void SetTravelOrigin(const CPoint& pt) { this->currentLocationPoint = pt; } // 4972a0 (client: 49a880)
 
-    void RebuildScenarioLocations(); //47024a (client: 473faa)
-    void PopulateScenarioLocationFlags(); //47025d (client: 473fbd)
+    void RebuildScenarioLocations(); // 47024a (client: 473faa)
+    void PopulateScenarioLocationFlags(); // 47025d (client: 473fbd)
     void ComputeTravelRoute(int32_t fromX, int32_t fromY, int32_t toX, int32_t toY); // 472820 (client: 47657e)
     void OnMapClick(); // 472dca (client: 476b1a)
     void UpdateHoveredLocation(CPoint pos); // 472d4b (client: 476a9b)
@@ -69,7 +69,7 @@ public:
     void FinishTravel(); // 472684 (client: 4763e2)
     void SearchRoute(uint16_t from, uint16_t to, GlobalMapRouteArray* route); // 472ada (client: 476832)
 
-    VisGlobalMap(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* btm = nullptr); // 46fd7b (client: 473adb) in asm
+    VisGlobalMap(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* btm = nullptr); // 46fd7b (client: 473adb)
 public:
     CBmp64* gmap; //0x68
     CBmp64* hero_bmp; //0x6c

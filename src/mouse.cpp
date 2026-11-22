@@ -16,8 +16,8 @@ CCursor* g_Cursors[28]; //665420
 //GetRuntimeClass 423b5f
 IMPLEMENT_DYNAMIC(CMousePointer, CObject);
 
+// 42693e (client: 42886c)
 CMousePointer::~CMousePointer() {
-    //42693e
     if (this->saved_screen_rect) {
         delete this->saved_screen_rect;
     }
@@ -41,8 +41,8 @@ CMousePointer::~CMousePointer() {
     }
 }
 
+// 4264eb (client: 428419)
 CMousePointer::CMousePointer() {
-    //4264eb
     this->cursor_sprite = nullptr;
     this->saved_screen_rect = nullptr;
     this->paint_call_count = 0;
@@ -75,8 +75,8 @@ CMousePointer::CMousePointer() {
     this->hint_enable = 0;
 }
 
+// 42709f (client: 428fcd)
 void CMousePointer::CheckHintValues() {
-    //42709f
     CString ht = this->hint_text;
     this->hint_lines = 1;
     this->hint_max_width = 0;
@@ -103,8 +103,8 @@ void CMousePointer::CheckHintValues() {
     }
 }
 
+// 426ce2 (client: 428c10)
 void CMousePointer::DrawToScreen() {
-    //426ce2
     uint32_t ts = timeGetTime();
     if (this->frame_delay < ts - this->frame_ts) {
         this->frame_ts = ts;
@@ -134,8 +134,8 @@ void CMousePointer::DrawToScreen() {
 #endif
 }
 
+// 426df7 (client: 428d25)
 void CMousePointer::EraseCursor() {
-    //426df7
     LockSurface1();
 #ifdef A2CLIENT_PATCH
     int32_t cx = this->x - this->x_offset;
@@ -151,16 +151,16 @@ void CMousePointer::EraseCursor() {
 #endif
 }
 
+// 4287d9 (client: 42a6f5)
 void CMousePointer::ForceDisableHint() {
-    //4287d9
     if (this->hint_state) {
         this->hint_state = 0;
         this->RepaintHint();
     }
 }
 
+// 426ca3 (client: 428bd1)
 void CMousePointer::Paint() {
-    //426ca3
     if (g_IsServer) {
         return;
     }
@@ -172,8 +172,8 @@ void CMousePointer::Paint() {
     this->paint_call_count++;
 }
 
+// 4282bb (client: 42a1e9)
 void CMousePointer::PaintHint() {
-    //4282bb
     CRect r = this->hint_rect;
     r.DeflateRect(1, 1, 1, 2);
 
@@ -216,8 +216,8 @@ void CMousePointer::PaintHint() {
     g_font2->DrawTextWithShadow(this->hint_rect.left + 5, this->hint_rect.top + 4 + line * 14, ht, CGameFont::ALIGN_LEFT_TOP, clrsh_LuxorGold, 1);
 }
 
+// 427e71 (client: 429d9f)
 void CMousePointer::PaintSelectFrame() {
-    //427e71
     if (this->select_frame_rect.Width() && this->select_frame_rect.Height()) {
         CRect r = this->select_frame_rect;
 
@@ -274,8 +274,8 @@ void CMousePointer::PaintSelectFrame() {
     }
 }
 
+// 426eb6 (client: 428de4)
 void CMousePointer::Repaint(CPoint point) {
-    //426eb6
 
     this->mouse_hint_time = 0;
     this->mouse_hint_ts = timeGetTime();
@@ -304,8 +304,8 @@ void CMousePointer::Repaint(CPoint point) {
     this->Paint();
 }
 
+// 428779 (client: 42a695)
 void CMousePointer::RepaintHint() {
-    //428779
     this->Unpaint();
     LockSurface1();
 
@@ -318,14 +318,14 @@ void CMousePointer::RepaintHint() {
     this->Paint();
 }
 
+// 42707e (client: 428fac)
 void CMousePointer::ResetNext400msg() {
-    //42707e
     this->user_msg_ts = timeGetTime();
     this->user_msg_delay = 150;
 }
 
+// 427e23 (client: 429d51)
 void CMousePointer::ResetStates() {
-    //427e23
     this->Unpaint();
     this->UnpaintSelectFrame();
     this->Paint();
@@ -335,8 +335,8 @@ void CMousePointer::ResetStates() {
     this->mouse_hint_ts = timeGetTime();
 }
 
+// 427912 (client: 429840)
 void CMousePointer::SaveScreenParts(const CRect& rect) {
-    //427912
     if (this->cursor_sprite && paint_call_count) {
         CRect tmp(this->x - this->x_offset, this->y - this->y_offset, (this->x - this->x_offset) + this->cursor_sprite->GetWidth(0), (this->y - this->y_offset) + this->cursor_sprite->GetHeight(0));
 
@@ -425,8 +425,8 @@ void CMousePointer::SaveScreenParts(const CRect& rect) {
     }
 }
 
+// 42751c (client: 42944a)
 void CMousePointer::SaveScreenParts2(const CRect& rect) {
-    //42751c
     if (this->cursor_sprite && paint_call_count) {
         CRect tmp(this->x - this->x_offset, this->y - this->y_offset, (this->x - this->x_offset) + this->cursor_sprite->GetWidth(0), (this->y - this->y_offset) + this->cursor_sprite->GetHeight(0));
 
@@ -490,8 +490,8 @@ void CMousePointer::SaveScreenParts2(const CRect& rect) {
     }
 }
 
+// 426aa5 (client: 4289d3)
 void CMousePointer::SetCursor(CSprite256* spr, int32_t off_x, int32_t off_y, int32_t count, int32_t delay) {
-    //426aa5
     if (g_IsServer) {
         return;
     }
@@ -521,8 +521,8 @@ void CMousePointer::SetCursor(CSprite256* spr, int32_t off_x, int32_t off_y, int
     this->Paint();
 }
 
+// 427db1 (client: 429cdf)
 void CMousePointer::StartSelect(const CPoint& point) {
-    //427db1
     this->select_frame_state = 1;
     this->select_frame_rect.SetRect(point, point);
 
@@ -535,8 +535,8 @@ void CMousePointer::StartSelect(const CPoint& point) {
     this->PaintSelectFrame();
     this->Paint();
 }
+// 426c64 (client: 428b92)
 void CMousePointer::Unpaint() {
-    //426c64
     if (g_IsServer) {
         return;
     }
@@ -548,8 +548,8 @@ void CMousePointer::Unpaint() {
     }
 }
 
+// 428051 (client: 429f7f)
 void CMousePointer::UnpaintSelectFrame() {
-    //428051
     if (this->select_frame_rect.Width() == 0 || this->select_frame_rect.Height() == 0) {
         return;
     }
@@ -605,8 +605,8 @@ void CMousePointer::UnpaintSelectFrame() {
 #endif
 }
 
+// 4271e6 (client: 429114)
 void CMousePointer::Update() {
-    //4271e6
     if (g_IsServer || GetLockCountSurf2()) {
         return;
     }
@@ -679,8 +679,8 @@ void CMousePointer::Update() {
     }
 }
 
+// 42819d (client: 42a0cb)
 void CMousePointer::UpdateHint() {
-    //42819d
     this->hint_rect.SetRect(this->x, this->y - 5 - this->hint_lines * 14, this->x + 11 + this->hint_max_width, this->y);
 
     if (this->hint_rect.right > g_ScreenSize.right) {
@@ -704,25 +704,32 @@ void CMousePointer::UpdateHint() {
 }
 
 
-void CMousePointer::DisableHint() { this->hint_enable = 0; } //438830
-void CMousePointer::EnableHint() { this->hint_enable = 1; } //438810
-CSprite256* CMousePointer::GetCursorSprite() { return this->cursor_sprite; } //438810
-CRect& CMousePointer::GetSelectFrame() { return this->select_frame_rect; } //41ed20
-int32_t CMousePointer::GetSelectState() { return this->select_frame_state; } //41ed00
-int32_t CMousePointer::GetX() { return this->x; } //41ecc0
-int32_t CMousePointer::GetY() { return this->y; } //41ece0
+// 438830 (client: 43aa60)
+void CMousePointer::DisableHint() { this->hint_enable = 0; }
+// 438810 (client: 43aa40)
+void CMousePointer::EnableHint() { this->hint_enable = 1; }
+// 41eca0 (client: 420820)
+CSprite256* CMousePointer::GetCursorSprite() { return this->cursor_sprite; }
+// 41ed20 (client: 4208a0)
+CRect& CMousePointer::GetSelectFrame() { return this->select_frame_rect; }
+// 41ed00 (client: 420880)
+int32_t CMousePointer::GetSelectState() { return this->select_frame_state; }
+// 41ecc0 (client: 420840)
+int32_t CMousePointer::GetX() { return this->x; }
+// 41ece0 (client: 420860)
+int32_t CMousePointer::GetY() { return this->y; }
 
 
+// 47cf99 (client: 480e53)
 CCursor::~CCursor() {
-    //47cf99
     if (this->sprite) {
         delete this->sprite;
     }
     this->sprite = nullptr;
 }
 
+// 47ce66 (client: 480d20)
 CCursor::CCursor(const char* fname, int32_t xof, int32_t yof, int32_t _delay) {
-    //47ce66
     if (strstr(fname, "16a") == nullptr) {
         this->sprite = new CSprite256(fname);
         this->sprite->ResetPalette(1, 1, 0);
@@ -737,15 +744,15 @@ CCursor::CCursor(const char* fname, int32_t xof, int32_t yof, int32_t _delay) {
     this->frames_count = this->sprite->GetFrameCount();
 }
 
+// 47d025 (client: 480edf)
 void CCursor::Use() {
-    //47d025
     g_mousept.SetCursor(this->sprite, this->x_off, this->y_off, this->frames_count, this->delay);
 }
 
 
 
+// 47d05d (client: 480f17)
 void LoadCursors() {
-    //47d05d
     g_mousept.Update();
 
     g_Cursors[0] = new CCursor("graphics\\cursors\\default\\sprites.16a", 4, 4, 2000000000);
@@ -782,15 +789,15 @@ void LoadCursors() {
     g_mousept.Update();
 }
 
+// 47daf0 (client: 4819aa)
 void DeleteCursors() {
-    //47daf0
     for (int i = 0; i < 28; i++) {
         delete g_Cursors[i];
     }
 }
 
+// 4750d0 (client: 477ed0)
 int __cdecl ApplyCursor(CCursor* cur) {
-    //4750d0
     if (!cur) {
         return 0;
     }

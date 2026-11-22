@@ -16,18 +16,18 @@ struct TokenPos;
 class BuildingsList : public CList<Building*> {
     // No fields.
 public:
-    Building* FindById(uint16_t id); // Look up building by ID (client: 535cc5)
-    Building* FindNearby(TokenPos* pos); // Find building at exact position (adjusts pos by -1) (client: 535e4b)
-    Building* FindNearbyExact(TokenPos* pos); // Get nearest building at position (client: 535d09)
-    Building* FindClosest(TokenPos* pos); // Find nearest building to position (client: 535d62)
-    Building* FindPlayerInn(Player* player); // Find inn owned by given player (client: 535de3)
-    void AddBuilding(Building* building); // AddTailAndSetID (client: 535ee0)
-    void Serialize(CArchive& ar); // Serialize (client: 5360fc)
+    Building* FindById(uint16_t id); // 557db2 (client: 535cc5) - Look up building by ID
+    Building* FindNearby(TokenPos* pos); // 558128 (client: 535e4b) - Find building at exact position (adjusts pos by -1)
+    Building* FindNearbyExact(TokenPos* pos); // 557ea5 (client: 535d09) - Get nearest building at position
+    Building* FindClosest(TokenPos* pos); // 557f69 (client: 535d62) - Find nearest building to position
+    Building* FindPlayerInn(Player* player); // 558055 (client: 535de3) - Find inn owned by given player
+    void AddBuilding(Building* building); // 558228 (client: 535ee0) - AddTailAndSetID
+    void Serialize(CArchive& ar); // 558908 (client: 5360fc) - Serialize
 #ifdef A2SERVER_PATCH
     Shop* FindNearestShop(TokenPos* pos); // Shop-only variant of FindNearby (see buildings_list.cpp)
     Inn* FindNearestInn(TokenPos* pos); // Inn-only variant of FindNearby (see buildings_list.cpp)
 #endif
 
-    void RegenTick(); //55817b (client: 535e9e)
+    void RegenTick(); // 55817b (client: 535e9e)
 };
 ASSERT_SIZE(BuildingsList, 0x1c);

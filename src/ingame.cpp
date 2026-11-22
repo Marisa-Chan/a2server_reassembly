@@ -61,25 +61,29 @@ CStringArray g_WwwServerList; // 666a00
 
 
 
-GfxFile::GfxFile(const char* _fname) { //47ae53
+// 47ae53 (client: 47ed0d)
+GfxFile::GfxFile(const char* _fname) {
     this->spr = nullptr;
     this->spr_b = nullptr;
     this->fname = CString("graphics\\objects\\") + _fname;
     this->inited = 0;
 }
 
-GfxFile::~GfxFile() { //47aed9
+// 47aed9 (client: 47ed93)
+GfxFile::~GfxFile() {
     this->Deinit();
 }
 
-void GfxFile::Init() { // 47af39
+// 47af39 (client: 47edf3)
+void GfxFile::Init() {
     this->spr = new CSprite256(this->fname + ".256");
     this->spr_b = new CSprite256(this->fname + "b.256");
     this->spr->ResetPalette(0x10, 2, 1);
     this->inited = 1;
 }
 
-void GfxFile::Deinit() { //47b0ab
+// 47b0ab (client: 47ef65)
+void GfxFile::Deinit() {
     if (this->inited) {
         if (this->spr) {
             delete this->spr;
@@ -93,14 +97,16 @@ void GfxFile::Deinit() { //47b0ab
     }
 }
 
-CSprite256* GfxFile::GetSprite() { //41f870
+// 41f870 (client: 420720)
+CSprite256* GfxFile::GetSprite() {
     if (this->inited == 0) {
         this->Init();
     }
     return this->spr;
 }
 
-CSprite256* GfxFile::GetSpriteB() { //41f8a0
+// 41f8a0 (client: 420750)
+CSprite256* GfxFile::GetSpriteB() {
     if (this->inited == 0) {
         this->Init();
     }
@@ -108,25 +114,29 @@ CSprite256* GfxFile::GetSpriteB() { //41f8a0
 }
 
 
-UnitGfxFile::UnitGfxFile(const char* _fname) { //47c85d
+// 47c85d (client: 480717)
+UnitGfxFile::UnitGfxFile(const char* _fname) {
     this->spr = nullptr;
     this->spr_b = nullptr;
     this->fname = CString("graphics\\units\\") + _fname;
     this->inited = 0;
 }
 
-UnitGfxFile::~UnitGfxFile() { //47c8e3
+// 47c8e3 (client: 48079d)
+UnitGfxFile::~UnitGfxFile() {
     this->Deinit();
 }
 
-void UnitGfxFile::Init() { // 47c943
+// 47c943 (client: 4807fd)
+void UnitGfxFile::Init() {
     this->spr = new CSprite256(this->fname + ".256");
     this->spr_b = new CSprite256(this->fname + "b.256");
     this->spr->ResetPalette(0x10, 2, 1);
     this->inited = 1;
 }
 
-void UnitGfxFile::Deinit() { //47caa4
+// 47caa4 (client: 48095e)
+void UnitGfxFile::Deinit() {
     if (this->inited) {
         if (this->spr) {
             delete this->spr;
@@ -140,21 +150,24 @@ void UnitGfxFile::Deinit() { //47caa4
     }
 }
 
-CSprite256* UnitGfxFile::GetSprite() { //46f700
+// 46f700 (client: 473090)
+CSprite256* UnitGfxFile::GetSprite() {
     if (this->inited == 0) {
         this->Init();
     }
     return this->spr;
 }
 
-CSprite256* UnitGfxFile::GetSpriteB() { //46f730
+// 46f730 (client: 4730c0)
+CSprite256* UnitGfxFile::GetSpriteB() {
     if (this->inited == 0) {
         this->Init();
     }
     return this->spr_b;
 }
 
-CGamePalette* UnitVFXUnfo::GetPalette(int32_t idx) { //46f680
+// 46f680 (client: 473010)
+CGamePalette* UnitVFXUnfo::GetPalette(int32_t idx) {
     uint16_t* pal = this->palettes[idx]->GetPalette(0);
     if (pal == nullptr) {
         this->palettes[idx]->SetPalette((RGBQUAD*)this->palette_datas[idx], 0x10, 2, 1);
@@ -162,18 +175,21 @@ CGamePalette* UnitVFXUnfo::GetPalette(int32_t idx) { //46f680
     return this->palettes[idx];
 }
 
-uint8_t* UnitVFXUnfo::GetPaletteData(int32_t idx) { //46f6e0
+// 46f6e0 (client: 473070)
+uint8_t* UnitVFXUnfo::GetPaletteData(int32_t idx) {
     return this->palette_datas[idx];
 }
 
 
-StructureInfo::StructureInfo(const char* _fname) { //47eca2
+// 47eca2 (client: 482b5c)
+StructureInfo::StructureInfo(const char* _fname) {
     this->inited = 0;
     this->fname = CString("graphics\\structures\\") + _fname;
 }
 
 
-StructureInfo::~StructureInfo() { //47ed4e
+// 47ed4e (client: 482c08)
+StructureInfo::~StructureInfo() {
     this->Deinit();
     if (this->anim_mask) {
         delete[] this->anim_mask;
@@ -182,7 +198,8 @@ StructureInfo::~StructureInfo() { //47ed4e
 }
 
 
-void StructureInfo::Init() { //47edd8
+// 47edd8 (client: 482c92)
+void StructureInfo::Init() {
     this->spr = new CSprite256(this->fname + ".256");
     this->spr_b = new CSprite256(this->fname + "b.256");
     this->spr->ResetPalette(0x10, 2, 1);
@@ -190,7 +207,8 @@ void StructureInfo::Init() { //47edd8
 }
 
 
-void StructureInfo::Deinit() { //47ef52
+// 47ef52 (client: 482e0c)
+void StructureInfo::Deinit() {
     if (this->inited) {
         if (this->spr) {
             delete this->spr;
@@ -204,14 +222,16 @@ void StructureInfo::Deinit() { //47ef52
     }
 }
 
-CSprite256* StructureInfo::GetSprite() { //46f790
+// 46f790 (client: 472e00)
+CSprite256* StructureInfo::GetSprite() {
     if (this->inited == 0) {
         this->Init();
     }
     return this->spr;
 }
 
-CSprite256* StructureInfo::GetSpriteB() { //46f7c0
+// 46f7c0 (client: 472e30)
+CSprite256* StructureInfo::GetSpriteB() {
     if (this->inited == 0) {
         this->Init();
     }
@@ -219,18 +239,21 @@ CSprite256* StructureInfo::GetSpriteB() { //46f7c0
 }
 
 
-ProjectileInfo::ProjectileInfo(const char* fname, int32_t _a16) { //47e1ec
+// 47e1ec (client: 4820a6)
+ProjectileInfo::ProjectileInfo(const char* fname, int32_t _a16) {
     this->a16 = _a16;
     this->filename = fname;
     this->inited = 0;
 }
 
-ProjectileInfo::~ProjectileInfo() { //47e50b
+// 47e50b (client: 4823c5)
+ProjectileInfo::~ProjectileInfo() {
     this->Deinit();
 }
 
 
-void ProjectileInfo::Init() { //47e26b
+// 47e26b (client: 482125)
+void ProjectileInfo::Init() {
     if (this->inited) {
         return;
     }
@@ -256,7 +279,8 @@ void ProjectileInfo::Init() { //47e26b
     this->inited = 1;
 }
 
-void ProjectileInfo::Deinit() { //47e56b
+// 47e56b (client: 482425)
+void ProjectileInfo::Deinit() {
     if (!this->inited) {
         return;
     }
@@ -274,14 +298,16 @@ void ProjectileInfo::Deinit() { //47e56b
     this->inited = 0;
 }
 
-CSprite256* ProjectileInfo::GetSprite() { //41f8f0
+// 41f8f0 (client: 420780)
+CSprite256* ProjectileInfo::GetSprite() {
     if (this->inited == 0) {
         this->Init();
     }
     return this->sprite1;
 }
 
-CSprite256* ProjectileInfo::GetSpriteB() { //46f760
+// 46f760 (client: 473240)
+CSprite256* ProjectileInfo::GetSpriteB() {
     if (this->inited == 0) {
         this->Init();
     }

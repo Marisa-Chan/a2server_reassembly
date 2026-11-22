@@ -32,7 +32,8 @@
 
 // HatBrowserProgress implementation (struct declared in net.h)
 
-HatBrowserProgress::HatBrowserProgress() { //4b18c0
+// server: none (client: 4b18c0)
+HatBrowserProgress::HatBrowserProgress() {
     recv_addr_len = sizeof(send_addr);
     timeout = 1000;
     addr.S_un.S_addr = 0;
@@ -66,6 +67,7 @@ HatBrowserProgress::HatBrowserProgress() { //4b18c0
     }
 }
 
+// server: none (client: 4b1a22)
 HatBrowserProgress::~HatBrowserProgress() {
     if (wsa_started != 0) {
         if (sock != INVALID_SOCKET)
@@ -76,7 +78,8 @@ HatBrowserProgress::~HatBrowserProgress() {
 }
 
 
-void HatBrowserProgress::Init(const char* hst) { //4b1a9b
+// server: none (client: 4b1a9b) - resolve host, open the ICMP socket, arm the session
+void HatBrowserProgress::Init(const char* hst) {
     if (wsa_started == 0)
         return;
 
@@ -153,7 +156,8 @@ void HatBrowserProgress::Init(const char* hst) { //4b1a9b
 }
 
 
-void HatBrowserProgress::PingServer() { //4b1dbb
+// server: none (client: 4b1dbb) - send one ICMP echo and read the reply
+void HatBrowserProgress::PingServer() {
     if (active == 0)
         return;
 
@@ -222,11 +226,12 @@ void HatBrowserProgress::PingServer() { //4b1dbb
     LeaveCriticalSection(&cs);
 }
 
-int32_t HatBrowserProgress::GetPingError() { //453df0
+// server: none (client: 453df0) - returns error
+int32_t HatBrowserProgress::GetPingError() {
     return error;
 }
 
-// 44b460
+// 44b460 (client: 44db8d)
 int32_t VisHatBrowserList::IsItemEnabled(int32_t idx) {
     if (this->state == 0) {
         return 0;
@@ -284,17 +289,17 @@ int32_t VisHatBrowserList::IsItemEnabled(int32_t idx) {
     return players != 16 ? 1 : 0;
 }
 
-// 44ff20
+// 44ff20 (client: 453f60)
 VisHatBrowserList::VisHatBrowserList(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _scrollid, const char* hint)
 : VisListBox(_id, l, t, r, b, _font, _clr1, _clr2, _scrollid, hint) {
     this->state = -1;
 }
 
-// 44ffb0
+// 44ffb0 (client: 453ff0)
 VisHatBrowserList::~VisHatBrowserList() {
 }
 
-// 44b60c
+// 44b60c (client: 44dd68)
 void VisHatBrowserList::DrawItem(int32_t idx, CPoint pos, uint16_t* clr) {
     if (this->state == 0 && idx == 0) {
         this->font->DrawTextWithShadow(pos.x + 5, pos.y, txt_patch.GetLine(0x71), CGameFont::ALIGN_LEFT_TOP, clrsh_ShockingBlack, 1);
@@ -360,8 +365,7 @@ void VisHatBrowserList::DrawItem(int32_t idx, CPoint pos, uint16_t* clr) {
 }
 
 
-// 44bc6c
-// client: 44e774
+// 44bc6c (client: 44e774)
 void VisHatBrowserDlg::VMethod26() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
@@ -475,8 +479,7 @@ void VisHatBrowserDlg::VMethod26() {
     refresh_btn->SetLeftObj(this->FindChild(0x15));
 }
 
-// 44c1a9
-// client: 44f11d
+// 44c1a9 (client: 44f11d)
 int32_t VisHatBrowserDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
@@ -654,7 +657,7 @@ int32_t VisHatBrowserDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam
     }
 }
 
-// 44bc35
+// 44bc35 (client: 44e568)
 VisHatBrowserDlg::VisHatBrowserDlg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
     : VisWindow(_id, l, t, r, b, nullptr) {
 
@@ -673,20 +676,20 @@ VisHatBrowserDlg::VisHatBrowserDlg(int32_t _id, int32_t l, int32_t t, int32_t r,
 }
 
 #ifdef A2CLIENT
-// client: 4527dd
+// server: none (client: 4527dd)
 HatPlayerListWindow::HatPlayerListWindow(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const void* _payload, int32_t _mode)
     : VisMessageBox(_id, l, t, r, b, _payload, nullptr, 0, txt_patch.GetLine(_mode + 0xd1)) {
     this->mode = _mode;
 }
 
-// client: 452837
+// server: none (client: 452837) - (deleting dtor 454940)
 HatPlayerListWindow::~HatPlayerListWindow() {
     // retail writes MainWindow+0x634 - the client layout's shutdown_pending
     // slot, repurposed as the hat player-list visibility flag
     ((MainWindow*)AfxGetMainWnd())->shutdown_pending = 0;
 }
 
-// client: 452a02
+// server: none (client: 452a02)
 int32_t HatPlayerListWindow::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     if (msg == VIS_MSG_HIDE_SCREEN && this->mode != 0) {
         MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
@@ -695,7 +698,7 @@ int32_t HatPlayerListWindow::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lpa
     return VisMessageBox::MsgProc(msg, wparam, lparam);
 }
 
-// client: 452897
+// server: none (client: 452897)
 CVisualObject* HatPlayerListWindow::VMethod30(const void* payload, const RECT& r) {
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
     // hat player-list visibility flag (client MainWindow+0x634, see dtor above)
@@ -717,16 +720,16 @@ CVisualObject* HatPlayerListWindow::VMethod30(const void* payload, const RECT& r
     return list;
 }
 
-// client: 454970
+// server: none (client: 454970)
 HatPlayerScoreList::HatPlayerScoreList(int32_t _id, const RECT& r, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _scrollid, const char* hint)
     : VisListBox(_id, r, _font, _clr1, _clr2, _scrollid, hint) {
 }
 
-// client: 454a20
+// server: none (client: 454a20) - (deleting dtor 4549f0)
 HatPlayerScoreList::~HatPlayerScoreList() {
 }
 
-// client: 45265b
+// server: none (client: 45265b)
 void HatPlayerScoreList::DrawItem(int32_t idx, CPoint pos, uint16_t* clr) {
     (void)clr;
     if (!this->IsValidIndex(idx)) {
@@ -747,11 +750,12 @@ void HatPlayerScoreList::DrawItem(int32_t idx, CPoint pos, uint16_t* clr) {
 }
 #endif
 
-// 44fed0
+// 44ff00 (client: 44e6a3)
 VisHatBrowserDlg::~VisHatBrowserDlg() {
 }
 
-UINT __cdecl VisHatBrowserDlg::ThreadProc(void* pv) { //44e391
+// server: none (client: 44e391)
+UINT __cdecl VisHatBrowserDlg::ThreadProc(void* pv) {
     VisHatBrowserDlg* dlg = (VisHatBrowserDlg*)pv;
     // Cache the event handles: once the thread acks, the dialog (and these
     // members) may be destroyed while we are still parked in the wait below.
@@ -796,8 +800,7 @@ UINT __cdecl VisHatBrowserDlg::ThreadProc(void* pv) { //44e391
 
 
 
-// 44A140
-// client: 44c815
+// 44a140 (client: 44c815)
 void VisHatServerListDlg::VMethod31(int32_t code) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     if (code == VIS_MSG_HIDE_SCREEN) {
@@ -845,7 +848,7 @@ void VisHatServerListDlg::VMethod31(int32_t code) {
     }
 }
 
-// 44A8A8
+// 44a8a8 (client: 44cfd5)
 int32_t VisHatServerListDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     if (msg != VIS_MSG_SET_OPTION) {
         return VisMessageBox::MsgProc(msg, wparam, lparam);
@@ -877,8 +880,7 @@ int32_t VisHatServerListDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lpa
     return 1;
 }
 
-// 44A34D
-// client: 44ca33
+// 44a34d (client: 44ca33)
 CVisualObject* VisHatServerListDlg::VMethod30(const void* data, const RECT& r) {
     HatSettings* hat = (HatSettings*)data;
     // the client lays out everything below the ip box 0x18 lower
@@ -1002,21 +1004,23 @@ CVisualObject* VisHatServerListDlg::VMethod30(const void* data, const RECT& r) {
     return password_box;
 }
 
-// 44A0E2
+// 44a0e2 (client: 44c7b7)
 VisHatServerListDlg::VisHatServerListDlg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, HatSettings* hat)
     : VisMessageBox(_id, l, t, r, b, hat, txt_patch.GetLine(0x67), 1, txt_patch.GetLine(0x66)) {
     this->hat_settings = hat;
 }
 
-// 44FD90
+// 44fd90 (client: 453c90)
 VisHatServerListDlg::~VisHatServerListDlg() {
 }
 
 #ifdef A2CLIENT
+// server: none (client: 4e850e)
 VisHatSession::VisHatSession(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
-: VisScreen(_id, l, t, r, b, nullptr) {} //4e850e
+: VisScreen(_id, l, t, r, b, nullptr) {}
 
-void VisHatSession::VMethod7() { // 4e8545
+// server: none (client: 4e8545)
+void VisHatSession::VMethod7() {
     CDWordArray scores;
     CDWordArray colors;
     CStringArray names;

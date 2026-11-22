@@ -106,10 +106,9 @@ struct PlayerFileSectionHeader {
 //  Server side: `ParsePlayerFile` (4f62e6),
 //  Hat side: `CCharacter::SaveToStream`.
 
-void __cdecl DecryptEncryptedData(uint8_t* data, int32_t size, uint16_t key); //4f535e (client: 4f68dd)
-uint32_t __cdecl CalcChecksum(uint8_t* data, int32_t size); //4f5308 (client: 4f6887)
+void __cdecl DecryptEncryptedData(uint8_t* data, int32_t size, uint16_t key); // 4f535e (client: 4f68dd)
+uint32_t __cdecl CalcChecksum(uint8_t* data, int32_t size); // 4f5308 (client: 4f6887)
 
-// 4f62e6
 int32_t __cdecl ParsePlayerFile(
     CFile* file,
     FileSectionBasicInfo** basic_info,
@@ -119,9 +118,8 @@ int32_t __cdecl ParsePlayerFile(
     PacketUnitStateVec** inventory,
     uint8_t** section_40a,
     uint32_t* size_40a
-);
+); // 4f62e6 (client: 4f7585)
 
-// 4f53ea
 int32_t __cdecl WritePlayerFile(
     const char* filename,
     FileSectionBasicInfo* basic_info,
@@ -131,7 +129,7 @@ int32_t __cdecl WritePlayerFile(
     PacketUnitStateVec* inv_pkt,
     uint8_t* section_40a,
     uint32_t size_40a
-);
+); // 4f53ea (client: 4f6969)
 
 // Stats section from the most recent ParsePlayerFile call (the static buffer the
 // retail client parses into, 0x6995a8 twin). Read by the Tangar client patch.

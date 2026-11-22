@@ -65,7 +65,7 @@ extern SessionError g_GameStatusCode; //660f8c
 
 
 
-void SaveSettings(); //441b1e (client: 4440ed)
+void SaveSettings(); // 441b1e (client: 4440ed)
 
 enum SessionMode : int32_t {
     SESSION_SINGLEPLAYER = 0, // no network session (also the reset value on teardown)
@@ -178,30 +178,30 @@ enum MainMsg : uint32_t {
 
 class CListBox2 : public CListBox {
 public:
-    CListBox2();  // client: 499b5c
-    ~CListBox2();  // client: 406f89
+    CListBox2(); // 495033 (client: 499b5c)
+    ~CListBox2(); // 495052 (client: 499b7b)
 
-    virtual const AFX_MSGMAP* GetMessageMap() const override;
+    virtual const AFX_MSGMAP* GetMessageMap() const override; // 49506e (client: 499b97)
 
     static const AFX_MSGMAP_ENTRY _messageEntries[];
     static AFX_DATA const AFX_MSGMAP messageMap;
 
-    void OnKeyDown(UINT, UINT, UINT);
-    void OnLButtonDblClk(UINT, CPoint);
+    void OnKeyDown(UINT, UINT, UINT); // 49507e (client: 499ba7)
+    void OnLButtonDblClk(UINT, CPoint); // 49509f (client: 499bc8)
 };
 
 
 class CEdit2 : public CEdit {
 public:
-    CEdit2();
-    ~CEdit2();
+    CEdit2(); // 494ec0 (client: 499a1b)
+    ~CEdit2(); // 494edf (client: 499a3a)
 
-    virtual const AFX_MSGMAP* GetMessageMap() const override;
+    virtual const AFX_MSGMAP* GetMessageMap() const override; // 494efb (client: 499a56)
 
     static const AFX_MSGMAP_ENTRY _messageEntries[];
     static AFX_DATA const AFX_MSGMAP messageMap;
 
-    void OnKeyDown(UINT, UINT, UINT);
+    void OnKeyDown(UINT, UINT, UINT); // 494f0b (client: 499a66)
 };
 
 
@@ -224,21 +224,21 @@ struct UserShortcut {
     uint32_t mods_size;
     uint8_t* mods;
 
-    UserShortcut(); //4971a0 (client: 49ac10)
-    ~UserShortcut(); //41e493 (client: 41fd13)
+    UserShortcut(); // 4971a0 (client: 49ac10)
+    ~UserShortcut(); // 41e493 (client: 41fd13)
 
-    void SetNull(); //4971c0 (client: 49ac30)
-    int ToBuffer(uint8_t** buf); //41e5ed (client: 41fe6d)
+    void SetNull(); // 4971c0 (client: 49ac30)
+    int ToBuffer(uint8_t** buf); // 41e5ed (client: 41fe6d)
 
-    void SetSpell(short spell_id); //41e323 (client: 41fba5) in asm
-    int32_t IsSpellShortcut(short spell_id); //41e456 (client: 41fcd6) in asm
-    int32_t MatchesItem(TokenEntry* entry); //41e3af (client: 41fc31) in asm
-    void SetItem(TokenEntry* entry); //41e343 (client: 41fbc5) in asm
+    void SetSpell(short spell_id); // 41e323 (client: 41fba5)
+    int32_t IsSpellShortcut(short spell_id); // 41e456 (client: 41fcd6)
+    int32_t MatchesItem(TokenEntry* entry); // 41e3af (client: 41fc31)
+    void SetItem(TokenEntry* entry); // 41e343 (client: 41fbc5)
 
-    void WriteToFile(CFile* f); //41e4d3 (client: 41fd53)
-    void ReadFromFile(CFile* f); //41e53b (client: 41fdbb)
+    void WriteToFile(CFile* f); // 41e4d3 (client: 41fd53)
+    void ReadFromFile(CFile* f); // 41e53b (client: 41fdbb)
 
-    void LoadFromBuffer(uint8_t** buf); //41e689 (client: 41ff09)
+    void LoadFromBuffer(uint8_t** buf); // 41e689 (client: 41ff09)
 };
 
 
@@ -246,32 +246,32 @@ struct UserShortcut {
 //60c2a8
 class CGameSession : public CObject {
 public:
-    CGameSession(); //49248a (client: 496cd5)
-    ~CGameSession(); //4960f0 (client: 49a430)
+    CGameSession(); // 49248a (client: 496cd5)
+    ~CGameSession(); // 4960f0 (client: 49a430)
 
-    int32_t GetStringArray1Size(); //438d10 (client: 4206e0)
-    void DeleteSelectedCharacter(); //493cd8 (client: 4973a4)
-    void LoadCharacterRosterEntry(int32_t idx);  //492c66 (client: 497585)
-    void AutosaveCharacter(); //4946e0 (client: 4991ec)
-    void AutosaveTick(); //4946ae (client: 49918c)
+    int32_t GetStringArray1Size(); // 438d10 (client: 43aaf0)
+    void DeleteSelectedCharacter(); // 493cd8 (client: 4973a4)
+    void LoadCharacterRosterEntry(int32_t idx); // 492c66 (client: 497585)
+    void AutosaveCharacter(); // 4946e0 (client: 4991ec)
+    void AutosaveTick(); // 4946ae (client: 49918c)
 
-    CString GetSelectedRosterPath(); //420070 (client: 420ca0)
-    void SaveKillStats(); //494982 (client: 4994b7)
+    CString GetSelectedRosterPath(); // 420070 (client: 420ca0)
+    void SaveKillStats(); // 494982 (client: 4994b7)
 
-    int32_t GetSkillTier2() { return this->skill_tier2; }; //420110 (client: 401780)
-    int32_t GetSkillTier1() { return this->skill_tier1; }; //4200f0 (client: 401780)
+    int32_t GetSkillTier2() { return this->skill_tier2; }; // 420110 (client: 420b50)
+    int32_t GetSkillTier1() { return this->skill_tier1; }; // 4200f0 (client: 420b30)
 
-    int SubmitCharacterSetupAndWaitForSelectedUnit(); //493ffe (client: 498ac8)
-    void ResetCharacter(); //493d8d (client: 498857)
-    void ResetUnitClass(); //494687 (client: 499165)
-    void RecreateCUnit(); //4941c0 (client: 498ca1)
-    void SetCharacterStats(int32_t body, int32_t reaction, int32_t mind, int32_t spirit, int32_t main_sphere); //494148 (client: 498c2a) in asm
+    int SubmitCharacterSetupAndWaitForSelectedUnit(); // 493ffe (client: 498ac8)
+    void ResetCharacter(); // 493d8d (client: 498857)
+    void ResetUnitClass(); // 494687 (client: 499165)
+    void RecreateCUnit(); // 4941c0 (client: 498ca1)
+    void SetCharacterStats(int32_t body, int32_t reaction, int32_t mind, int32_t spirit, int32_t main_sphere); // 494148 (client: 498c2a)
 
 
-    void RefreshCharacterRosterFiles(int val); //49265a (client: 496eb6)
-    void InitializeNewCharacterSession(int tp, const char* name); //493ab6 (client: 498483)
-    void SetNameAndColor(char* name); //49381c in asm
-    void SaveShortcuts(); //4948b2 (client: 4993e7) in asm
+    void RefreshCharacterRosterFiles(int val); // 49265a (client: 496eb6)
+    void InitializeNewCharacterSession(int tp, const char* name); // 493ab6 (client: 498483)
+    void SetNameAndColor(char* name); // 49381c (client: 498167)
+    void SaveShortcuts(); // 4948b2 (client: 4993e7)
 public:
     int32_t gap_0x4 = 0;
     int32_t sessionKeyPart1 = 0;
@@ -331,8 +331,8 @@ struct PhoneBook {
     CString dial;
     CStringArray phones;
 
-    void Load(HKEY& rkey); //43ce7d (client: 43f28d)
-    void Save(HKEY& rkey); //43cf29 (client: 43f339)
+    void Load(HKEY& rkey); // 43ce7d (client: 43f28d)
+    void Save(HKEY& rkey); // 43cf29 (client: 43f339)
 };
 ASSERT_SIZE(PhoneBook, 0x1c);
 
@@ -348,8 +348,8 @@ struct HatSettings {
 #endif
     int32_t store;
 
-    void Load(HKEY& rkey); //43d249 (client: 43f65a)
-    void Save(HKEY& rkey); //43d51b (client: 43f95c)
+    void Load(HKEY& rkey); // 43d249 (client: 43f65a)
+    void Save(HKEY& rkey); // 43d51b (client: 43f95c)
 };
 #ifdef A2CLIENT
 ASSERT_SIZE(HatSettings, 0x20); // retail Load 43f65a/Save 43f95c: team@0x18, store@0x1c
@@ -374,9 +374,9 @@ struct DiplomacyEntry {
     int32_t see = 0;
     int32_t mute = 0;
 
-    DiplomacyEntry() = default;  // client: 448117
-    DiplomacyEntry(const char* _name, int e, int a, int s, int m); //445a46 (client: 448117) in asm
-    ~DiplomacyEntry();  // client: 44817a
+    DiplomacyEntry() = default; // C++ default ctor
+    DiplomacyEntry(const char* _name, int e, int a, int s, int m); // 445a46 (client: 448117)
+    ~DiplomacyEntry(); // 445aa9 (client: 44817a)
 
 };
 ASSERT_SIZE(DiplomacyEntry, 0x14);
@@ -411,30 +411,30 @@ public:
     CString str_27c;     // 0x27c
 
 public:
-    ServerControlDialog(CWnd* parent_window); // 4951bd (client: 496cd5)
+    ServerControlDialog(CWnd* parent_window); // 4951bd (client: 499ca2)
 
     // VTable at 60C458.
-    virtual ~ServerControlDialog() override; // 496900 (client: 540f70)
-    virtual const AFX_MSGMAP* GetMessageMap() const override; // 495429 (client: 499a56)
+    virtual ~ServerControlDialog() override; // 496900 (client: 49ae70)
+    virtual const AFX_MSGMAP* GetMessageMap() const override; // 495429 (client: 499ce2)
 protected:
-    virtual void DoDataExchange(CDataExchange* pDX) override; // 4952fa
+    virtual void DoDataExchange(CDataExchange* pDX) override; // 4952fa (client: 499cc9)
 
 public:
-    void UpdateControlStates(); // 49585B — update control states.
+    void UpdateControlStates(); // 49585b (client: none) - update control states.
 
     static const AFX_MSGMAP_ENTRY _messageEntries[];
     static AFX_DATA const AFX_MSGMAP messageMap;
 
     // Message handlers
-    void OnDestroy(); // 495439 — ON_WM_DESTROY
-    void OnCommand3f5(); // 49544C (client: 499d05) — ON_COMMAND 0x3f5
-    void OnCommand3f6(); // 49549B (client: 499d2f) — ON_COMMAND 0x3f6
-    void OnCommandUnknown(); // 4954EA
-    void OnClose(); // 4956D5 (client: 499ec7) — ON_WM_CLOSE
-    void OnCommand3ff(); // 495774 — ON_COMMAND 0x3ff
-    void OnCommand3f7(); // 4957AD — ON_COMMAND 0x3f7
-    void OnCommand3fb(); // 4957E2 — ON_COMMAND 0x3fb
-    void OnCommand3fe(); // 49583E — ON_COMMAND 0x3fe
+    void OnDestroy(); // 495439 (client: 499cf2) - ON_WM_DESTROY
+    void OnCommand3f5(); // 49544c (client: 499d05) - ON_COMMAND 0x3f5
+    void OnCommand3f6(); // 49549b (client: 499d2f) - ON_COMMAND 0x3f6
+    void OnCommandUnknown(); // 4954ea (client: 499d59)
+    void OnClose(); // 4956d5 (client: 499ec7) - ON_WM_CLOSE
+    void OnCommand3ff(); // 495774 (client: none) - ON_COMMAND 0x3ff
+    void OnCommand3f7(); // 4957ad (client: none) - ON_COMMAND 0x3f7
+    void OnCommand3fb(); // 4957e2 (client: none) - ON_COMMAND 0x3fb
+    void OnCommand3fe(); // 49583e (client: none) - ON_COMMAND 0x3fe
 };
 
 // binary 0x280 = VC6 CDialog base 0x5c + 9 controls (0x3c each) + 2 CStrings;
@@ -454,141 +454,141 @@ class MainWindow : public CFrameWnd {
     static AFX_DATA const AFX_MSGMAP messageMap;
 
 public: // VTable at 0060c1a8.
-    virtual const AFX_MSGMAP* GetMessageMap() const override; //483d54 (client: 4879f0)
+    virtual const AFX_MSGMAP* GetMessageMap() const override; // 483d54 (client: 4879f0)
     virtual LRESULT WindowProc(UINT message, WPARAM wParam, LPARAM lParam) override; // 486c6c (client: 48a969)
 
     MainWindow(); // 4837e1 (client: 48750d)
     virtual ~MainWindow(); // 4961b0 (client: 49a500)
 
-    void CreateUI(); //484ab0 (client: 48874a)
-    void LoadData(); //483d64 (client: 487a00)
-    void LoadSettings(); //441a03 (client: 443fd2)
+    void CreateUI(); // 484ab0 (client: 48874a)
+    void LoadData(); // 483d64 (client: 487a00)
+    void LoadSettings(); // 441a03 (client: 443fd2)
 
-    void RemoteGameIdle(); //48acac (client: 48eb54)
-    void SingleGameTimedIdle(); //48a543 (client: 48e7d0)
-    void SingleGameIdle(); //48a3a2 (client: 48e62f)
+    void RemoteGameIdle(); // 48acac (client: 48eb54)
+    void SingleGameTimedIdle(); // 48a543 (client: 48e7d0)
+    void SingleGameIdle(); // 48a3a2 (client: 48e62f)
 
-    void OnDestroy(); //483ea8 (client: 487b44)
-    int OnCreate(LPCREATESTRUCT lpCreateStruct); //484022 (client: 487cbe)
-    void OnPaint(); //484a1a (client: 4886b4)
-    BOOL OnSetCursor(CWnd*, UINT, UINT); //486391 (client: 48a02a)
-    void OnSetFocus(CWnd*); //4863c6 (client: 48a067)
-    void OnKeyDown(UINT, UINT, UINT); //4863f6 (client: 48a097)
-    void OnSysKeyDown(UINT, UINT, UINT); //486a2f (client: 48a72c)
-    void OnKeyUp(UINT, UINT, UINT); //486bb0 (client: 48a8ad)
-    void OnSysKeyUp(UINT, UINT, UINT); //486c25 (client: 48a922)
-    void OnChar(UINT, UINT, UINT); //48a35f (client: 48e5ec)
-    void OnKillFocus(CWnd*); //48b01d (client: 48effb)
-    void OnClose(); //4949f9 (client: 499554)
-    void OnSize(UINT, int, int); //494e8e (client: 4999e9)
-    void BeginShutdown(); //495010
-    void ShowServerControlDialog(); //4950c0
-    void MarkHatSessionEnded(); //495743
+    void OnDestroy(); // 483ea8 (client: 487b44)
+    int OnCreate(LPCREATESTRUCT lpCreateStruct); // 484022 (client: 487cbe)
+    void OnPaint(); // 484a1a (client: 4886b4)
+    BOOL OnSetCursor(CWnd*, UINT, UINT); // 486391 (client: 48a02a)
+    void OnSetFocus(CWnd*); // 4863c6 (client: 48a067)
+    void OnKeyDown(UINT, UINT, UINT); // 4863f6 (client: 48a097)
+    void OnSysKeyDown(UINT, UINT, UINT); // 486a2f (client: 48a72c)
+    void OnKeyUp(UINT, UINT, UINT); // 486bb0 (client: 48a8ad)
+    void OnSysKeyUp(UINT, UINT, UINT); // 486c25 (client: 48a922)
+    void OnChar(UINT, UINT, UINT); // 48a35f (client: 48e5ec)
+    void OnKillFocus(CWnd*); // 48b01d (client: 48effb)
+    void OnClose(); // 4949f9 (client: 499554)
+    void OnSize(UINT, int, int); // 494e8e (client: 4999e9)
+    void BeginShutdown(); // 495010 (client: none)
+    void ShowServerControlDialog(); // 4950c0 (client: 499be9)
+    void MarkHatSessionEnded(); // 495743 (client: none)
 #ifndef A2CLIENT
-    void OnSizing(UINT, LPRECT); //495ab2
-    void OnNcMouseMove(UINT, CPoint); //495b9c
-    void OnNcLButtonDown(UINT, CPoint); //495c6e
+    void OnSizing(UINT, LPRECT); // 495ab2 (client: none)
+    void OnNcMouseMove(UINT, CPoint); // 495b9c (client: none)
+    void OnNcLButtonDown(UINT, CPoint); // 495c6e (client: none)
 #endif
     
 public:
-    void IdleLoop(); // Game loop tick processing function, called from GameApp::OnIdle when server is active.
-    void ServerTickPump();  // client: 487ef5
+    void IdleLoop(); // 48a756 (client: 48e9d4) - Game loop tick processing function, called from GameApp::OnIdle when server is active.
+    void ServerTickPump(); // 484259 (client: 487ef5)
 
-    int SetSpeed(int speed);  // client: 492068
+    int SetSpeed(int speed); // 48dc02 (client: 492068)
 
-    BOOL UpdateClipCursor();  // client: 490d52
+    BOOL UpdateClipCursor(); // 48cbc8 (client: 490d52)
 
-    void Proc_421(); //48d49b (client: 491619)
+    void Proc_421(); // 48d49b (client: 491619)
 
-    void DestroyServer(); //48cb3c (client: 490ce4)
+    void DestroyServer(); // 48cb3c (client: 490ce4)
 
-    void UpdateMapRect(); //48cbe2 (client: 490d6c)
+    void UpdateMapRect(); // 48cbe2 (client: 490d6c)
 
-    void ApplyCursorClip(); //48cc87 (client: 490e11)
+    void ApplyCursorClip(); // 48cc87 (client: 490e11)
 
-    void OpenConsoleInput(); //4919c7 (client: 496227)
-    void ProcessPlayersTick(); //4919b1
+    void OpenConsoleInput(); // 4919c7 (client: 496227)
+    void ProcessPlayersTick(); // 4919b1 (client: 49619e)
 
-    void ShowRightPanelInfo(); //485a41 (client: 4896db)
-    void ClearVisualTree(); //485aed (client: 489786) in asm
+    void ShowRightPanelInfo(); // 485a41 (client: 4896db)
+    void ClearVisualTree(); // 485aed (client: 489786)
 
-    void ModalScreen(VisScreen* scr); //494a31 (client: 49958c)
+    void ModalScreen(VisScreen* scr); // 494a31 (client: 49958c)
 
-    void ResetItemCursor(); //48cd44 (client: 490ece)
+    void ResetItemCursor(); // 48cd44 (client: 490ece)
 
-    void SetItemCursor(TokenEntry* entry, int32_t idx, const char* str, int32_t tab); //48cca1 (client: 490e2b) in asm
+    void SetItemCursor(TokenEntry* entry, int32_t idx, const char* str, int32_t tab); // 48cca1 (client: 490e2b)
 
-    void ClearDiplomacyEntries(); //494a9e (client: 4995f9)
+    void ClearDiplomacyEntries(); // 494a9e (client: 4995f9)
 
-    void PlayDefaultMusic(); //494c91 (client: 4997ec)
+    void PlayDefaultMusic(); // 494c91 (client: 4997ec)
 
-    void ShowStartGameSetupForNewSession(); //491b3e (client: 49639b)
+    void ShowStartGameSetupForNewSession(); // 491b3e (client: 49639b)
 
-    void Proc_44c(CVisualObject* obj); //48b061 (client: 48f03f)
-    int32_t ClientWaitErrCode(); // client: 4953b4
+    void Proc_44c(CVisualObject* obj); // 48b061 (client: 48f03f)
+    int32_t ClientWaitErrCode(); // server: none (client: 4953b4)
 
-    void ShowCharacterLoaderDialog(); //48cff7 (client: 491181)
-    void ShowCharInfoPane(); //491a49 (client: 4962a9)
-    void AutosaveGame(); //48f905 (client: 493d5d)
-    void EnterSinglePlayerMode(); //4903d0 (client: 494822)
-    void EnterServerMode(); //491822 (client: 49600f)
-    int StartServerSession(int mode); //48ca7e (client: 490c26)
-    void EnterClientMode(); //4918ae (client: 49609b)
+    void ShowCharacterLoaderDialog(); // 48cff7 (client: 491181)
+    void ShowCharInfoPane(); // 491a49 (client: 4962a9)
+    void AutosaveGame(); // 48f905 (client: 493d5d)
+    void EnterSinglePlayerMode(); // 4903d0 (client: 494822)
+    void EnterServerMode(); // 491822 (client: 49600f)
+    int StartServerSession(int mode); // 48ca7e (client: 490c26)
+    void EnterClientMode(); // 4918ae (client: 49609b)
 
-    void PlayVideo(int32_t vid_id); //491f7d (client: 4967d2)
+    void PlayVideo(int32_t vid_id); // 491f7d (client: 4967d2)
 
-    void BeginLocalCharacterSetup(); //48f79d (client: 493bf5)
-    int GetSaveFileInBattle(); //48de6f (client: 4922d2)
-    int RunSessionBootstrap(int mode); //48e502 (client: 492961)
-    void ShowMainRightPanel(); //485969 (client: 489603)
-    void LoadObjectGfx(); //47a5e6 (client: 47e4a0)
-    void LoadStructureGfx(); //47efdf (client: 482e99)
-    void LoadProjectileGfx(); //47e612 (client: 4824cc)
-    void LoadSavegame(); //48df44 (client: 4923a7)
+    void BeginLocalCharacterSetup(); // 48f79d (client: 493bf5)
+    int GetSaveFileInBattle(); // 48de6f (client: 4922d2)
+    int RunSessionBootstrap(int mode); // 48e502 (client: 492961)
+    void ShowMainRightPanel(); // 485969 (client: 489603)
+    void LoadObjectGfx(); // 47a5e6 (client: 47e4a0)
+    void LoadStructureGfx(); // 47efdf (client: 482e99)
+    void LoadProjectileGfx(); // 47e612 (client: 4824cc)
+    void LoadSavegame(); // 48df44 (client: 4923a7)
 
-    void UnloadMapAssets(); //48f6f7 (client: 493b50)
-    void UnloadObjectGfx(); //47ad28 (client: 47ebe2)
+    void UnloadMapAssets(); // 48f6f7 (client: 493b50)
+    void UnloadObjectGfx(); // 47ad28 (client: 47ebe2)
 
-    void UnloadTerrainTiles(); //478130 (client: 47be70) in asm
+    void UnloadTerrainTiles(); // 478130 (client: 47be70)
 
-    void UnloadProjectileInfos(); //47eab6 (client: 482970)
-    void UnloadStructureInfos(); //47f5e4 (client: 48349e)
+    void UnloadProjectileInfos(); // 47eab6 (client: 482970)
+    void UnloadStructureInfos(); // 47f5e4 (client: 48349e)
 
-    void ShowGlobalMapDialog(); //48d34b (client: 4914c9)
+    void ShowGlobalMapDialog(); // 48d34b (client: 4914c9)
 
-    void InitNewCampaignSession(); //48dd3a (client: 4921a0)
+    void InitNewCampaignSession(); // 48dd3a (client: 4921a0)
 
     void ShowStartupLogoDialog(); // 48dba0 (client: 492009)
-    void ShowCreditsDialog(); //48da66 (client: 491ecf)
-    void ShowFameHallDialog(); //48d096 (client: 49121d)
-    void ShowShopDialog(uint32_t id); //48cdce (client: 490f58)
-    void ShowInnDialog(uint32_t id, int32_t interact_target); //48d4da (client: 491943)
+    void ShowCreditsDialog(); // 48da66 (client: 491ecf)
+    void ShowFameHallDialog(); // 48d096 (client: 49121d)
+    void ShowShopDialog(uint32_t id); // 48cdce (client: 490f58)
+    void ShowInnDialog(uint32_t id, int32_t interact_target); // 48d4da (client: 491943)
 
-    void PopUpScreen(VisScreen* screen); //48d26a (client: 4913eb)   popup screen
-    void SendHatJoinName(CString name); // client: 41be72
-    void SetMusicProc(void (*func)()) { this->music_update_proc = func; } //45cc80 (client: 4606b0)
+    void PopUpScreen(VisScreen* screen); // 48d26a (client: 4913eb) - popup screen
+    void SendHatJoinName(CString name); // server: none (client: 41be72)
+    void SetMusicProc(void (*func)()) { this->music_update_proc = func; } // 45cc80 (client: 4606b0)
 
-    void SetControlPositions(); //484127 (client: 487dc3)
+    void SetControlPositions(); // 484127 (client: 487dc3)
 
-    void StartHatDedicatedServer(); //49172d
+    void StartHatDedicatedServer(); // 49172d (client: 495dd8)
 
-    void ShowCurrentTownDialog(); //48d815 (client: 491c7e) in asm
-    int32_t WaitHatConnection(); //490f6c in asm
-    int32_t ConnectToServerAddress(); //491142 (client: 4958ac) in asm
-    int32_t WaitConnectionCharacterJoin(); //49152f in asm
-    void ShowFameHallDocDlg(); //48d125 (client: 4912a9) in asm
+    void ShowCurrentTownDialog(); // 48d815 (client: 491c7e)
+    int32_t WaitHatConnection(); // 490f6c (client: 49547a)
+    int32_t ConnectToServerAddress(); // 491142 (client: 4958ac)
+    int32_t WaitConnectionCharacterJoin(); // 49152f (client: 495c94)
+    void ShowFameHallDocDlg(); // 48d125 (client: 4912a9)
 
-    void SpawnScenarioMissionUnits(int32_t id, const CDWordArray& array); //50260a
-    int32_t RunModalLoopServer(); //49057b
-    int32_t RunModalLoopClient(); //client 4949cd
+    void SpawnScenarioMissionUnits(int32_t id, const CDWordArray& array); // 50260a (client: 4fc408)
+    int32_t RunModalLoopServer(); // 49057b (client: none)
+    int32_t RunModalLoopClient(); // server: none (client: 4949cd)
 #ifdef A2CLIENT
-    int32_t ClientRefreshUpdateCharacters(); // client 494f53
+    int32_t ClientRefreshUpdateCharacters(); // server: none (client: 494f53)
 #endif
-    int32_t CheckWebVersion(const CString& str); //4e5466 (client: 4ea996)
-    int32_t LeaveServerMode(); //490eb3 (client: 4952fb)
+    int32_t CheckWebVersion(const CString& str); // 4e5466 (client: 4ea996)
+    int32_t LeaveServerMode(); // 490eb3 (client: 4952fb)
 
-    void ShowNoCDIntro(); //491d8a  client: 4965e4
-    int PlayIntroVideos(); //492193  client: 4969e3
+    void ShowNoCDIntro(); // 491d8a (client: 4965e4)
+    int PlayIntroVideos(); // 492193 (client: 4969e3)
 
 public:
     int32_t has_focus;

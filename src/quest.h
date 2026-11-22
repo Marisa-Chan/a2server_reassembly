@@ -112,22 +112,22 @@ public: // VTable at 60F6F8. Sub-classes have their own vtables, see CreateQuest
         EVENT_QUERY_PLAYER_INN_QUEST = 17,
     };
 
-    virtual ~Quest();                                      // 57FF50 (client: 550a40)
-    virtual int32_t OnEvent(int32_t event_type, int32_t a, int32_t b); // 55D25D (client: 537a42)
-    virtual void MarkFailed();                             // 55D23F (client: 537a24)
-    virtual void MarkCompleted();                          // 55D221 (client: 537a06)
-    virtual void CopyFields(QuestData* other);             // 55D1E1 (client: 5379c6)
-    virtual void Initialize(int quest_id, int player_id, int building_id, int obj, int landmark_id, int limit, int reward); // 55D177 (client: 53795c)
-    virtual int32_t Kind();                                // 57ff20 (client: 550a10)
-    virtual int32_t GetGlueEvent();                        // 57ff30 (client: 550a20)
-    virtual int32_t GetGlueParam();                        // 57ff40 (client: 550a30)
+    virtual ~Quest(); // 55d15a (client: 537940)
+    virtual int32_t OnEvent(int32_t event_type, int32_t a, int32_t b); // 55d25d (client: 537a42)
+    virtual void MarkFailed(); // 55d23f (client: 537a24)
+    virtual void MarkCompleted(); // 55d221 (client: 537a06)
+    virtual void CopyFields(QuestData* other); // 55d1e1 (client: 5379c6)
+    virtual void Initialize(int quest_id, int player_id, int building_id, int obj, int landmark_id, int limit, int reward); // 55d177 (client: 53795c)
+    virtual int32_t Kind(); // 57ff20 (client: 550a10)
+    virtual int32_t GetGlueEvent(); // 57ff30 (client: 550a20)
+    virtual int32_t GetGlueParam(); // 57ff40 (client: 550a30)
 
     int32_t IsInWork() { return this->quest_data.state == STATE_IN_WORK; } // 41eb90 (client: 420f40)
-    uint32_t GetObj() { return this->quest_data.obj; }         // 41eb70 (client: 420f20)
-    QuestId GetQuestId() { return this->quest_data.quest_id; }          // 41eb10 (client: 420ec0)
-    uint32_t GetBuildingId() { return this->quest_data.building_id; }   // 41eb30 (client: 420ee0)
+    uint32_t GetObj() { return this->quest_data.obj; } // 41eb70 (client: 420f20)
+    QuestId GetQuestId() { return this->quest_data.quest_id; } // 41eb10 (client: 420ec0)
+    uint32_t GetBuildingId() { return this->quest_data.building_id; } // 41eb30 (client: 420ee0)
     QuestLandmarkId GetLandmarkId() { return this->quest_data.landmark_id; } // 41eb50 (client: 420f00)
-    uint32_t GetLimit(); //4a4780 (client: 4a7e70) in asm
+    uint32_t GetLimit(); // 4a4780 (client: 4a7e70)
 
 public:
     Quest(); // 55d0e0 (client: 5378c7)
@@ -146,55 +146,55 @@ ASSERT_SIZE(Quest, 0x30);
 // Quest kind 1.
 class QuestKillMob : public Quest {
 public: // VTable at 60F9F8
-    virtual ~QuestKillMob();                                                         // 581630 (client: 5524a0)
-    virtual int32_t OnEvent(int32_t event_type, int32_t a, int32_t b);     // 55F736 (client: 53912f)
-    virtual int32_t Kind();                                                          // 5815F0 (client: 552460)
+    virtual ~QuestKillMob(); // 581630 (client: 5524a0)
+    virtual int32_t OnEvent(int32_t event_type, int32_t a, int32_t b); // 55f736 (client: 53912f)
+    virtual int32_t Kind(); // 5815f0 (client: 552460)
 };
 
 // Quest kind 2.
 class QuestKillN : public Quest {
 public: // VTable at 60F9C0
-    virtual ~QuestKillN();                                                           // 581690 (client: 551ea0)
-    virtual int32_t OnEvent(int32_t event_type, int32_t a, int32_t b);     // 55F7E4 (client: 53895a)
-    virtual int32_t Kind();                                                          // 581650 (client: 551e60)
+    virtual ~QuestKillN(); // 581690 (client: 551ea0)
+    virtual int32_t OnEvent(int32_t event_type, int32_t a, int32_t b); // 55f7e4 (client: 53895a)
+    virtual int32_t Kind(); // 581650 (client: 551e60)
 };
 
 // Quest kind 3.
 class QuestKillGroup : public Quest {
 public: // VTable at 60F988
-    virtual ~QuestKillGroup();                                                       // 5816F0 (client: 551e20)
-    virtual int32_t OnEvent(int32_t event_type, int32_t a, int32_t b);     // 55F896 (client: 5388ac)
-    virtual int32_t Kind();                                                          // 5816B0 (client: 551de0)
+    virtual ~QuestKillGroup(); // 5816f0 (client: 551e20)
+    virtual int32_t OnEvent(int32_t event_type, int32_t a, int32_t b); // 55f896 (client: 5388ac)
+    virtual int32_t Kind(); // 5816b0 (client: 551de0)
 };
 
 // Quest kind 4.
 class QuestEscort : public Quest {
 public: // VTable at 60F950
-    virtual ~QuestEscort();                                                          // 581780 (client: 552210)
-    virtual int32_t OnEvent(int32_t event_type, int32_t a, int32_t b);     // 55F944 (client: 538df1)
-    virtual int32_t Kind();                                                          // 581710 (client: 5521a0)
-    virtual int32_t GetGlueEvent();                                                  // 581720 (client: 5521b0)
-    virtual int32_t GetGlueParam();                                                  // 581730 (client: 5521c0)
+    virtual ~QuestEscort(); // 581780 (client: 552210)
+    virtual int32_t OnEvent(int32_t event_type, int32_t a, int32_t b); // 55f944 (client: 538df1)
+    virtual int32_t Kind(); // 581710 (client: 5521a0)
+    virtual int32_t GetGlueEvent(); // 581720 (client: 5521b0)
+    virtual int32_t GetGlueParam(); // 581730 (client: 5521c0)
 };
 
 // Quest kind 5.
 class QuestDeliverItem : public Quest {
 public: // VTable at 60F918
-    virtual ~QuestDeliverItem();                                                     // 581810 (client: 552160)
-    virtual int32_t OnEvent(int32_t event_type, int32_t a, int32_t b);     // 55FA1D (client: 538cc3)
-    virtual int32_t Kind();                                                          // 5817A0 (client: 5520f0)
-    virtual int32_t GetGlueEvent();                                                  // 5817B0 (client: 552100)
-    virtual int32_t GetGlueParam();                                                  // 5817C0 (client: 552110)
+    virtual ~QuestDeliverItem(); // 581810 (client: 552160)
+    virtual int32_t OnEvent(int32_t event_type, int32_t a, int32_t b); // 55fa1d (client: 538cc3)
+    virtual int32_t Kind(); // 5817a0 (client: 5520f0)
+    virtual int32_t GetGlueEvent(); // 5817b0 (client: 552100)
+    virtual int32_t GetGlueParam(); // 5817c0 (client: 552110)
 };
 
 // Quest kind 6.
 class QuestDeliverMail : public Quest {
 public: // VTable at 60F8E0
-    virtual ~QuestDeliverMail();                                                     // 5818A0 (client: 5520b0)
-    virtual int32_t OnEvent(int32_t event_type, int32_t a, int32_t b);     // 55FB32 (client: 538bd8)
-    virtual int32_t Kind();                                                          // 581830 (client: 552040)
-    virtual int32_t GetGlueEvent();                                                  // 581840 (client: 552050)
-    virtual int32_t GetGlueParam();                                                  // 581850 (client: 552060)
+    virtual ~QuestDeliverMail(); // 5818a0 (client: 5520b0)
+    virtual int32_t OnEvent(int32_t event_type, int32_t a, int32_t b); // 55fb32 (client: 538bd8)
+    virtual int32_t Kind(); // 581830 (client: 552040)
+    virtual int32_t GetGlueEvent(); // 581840 (client: 552050)
+    virtual int32_t GetGlueParam(); // 581850 (client: 552060)
 };
 
 // Quest kind 7. Seems unused?
@@ -204,59 +204,59 @@ class QuestFindItem : public Quest {
 // Quest kind 8.
 class QuestRaiseZombies : public Quest {
 public: // VTable at 60F8A8
-    virtual ~QuestRaiseZombies();                                                    // 581A50 (client: 552420)
-    virtual int32_t OnEvent(int32_t event_type, int32_t a, int32_t b);     // 560111 (client: 539083)
-    virtual int32_t Kind();                                                          // 5819E0 (client: 5523b0)
-    virtual int32_t GetGlueEvent();                                                  // 5819F0 (client: 5523c0)
-    virtual int32_t GetGlueParam();                                                  // 581A00 (client: 5523d0)
+    virtual ~QuestRaiseZombies(); // 581a50 (client: 552420)
+    virtual int32_t OnEvent(int32_t event_type, int32_t a, int32_t b); // 560111 (client: 539083)
+    virtual int32_t Kind(); // 5819e0 (client: 5523b0)
+    virtual int32_t GetGlueEvent(); // 5819f0 (client: 5523c0)
+    virtual int32_t GetGlueParam(); // 581a00 (client: 5523d0)
 };
 
 // Quest kind 9.
 class QuestRaiseSkeletons : public Quest {
 public: // VTable at 60F870
-    virtual ~QuestRaiseSkeletons();                                                  // 581AE0 (client: 552370)
-    virtual int32_t OnEvent(int32_t event_type, int32_t a, int32_t b);     // 5601C7 (client: 538fd1)
-    virtual int32_t Kind();                                                          // 581A70 (client: 552300)
-    virtual int32_t GetGlueEvent();                                                  // 581A80 (client: 552310)
-    virtual int32_t GetGlueParam();                                                  // 581A90 (client: 552320)
+    virtual ~QuestRaiseSkeletons(); // 581ae0 (client: 552370)
+    virtual int32_t OnEvent(int32_t event_type, int32_t a, int32_t b); // 5601c7 (client: 538fd1)
+    virtual int32_t Kind(); // 581a70 (client: 552300)
+    virtual int32_t GetGlueEvent(); // 581a80 (client: 552310)
+    virtual int32_t GetGlueParam(); // 581a90 (client: 552320)
 };
 
 // Quest kind 10.
 class QuestRaiseGhosts : public Quest {
 public: // VTable at 60F838
-    virtual ~QuestRaiseGhosts();                                                     // 581B70 (client: 5522c0)
-    virtual int32_t OnEvent(int32_t event_type, int32_t a, int32_t b);     // 56027D (client: 538f1f)
-    virtual int32_t Kind();                                                          // 581B00 (client: 552250)
-    virtual int32_t GetGlueEvent();                                                  // 581B10 (client: 552260)
-    virtual int32_t GetGlueParam();                                                  // 581B20 (client: 552270)
+    virtual ~QuestRaiseGhosts(); // 581b70 (client: 5522c0)
+    virtual int32_t OnEvent(int32_t event_type, int32_t a, int32_t b); // 56027d (client: 538f1f)
+    virtual int32_t Kind(); // 581b00 (client: 552250)
+    virtual int32_t GetGlueEvent(); // 581b10 (client: 552260)
+    virtual int32_t GetGlueParam(); // 581b20 (client: 552270)
 };
 
 // Quest kind 11.
 class QuestInterceptUnit : public Quest {
 public: // VTable at 60F800
-    virtual ~QuestInterceptUnit();                                                   // 581930 (client: 552000)
-    virtual int32_t OnEvent(int32_t event_type, int32_t a, int32_t b);     // 55FC25 (client: 538acf)
-    virtual int32_t Kind();                                                          // 5818C0 (client: 551f90)
-    virtual int32_t GetGlueEvent();                                                  // 5818D0 (client: 551fa0)
-    virtual int32_t GetGlueParam();                                                  // 5818E0 (client: 551fb0)
+    virtual ~QuestInterceptUnit(); // 581930 (client: 552000)
+    virtual int32_t OnEvent(int32_t event_type, int32_t a, int32_t b); // 55fc25 (client: 538acf)
+    virtual int32_t Kind(); // 5818c0 (client: 551f90)
+    virtual int32_t GetGlueEvent(); // 5818d0 (client: 551fa0)
+    virtual int32_t GetGlueParam(); // 5818e0 (client: 551fb0)
 };
 
 // Quest kind 12.
 class QuestInterceptGroup : public Quest {
 public: // VTable at 60F7C8
-    virtual ~QuestInterceptGroup();                                                  // 5819C0 (client: 551f50)
-    virtual int32_t OnEvent(int32_t event_type, int32_t a, int32_t b);     // 55FE9B (client: 538a01)
-    virtual int32_t Kind();                                                          // 581950 (client: 551ee0)
-    virtual int32_t GetGlueEvent();                                                  // 581960 (client: 551ef0)
-    virtual int32_t GetGlueParam();                                                  // 581970 (client: 551f00)
+    virtual ~QuestInterceptGroup(); // 5819c0 (client: 551f50)
+    virtual int32_t OnEvent(int32_t event_type, int32_t a, int32_t b); // 55fe9b (client: 538a01)
+    virtual int32_t Kind(); // 581950 (client: 551ee0)
+    virtual int32_t GetGlueEvent(); // 581960 (client: 551ef0)
+    virtual int32_t GetGlueParam(); // 581970 (client: 551f00)
 };
 
 // Quest kind 13.
 class QuestKillInnDefenders : public Quest {
 public: // VTable at 60F790
-    virtual ~QuestKillInnDefenders();                                                // 581BD0 (client: 551da0)
-    virtual int32_t OnEvent(int32_t event_type, int32_t a, int32_t b);     // 56032D (client: 538805)
-    virtual int32_t Kind();                                                          // 581B90 (client: 551d60)
+    virtual ~QuestKillInnDefenders(); // 581bd0 (client: 551da0)
+    virtual int32_t OnEvent(int32_t event_type, int32_t a, int32_t b); // 56032d (client: 538805)
+    virtual int32_t Kind(); // 581b90 (client: 551d60)
 };
 
 #endif

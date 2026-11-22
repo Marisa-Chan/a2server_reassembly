@@ -8,13 +8,18 @@ MapStuff* MapStuff_Instance = nullptr;
 //70a7e0
 BitSet<0x6000> g_buildingIdSet;
 
+// 509cd8 (client: 501873)
 void BldIdSet_Set(uint32_t index) { g_buildingIdSet.Set(index); }
+// 509cfb (client: 501896)
 void BldIdSet_Unset(uint32_t index) { g_buildingIdSet.Unset(index); }
+// 509d4c (client: 5018e7)
 void BldIdSet_Clear() { g_buildingIdSet.Clear(); }
+// 509d9f (client: 50193a)
 uint32_t BldIdSet_AllocBit() { return g_buildingIdSet.AllocBit(); }
 
 
-void TokenPos::Set(uint8_t _x, uint8_t _y, MapStuff* _inst) { //58a4b1
+// 58a4b1 (client: 559961)
+void TokenPos::Set(uint8_t _x, uint8_t _y, MapStuff* _inst) {
     this->x = _x;
     this->y = _y;
     this->YX.Set(_x, _y);
@@ -23,31 +28,30 @@ void TokenPos::Set(uint8_t _x, uint8_t _y, MapStuff* _inst) { //58a4b1
     this->pInstance = _inst;
 }
 
+// 58a4f9 (client: 5599a9)
 TokenPos::TokenPos(uint8_t _x, uint8_t _y, MapStuff* _inst) {
-    //58a4f9
     this->Set(_x, _y, _inst);
 }
 
+// 58a495 (client: 559945)
 TokenPos::TokenPos() {
-    //58a495
     this->Set(0, 0, nullptr);
 }
 
+// 58a562 (client: 559a12)
 TokenPos::TokenPos(uint16_t _YX, MapStuff* _inst) {
-    //58a562
-    //58a583
     this->Set(_YX & 8, _YX >> 8, _inst);
 }
 
-//58a9ee
+// 58a9ee (client: 559e9e)
 TokenPos::TokenPos(const TokenPos&) = default;
 TokenPos::TokenPos(TokenPos&&) = default;
 
-//58aa46
+// 58aa46 (client: 559ef6)
 TokenPos& TokenPos::operator=(const TokenPos&) = default;
 
+// 58ab11 (client: 559fc1)
 void TokenPos::Serialize(CArchive& ar) {
-    //58ab11
     if (ar.IsStoring()) {
         //ar.Write(this, sizeof(TokenPos));
         ar.Write(this, 0xc);
@@ -57,8 +61,8 @@ void TokenPos::Serialize(CArchive& ar) {
     }
 }
 
+// 58aaf0 (client: 559fa0)
 uint8_t TokenPos::GetX() const {
-    //58aaf0
     #ifdef A2SERVER_PATCH
     if (this == nullptr) {
         return 0;
@@ -67,32 +71,33 @@ uint8_t TokenPos::GetX() const {
     return this->x;
 }
 
+// 58ab00 (client: 559fb0)
 uint8_t TokenPos::GetY() const {
-    //58ab00
     return this->y;
 }
 
+// split from 58aade (client: 559f8e)
 PosYX TokenPos::GetYX() const {
     return this->YX;
 }
 
+// 58aade (client: 559f8e) - ABI compatibility wrapper
 uint16_t TokenPos::CompatGetYX() const {
-    //58aade
     return this->YX.val;
 }
 
+// 58aa9b (client: 559f4b)
 uint16_t TokenPos::GetXx() const {
-    //58aa9b
     return (this->x << 8) | this->x_subcell;
 }
 
+// 58aabc (client: 559f6c)
 uint16_t TokenPos::GetYy() const {
-    //58aabc
     return (this->y << 8) | this->y_subcell;
 }
 
+// 58a6bf (client: 559b6f)
 uint8_t TokenPos::Distance(const TokenPos* b) const {
-    //58a6bf
     uint8_t xLen = abs((int32_t)this->x - (int32_t)b->x);
     uint8_t yLen = abs((int32_t)this->y - (int32_t)b->y);
     if (xLen <= yLen) {
@@ -101,13 +106,13 @@ uint8_t TokenPos::Distance(const TokenPos* b) const {
     return xLen;
 }
 
+// 58a5b3 (client: 559a63)
 int TokenPos::IsSameYX(const TokenPos* b) const {
-    //58a5b3
     return this->YX == b->YX;
 }
 
+// 58a737 (client: 559be7)
 void TokenPos::SetCoords(uint8_t _x, uint8_t _y) {
-    //58a737
     this->x = _x;
     this->y = _y;
     this->YX.Set(_x, _y);
@@ -115,8 +120,8 @@ void TokenPos::SetCoords(uint8_t _x, uint8_t _y) {
     this->y_subcell = 128;
 }
 
+// 58a781 (client: 559c31)
 void TokenPos::SetCoords2(uint16_t Xx, uint16_t Yy) {
-    //58a781
     this->x = Xx >> 8;
     this->y = Yy >> 8;
     this->YX.Set(this->x, this->y);
@@ -124,7 +129,8 @@ void TokenPos::SetCoords2(uint16_t Xx, uint16_t Yy) {
     this->y_subcell = Yy & 0xff;
 }
 
-void TokenPos::FixupInstance() { // 594200
+// 594200 (client: 563671)
+void TokenPos::FixupInstance() {
     if (!this->pInstance) {
         return;
     }
@@ -135,7 +141,8 @@ void TokenPos::FixupInstance() { // 594200
     }
 }
 
-int TokenPos::ClampToMap(uint8_t _x, uint8_t _y) { //58a7e8
+// 58a7e8 (client: 559c98)
+int TokenPos::ClampToMap(uint8_t _x, uint8_t _y) {
     int ok = 1;
     if (_x < 8) {
         _x = 8;
@@ -157,7 +164,8 @@ int TokenPos::ClampToMap(uint8_t _x, uint8_t _y) { //58a7e8
     return ok;
 }
 
-int32_t TokenPos::IsAtCellCenter() { // Check if we'in the middle of a cell (both subcell values are 0x80). //58bec3
+// 58bec3 (client: 55b373) - Check if we'in the middle of a cell (both subcell values are 0x80).
+int32_t TokenPos::IsAtCellCenter() {
     if (this->x_subcell == 128 && this->y_subcell == 128) {
         return 1;
     }
@@ -167,8 +175,8 @@ int32_t TokenPos::IsAtCellCenter() { // Check if we'in the middle of a cell (bot
 
 
 
+// 5280ad (client: 517084)
 Token::Token() {
-    // 5280ad
     this->pOwner = nullptr;
     this->position = new TokenPos(0, MapStuff_Instance);
     this->sent_to_mask = 0;
@@ -176,8 +184,8 @@ Token::Token() {
     this->building_id = 0;
 }
 
+// 5285c6 (client: 517363)
 Token::Token(const Token& b) {
-    // 5285c6
     this->itemDataID = b.itemDataID;
     this->typeId = b.typeId;
     this->pOwner = b.pOwner;
@@ -194,8 +202,8 @@ Token::Token(const Token& b) {
 
 //Token::Token(Token&&) = default;
 
+// 5281af (client: 51713a)
 Token::Token(const TokenPos* tpos) {
-    // 5281af
     this->pOwner = nullptr;
     this->position = new TokenPos(*tpos);
     this->sent_to_mask = 0;
@@ -203,8 +211,8 @@ Token::Token(const TokenPos* tpos) {
     this->building_id = 0;
 }
 
+// 5282af (client: 5171ed)
 Token::Token(const TokenPos* tpos, Player* pl) {
-    // 5282af
     this->pOwner = pl;
     this->position = new TokenPos(*tpos);
     this->sent_to_mask = 0;
@@ -215,58 +223,59 @@ Token::Token(const TokenPos* tpos, Player* pl) {
 // 6363b8
 IMPLEMENT_SERIAL(Token, CObject, 1);
 
+// 5283d6 (client: 5172c7)
 Token::~Token() {
-    // 5283d6
     if (this->position) {
         delete this->position;
     }
 }
 
+// 57b290 (client: 54bfc0)
 void Token::RegenTick() {
-    // 57b290
 }
 
+// 52871a (client: 51746a)
 void Token::ProcessEffects() {
-    // 52871a
 }
 
+// 57b2a0 (client: 54bfd0) - TokenSize
 int32_t Token::GetTokenSize() {
-    // 57b2a0
     return 1;
 }
 
+// 57b2b0 (client: 54bfe0) - MovementType
 int32_t Token::GetMovementType() {
-    // 57b2b0
     return 0;
 }
 
+// 55af48 (client: 536e27)
 void Token::FixupPointers() {
-    // 55af48
     this->position->FixupInstance();
 }
 
+// 57b2c0 (client: 54bff0) - IsItem
 int32_t Token::IsItem() {
-    // 57b2c0
     return 0;
 }
 
+// 57b2d0 (client: 54c000) - IsUnit
 int32_t Token::IsUnit() {
-    // 57b2d0
     return 0;
 }
 
+// 57b2e0 (client: 54c010) - IsHumanoid
 int32_t Token::IsHumanoid() {
-    // 57b2e0
     return 0;
 }
 
+// 57b2f0 (client: 54c020) - IsBuilding
 int32_t Token::IsBuilding() {
-    // 57b2f0
     return 0;
 }
 
 
-void Token::Serialize(CArchive& ar) { //55ab39
+// 55ab39 (client: 536caf)
+void Token::Serialize(CArchive& ar) {
     this->position->Serialize(ar);
     if (ar.IsStoring()) {
         ar.Write(&this->building_id, 4);

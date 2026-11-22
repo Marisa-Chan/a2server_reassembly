@@ -75,9 +75,9 @@ struct FatEntry {
     FatEntryFlags flags;
     char name[16];
 
-    void SetName(const char* resname);  // client: 4ec460
-    static int NameCompare(const void* key, const void* datum);  // client: 4f21da
-    static int SortCompare(const void* a, const void* b);  // client: 4f2181
+    void SetName(const char* resname); // 4e6f30 (client: 4ec460)
+    static int NameCompare(const void* key, const void* datum); // 4ecd2a (client: 4f21da)
+    static int SortCompare(const void* a, const void* b); // 4eccd1 (client: 4f2181)
 };
 ASSERT_SIZE(FatEntry, 0x20);
 
@@ -95,63 +95,63 @@ struct ResBase {
     uint32_t fat_offset;
     uint32_t memory_size;
 
-    FatEntry* Find(FatEntry* node, const char* fname);  // client: 4f1f4e
-    FatEntry* FindNext(FatEntry* node, const char** fpath);  // client: 4f2028
-    FatEntry* TracePath(const char* fpath);  // client: 4f1e06
-    void GrowFat();  // client: 4f1da4
-    void AccumulateSize(FatEntry* node);  // client: 4f20b5
-    FatEntry* AppendEntry(FatEntry** pOldNode, const char* fname);  // client: 4f1c90
+    FatEntry* Find(FatEntry* node, const char* fname); // 4eca9e (client: 4f1f4e)
+    FatEntry* FindNext(FatEntry* node, const char** fpath); // 4ecb78 (client: 4f2028)
+    FatEntry* TracePath(const char* fpath); // 4ec956 (client: 4f1e06)
+    void GrowFat(); // 4ec8f4 (client: 4f1da4)
+    void AccumulateSize(FatEntry* node); // 4ecc05 (client: 4f20b5)
+    FatEntry* AppendEntry(FatEntry** pOldNode, const char* fname); // 4ec7e0 (client: 4f1c90)
 
-    void CopyFatExcluding(FatEntry* newFat, int* pCount, const FatEntry* srcFat, const FatEntry* srcRoot, FatEntry* node, FatEntry* dstRoot);  // client: 4f1a03
-    FatEntry* RemoveEntry(FatEntry* node);  // client: 4f18e8
-    void SortTree(FatEntry* root);  // client: 4f1be6
-    void WriteToFile(CFile* cfile, int32_t offset = -1);  // client: 4ed8c6
-    void ReadFromFile(CFile* cfile, int32_t offset = -1);  // client: 4ed6cc
+    void CopyFatExcluding(FatEntry* newFat, int* pCount, const FatEntry* srcFat, const FatEntry* srcRoot, FatEntry* node, FatEntry* dstRoot); // 4ec553 (client: 4f1a03)
+    FatEntry* RemoveEntry(FatEntry* node); // 4ec438 (client: 4f18e8)
+    void SortTree(FatEntry* root); // 4ec736 (client: 4f1be6)
+    void WriteToFile(CFile* cfile, int32_t offset = -1); // 4e8396 (client: 4ed8c6)
+    void ReadFromFile(CFile* cfile, int32_t offset = -1); // 4e819c (client: 4ed6cc)
 
-    FatEntry* CreateEntry(const char* fpath, const char* fname);  // client: 4f1d76
-    FatEntry* RecreateEntry(const char* fpath, const char* fname);  // client: 4ef6b3
-    FatEntry* RequireFileEntry(const char* fpath);  // client: 4f1ec6
-    FatEntry* FindEntry(const char* fpath);  // client: 4f1f13
+    FatEntry* CreateEntry(const char* fpath, const char* fname); // 4ec8c6 (client: 4f1d76)
+    FatEntry* RecreateEntry(const char* fpath, const char* fname); // 4ea183 (client: 4ef6b3)
+    FatEntry* RequireFileEntry(const char* fpath); // 4eca16 (client: 4f1ec6)
+    FatEntry* FindEntry(const char* fpath); // 4eca63 (client: 4f1f13)
 
-    FatInfo* GetFatInfo(const char* fpath);  // client: 4eb285
+    FatInfo* GetFatInfo(const char* fpath); // 4e5d55 (client: 4eb285)
 
-    int GetSizedString(const char* fpath, const char* fname, const char* defval, char* out, uint32_t sz);  // client: 4ef802
+    int GetSizedString(const char* fpath, const char* fname, const char* defval, char* out, uint32_t sz); // 4ea2d2 (client: 4ef802)
 
-    void SetString(const char* fpath, const char* fname, const char* str);  // client: 4efc6d
-    void SetInt(const char* fpath, const char* fname, int32_t val);  // client: 4efe58
-    void SetDouble(const char* fpath, const char* fname, double val);  // client: 4effbb
-    void SetInt8Array(const char* fpath, const char* fname, CArray<uint8_t> &array);  // client: 4f096a
-    void SetInt16Array(const char* fpath, const char* fname, CArray<uint16_t>& array);  // client: 4f07d3
-    void SetInt32Array(const char* fpath, const char* fname, CArray<uint32_t>& array);  // client: 4f0b02
+    void SetString(const char* fpath, const char* fname, const char* str); // 4ea73d (client: 4efc6d)
+    void SetInt(const char* fpath, const char* fname, int32_t val); // 4ea928 (client: 4efe58)
+    void SetDouble(const char* fpath, const char* fname, double val); // 4eaa8b (client: 4effbb)
+    void SetInt8Array(const char* fpath, const char* fname, CArray<uint8_t> &array); // 4eb2a3 (client: 4f096a)
+    void SetInt16Array(const char* fpath, const char* fname, CArray<uint16_t>& array); // 4eb43a (client: 4f07d3)
+    void SetInt32Array(const char* fpath, const char* fname, CArray<uint32_t>& array); // 4eb5d2 (client: 4f0b02)
 
-    CString GetValueString(const char* fpath, const char* fname, const char *defval);  // client: 4efbcd
-    int32_t GetInt(const char* fpath, const char* fname, int32_t defval = 0);  // client: 4efddf
-    double GetDouble(const char* fpath, const char* fname, double defval = 0.0);  // client: 4eff36
+    CString GetValueString(const char* fpath, const char* fname, const char *defval); // 4ea69d (client: 4efbcd)
+    int32_t GetInt(const char* fpath, const char* fname, int32_t defval = 0); // 4ea8af (client: 4efddf)
+    double GetDouble(const char* fpath, const char* fname, double defval = 0.0); // 4eaa06 (client: 4eff36)
 
-    int GetAllNodeNames(char* pbuf, int bufsz);  // client: 4f009b
+    int GetAllNodeNames(char* pbuf, int bufsz); // 4eab6b (client: 4f009b)
 
-    int GetInt8Array(const char* fpath, const char* fname, CArray<uint8_t>* array);  // client: 4f01d7
-    int GetInt16Array(const char* fpath, const char* fname, CArray<uint16_t>* array);  // client: 4f02cd
-    int GetInt32Array(const char* fpath, const char* fname, CArray<uint32_t>* array);  // client: 4f03c9
-    int GetInt32Array(const char* fpath, const char* fname, CArray<int32_t>* array);  // client: 4f03c9
+    int GetInt8Array(const char* fpath, const char* fname, CArray<uint8_t>* array); // 4eaca7 (client: 4f01d7)
+    int GetInt16Array(const char* fpath, const char* fname, CArray<uint16_t>* array); // 4ead9d (client: 4f02cd)
+    int GetInt32Array(const char* fpath, const char* fname, CArray<uint32_t>* array); // 4eae99 (client: 4f03c9)
+    int GetInt32Array(const char* fpath, const char* fname, CArray<int32_t>* array); // 4eafb6 (client: 4f04e6)
 
-    int GetStringArray(const char* fpath, const char* fname, CStringArray* array);  // client: 4f0603
+    int GetStringArray(const char* fpath, const char* fname, CStringArray* array); // 4eb0d3 (client: 4f0603)
 
-    void RebuildFat();  // client: 4eeef4
-    uint8_t* AllocData(uint32_t size);  // client: 4ef0e6
+    void RebuildFat(); // 4e99c4 (client: 4eeef4)
+    uint8_t* AllocData(uint32_t size); // 4e9bb6 (client: 4ef0e6)
 
     static FatEntry *g_lastDstRoot;
 };
 
 struct ResFile : ResBase {
-    ResFile(const char* fpath);  // client: 4eae80
-    ~ResFile();  // client: 4eb23b
+    ResFile(const char* fpath); // 4e5950 (client: 4eae80)
+    ~ResFile(); // 4e5d0b (client: 4eb23b)
 };
 
 struct RegFile : ResBase {
-    RegFile();  // client: 4ed9f0
-    RegFile(const char* fpath);  // client: 4edab5
-    ~RegFile();  // client: 4eeeb9
+    RegFile(); // 4e84c0 (client: 4ed9f0)
+    RegFile(const char* fpath); // 4e8585 (client: 4edab5)
+    ~RegFile(); // 4e9989 (client: 4eeeb9)
 };
 
 ASSERT_SIZE(ResBase, 0x40);
@@ -161,21 +161,21 @@ struct Resources {
     CArray<CString> search_paths;
     CArray<CFile*> files;
 
-    Resources();  // client: 4eb336
-    ~Resources();  // client: 4eb3cf
+    Resources(); // 4e5e06 (client: 4eb336)
+    ~Resources(); // 4e5e9f (client: 4eb3cf)
 
 
-    void AddPath(const char* path);  // client: 4eb7a3
-    void AddResFile(const char* path);  // client: 4eb58a
+    void AddPath(const char* path); // 4e6273 (client: 4eb7a3)
+    void AddResFile(const char* path); // 4e605a (client: 4eb58a)
 
-    FatInfo* GetFatInfo(const char* fpath);  // client: 4eb99d
-    void CloseFile(CFile* fil);  // client: 4ebc93
-    void MarkFileSubstituted(const char* fpath);  // client: 4eb939
+    FatInfo* GetFatInfo(const char* fpath); // 4e646d (client: 4eb99d)
+    void CloseFile(CFile* fil); // 4e6763 (client: 4ebc93)
+    void MarkFileSubstituted(const char* fpath); // 4e6409 (client: 4eb939)
 
-    static void MarkSubstitutedFiles(const char* fpath);  // client: 4eb85d
-    static uint16_t GetPathType(const char* path);  // client: 4ec310
-    static void StaticAddPath(const char* path);  // client: 4eb772
-    static void StaticAddResFile(const char* path);  // client: 4eb741
+    static void MarkSubstitutedFiles(const char* fpath); // 4e632d (client: 4eb85d)
+    static uint16_t GetPathType(const char* path); // 4e6de0 (client: 4ec310)
+    static void StaticAddPath(const char* path); // 4e6242 (client: 4eb772)
+    static void StaticAddResFile(const char* path); // 4e6211 (client: 4eb741)
 
     static Resources ResFiles;
 };

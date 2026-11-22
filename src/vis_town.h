@@ -7,49 +7,49 @@
 //60dbb0
 class VisTown : public VisScreen {
 public:
-    virtual ~VisTown(); // 4D6B80 (client: 4db490)
+    virtual ~VisTown(); // 4cdc78 (client: 4d25c8)
 
-    virtual const char* GetHint() override; // 4D1602 (client: 4d5f33)
-    virtual void VMethod7() override; // 4CE886 (client: 4d31cd)
+    virtual const char* GetHint() override; // 4d1602 (client: 4d5f33)
+    virtual void VMethod7() override; // 4ce886 (client: 4d31cd)
     virtual void VMethod8(CRect* rect) override; // 4ce719 (client: 4d3063)
-    virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 4CE3B8 (client: 4d2d05)
-    virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 4CE4E5 (client: 4d2e32)
-    virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 4CE50A (client: 4d2e57)
-    virtual int32_t OnKeyDown(uint32_t wparam) override; // 4CE4AF (client: 4d2dfc)
+    virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 4ce3b8 (client: 4d2d05)
+    virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 4ce4e5 (client: 4d2e32)
+    virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 4ce50a (client: 4d2e57)
+    virtual int32_t OnKeyDown(uint32_t wparam) override; // 4ce4af (client: 4d2dfc)
 
-    virtual void VMethod26() override; // 4CDDAD (client: 4d26fd)
-    virtual void VMethod28() override; // 4CE002 (client: 4d2952)
-    virtual void DoClose(uint32_t code) override; // 4CE310 (client: 4d2c5d)
+    virtual void VMethod26() override; // 4cddad (client: 4d26fd)
+    virtual void VMethod28() override; // 4ce002 (client: 4d2952)
+    virtual void DoClose(uint32_t code) override; // 4ce310 (client: 4d2c5d)
 
-    virtual void VMethod30(); // 4D1723 (client: 4d6054)
-    virtual void VMethod31(); // 4D184A (client: 4d617b)
+    virtual void VMethod30(); // 4d1723 (client: 4d6054)
+    virtual void VMethod31(); // 4d184a (client: 4d617b)
 
-    virtual void VMethod32(); // 4D1709 (client: 4d603a)
-    virtual int32_t VMethod33(CPoint pos); // 4D10F0 (client: 4d5a27)
-    virtual void VMethod34(CPoint pos); // 4D1429 (client: 4d5d5a)
-    virtual void VMethod35(); // 4D12CB (client: 4d5c02)
-    virtual void VMethod36(); // 4CEEEF (client: 4d3836)
-    virtual void VMethod37(); // 4CFD0E (client: 4d4655)
-    virtual void VMethod38(); // 4D0E31 (client: 4d5776)
-    virtual void VMethod39(); // 4D15E3 (client: 4d5f14)
+    virtual void VMethod32(); // 4d1709 (client: 4d603a)
+    virtual int32_t VMethod33(CPoint pos); // 4d10f0 (client: 4d5a27)
+    virtual void VMethod34(CPoint pos); // 4d1429 (client: 4d5d5a)
+    virtual void VMethod35(); // 4d12cb (client: 4d5c02)
+    virtual void VMethod36(); // 4ceeef (client: 4d3836)
+    virtual void VMethod37(); // 4cfd0e (client: 4d4655)
+    virtual void VMethod38(); // 4d0e31 (client: 4d5776)
+    virtual void VMethod39(); // 4d15e3 (client: 4d5f14)
 
-    int32_t StartBirdFlight(); //4ce64b (client: 4d2f98) in asm
-    void DrawBirdFlock(); //4ce726 (client: 4d3070) in asm
+    int32_t StartBirdFlight(); // 4ce64b (client: 4d2f98)
+    void DrawBirdFlock(); // 4ce726 (client: 4d3070)
 
-    void AdvanceGuardAnim(); //4d06aa (client: 4d4ff1) in asm
-    void AdvanceTavernAnim(); //4d07e8 (client: 4d512f) in asm
-    void AdvanceSignAnim(); //4d0884 (client: 4d56e7) in asm
-    void AdvanceGateAnim(); //4d0913 (client: 4d525a) in asm
-    void AdvanceStarsAnim(); //4d0ad7 (client: 4d541c) in asm
-    void AdvanceFighterAnim(); //4d0b95 (client: 4d54da) in asm
-    void AdvanceMageAnim(); //4d0c6e (client: 4d55b3) in asm
-    void AdvanceShopAnim(); //4d0d47 (client: 4d568c) in asm
-    void AdvanceFlugelAnim(); //4d0da2 (client: 4d51cb) in asm
-    void AdvanceBlackBirdAnim(); //4d0f66 (client: 4d58ab) in asm
-    void AdvanceHorseAnim(); //4d1002 (client: 4d5940) in asm
-    void AdvanceDervishAnim(); //4d109e (client: 4d59d5) in asm
+    void AdvanceGuardAnim(); // 4d06aa (client: 4d4ff1)
+    void AdvanceTavernAnim(); // 4d07e8 (client: 4d512f)
+    void AdvanceSignAnim(); // 4d0884 (client: 4d56e7)
+    void AdvanceGateAnim(); // 4d0913 (client: 4d525a)
+    void AdvanceStarsAnim(); // 4d0ad7 (client: 4d541c)
+    void AdvanceFighterAnim(); // 4d0b95 (client: 4d54da)
+    void AdvanceMageAnim(); // 4d0c6e (client: 4d55b3)
+    void AdvanceShopAnim(); // 4d0d47 (client: 4d568c)
+    void AdvanceFlugelAnim(); // 4d0da2 (client: 4d51cb)
+    void AdvanceBlackBirdAnim(); // 4d0f66 (client: 4d58ab)
+    void AdvanceHorseAnim(); // 4d1002 (client: 4d5940)
+    void AdvanceDervishAnim(); // 4d109e (client: 4d59d5)
 
-    VisTown(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4cda5c (client: 4d23ac) in asm
+    VisTown(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); // 4cda5c (client: 4d23ac)
 public:
     CBmp64* bmp_bkg;
     CBmp256* bmp_hover_mask;
@@ -118,26 +118,26 @@ ASSERT_SIZE(VisTown, 0x20c);
 //60dc60
 class VisTownDruid : public VisTown {
 public:
-    virtual ~VisTownDruid(); // 4D6BB0 (client: 4db4c0)
+    virtual ~VisTownDruid(); // 4d6be0 (client: 4db4f0)
 
-    virtual void VMethod7() override; // 4D2E99 (client: 4d77ca)
-    virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 4D3F18 (client: 4d883c)
-    virtual void VMethod28() override; // 4D1E80 (client: 4d67b1)
-    virtual void VMethod30() override; // 4D2AFF (client: 4d7430)
-    virtual void VMethod31() override; // 4D2D1B (client: 4d764c)
-    virtual void VMethod32() override; // 4D2AE3 (client: 4d7414)
-    virtual void VMethod34(CPoint pos) override; // 4D359C (client: 4d7ec8)
-    virtual void VMethod35() override; // 4D3922 (client: 4d824e)
-    virtual void VMethod36() override; // 4D2153 (client: 4d6a84)
-    virtual void VMethod37() override; // 4D27FF (client: 4d7130)
-    virtual void VMethod38() override; // 4D3EA7 (client: 4d87cb)
+    virtual void VMethod7() override; // 4d2e99 (client: 4d77ca)
+    virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 4d3f18 (client: 4d883c)
+    virtual void VMethod28() override; // 4d1e80 (client: 4d67b1)
+    virtual void VMethod30() override; // 4d2aff (client: 4d7430)
+    virtual void VMethod31() override; // 4d2d1b (client: 4d764c)
+    virtual void VMethod32() override; // 4d2ae3 (client: 4d7414)
+    virtual void VMethod34(CPoint pos) override; // 4d359c (client: 4d7ec8)
+    virtual void VMethod35() override; // 4d3922 (client: 4d824e)
+    virtual void VMethod36() override; // 4d2153 (client: 4d6a84)
+    virtual void VMethod37() override; // 4d27ff (client: 4d7130)
+    virtual void VMethod38() override; // 4d3ea7 (client: 4d87cb)
 
-    void AdvanceTavernAnim(); //4d3384 (client: 4d7cb5) in asm
-    void AdvanceShopAnim(); //4d3435 (client: 4d7d66) in asm
-    void AdvanceBugAnim(); //4d34b6 (client: 4d7de7) in asm
-    void AdvanceLizardAnim(); //4d3520 (client: 4d7e4e) in asm
+    void AdvanceTavernAnim(); // 4d3384 (client: 4d7cb5)
+    void AdvanceShopAnim(); // 4d3435 (client: 4d7d66)
+    void AdvanceBugAnim(); // 4d34b6 (client: 4d7de7)
+    void AdvanceLizardAnim(); // 4d3520 (client: 4d7e4e)
 
-    VisTownDruid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4d1af8 (client: 4d6429) in asm
+    VisTownDruid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); // 4d1af8 (client: 4d6429)
 public:
     SfxSample* snd_lizard[4];
     SfxSample* snd_bug[3];
@@ -176,28 +176,28 @@ ASSERT_SIZE(VisTownDruid, 0x320);
 //60dd10
 class VisTownKaarg : public VisTown {
 public:
-    virtual ~VisTownKaarg(); // 4D6C60 (client: 4db570)
+    virtual ~VisTownKaarg(); // 4d6c90 (client: 4db5a0)
 
-    virtual const char* GetHint() override; // 4D6A1C (client: 4db32d)
-    virtual void VMethod7() override; // 4D57B9 (client: 4da0dd)
-    virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 4D6802 (client: 4db113)
-    virtual void VMethod28() override; // 4D4592 (client: 4d8eb6)
-    virtual void VMethod30() override; // 4D54CF (client: 4d9df3)
-    virtual void VMethod31() override; // 4D5682 (client: 4d9fa6)
-    virtual void VMethod32() override; // 4D54B5 (client: 4d9dd9)
-    virtual void VMethod34(CPoint pos) override; // 4D5C9A (client: 4da5be)
-    virtual void VMethod35() override; // 4D5EF0 (client: 4da814)
-    virtual void VMethod36() override; // 4D4866 (client: 4d918a)
-    virtual void VMethod37() override; // 4D5112 (client: 4d9a36)
-    virtual void VMethod38() override; // 4D6786 (client: 4db097)
+    virtual const char* GetHint() override; // 4d6a1c (client: 4db32d)
+    virtual void VMethod7() override; // 4d57b9 (client: 4da0dd)
+    virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 4d6802 (client: 4db113)
+    virtual void VMethod28() override; // 4d4592 (client: 4d8eb6)
+    virtual void VMethod30() override; // 4d54cf (client: 4d9df3)
+    virtual void VMethod31() override; // 4d5682 (client: 4d9fa6)
+    virtual void VMethod32() override; // 4d54b5 (client: 4d9dd9)
+    virtual void VMethod34(CPoint pos) override; // 4d5c9a (client: 4da5be)
+    virtual void VMethod35() override; // 4d5ef0 (client: 4da814)
+    virtual void VMethod36() override; // 4d4866 (client: 4d918a)
+    virtual void VMethod37() override; // 4d5112 (client: 4d9a36)
+    virtual void VMethod38() override; // 4d6786 (client: 4db097)
 
-    void AdvanceGateAnim(); //4d6480 (client: 4dad9c) in asm
-    void AdvanceGirl1Anim(); //4d65dd (client: 4daef7) in asm
-    void AdvanceGirl2Anim(); //4d6655 (client: 4daf6c) in asm
-    void AdvanceGuardAnim(); //4d66ca (client: 4dafe1) in asm
-    void AdvanceDervishAnim(); //4d6728 (client: 4db03c) in asm
+    void AdvanceGateAnim(); // 4d6480 (client: 4dad9c)
+    void AdvanceGirl1Anim(); // 4d65dd (client: 4daef7)
+    void AdvanceGirl2Anim(); // 4d6655 (client: 4daf6c)
+    void AdvanceGuardAnim(); // 4d66ca (client: 4dafe1)
+    void AdvanceDervishAnim(); // 4d6728 (client: 4db03c)
 
-    VisTownKaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); //4d423a (client: 4d8b5e) in asm
+    VisTownKaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); // 4d423a (client: 4d8b5e)
 public:
     SfxSample* snd_voice[3];
     SfxSample* snd_bird[4];
@@ -231,7 +231,7 @@ ASSERT_SIZE(VisTownKaarg, 0x314);
 //60a060
 class TownMenuListDialogVisualObject : public VisMenuWnd {
 public:
-    TownMenuListDialogVisualObject(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const CRect& _r); //44160e (client: 443bdd)
+    TownMenuListDialogVisualObject(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const CRect& _r); // 44160e (client: 443bdd)
 };
 ASSERT_SIZE(TownMenuListDialogVisualObject, 0x7c);
 

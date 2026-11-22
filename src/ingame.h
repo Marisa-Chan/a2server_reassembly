@@ -40,16 +40,16 @@ extern uint16_t* clr_log_tok3;
 extern CStringArray g_WwwServerList; // 666a00
 
 
-void LoadVfxData(); //47b24e (client: 47f108)
+void LoadVfxData(); // 47b24e (client: 47f108)
 
-uint8_t* __cdecl UpdateDayNightLighting(int32_t val); //4764bc (client: 47a208)
-void __cdecl ReloadPalettes(); //47fa75 (client: 48392f)
-void __cdecl LoadTerrainTiles(uint32_t val); //477b59 (client: 47b899)
+uint8_t* __cdecl UpdateDayNightLighting(int32_t val); // 4764bc (client: 47a208)
+void __cdecl ReloadPalettes(); // 47fa75 (client: 48392f)
+void __cdecl LoadTerrainTiles(uint32_t val); // 477b59 (client: 47b899)
 
 
 class UnitVFXUnfo : public CObject {
 public:
-    virtual ~UnitVFXUnfo() { //47ccb4 (client: 480b6e)
+    virtual ~UnitVFXUnfo() { // 47ccb4 (client: 480b6e)
         if (this->palette) {
             for (int i = 0; i < 8; i++) {
                 if (this->palettes[i]) {
@@ -65,13 +65,13 @@ public:
         }
     }
 
-    UnitVFXUnfo() { //47cb20 (client: 4809da)
+    UnitVFXUnfo() { // 47cb20 (client: 4809da)
         this->palettes.fill(nullptr);
         this->palette_datas.fill(nullptr);
     }
 
-    CGamePalette* GetPalette(int32_t idx); //46f680 (client: 473010)
-    uint8_t* GetPaletteData(int32_t idx); //46f6e0 (client: 473070)
+    CGamePalette* GetPalette(int32_t idx); // 46f680 (client: 473010)
+    uint8_t* GetPaletteData(int32_t idx); // 46f6e0 (client: 473070)
 
 public:
     int32_t ID;
@@ -115,14 +115,14 @@ ASSERT_SIZE(UnitVFXUnfo, 0x14c);
 //60b880
 class GfxFile : public CObject {
 public:
-    GfxFile(const char* _fname); //47ae53 (client: 47ed0d)
-    ~GfxFile();  // client: 431084
+    GfxFile(const char* _fname); // 47ae53 (client: 47ed0d)
+    ~GfxFile(); // 47aed9 (client: 47ed93)
 
-    void Init();  // client: 47edf3
-    void Deinit(); //47b0ab (client: 47ef65)
+    void Init(); // 47af39 (client: 47edf3)
+    void Deinit(); // 47b0ab (client: 47ef65)
 
-    CSprite256* GetSprite(); //41f870 (client: 420720)
-    CSprite256* GetSpriteB(); //41f8a0 (client: 420720)
+    CSprite256* GetSprite(); // 41f870 (client: 420720)
+    CSprite256* GetSpriteB(); // 41f8a0 (client: 420750)
 
 public:
     CSprite256* spr;
@@ -136,8 +136,8 @@ ASSERT_SIZE(GfxFile, 0x14);
 //60b898
 class GfxObject : public CObject {
 public:
-    GfxObject() = default;  //47b127 (client: 47efe1)
-    ~GfxObject() = default; //47b1ef (client: 434bae)
+    GfxObject() = default; // 47b127 (client: 47efe1)
+    ~GfxObject() = default; // 47b1ef (client: 434bae)
 
 public:
     int32_t id;
@@ -161,15 +161,15 @@ ASSERT_SIZE(GfxObject, 0x6c);
 //60b8b0
 class UnitGfxFile : public CObject {
 public:
-    UnitGfxFile() = default;  //47c806 (client: 4266d6)
-    UnitGfxFile(const char* _fname); //47c85d (client: 480717)
-    ~UnitGfxFile(); //47c8e3 (client: 431084)
+    UnitGfxFile() = default; // 47c806 (client: 4806c0)
+    UnitGfxFile(const char* _fname); // 47c85d (client: 480717)
+    ~UnitGfxFile(); // 47c8e3 (client: 48079d)
 
-    void Init(); //47c943 (client: 4807fd)
-    void Deinit(); //47caa4 (client: 47ef65)
+    void Init(); // 47c943 (client: 4807fd)
+    void Deinit(); // 47caa4 (client: 48095e)
 
-    CSprite256* GetSprite(); //46f700 (client: 420720)
-    CSprite256* GetSpriteB(); //46f730 (client: 420750)
+    CSprite256* GetSprite(); // 46f700 (client: 473090)
+    CSprite256* GetSpriteB(); // 46f730 (client: 4730c0)
 public:
     CSprite256* spr;
     CSprite256* spr_b;
@@ -182,14 +182,14 @@ ASSERT_SIZE(UnitGfxFile, 0x14);
 //60b910
 class StructureInfo : public CObject {
 public:
-    StructureInfo(const char *fname); //47eca2 (client: 482b5c)
-    ~StructureInfo(); //47ed4e (client: 482c08)
+    StructureInfo(const char *fname); // 47eca2 (client: 482b5c)
+    ~StructureInfo(); // 47ed4e (client: 482c08)
 
-    void Init(); // (client: 482c92)
-    void Deinit(); //47ef52 (client: 47ef65)
+    void Init(); // 47edd8 (client: 482c92)
+    void Deinit(); // 47ef52 (client: 482e0c)
 
-    CSprite256* GetSprite(); //46f790 (client: 420720)
-    CSprite256* GetSpriteB(); //46f7c0 (client: 420720)
+    CSprite256* GetSprite(); // 46f790 (client: 472e00)
+    CSprite256* GetSpriteB(); // 46f7c0 (client: 472e30)
 public:
     CSprite256* spr = nullptr;
     CSprite256* spr_b = nullptr;
@@ -220,14 +220,14 @@ ASSERT_SIZE(StructureInfo, 0xa4);
 
 class ProjectileInfo : public CObject {
 public:
-    ProjectileInfo(const char* fname, int32_t a16); //47e1ec (client: 4820a6)
-    virtual ~ProjectileInfo(); //47e50b (client: 4823c5)
+    ProjectileInfo(const char* fname, int32_t a16); // 47e1ec (client: 4820a6)
+    virtual ~ProjectileInfo(); // 47e50b (client: 4823c5)
 
-    void Init(); //47e26b (client: 482125)
-    void Deinit(); //47e56b (client: 482425)
+    void Init(); // 47e26b (client: 482125)
+    void Deinit(); // 47e56b (client: 482425)
 
-    CSprite256* GetSprite(); //41f8f0 (client: 420720)
-    CSprite256* GetSpriteB(); //46f760 (client: 420720)
+    CSprite256* GetSprite(); // 41f8f0 (client: 420780)
+    CSprite256* GetSpriteB(); // 46f760 (client: 473240)
 public:
     CSprite256* sprite1 = nullptr;
     CSprite256* sprite2 = nullptr;

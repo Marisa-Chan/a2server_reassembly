@@ -12,7 +12,7 @@
 
 extern BitSet<0x6000> g_buildingIdSet;
 
-void BldIdSet_Unset(uint32_t index);
+void BldIdSet_Unset(uint32_t index); // 509cfb (client: 501896)
 
 class Effect;
 class Player;
@@ -67,36 +67,36 @@ public:
     MapStuff* pInstance;
 
 public:
-    TokenPos(uint8_t _x, uint8_t _y, MapStuff* _inst);  // client: 5599a9
+    TokenPos(uint8_t _x, uint8_t _y, MapStuff* _inst); // 58a4f9 (client: 5599a9)
 
-    TokenPos();  // client: 559945
-    TokenPos(uint16_t _YX, MapStuff* _inst);  // client: 559a12
-    TokenPos(const TokenPos&);  // client: 559e9e
+    TokenPos(); // 58a495 (client: 559945)
+    TokenPos(uint16_t _YX, MapStuff* _inst); // 58a562 (client: 559a12)
+    TokenPos(const TokenPos&); // 58a9ee (client: 559e9e)
     TokenPos(TokenPos&&);  // client: 559e9e
 
-    TokenPos& operator=(const TokenPos&);
+    TokenPos& operator=(const TokenPos&); // 58aa46 (client: 559ef6)
 
-    void Set(uint8_t _x, uint8_t _y, MapStuff* _inst); //58a4b1 (client: 559961)
+    void Set(uint8_t _x, uint8_t _y, MapStuff* _inst); // 58a4b1 (client: 559961)
 
-    void FixupInstance(); // in asm (client: 563671)
-    int ClampToMap(uint8_t x, uint8_t y); //in asm (client: 559c98)
+    void FixupInstance(); // 594200 (client: 563671)
+    int ClampToMap(uint8_t x, uint8_t y); // 58a7e8 (client: 559c98)
 
-    void Serialize(CArchive& ar);  // client: 51b0f8
+    void Serialize(CArchive& ar); // 58ab11 (client: 559fc1)
 
-    uint8_t GetX() const;  // client: 559fa0
-    uint8_t GetY() const;  // client: 559fb0
-    PosYX GetYX() const;
-    uint16_t CompatGetYX() const; //only for compatible with asm (client: 559f8e)
-    uint16_t GetXx() const;  // client: 559f4b
-    uint16_t GetYy() const;  // client: 559f6c
+    uint8_t GetX() const; // 58aaf0 (client: 559fa0)
+    uint8_t GetY() const; // 58ab00 (client: 559fb0)
+    PosYX GetYX() const; // split from 58aade (client: 559f8e)
+    uint16_t CompatGetYX() const; // 58aade (client: 559f8e) - ABI compatibility wrapper
+    uint16_t GetXx() const; // 58aa9b (client: 559f4b)
+    uint16_t GetYy() const; // 58aabc (client: 559f6c)
 
-    uint8_t Distance(const TokenPos* b) const;  // client: 559b6f
-    int IsSameYX(const TokenPos* b) const;  // client: 559a63
+    uint8_t Distance(const TokenPos* b) const; // 58a6bf (client: 559b6f)
+    int IsSameYX(const TokenPos* b) const; // 58a5b3 (client: 559a63)
 
-    void SetCoords(uint8_t _x, uint8_t _y);  // client: 559be7
-    void SetCoords2(uint16_t Xx, uint16_t Yy);  // client: 559c31
+    void SetCoords(uint8_t _x, uint8_t _y); // 58a737 (client: 559be7)
+    void SetCoords2(uint16_t Xx, uint16_t Yy); // 58a781 (client: 559c31)
 
-    int32_t IsAtCellCenter(); // Check if we'in the middle of a cell (both subcell values are 0x80).
+    int32_t IsAtCellCenter(); // 58bec3 (client: 55b373) - Check if we'in the middle of a cell (both subcell values are 0x80).
 };
 
 ASSERT_OFFSET(TokenPos, x_subcell, 0x4);
@@ -109,26 +109,26 @@ public:
     DECLARE_SERIAL(Token); // Runtime class definition at 6363b8.
 
 public:
-    virtual ~Token();  // client: 5172c7
-    virtual void Serialize(CArchive& ar); //55ab39 (client: 536caf)
+    virtual ~Token(); // 5283d6 (client: 5172c7)
+    virtual void Serialize(CArchive& ar); // 55ab39 (client: 536caf)
     // CObject AssertValid
     // CObject Dump
-    virtual void RegenTick();  // client: 54bfc0
-    virtual void ProcessEffects();  // client: 51746a
-    virtual int32_t GetTokenSize(); // TokenSize (client: 54bfd0)
-    virtual int32_t GetMovementType(); // MovementType (client: 54bfe0)
-    virtual void FixupPointers();  // client: 536e27
-    virtual int32_t IsItem(); // IsItem (client: 54bff0)
-    virtual int32_t IsUnit(); // IsUnit (client: 54c000)
-    virtual int32_t IsHumanoid(); // IsHumanoid (client: 54c010)
-    virtual int32_t IsBuilding(); // IsBuilding (client: 54c020)
+    virtual void RegenTick(); // 57b290 (client: 54bfc0)
+    virtual void ProcessEffects(); // 52871a (client: 51746a)
+    virtual int32_t GetTokenSize(); // 57b2a0 (client: 54bfd0) - TokenSize
+    virtual int32_t GetMovementType(); // 57b2b0 (client: 54bfe0) - MovementType
+    virtual void FixupPointers(); // 55af48 (client: 536e27)
+    virtual int32_t IsItem(); // 57b2c0 (client: 54bff0) - IsItem
+    virtual int32_t IsUnit(); // 57b2d0 (client: 54c000) - IsUnit
+    virtual int32_t IsHumanoid(); // 57b2e0 (client: 54c010) - IsHumanoid
+    virtual int32_t IsBuilding(); // 57b2f0 (client: 54c020) - IsBuilding
 
 public:
-    Token();  // client: 517363
-    Token(const Token&);  // client: 5171ed
+    Token(); // 5280ad (client: 517084)
+    Token(const Token&); // 5285c6 (client: 517363)
     // Token(Token&&);
-    Token(const TokenPos* tpos);  // client: 517084
-    Token(const TokenPos* tpos, Player *pl);  // client: 51713a
+    Token(const TokenPos* tpos); // 5281af (client: 51713a)
+    Token(const TokenPos* tpos, Player *pl); // 5282af (client: 5171ed)
 
 public:
     int32_t building_id;

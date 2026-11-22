@@ -290,17 +290,17 @@ CGameFont* g_font4 = nullptr; //65f530
 
 
 
-//454a0c
+// 454a0c (client: 45864c)
 void GetClipRect(CRect* r) {
     *r = g_clipRect;
 }
 
-//4549ba
+// 4549ba (client: 4585fa)
 void SetClipRect(CRect& r) {
     g_clipRect = r;
 }
 
-//4549e5
+// 4549e5 (client: 458625)
 void __cdecl SetClipRect(int32_t l, int32_t t, int32_t r, int32_t b) {
     g_clipRect.left = l;
     g_clipRect.top = t;
@@ -308,14 +308,15 @@ void __cdecl SetClipRect(int32_t l, int32_t t, int32_t r, int32_t b) {
     g_clipRect.bottom = b;
 }
 
-//454a1e
+// 454a1e (client: 45865e)
 void __cdecl FlushRect(int32_t l, int32_t t, int32_t r, int32_t b) {
     CRect rc(l, t, r, b);
     gfxFlushRect(rc);
 }
 
 
-void __cdecl Convert24To16(uint8_t* src, uint16_t* dst, int32_t num) { //4255a6
+// 4255a6 (client: 4274d4)
+void __cdecl Convert24To16(uint8_t* src, uint16_t* dst, int32_t num) {
     for (; num; num--) {
         *dst = (uint16_t)((src[2] >> (8 - g_RBits)) << g_RBitShift) |
             (uint16_t)((src[1] >> (8 - g_GBits)) << g_GBitShift) |
@@ -326,7 +327,8 @@ void __cdecl Convert24To16(uint8_t* src, uint16_t* dst, int32_t num) { //4255a6
     }
 }
 
-void __cdecl Convert16To24(uint16_t* src, uint8_t* dst, int32_t num) { //425688
+// 425688 (client: 4275b6)
+void __cdecl Convert16To24(uint16_t* src, uint8_t* dst, int32_t num) {
     for (; num; num--) {
         uint16_t c = *src;
         dst[0] = (c >> g_BBitShift) << (8 - g_BBits);
@@ -338,7 +340,8 @@ void __cdecl Convert16To24(uint16_t* src, uint8_t* dst, int32_t num) { //425688
     }
 }
 
-void BlitPaletted(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b, uint8_t* src_data, int32_t src_width, int32_t src_height, const uint16_t *palette) { //4553db
+// 4553db (client: 45901b)
+void BlitPaletted(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b, uint8_t* src_data, int32_t src_width, int32_t src_height, const uint16_t *palette) {
     int32_t w = r - l;
     int32_t h = b - t;
 
@@ -385,7 +388,8 @@ void BlitPaletted(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t
     }
 }
 
-void BlitFlipPalettedAdd(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b, uint8_t* src_data, int32_t src_width, int32_t src_height, const uint16_t* palette) { //4555f9
+// 4555f9 (client: 459239)
+void BlitFlipPalettedAdd(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b, uint8_t* src_data, int32_t src_width, int32_t src_height, const uint16_t* palette) {
     int32_t w = r - l;
     int32_t h = b - t;
 
@@ -430,7 +434,8 @@ void BlitFlipPalettedAdd(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, 
 }
 
 
-void Blit16(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b, uint8_t* src_data, int32_t src_width, int32_t src_height) { //454f6d
+// 454f6d (client: 458bad)
+void Blit16(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b, uint8_t* src_data, int32_t src_width, int32_t src_height) {
     int32_t w = r - l;
     int32_t h = b - t;
 
@@ -500,7 +505,8 @@ void Blit16(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b, ui
     }
 }
 
-void Blit16Masked(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b, uint8_t* src_data, int32_t src_width, int32_t src_height) { //45525a
+// 45525a (client: 458e9a)
+void Blit16Masked(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b, uint8_t* src_data, int32_t src_width, int32_t src_height) {
     int32_t w = r - l;
     int32_t h = b - t;
 
@@ -571,7 +577,8 @@ void Blit16Masked(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t
     }
 }
 
-void Blit16Add(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b, uint8_t* src_data, int32_t src_width, int32_t src_height) { //4550e8
+// 4550e8 (client: 458d28)
+void Blit16Add(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b, uint8_t* src_data, int32_t src_width, int32_t src_height) {
     int32_t w = r - l;
     int32_t h = b - t;
 
@@ -641,7 +648,8 @@ void Blit16Add(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b,
 
 
 
-void __cdecl BlitRle8(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, const uint16_t* clr) { // 4559d4
+// 4559d4 (client: 459614)
+void __cdecl BlitRle8(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, const uint16_t* clr) {
     if (x + w <= g_clipRect.left) {
         return;
     }
@@ -740,7 +748,8 @@ void __cdecl BlitRle8(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, 
 }
 
 
-void __cdecl BlitRle8FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, const uint16_t* clr) { //456a0d
+// 456a0d (client: 45a64d)
+void __cdecl BlitRle8FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, const uint16_t* clr) {
     if (x + w <= g_clipRect.left) {
         return;
     }
@@ -834,7 +843,8 @@ void __cdecl BlitRle8FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* 
 }
 
 
-void __cdecl BlitLightRle8(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, int32_t blvl) { //45614c
+// 45614c (client: 459d8c)
+void __cdecl BlitLightRle8(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, int32_t blvl) {
     if (x + w <= g_clipRect.left) {
         return;
     }
@@ -929,7 +939,8 @@ void __cdecl BlitLightRle8(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* 
 }
 
 
-void __cdecl BlitLightRle8Low(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, int32_t blvl) { //455f1c
+// 455f1c (client: 459b5c)
+void __cdecl BlitLightRle8Low(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, int32_t blvl) {
     if (x + w <= g_clipRect.left) {
         return;
     }
@@ -1023,7 +1034,8 @@ void __cdecl BlitLightRle8Low(int32_t x, int32_t y, int32_t w, int32_t h, uint8_
     }
 }
 
-void __cdecl BlitLightRle8FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, int32_t blvl) { //457141
+// 457141 (client: 45ad81)
+void __cdecl BlitLightRle8FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, int32_t blvl) {
     if (x + w <= g_clipRect.left) {
         return;
     }
@@ -1117,7 +1129,8 @@ void __cdecl BlitLightRle8FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint
     }
 }
 
-void __cdecl BlitLightRle8FlipXLow(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, int32_t blvl) { //457141
+// 456ef8 (client: 45ab38)
+void __cdecl BlitLightRle8FlipXLow(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, int32_t blvl) {
     if (x + w <= g_clipRect.left) {
         return;
     }
@@ -1212,7 +1225,8 @@ void __cdecl BlitLightRle8FlipXLow(int32_t x, int32_t y, int32_t w, int32_t h, u
 }
 
 
-void __cdecl BlitRle8Blend(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, const uint16_t* clr) { // 455ce6
+// 455ce6 (client: 459926)
+void __cdecl BlitRle8Blend(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, const uint16_t* clr) {
     if (x + w <= g_clipRect.left) {
         return;
     }
@@ -1306,7 +1320,8 @@ void __cdecl BlitRle8Blend(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* 
 }
 
 
-void __cdecl BlitRle8BlendFlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, const uint16_t* clr) { // 456ca7
+// 456ca7 (client: 45a8e7)
+void __cdecl BlitRle8BlendFlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, const uint16_t* clr) {
     if (x + w <= g_clipRect.left) {
         return;
     }
@@ -1401,7 +1416,8 @@ void __cdecl BlitRle8BlendFlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint
 
 
 
-void __cdecl BlitLightRle8Tilt(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, int32_t blvl, int32_t tilt) { //4566ff
+// 4566ff (client: 45a33f)
+void __cdecl BlitLightRle8Tilt(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, int32_t blvl, int32_t tilt) {
     int32_t off = (int16_t)((tilt * h) >> 16);
     int32_t aoff = abs(off);
 
@@ -1518,7 +1534,8 @@ void __cdecl BlitLightRle8Tilt(int32_t x, int32_t y, int32_t w, int32_t h, uint8
     }
 }
 
-void __cdecl BlitLightRle8TiltLow(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, int32_t blvl, int32_t tilt) { //4563e7
+// 4563e7 (client: 45a027)
+void __cdecl BlitLightRle8TiltLow(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, int32_t blvl, int32_t tilt) {
     int32_t off = (int16_t)((tilt * h) >> 16);
     int32_t aoff = abs(off);
 
@@ -1636,7 +1653,8 @@ void __cdecl BlitLightRle8TiltLow(int32_t x, int32_t y, int32_t w, int32_t h, ui
 }
 
 
-void __cdecl BlitLightRle8TiltFlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, int32_t blvl, int32_t tilt) { //4576b1
+// 4576b1 (client: 45b2f1)
+void __cdecl BlitLightRle8TiltFlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, int32_t blvl, int32_t tilt) {
     int32_t off = (int16_t)((tilt * h) >> 16);
     int32_t aoff = abs(off);
 
@@ -1753,7 +1771,8 @@ void __cdecl BlitLightRle8TiltFlipX(int32_t x, int32_t y, int32_t w, int32_t h, 
     }
 }
 
-void __cdecl BlitLightRle8TiltFlipXLow(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, int32_t blvl, int32_t tilt) { //457380
+// 457380 (client: 45afc0)
+void __cdecl BlitLightRle8TiltFlipXLow(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, int32_t blvl, int32_t tilt) {
     int32_t off = (int16_t)((tilt * h) >> 16);
     int32_t aoff = abs(off);
 
@@ -1872,7 +1891,8 @@ void __cdecl BlitLightRle8TiltFlipXLow(int32_t x, int32_t y, int32_t w, int32_t 
 
 
 
-void __cdecl BlitRle8IndexMask(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, uint8_t mv) { // 455c55
+// 455c55 (client: 459895)
+void __cdecl BlitRle8IndexMask(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, uint8_t mv) {
     const uint32_t dstpitch = g_selDrawBitmap.lPitch;
 
     uint8_t* dst = (uint8_t*)g_selDrawBitmap.lpSurface + x + y * dstpitch;
@@ -1909,6 +1929,7 @@ void __cdecl BlitRle8IndexMask(int32_t x, int32_t y, int32_t w, int32_t h, uint8
 }
 
 
+// 459f3d (client: 45db6b)
 void __cdecl BlitRle16(int32_t x, int32_t y, int32_t w, int32_t h, uint16_t* src, const uint16_t* clr) { //
     if (x + w <= g_clipRect.left) {
         return;
@@ -2026,6 +2047,7 @@ void __cdecl BlitRle16(int32_t x, int32_t y, int32_t w, int32_t h, uint16_t* src
     }
 }
 
+// 45a2b2 (client: 45dee0)
 void __cdecl BlitRle16FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint16_t* src, const uint16_t* clr) { //
     if (x + w <= g_clipRect.left) {
         return;
@@ -2143,7 +2165,8 @@ void __cdecl BlitRle16FlipX(int32_t x, int32_t y, int32_t w, int32_t h, uint16_t
     }
 }
 
-void __cdecl BlitRle4(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, const uint16_t* clr) { // 455761
+// 455761 (client: 4593a1)
+void __cdecl BlitRle4(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, const uint16_t* clr) {
     if (x + w <= g_clipRect.left) {
         return;
     }
@@ -2266,15 +2289,15 @@ void __cdecl BlitRle4(int32_t x, int32_t y, int32_t w, int32_t h, uint8_t* src, 
 
 
 
+// 4586a4 (client: 45c2d2)
 void __cdecl SetPixelColor(int32_t x, int32_t y, uint32_t clr) {
-    //4586a4
     if (x >= g_clipRect.left && x < g_clipRect.right &&
         y >= g_clipRect.top && y < g_clipRect.bottom) {
         ((uint16_t*)g_selDrawBitmap.lpSurface)[x + y * (g_selDrawBitmap.lPitch / 2)] = clr;
     }
 }
 
-// 457aa6
+// 457aa6 (client: 45b6e6)
 void __cdecl FillRectClipped(int32_t l, int32_t t, int32_t r, int32_t b, uint16_t clr) {
     if (l < g_clipRect.left) {
         l = g_clipRect.left;
@@ -2307,7 +2330,7 @@ void __cdecl FillRectClipped(int32_t l, int32_t t, int32_t r, int32_t b, uint16_
     }
 }
 
-// 457c5d
+// 457c5d (client: 45b89d)
 void __cdecl FillRectBrightness(int32_t l, int32_t t, int32_t r, int32_t b, int32_t brightness) {
     uint16_t add = (uint16_t)(((((brightness << 4) - 1) >> (8 - g_RBits)) << g_RBitShift) |
                               ((((brightness << 4) - 1) >> (8 - g_GBits)) << g_GBitShift) |
@@ -2347,7 +2370,7 @@ void __cdecl FillRectBrightness(int32_t l, int32_t t, int32_t r, int32_t b, int3
     }
 }
 
-// 4586fe
+// 4586fe (client: 45c32c)
 void __cdecl PlotPixelBlend(int32_t x, int32_t y, int32_t r, int32_t g, int32_t b, int32_t alpha) {
     if (x < g_clipRect.left || x >= g_clipRect.right || y < g_clipRect.top || y >= g_clipRect.bottom) {
         return;
@@ -2371,7 +2394,7 @@ void __cdecl PlotPixelBlend(int32_t x, int32_t y, int32_t r, int32_t g, int32_t 
     *dst = (uint16_t)((new_r << g_RBitShift) | (new_g << g_GBitShift) | (new_b << g_BBitShift));
 }
 
-// 4588EC
+// 4588ec (client: 45c51a)
 void __cdecl PlotGlowDot(int32_t x, int32_t y, int32_t r, int32_t g, int32_t b, int32_t alpha) {
     PlotPixelBlend(x, y, r, g, b, alpha);
     PlotPixelBlend(x + 1, y, r, g, b, alpha * 3 / 4);
@@ -2388,8 +2411,8 @@ void __cdecl PlotGlowDot(int32_t x, int32_t y, int32_t r, int32_t g, int32_t b, 
     PlotPixelBlend(x - 1, y - 1, r, g, b, alpha / 4);
 }
 
+// 457dcc (client: 45ba0c)
 void __cdecl FillRectColor(int32_t l, int32_t t, int32_t r, int32_t b, uint32_t clr) {
-    //457dcc
     uint16_t* sp = (uint16_t*)g_selDrawBitmap.lpSurface;
 
     int32_t w = abs(r - l);
@@ -2467,8 +2490,8 @@ void __cdecl FillRectColor(int32_t l, int32_t t, int32_t r, int32_t b, uint32_t 
     }
 }
 
+// 4579d8 (client: 45b618)
 void __cdecl FillRectColorSimple(int32_t l, int32_t t, int32_t r, int32_t b, uint32_t clr) {
-    //4579d8
     if (g_IsServer != 0) {
         return;
     }
@@ -2505,8 +2528,8 @@ void __cdecl FillRectColorSimple(int32_t l, int32_t t, int32_t r, int32_t b, uin
     }
 }
 
+// 457b6f (client: 45b7af)
 void __cdecl ShadowRect(CRect rect, int shadow) {
-    //457b6f
     uint16_t* lookup = g_brightnessLookup + shadow * g_brightnessLookupCount;
 
     rect.IntersectRect(rect, g_clipRect);
@@ -2531,7 +2554,8 @@ void __cdecl ShadowRect(CRect rect, int shadow) {
 }
 
 
-void CopyIndexedSkip0(uint8_t* dst, uint8_t* src, int32_t size) { //45424d
+// 45424d (client: 457e8d)
+void CopyIndexedSkip0(uint8_t* dst, uint8_t* src, int32_t size) {
     while (size > 0) {
         uint8_t px = *src;
         if (px != 0) {
@@ -2544,7 +2568,8 @@ void CopyIndexedSkip0(uint8_t* dst, uint8_t* src, int32_t size) { //45424d
 }
 
 
-void DrawFlatTile(int32_t x, int32_t y, int32_t l1, int32_t l2, int32_t l3, int32_t l4, uint8_t* src, uint16_t* pal) { //458b29
+// 458b29 (client: 45c757)
+void DrawFlatTile(int32_t x, int32_t y, int32_t l1, int32_t l2, int32_t l3, int32_t l4, uint8_t* src, uint16_t* pal) {
 #ifdef A2CLIENT_PATCH
     if (x + 32 <= g_clipRect.left || x >= g_clipRect.right || y >= g_clipRect.bottom || y + 32 < g_clipRect.top) {
         return;
@@ -2610,7 +2635,8 @@ void DrawFlatTile(int32_t x, int32_t y, int32_t l1, int32_t l2, int32_t l3, int3
 }
 
 
-void DrawDeformedTile(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2, int32_t h3, int32_t l1, int32_t l2, int32_t l3, int32_t l4, uint8_t* src, uint16_t* pal) { //458ca0
+// 458ca0 (client: 45c8ce)
+void DrawDeformedTile(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2, int32_t h3, int32_t l1, int32_t l2, int32_t l3, int32_t l4, uint8_t* src, uint16_t* pal) {
 #ifdef A2CLIENT_PATCH
     if (x1 <= g_clipRect.left || x0 >= g_clipRect.right ||
 #else
@@ -2746,7 +2772,8 @@ static inline void GreyClippedSpan16(uint8_t* row_base, int32_t sx, int32_t ex) 
 }
 #endif
 
-void FillFlatTerrain(int32_t x, int32_t h0, int32_t h2) { //458fe6
+// 458fe6 (client: 45cc14)
+void FillFlatTerrain(int32_t x, int32_t h0, int32_t h2) {
 #ifdef A2CLIENT_PATCH
     int32_t x_start = (std::max)(x, (int32_t)g_clipRect.left);
     int32_t x_end = (std::min)(x + 32, (int32_t)g_clipRect.right);
@@ -2788,7 +2815,8 @@ void FillFlatTerrain(int32_t x, int32_t h0, int32_t h2) { //458fe6
 #endif
 }
 
-void FillDeformedTerrain(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2, int32_t h3) { // 4590ef
+// 4590ef (client: 45cd1d)
+void FillDeformedTerrain(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2, int32_t h3) {
 #ifdef A2CLIENT_PATCH
     if (x1 <= g_clipRect.left || x0 >= g_clipRect.right ||
 #else
@@ -2891,7 +2919,8 @@ void FillDeformedTerrain(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t
 }
 
 
-void FillFlatLight(int32_t x, int32_t y, int32_t t0, int32_t t1, int32_t t2, int32_t t3) { //459449
+// 459449 (client: 45d077)
+void FillFlatLight(int32_t x, int32_t y, int32_t t0, int32_t t1, int32_t t2, int32_t t3) {
 #ifdef A2CLIENT_PATCH
     if (x + 32 <= g_clipRect.left || x >= g_clipRect.right || y >= g_clipRect.bottom || y + 32 < g_clipRect.top) {
         return;
@@ -2969,7 +2998,8 @@ void FillFlatLight(int32_t x, int32_t y, int32_t t0, int32_t t1, int32_t t2, int
     }
 }
 
-void FillDeformedLight(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2, int32_t h3, int32_t t0, int32_t t1, int32_t t2, int32_t t3) { //4595fd
+// 4595fd (client: 45d22b)
+void FillDeformedLight(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2, int32_t h3, int32_t t0, int32_t t1, int32_t t2, int32_t t3) {
 
 #ifdef A2CLIENT_PATCH
     if (x1 <= g_clipRect.left || x0 >= g_clipRect.right ||
@@ -3080,7 +3110,8 @@ void FillDeformedLight(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h
 }
 
 
-void FillFlatGrey(int32_t x, int32_t h0, int32_t h2) { //45995e
+// 45995e (client: 45d58c)
+void FillFlatGrey(int32_t x, int32_t h0, int32_t h2) {
 #ifdef A2CLIENT_PATCH
     int32_t x_start = (std::max)(x, (int32_t)g_clipRect.left);
     int32_t x_end = (std::min)(x + 32, (int32_t)g_clipRect.right);
@@ -3130,7 +3161,8 @@ void FillFlatGrey(int32_t x, int32_t h0, int32_t h2) { //45995e
 #endif
 }
 
-void FillDeformedGrey(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2, int32_t h3) { //459b72
+// 459b72 (client: 45d7a0)
+void FillDeformedGrey(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2, int32_t h3) {
 #ifdef A2CLIENT_PATCH
     if (x1 <= g_clipRect.left || x0 >= g_clipRect.right ||
 #else
@@ -3247,15 +3279,16 @@ void FillDeformedGrey(int32_t x0, int32_t x1, int32_t h0, int32_t h1, int32_t h2
 }
 
 
+// 458035 (client: 45bc73)
 void __cdecl DrawRectangleFrame(int32_t l, int32_t t, int32_t r, int32_t b, uint32_t clr) {
-    //458035
     FillRectColor(l, t, r, t, clr); //up
     FillRectColor(l, b, r, b, clr); //down
     FillRectColor(r, t, r, b, clr); //right
     FillRectColor(l, t, l, b, clr); //left
 }
 
-void __cdecl CopySurface16Rect(uint8_t* src, int32_t sx, int32_t sy, uint8_t* dst, int32_t dx, int32_t dy, int32_t w, int32_t h, int32_t sp, int32_t dp) { //454a54
+// 454a54 (client: 458694)
+void __cdecl CopySurface16Rect(uint8_t* src, int32_t sx, int32_t sy, uint8_t* dst, int32_t dx, int32_t dy, int32_t w, int32_t h, int32_t sp, int32_t dp) {
     int32_t t = g_clipRect.left - dx;
     if (t > 0) {
         sx += t;
@@ -3293,7 +3326,7 @@ void __cdecl CopySurface16Rect(uint8_t* src, int32_t sx, int32_t sy, uint8_t* ds
     }
 }
 
-// 454e40
+// 454e40 (client: 458a80)
 void __cdecl CopyScreenBlock(int32_t sx, int32_t sy, int32_t w, int32_t h) {
     LockSurface3();
     uint8_t* src = (uint8_t*)g_selDrawBitmap.lpSurface;
@@ -3626,7 +3659,8 @@ void PresentSurface1Rect(const CRect& rect) {
 }
 #endif
 
-void __cdecl gfxFlushRect(const CRect& rect) { //454c74
+// 454c74 (client: 4588b4)
+void __cdecl gfxFlushRect(const CRect& rect) {
     MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
 
 #ifdef A2CLIENT_PATCH
@@ -3709,14 +3743,15 @@ void __cdecl gfxFlushRect(const CRect& rect) { //454c74
 #endif
 }
 
+// 454e18 (client: 458a58)
 void __cdecl FlushScreen() {
-    //454e18
     gfxFlushRect(CRect(g_ScreenSize));
 }
 
 
 
-uint32_t LockSurface1() { //45431c
+// 45431c (client: 457f5c)
+uint32_t LockSurface1() {
 #ifdef A2CLIENT_PATCH
     if (g_IsServer || g_surf1_buf == nullptr) {
         return 0;
@@ -3747,8 +3782,8 @@ uint32_t LockSurface1() { //45431c
 }
 
 
-uint32_t UnlockSurface1() { //454378
-    // client: 457fdb
+// 454378 (client: 457fb8)
+uint32_t UnlockSurface1() {
     if (g_IsServer) {
         return 0;
     }
@@ -3774,7 +3809,8 @@ uint32_t UnlockSurface1() { //454378
 }
 
 
-uint32_t LockSurface2() { //45426e
+// 45426e (client: 457eae)
+uint32_t LockSurface2() {
 #ifdef A2CLIENT_PATCH
     if (g_IsServer || g_surf2_buf == nullptr) {
         return 0;
@@ -3804,7 +3840,8 @@ uint32_t LockSurface2() { //45426e
 #endif
 }
 
-uint32_t UnlockSurface2() { //4542ca
+// 4542ca (client: 457f0a)
+uint32_t UnlockSurface2() {
 #ifdef A2CLIENT_PATCH
     if (g_IsServer) {
         return 0;
@@ -3830,7 +3867,8 @@ uint32_t UnlockSurface2() { //4542ca
 #endif
 }
 
-uint32_t LockSurface3() { //4543ca
+// 4543ca (client: 45800a)
+uint32_t LockSurface3() {
 #ifdef A2CLIENT_PATCH
     if (g_IsServer || g_surf3_buf == nullptr) {
         return 0;
@@ -3865,7 +3903,8 @@ uint32_t LockSurface3() { //4543ca
 }
 
 
-uint32_t UnlockSurface3() { //45444f
+// 45444f (client: 45808f)
+uint32_t UnlockSurface3() {
 #ifdef A2CLIENT_PATCH
     if (g_IsServer) {
         return 0;
@@ -3895,9 +3934,11 @@ uint32_t UnlockSurface3() { //45444f
 #endif
 }
 
-uint32_t GetLockCountSurf2() { return g_ddsurf_lock2; }//4538e1
+// 4538e1 (client: 457521)
+uint32_t GetLockCountSurf2() { return g_ddsurf_lock2; }
 
-void __cdecl CopyScreenRectToBmp64(int32_t x, int32_t y, int32_t w, int32_t h, int32_t dw, int32_t dh, uint8_t* dst) { //45455e
+// 45455e (client: 45819e)
+void __cdecl CopyScreenRectToBmp64(int32_t x, int32_t y, int32_t w, int32_t h, int32_t dw, int32_t dh, uint8_t* dst) {
     int32_t dy = 0;
     int32_t dx = 0;
     if (x < g_clipRect.left) {
@@ -3942,7 +3983,8 @@ void __cdecl CopyScreenRectToBmp64(int32_t x, int32_t y, int32_t w, int32_t h, i
     }
 }
 
-int BitmaskLowBound(uint32_t bm) { //453f5c
+// 453f5c (client: 457b9c)
+int BitmaskLowBound(uint32_t bm) {
     for (int32_t i = 0; i < 32; i++) {
         if (bm & (1u << i)) {
             return i;
@@ -3951,7 +3993,8 @@ int BitmaskLowBound(uint32_t bm) { //453f5c
     return -1;
 }
 
-int BitmaskHighBound(uint32_t bm) { //453f94
+// 453f94 (client: 457bd4)
+int BitmaskHighBound(uint32_t bm) {
     int32_t max = 15;
 #ifdef A2CLIENT_PATCH
     max = 31;
@@ -3965,14 +4008,16 @@ int BitmaskHighBound(uint32_t bm) { //453f94
     return -1;
 }
 
-void FreeBrightnessLookup() { //453cf9
+// 453cf9 (client: 457939)
+void FreeBrightnessLookup() {
     if (g_brightnessLookup) {
         delete[] g_brightnessLookup;
     }
     g_brightnessLookup = nullptr;
 }
 
-void CalculateBrightness() { //4538eb
+// 4538eb (client: 45752b)
+void CalculateBrightness() {
     MEMORYSTATUS ms;
     GlobalMemoryStatus(&ms);
     
@@ -4035,7 +4080,8 @@ void CalculateBrightness() { //4538eb
     g_ColorAddMask = GetColorRGB(0x7f, 0x7f, 0x7f);
 }
 
-void CalcColorsAndPalettes() { //46011e
+// 46011e (client: 463d30)
+void CalcColorsAndPalettes() {
     for (int32_t i = 0; i < 0x10; i++) {
         clrsh_Black[i] = GetColorRGB(8, 8, 8);
         clrsh_ShockingBlack[i] = GetColorRGB(i * 0x11, i * 0x11, i * 0x11);
@@ -4105,7 +4151,8 @@ static uint32_t Scale8ToMaskBits(uint32_t v8, int32_t bits, int32_t shift) {
 }
 #endif
 
-uint32_t InitPixelColors() { //45488c
+// 45488c (client: 4584cc)
+uint32_t InitPixelColors() {
 #ifdef A2CLIENT_PATCH
     DDPIXELFORMAT pfmt;
     memset(&pfmt, 0, sizeof(DDPIXELFORMAT));
@@ -4207,7 +4254,8 @@ uint32_t InitPixelColors() { //45488c
 #endif
 }
 
-int32_t InitVideo() { //453fcc
+// 453fcc (client: 457c0c)
+int32_t InitVideo() {
     if (g_IsServer) {
         CalcColorsAndPalettes();
         return 1;
@@ -4351,7 +4399,8 @@ int32_t InitVideo() { //453fcc
 #endif
 }
 
-int32_t SetVideoMode() { //4546c6
+// 4546c6 (client: 458306)
+int32_t SetVideoMode() {
     if (g_IsServer) {
         return 1;
     }
@@ -4429,14 +4478,14 @@ int32_t SetVideoMode() { //4546c6
 
 
 
+// 45e0d0 (client: 461cf0)
 CGameFont::CGameFont() {
-    //45e0d0
     this->bitmap = nullptr;
     this->char_widths = nullptr;
 }
 
+// 45e0f9 (client: 461d19)
 CGameFont::~CGameFont() {
-    //45e0f9
     if (this->char_widths) {
         delete[] this->char_widths;
     }
@@ -4446,25 +4495,25 @@ CGameFont::~CGameFont() {
     }
 }
 
+// 460f60 (client: 464b40)
 void CGameFont::DrawTxt(int32_t x, int32_t y, const char* txt, uint32_t align, uint16_t* colosh) {
-    //460f60
 }
 
+// 460f70 (client: 464b50)
 uint16_t* CGameFont::GetShadowColors() {
-    //460f70
     return nullptr;
 }
 
+// 45ebda (client: 4627f6)
 void CGameFont::DrawTextWithShadow(int32_t x, int32_t y, const char* txt, uint32_t align, uint16_t* colorsh, int32_t shadow_dxy) {
-    //45ebda
     uint16_t* shdow = this->GetShadowColors();
     this->DrawTxt(x + shadow_dxy, y + shadow_dxy, txt, align, shdow);
     this->DrawTxt(x, y, txt, align, colorsh);
 }
 
 
+// 45e1f9 (client: 461e19)
 int32_t CGameFont::GetStrWidth(const char* str) {
-    //45e1f9
     int32_t wi = 0;
     int ln = strlen(str);
 
@@ -4495,14 +4544,14 @@ int32_t CGameFont::GetStrWidth(const char* str) {
 }
 
 
+// 402a90 (client: 402860)
 int32_t CGameFont::GetHeight() {
-    //402a90
     return this->bitmap->GetHeight(0);
 }
 
 
+// 45e959 (client: 462575) - internal
 CStringArray& CGameFont::StrToArray(const char* str) {
-    //45e959
     static CStringArray out;  //static for return
 
     CString s = str;
@@ -4533,8 +4582,8 @@ CStringArray& CGameFont::StrToArray(const char* str) {
     return out;
 }
 
+// 45e35f (client: 461f7b) - internal
 CStringArray& CGameFont::StrSplitToFitWidth(const CRect& r, const char* str) {
-    //45e35f
     static CStringArray out;  //static for return
 
     CString s = str;
@@ -4599,8 +4648,8 @@ CStringArray& CGameFont::StrSplitToFitWidth(const CRect& r, const char* str) {
     return out;
 }
 
+// 45eb1d (client: 462739)
 CStringArray& CGameFont::StringArrayForRect(const CRect& r, const char* str) {
-    //45eb1d
 
     static CStringArray out;
 
@@ -4615,7 +4664,8 @@ CStringArray& CGameFont::StringArrayForRect(const CRect& r, const char* str) {
     return out;
 }
 
-void CGameFont::DrawTextLinesShadow(const CRect& r, int32_t first, int32_t last, const CStringArray& lines, uint16_t* clr, int32_t dy) { //45f6c2
+// 45f6c2 (client: 4632dd)
+void CGameFont::DrawTextLinesShadow(const CRect& r, int32_t first, int32_t last, const CStringArray& lines, uint16_t* clr, int32_t dy) {
     if (last > lines.GetSize()) {
         last = lines.GetSize();
     }
@@ -4674,7 +4724,8 @@ void CGameFont::DrawTextLinesShadow(const CRect& r, int32_t first, int32_t last,
     }
 }
 
-void CGameFont::DrawTextLines(const CRect& r, int32_t first, int32_t last, const CStringArray& lines, uint16_t* clr, int32_t dy) { //45f33e
+// 45f33e (client: 462f5a)
+void CGameFont::DrawTextLines(const CRect& r, int32_t first, int32_t last, const CStringArray& lines, uint16_t* clr, int32_t dy) {
     if (last > lines.GetSize()) {
         last = lines.GetSize();
     }
@@ -4734,8 +4785,8 @@ void CGameFont::DrawTextLines(const CRect& r, int32_t first, int32_t last, const
 }
 
 
-// client: 462d27
-void CGameFont::DrawTextJustifyShadow(int32_t x, int32_t y, int32_t w, CString txt, uint16_t* clr) { //45f10b
+// 45f10b (client: 462d27)
+void CGameFont::DrawTextJustifyShadow(int32_t x, int32_t y, int32_t w, CString txt, uint16_t* clr) {
     int32_t space_width = this->char_widths[' '];
 
     CStringArray words;
@@ -4772,8 +4823,8 @@ void CGameFont::DrawTextJustifyShadow(int32_t x, int32_t y, int32_t w, CString t
     }
 }
 
-// client: 462af3
-void CGameFont::DrawTextJustify(int32_t x, int32_t y, int32_t w, CString txt, uint16_t* clr) { //45eed7
+// 45eed7 (client: 462af3)
+void CGameFont::DrawTextJustify(int32_t x, int32_t y, int32_t w, CString txt, uint16_t* clr) {
     int32_t space_width = this->char_widths[' '];
 
     CStringArray words;
@@ -4811,7 +4862,8 @@ void CGameFont::DrawTextJustify(int32_t x, int32_t y, int32_t w, CString txt, ui
 }
 
 
-void CGameFont::DrawTextJustifyInRectShadow(const CRect& r, const char* str, uint16_t* clr, int32_t dy) { //45ed37
+// 45ed37 (client: 46284f)
+void CGameFont::DrawTextJustifyInRectShadow(const CRect& r, const char* str, uint16_t* clr, int32_t dy) {
     CStringArray& array = this->StringArrayForRect(r, str);
 
     if (dy == 0) {
@@ -4839,15 +4891,18 @@ void CGamePalette::operator=(const CGamePalette& b) {
     memcpy(this->colors, b.colors, this->count * 256 * sizeof(uint16_t));
 }
 
-CGamePalette::~CGamePalette() { //423c6d
+// 423c6d (client: 425b9d)
+CGamePalette::~CGamePalette() {
     this->Free();
 }
 
-void CGamePalette::Dump(CDumpContext& dc) const { //4245a7
+// 4245a7 (client: 4264d7)
+void CGamePalette::Dump(CDumpContext& dc) const {
     //dc << "CGamePalette";
 }
 
-void CGamePalette::Free() { //42457a
+// 42457a (client: 4264aa)
+void CGamePalette::Free() {
     if (this->colors) {
         delete[] this->colors;
     }
@@ -4857,7 +4912,8 @@ void CGamePalette::Free() { //42457a
     this->count = 0;
 }
 
-void CGamePalette::SetPalette(RGBQUAD* rgb, uint32_t _count, int mode, int useColor) { //423cbe
+// 423cbe (client: 425bee)
+void CGamePalette::SetPalette(RGBQUAD* rgb, uint32_t _count, int mode, int useColor) {
     this->count = _count;
     this->colors = new uint16_t[256 * this->count];
 
@@ -5017,7 +5073,8 @@ void CGamePalette::SetPalette(RGBQUAD* rgb, uint32_t _count, int mode, int useCo
     }
 }
 
-uint16_t* CGamePalette::GetPalette(int32_t idx) { //41ec40
+// 41ec40 (client: 420440)
+uint16_t* CGamePalette::GetPalette(int32_t idx) {
 #ifdef A2CLIENT_PATCH
     // CRASH_fix_420450 (client 420450): invalid palette -> null
     if (this == nullptr || this->colors == nullptr) {
@@ -5031,9 +5088,11 @@ uint16_t* CGamePalette::GetPalette(int32_t idx) { //41ec40
 
 
 
-CGameBitmap::CGameBitmap() {} //4247a6
+// 4247a6 (client: 4266d6)
+CGameBitmap::CGameBitmap() {}
 
-CGameBitmap::CGameBitmap(const char* fname) { //4245c1
+// 4245c1 (client: 4264f1)
+CGameBitmap::CGameBitmap(const char* fname) {
     File2 f;
     if (!f.Open(fname, CFile::modeRead)) {
         CString s = "FATAL ERROR: can't load ";
@@ -5064,7 +5123,8 @@ CGameBitmap::CGameBitmap(const char* fname) { //4245c1
     }
 }
 
-CGameBitmap::CGameBitmap(const CGameBitmap& src) { // 4247fd
+// 4247fd (client: 42672d)
+CGameBitmap::CGameBitmap(const CGameBitmap& src) {
     this->frames_count = src.frames_count;
     this->data_size = src.data_size;
 
@@ -5086,7 +5146,8 @@ CGameBitmap::CGameBitmap(const CGameBitmap& src) { // 4247fd
     this->palette_data = src.palette_data; //FIXME
 }
 
-CGameBitmap::~CGameBitmap() { //42496a
+// 42496a (client: 42689a)
+CGameBitmap::~CGameBitmap() {
     if (this->frames) {
         delete[] this->frames;
     }
@@ -5097,55 +5158,63 @@ CGameBitmap::~CGameBitmap() { //42496a
     this->palette.Free();
 }
 
-void CGameBitmap::Dump(CDumpContext& dc) const { //424d3d
+// 424d3d (client: 426c6d)
+void CGameBitmap::Dump(CDumpContext& dc) const {
     //dc << "CGameBitmap";
 }
 
+// 428d60 (client: 42a820)
 void CGameBitmap::DrawWithPalette(int32_t x, int32_t y, int frame, int palid, CGamePalette* ppalette, int mode) {
-    //428d60
 }
 
+// 428d50 (client: 42a810)
 void CGameBitmap::Draw(int32_t x, int32_t y, int frame, int mode, int palid) {
-    //428d50
 }
 
+// 428d70 (client: 42a830)
 void CGameBitmap::DrawBrightened(int32_t x, int32_t y, int frame, int blevel, int mode) {
-    //428d70
 }
 
-int32_t CGameBitmap::GetWidth(int frame) { //424ce6
+// 424ce6 (client: 426c16)
+int32_t CGameBitmap::GetWidth(int frame) {
     return ((SpriteFrame**)this->frames)[frame]->width;
 }
 
-int32_t CGameBitmap::GetHeight(int frame) { //424d11
+// 424d11 (client: 426c41)
+int32_t CGameBitmap::GetHeight(int frame) {
     return ((SpriteFrame**)this->frames)[frame]->height;
 }
 
-void CGameBitmap::SelectBitmapForDraw() { //424d57
+// 424d57 (client: 426c87)
+void CGameBitmap::SelectBitmapForDraw() {
     g_selDrawBitmap.lpSurface = CGameBitmap::GetData();
     g_selDrawBitmap.dwWidth = this->GetWidth(0);
     g_selDrawBitmap.dwHeight = this->GetHeight(0);
     g_selDrawBitmap.lPitch = this->GetWidth(0) * this->GetPixelSize();
 }
 
+// 428d80 (client: 42a840)
 void CGameBitmap::FlipVertical() {
-    //428d80
 }
 
-int CGameBitmap::GetPixelSize() { //428d90
+// 428d90 (client: 42a850)
+int CGameBitmap::GetPixelSize() {
     return 2;
 }
 
-void* CGameBitmap::GetData() { //41ec60
+// 41ec60 (client: 420460)
+void* CGameBitmap::GetData() {
     return this->pdata + sizeof(BmpFrame); 
 }
 
-void CGameBitmap::ResetPalette(uint32_t count, int mode, int useColor) { //424cb0
+// 424cb0 (client: 426be0)
+void CGameBitmap::ResetPalette(uint32_t count, int mode, int useColor) {
     this->palette.Free();
     this->palette.SetPalette((RGBQUAD*)this->palette_data, count, mode, useColor);
 }
 
-int32_t CGameBitmap::GetFrameCount() { //4387f0
+// 4387f0 (client: 43ae10)
+int32_t CGameBitmap::GetFrameCount() {
     return this->frames_count; 
 }
 
@@ -5158,7 +5227,8 @@ int32_t CGameBitmap::GetFrameCount() { //4387f0
 
 
 
-CBmp256::CBmp256(const char* fname) { //425f8c
+// 425f8c (client: 427eba)
+CBmp256::CBmp256(const char* fname) {
     File2 f;
     if (!f.Open(fname, CFile::modeRead)) {
         CString s = "FATAL ERROR: can't load ";
@@ -5203,7 +5273,8 @@ CBmp256::CBmp256(const char* fname) { //425f8c
     this->frames[0] = this->pdata + sizeof(BmpFrame);
 }
 
-CBmp256::CBmp256(uint32_t w, uint32_t h) { //4262d1
+// 4262d1 (client: 4281ff)
+CBmp256::CBmp256(uint32_t w, uint32_t h) {
 
     this->data_size = w * h + sizeof(BmpFrame);
     this->pdata = new uint8_t[this->data_size];
@@ -5220,27 +5291,33 @@ CBmp256::CBmp256(uint32_t w, uint32_t h) { //4262d1
     this->frames[0] = this->pdata + sizeof(BmpFrame);
 }
 
-CBmp256::~CBmp256() { //428a40
+// 428a40 (client: 42aba0)
+CBmp256::~CBmp256() {
 }
 
-void CBmp256::Dump(CDumpContext& dc) const { //42649a
+// 42649a (client: 4283c8)
+void CBmp256::Dump(CDumpContext& dc) const {
 }
 
-void CBmp256::Draw(int32_t x, int32_t y, int frame, int mode, int palid) { //4263df
+// 4263df (client: 42830d)
+void CBmp256::Draw(int32_t x, int32_t y, int frame, int mode, int palid) {
     const uint16_t* pal = this->palette.GetPalette(palid);
     const BmpFrame* frm = (BmpFrame*)this->pdata;
     BlitPaletted(x, y, 0, 0, frm->width, frm->height, this->pdata + sizeof(BmpFrame), frm->width, frm->height, pal);
 }
 
-int32_t CBmp256::GetWidth(int frame) { //4264c0
+// 4264c0 (client: 4283ee)
+int32_t CBmp256::GetWidth(int frame) {
     return ((BmpFrame*)this->pdata)->width;
 }
 
-int32_t CBmp256::GetHeight(int frame) { //4264d5
+// 4264d5 (client: 428403)
+int32_t CBmp256::GetHeight(int frame) {
     return ((BmpFrame*)this->pdata)->height;
 }
 
-void CBmp256::FlipVertical() { //4261a6
+// 4261a6 (client: 4280d4)
+void CBmp256::FlipVertical() {
     const BmpFrame* frm = (BmpFrame*)this->pdata;
     uint8_t* a = this->pdata + sizeof(BmpFrame);
     uint8_t* b = this->pdata + sizeof(BmpFrame) + (frm->height - 1) * frm->width;
@@ -5254,17 +5331,20 @@ void CBmp256::FlipVertical() { //4261a6
     }
 }
 
-int CBmp256::GetPixelSize() { //428da0
+// 428da0 (client: 42ab60)
+int CBmp256::GetPixelSize() {
     return 1;
 }
 
-void CBmp256::DrawSubRect(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b, int palid) { //426385
+// 426385 (client: 4282b3)
+void CBmp256::DrawSubRect(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b, int palid) {
     const uint16_t* pal = this->palette.GetPalette(palid);
     const BmpFrame* frm = (BmpFrame*)this->pdata;
     BlitPaletted(x, y, l, t, r, b, this->pdata + sizeof(BmpFrame), frm->width, frm->height, pal);
 }
 
-void CBmp256::DrawSubRectAdd(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b, int palid) { //426440
+// 426440 (client: 42836e)
+void CBmp256::DrawSubRectAdd(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b, int palid) {
     const uint16_t* pal = this->palette.GetPalette(palid);
     const BmpFrame* frm = (BmpFrame*)this->pdata;
     BlitFlipPalettedAdd(x, y, l, t, r, b, this->pdata + sizeof(BmpFrame), frm->width, frm->height, pal);
@@ -5275,7 +5355,8 @@ void CBmp256::DrawSubRectAdd(int32_t x, int32_t y, int32_t l, int32_t t, int32_t
 
 
 
-CBmp64::CBmp64(const char* fname) { //42576d
+// 42576d (client: 42769b)
+CBmp64::CBmp64(const char* fname) {
     File2 f;
     if (!f.Open(fname, CFile::modeRead)) {
         CString s = "FATAL ERROR: can't load ";
@@ -5323,7 +5404,8 @@ CBmp64::CBmp64(const char* fname) { //42576d
     f.Close();
 }
 
-CBmp64::CBmp64(uint32_t w, uint32_t h) { //42597e
+// 42597e (client: 4278ac)
+CBmp64::CBmp64(uint32_t w, uint32_t h) {
     this->data_size = w * h * 2 + sizeof(BmpFrame);
     this->pdata = new uint8_t[this->data_size];
     
@@ -5337,26 +5419,32 @@ CBmp64::CBmp64(uint32_t w, uint32_t h) { //42597e
     this->frames[0] = this->pdata + sizeof(BmpFrame);
 }
 
-CBmp64::~CBmp64() { //4289f0
+// 4289f0 (client: 42ab40)
+CBmp64::~CBmp64() {
 }
 
-void CBmp64::Dump(CDumpContext& dc) const { //425f3b
+// 425f3b (client: 427e69)
+void CBmp64::Dump(CDumpContext& dc) const {
 }
 
-void CBmp64::Draw(int32_t x, int32_t y, int frame, int mode, int palid) { //425e0c
+// 425e0c (client: 427d3a)
+void CBmp64::Draw(int32_t x, int32_t y, int frame, int mode, int palid) {
     const BmpFrame* frm = (BmpFrame*)this->pdata;
     Blit16(x, y, 0, 0, frm->width, frm->height, this->pdata + sizeof(BmpFrame), frm->width, frm->height);
 }
 
-int32_t CBmp64::GetWidth(int frame) { //425f61
+// 425f61 (client: 427e8f)
+int32_t CBmp64::GetWidth(int frame) {
     return ((BmpFrame*)this->pdata)->width;
 }
 
-int32_t CBmp64::GetHeight(int frame) { //425f76
+// 425f76 (client: 427ea4)
+int32_t CBmp64::GetHeight(int frame) {
     return ((BmpFrame*)this->pdata)->height;
 }
 
-void CBmp64::FlipVertical() { //425cdb
+// 425cdb (client: 427c09)
+void CBmp64::FlipVertical() {
     const BmpFrame* frm = (BmpFrame*)this->pdata;
     uint16_t* a = (uint16_t*)((uint8_t*)this->pdata + sizeof(BmpFrame));
     uint16_t* b = (uint16_t*)((uint8_t*)this->pdata + sizeof(BmpFrame)) + (frm->height - 1) * frm->width;
@@ -5370,22 +5458,26 @@ void CBmp64::FlipVertical() { //425cdb
     }
 }
 
-void CBmp64::DrawSubRect(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b) { //425e5d
+// 425e5d (client: 427d8b)
+void CBmp64::DrawSubRect(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b) {
     const BmpFrame* frm = (BmpFrame*)this->pdata;
     Blit16(x, y, l, t, r, b, this->pdata + sizeof(BmpFrame), frm->width, frm->height);
 }
 
-void CBmp64::DrawSubRectMasked(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b) { //425ea7
+// 425ea7 (client: 427dd5)
+void CBmp64::DrawSubRectMasked(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b) {
     const BmpFrame* frm = (BmpFrame*)this->pdata;
     Blit16Masked(x, y, l, t, r, b, this->pdata + sizeof(BmpFrame), frm->width, frm->height);
 }
 
-void CBmp64::DrawSubRectAdd(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b) { //425ef1
+// 425ef1 (client: 427e1f)
+void CBmp64::DrawSubRectAdd(int32_t x, int32_t y, int32_t l, int32_t t, int32_t r, int32_t b) {
     const BmpFrame* frm = (BmpFrame*)this->pdata;
     Blit16Add(x, y, l, t, r, b, this->pdata + sizeof(BmpFrame), frm->width, frm->height);
 }
 
-void CBmp64::LoadFile(const char* fname, CGameBitmap* bmp2) { //425a17
+// 425a17 (client: 427945)
+void CBmp64::LoadFile(const char* fname, CGameBitmap* bmp2) {
     File2 f;
     if (!f.Open(fname, CFile::modeRead)) {
         CString s = "FATAL ERROR: can't load ";
@@ -5421,7 +5513,8 @@ void CBmp64::LoadFile(const char* fname, CGameBitmap* bmp2) { //425a17
     f.Close();
 }
 
-void CBmp64::WriteFile(const char* fname, CGameBitmap* bmp2) { //425b95
+// 425b95 (client: 427ac3)
+void CBmp64::WriteFile(const char* fname, CGameBitmap* bmp2) {
     CFile f;
     f.Open(fname, CFile::modeCreate | CFile::modeWrite);
 
@@ -5457,7 +5550,8 @@ void CBmp64::WriteFile(const char* fname, CGameBitmap* bmp2) { //425b95
 
 
 
-CSprite256::CSprite256(const char* fname) { //424e79
+// 424e79 (client: 426da9)
+CSprite256::CSprite256(const char* fname) {
 
     File2 f;
     if (!f.Open(fname, CFile::modeRead)) {
@@ -5501,17 +5595,21 @@ CSprite256::CSprite256(const char* fname) { //424e79
 }
 
 
+// 4250bf (client: 426fef)
 CSprite256::CSprite256(const CSprite256& b)
-: CGameBitmap(b) { //4250bf
+: CGameBitmap(b) {
 }
 
-CSprite256::~CSprite256() { //4289a0
+// 4289a0 (client: 42aaf0)
+CSprite256::~CSprite256() {
 }
 
-void CSprite256::Dump(CDumpContext& dc) const { //425558
+// 425558 (client: 427486)
+void CSprite256::Dump(CDumpContext& dc) const {
 }
 
-void CSprite256::DrawWithPalette(int32_t x, int32_t y, int frame, int palid, CGamePalette* ppalette, int mode) { //425210
+// 425210 (client: 427140)
+void CSprite256::DrawWithPalette(int32_t x, int32_t y, int frame, int palid, CGamePalette* ppalette, int mode) {
     const uint16_t* pal = ppalette->GetPalette(palid);
     SpriteFrame* frm = ((SpriteFrame**)this->frames)[frame];
     if (mode == 0) {
@@ -5521,7 +5619,8 @@ void CSprite256::DrawWithPalette(int32_t x, int32_t y, int frame, int palid, CGa
     }
 }
 
-void CSprite256::Draw(int32_t x, int32_t y, int frame, int palid, int mode) { //4250e4
+// 4250e4 (client: 427014)
+void CSprite256::Draw(int32_t x, int32_t y, int frame, int palid, int mode) {
     const uint16_t* pal = this->palette.GetPalette(palid);
     SpriteFrame* frm = ((SpriteFrame**)this->frames)[frame];
     if (mode == 0) {
@@ -5531,7 +5630,8 @@ void CSprite256::Draw(int32_t x, int32_t y, int frame, int palid, int mode) { //
     }
 }
 
-void CSprite256::DrawBrightened(int32_t x, int32_t y, int frame, int blevel, int mode) { //425330
+// 425330 (client: 427260)
+void CSprite256::DrawBrightened(int32_t x, int32_t y, int frame, int blevel, int mode) {
     SpriteFrame* frm = ((SpriteFrame**)this->frames)[frame];
     if (mode == 0) {
         if (g_isLowMemory == 0) {
@@ -5548,7 +5648,8 @@ void CSprite256::DrawBrightened(int32_t x, int32_t y, int frame, int blevel, int
     }
 }
 
-void CSprite256::DrawWithPaletteBlend(int32_t x, int32_t y, int frame, int palid, CGamePalette* ppalette, int mode) { //4252a0
+// 4252a0 (client: 4271d0)
+void CSprite256::DrawWithPaletteBlend(int32_t x, int32_t y, int frame, int palid, CGamePalette* ppalette, int mode) {
     SpriteFrame* frm = ((SpriteFrame**)this->frames)[frame];
     if (mode == 0) {
         BlitRle8Blend(x, y, frm->width, frm->height, frm->data, ppalette->GetPalette(palid));
@@ -5557,7 +5658,8 @@ void CSprite256::DrawWithPaletteBlend(int32_t x, int32_t y, int frame, int palid
     }
 }
 
-void CSprite256::DrawBlend(int32_t x, int32_t y, int frame, int palid, int mode) { //42517a
+// 42517a (client: 4270aa)
+void CSprite256::DrawBlend(int32_t x, int32_t y, int frame, int palid, int mode) {
     SpriteFrame* frm = ((SpriteFrame**)this->frames)[frame];
     if (mode == 0) {
         BlitRle8Blend(x, y, frm->width, frm->height, frm->data, this->palette.GetPalette(palid));
@@ -5566,7 +5668,8 @@ void CSprite256::DrawBlend(int32_t x, int32_t y, int frame, int palid, int mode)
     }
 }
 
-void CSprite256::DrawShadowed(int32_t x, int32_t y, int frame, int blevel, int32_t tilt, int mode) { //425414
+// 425414 (client: 427344)
+void CSprite256::DrawShadowed(int32_t x, int32_t y, int frame, int blevel, int32_t tilt, int mode) {
     SpriteFrame* frm = ((SpriteFrame**)this->frames)[frame];
     if (mode == 0) {
         if (g_isLowMemory == 0) {
@@ -5583,7 +5686,8 @@ void CSprite256::DrawShadowed(int32_t x, int32_t y, int frame, int blevel, int32
     }
 }
 
-void CSprite256::DrawIndexMask(int32_t x, int32_t y, int frame, uint32_t mv) { //425508
+// 425508 (client: 427438)
+void CSprite256::DrawIndexMask(int32_t x, int32_t y, int frame, uint32_t mv) {
     SpriteFrame* frm = ((SpriteFrame**)this->frames)[frame];
     BlitRle8IndexMask(x, y, frm->width, frm->height, frm->data, mv);
 }
@@ -5592,12 +5696,14 @@ void CSprite256::DrawIndexMask(int32_t x, int32_t y, int frame, uint32_t mv) { /
 
 
 
+// 4287ff (client: 42a71b)
 CA16::CA16(const char* fname)
 : CSprite256(fname)
-{} //4287ff
+{}
 
 
-void CA16::Draw(int32_t x, int32_t y, int frame, int palid, int mode) { //428824
+// 428824 (client: 42a740)
+void CA16::Draw(int32_t x, int32_t y, int frame, int palid, int mode) {
     SpriteFrame* frm = ((SpriteFrame**)this->frames)[frame];
 
     uint16_t* pal = (uint16_t*)palid;
@@ -5616,12 +5722,14 @@ void CA16::Draw(int32_t x, int32_t y, int frame, int palid, int mode) { //428824
 
 
 
+// 424db8 (client: 426ce8)
 CSprite16::CSprite16(const char* fname)
 : CGameBitmap(fname)
-{} //424db8
+{}
 
 
-void CSprite16::DrawRle4(int32_t x, int32_t y, int frame, uint16_t* pcolor) { //424ddd
+// 424ddd (client: 426d0d)
+void CSprite16::DrawRle4(int32_t x, int32_t y, int frame, uint16_t* pcolor) {
     SpriteFrame* frm = ((SpriteFrame**)this->frames)[frame];
     BlitRle4(x, y, frm->width, frm->height, frm->data, pcolor);
 }
@@ -5630,7 +5738,8 @@ void CSprite16::DrawRle4(int32_t x, int32_t y, int frame, uint16_t* pcolor) { //
 
 
 
-CSpriteFont16::CSpriteFont16(const char* fname, int32_t _space) { //45fa44
+// 45fa44 (client: 46365e)
+CSpriteFont16::CSpriteFont16(const char* fname, int32_t _space) {
     CString buf = fname;
     buf += ".16";
 
@@ -5650,7 +5759,8 @@ CSpriteFont16::CSpriteFont16(const char* fname, int32_t _space) { //45fa44
     this->space = _space;
 }
 
-void CSpriteFont16::DrawTxt(int32_t x, int32_t y, const char* txt, uint32_t align, uint16_t* clr) { //45fbd7
+// 45fbd7 (client: 4637f1)
+void CSpriteFont16::DrawTxt(int32_t x, int32_t y, const char* txt, uint32_t align, uint16_t* clr) {
     if ((align & ALIGN_RIGHT) != 0) {
         x -= this->GetStrWidth(txt);
     }
@@ -5690,13 +5800,15 @@ void CSpriteFont16::DrawTxt(int32_t x, int32_t y, const char* txt, uint32_t alig
     }
 }
 
-uint16_t* CSpriteFont16::GetShadowColors() { // 45fdf2
+// 45fdf2 (client: 463a06)
+uint16_t* CSpriteFont16::GetShadowColors() {
     return clrsh_Black;
 }
 
 
 
-CSpriteFont16a::CSpriteFont16a(const char* fname, int32_t _space) { // 45fe02
+// 45fe02 (client: 463a16)
+CSpriteFont16a::CSpriteFont16a(const char* fname, int32_t _space) {
     CString buf = fname;
     buf += ".16a";
 
@@ -5718,10 +5830,12 @@ CSpriteFont16a::CSpriteFont16a(const char* fname, int32_t _space) { // 45fe02
     this->bitmap->ResetPalette(16, 4, 0);
 }
 
-CSpriteFont16a::~CSpriteFont16a() { // 461000
+// 461000 (client: 464c10)
+CSpriteFont16a::~CSpriteFont16a() {
 }
 
-void CSpriteFont16a::DrawTxt(int32_t x, int32_t y, const char* txt, uint32_t align, uint16_t* clr) { // 45ffa9
+// 45ffa9 (client: 463bbd)
+void CSpriteFont16a::DrawTxt(int32_t x, int32_t y, const char* txt, uint32_t align, uint16_t* clr) {
     if ((align & ALIGN_RIGHT) != 0) {
         x -= this->GetStrWidth(txt);
     }
@@ -5751,7 +5865,8 @@ void CSpriteFont16a::DrawTxt(int32_t x, int32_t y, const char* txt, uint32_t ali
     }
 }
 
-uint16_t* CSpriteFont16a::GetShadowColors() { // 460106
+// 460106 (client: 463d18)
+uint16_t* CSpriteFont16a::GetShadowColors() {
     return palette_black->GetPalette(0);
 }
 
@@ -5766,7 +5881,8 @@ uint16_t* CSpriteFont16a::GetShadowColors() { // 460106
 
 
 
-void LoadGraphics() { //47819d
+// 47819d (client: 47bedd)
+void LoadGraphics() {
         g_bmp_crystalr = new CBmp64("graphics\\interface\\CrystalR.bmp");
         g_bmp_crystall = new CBmp64("graphics\\interface\\CrystalL.bmp");
         g_bmp_headsr = new CBmp64("graphics\\interface\\HeadsR.bmp");
@@ -5889,7 +6005,8 @@ void LoadGraphics() { //47819d
 }
 
 
-void UnloadGraphics() { //47961c
+// 47961c (client: 47d439)
+void UnloadGraphics() {
     if (g_bmp_crystalr) {
         delete g_bmp_crystalr;
     }
@@ -6113,7 +6230,8 @@ void UnloadGraphics() { //47961c
     g_bmp_testiva = nullptr;
 }
 
-void UnloadUnitGfxFiles() { //47c6cd
+// 47c6cd (client: 480587)
+void UnloadUnitGfxFiles() {
     for (int32_t i = 0; i < g_UnitGfxFiles.GetSize(); i++) {
         UnitGfxFile* gfx = g_UnitGfxFiles[i];
         if (gfx != nullptr) {
@@ -6137,14 +6255,16 @@ void UnloadUnitGfxFiles() { //47c6cd
     g_Human_palettes.RemoveAll();
 }
 
-void LoadFonts() { //460c37
+// 460c37 (client: 464849)
+void LoadFonts() {
     g_font1 = new CSpriteFont16("graphics\\font1\\font1", 2);
     g_font2 = new CSpriteFont16("graphics\\font2\\font2", 2);
     g_font3 = new CSpriteFont16("graphics\\font3\\font3", 2);
     g_font4 = new CSpriteFont16a("graphics\\font4\\font4", 2);
 }
 
-void FreeFontData() { //460d7f
+// 460d7f (client: 464991)
+void FreeFontData() {
     if (g_font1) {
         delete g_font1;
     }
@@ -6183,7 +6303,8 @@ void FreeFontData() { //460d7f
     palette_tawny_port = nullptr;
 }
 
-void FreeDDraw() { //454219
+// 454219 (client: 457e59)
+void FreeDDraw() {
 #ifdef A2CLIENT_PATCH
     if (g_IsServer == 0) {
         IDirectDrawSurface* surf = g_ddsurface;
@@ -6219,7 +6340,8 @@ void FreeDDraw() { //454219
 // Tangar SCREENSHOT_take (entry takeover of client 457973): save the frame as a
 // timestamped PNG (lodepng) instead of the retail numbered BMP. The surface is
 // read directly, like the patch does (no lock/unlock).
-void SaveScreenshot() { //453d33
+// 453d33 (client: 457973)
+void SaveScreenshot() {
     int32_t si_width = g_ScreenSize.right - g_ScreenSize.left;
     int32_t si_height = g_ScreenSize.bottom - g_ScreenSize.top;
 
@@ -6274,7 +6396,8 @@ void SaveScreenshot() { //453d33
     free(buf);
 }
 #else
-void SaveScreenshot() { //453d33
+// 453d33 (client: 457973)
+void SaveScreenshot() {
     static int32_t screenshot_num = 0; //65dd24
     CString fname;
     fname.Format("Allods%04d.bmp", screenshot_num);

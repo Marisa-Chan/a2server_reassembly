@@ -22,12 +22,14 @@
 #include "packet.h"
 #include "take_damage.h"
 
-TakeDamage::TakeDamage() = default; //45db60
+// 45db60 (client: 461780)
+TakeDamage::TakeDamage() = default;
 TakeDamage::TakeDamage(const TakeDamage& ref) = default;
-TakeDamage::~TakeDamage() = default; //45dd08
+// 45dd08 (client: 461928)
+TakeDamage::~TakeDamage() = default;
 
+// 45db8a (client: 4617aa)
 TakeDamage::TakeDamage(int32_t _dmg, uint16_t* clr, int32_t unk, int32_t _dx, int32_t _dy, CUnit* ct) {
-    //45db8a
     this->dmg = _dmg;
 
     this->txt.Format("%d", this->dmg);
@@ -51,8 +53,8 @@ TakeDamage::TakeDamage(int32_t _dmg, uint16_t* clr, int32_t unk, int32_t _dx, in
 
 
 
+// 45dd1b (client: 46193b)
 void TakeDamage::Update() {
-    //45dd1b
     if (this->drift_left == 0) {
         this->dx += 1;
         this->dy -= 2;
@@ -62,8 +64,8 @@ void TakeDamage::Update() {
     }
 }
 
+// 45dd6d (client: 46198d)
 int TakeDamage::Draw() {
-    //45dd6d
     uint32_t t = timeGetTime();
     if (t - this->timestamp > 1000) {
         return 0;
@@ -75,17 +77,19 @@ int TakeDamage::Draw() {
     return 1;
 }
 
-int32_t TakeDamage::GetScreenX() { //41f620
+// 41f620 (client: 4203d0)
+int32_t TakeDamage::GetScreenX() {
     return this->dx + this->cunit->centerScreenX;
 }
 
-int32_t TakeDamage::GetScreenY() { //41f640
+// 41f640 (client: 4203f0)
+int32_t TakeDamage::GetScreenY() {
     return this->dy + this->cunit->centerScreenY - this->cunit->terrainHeightOffset;
 }
 
 
+// 45dea1 (client: 461ac1)
 void __cdecl TakeDamage::AddDamage(CArray<TakeDamage>* arr, const TakeDamage& dmg) {
-    //45dea1
 
     for (int i = 0; i < arr->GetSize(); i++) {
         TakeDamage& b = arr->ElementAt(i);
@@ -99,8 +103,8 @@ void __cdecl TakeDamage::AddDamage(CArray<TakeDamage>* arr, const TakeDamage& dm
     arr->Add(dmg);
 }
 
+// 45ddf6 (client: 461a16)
 void __cdecl TakeDamage::DrawDamages(CArray<TakeDamage>* arr) {
-    //45ddf6
     if (arr->GetSize() == 0) {
         return;
     }
@@ -115,8 +119,8 @@ void __cdecl TakeDamage::DrawDamages(CArray<TakeDamage>* arr) {
     UnlockSurface2();
 }
 
+// 45de65 (client: 461a85)
 void __cdecl TakeDamage::UpdateDamages(CArray<TakeDamage>* arr) {
-    //45de65
     for (int i = 0; i < arr->GetSize(); i++) {
         arr->ElementAt(i).Update();
     }

@@ -9,17 +9,17 @@
 #include "resource.h"
 #include "unit.h"
 
-// 58E1C1
+// 58e1c1 (client: 514f28)
 void Visibility::ClearVisScratch() {
     memset(this->vis_scratch, 0, sizeof(this->vis_scratch));
 }
 
-// 58DE69
+// 58de69 (client: 55d319)
 void Visibility::RefreshUnitVisibility(Unit* unit, uint16_t yx) {
     this->ScanUnitVisibility(unit, yx);
 }
 
-// 58CD84
+// 58cd84 (client: 55c234) - Builds part of the path-cost lookup tables
 void Visibility::BuildDistSqTable() {
     for (int32_t y = 0; y <= Visibility::CENTER; y++) {
         for (int32_t x = 0; x <= Visibility::CENTER; x++) {
@@ -32,7 +32,7 @@ void Visibility::BuildDistSqTable() {
     }
 }
 
-// 58CE74
+// 58ce74 (client: 55c324) - Builds part of the path-cost lookup tables
 void Visibility::BuildRayTables() {
     for (int32_t y = 0; y <= Visibility::CENTER; y++) {
         for (int32_t x = 0; x <= Visibility::CENTER; x++) {
@@ -77,7 +77,7 @@ void Visibility::BuildRayTables() {
     this->ray_dir_table[Visibility::CENTER - 1][Visibility::CENTER] = 0x0001;
 }
 
-// 58E1E4
+// 58e1e4 (client: 55d694)
 Visibility::Visibility() {
     File2 f;
     f.Open("World\\Data\\map.reg", 0, nullptr);
@@ -96,7 +96,7 @@ Visibility::Visibility() {
     memset(this->gap_0x0, 0, sizeof(this->gap_0x0));
 }
 
-// 58D638
+// 58d638 (client: 55cae8)
 int32_t Visibility::StepVisRay(int32_t x, int32_t y, int32_t base_yx, int32_t base_height) {
     PosYX pos = PosYX(x, y);
     PosYX direction = PosYX(this->ray_dir_table[x][y]);
@@ -115,7 +115,7 @@ int32_t Visibility::StepVisRay(int32_t x, int32_t y, int32_t base_yx, int32_t ba
     return 1;
 }
 
-// 58D768
+// 58d768 (client: 55cc18)
 void Visibility::ScanUnitVisibility(Unit* unit, uint16_t yx) {
     PosYX pos = PosYX(yx);
     int32_t base_x = pos.x - Visibility::CENTER;
