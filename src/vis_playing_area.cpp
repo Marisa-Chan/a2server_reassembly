@@ -8083,8 +8083,11 @@ void VisPlayingArea::SendGroupSelfCast(int32_t idx) {
             if (!obj->IsSelected() || (obj->activeSpellEffectMask & (1 << (idx - 1))) == 0) {
                 continue;
             }
+            pkt->from_player_id = this->my_main_unit->index;
+            pkt->to_player_id = 0;
             pkt->count = 0;
             pkt->AppendWord(obj->unit_id);
+            pkt->param = obj->unit_id;
             uint16_t slot = 0xFFFF;
             if (wnd->vis_spellbook->spell >= 0) {
                 slot = wnd->vis_spellbook->spell;

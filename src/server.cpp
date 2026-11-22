@@ -4509,24 +4509,25 @@ void Server::ProcessClientPacket(Packet* pkt) {
 #endif
             if (g_ServerConfig.gameType != GAME_TYPE_TEAMPLAY || g_PlayersList->AreTeamsStarted() != 0) {
                 player->ResetAfkTimer();
-#if defined(A2SERVER_PATCH) || defined(A2TANGAR_HAT)
-                if (player->main_unit == nullptr || player->main_unit->inventory == nullptr) {
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+                if (unit == nullptr || unit->inventory == nullptr) {
                     break;
                 }
 #endif
+                uint16_t bag_slot = static_cast<uint16_t>(packet_order->slot) | (static_cast<uint16_t>(packet_order->slot_high) << 8);
 #ifdef A2TANGAR_HAT
                 // fix_scroll_burn hook (5056E1): peek the scroll first; only
                 // warriors may cast from scrolls, and invalid/blocked casts
                 // discard the request without removing the item from the bag.
                 POSITION item_it = nullptr;
-                Item* peeked = player->main_unit->inventory->PeekItemAt(packet_order->slot, &item_it);
+                Item* peeked = unit->inventory->PeekItemAt(bag_slot, &item_it);
                 if (peeked == nullptr) {
                     break;
                 }
                 Effect* eff = peeked->_effects.IsEmpty() ? nullptr : peeked->_effects.GetHead();
                 if (!tangar_items::IsScroll(peeked) || eff == nullptr || eff->effect_id != 0x29 ||
-                    (player->main_unit->unit_attrs & Unit::ATTR_MAGE) != 0) {
-                    g_NetStru1_main.SendUnitUpdate(player->main_unit, player, 0xFFFFFFFF, EQUIP_SLOTS_ALL, 0, 0);
+                    (unit->unit_attrs & Unit::ATTR_MAGE) != 0) {
+                    g_NetStru1_main.SendUnitUpdate(unit, player, 0xFFFFFFFF, EQUIP_SLOTS_ALL, 0, 0);
                     break;
                 }
 
@@ -4534,40 +4535,40 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 spell->SetPower(eff->spell_value);
                 if (packet_order->id != SCROLL_CAST_UNIT && !spell->IsAreaSpell(packet_order->x, packet_order->y)) {
                     delete spell;
-                    g_NetStru1_main.SendUnitUpdate(player->main_unit, player, 0xFFFFFFFF, EQUIP_SLOTS_ALL, 0, 0);
+                    g_NetStru1_main.SendUnitUpdate(unit, player, 0xFFFFFFFF, EQUIP_SLOTS_ALL, 0, 0);
                     break;
                 }
 
-                Item* item = player->main_unit->inventory->TakeItemAtPos(item_it, 1);
-                player->main_unit->some_item = item;
-                player->main_unit->spell = spell;
+                Item* item = unit->inventory->TakeItemAtPos(item_it, 1);
+                unit->some_item = item;
+                unit->spell = spell;
                 if (packet_order->id == SCROLL_CAST_UNIT) {
                     g_World->GroupCastAtUnitCommand(group, static_cast<Unit*>(target), spell);
                 } else {
                     g_World->GroupCastAtPositionCommand(group, x, y, spell);
                 }
 #else
-                auto* item = player->main_unit->inventory->TakeItemAt(packet_order->slot, 1);
+                auto* item = unit->inventory->TakeItemAt(bag_slot, 1);
                 if (!item || item->_effects.IsEmpty()) {
                     break;
                 }
 
                 Effect* eff = item->_effects.GetHead();
                 if (eff && eff->effect_id == 0x29) {
-                    player->main_unit->some_item = item;
+                    unit->some_item = item;
 
                     Spell* spell = new Spell(eff->spell_or_damage);
-                    player->main_unit->spell = spell;
+                    unit->spell = spell;
 
                     spell->SetPower(eff->spell_value);
                     if (packet_order->id == SCROLL_CAST_UNIT) {
                         g_World->GroupCastAtUnitCommand(group, static_cast<Unit*>(target), spell);
                     } else {
                         if (!spell->IsAreaSpell(packet_order->x, packet_order->y)) {
-                            player->main_unit->inventory->PutItemIntoBag(packet_order->slot, item);
-                            player->main_unit->some_item = nullptr;
+                            unit->inventory->PutItemIntoBag(bag_slot, item);
+                            unit->some_item = nullptr;
                             delete spell;
-                            player->main_unit->spell = nullptr;
+                            unit->spell = nullptr;
                         } else {
                             g_World->GroupCastAtPositionCommand(group, x, y, spell);
                         }
