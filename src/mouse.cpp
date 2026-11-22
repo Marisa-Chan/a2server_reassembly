@@ -6,6 +6,72 @@
 
 #ifdef A2CLIENT_PATCH
 constexpr int32_t kSelectFrameBufLen = 8192;
+
+namespace {
+
+constexpr int32_t kMaxDeferredMouseRects = 32;
+int32_t g_mouse_present_batch_depth = 0;
+int32_t g_deferred_mouse_rect_count = 0;
+CRect g_deferred_mouse_rects[kMaxDeferredMouseRects];
+
+int64_t PaddedRectCost(const CRect& r) {
+    return static_cast<int64_t>(r.Width() + 6) * static_cast<int64_t>(r.Height() + 6);
+}
+
+void QueueOrPresentMouseRect(const CRect& rect) {
+    CRect r;
+    if (!r.IntersectRect(&rect, &g_ScreenSize)) {
+        return;
+    }
+    if (g_mouse_present_batch_depth <= 0) {
+        PresentSurface1Rect(r);
+        return;
+    }
+    if (g_deferred_mouse_rect_count < kMaxDeferredMouseRects) {
+        g_deferred_mouse_rects[g_deferred_mouse_rect_count++] = r;
+    } else {
+        g_deferred_mouse_rects[kMaxDeferredMouseRects - 1].UnionRect(
+            &g_deferred_mouse_rects[kMaxDeferredMouseRects - 1], &r);
+    }
+}
+
+void FlushDeferredMouseRects() {
+    bool merged = true;
+    while (merged) {
+        merged = false;
+        for (int32_t i = 0; i < g_deferred_mouse_rect_count && !merged; i++) {
+            for (int32_t j = i + 1; j < g_deferred_mouse_rect_count; j++) {
+                const CRect& a = g_deferred_mouse_rects[i];
+                const CRect& b = g_deferred_mouse_rects[j];
+                CRect u((std::min)(a.left, b.left), (std::min)(a.top, b.top),
+                        (std::max)(a.right, b.right), (std::max)(a.bottom, b.bottom));
+                if (PaddedRectCost(u) <= PaddedRectCost(a) + PaddedRectCost(b) + 512) {
+                    g_deferred_mouse_rects[i] = u;
+                    g_deferred_mouse_rects[j] = g_deferred_mouse_rects[--g_deferred_mouse_rect_count];
+                    merged = true;
+                    break;
+                }
+            }
+        }
+    }
+
+    int32_t count = g_deferred_mouse_rect_count;
+    g_deferred_mouse_rect_count = 0;
+    for (int32_t i = 0; i < count; i++) {
+        PresentSurface1Rect(g_deferred_mouse_rects[i]);
+    }
+}
+
+struct ScopedMousePresentBatch {
+    ScopedMousePresentBatch() { ++g_mouse_present_batch_depth; }
+    ~ScopedMousePresentBatch() {
+        if (--g_mouse_present_batch_depth == 0 && g_deferred_mouse_rect_count > 0) {
+            FlushDeferredMouseRects();
+        }
+    }
+};
+
+} // namespace
 #else
 constexpr int32_t kSelectFrameBufLen = 1600;
 #endif
@@ -125,7 +191,7 @@ void CMousePointer::DrawToScreen() {
     this->cursor_sprite->Draw(cx, cy, this->frame, 0, 0);
 
     UnlockSurface1();
-    PresentSurface1Rect(CRect(cx, cy, cx + cw, cy + ch));
+    QueueOrPresentMouseRect(CRect(cx, cy, cx + cw, cy + ch));
 #else
     CopyScreenRectToBmp64(this->x - this->x_offset, this->y - this->y_offset, this->cursor_sprite->GetWidth(0), this->cursor_sprite->GetHeight(0), this->cursor_sprite->GetWidth(0), this->cursor_sprite->GetHeight(0), (uint8_t*)this->saved_screen_rect->GetData());
     this->cursor_sprite->Draw(this->x - this->x_offset, this->y - this->y_offset, this->frame, 0, 0);
@@ -144,7 +210,7 @@ void CMousePointer::EraseCursor() {
     int32_t ch = this->cursor_sprite->GetHeight(0);
     this->saved_screen_rect->DrawSubRect(cx, cy, 0, 0, cw, ch);
     UnlockSurface1();
-    PresentSurface1Rect(CRect(cx, cy, cx + cw, cy + ch));
+    QueueOrPresentMouseRect(CRect(cx, cy, cx + cw, cy + ch));
 #else
     this->saved_screen_rect->DrawSubRect(this->x - this->x_offset, this->y - this->y_offset, 0, 0, this->cursor_sprite->GetWidth(0), this->cursor_sprite->GetHeight(0));
     UnlockSurface1();
@@ -259,14 +325,14 @@ void CMousePointer::PaintSelectFrame() {
 
 #ifdef A2CLIENT_PATCH
         if (r.Width() > 0 && r.Height() > 0) {
-            PresentSurface1Rect(CRect(r.left, r.top, r.right, r.top + 1));
+            QueueOrPresentMouseRect(CRect(r.left, r.top, r.right, r.top + 1));
             if (r.Height() > 1) {
-                PresentSurface1Rect(CRect(r.left, r.bottom - 1, r.right, r.bottom));
+                QueueOrPresentMouseRect(CRect(r.left, r.bottom - 1, r.right, r.bottom));
             }
             if (r.Height() > 2) {
-                PresentSurface1Rect(CRect(r.left, r.top + 1, r.left + 1, r.bottom - 1));
+                QueueOrPresentMouseRect(CRect(r.left, r.top + 1, r.left + 1, r.bottom - 1));
                 if (r.Width() > 1) {
-                    PresentSurface1Rect(CRect(r.right - 1, r.top + 1, r.right, r.bottom - 1));
+                    QueueOrPresentMouseRect(CRect(r.right - 1, r.top + 1, r.right, r.bottom - 1));
                 }
             }
         }
@@ -276,6 +342,9 @@ void CMousePointer::PaintSelectFrame() {
 
 // 426eb6 (client: 428de4)
 void CMousePointer::Repaint(CPoint point) {
+#ifdef A2CLIENT_PATCH
+    ScopedMousePresentBatch present_batch;
+#endif
 
     this->mouse_hint_time = 0;
     this->mouse_hint_ts = timeGetTime();
@@ -306,6 +375,9 @@ void CMousePointer::Repaint(CPoint point) {
 
 // 428779 (client: 42a695)
 void CMousePointer::RepaintHint() {
+#ifdef A2CLIENT_PATCH
+    ScopedMousePresentBatch present_batch;
+#endif
     this->Unpaint();
     LockSurface1();
 
@@ -313,7 +385,7 @@ void CMousePointer::RepaintHint() {
 
     UnlockSurface1();
 #ifdef A2CLIENT_PATCH
-    PresentSurface1Rect(CRect(this->hint_rect.left, this->hint_rect.top, this->hint_rect.right + 1, this->hint_rect.bottom + 1));
+    QueueOrPresentMouseRect(CRect(this->hint_rect.left, this->hint_rect.top, this->hint_rect.right + 1, this->hint_rect.bottom + 1));
 #endif
     this->Paint();
 }
@@ -326,6 +398,9 @@ void CMousePointer::ResetNext400msg() {
 
 // 427e23 (client: 429d51)
 void CMousePointer::ResetStates() {
+#ifdef A2CLIENT_PATCH
+    ScopedMousePresentBatch present_batch;
+#endif
     this->Unpaint();
     this->UnpaintSelectFrame();
     this->Paint();
@@ -496,6 +571,9 @@ void CMousePointer::SetCursor(CSprite256* spr, int32_t off_x, int32_t off_y, int
         return;
     }
 
+#ifdef A2CLIENT_PATCH
+    ScopedMousePresentBatch present_batch;
+#endif
     this->Unpaint();
 
     if (this->saved_screen_rect) {
@@ -523,6 +601,9 @@ void CMousePointer::SetCursor(CSprite256* spr, int32_t off_x, int32_t off_y, int
 
 // 427db1 (client: 429cdf)
 void CMousePointer::StartSelect(const CPoint& point) {
+#ifdef A2CLIENT_PATCH
+    ScopedMousePresentBatch present_batch;
+#endif
     this->select_frame_state = 1;
     this->select_frame_rect.SetRect(point, point);
 
@@ -591,14 +672,14 @@ void CMousePointer::UnpaintSelectFrame() {
 
 #ifdef A2CLIENT_PATCH
     if (r.Width() > 0 && r.Height() > 0) {
-        PresentSurface1Rect(CRect(r.left, r.top, r.right, r.top + 1));
+        QueueOrPresentMouseRect(CRect(r.left, r.top, r.right, r.top + 1));
         if (r.Height() > 1) {
-            PresentSurface1Rect(CRect(r.left, r.bottom - 1, r.right, r.bottom));
+            QueueOrPresentMouseRect(CRect(r.left, r.bottom - 1, r.right, r.bottom));
         }
         if (r.Height() > 2) {
-            PresentSurface1Rect(CRect(r.left, r.top + 1, r.left + 1, r.bottom - 1));
+            QueueOrPresentMouseRect(CRect(r.left, r.top + 1, r.left + 1, r.bottom - 1));
             if (r.Width() > 1) {
-                PresentSurface1Rect(CRect(r.right - 1, r.top + 1, r.right, r.bottom - 1));
+                QueueOrPresentMouseRect(CRect(r.right - 1, r.top + 1, r.right, r.bottom - 1));
             }
         }
     }
@@ -643,6 +724,9 @@ void CMousePointer::Update() {
             this->frame = 0;
         }
 
+#ifdef A2CLIENT_PATCH
+        ScopedMousePresentBatch present_batch;
+#endif
         this->Unpaint();
         this->Paint();
     }
@@ -681,6 +765,9 @@ void CMousePointer::Update() {
 
 // 42819d (client: 42a0cb)
 void CMousePointer::UpdateHint() {
+#ifdef A2CLIENT_PATCH
+    ScopedMousePresentBatch present_batch;
+#endif
     this->hint_rect.SetRect(this->x, this->y - 5 - this->hint_lines * 14, this->x + 11 + this->hint_max_width, this->y);
 
     if (this->hint_rect.right > g_ScreenSize.right) {
@@ -697,7 +784,7 @@ void CMousePointer::UpdateHint() {
     this->PaintHint();
     UnlockSurface1();
 #ifdef A2CLIENT_PATCH
-    PresentSurface1Rect(CRect(this->hint_rect.left, this->hint_rect.top, this->hint_rect.right + 1, this->hint_rect.bottom + 1));
+    QueueOrPresentMouseRect(CRect(this->hint_rect.left, this->hint_rect.top, this->hint_rect.right + 1, this->hint_rect.bottom + 1));
 #endif
 
     this->Paint();

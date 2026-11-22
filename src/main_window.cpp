@@ -3318,7 +3318,11 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) {
 
     switch (message) {
     default:
+#ifdef A2CLIENT_PATCH
+        if (message >= WM_KEYDOWN && this->vis_root && vis_root->MsgProc(message, wParam, lParam) != 0) {
+#else
         if (this->vis_root && vis_root->MsgProc(message, wParam, lParam) != 0) {
+#endif
             return DefWindowProc(message, wParam, lParam);
         }
         break;

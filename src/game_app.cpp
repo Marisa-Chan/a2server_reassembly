@@ -987,6 +987,54 @@ BOOL GameApp::InitInstance() {
     return TRUE;
 }
 
+#ifdef A2CLIENT_PATCH
+int GameApp::Run() {
+    if (g_IsServer != 0 || this->m_pMainWnd == nullptr) {
+        return CWinApp::Run();
+    }
+
+    MSG* pMsg = AfxGetCurrentMessage();
+    BOOL bIdle = TRUE;
+    LONG lIdleCount = 0;
+    uint32_t last_idle_ts = timeGetTime();
+
+    for (;;) {
+        while (bIdle && !::PeekMessage(pMsg, NULL, NULL, NULL, PM_NOREMOVE)) {
+            if (!this->OnIdle(lIdleCount++)) {
+                bIdle = FALSE;
+            }
+            last_idle_ts = timeGetTime();
+        }
+
+        int32_t pumped = 0;
+        do {
+            if (!this->PumpMessage()) {
+                return this->ExitInstance();
+            }
+
+            if (this->IsIdleMessage(pMsg)) {
+                bIdle = TRUE;
+                lIdleCount = 0;
+            }
+
+            // High-polling-rate mice can keep WM_MOUSEMOVE pending continuously in
+            // PeekMessage(PM_NOREMOVE), starving OnIdle() (world ticks, animations,
+            // and g_mousept.Update()). Bound message pumping before running a frame.
+            if (bIdle) {
+                uint32_t now = timeGetTime();
+                if (++pumped >= 8 || now - last_idle_ts >= 8) {
+                    if (!this->OnIdle(lIdleCount++)) {
+                        bIdle = FALSE;
+                    }
+                    last_idle_ts = timeGetTime();
+                    pumped = 0;
+                }
+            }
+        } while (::PeekMessage(pMsg, NULL, NULL, NULL, PM_NOREMOVE));
+    }
+}
+#endif
+
 // 4835b0 (client: 4872dc)
 BOOL GameApp::OnIdle(LONG lCount) {
     static uint32_t idle_tick = 0;
