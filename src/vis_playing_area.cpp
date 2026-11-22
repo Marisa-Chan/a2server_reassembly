@@ -726,7 +726,7 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
                         }
 
                         if (wnd->sessionMode != SESSION_LOCAL_BATTLE && (ct->unitFlags & UNIT_FLAG_TOKEN_GOLD_ENTRY) != 0) {
-                            if ((packet_unit->flags_mask & (UNIT_UPD_BASE_STATS | UNIT_UPD_KILL_STATS | UNIT_UPD_MAGIC_PROTECT)) == 0) {
+                            if ((packet_unit->flags_mask & (UNIT_UPD_BASE_STATS | UNIT_UPD_KILL_STATS | UNIT_UPD_SPELLS)) == 0) {
                                 if ((packet_unit->flags_mask & (UNIT_UPD_EXP_SPHERE0 | UNIT_UPD_EXP_SPHERE1 | UNIT_UPD_EXP_SPHERE2 | UNIT_UPD_EXP_SPHERE3 | UNIT_UPD_EXP_SPHERE4)) != 0) {
                                     wnd->m_GameSession.AutosaveTick();
                                 }

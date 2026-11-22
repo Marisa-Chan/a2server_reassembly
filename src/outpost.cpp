@@ -186,8 +186,7 @@ void Outpost::RestoreOriginalUnits(Group* group) {
             group->AddUnit(unit_original);
             this->pOwner->unit_list->AddTail(unit_original);
             g_NetStru1_main.SendUnitUpdate(unit_original, nullptr,
-                                UNIT_UPD_NAME | UNIT_UPD_EFFECTS | UNIT_UPD_HP | UNIT_UPD_MP | UNIT_UPD_HP_MP_MAX
-                                    | UNIT_UPD_DIR_POS | UNIT_UPD_TYPE_FACE | UNIT_UPD_OWNER | UNIT_UPD_SERVER_ID,
+                                UNIT_UPD_NAME | UNIT_UPD_HP | UNIT_UPD_MP | UNIT_UPD_HP_MP_MAX | UNIT_UPD_DIR_POS | UNIT_UPD_TYPE_FACE | UNIT_UPD_OWNER | UNIT_UPD_SERVER_ID,
                                 EQUIP_SLOTS_ALL, 0, 0);
         }
 

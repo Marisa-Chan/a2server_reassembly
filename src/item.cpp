@@ -1272,7 +1272,7 @@ Item* Weapon::Equip(Unit* unit) {
     }
     unit->max_range += (uint8_t)(this->range - 1);
     unit->AddCarriedWeight(this->weight);
-    unit->item_op_dirty_flags |= (UNIT_UPD_DEFENSE | UNIT_UPD_ABSORB | UNIT_UPD_SCAN_RANGE);
+    unit->item_op_dirty_flags |= (UNIT_UPD_DEFENSE | UNIT_UPD_ATTACK | UNIT_UPD_HAND_DAMAGE);
     this->ApplyEffects(unit);
     return old_weapon;
 }
@@ -1300,7 +1300,7 @@ void Weapon::Unequip(Unit* unit) {
     unit->charge = 8;
     unit->relax = 4;
     unit->AddCarriedWeight(-this->weight);
-    unit->item_op_dirty_flags |= (UNIT_UPD_DEFENSE | UNIT_UPD_ABSORB | UNIT_UPD_SCAN_RANGE);
+    unit->item_op_dirty_flags |= (UNIT_UPD_DEFENSE | UNIT_UPD_ATTACK | UNIT_UPD_HAND_DAMAGE);
     if (this->imbued_spell != nullptr) {
         delete this->imbued_spell;
         this->imbued_spell = nullptr;

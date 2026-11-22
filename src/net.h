@@ -305,8 +305,8 @@ enum UnitUpdateField : uint32_t {
     UNIT_UPD_EQUIP_WEIGHT_SPEED     = UNIT_UPD_SEND_EQUIPMENT | UNIT_UPD_CARRIED_WEIGHT | UNIT_UPD_SPEED,    // 0x482000: equipment changed
     UNIT_UPD_COMBAT_STATS           = UNIT_UPD_SKILL_LEVELS | UNIT_UPD_HP_MP_MAX | UNIT_UPD_ATTACK | UNIT_UPD_HAND_DAMAGE, // 0x3000C: weapon damage recalc
     UNIT_UPD_STAT_BOOST             = UNIT_UPD_HP | UNIT_UPD_MP | UNIT_UPD_SKILL_LEVELS | UNIT_UPD_HP_MP_MAX | UNIT_UPD_EXP_SPHERE0
-                                    | UNIT_UPD_EXP_SPHERE1 | UNIT_UPD_EXP_SPHERE2 | UNIT_UPD_EXP_SPHERE3
-                                    | UNIT_UPD_DEFENSE | UNIT_UPD_ABSORB | UNIT_UPD_ATTACK | UNIT_UPD_HAND_DAMAGE, // 0x31f0f: rune boost
+                                    | UNIT_UPD_EXP_SPHERE1 | UNIT_UPD_EXP_SPHERE2 | UNIT_UPD_EXP_SPHERE3 | UNIT_UPD_EXP_SPHERE4
+                                    | UNIT_UPD_ATTACK | UNIT_UPD_HAND_DAMAGE, // 0x31f0f: rune boost
     UNIT_UPD_ALL_STATS              = 0xA31FFFFF, // every stat field, no side-effect bits
     UNIT_UPD_ALL_STATS_EQUIPMENT    = UNIT_UPD_ALL_STATS | UNIT_UPD_SEND_EQUIPMENT, // 0xA35FFFFF
     UNIT_UPD_SEND_GATE_MASK         = 0xBF1FFFFF, // fields carried inside PacketUnitUpdate itself

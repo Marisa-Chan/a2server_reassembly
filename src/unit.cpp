@@ -1837,7 +1837,7 @@ void Unit::AddHp(int16_t amount) {
 
 // 52c58f (client: 51a137) - Revive unit (set flags, reset subcell, call VMethod18, notify world)
 void Unit::Revive() {
-    this->item_op_dirty_flags |= UNIT_UPD_HP | UNIT_UPD_HP_MP_MAX | UNIT_UPD_EXP_SPHERE0;
+    this->item_op_dirty_flags |= UNIT_UPD_HP | UNIT_UPD_DIR_POS | UNIT_UPD_DEFENSE;
     // Inline 58FD16: reset subcell position to cell center.
     this->position->x_subcell = 0x80;
     this->position->y_subcell = 0x80;
