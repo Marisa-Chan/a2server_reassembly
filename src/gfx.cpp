@@ -5,6 +5,8 @@
 #include <ddraw.h>
 #include "gfx.h"
 #ifdef A2CLIENT_PATCH
+#include <vector>
+#include "patch/build_version.h"
 #include "patch/client_config.h"
 #include "patch/hat_client.h"
 #include "lib/lodepng.h"
@@ -3668,6 +3670,46 @@ void __cdecl gfxFlushRect(const CRect& rect) {
         CRect r;
         r.IntersectRect(&rect, &g_ScreenSize);
 
+        CRect ver_rect(0, 0, 0, 0);
+        bool stamped_ver = false;
+        static std::vector<uint16_t> ver_backup;
+        if (g_font2 != nullptr && g_BuildVersion != nullptr && g_BuildVersion[0] != '\0') {
+            const int32_t ver_x = (std::max)(4, (int32_t)g_ScreenSize.right - 296);
+            const int32_t ver_y = 2;
+            const int32_t ver_w = g_font2->GetStrWidth(g_BuildVersion) + 6;
+            const int32_t ver_h = g_font2->GetHeight() + 6;
+            CRect candidate(ver_x, ver_y, ver_x + ver_w, ver_y + ver_h);
+            ver_rect.IntersectRect(&candidate, &g_ScreenSize);
+            CRect hit;
+            if (!ver_rect.IsRectEmpty() && hit.IntersectRect(&r, &ver_rect)) {
+                const int32_t vw = ver_rect.Width();
+                const int32_t vh = ver_rect.Height();
+                const int32_t stride = g_ScreenSize.right;
+                ver_backup.resize(vw * vh);
+                for (int32_t y = 0; y < vh; y++) {
+                    memcpy(&ver_backup[y * vw], g_surf2_buf + (ver_rect.top + y) * stride + ver_rect.left, vw * sizeof(uint16_t));
+                }
+
+                LockSurface2();
+                DDSURFACEDESC prev_desc = g_selDrawBitmap;
+                g_selDrawBitmap.dwSize = sizeof(DDSURFACEDESC);
+                g_selDrawBitmap.lpSurface = g_surf2_buf;
+                g_selDrawBitmap.dwWidth = g_ScreenSize.right;
+                g_selDrawBitmap.dwHeight = g_ScreenSize.bottom + 1;
+                g_selDrawBitmap.lPitch = g_ScreenSize.right * 2;
+
+                CRect prev_clip;
+                GetClipRect(&prev_clip);
+                SetClipRect(ver_rect);
+                g_font2->DrawTextWithShadow(ver_x, ver_y, g_BuildVersion, CGameFont::ALIGN_LEFT_TOP, clrsh_DullGold, 1);
+                SetClipRect(prev_clip);
+
+                g_selDrawBitmap = prev_desc;
+                UnlockSurface2();
+                stamped_ver = true;
+            }
+        }
+
         g_mousept.SaveScreenParts2(r);
         int32_t w = r.Width();
         int32_t h = r.Height();
@@ -3697,6 +3739,17 @@ void __cdecl gfxFlushRect(const CRect& rect) {
 
             UnlockSurface2();
             g_mousept.SaveScreenParts(r);
+        }
+
+        if (stamped_ver) {
+            const int32_t vw = ver_rect.Width();
+            const int32_t vh = ver_rect.Height();
+            const int32_t stride = g_ScreenSize.right;
+            for (int32_t y = 0; y < vh; y++) {
+                memcpy(g_surf2_buf + (ver_rect.top + y) * stride + ver_rect.left,
+                       &ver_backup[static_cast<size_t>(y) * vw],
+                       static_cast<size_t>(vw) * sizeof(uint16_t));
+            }
         }
     }
 #else

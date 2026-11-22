@@ -78,7 +78,27 @@ set(A2_SOURCES
   patch/netlog.cpp
 )
 
+cmake_path(SET GEN_VERSION_SCRIPT NORMALIZE "${CMAKE_CURRENT_SOURCE_DIR}/../tool/gen_version.cmake")
+set(BUILD_VERSION_CPP "${CMAKE_CURRENT_BINARY_DIR}/generated/build_version.cpp")
+
+execute_process(
+  COMMAND "${CMAKE_COMMAND}"
+    "-DSOURCE_DIR=${CMAKE_CURRENT_SOURCE_DIR}"
+    "-DOUT_FILE=${BUILD_VERSION_CPP}"
+    -P "${GEN_VERSION_SCRIPT}"
+)
+
+add_custom_target(gen_build_version
+  COMMAND "${CMAKE_COMMAND}"
+    "-DSOURCE_DIR=${CMAKE_CURRENT_SOURCE_DIR}"
+    "-DOUT_FILE=${BUILD_VERSION_CPP}"
+    -P "${GEN_VERSION_SCRIPT}"
+  BYPRODUCTS "${BUILD_VERSION_CPP}"
+  COMMENT "Checking git build version..."
+)
+
 set(A2SERVER_PATCHES
+  ${BUILD_VERSION_CPP}
   patch/allowed_picture.cpp
   patch/antiinvis.cpp
   patch/circle.cpp
@@ -115,6 +135,7 @@ add_executable(rea2sp ${A2_SOURCES} ${A2SERVER_PATCHES})
 add_executable(rea2st ${A2_SOURCES} ${A2SERVER_PATCHES})
 
 set(A2CLIENT_PATCHES
+  ${BUILD_VERSION_CPP}
   lib/happyhttp.cpp
   lib/lodepng.cpp
   patch/antiinvis.cpp
@@ -184,6 +205,11 @@ target_compile_definitions(rea2st PRIVATE A2SERVER_PATCH A2TANGAR_HAT)
 target_compile_definitions(rea2c PRIVATE A2CLIENT)
 target_compile_definitions(rea2cp PRIVATE A2CLIENT A2CLIENT_PATCH)
 target_compile_definitions(rea2ct PRIVATE A2CLIENT A2CLIENT_PATCH A2TANGAR_HAT)
+
+foreach(TARGET rea2sp rea2st rea2cp rea2ct)
+  add_dependencies(${TARGET} gen_build_version)
+  target_include_directories(${TARGET} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}")
+endforeach()
 
 set(A2_LINK_LIBS
     kernel32.lib

@@ -34,6 +34,7 @@
 #include <wininet.h>
 
 #ifdef A2SERVER_PATCH
+#include "patch/build_version.h"
 #include "patch/kick_char.h"
 #endif
 #if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
@@ -1546,6 +1547,12 @@ MainWindow::MainWindow() {
 #endif
     } else {
         CFrameWnd::LoadFrame(0x65, WS_TILEDWINDOW, NULL, NULL);
+#if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
+        if (CMenu* menu = this->GetMenu()) {
+            menu->AppendMenuA(MF_STRING | MF_GRAYED | MF_DISABLED, 0, g_BuildVersion);
+            this->DrawMenuBar();
+        }
+#endif
         SetWindowPos(0, 0, 0, resolution.x, resolution.y, SWP_NOREPOSITION | SWP_NOMOVE);
         this->SetControlPositions();
 #ifndef A2CLIENT
