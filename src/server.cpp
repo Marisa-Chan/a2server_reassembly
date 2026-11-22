@@ -1720,8 +1720,8 @@ void Server::SendWorldState(Player* player, int32_t enter_world) {
                 uint16_t self_id = self_player->player_id;
                 uint16_t player_id = player->player_id;
 
-                // Copy Self's diplomacy column into the new player's row (slots 2..15).
-                for (int slot = 2; slot <= 15; ++slot) {
+                // Copy Self's diplomacy row and column into the joining player's slot (slots 2..15).
+                for (int32_t slot = 2; slot <= 15; ++slot) {
 #ifdef A2SERVER_PATCH
                     // adm_dip hook (4FFD77): a GM with the AI-ally flag joins
                     // allied with every AI slot (retail copy skipped for it)
@@ -1732,7 +1732,7 @@ void Server::SendWorldState(Player* player, int32_t enter_world) {
                     }
 #endif
                     g_World->diplomacy.diplomacy[slot][player_id] = g_World->diplomacy.diplomacy[slot][self_id];
-                    g_World->diplomacy.diplomacy[self_id][slot] = g_World->diplomacy.diplomacy[player_id][slot];
+                    g_World->diplomacy.diplomacy[player_id][slot] = g_World->diplomacy.diplomacy[self_id][slot];
                 }
                 // Mark Self as allied with the new player.
                 g_World->diplomacy.diplomacy[self_id][player_id] = (DIPLO_VISION_SHARE | DIPLO_ALLIANCE);
