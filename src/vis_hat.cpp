@@ -578,13 +578,39 @@ int32_t VisHatBrowserDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam
 #ifdef A2CLIENT
             if (g_WwwServerList.GetSize() > 0 && sel_index < 0) {
                 sel_index = 0;
+#ifdef A2CLIENT_PATCH
+                for (int32_t i = 0; i < list->entries.GetSize(); i++) {
+                    if (list->IsItemEnabled(i) != 0) {
+                        sel_index = i;
+                        break;
+                    }
+                }
+#endif
             }
 #endif
             if (g_WwwServerList.GetSize() <= vis_start) {
                 vis_start = g_WwwServerList.GetSize() - 1;
             }
+#ifdef A2CLIENT_PATCH
+            if (vis_start < 0) {
+                vis_start = 0;
+            }
+            if (sel_index >= 0 && list->num_vis_entry > 0) {
+                if (sel_index < vis_start) {
+                    vis_start = sel_index;
+                } else if (sel_index >= vis_start + list->num_vis_entry) {
+                    vis_start = sel_index - list->num_vis_entry + 1;
+                }
+            }
+#endif
             list->vis_start_index = vis_start;
             list->SetSelectedIndex(sel_index);
+#ifdef A2CLIENT_PATCH
+            VisScrollBar* scrollbar = (VisScrollBar*)this->FindChild(list->scrollbox_id);
+            if (scrollbar != nullptr) {
+                scrollbar->SetPos(list->GetSelectedIndex(), list->entries.GetSize());
+            }
+#endif
         }
         this->MsgProc(VIS_MSG_SET_OPTION, 1, list->GetSelectedIndex());
         list->VMethod9();
@@ -592,6 +618,10 @@ int32_t VisHatBrowserDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam
     }
     case VIS_MSG_HATBROWSER_ABORT: {
         VisHatBrowserList* list = (VisHatBrowserList*)this->FindChild(1);
+#ifdef A2CLIENT_PATCH
+        int32_t prev_sel = list->GetSelectedIndex();
+        int32_t prev_vis_start = list->vis_start_index;
+#endif
         list->state = -1;
         list->entries.RemoveAll();
         list->selected_index = -1;
@@ -621,6 +651,10 @@ int32_t VisHatBrowserDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam
             }
             res = main_wnd->CheckWebVersion(main_wnd->hat_settings.hatip);
         }
+#endif
+#ifdef A2CLIENT_PATCH
+        list->selected_index = prev_sel;
+        list->vis_start_index = prev_vis_start;
 #endif
         this->MsgProc(VIS_MSG_HATBROWSER_REFRESH, res, 0);
         return VisScreen::MsgProc(msg, wparam, lparam);
