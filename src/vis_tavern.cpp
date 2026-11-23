@@ -287,6 +287,11 @@ int32_t VisTav::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
 
     switch (msg) {
     case VIS_MSG_FRAME_TICK:
+#ifdef A2CLIENT_PATCH
+        if (this->dialog_active == 0) {
+            break;
+        }
+#endif
         if (this->rewards.GetSize() != 0 || this->quest_map->GetQuestCount() != 0) {
             if (this->right_panel->texts[0] == " ") {
                 this->right_panel->UpdateButtonLabels();
@@ -297,9 +302,19 @@ int32_t VisTav::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
         }
         break;
     case VIS_MSG_SELECT_PREV:
+#ifdef A2CLIENT_PATCH
+        if (this->dialog_active == 0 || this->map_context == nullptr || this->selected_entries.GetSize() == 0) {
+            break;
+        }
+#endif
         this->SelectPrevPartyUnit();
         break;
     case VIS_MSG_SELECT_NEXT:
+#ifdef A2CLIENT_PATCH
+        if (this->dialog_active == 0 || this->map_context == nullptr || this->selected_entries.GetSize() == 0) {
+            break;
+        }
+#endif
         this->SelectNextPartyUnit();
         break;
     case VIS_MSG_CLOSE_TIPS:

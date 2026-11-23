@@ -2696,7 +2696,14 @@ int32_t VisCharInfo::OnLButtonUp(uint32_t wparam, CPoint pos) {
             return 1;
         }
         if (token->slot_code >= 5 && token->slot_code <= 8) {
-            ((VisShop*)main_wnd->vis_root->FindChild(0x3E8))->CancelItemDrag();
+#ifdef A2CLIENT_PATCH
+            VisShop* shop = (VisShop*)main_wnd->vis_root->FindChild(1000);
+            if (shop != nullptr) {
+                shop->CancelItemDrag();
+            }
+#else
+            ((VisShop*)main_wnd->vis_root->FindChild(1000))->CancelItemDrag();
+#endif
             return 1;
         }
     }
@@ -2714,7 +2721,14 @@ int32_t VisCharInfo::OnLButtonUp(uint32_t wparam, CPoint pos) {
             this->MsgProc(VIS_MSG_TOGGLE_SPELL_PANEL, 0, 0);
             map->MsgProc(VIS_MSG_TOGGLE_SPELL_PANEL, 0, 0);
             if ((main_wnd->dialogsMask & DIALOG_MASK_SHOP) != 0) {
-                main_wnd->vis_root->FindChild(0x3E8)->MsgProc(VIS_MSG_TOGGLE_SPELL_PANEL, 0, 0);
+#ifdef A2CLIENT_PATCH
+                CVisualObject* shop = main_wnd->vis_root->FindChild(1000);
+                if (shop != nullptr) {
+                    shop->MsgProc(VIS_MSG_TOGGLE_SPELL_PANEL, 0, 0);
+                }
+#else
+                main_wnd->vis_root->FindChild(1000)->MsgProc(VIS_MSG_TOGGLE_SPELL_PANEL, 0, 0);
+#endif
             }
         }
     }
@@ -3004,7 +3018,11 @@ void VisCharInfo::UpdateCursor() {
         if (main_wnd->drag_entry != nullptr) {
             VisShop* shop = (VisShop*)main_wnd->vis_root->FindChild(0x3E8);
             TokenEntry* token = main_wnd->drag_entry;
+#ifdef A2CLIENT_PATCH
+            if ((shop != nullptr && shop->placement_lock != 0) || token->slot_code == 1 || token->slot_code == 2) {
+#else
             if (shop->placement_lock != 0 || token->slot_code == 1 || token->slot_code == 2) {
+#endif
                 new_cursor = main_wnd->item_cursor;
             } else {
                 new_cursor = g_Cursors[CURSOR_CANTPUT];
@@ -3039,8 +3057,3 @@ void VisCharInfo::UpdateCursor() {
     }
     new_cursor->Use();
 }
-
-
-
-
-

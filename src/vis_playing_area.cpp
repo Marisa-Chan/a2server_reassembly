@@ -1112,7 +1112,14 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
                     ct->unitFlags |= UNIT_FLAG_EQUIP_CHANGED;
 
                     if ((wnd->dialogsMask & DIALOG_MASK_SHOP) != 0) {
+#ifdef A2CLIENT_PATCH
+                        CVisualObject* shop = wnd->vis_root->FindChild(1000);
+                        if (shop != nullptr) {
+                            shop->MsgProc(VIS_MSG_REFRESH_ITEM_GRIDS, packet_state->mode & 0x7f, 0);
+                        }
+#else
                         wnd->vis_root->FindChild(1000)->MsgProc(VIS_MSG_REFRESH_ITEM_GRIDS, packet_state->mode & 0x7f, 0);
+#endif
                     }
 
                     ct->ReloadSprite();
@@ -1281,7 +1288,14 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
                     this->UpdateSelectionState();
 
                     if (wnd->dialogsMask & DIALOG_MASK_SHOP) {
-                        wnd->vis_root->FindChild(1000)->MsgProc(VIS_MSG_REFRESH_ITEM_GRIDS, packet_state->mode & 0x7f, 0);
+                        CVisualObject* shop = wnd->vis_root->FindChild(1000);
+#ifdef A2CLIENT_PATCH
+                        if (shop != nullptr) {
+                            shop->MsgProc(VIS_MSG_REFRESH_ITEM_GRIDS, packet_state->mode & 0x7f, 0);
+                        }
+#else
+                        shop->MsgProc(VIS_MSG_REFRESH_ITEM_GRIDS, packet_state->mode & 0x7f, 0);
+#endif
                     } else {
                         if (this->selected_object_count == 1 && this->primary_selected_object == ct) {
                             wnd->vis_invtype1->VMethod33(ct);
@@ -1325,6 +1339,20 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
                     }
                 }
 
+#ifdef A2CLIENT_PATCH
+                CVisualObject* shop = nullptr;
+                if ((wnd->dialogsMask & DIALOG_MASK_SHOP) != 0) {
+                    shop = wnd->vis_root->FindChild(1000);
+                }
+                if (shop != nullptr) {
+                    shop->MsgProc(VIS_MSG_REFRESH_ITEM_GRIDS, packet_state->mode & 0x7f, (uint32_t)&tmp);
+                } else {
+                    for (int32_t i = 0; i < tmp.GetSize(); i++) {
+                        delete tmp[i];
+                    }
+                    tmp.RemoveAll();
+                }
+#else
                 if ((wnd->dialogsMask & DIALOG_MASK_SHOP) == 0) {
                     for (int i = 0; i < tmp.GetSize(); i++) {
                         if (tmp[i]) {
@@ -1335,12 +1363,18 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
                 } else {
                     wnd->vis_root->FindChild(1000)->MsgProc(VIS_MSG_REFRESH_ITEM_GRIDS, packet_state->mode & 0x7f, (uint32_t)&tmp);
                 }
+#endif
             }
                 break;
 
             case ITEM_LIST_INN_REWARDS: {
                 if ((wnd->dialogsMask & DIALOG_MASK_TAVERN) != 0) {
                     VisTav* tavern = (VisTav*) wnd->vis_root->FindChild(0x44c);
+#ifdef A2CLIENT_PATCH
+                    if (tavern == nullptr) {
+                        break;
+                    }
+#endif
                     uint8_t* pdata = packet_state->data;
                     for (int i = 0; i < packet_state->entry_count; i++) {
                         TokenEntry* d0 = new TokenEntry(&pdata, 0);
@@ -2158,14 +2192,28 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
             if (wnd->sessionMode == SESSION_SINGLEPLAYER) {
                 if ((wnd->dialogsMask & DIALOG_MASK_SHOP) != 0) {
                     VisShop* shop = (VisShop*)wnd->vis_root->FindChild(1000);
+#ifdef A2CLIENT_PATCH
+                    if (shop != nullptr) {
+                        shop->CloseShopDialog();
+                        wnd->vis_root->RemoveChild(shop);
+                    }
+#else
                     shop->CloseShopDialog();
                     wnd->vis_root->RemoveChild(shop);
+#endif
                 }
 
                 if ((wnd->dialogsMask & DIALOG_MASK_TAVERN) != 0) {
                     VisTav* tavern = (VisTav*)wnd->vis_root->FindChild(1100);
+#ifdef A2CLIENT_PATCH
+                    if (tavern != nullptr) {
+                        tavern->CloseDialog();
+                        wnd->vis_root->RemoveChild(tavern);
+                    }
+#else
                     tavern->CloseDialog();
                     wnd->vis_root->RemoveChild(tavern);
+#endif
                 }
                 wnd->vis_root->MsgProc(VIS_MSG_CLOSE_SCREEN, 0, 0);
                 wnd->inside_building = 0;
@@ -2960,7 +3008,12 @@ void VisPlayingArea::ResetWorldState(int32_t arg) {
 int32_t VisPlayingArea::IsBookOpen() {
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
     if (wnd->dialogsMask & DIALOG_MASK_SHOP) {
-        return wnd->vis_root->FindChild(1000)->FindChild(MAP_CHILD_SPELL_BOOK) != nullptr;
+        CVisualObject* shop = wnd->vis_root->FindChild(1000);
+#ifdef A2CLIENT_PATCH
+        return shop != nullptr && shop->FindChild(MAP_CHILD_SPELL_BOOK) != nullptr;
+#else
+        return shop->FindChild(MAP_CHILD_SPELL_BOOK) != nullptr;
+#endif
     }
 
     return this->FindChild(MAP_CHILD_SPELL_BOOK) != nullptr;
@@ -3436,7 +3489,14 @@ void VisPlayingArea::CloseSpellBook() {
     if ((mwnd->dialogsMask & DIALOG_MASK_SHOP) == 0) {
         this->RemoveChild(mwnd->vis_spellbook);
     } else {
+#ifdef A2CLIENT_PATCH
+        CVisualObject* shop = mwnd->vis_root->FindChild(1000);
+        if (shop != nullptr) {
+            shop->RemoveChild(mwnd->vis_spellbook);
+        }
+#else
         mwnd->vis_root->FindChild(1000)->RemoveChild(mwnd->vis_spellbook);
+#endif
     }
 
     g_SfxArray[sfx_id::bag_toggle]->Play(g_SoundSettings.sfx_pos, 0, 0, 220, 0);
@@ -3462,7 +3522,14 @@ void VisPlayingArea::OpenSpellBook() {
         this->AddChild(mwnd->vis_spellbook);
     } else {
         mwnd->vis_spellbook->SetRect(0, 305, 480, 390);
+#ifdef A2CLIENT_PATCH
+        CVisualObject* shop = mwnd->vis_root->FindChild(1000);
+        if (shop != nullptr) {
+            shop->AddChild(mwnd->vis_spellbook);
+        }
+#else
         mwnd->vis_root->FindChild(1000)->AddChild(mwnd->vis_spellbook);
+#endif
     }
 
     g_SfxArray[sfx_id::bag_toggle]->Play(g_SoundSettings.sfx_pos, 0, 0, 220, 0);
@@ -6899,9 +6966,18 @@ int32_t VisPlayingArea::OnKeyDown(uint32_t wparam) {
             break;
         }
     } else if ((wnd->dialogsMask & DIALOG_MASK_SHOP) != 0 && (wparam == 'B' || wparam == 'Q')) {
+#ifdef A2CLIENT_PATCH
+        CVisualObject* shop = wnd->vis_root->FindChild(1000);
+        if (shop != nullptr) {
+            wnd->vis_right_panel->MsgProc(VIS_MSG_TOGGLE_SPELL_PANEL, 0, 0);
+            this->MsgProc(VIS_MSG_TOGGLE_SPELL_PANEL, 0, 0);
+            shop->MsgProc(VIS_MSG_TOGGLE_SPELL_PANEL, 0, 0);
+        }
+#else
         wnd->vis_right_panel->MsgProc(VIS_MSG_TOGGLE_SPELL_PANEL, 0, 0);
         this->MsgProc(VIS_MSG_TOGGLE_SPELL_PANEL, 0, 0);
         wnd->vis_root->FindChild(1000)->MsgProc(VIS_MSG_TOGGLE_SPELL_PANEL, 0, 0);
+#endif
     }
     return 0;
 }

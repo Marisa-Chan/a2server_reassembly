@@ -1015,6 +1015,7 @@ int GameApp::Run() {
     }
 
     MSG* pMsg = AfxGetCurrentMessage();
+    MSG next_msg;
     BOOL bIdle = TRUE;
     LONG lIdleCount = 0;
     uint32_t last_idle_ts = timeGetTime();
@@ -1038,20 +1039,32 @@ int GameApp::Run() {
                 lIdleCount = 0;
             }
 
+            pumped++;
+
+            if (!::PeekMessage(&next_msg, NULL, NULL, NULL, PM_NOREMOVE)) {
+                break;
+            }
+
             // High-polling-rate mice can keep WM_MOUSEMOVE pending continuously in
             // PeekMessage(PM_NOREMOVE), starving OnIdle() (world ticks, animations,
-            // and g_mousept.Update()). Bound message pumping before running a frame.
-            if (bIdle) {
+            // and g_mousept.Update()). Only run an idle frame mid-pump when the next
+            // pending message is mouse movement — never while posted MAIN_MSG_*
+            // transitions (e.g. MAIN_MSG_CHILD_CLOSED after VisScreen::DoClose) or
+            // discrete input events remain queued.
+            if (bIdle && (next_msg.message == WM_MOUSEMOVE || next_msg.message == WM_NCMOUSEMOVE)) {
                 uint32_t now = timeGetTime();
-                if (++pumped >= 8 || now - last_idle_ts >= 8) {
+                if (pumped >= 8 || now - last_idle_ts >= 8) {
                     if (!this->OnIdle(lIdleCount++)) {
                         bIdle = FALSE;
                     }
                     last_idle_ts = timeGetTime();
                     pumped = 0;
+                    if (!::PeekMessage(&next_msg, NULL, NULL, NULL, PM_NOREMOVE)) {
+                        break;
+                    }
                 }
             }
-        } while (::PeekMessage(pMsg, NULL, NULL, NULL, PM_NOREMOVE));
+        } while (true);
     }
 }
 #endif

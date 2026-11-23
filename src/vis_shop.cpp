@@ -200,6 +200,9 @@ void VisShop::VMethod8(CRect* rect) {
 // 4ba342 (client: 4bed12)
 VisShop::VisShop(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* btm)
     : VisScreen(_id, l, t, r, b, btm) {
+#ifdef A2CLIENT_PATCH
+    this->dialog_active = 0;
+#endif
     this->placement_lock = 1;
     this->select_index = 0;
     this->select_info_panel = nullptr;
@@ -325,6 +328,11 @@ void VisShop::DoClose(uint32_t code) {
 
 // 4badcb (client: 4bf798)
 int32_t VisShop::OnMouseMove(uint32_t wparam, CPoint pos) {
+#ifdef A2CLIENT_PATCH
+    if (this->dialog_active == 0 || this->select_info_panel == nullptr) {
+        return 0;
+    }
+#endif
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
     pos -= CPoint(this->rect.left, this->rect.top);
@@ -413,6 +421,11 @@ int32_t VisShop::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
 
     switch (msg) {
     case VIS_MSG_FRAME_TICK:
+#ifdef A2CLIENT_PATCH
+        if (this->dialog_active == 0 || this->select_info_panel == nullptr || this->gameplay == nullptr) {
+            break;
+        }
+#endif
         if ((main_wnd->dialogsMask & DIALOG_MASK_POPUP) == 0) {
             this->UpdateShopTips();
             this->shop_compass->VMethod9();
@@ -429,6 +442,11 @@ int32_t VisShop::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
         }
         break;
     case VIS_MSG_TOGGLE_SPELL_PANEL:
+#ifdef A2CLIENT_PATCH
+        if (this->dialog_active == 0) {
+            break;
+        }
+#endif
         if (this->spell_panel != nullptr) {
             this->ShowBuyPanel();
         } else {
@@ -436,16 +454,40 @@ int32_t VisShop::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
         }
         break;
     case VIS_MSG_REFRESH_ITEM_GRIDS:
+#ifdef A2CLIENT_PATCH
+        if (this->dialog_active == 0 || this->gameplay == nullptr) {
+            if (lparam != 0) {
+                CArray<TokenEntry*>* entries = (CArray<TokenEntry*>*)lparam;
+                for (int32_t i = 0; i < entries->GetSize(); i++) {
+                    delete (*entries)[i];
+                }
+                entries->RemoveAll();
+            }
+            break;
+        }
+#endif
         if (lparam == 0) {
             this->to_sell->RefreshGrid();
             this->assortiment->RefreshGrid();
             this->to_buy->RefreshGrid();
+#ifdef A2CLIENT_PATCH
+            if (this->gameplay->primary_selected_object != nullptr) {
+                ((CUnit*)this->gameplay->primary_selected_object)->unitFlags |= UNIT_FLAG_EQUIP_CHANGED;
+            }
+#else
             ((CUnit*)this->gameplay->primary_selected_object)->unitFlags |= UNIT_FLAG_EQUIP_CHANGED;
+#endif
             this->dirty |= 0x28;
         } else {
             switch (wparam) {
             case 1:
+#ifdef A2CLIENT_PATCH
+                if (this->gameplay->primary_selected_object != nullptr) {
+                    ((CUnit*)this->gameplay->primary_selected_object)->unitFlags |= UNIT_FLAG_EQUIP_CHANGED;
+                }
+#else
                 ((CUnit*)this->gameplay->primary_selected_object)->unitFlags |= UNIT_FLAG_EQUIP_CHANGED;
+#endif
                 this->dirty |= 8;
                 break;
             case 2:
@@ -470,10 +512,20 @@ int32_t VisShop::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
         }
         break;
     case VIS_MSG_SELECT_PREV:
+#ifdef A2CLIENT_PATCH
+        if (this->dialog_active == 0 || this->gameplay == nullptr) {
+            break;
+        }
+#endif
         this->SelectPrevPartyUnit();
         this->dirty |= 1;
         break;
     case VIS_MSG_SELECT_NEXT:
+#ifdef A2CLIENT_PATCH
+        if (this->dialog_active == 0 || this->gameplay == nullptr) {
+            break;
+        }
+#endif
         this->SelectNextPartyUnit();
         this->dirty |= 1;
         break;
@@ -487,6 +539,11 @@ int32_t VisShop::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
         }
         break;
     case VIS_MSG_SET_OPTION:
+#ifdef A2CLIENT_PATCH
+        if (this->dialog_active == 0 || this->gameplay == nullptr) {
+            break;
+        }
+#endif
         if (wparam == 7) {
             this->to_sell->RefreshGrid();
             this->to_buy->RefreshGrid();
@@ -696,6 +753,11 @@ CString VisShop::VMethod33() {
 
 // 4bcda0 (client: 4c1771)
 void VisShop::RecalcShopGold() {
+#ifdef A2CLIENT_PATCH
+    if (this->gameplay == nullptr || this->gameplay->my_main_unit == nullptr) {
+        return;
+    }
+#endif
     this->current_gold = this->gameplay->my_main_unit->gold;
     this->sell_gold = 0;
     this->buy_gold = 0;
@@ -756,7 +818,13 @@ void VisShop::CancelItemDrag() {
     ApplyCursor(g_Cursors[0]);
     switch (main_wnd->drag_src_tab) {
     case 1:
+#ifdef A2CLIENT_PATCH
+        if (this->select_info_panel != nullptr) {
+            ((VisCharInfo*)this->select_info_panel)->VMethod27(main_wnd->drag_src_slot);
+        }
+#else
         ((VisCharInfo*)this->select_info_panel)->VMethod27(main_wnd->drag_src_slot);
+#endif
         this->dirty |= 8;
         break;
     case 2:

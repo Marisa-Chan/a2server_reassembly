@@ -2583,7 +2583,13 @@ int32_t VisSpellBook::OnLButtonUp(uint32_t wparam, CPoint pos) {
             }
         } else {
             CVisualObject* obj = main_wnd->vis_root->FindChild(1000);
+#ifdef A2CLIENT_PATCH
+            if (obj != nullptr) {
+                ((VisShop*)obj)->CancelItemDrag();
+            }
+#else
             ((VisShop*)obj)->CancelItemDrag();
+#endif
         }
     }
     return 1;
