@@ -124,6 +124,38 @@ void Resources::AddResFile(const char* path) {
     this->res_files.Add(new ResFile(pbuf));
 }
 
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+bool Resources::TryAddResFile(const char* path) {
+    char buf[1024];
+    pathStrCpy(path, buf);
+
+    if (this->search_paths.GetSize() <= 0) {
+        return false;
+    }
+
+    char pbuf[256];
+    strcpy(pbuf, (const char*)this->search_paths[0]);
+    size_t len = strlen(pbuf);
+    if (pbuf[len - 1] != '\\' || pbuf[len - 2] != ':') {
+        strcat(pbuf, "\\");
+    }
+    strcat(pbuf, buf);
+
+    char check_buf[260];
+    strcpy(check_buf, pbuf);
+    if (strchr(pbuf, '.') == nullptr) {
+        strcat(check_buf, ".res");
+    }
+    DWORD attr = GetFileAttributesA(check_buf);
+    if (attr == INVALID_FILE_ATTRIBUTES || (attr & FILE_ATTRIBUTE_DIRECTORY) != 0) {
+        return false;
+    }
+
+    this->res_files.Add(new ResFile(pbuf));
+    return true;
+}
+#endif
+
 
 
 
@@ -146,6 +178,19 @@ void Resources::StaticAddResFile(const char* path) {
     ResFiles.AddResFile(buf);
 #endif
 }
+
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+bool Resources::TryStaticAddResFile(const char* path) {
+#ifdef A2CLIENT_PATCH
+    (void)path;
+    return true;
+#else
+    char buf[1024];
+    pathStrCpy(path, buf);
+    return ResFiles.TryAddResFile(buf);
+#endif
+}
+#endif
 
 
 #ifdef A2CLIENT_PATCH

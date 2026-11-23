@@ -97,7 +97,7 @@ public:
 #endif
     virtual BOOL OnIdle(LONG lCount) override; // 4835b0 (client: 4872dc)
     virtual int ExitInstance() override; // 4833f1 (client: 48711d)
-#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+#ifdef A2SERVER_PATCH
     virtual int DoMessageBox(LPCTSTR lpszPrompt, UINT nType, UINT nIDPrompt) override;
 #endif
 };

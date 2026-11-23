@@ -446,6 +446,13 @@ void Server::ScanSavedCharacters() {
         }
     }
 
+#ifdef A2SERVER_PATCH
+    for (int32_t i = 0; i < files.GetSize(); i++) {
+        DeleteFileA(files[i]);
+    }
+
+    DeleteFileA(g_ServerConfig.chr_base + "info.map");
+#else
     for (int i = 0; i < files.GetSize(); i++) {
         try {
             CFile::Remove(files[i]);
@@ -459,6 +466,7 @@ void Server::ScanSavedCharacters() {
     } catch (CFileException* e) {
         e->Delete();
     }
+#endif
 }
 
 

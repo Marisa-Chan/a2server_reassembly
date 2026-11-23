@@ -1290,6 +1290,16 @@ int GameDataRes::ParseDataBin(const CString& path) {
     CString filename = path + "Data.bin";
 
     if (!file.Open(filename, CFile::shareDenyWrite, nullptr)) {
+#ifdef A2SERVER_PATCH
+        try {
+            if (!Resources::TryStaticAddResFile("World_srv.res") && !Resources::TryStaticAddResFile("World.res")) {
+                return 1;
+            }
+        } catch (CFileException* e) {
+            e->Delete();
+            return 1;
+        }
+#else
         try {
             Resources::StaticAddResFile("World_srv.res");
         } catch (CFileException* e) {
@@ -1301,6 +1311,7 @@ int GameDataRes::ParseDataBin(const CString& path) {
                 return 1;
             }
         }
+#endif
 
         File2 file2;
         if (!file2.Open("World\\Data\\Data.bin", CFile::shareDenyWrite, nullptr)) {

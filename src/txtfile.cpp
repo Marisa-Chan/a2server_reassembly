@@ -1,8 +1,33 @@
 #include "txtfile.h"
 #include "file.h"
 
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+namespace {
+
+bool g_AllLinesDestroyed = false;
+
+struct AllLinesLifetimeGuard {
+    AllLinesLifetimeGuard() {
+        g_AllLinesDestroyed = false;
+    }
+    ~AllLinesLifetimeGuard() {
+        g_AllLinesDestroyed = true;
+    }
+};
+
+} // namespace
+#endif
+
 //660d68
 CArray<char*> TxtFile::AllLines;
+
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+namespace {
+
+AllLinesLifetimeGuard g_AllLinesLifetimeGuard;
+
+} // namespace
+#endif
 
 // 475c6c (client: 4799b8)
 TxtFile::TxtFile() = default;
@@ -17,6 +42,24 @@ TxtFile::~TxtFile() {
 void TxtFile::Free() {
     
     if (this->buffer) {
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+        if (!g_AllLinesDestroyed) {
+            for (int32_t i = 0; i < AllLines.GetSize(); i++) {
+                if (AllLines[i] == this->buffer) {
+                    int32_t count = this->line_count;
+                    if (i + count > AllLines.GetSize()) {
+                        count = AllLines.GetSize() - i;
+                    }
+                    if (count > 0) {
+                        AllLines.RemoveAt(i, count);
+                    }
+                    break;
+                }
+            }
+        }
+        free(this->buffer);
+        this->buffer = nullptr;
+#else
         for (int i = 0; i < AllLines.GetSize(); i++) {
             if (AllLines[i] == this->buffer) {
                 AllLines.RemoveAt(i, this->line_count);
@@ -25,6 +68,7 @@ void TxtFile::Free() {
                 return;
             }
         }
+#endif
     }
 }
 
@@ -48,10 +92,19 @@ void TxtFile::LoadChunkFile(const char* fname) {
         char* linestart = pcur;
         AllLines.Add(linestart);
 
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+        for (; pcur < this->buffer + fsize && *pcur != '\r'; pcur++)
+        {}
+#else
         for(; *pcur != '\r' && pcur < this->buffer + fsize; pcur++ )
         {}
+#endif
 
         if (pcur >= this->buffer + fsize) {
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+            this->line_count++;
+            CharToOemA(linestart, linestart);
+#endif
             break;
         }
 

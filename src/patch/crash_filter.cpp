@@ -40,7 +40,25 @@ void WriteMinidump(EXCEPTION_POINTERS* info) {
               static_cast<unsigned>(tm.wSecond));
 
     HANDLE hFile = CreateFileA(dmp_path, GENERIC_WRITE, FILE_SHARE_READ, nullptr,
-                               CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
+                               CREATE_NEW, FILE_ATTRIBUTE_NORMAL, nullptr);
+    if (hFile == INVALID_HANDLE_VALUE && GetLastError() == ERROR_FILE_EXISTS) {
+        for (unsigned seq = 1; seq < 100 && hFile == INVALID_HANDLE_VALUE; ++seq) {
+            _snprintf(dmp_path, sizeof(dmp_path) - 1,
+                      "crash_%04u%02u%02u_%02u%02u%02u_%02u.dmp",
+                      static_cast<unsigned>(tm.wYear),
+                      static_cast<unsigned>(tm.wMonth),
+                      static_cast<unsigned>(tm.wDay),
+                      static_cast<unsigned>(tm.wHour),
+                      static_cast<unsigned>(tm.wMinute),
+                      static_cast<unsigned>(tm.wSecond),
+                      seq);
+            hFile = CreateFileA(dmp_path, GENERIC_WRITE, FILE_SHARE_READ, nullptr,
+                                CREATE_NEW, FILE_ATTRIBUTE_NORMAL, nullptr);
+            if (hFile == INVALID_HANDLE_VALUE && GetLastError() != ERROR_FILE_EXISTS) {
+                break;
+            }
+        }
+    }
     if (hFile == INVALID_HANDLE_VALUE) {
         log_format("[crash_filter] Failed to create minidump file %s (err=%lu)\n",
                    dmp_path, GetLastError());

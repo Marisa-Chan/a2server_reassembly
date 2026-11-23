@@ -18,6 +18,7 @@ namespace {
 
 void StopServer()
 {
+    Config::ExitingCleanly = true;
     std::exit(0);
 }
 

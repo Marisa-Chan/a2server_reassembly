@@ -19,7 +19,7 @@
 #include "gameplay.h"
 #include "vis_playing_area.h"
 #include "vis_net.h"
-#if (defined(A2TANGAR_HAT) && !defined(A2CLIENT)) || defined(A2CLIENT_PATCH)
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
 #include "patch/config_new.h"
 #include "patch/crash_filter.h"
 #include "patch/tangar_log.h"
@@ -602,7 +602,7 @@ BOOL GameApp::InitInstance() {
 #else
     g_IsServer = 1;
 #endif
-#if (defined(A2TANGAR_HAT) && !defined(A2CLIENT)) || defined(A2CLIENT_PATCH)
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
     tangar_crash::SetExceptionFilter();
 #endif
 
@@ -749,6 +749,15 @@ BOOL GameApp::InitInstance() {
     Resources::StaticAddResFile("patch.res");
 #ifdef A2CLIENT
     Resources::StaticAddResFile("world.res");
+#elif defined(A2SERVER_PATCH)
+    try {
+        if (!Resources::TryStaticAddResFile("world_srv.res")) {
+            Resources::StaticAddResFile("world.res");
+        }
+    } catch (CException* e) {
+        e->Delete();
+        Resources::StaticAddResFile("world.res");
+    }
 #else
     try {
         Resources::StaticAddResFile("world_srv.res");
@@ -758,7 +767,11 @@ BOOL GameApp::InitInstance() {
     }
 #endif
     try {
+#ifdef A2SERVER_PATCH
+        Resources::TryStaticAddResFile("music.res");
+#else
         Resources::StaticAddResFile("music.res");
+#endif
     } catch (CException* e) {
         e->Delete();
     }
@@ -770,7 +783,11 @@ BOOL GameApp::InitInstance() {
     }
 #else
     try {
+#ifdef A2SERVER_PATCH
+        Resources::TryStaticAddResFile("video.res");
+#else
         Resources::StaticAddResFile("video.res");
+#endif
     } catch (CException* e) {
         e->Delete();
     }
@@ -790,7 +807,11 @@ BOOL GameApp::InitInstance() {
     Resources::StaticAddResFile("movies.res");
     Resources::StaticAddResFile("scenario.res");
     try {
+#ifdef A2SERVER_PATCH
+        Resources::TryStaticAddResFile("speech.res");
+#else
         Resources::StaticAddResFile("speech.res");
+#endif
     } catch (CException* e) {
         e->Delete();
     }
@@ -1086,7 +1107,7 @@ BOOL GameApp::OnIdle(LONG lCount) {
 
 // 4833f1 (client: 48711d)
 int GameApp::ExitInstance() {
-#if (defined(A2TANGAR_HAT) && !defined(A2CLIENT)) || defined(A2CLIENT_PATCH)
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
     Config::ExitingCleanly = true;
 #endif
 #if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
@@ -1407,7 +1428,7 @@ void LogWarning(const CString& msg) {
     }
 }
 
-#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+#ifdef A2SERVER_PATCH
 // 5EB49E imp_LocalMessageBox hook (OnLocalMessageBox): suppress modal AfxMessageBox
 // popups on the server and log them via Tangar Printf instead.
 int GameApp::DoMessageBox(LPCTSTR lpszPrompt, UINT /*nType*/, UINT /*nIDPrompt*/) {

@@ -3131,6 +3131,25 @@ void __cdecl CLlDriver::AcceptThreadTcp(void* context) {
 
         fd_set fd;
         FD_ZERO(&fd);
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+        if (drv->listen_socket.socket != INVALID_SOCKET) {
+            FD_SET(drv->listen_socket.socket, &fd);
+        }
+
+        if (drv->is_server) {
+            for (uint32_t i = 0; i < drv->max_connections; i++) {
+                A2NetSock* sock = drv->connection_sockets + i;
+                if (sock->is_in_use == 1 && sock->socket != INVALID_SOCKET && fd.fd_count < FD_SETSIZE) {
+                    FD_SET(sock->socket, &fd);
+                }
+            }
+        }
+
+        if (fd.fd_count == 0) {
+            Sleep(10);
+            continue;
+        }
+#else
         FD_SET(drv->listen_socket.socket, &fd);
 
         if (drv->is_server) {
@@ -3141,6 +3160,7 @@ void __cdecl CLlDriver::AcceptThreadTcp(void* context) {
                 }
             }
         }
+#endif
 
         timeval timeout;
         timeout.tv_sec = 0;
@@ -3156,6 +3176,9 @@ void __cdecl CLlDriver::AcceptThreadTcp(void* context) {
             if (drv->listen_socket.is_in_use == 1) {
                 ReportWarning("CLlDriverAcceptThreadTcp().\nSelect error.\n");
             }
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+            Sleep(1);
+#endif
             continue;
         }
 
@@ -3235,7 +3258,11 @@ void __cdecl CLlDriver::AcceptThreadTcp(void* context) {
 
         for (uint32_t i = 0; i < drv->max_connections; i++) {
             A2NetSock* conn = drv->connection_sockets + i;
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+            if (conn->is_in_use == 1 && conn->socket != INVALID_SOCKET &&
+#else
             if (conn->is_in_use == 1 &&
+#endif
                 FD_ISSET(conn->socket, &fd) &&
                 drv->RecvThreadTcp(conn) == 0) {
 #ifdef A2TANGAR_HAT
@@ -4341,7 +4368,11 @@ void CLlDriver::CleanupAllInvalid() {
             this->SendDataDp(&this->listen_socket, nullptr);
         }
     } else {
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+        for (uint32_t i = 0; i < this->max_connections; i++) {
+#else
         for (int i = 0; i < this->num_connections; i++) {
+#endif
             A2NetSock* sock = this->connection_sockets + i;
             if (this->IsInUse(sock)) {
                 if (this->provider == PROVIDER_HAT_TCP) {

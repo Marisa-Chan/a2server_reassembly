@@ -167,6 +167,9 @@ struct Resources {
 
     void AddPath(const char* path); // 4e6273 (client: 4eb7a3)
     void AddResFile(const char* path); // 4e605a (client: 4eb58a)
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+    bool TryAddResFile(const char* path);
+#endif
 
     FatInfo* GetFatInfo(const char* fpath); // 4e646d (client: 4eb99d)
     void CloseFile(CFile* fil); // 4e6763 (client: 4ebc93)
@@ -176,6 +179,9 @@ struct Resources {
     static uint16_t GetPathType(const char* path); // 4e6de0 (client: 4ec310)
     static void StaticAddPath(const char* path); // 4e6242 (client: 4eb772)
     static void StaticAddResFile(const char* path); // 4e6211 (client: 4eb741)
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+    static bool TryStaticAddResFile(const char* path);
+#endif
 
     static Resources ResFiles;
 };

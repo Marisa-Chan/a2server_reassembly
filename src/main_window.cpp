@@ -33,13 +33,16 @@
 #include "world.h"
 #include <wininet.h>
 
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+#include "patch/config_new.h"
+#endif
 #ifdef A2SERVER_PATCH
 #include "patch/build_version.h"
 #include "patch/kick_char.h"
+#include "patch/tangar_log.h"
 #endif
 #if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
 #include "patch/map_rotation.h"
-#include "patch/tangar_log.h"
 #endif
 #include "gameplay.h"
 #include "vis_playing_area.h"
@@ -1957,10 +1960,15 @@ void MainWindow::IdleLoop() {
         g_mousept.Update();
 
         // Calculate next tick time
-        int32_t next_tick_time = this->last_tic_time + (this->game_tic_counter + 1) * this->game_tic_time;
+        uint32_t next_tick_time = static_cast<uint32_t>(this->last_tic_time)
+            + static_cast<uint32_t>((this->game_tic_counter + 1) * this->game_tic_time);
         DWORD current_time = GetTickCount();
 
-        if (next_tick_time <= (int32_t)current_time) {
+#ifdef A2SERVER_PATCH
+        if (this->last_tic_time != 0x7fffffff && static_cast<int32_t>(current_time - next_tick_time) >= 0) {
+#else
+        if (next_tick_time <= current_time) {
+#endif
             // Initialize timestamp on first tick
             if (this->game_tic_counter == 0) {
                 this->last_tic_time = GetTickCount();
@@ -2118,6 +2126,10 @@ void MainWindow::IdleLoop() {
             if (sleep_time > 1) {
                 Sleep(sleep_time - 1);
             }
+#ifdef A2SERVER_PATCH
+        } else {
+            Sleep(1);
+#endif
         }
         
         g_mousept.Update();
@@ -5667,12 +5679,23 @@ void MainWindow::StartHatDedicatedServer() {
     strcpy(addr.address, g_ServerConfig.ip_address);
 
     if (g_CLlDriver.StartServer(g_ServerConfig.max_players, this->m_GameSession.character_name, &addr) == 0) {
+#ifdef A2SERVER_PATCH
+        Printf("Error: Error initializing TCP/IP connection");
+        Config::ExitingCleanly = true;
+#else
         AfxMessageBox("Error initializing TCP/IP connection", 0, 0);
+#ifdef A2CLIENT_PATCH
+        Config::ExitingCleanly = true;
+#endif
+#endif
         exit(1);
     }
 
     if (this->StartServerSession(0) != 0) {
         AfxMessageBox("Missing or invalid world.res", 0, 0);
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+        Config::ExitingCleanly = true;
+#endif
         exit(1);
     }
 
