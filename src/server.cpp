@@ -3886,7 +3886,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
                     int32_t lat  = g_CLlDriver.GetLatency(ns2->uid);
                     int32_t loss = g_CLlDriver.GetPacketLoss(ns2->uid);
                     cheat_string.Format("%s: latency %dms, packet loss %d.%03d%%",
-                        player->name, lat, loss / 1000, loss % 1000);
+                        (const char*)player->name, lat, loss / 1000, loss % 1000);
                     g_NetStru1_main.AnnouncePlayerName(cheat_string, player);
                 }
             } else if (cheat_string.Find("#ready") == 0) {
@@ -6035,7 +6035,7 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
     //Allods2.exe 4f9a78    Join Player
     if (name.GetLength() < 1) {
         CString str;
-        str.Format("Illegal player %s ID: %d", name, id);
+        str.Format("Illegal player %s ID: %d", (const char*)name, id);
         LogMessage(str);
 
         this->JoinErrorSend(client, 1, "Your name too short. At least 1 letter required.");
@@ -6058,7 +6058,7 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
         for (int i = 0; i < g_ServerConfig.banned_names.GetSize(); i++) {
             if (nickname == g_ServerConfig.banned_names[i]) {
                 CString str;
-                str.Format("Player %s rejected (banned name)", name);
+                str.Format("Player %s rejected (banned name)", (const char*)name);
                 LogMessage(str);
 
                 this->JoinErrorSend(client, 2, "Restricted name. Try different.");
@@ -6071,7 +6071,7 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
                 CString banIP = g_ServerConfig.banned_ips[i];
                 if (false) { //banIP == )
                     CString str;
-                    str.Format("Player %s rejected (banned ip)", name);
+                    str.Format("Player %s rejected (banned ip)", (const char*)name);
                     LogMessage(str);
 
                     this->JoinErrorSend(client, 2, "Restricted ip.");
@@ -6120,7 +6120,7 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
                 this->JoinErrorSend(client, 14, "Character is too strong for this map.");
 
                 CString str;
-                str.Format("Player %s rejected(too strong for this map)", name);
+                str.Format("Player %s rejected(too strong for this map)", (const char*)name);
                 LogMessage(str);                
                 return;
             }
@@ -6128,14 +6128,14 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
                 this->JoinErrorSend(client, 15, "Character is too weak for this map.");
 
                 CString str;
-                str.Format("Player %s rejected (too weak for this map)", name);
+                str.Format("Player %s rejected (too weak for this map)", (const char*)name);
                 LogMessage(str);
                 return;
             }
         }
 
         CString str;
-        str.Format("Player %s returns to game.", player->name);
+        str.Format("Player %s returns to game.", (const char*)player->name);
         LogMessage(str);
 
         player->drop_deadline_tick16 = 0;
@@ -6147,7 +6147,7 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
                 this->JoinErrorSend(client, 14, "Character is too strong for this map.");
 
                 CString str;
-                str.Format("Player %s rejected(too strong for this map)", name);
+                str.Format("Player %s rejected(too strong for this map)", (const char*)name);
                 LogMessage(str);
                 return;
             }
@@ -6155,7 +6155,7 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
                 this->JoinErrorSend(client, 15, "Character is too weak for this map.");
 
                 CString str;
-                str.Format("Player %s rejected (too weak for this map)", name);
+                str.Format("Player %s rejected (too weak for this map)", (const char*)name);
                 LogMessage(str);
                 return;
             }
@@ -6656,7 +6656,7 @@ void Server::SaveCharacter(Humanoid* humanoid) {
         filename.Format("%u%u.a2c", player->hat_player_id, player->flags);
     }
     else {
-        filename.Format("%schr\\%s\\%u%u.a2c", g_ServerConfig.chr_base, player->login, player->hat_player_id, player->flags);
+        filename.Format("%schr\\%s\\%u%u.a2c", (const char*)g_ServerConfig.chr_base, (const char*)player->login, player->hat_player_id, player->flags);
         CFileFind fnd;
         if (fnd.FindFile(filename) == 0) {
             CString dir = g_ServerConfig.chr_base + "chr\\" + player->login;
@@ -7331,12 +7331,12 @@ void Server::UpdateHatAnnounce() {
         CString str;
         if (!current_map_name.IsEmpty()) {
             str.Format("servername=%s&version=1.01&mapname=%s&mapsize=%dx%d&difficultyleve l=%d&players=%d&ip=%s",
-                g_ServerConfig.server_name, current_map_title, MapStuff_Instance->GetWidth() - 16, MapStuff_Instance->GetHeight() - 16,
-                MapLevel, g_PlayersList->CountHumanPlayers(), g_ServerConfig.ip_address);
+                (const char*)g_ServerConfig.server_name, (const char*)current_map_title, MapStuff_Instance->GetWidth() - 16, MapStuff_Instance->GetHeight() - 16,
+                MapLevel, g_PlayersList->CountHumanPlayers(), (const char*)g_ServerConfig.ip_address);
         }
         else {
             str.Format("servername=%s&version=1.01&mapname=no map&mapsize=0x0&difficultylevel=9&players=-1&ip=%s",
-                g_ServerConfig.server_name, g_ServerConfig.ip_address);
+                (const char*)g_ServerConfig.server_name, (const char*)g_ServerConfig.ip_address);
         }
 
         for (int i = 0; i < g_ServerConfig.report_to_www.GetSize(); i++) {

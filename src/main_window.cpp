@@ -2194,7 +2194,7 @@ void MainWindow::ServerTickPump() {
                                             g_Server->srv_stru1->sack_list->list.GetCount(),
                                             g_Server->last_window_ms / 10,
                                             sredne,
-                                            this->current_map_name,
+                                            (const char*)this->current_map_name,
                                             txt_main.GetLine(108 + this->game_speed));
         OemToCharA(str, buf);
         SetDlgItemText(0x7de0, buf);
@@ -2279,9 +2279,9 @@ void MainWindow::ServerTickPump() {
         }
         CString txt;
         txt.Format(txt_patch.GetLine(67),
-            selpl->name, "\n",
-            local_a54, "\n",
-            local_a44, "\n",
+            (const char*)selpl->name, "\n",
+            (const char*)local_a54, "\n",
+            (const char*)local_a44, "\n",
             selpl->hat_player_id, selpl->flags, "\n",
             (int16_t)selpl->player_id, "\n",
             selpl->monster_kills, "\n",
@@ -2290,8 +2290,8 @@ void MainWindow::ServerTickPump() {
             selpl->deaths, "\n",
             selpl->money, "\n",
             xpos, ypos, "\n",
-            stat1, "\n",
-            stat2);
+            (const char*)stat1, "\n",
+            (const char*)stat2);
 
         OemToCharA(txt, buf);
         SetDlgItemText(0x7ddf, buf);

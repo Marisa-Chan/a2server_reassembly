@@ -843,7 +843,7 @@ BOOL GameApp::InitInstance() {
                 if (ierr < 1) {
                     msg = "Error loading " + confname + ".";
                 } else {
-                    msg.Format("Error in %s. Line %d.", confname, ierr);
+                    msg.Format("Error in %s. Line %d.", (const char*)confname, ierr);
                 }
 
                 AfxMessageBox(msg);

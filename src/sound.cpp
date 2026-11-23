@@ -974,28 +974,28 @@ void SfxBank::Load(CString name) {
     File2 f;
     for (int i = 0; i < 4; i++) {
         CString fname;
-        fname.Format("sfx\\characters\\%s\\select\\%d.wav", name, i + 1);
+        fname.Format("sfx\\characters\\%s\\select\\%d.wav", (const char*)name, i + 1);
         this->select[i] = new SfxSample(fname);
         if (f.Open(fname, CFile::modeRead)) {
             f.Close();
             this->select_count++;
         }
 
-        fname.Format("sfx\\characters\\%s\\attack\\%d.wav", name, i + 1);
+        fname.Format("sfx\\characters\\%s\\attack\\%d.wav", (const char*)name, i + 1);
         this->attack[i] = new SfxSample(fname);
         if (f.Open(fname, CFile::modeRead)) {
             f.Close();
             this->attack_count++;
         }
 
-        fname.Format("sfx\\characters\\%s\\move\\%d.wav", name, i + 1);
+        fname.Format("sfx\\characters\\%s\\move\\%d.wav", (const char*)name, i + 1);
         this->move[i] = new SfxSample(fname);
         if (f.Open(fname, CFile::modeRead)) {
             f.Close();
             this->move_count++;
         }
 
-        fname.Format("sfx\\characters\\%s\\swarm\\%d.wav", name, i + 1);
+        fname.Format("sfx\\characters\\%s\\swarm\\%d.wav", (const char*)name, i + 1);
         this->swarm[i] = new SfxSample(fname);
         if (f.Open(fname, CFile::modeRead)) {
             f.Close();

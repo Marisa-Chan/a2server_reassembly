@@ -507,7 +507,7 @@ void NetStru1::SendVisibilityState(Player* player) {
 #ifdef A2CLIENT
         if (p->is_ai == 0 && Server::somewords[this_player_id][pid] != crossd && this_player_id != pid) {
             CString str;
-            str.Format("Diplomacy changed: %s -> %s =", p->name, player->name);
+            str.Format("Diplomacy changed: %s -> %s =", (const char*)p->name, (const char*)player->name);
 
             if ((g_World->diplomacy.diplomacy[pid][this_player_id] & DIPLO_ALLIANCE)) {
                 str += " Alliance";
@@ -5207,7 +5207,7 @@ void NetStru1::WriteStatsLog(CString fname) {
             }
 
             CString msg;
-            msg.Format("%3d|%7d|%8d|%11d|%s\n", i, this->stat_pkt_num[i], this->stat_pkt_size[i] / this->stat_pkt_num[i], this->stat_pkt_size[i], pname);
+            msg.Format("%3d|%7d|%8d|%11d|%s\n", i, this->stat_pkt_num[i], this->stat_pkt_size[i] / this->stat_pkt_num[i], this->stat_pkt_size[i], (const char*)pname);
             
             f.WriteString(msg);
         }

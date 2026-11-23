@@ -1080,7 +1080,7 @@ void VisServerScreen::VMethod7() {
     }
     if (g_Server->srv_stru1->sack_list != nullptr) {
         str.Format(txt_patch.GetLine(0x42),
-                   main_wnd->current_map_name,
+                   (const char*)main_wnd->current_map_name,
                    g_PlayersList->CountHumanPlayers(),
                    g_ServerUnits->unit_list.GetCount(),
                    g_Server->srv_stru1->building_list->GetCount(),
