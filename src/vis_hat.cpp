@@ -532,7 +532,12 @@ int32_t VisHatBrowserDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam
             if ((int32_t)lparam >= 0) {
                 VisHatBrowserList* list = (VisHatBrowserList*)this->FindChild(1);
                 list->VMethod9();
+#ifdef A2CLIENT_PATCH
+                // Allow entering greyed-out servers (server/HAT enforces brackets; lets desynced local chars join).
+                this->FindChild(0x14)->ChangeFlags(FLAG_ENABLED, list->state > 0 && list->IsValidIndex(list->GetSelectedIndex()));
+#else
                 this->FindChild(0x14)->ChangeFlags(FLAG_ENABLED, list->IsItemEnabled(list->GetSelectedIndex()));
+#endif
                 this->FindChild(0x14)->VMethod9();
 #ifdef A2CLIENT
                 if (this->browser) {
@@ -543,6 +548,11 @@ int32_t VisHatBrowserDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam
                     this->connect_addr = this->connect_addr.Left(this->connect_addr.Find('|'));
                     LeaveCriticalSection(&this->connect_cs);
                 }
+#endif
+            } else {
+#ifdef A2CLIENT_PATCH
+                this->FindChild(0x14)->ChangeFlags(FLAG_ENABLED, false);
+                this->FindChild(0x14)->VMethod9();
 #endif
             }
             return 1;
@@ -588,6 +598,10 @@ int32_t VisHatBrowserDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam
         list->vis_start_index = 0;
         list->SetSelectedIndex(0);
         list->VMethod9();
+#ifdef A2CLIENT_PATCH
+        this->FindChild(0x14)->ChangeFlags(FLAG_ENABLED, false);
+        this->FindChild(0x14)->VMethod9();
+#endif
 
         int32_t res = 1; // 44c55e: left uninitialized when hat_settings.ishat == 0
 #ifdef A2CLIENT
