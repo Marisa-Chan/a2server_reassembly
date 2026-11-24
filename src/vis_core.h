@@ -100,7 +100,7 @@ class CGameFont;
 class CBmp64;
 class CBmp256;
 class CA16;
-extern char g_HintBuf[223]; //4c9a6f GetHint static buffer (defined in vis_core.cpp)
+extern char g_HintBuf[1024]; // 666590 (client: 631ff8) VisSpellBook::GetHint static buffer (defined in vis_core.cpp)
 
 class VisPlayingArea;
 class GM_a28;

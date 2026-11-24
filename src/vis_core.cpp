@@ -30,7 +30,7 @@
 
 
 
-char g_HintBuf[223]; //4c9a6f GetHint static buffer
+char g_HintBuf[1024]; // 666590 (client: 631ff8) VisSpellBook::GetHint static buffer
 
 
 

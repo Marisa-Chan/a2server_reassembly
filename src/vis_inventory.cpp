@@ -30,11 +30,11 @@
 #include "vis_shop.h"
 #include "vis_menu.h"
 
-// Spellbook pressed-position spell table. 62f8a8
-uint32_t g_SpellbookPressed[24] = {1,0,0,1, 1,1,1,1, 1,1,1,1, 1,0,0,1, 1,0,0,1, 1,1,0,1};
+// Unit-targetable flag per 24-cell spellbook UI slot (0..23). 62f8a8 (client: 5fb998)
+uint32_t g_SpellbookUnitTargetable[24] = {1,0,0,1, 1,1,1,1, 1,1,1,1, 1,0,0,1, 1,0,0,1, 1,1,0,1};
 
-// Spellbook selected-position spell table. 62fa28
-uint32_t g_SpellbookSelected[24] = {1,0,0,1, 1,0,0,1, 0,1,1,1, 1,0,0,1, 0,1,1,1, 1,0,0,1};
+// Unit-targetable flag per spell ID (indexed by spell_id - 1 for all 29 spells). 62fa28 (client: 5fbb18)
+uint32_t g_SpellUnitTargetable[29] = {1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 1, 1, 1, 0, 0, 1, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1};
 
 // Spellbook position castable-from-book flag. 62f968
 uint32_t g_SpellbookCastable[24] = {1,1,1,0, 1,0,0,1, 0,0,1,1, 1,1,1,0, 1,0,0,0, 0,1,1,1};
@@ -2464,9 +2464,9 @@ void VisSpellBook::SelectScrollEntry(int32_t idx) {
 // 4caaa7 (client: 4cf435)
 int32_t VisSpellBook::NeedsUnitTarget() {
     if (this->selected < 0) {
-        return g_SpellbookPressed[this->pressed];
+        return g_SpellbookUnitTargetable[this->pressed];
     }
-    return g_SpellbookSelected[this->selected];
+    return g_SpellUnitTargetable[this->selected];
 }
 
 
