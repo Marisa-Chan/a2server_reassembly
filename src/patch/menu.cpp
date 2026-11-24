@@ -12,6 +12,7 @@
 #include "../sound.h"
 #include "client_config.h"
 #include "image.h"
+#include "menu_avatars.h"
 
 namespace tangar_menu {
 
@@ -77,6 +78,7 @@ void Load() {
             img_buttons_down[i] = new PatchImage(path);
         }
     }
+    tangar_menu_avatars::Load();
 }
 
 void Draw() {
@@ -87,6 +89,7 @@ void Draw() {
     int32_t xMin = pRect.right / 2 - 320;
     int32_t yMin = pRect.bottom / 2 - 240;
     img_menu_new->Display((int16_t)xMin, (int16_t)yMin);
+    tangar_menu_avatars::Draw(xMin, yMin);
 
     // display buttons
     for (int32_t i = 0; i < 3; i++) {

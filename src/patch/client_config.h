@@ -49,6 +49,10 @@ extern bool z_screendir;
 // Client logs: put log files into the logs subdirectory (default true).
 extern bool z_logsdir;
 
+// Start screen: heroes from the character files in the medallions of the main
+// menu, and their highlight (default true; off by itself without the medallion images).
+extern bool menu_medallions;
+
 // Initialize Config::LogFile for the client ("logs\\allods2_DD-MM-YYYY[.pid].log"
 // when z_logsdir is enabled, else "allods2[.pid].log") and write startup header.
 void InitClientLogFile();

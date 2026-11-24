@@ -159,6 +159,7 @@ set(A2CLIENT_PATCHES
   patch/locale.cpp
   patch/map_rotation.cpp
   patch/menu.cpp
+  patch/menu_avatars.cpp
   patch/multiplayer_shop.cpp
   patch/partial_drop.cpp
   patch/player_info.cpp

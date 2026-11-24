@@ -44,6 +44,7 @@ bool z_russian = true;
 bool stats_based_level_selection = true; // a2mgr default: on
 bool z_screendir = true;
 bool z_logsdir = true;
+bool menu_medallions = true;
 bool g_altchat = false;
 int32_t z_softcore = 0; // 0=off, 1=force softcore, 2=force sandbox (no config parse in a2mgr)
 
@@ -236,6 +237,8 @@ void Parse2x(std::ifstream& f) {
             }
         } else if (cmd[0] == "stats_based_level_selection") {
             stats_based_level_selection = (cmd.size() == 2) ? StrToBool(cmd[1]) : true;
+        } else if (cmd[0] == "menu_medallions") {
+            menu_medallions = (cmd.size() == 2) ? StrToBool(cmd[1]) : true;
         } else if (cmd.size() == 2 && cmd[0].compare(0, 6, "alias:") == 0) {
             std::string name = cmd[0].substr(6);
             std::string action = cmd[1];
