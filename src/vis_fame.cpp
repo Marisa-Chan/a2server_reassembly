@@ -28,7 +28,7 @@
 #include "vis_playing_area.h"
 
 // 4ae7a3 (client: 4b30e3)
-void VisFameDocument::VMethod7() {
+void VisFameDocument::Draw() {
     CPoint top_left = this->rect.TopLeft();
     if (this->visible_flag != 0) {
         LockSurface2();
@@ -48,7 +48,7 @@ void VisFameDocument::VMethod7() {
         Fame2& doc = this->fame->m_Documents[this->selected_doc];
         doc.Draw(top_left.x, top_left.y);
         UnlockSurface2();
-        this->VisScreen::VMethod7();
+        this->VisScreen::Draw();
     }
 }
 
@@ -150,7 +150,7 @@ int32_t VisFameDocument::UpdateButtons(CPoint pos, bool is_down) {
     this->bmp_cur_right = this->bmp_rightarrow[0];
     this->bmp_cur_ok = this->bmp_okbutton[0];
     if (old_left != this->bmp_cur_left || old_right != this->bmp_cur_right || old_ok != this->bmp_cur_ok) {
-        this->VMethod9();
+        this->Redraw();
         FlushScreen();
     }
     return -1;
@@ -204,7 +204,7 @@ void VisFameDocument::PrevDoc() {
 // 4ae57f (client: 4b2ebf)
 int32_t VisFameDocument::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     if (msg == VIS_MSG_FRAME_TICK) {
-        this->VMethod9();
+        this->Redraw();
     }
     return this->VisScreen::MsgProc(msg, wparam, lparam);
 }
@@ -215,7 +215,7 @@ int32_t VisFameDocument::OnMouseMove(uint32_t wparam, CPoint pos) {
     int32_t hit = this->UpdateButtons(pos, (wparam & 1) != 0);
     this->UpdateArrowStates();
     if (hit != -1) {
-        this->VMethod9();
+        this->Redraw();
         FlushScreen();
     }
     return 0;
@@ -235,10 +235,10 @@ int32_t VisFameDocument::OnLButtonUp(uint32_t wparam, CPoint pos) {
     int32_t hit = this->UpdateButtons(pos, (wparam & 1) != 0);
     if (hit == 1) {
         this->PrevDoc();
-        this->VMethod9();
+        this->Redraw();
     } else if (hit == 2) {
         this->NextDoc();
-        this->VMethod9();
+        this->Redraw();
     } else if (hit == 3) {
         this->CloseOk();
     }
@@ -247,7 +247,7 @@ int32_t VisFameDocument::OnLButtonUp(uint32_t wparam, CPoint pos) {
 
 
 // 4ae473 (client: 4b2db3)
-void VisFameDocument::VMethod28() {
+void VisFameDocument::DoOpen() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     this->fame = &main_wnd->m_FameHall;
     g_mousept.DisableHint();
@@ -261,14 +261,14 @@ void VisFameDocument::VMethod28() {
     UnlockSurface2();
     FlushScreen();
     this->visible_flag = 1;
-    this->VisScreen::VMethod28();
+    this->VisScreen::DoOpen();
     g_mousept.EnableHint();
 }
 
 
 // 4ae534 (client: 4b2e74)
 void VisFameDocument::DoClose(uint32_t code) {
-    this->VMethod9();
+    this->Redraw();
     this->visible_flag = 0;
     this->FreeBitmaps();
     this->ClearDocs();
@@ -285,7 +285,7 @@ int32_t VisFameDocument::OnKeyDown(uint32_t wparam) {
 
 
 // 4ae926 (client: 4b3266)
-void VisFameDocument::VMethod8(CRect* rect) {
+void VisFameDocument::DrawBackground(CRect* rect) {
     (void)rect;
 }
 
@@ -299,7 +299,7 @@ const char* VisFameDocument::GetHint() {
 // 4ad961 (client: 4b22a1)
 VisFameDocument::VisFameDocument(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr) {
-    this->VMethod26();
+    this->OnCreate();
 }
 
 
@@ -311,7 +311,7 @@ VisFameDocument::~VisFameDocument() {
 
 
 // 45d7f9 (client: 461429)
-void VisFameHall::VMethod7() {
+void VisFameHall::Draw() {
     CPoint top_left = this->rect.TopLeft();
     CString str;
     if (this->visible_flag != 0) {
@@ -332,13 +332,13 @@ void VisFameHall::VMethod7() {
         UnlockSurface2();
     }
 #ifndef A2CLIENT
-    this->VisScreen::VMethod7();
+    this->VisScreen::Draw();
 #endif
 }
 
 
 // 45ce6e (client: 460a9e)
-void VisFameHall::VMethod26() {
+void VisFameHall::OnCreate() {
     this->bmp_bkg = nullptr;
     this->bmp_close_off = nullptr;
     this->bmp_close_on = nullptr;
@@ -392,7 +392,7 @@ int32_t VisFameHall::OnLButtonUp(uint32_t wparam, CPoint pos) {
 
 
 // 45d222 (client: 460e52)
-void VisFameHall::VMethod28() {
+void VisFameHall::DoOpen() {
     g_mousept.DisableHint();
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     this->fame = &main_wnd->m_FameHall;
@@ -403,7 +403,7 @@ void VisFameHall::VMethod28() {
     this->score_rects.SetSize(this->fame->m_Entries.GetSize(), -1);
     this->UpdateRects();
     this->visible_flag = 1;
-    this->VisScreen::VMethod28();
+    this->VisScreen::DoOpen();
     g_Cursors[CURSOR_SELECT]->Use();
 }
 
@@ -411,7 +411,7 @@ void VisFameHall::VMethod28() {
 // 45d57f (client: 4611af)
 int32_t VisFameHall::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     if (msg == VIS_MSG_FRAME_TICK) {
-        this->CVisualObject::VMethod9();
+        this->CVisualObject::Redraw();
     }
     return this->VisScreen::MsgProc(msg, wparam, lparam);
 }
@@ -448,7 +448,7 @@ const char* VisFameHall::GetHint() {
 
 
 // 45da6a (client: 461692)
-void VisFameHall::VMethod8(CRect* rect) {
+void VisFameHall::DrawBackground(CRect* rect) {
     (void)rect;
 }
 
@@ -512,7 +512,7 @@ void VisFameHall::FreeSounds() {
 // 45cd35 (client: 460965)
 VisFameHall::VisFameHall(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr) {
-    this->VMethod26();
+    this->OnCreate();
 }
 
 

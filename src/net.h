@@ -483,7 +483,7 @@ public:
     void SendSpectatorState(NetStru2* ns2); // 51c822 (client: 50d901) - Send spectator/alliance state
 
     // DecodePacket – decode an incoming network message into the appropriate Packet singleton,
-    // populate it via VMethod4, and stamp it with the sender id.
+    // populate it via ReadFrom, and stamp it with the sender id.
     Packet* DecodePacket(uint8_t cmd, NetStru2* ns2); // 51e7fc (client: 50f04e)
     Packet* ReceivePacket(NetStru2* cli); // 518a23 (client: 50a498) - receive packet from client
     Packet* ReceiveAnyPacket(); // 518980 (client: 50a3fc) - iterate over active connections and try receive packet

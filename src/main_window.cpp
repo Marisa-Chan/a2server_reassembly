@@ -721,18 +721,18 @@ void MainWindow::ShowCurrentTownDialog() {
     if (loc_id == 1) {
         plist->Add("music\\b14.wav");
         this->vis_root->AddChild(this->vis_town);
-        this->vis_town->VMethod28();
+        this->vis_town->DoOpen();
     } else if (loc_id == 2) {
         plist->Add("music\\b16.wav");
         this->vis_root->AddChild(this->vis_townkaarg);
-        this->vis_townkaarg->VMethod28();
+        this->vis_townkaarg->DoOpen();
     } else if (loc_id == 3) {
         plist->Add("music\\b15.wav");
         this->vis_root->AddChild(this->vis_towndruid);
-        this->vis_towndruid->VMethod28();
+        this->vis_towndruid->DoOpen();
     }
 
-    this->vis_root->VMethod9();
+    this->vis_root->Redraw();
     this->app_initialized = 0;
 
     if (g_SoundSettings.music_allowed != 0) {
@@ -1157,8 +1157,8 @@ void MainWindow::OpenConsoleInput() {
     this->vis_map_context->full_redraw_requested = 1;
     this->vis_map_context->AddChild(this->vis_1200);
     this->vis_1200->RepositionAboveDialogs();
-    this->vis_1200->VMethod28();
-    this->vis_root->VMethod9();
+    this->vis_1200->DoOpen();
+    this->vis_root->Redraw();
     this->console_active = 1;
 }
 
@@ -1214,8 +1214,8 @@ void MainWindow::ShowFameHallDocDlg() {
 
     g_Cursors[0x1a]->Use();
     this->vis_root->AddChild(this->vis_famedocument);
-    this->vis_famedocument->VMethod28();
-    this->vis_root->VMethod9();
+    this->vis_famedocument->DoOpen();
+    this->vis_root->Redraw();
     this->app_initialized = 0;
     this->dialogsMask |= DIALOG_MASK_FAME_HALL_DOC;
     g_Cursors[0]->Use();
@@ -1669,12 +1669,12 @@ void MainWindow::CreateUI() {
 
     this->vis_dropgold = new VisDropGold(1000000000, 100, g_ScreenSize.bottom - 200);
 
-    this->vis_shop->VMethod26();
-    this->vis_shopdruid->VMethod26();
-    this->vis_shopkaarg->VMethod26();
-    this->vis_tav->VMethod26();
-    this->vis_tavdruid->VMethod26();
-    this->vis_tavkaarg->VMethod26();
+    this->vis_shop->OnCreate();
+    this->vis_shopdruid->OnCreate();
+    this->vis_shopkaarg->OnCreate();
+    this->vis_tav->OnCreate();
+    this->vis_tavdruid->OnCreate();
+    this->vis_tavkaarg->OnCreate();
 }
 
 // 483d64 (client: 487a00)
@@ -2119,7 +2119,7 @@ void MainWindow::IdleLoop() {
                 if (this->has_focus != 0) {
                     if (this->vis_serverscreen != nullptr) {
                         if (this->game_tic_counter == 1) {
-                            this->vis_serverscreen->VMethod9();
+                            this->vis_serverscreen->Redraw();
                         }
                     }
                 }
@@ -2163,7 +2163,7 @@ void MainWindow::IdleLoop() {
             ServerTickPump();
 
         if (g_IsServer == 0 && has_focus != 0 && vis_serverscreen && game_tic_counter == 1)
-            vis_serverscreen->VMethod9();
+            vis_serverscreen->Redraw();
 
         if (g_Server->tick > g_ServerConfig.map_durations[g_ServerConfig.current_map_index] * 57600) {
             g_ServerConfig.current_map_index++;
@@ -2404,8 +2404,8 @@ void MainWindow::Proc_421() {
     this->vis_mainmenu->disable_mask = g_MainmenuDisableMask | (AppHasAnySaveFile() != 0 ? 0 : 0x10);
 
     this->vis_root->AddChild(this->vis_mainmenu);
-    this->vis_mainmenu->VMethod28();
-    this->vis_root->VMethod9();
+    this->vis_mainmenu->DoOpen();
+    this->vis_root->Redraw();
     this->app_initialized = 0;
     this->dialogsMask |= DIALOG_MASK_MAIN_MENU;
     this->DestroyServer();
@@ -2939,7 +2939,7 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
     this->vis_right_panel->MsgProc(VIS_MSG_DATA_REFRESH, 0, 0);
 
     if (this->dialogsMask != DIALOG_MASK_INGAME || this->vis_map_context->scenario != nullptr) {
-        this->vis_root->VMethod9();
+        this->vis_root->Redraw();
     }
 
     if (this->dialogsMask == DIALOG_MASK_INGAME && g_DeferredEventIds.GetSize() != 0) {
@@ -2988,11 +2988,11 @@ void MainWindow::ShowCharacterLoaderDialog() {
     this->vis_charinfo->info_mode = 1;
     this->vis_root->AddChild(this->vis_charsel);
 
-    this->vis_charsel->VMethod28();
+    this->vis_charsel->DoOpen();
 
     this->dialogsMask |= DIALOG_MASK_CHAR_SELECT;
     
-    this->vis_root->VMethod9();
+    this->vis_root->Redraw();
 
     this->app_initialized = 0;
 
@@ -3014,9 +3014,9 @@ void MainWindow::ShowCharInfoPane() {
     this->vis_map_context->UpdateSelectionState();
 
     this->vis_root->AddChild(this->vis_chargen);
-    this->vis_chargen->VMethod28();
+    this->vis_chargen->DoOpen();
 
-    this->vis_root->VMethod9();
+    this->vis_root->Redraw();
 
     this->app_initialized = 0;
     this->dialogsMask |= DIALOG_MASK_CHARGEN;
@@ -3649,7 +3649,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) {
         this->ShowStartupLogoDialog();
         this->vis_logownd->MsgProc(VIS_MSG_LOGO_SET_STEP, 1, 0);
         this->vis_logownd->MsgProc(VIS_MSG_LOGO_SET_TIMEOUT, 4000, 0);
-        vis_root->VMethod9();
+        vis_root->Redraw();
         break;
 
     case MAIN_MSG_SHOW_CREDITS:
@@ -3782,20 +3782,20 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) {
         case 1:
             this->vis_logownd->MsgProc(VIS_MSG_LOGO_SET_STEP, wParam + 1, 0);
             this->vis_logownd->MsgProc(VIS_MSG_LOGO_SET_TIMEOUT, 4000, 0);
-            vis_root->VMethod9();
+            vis_root->Redraw();
             break;
 
         case 2:
             this->vis_logownd->MsgProc(VIS_MSG_LOGO_SET_STEP, wParam + 1, 0);
             this->vis_logownd->MsgProc(VIS_MSG_LOGO_SET_TIMEOUT, 6000, 0);
-            vis_root->VMethod9();
+            vis_root->Redraw();
             this->LoadData();
             break;
 
         case 3:
             this->vis_logownd->MsgProc(VIS_MSG_LOGO_SET_STEP, wParam + 1, 0);
             this->vis_logownd->MsgProc(VIS_MSG_LOGO_SET_TIMEOUT, 30000, 0);
-            vis_root->VMethod9();
+            vis_root->Redraw();
             break;
 
         case 4:
@@ -4399,8 +4399,8 @@ void MainWindow::PopUpScreen(VisScreen* screen) {
 
     this->vis_root->AddChild(screen);
 
-    screen->VMethod26();
-    screen->VMethod28();
+    screen->OnCreate();
+    screen->DoOpen();
 
     LockSurface2();
 
@@ -4410,7 +4410,7 @@ void MainWindow::PopUpScreen(VisScreen* screen) {
 
     FlushScreen();
 
-    screen->VMethod9();
+    screen->Redraw();
 
     this->app_initialized = 0;
 
@@ -4437,8 +4437,8 @@ void MainWindow::SendHatJoinName(CString name) {
 void MainWindow::ShowGlobalMapDialog() {
 
     this->vis_root->AddChild(this->vis_globalmap);
-    this->vis_globalmap->VMethod28();
-    this->vis_root->VMethod9();
+    this->vis_globalmap->DoOpen();
+    this->vis_root->Redraw();
 
     this->app_initialized = 0;
     this->dialogsMask |= DIALOG_MASK_GLOBAL_MAP;
@@ -4725,7 +4725,7 @@ int MainWindow::RunSessionBootstrap(int mode) {
     }
 
     this->vis_right_panel->MsgProc(VIS_MSG_DATA_REFRESH, 0, 0);
-    this->vis_root->VMethod9();
+    this->vis_root->Redraw();
 
     if (this->sessionMode != SESSION_SERVER) {
         this->PlayDefaultMusic();
@@ -5260,8 +5260,8 @@ void MainWindow::ShowStartGameSetupForNewSession() {
 
     this->vis_startgame->SetSelectedDifficulty(this->m_FameHall.GetDifficulty());
     this->vis_startgame->SetSelectedPortraitPlayerType(CharacterClassCode(static_cast<uint8_t>(this->m_GameSession.type)).class_index);
-    this->vis_startgame->VMethod28();
-    this->vis_root->VMethod9();
+    this->vis_startgame->DoOpen();
+    this->vis_root->Redraw();
 
     this->app_initialized = 0;
     this->dialogsMask |= DIALOG_MASK_START_GAME;
@@ -5285,7 +5285,7 @@ void MainWindow::ShowStartGameSetupForNewSession() {
 // 48dba0 (client: 492009)
 void MainWindow::ShowStartupLogoDialog() {
     this->vis_root->AddChild(this->vis_logownd);
-    this->vis_logownd->VMethod28();
+    this->vis_logownd->DoOpen();
 
     this->app_initialized = 0;
     this->dialogsMask |= DIALOG_MASK_LOGO;
@@ -5295,8 +5295,8 @@ void MainWindow::ShowStartupLogoDialog() {
 // 48da66 (client: 491ecf)
 void MainWindow::ShowCreditsDialog() {
     this->vis_root->AddChild(this->vis_credits);
-    this->vis_credits->VMethod28();
-    this->vis_root->VMethod9();
+    this->vis_credits->DoOpen();
+    this->vis_root->Redraw();
 
     this->app_initialized = 0;
     this->dialogsMask |= DIALOG_MASK_CREDITS;
@@ -5316,9 +5316,9 @@ void MainWindow::ShowFameHallDialog() {
 
     this->vis_root->AddChild(this->vis_famehall);
 
-    this->vis_famehall->VMethod28();
+    this->vis_famehall->DoOpen();
 
-    this->vis_root->VMethod9();
+    this->vis_root->Redraw();
 
     this->app_initialized = 0;
     this->dialogsMask |= DIALOG_MASK_FAME_HALL;
@@ -5366,19 +5366,19 @@ void MainWindow::ShowShopDialog(uint32_t id) {
 
     if (locid == 1) {
         this->vis_root->AddChild(this->vis_shop);
-        this->vis_shop->VMethod28();
+        this->vis_shop->DoOpen();
     } else if (locid == 2) {
         this->vis_root->AddChild(this->vis_shopkaarg);
-        this->vis_shopkaarg->VMethod28();
+        this->vis_shopkaarg->DoOpen();
     } else if (locid == 3) {
         this->vis_root->AddChild(this->vis_shopdruid);
-        this->vis_shopdruid->VMethod28();
+        this->vis_shopdruid->DoOpen();
     }
 
     this->dialogsMask |= DIALOG_MASK_SHOP;
     this->vis_map_context->UpdateSelectionState();
     this->vis_map_context->OnOpenShopDialog();
-    this->vis_root->VMethod9();
+    this->vis_root->Redraw();
     this->app_initialized = 0;
 
     g_Cursors[CURSOR_DEFAULT]->Use();
@@ -5455,13 +5455,13 @@ void MainWindow::ShowInnDialog(uint32_t id, int32_t interact_target) {
     }
 
     inn->inn_id = interact_target;
-    inn->VMethod28();
+    inn->DoOpen();
 
     this->dialogsMask |= DIALOG_MASK_TAVERN;
 
     this->vis_map_context->UpdateSelectionState();
 
-    this->vis_root->VMethod9();
+    this->vis_root->Redraw();
 
     this->app_initialized = 0;
 

@@ -194,7 +194,7 @@ ASSERT_SIZE(PacketUnitUpdate, 0x418);
 // PacketUnitRef
 // Constructor 5268FC, static 6E9B40, vtable 60ED28.
 // Single uint16_t payload – typically a unit/object reference.
-// No custom Duplicate (inherits base); no custom VMethod3/VMethod4.
+// No custom Duplicate (inherits base); no custom WriteTo/ReadFrom.
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
 class PacketWord : public Packet {
@@ -217,8 +217,8 @@ ASSERT_SIZE(PacketWord, 0xC);
 // PacketGroupOrder
 // Constructor 526924, static 6D1670, vtable 60ED40.
 // Variable-length list of uint16_t entries; up to 0xFD (253) entries.
-// AppendWord() mirrors 52695A.  VMethod3 sends count*2+0xA bytes from &id.
-// VMethod4 reads 9 fixed bytes then count*2 variable bytes.
+// AppendWord() mirrors 52695A.  WriteTo sends count*2+0xA bytes from &id.
+// ReadFrom reads 9 fixed bytes then count*2 variable bytes.
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
 class PacketGroupOrder : public Packet {
@@ -252,7 +252,7 @@ ASSERT_SIZE(PacketGroupOrder, 0x20d);
 // PacketItemTransfer
 // Constructor 526A07, static 6B1650, vtable 60ED58.
 // Command packet: 2 type/subtype bytes + 3 word params; field_0x12 init = 1.
-// Uses inherited Packet VMethod3/VMethod4 serialisation.
+// Uses inherited Packet WriteTo/ReadFrom serialisation.
 // ---------------------------------------------------------------------------
 // PacketItemTransfer::type - where the item comes from.
 // Values >= TRANSFER_SRC_SHOP are shop interactions; SHELF_* name the four
@@ -309,7 +309,7 @@ ASSERT_SIZE(PacketItemTransfer, 0x14);
 // PacketEnterGame
 // Constructor 526A4F, static 6B1670, vtable 60ED70.
 // Three uint32_t fields followed by one uint8_t; all zeroed in ctor.
-// Uses inherited Packet VMethod3/VMethod4 serialisation.
+// Uses inherited Packet WriteTo/ReadFrom serialisation.
 // ---------------------------------------------------------------------------
 struct EnterGameParams {
     union {
@@ -555,8 +555,8 @@ ASSERT_SIZE(PacketRangedAttack, 0xE);
 // Large variable-length player-info packet.
 // Fixed area: 40-byte preamble at +0xA, int32_t count at +0x32.
 // Variable-length data starting at +0x36 with `count` bytes.
-// VMethod3 (527220): sends count+45 bytes from &id.
-// VMethod4 (527246): reads 44-byte fixed block then optional count bytes.
+// WriteTo (527220): sends count+45 bytes from &id.
+// ReadFrom (527246): reads 44-byte fixed block then optional count bytes.
 // Copy ctor: 5271DF (memcpy id + preamble + count + var_data).
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
@@ -591,8 +591,8 @@ ASSERT_SIZE(PacketFileChunk, 0x10036);
 // PacketData
 // Constructor 527283, static 6B37D8, vtable 60EE90.
 // Generic length-prefixed binary blob: uint32_t count at +0xA, data at +0xE.
-// VMethod3 (5272E3): sends count+5 bytes from &id.
-// VMethod4 (527309): reads 4-byte count, then count bytes of data.
+// WriteTo (5272E3): sends count+5 bytes from &id.
+// ReadFrom (527309): reads 4-byte count, then count bytes of data.
 // Copy ctor: 5272A2 (memcpy count+5 bytes from offset 9).
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))
@@ -644,8 +644,8 @@ inline ItemListMode& operator|=(ItemListMode& a, ItemListMode b) { a = a | b; re
 // Helper 527574  : opens a 7-byte compound entry slot.
 // Helper 5275F8  : appends (uint8_t field, uint8_t value) – 2 bytes.
 // Helper 5276E0  : appends (uint8_t field, uint32_t value) – 5 bytes.
-// VMethod3 (5274CC): if entry_count==0 sends 10 bytes; else also sends data.
-// VMethod4 (527528): reads 9 fixed bytes at +0xA, then data_size bytes.
+// WriteTo (5274CC): if entry_count==0 sends 10 bytes; else also sends data.
+// ReadFrom (527528): reads 9 fixed bytes at +0xA, then data_size bytes.
 // Copy ctor: 527473.
 // ---------------------------------------------------------------------------
 __pragma(pack(push, 1))

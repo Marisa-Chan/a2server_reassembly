@@ -485,7 +485,7 @@ bool MouseOverItem() {
         return false;
     }
 
-    return inv->VMethod30(g_mousept.x, -g_mousept.y) >= 0;
+    return inv->GetSlotAt(g_mousept.x, -g_mousept.y) >= 0;
 }
 
 void RememberPanel(void* panel) {

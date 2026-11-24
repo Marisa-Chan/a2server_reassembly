@@ -368,7 +368,7 @@ void VisHatBrowserList::DrawItem(int32_t idx, CPoint pos, uint16_t* clr) {
 
 
 // 44bc6c (client: 44e774)
-void VisHatBrowserDlg::VMethod26() {
+void VisHatBrowserDlg::OnCreate() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
 #ifdef A2CLIENT_PATCH
@@ -531,14 +531,14 @@ int32_t VisHatBrowserDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam
         if (wparam == 1) {
             if ((int32_t)lparam >= 0) {
                 VisHatBrowserList* list = (VisHatBrowserList*)this->FindChild(1);
-                list->VMethod9();
+                list->Redraw();
 #ifdef A2CLIENT_PATCH
                 // Allow entering greyed-out servers (server/HAT enforces brackets; lets desynced local chars join).
                 this->FindChild(0x14)->ChangeFlags(FLAG_ENABLED, list->state > 0 && list->IsValidIndex(list->GetSelectedIndex()));
 #else
                 this->FindChild(0x14)->ChangeFlags(FLAG_ENABLED, list->IsItemEnabled(list->GetSelectedIndex()));
 #endif
-                this->FindChild(0x14)->VMethod9();
+                this->FindChild(0x14)->Redraw();
 #ifdef A2CLIENT
                 if (this->browser) {
                     EnterCriticalSection(&this->connect_cs);
@@ -552,7 +552,7 @@ int32_t VisHatBrowserDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam
             } else {
 #ifdef A2CLIENT_PATCH
                 this->FindChild(0x14)->ChangeFlags(FLAG_ENABLED, false);
-                this->FindChild(0x14)->VMethod9();
+                this->FindChild(0x14)->Redraw();
 #endif
             }
             return 1;
@@ -613,7 +613,7 @@ int32_t VisHatBrowserDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam
 #endif
         }
         this->MsgProc(VIS_MSG_SET_OPTION, 1, list->GetSelectedIndex());
-        list->VMethod9();
+        list->Redraw();
         return 1;
     }
     case VIS_MSG_HATBROWSER_ABORT: {
@@ -627,10 +627,10 @@ int32_t VisHatBrowserDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam
         list->selected_index = -1;
         list->vis_start_index = 0;
         list->SetSelectedIndex(0);
-        list->VMethod9();
+        list->Redraw();
 #ifdef A2CLIENT_PATCH
         this->FindChild(0x14)->ChangeFlags(FLAG_ENABLED, false);
-        this->FindChild(0x14)->VMethod9();
+        this->FindChild(0x14)->Redraw();
 #endif
 
         int32_t res = 1; // 44c55e: left uninitialized when hat_settings.ishat == 0
@@ -694,9 +694,9 @@ int32_t VisHatBrowserDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam
             }
             LeaveCriticalSection(&prog->cs);
             lbl1->text = s1;
-            lbl1->VMethod9();
+            lbl1->Redraw();
             lbl2->text = s2;
-            lbl2->VMethod9();
+            lbl2->Redraw();
         }
         return VisScreen::MsgProc(msg, wparam, lparam);
     }
@@ -749,7 +749,7 @@ int32_t HatPlayerListWindow::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lpa
 }
 
 // server: none (client: 452897)
-CVisualObject* HatPlayerListWindow::VMethod30(const void* payload, const RECT& r) {
+CVisualObject* HatPlayerListWindow::CreateContent(const void* payload, const RECT& r) {
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
     // hat player-list visibility flag (client MainWindow+0x634, see dtor above)
     wnd->shutdown_pending = 1;
@@ -851,7 +851,7 @@ UINT __cdecl VisHatBrowserDlg::ThreadProc(void* pv) {
 
 
 // 44a140 (client: 44c815)
-void VisHatServerListDlg::VMethod31(int32_t code) {
+void VisHatServerListDlg::OnResult(int32_t code) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     if (code == VIS_MSG_HIDE_SCREEN) {
         this->FindChild(4)->WriteData(&this->hat_settings->ishat);
@@ -926,12 +926,12 @@ int32_t VisHatServerListDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lpa
         this->FindChild(2)->ReadData(this->hat_settings->hatip);
         this->hat_settings->hatprogip = buffer;
     }
-    this->VMethod9();
+    this->Redraw();
     return 1;
 }
 
 // 44a34d (client: 44ca33)
-CVisualObject* VisHatServerListDlg::VMethod30(const void* data, const RECT& r) {
+CVisualObject* VisHatServerListDlg::CreateContent(const void* data, const RECT& r) {
     HatSettings* hat = (HatSettings*)data;
     // the client lays out everything below the ip box 0x18 lower
 #ifdef A2CLIENT
@@ -1009,7 +1009,7 @@ CVisualObject* VisHatServerListDlg::VMethod30(const void* data, const RECT& r) {
 #ifdef A2CLIENT_PATCH
     // Tangar GUI_removeServerList (44CC1E): the ishat selector is removed -
     // an off-screen disabled radio keeps the id-4 child (entries and ReadData
-    // still run so the stored value survives VMethod31 writeback).
+    // still run so the stored value survives OnResult writeback).
     VisRadioType2* ishat_radio = new VisRadioType2(4, r.left, (int32_t)0x80FFFFF0, r.right, (int32_t)0x80FFFFC0, g_font1, p_clrsh_Black, nullptr);
 #else
     VisRadioType2* ishat_radio = new VisRadioType2(4, r.left, 0xa8 + dy, r.right, 0xd8 + dy, g_font1, p_clrsh_Black, nullptr);
@@ -1070,7 +1070,7 @@ VisHatSession::VisHatSession(int32_t _id, int32_t l, int32_t t, int32_t r, int32
 : VisScreen(_id, l, t, r, b, nullptr) {}
 
 // server: none (client: 4e8545)
-void VisHatSession::VMethod7() {
+void VisHatSession::Draw() {
     CDWordArray scores;
     CDWordArray colors;
     CStringArray names;

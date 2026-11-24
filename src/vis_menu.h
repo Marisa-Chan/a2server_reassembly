@@ -9,7 +9,7 @@ class QuestObjectivesHeaderDialogVisualObject : public VisMessageBoxWithList {
 public:
     QuestObjectivesHeaderDialogVisualObject(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); // 445173 (client: 447841)
 
-    virtual void VMethod26() override; // 4451e1 (client: 4478af)
+    virtual void OnCreate() override; // 4451e1 (client: 4478af)
 };
 ASSERT_SIZE(QuestObjectivesHeaderDialogVisualObject, 0x78);
 
@@ -18,14 +18,14 @@ class VisCredits : public VisScreen {
 public:
     virtual ~VisCredits(); // 43c3c6 (client: 43e7d6)
 
-    virtual void VMethod7() override; // 43c60c (client: 43ea1c)
-    virtual void VMethod8(CRect* rect) override; // 43c9a8 (client: 43edb8)
+    virtual void Draw() override; // 43c60c (client: 43ea1c)
+    virtual void DrawBackground(CRect* rect) override; // 43c9a8 (client: 43edb8)
     virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 43c595 (client: 43e9a5)
     virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 43c5f5 (client: 43ea05)
     virtual int32_t OnKeyDown(uint32_t wparam) override; // 43c5d4 (client: 43e9e4)
 
-    virtual void VMethod26() override; // 43c438 (client: 43e848)
-    virtual void VMethod28() override; // 43c4d6 (client: 43e8e6)
+    virtual void OnCreate() override; // 43c438 (client: 43e848)
+    virtual void DoOpen() override; // 43c4d6 (client: 43e8e6)
     virtual void DoClose(uint32_t code) override; // 43c553 (client: 43e963)
 
     void LoadContent(); // 43c9b5 (client: 43edc5)
@@ -46,11 +46,11 @@ class VisDropGold : public VisScreen {
 public:
     virtual ~VisDropGold(); // 441c63 (client: 444232) - (44F870 is the ??_G thunk)
 
-    virtual void VMethod9() override; // 441f1f (client: 4444f1)
+    virtual void Redraw() override; // 441f1f (client: 4444f1)
     virtual int32_t OnKeyDown(uint32_t wparam) override; // 441f3c (client: 44450e)
 
-    virtual void VMethod26() override; // 441c7f (client: 44424e)
-    virtual void VMethod28() override; // 441fa3 (client: 444575)
+    virtual void OnCreate() override; // 441c7f (client: 44424e)
+    virtual void DoOpen() override; // 441fa3 (client: 444575)
     virtual void DoClose(uint32_t code) override; // 441fee (client: 4445c0)
 
     void SetSelection(int32_t idx); // 4a7a30 (client: 4aba60)
@@ -67,15 +67,15 @@ class VisMainMenu : public VisScreen {
 public:
     virtual ~VisMainMenu(); // 4aaab6 (client: 4aeae6)
 
-    virtual void VMethod7() override; // 4ab28f (client: 4af2bf)
-    virtual void VMethod8(CRect* rect) override; // 4ab411 (client: 4af441)
+    virtual void Draw() override; // 4ab28f (client: 4af2bf)
+    virtual void DrawBackground(CRect* rect) override; // 4ab411 (client: 4af441)
     virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 4ab41e (client: 4af44e)
     virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 4ab88c (client: 4af8bc)
     virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 4ab8af (client: 4af8df)
     virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 4ab8f3 (client: 4af923)
 
-    virtual void VMethod26() override; // 4aab71 (client: 4aeba1)
-    virtual void VMethod28() override; // 4aba8d (client: 4afabd)
+    virtual void OnCreate() override; // 4aab71 (client: 4aeba1)
+    virtual void DoOpen() override; // 4aba8d (client: 4afabd)
     virtual void DoClose(uint32_t code) override; // 4abb14 (client: 4afb44)
 
     void UpdateButtonState(uint32_t wparam, CPoint mouse); // 4ab45d (client: 4af48d)
@@ -109,7 +109,7 @@ public:
     VisStartGameTextBox(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisStartGame* screen); // 4329f9 (client: 434b2a)
 
     virtual const char* GetHint() override; // 432ea3 (client: 434fdb)
-    virtual void VMethod7() override; // 432d58 (client: 434e90)
+    virtual void Draw() override; // 432d58 (client: 434e90)
     virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 432c1f (client: 434d56)
     virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 432c9e (client: 434dd5)
     virtual int32_t OnKeyDown(uint32_t wparam) override; // 432ce3 (client: 434e1a)
@@ -139,15 +139,15 @@ public:
     virtual ~VisStartGame(); // 4331fc (client: 435334)
 
     virtual const char* GetHint() override; // 437e13 (client: 439f45)
-    virtual void VMethod7() override; // 435d72 (client: 437ea4)
-    virtual void VMethod8(CRect* rect) override; // 438dc0 (client: 43ac80)
+    virtual void Draw() override; // 435d72 (client: 437ea4)
+    virtual void DrawBackground(CRect* rect) override; // 438dc0 (client: 43ac80)
     virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 437571 (client: 4396a3)
     virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 437664 (client: 439796)
     virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 43769c (client: 4397ce)
     virtual int32_t OnKeyDown(uint32_t wparam) override; // 437617 (client: 439749)
 
-    virtual void VMethod26() override; // 4333b9 (client: 4354f1)
-    virtual void VMethod28() override; // 433e2d (client: 435f65)
+    virtual void OnCreate() override; // 4333b9 (client: 4354f1)
+    virtual void DoOpen() override; // 433e2d (client: 435f65)
     virtual void DoClose(uint32_t code) override; // 4341eb (client: 436323)
 
     uint32_t GetHotspotId(int32_t x, int32_t y); // 4356c2 (client: 4377fa)
@@ -249,7 +249,7 @@ class LoadGameWindow : public VisWindow {
 public:
     virtual ~LoadGameWindow() {} // 44f4b0 (client: 452fd0)
     virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 43f63c (client: 441aa0)
-    virtual void VMethod26() override; // 43ed94 (client: 4411f8)
+    virtual void OnCreate() override; // 43ed94 (client: 4411f8)
 
     LoadGameWindow(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* _bitmap, SaveFileInfo* unk); // 43ecfb (client: 44115f)
 public:
@@ -265,7 +265,7 @@ class SaveGameWindow : public VisWindow {
 public:
     virtual ~SaveGameWindow() {} // 44f540 (client: 453200)
     virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 440726 (client: 442b8d)
-    virtual void VMethod26() override; // 43fb2c (client: 441f90)
+    virtual void OnCreate() override; // 43fb2c (client: 441f90)
 
     SaveGameWindow(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* _bitmap, SaveFileInfo* unk); // 43fa42 (client: 441ea6)
     void CheckInput(); // 440cc4 (client: 44312b)
@@ -297,7 +297,7 @@ public:
     virtual ~GameOptionsWindow() {} // 443cbb (client: 44628d)
 
     virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 443cd7 (client: 4462a9)
-    virtual void VMethod26() override; // 442646 (client: 444c18)
+    virtual void OnCreate() override; // 442646 (client: 444c18)
 
     GameOptionsWindow(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b) : VisWindow(_id, l, t, r, b, nullptr) {}; // 44260f (client: 444be1)
 };
@@ -323,7 +323,7 @@ public:
     SoundPreferencesDialogVisualObject(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* _bitmap, SoundSettings* pset); // 43d917 (client: 43fd7b)
 
     virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 43e6f0 (client: 440b54)
-    virtual void VMethod26() override; // 43d959 (client: 43fdbd)
+    virtual void OnCreate() override; // 43d959 (client: 43fdbd)
 
     int32_t ConvVolumeToSlider(int32_t vol, int32_t max_val) { return max_val - (sqrt((float)-vol / (float)max_val) * (float)max_val); } // 45ca10 (client: 46063e)
     int32_t ConvSliderToVolume(int32_t pos, int32_t max_val) { // 45ca45 (client: 460673)
@@ -343,13 +343,13 @@ public:
     VisLogoWnd(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); // 4cd4d0 (client: 4d1e20)
     ~VisLogoWnd(); // 4cd53c (client: 4d1e8c)
 
-    virtual void VMethod7() override; // 4cd8d1 (client: 4d2221)
-    virtual void VMethod8(CRect* rect) override {}; // 4cd91e (client: 4d226e)
+    virtual void Draw() override; // 4cd8d1 (client: 4d2221)
+    virtual void DrawBackground(CRect* rect) override {}; // 4cd91e (client: 4d226e)
     virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 4cd72e (client: 4d207e)
     virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 4cd6c2 (client: 4d2012)
     virtual int32_t OnKeyDown(uint32_t wparam) override; // 4cd6f8 (client: 4d2048)
 
-    virtual void VMethod26(); // 4cd5be (client: 4d1f0e)
+    virtual void OnCreate() override; // 4cd5be (client: 4d1f0e)
     virtual void DoClose(uint32_t code); // 4cd666 (client: 4d1fb6) - 29 method
 
 public:
@@ -367,7 +367,7 @@ public:
     virtual ~Vis2Action(); // 450bd0 (client: 4548d0)
 
     virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 44f30d (client: 452632)
-    virtual void VMethod26() override; // 44f0e8 (client: 45240d)
+    virtual void OnCreate() override; // 44f0e8 (client: 45240d)
 
     Vis2Action(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const char* _txt, const CRect& _r); // 44f0a2 (client: 4523c7)
 
@@ -380,7 +380,7 @@ ASSERT_SIZE(Vis2Action, 0x80);
 class VisMissionFailed : public VisMessageBoxWithList {
 public:
     virtual ~VisMissionFailed(); // 450b30 (client: 454830)
-    virtual void VMethod26() override; // 44e8ca (client: 451bef)
+    virtual void OnCreate() override; // 44e8ca (client: 451bef)
 
     VisMissionFailed(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const CString& _txt); // 44e875 (client: 451b9a)
 };
@@ -394,7 +394,7 @@ public:
     VisCutScenesDlg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const CStringArray& _payload); // 44eabb (client: 451de0)
 
 
-    virtual CVisualObject* VMethod30(const void* data, const RECT& r) override; // 44eb08 (client: 451e2d)
+    virtual CVisualObject* CreateContent(const void* data, const RECT& r) override; // 44eb08 (client: 451e2d)
 };
 ASSERT_SIZE(VisCutScenesDlg, 0x78);
 
@@ -409,7 +409,7 @@ public:
     virtual int32_t IsValidIndex(int32_t idx) override; // 4dd098 (client: 4e1a1b)
     virtual void DrawItem(int32_t idx, CPoint pos, uint16_t* clr) override; // 4dd0bd (client: 4e1a40)
     virtual void SelectItem(int32_t idx) override; // 4dcf98 (client: 4e191b)
-    virtual void VMethod30(CPoint pos, const CRect& r) override; // 4e3d30 (client: 4e9cc0)
+    virtual void DrawSelection(CPoint pos, const CRect& r) override; // 4e3d30 (client: 4e9cc0)
 
     VisListBoxDiplomacy(int32_t _id, const RECT& r, CArray<DiplomacyEntry*>* _diplomacy, CGameFont* _font, uint16_t* _clr1, uint16_t* _clr2, int32_t _entry_height); // 4dc9fb (client: 4e137e)
 
@@ -435,8 +435,8 @@ public:
     VisDiplomacy(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const CArray<DiplomacyEntry*>* _payload); // 445bcb (client: 44829c)
 
     virtual void ReadData(const void* buf) override; // 445d34 (client: 448405)
-    virtual CVisualObject* VMethod30(const void* data, const RECT& r) override; // 445c2e (client: 4482ff)
-    virtual void VMethod31(int32_t code) override; // 445cf1 (client: 4483c2)
+    virtual CVisualObject* CreateContent(const void* data, const RECT& r) override; // 445c2e (client: 4482ff)
+    virtual void OnResult(int32_t code) override; // 445cf1 (client: 4483c2)
 public:
     // Points at MainWindow's CArray<DiplomacyEntry*>* variable (the binary puns it
     // through a const CArray* ctor parameter), so ReadData re-reads the current array.
@@ -449,7 +449,7 @@ class VisTipsDialog : public VisScreen {
 public:
     virtual ~VisTipsDialog(); // 4e4510 (client: 4e98b0)
 
-    virtual void VMethod8(CRect* rect) override; // 4e27cd (client: 4e7151)
+    virtual void DrawBackground(CRect* rect) override; // 4e27cd (client: 4e7151)
     virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 4e2b95 (client: 4e7519)
     virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 4e2c42 (client: 4e75c6)
     virtual int32_t OnKeyDown(uint32_t wparam) override { return 0; } // 4e2c33 (client: 4e75b7)
@@ -469,7 +469,7 @@ class VisQuestStatus : public VisScreen {
 public:
     virtual ~VisQuestStatus(); // 4e2ef4 (client: 4e7878)
 
-    virtual void VMethod7() override; // 4e2f76 (client: 4e78fa)
+    virtual void Draw() override; // 4e2f76 (client: 4e78fa)
     virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 4e4530 (client: 4e9cd0)
 
     VisQuestStatus(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); // 4e2e3d (client: 4e77c1)

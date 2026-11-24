@@ -226,7 +226,7 @@ public:
     void ResetActionState(); // 52c641 (client: 51a1e9)
     void RemoveFromMap(); // 52c163 (client: 519ea6)
     void AddToMap(uint8_t x, uint8_t y, uint8_t flags); // 52c36d (client: 519f1b)
-    void Revive(); // 52c58f (client: 51a137) - Revive unit (set flags, reset subcell, call VMethod18, notify world)
+    void Revive(); // 52c58f (client: 51a137) - Revive unit (set flags, reset subcell, call RecalcStats, notify world)
     void CancelQueuedSpell(); // 52c813 (client: 51a348)
     void CreateSackFromInventory(Inventory* inventory, int32_t money, int32_t is_main_player_unit); // 52d8d3 (client: 51a5f8) - Create a sack from this unit's inventory and money.
     void AddHp(int16_t amount); // 52c4df (client: 51a087) - Add HP (clamped to hp_max, triggers regen if newly positive)
@@ -371,23 +371,23 @@ public:
     virtual void Serialize(CArchive& ar) override; // 55c760 (client: 5374ea)
     // CObject AssertValid  override
     // CObject Dump  override
-    //virtual void VMethod1() override;
-    //virtual void VMethod2() override;
-    //virtual int32_t VMethod3() override;
-    //virtual int32_t VMethod4() override;
+    //virtual void RegenTick() override;
+    //virtual void ProcessEffects() override;
+    //virtual int32_t GetTokenSize() override;
+    //virtual int32_t GetMovementType() override;
     virtual void FixupPointers() override; // 55ab26 (client: 536c9c)
-    //virtual int32_t VMethod6() override;
+    //virtual int32_t IsItem() override;
     virtual int32_t IsUnit() override; // 57bb50 (client: 54c710)
     virtual int32_t IsHumanoid() override; // 57bb60 (client: 54c720)
-    //virtual int32_t VMethod9() override;
+    //virtual int32_t IsBuilding() override;
     virtual void ReleaseObjects() override; // 5301ac (client: 51bf7d)
-    //virtual void VMethod11(Unit*) override;
+    //virtual void CopyFrom(Unit*) override;
     virtual Item* UseItem(Item*) override; // 5303e3 (client: 51c1af)
     virtual void UseItemOrStash(Item*) override; // 5304b2 (client: 51c274)
     virtual Item* Unequip(Item*) override; // 5304e8 (client: 51c2aa)
     virtual void UnequipAll() override; // 530511 (client: 51c2d3)
     virtual void AwardKillMoney(Unit*) override; // 53111b (client: 51ceb7)
-    //virtual uint32_t VMethod17(UnitToHit*, Unit*) override;
+    //virtual uint32_t RollDamage(UnitToHit*, Unit*) override;
     virtual void RecalcStats() override; // 5315ec (client: 51d2a7)
     virtual uint32_t RecalcExperience() override; // 537199 (client: 5211ee)
     //virtual void GiveLevelReward() override;

@@ -36,7 +36,7 @@ class VisRightPanel : public CVisualObject {
 public:
     virtual ~VisRightPanel(); // 4b4710 (client: 4b90e0)
 
-    virtual void VMethod7() override; // 4aee31 (client: 4b3771)
+    virtual void Draw() override; // 4aee31 (client: 4b3771)
     virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 4aee44 (client: 4b3784)
 
     VisRightPanel(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); // 4aedcf (client: 4b370f)
@@ -49,7 +49,7 @@ class VisMiniMap : public CVisualObject {
 public:
     virtual ~VisMiniMap(); // 4aef4d (client: 4b388d)
 
-    virtual void VMethod7() override; // 4afb8e (client: 4b44c4)
+    virtual void Draw() override; // 4afb8e (client: 4b44c4)
     virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 4af006 (client: 4b3946)
     virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 4b0c2f (client: 4b5561)
     virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 4b0788 (client: 4b50be)
@@ -77,7 +77,7 @@ public:
     virtual ~VisOrderToolbar(); // 4b4790 (client: 4b9160)
 
     virtual const char* GetHint() override; // 4b0d9a (client: 4b56cc)
-    virtual void VMethod7() override; // 4b12e3 (client: 4b5c15)
+    virtual void Draw() override; // 4b12e3 (client: 4b5c15)
     virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 4b0ed1 (client: 4b5803)
     virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 4b12b3 (client: 4b5be5)
     virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 4b107b (client: 4b59ad)
@@ -104,7 +104,7 @@ class Vis1200obj : public CVisualObject {
 public:
     virtual ~Vis1200obj(); // 43ac08 (client: 43d017)
 
-    virtual void VMethod7() override; // 43b32f (client: 43d73e)
+    virtual void Draw() override; // 43b32f (client: 43d73e)
     virtual void WriteData(void* buf) override; // 43ad35 (client: 43d144)
     virtual uint32_t DataSize() override; // 43c020 (client: 43e3b0)
     virtual void ReadData(const void* buf) override; // 43acca (client: 43d0d9)
@@ -148,13 +148,13 @@ class Vis1200 : public VisScreen {
 public:
     virtual ~Vis1200(); // 43c000 (client: 43e420)
 
-    virtual void VMethod7() override; // 43be80 (client: 43e28f)
-    virtual void VMethod8(CRect* rect) override; // 43be73 (client: 43e282)
+    virtual void Draw() override; // 43be80 (client: 43e28f)
+    virtual void DrawBackground(CRect* rect) override; // 43be73 (client: 43e282)
     virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 43bdcb (client: 43e1da)
     virtual int32_t OnKeyDown(uint32_t wparam) override; // 43bdec (client: 43e1fb)
 
-    virtual void VMethod26() override; // 43bc3c (client: 43e04b)
-    virtual void VMethod28() override; // 43bd2e (client: 43e13d)
+    virtual void OnCreate() override; // 43bc3c (client: 43e04b)
+    virtual void DoOpen() override; // 43bd2e (client: 43e13d)
     virtual void DoClose(uint32_t code) override; // 43bd96 (client: 43e1a5)
 
     int32_t GetMatchPlayerIndex(); // 4972d0 (client: 49a950)
@@ -176,7 +176,7 @@ public:
     virtual ~VisSideStatus(); // 4b4810 (client: 4b91e0)
 
     virtual const char* GetHint() override; // 4b45bb (client: 4b8f8a)
-    virtual void VMethod7() override; // 4b4190 (client: 4b8b61)
+    virtual void Draw() override; // 4b4190 (client: 4b8b61)
     virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 4b4490 (client: 4b8e5f)
 
     void UpdateCursor(); // 4b4019 (client: 4b89ea)

@@ -49,7 +49,7 @@ void VisGlobalMap::PopulateScenarioLocationFlags() {
 
 
 // 4714e7 (client: 475245)
-void VisGlobalMap::VMethod7() {
+void VisGlobalMap::Draw() {
     CPoint screen_pt = this->rect.TopLeft();
     int32_t screen_x = screen_pt.x;
     int32_t screen_y = screen_pt.y;
@@ -178,7 +178,7 @@ void VisGlobalMap::VMethod7() {
     }
 
     UnlockSurface2();
-    CVisualObject::VMethod7();
+    CVisualObject::Draw();
     if (travel_arrived != 0) {
         this->MsgProc(VIS_MSG_HIDE_SCREEN, 0, 0);
         AfxGetMainWnd()->PostMessage(MAIN_MSG_ENTER_SCENARIO_LOCATION, 0, 0);
@@ -388,7 +388,7 @@ void* GMapThing::TakeAdjacency(void* nodePoints) {
 
 
 // 47115d (client: 474ebb)
-void VisGlobalMap::VMethod28() {
+void VisGlobalMap::DoOpen() {
     g_mousept.DisableHint();
     this->LoadBitmaps();
     this->LoadSamples();
@@ -409,7 +409,7 @@ void VisGlobalMap::VMethod28() {
     FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
     UnlockSurface2();
     FlushScreen();
-    VisScreen::VMethod28();
+    VisScreen::DoOpen();
     g_Cursors[CURSOR_SELECT]->Use();
     this->renderActiveFlag = 1;
     g_mousept.EnableHint();
@@ -417,7 +417,7 @@ void VisGlobalMap::VMethod28() {
 
 
 // 47031d (client: 47407b)
-void VisGlobalMap::VMethod26() {
+void VisGlobalMap::OnCreate() {
     this->hero_bmp = nullptr;
     this->routeAdjacencyMatrix = nullptr;
     this->ballmap = nullptr;
@@ -494,7 +494,7 @@ int32_t VisGlobalMap::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     }
     if (msg == VIS_MSG_FRAME_TICK) {
         if (timeGetTime() - gmap_repaint_ts >= 100) {
-            this->VMethod9();
+            this->Redraw();
             gmap_repaint_ts = timeGetTime();
         }
     }
@@ -551,7 +551,7 @@ int32_t VisGlobalMap::OnLButtonUp(uint32_t wparam, CPoint pos) {
 
 
 // 471f08 (client: 475c66)
-void VisGlobalMap::VMethod8(CRect* rect) {
+void VisGlobalMap::DrawBackground(CRect* rect) {
 }
 
 
@@ -583,7 +583,7 @@ VisGlobalMap::~VisGlobalMap() {
 // 46fd7b (client: 473adb)
 VisGlobalMap::VisGlobalMap(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* btm)
     : VisScreen(_id, l, t, r, b, btm) {
-    this->VMethod26();
+    this->OnCreate();
 }
 
 

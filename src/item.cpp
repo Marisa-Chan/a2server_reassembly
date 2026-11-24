@@ -313,7 +313,7 @@ Item* Item::Clone() {
 }
 
 // 548db0 (client: 52d54c)
-int32_t Item::VMethod14(int, int) {
+int32_t Item::OnUse(int32_t, int32_t) {
     return 0;
 }
 
@@ -606,7 +606,7 @@ void ParseEffectString(const CString& effect_str, CList<Effect*>* effects) {
     }
 }
 
-// 548f3f (client: 52d635) - Apply special property string to item effects, then call VMethod15
+// 548f3f (client: 52d635) - Apply special property string to item effects, then call CalcValue
 void Item::ApplyPropertyString(const CString& str) {
     ParseEffectString(str, &this->_effects);
     this->CalcValue();

@@ -142,8 +142,8 @@ public:
     virtual void Dump(CDumpContext& dc) const override; // 461de0 (client: 4659f0)
 
     virtual void SetSelected(int32_t selected); // 46f430 (client: 472c30)
-    virtual int32_t VMethod2(); // 46f460 (client: 472c60)
-    virtual int32_t VMethod3(); // 46f470 (client: 472c70)
+    virtual int32_t GetPixelWidth(); // 46f460 (client: 472c60)
+    virtual int32_t GetPixelHeight(); // 46f470 (client: 472c70)
     virtual int32_t GetTileWidth(); // 46f480 (client: 472c80)
     virtual int32_t GetTileHeight(); // 46f490 (client: 472c90)
     virtual void Draw(int32_t tile_x, int32_t tile_y, int32_t light); // 46f4a0 (client: 472ca0)
@@ -275,8 +275,8 @@ public:
     virtual ~CUnit(); // 46459d (client: 46826a)
 
     virtual void SetSelected(int32_t selected) override; // 4648e9 (client: 4685b5)
-    virtual int32_t VMethod2() override; // 46f5e0 (client: 472f20)
-    virtual int32_t VMethod3() override; // 46f5f0 (client: 472f30)
+    virtual int32_t GetPixelWidth() override; // 46f5e0 (client: 472f20)
+    virtual int32_t GetPixelHeight() override; // 46f5f0 (client: 472f30)
     virtual int32_t GetTileWidth() override; // 4648a1 (client: 46856d)
     virtual int32_t GetTileHeight() override; // 4648c5 (client: 468591)
     virtual void Draw(int32_t tile_x, int32_t tile_y, int32_t light) override; // 464974 (client: 468640)
@@ -497,7 +497,7 @@ public:
     virtual int32_t Update() override; // 463a05 (client: 4676d2)
     virtual void UpdateLight() override; // 463a58 (client: 467725)
     virtual int32_t UpdateBlockedState() override; // 462b28 (client: 4667ff)
-    // no VMethod16 override: the binary vtable keeps CGameObject's here
+    // no UpdateTransientVisualElements override: the binary vtable keeps CGameObject's here
 
     CStructure(); // 462acb (client: 4667a2)
     CStructure(const CStructure* obj); // 462aea (client: 4667c1)

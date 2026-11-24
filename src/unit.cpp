@@ -143,7 +143,7 @@ Unit::~Unit() {
 }
 
 
-// Free functions called from VMethod2.
+// Free functions called from ProcessEffects.
 // Distance to target in sub-cells (1/256), adjusted for both units' sizes.
 // 5364d5 (client: 52061a)
 int16_t __cdecl CalcMeleeDist(Unit* self, Unit* target) {
@@ -1607,7 +1607,7 @@ void Unit::Die() {
             this->inventory->PutItemIntoBagAtDefault(this->Unequip(this->weapon));
         }
 
-        // VMethod15: unequip all remaining equipped items.
+        // UnequipAll: unequip all remaining equipped items.
         this->UnequipAll();
 #endif
 
@@ -1835,7 +1835,7 @@ void Unit::AddHp(int16_t amount) {
     }
 }
 
-// 52c58f (client: 51a137) - Revive unit (set flags, reset subcell, call VMethod18, notify world)
+// 52c58f (client: 51a137) - Revive unit (set flags, reset subcell, call RecalcStats, notify world)
 void Unit::Revive() {
     this->item_op_dirty_flags |= UNIT_UPD_HP | UNIT_UPD_DIR_POS | UNIT_UPD_DEFENSE;
     // Inline 58FD16: reset subcell position to cell center.

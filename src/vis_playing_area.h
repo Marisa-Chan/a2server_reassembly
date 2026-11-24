@@ -53,7 +53,7 @@ public:
     ~VisPlayingArea(); // 403395 (client: 403418)
 
     // VTable at 609088.
-    virtual void VMethod7() override; // 406f1a (client: 406f89)
+    virtual void Draw() override; // 406f1a (client: 406f89)
     virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 40c232 (client: 40c2b9)
     virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 40c83f (client: 40c8c6)
     virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 40c510 (client: 40c597)
@@ -236,7 +236,7 @@ public:
     CGameObject** tile_air_units; // 0x90 - per-tile air units
     CGameObject** tile_structures; // 0x94 - per-tile structures
     CGameObject** tile_backpacks; // 0x98 - per-tile backpacks
-    CGameObject** tile_special_units; // 0x9c - per-tile special units (CUnit::VMethod10 bucket 4)
+    CGameObject** tile_special_units; // 0x9c - per-tile special units (CUnit::UpdateTileLayer bucket 4)
     uint32_t* corner_tile_kind; //unk type
     uint32_t* corner_tile_kind_prev; //unk type
     uint8_t* corner_light; //unk type

@@ -11,7 +11,7 @@ public:
 
     VisServerScreenRadio(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint); // 450920 (client: 4546e0)
 
-    virtual void VMethod7() override; // 4db3ad (client: 4dfd32)
+    virtual void Draw() override; // 4db3ad (client: 4dfd32)
     virtual int32_t GetIndex(int32_t y) override; // 4db615 (client: 4dff9a)
 };
 ASSERT_SIZE(VisServerScreenRadio, 0x8c);
@@ -21,11 +21,11 @@ class VisServerScreen : public VisScreen {
 public:
     virtual ~VisServerScreen(); // 450ae0 (client: 4547e0)
 
-    virtual void VMethod7() override; // 44dbe0 (client: 450f0b)
-    virtual void VMethod8(CRect* rect) override; // 44dbae (client: 450ed9)
+    virtual void Draw() override; // 44dbe0 (client: 450f0b)
+    virtual void DrawBackground(CRect* rect) override; // 44dbae (client: 450ed9)
     virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 44e7c8 (client: 451aed)
     virtual int32_t OnKeyDown(uint32_t wparam) override; // 44e6de (client: 451a03)
-    virtual void VMethod26() override; // 44d909 (client: 450c31)
+    virtual void OnCreate() override; // 44d909 (client: 450c31)
 
     VisServerScreen(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, GM_a28* log); // 44e469 (client: 451794)
 
@@ -43,8 +43,8 @@ public:
 
     VisConnectionDlg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, int32_t* _payload); // 445e52 (client: 448523)
 
-    virtual CVisualObject* VMethod30(const void* data, const RECT& r) override; // 44604c (client: 44871d)
-    virtual void VMethod31(int32_t code) override; // 445ebd (client: 44858e)
+    virtual CVisualObject* CreateContent(const void* data, const RECT& r) override; // 44604c (client: 44871d)
+    virtual void OnResult(int32_t code) override; // 445ebd (client: 44858e)
 public:
     CLlConn* protocols;
     int32_t* pSelected;
@@ -58,7 +58,7 @@ public:
 
     virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 447214 (client: 4498e3)
     virtual int32_t OnKeyDown(uint32_t wparam) override; // 4478e9 (client: 4e4833)
-    virtual void VMethod26() override; // 446e97 (client: 449566)
+    virtual void OnCreate() override; // 446e97 (client: 449566)
 
     VisNetDlg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, AvailNetSession* _sessions); // 4464c7 (client: 448b96)
 
@@ -84,8 +84,8 @@ public:
 
     VisNetTcpIp(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CString* _ip); // 449f06 (client: 44c5d8)
 
-    virtual CVisualObject* VMethod30(const void* data, const RECT& r) override; // 44a014 (client: 44c6e6)
-    virtual void VMethod31(int32_t code) override; // 449f67 (client: 44c639)
+    virtual CVisualObject* CreateContent(const void* data, const RECT& r) override; // 44a014 (client: 44c6e6)
+    virtual void OnResult(int32_t code) override; // 449f67 (client: 44c639)
 public:
     CString* ip;
 };
@@ -97,7 +97,7 @@ public:
     virtual ~VisNetSerialSettings(); // 44fcf0 (client: 453bf0)
 
     virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 449c98 (client: 44c36a)
-    virtual void VMethod26() override; // 448d15 (client: 44b3e7)
+    virtual void OnCreate() override; // 448d15 (client: 44b3e7)
 
     void SaveComSettings(); // 449903 (client: 44bfd5)
 
@@ -128,7 +128,7 @@ public:
     virtual ~VisNetPhoneBook(); // 44fb10 (client: 453a10)
 
     virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 44878a (client: 44ae5c)
-    virtual void VMethod26() override; // 447ef2 (client: 44a5c1)
+    virtual void OnCreate() override; // 447ef2 (client: 44a5c1)
 
     VisNetPhoneBook(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, PhoneBook* _book); // 447ea8 (client: 44a577)
 
@@ -214,7 +214,7 @@ public:
 
     virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 44d275 (client: 45059d)
     virtual int32_t OnKeyDown(uint32_t wparam) override; // 44d8f0 (client: 450c18)
-    virtual void VMethod26() override; // 44c788 (client: 44faad)
+    virtual void OnCreate() override; // 44c788 (client: 44faad)
 
     VisNetMapSelection(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CString* pMapName); // 44af45 (client: 44d672)
 

@@ -157,7 +157,7 @@ void VisCharSellectButtons::UpdateMouseOverBox(uint32_t wparam, CPoint pos) {
 
 
 // 43005f (client: 431f52)
-void VisCharSellectButtons::VMethod7() {
+void VisCharSellectButtons::Draw() {
     CPoint top_left = this->parent_screen->rect.TopLeft();
     if (this->parent_screen->active_flag != 0) {
         LockSurface2();
@@ -294,7 +294,7 @@ VisCharSellectButtons::~VisCharSellectButtons() {
 
 
 // 430fec (client: 433143)
-void VisCharSellectList::VMethod7() {
+void VisCharSellectList::Draw() {
     if (this->parent_screen->active_flag != 0) {
         CPoint top_left = this->parent_screen->rect.TopLeft();
         int32_t visible_end = this->top_row + this->list_area.Height() / this->row_rect.Height();
@@ -330,7 +330,7 @@ void VisCharSellectList::VMethod7() {
             }
         }
         UnlockSurface2();
-        this->CVisualObject::VMethod7();
+        this->CVisualObject::Draw();
     }
 }
 
@@ -653,7 +653,7 @@ void VisCharSellectStats::ReadUnitStats() {
 
 
 // 42f7b9 (client: 4316ad)
-void VisCharSellectStats::VMethod7() {
+void VisCharSellectStats::Draw() {
     CPoint top_left = this->parent_screen->rect.TopLeft();
     if (this->parent_screen->active_flag != 0) {
         LockSurface2();
@@ -744,7 +744,7 @@ VisCharSellectStats::~VisCharSellectStats() {
 
 
 // 431fdf (client: 43410d)
-void VisCharSelect::VMethod26() {
+void VisCharSelect::OnCreate() {
     this->info_panel = nullptr;
     this->map_context = nullptr;
     this->snd_ok = nullptr;
@@ -807,7 +807,7 @@ void VisCharSelect::CloseRenameWindow() {
 
 
 // 43233e (client: 43446f)
-void VisCharSelect::VMethod28() {
+void VisCharSelect::DoOpen() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     this->session = &main_wnd->m_GameSession;
     g_mousept.DisableHint();
@@ -837,7 +837,7 @@ void VisCharSelect::VMethod28() {
     FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
     UnlockSurface2();
     FlushScreen();
-    this->VisScreen::VMethod28();
+    this->VisScreen::DoOpen();
     g_Cursors[0]->Use();
     this->active_flag = 1;
     g_mousept.EnableHint();
@@ -847,7 +847,7 @@ void VisCharSelect::VMethod28() {
 // 43251c (client: 43464d)
 void VisCharSelect::DoClose(uint32_t code) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    this->VMethod9();
+    this->Redraw();
     if (this->roster_list->selected_row == this->session->GetStringArray1Size() - 1 && code == VIS_MSG_HIDE_SCREEN) {
         this->session->InitializeNewCharacterSession(0, nullptr);
     }
@@ -907,7 +907,7 @@ int32_t VisCharSelect::OnMouseMove(uint32_t wparam, CPoint pos) {
 // 4326a4 (client: 4347d5)
 int32_t VisCharSelect::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     if (msg == VIS_MSG_FRAME_TICK) {
-        this->VMethod9();
+        this->Redraw();
         return 1;
     }
     return this->VisScreen::MsgProc(msg, wparam, lparam);
@@ -926,7 +926,7 @@ void VisCharSelect::SelectCharacter(CUnit* unit) {
 
 
 // 438d50 (client: 43abf0)
-void VisCharSelect::VMethod8(CRect* rect) {
+void VisCharSelect::DrawBackground(CRect* rect) {
     (void)rect;
 }
 
@@ -934,7 +934,7 @@ void VisCharSelect::VMethod8(CRect* rect) {
 // 431eac (client: 433fda)
 VisCharSelect::VisCharSelect(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr) {
-    this->VMethod26();
+    this->OnCreate();
 }
 
 
@@ -1075,7 +1075,7 @@ void VisCharGen::OnPrevFace() {
 // 42dcd9 (client: 42fbed)
 VisCharGen::VisCharGen(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr) {
-    this->VMethod26();
+    this->OnCreate();
 }
 
 
@@ -1088,7 +1088,7 @@ VisCharGen::~VisCharGen() {
 
 
 // 42ddec (client: 42fd00)
-void VisCharGen::VMethod26() {
+void VisCharGen::OnCreate() {
     this->snd_stat = nullptr;
     this->snd_ok = nullptr;
     this->snd_reset = nullptr;
@@ -1112,7 +1112,7 @@ void VisCharGen::VMethod26() {
 
 
 // 42eb29 (client: 430a27)
-void VisCharGen::VMethod7() {
+void VisCharGen::Draw() {
     CSprite256* cursor_sprite = g_mousept.GetCursorSprite();
     CSprite256* default_sprite = g_Cursors[CURSOR_DEFAULT]->GetSprite();
     if (cursor_sprite != default_sprite) {
@@ -1122,12 +1122,12 @@ void VisCharGen::VMethod7() {
             g_Cursors[CURSOR_DEFAULT]->Use();
         }
     }
-    this->VisScreen::VMethod7();
+    this->VisScreen::Draw();
 }
 
 
 // 42eb7f (client: 430a7d)
-void VisCharGen::VMethod8(CRect* rect) {
+void VisCharGen::DrawBackground(CRect* rect) {
     (void)rect;
 }
 
@@ -1166,7 +1166,7 @@ int32_t VisCharGen::OnMouseMove(uint32_t wparam, CPoint pos) {
 int32_t VisCharGen::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     switch (msg) {
     case VIS_MSG_FRAME_TICK:
-        this->VMethod9();
+        this->Redraw();
         break;
     case VIS_MSG_SELECT_PREV:
         this->OnPrevFace();
@@ -1189,7 +1189,7 @@ int32_t VisCharGen::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
 // 42e7bc (client: 4306d0)
 void VisCharGen::DoClose(uint32_t code) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    this->VMethod9();
+    this->Redraw();
     this->active_flag = 0;
     CRect& rc = this->info_panel->GetRect();
     OffsetRect(&rc, rc.Width() - 0x280, 0);
@@ -1215,7 +1215,7 @@ void VisCharGen::DoClose(uint32_t code) {
 
 
 // 42e218 (client: 43012c)
-void VisCharGen::VMethod28() {
+void VisCharGen::DoOpen() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     g_mousept.DisableHint();
     this->info_panel = main_wnd->vis_charinfo;
@@ -1281,7 +1281,7 @@ void VisCharGen::VMethod28() {
     FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
     UnlockSurface2();
     FlushScreen();
-    this->VisScreen::VMethod28();
+    this->VisScreen::DoOpen();
     g_Cursors[CURSOR_DEFAULT]->Use();
     g_mousept.EnableHint();
 }
@@ -1394,7 +1394,7 @@ const char* VisCharGenStats::GetHint() {
 
 
 // 429d03 (client: 42bc1b)
-void VisCharGenStats::VMethod7() {
+void VisCharGenStats::Draw() {
     static CString str;
     CRect screen_rect;
     this->ClientRectToScreen(&screen_rect, this->rect);
@@ -1620,7 +1620,7 @@ VisCharGenStats::VisCharGenStats(int32_t _id, int32_t l, int32_t t, int32_t r, i
 
 
 // 42abea (client: 42cb00)
-void VisCharGenFullStats::VMethod7() {
+void VisCharGenFullStats::Draw() {
     CRect screen_rect;
     this->ClientRectToScreen(&screen_rect, this->rect);
     LockSurface2();
@@ -1677,7 +1677,7 @@ VisCharGenFullStats::VisCharGenFullStats(int32_t _id, int32_t l, int32_t t, int3
 
 
 // 42b028 (client: 42cf3e)
-void VisCharGenAction::VMethod7() {
+void VisCharGenAction::Draw() {
     CPoint topleft = this->parent_screen->rect.TopLeft();
     if (this->parent_screen->active_flag == 0) {
         return;
@@ -2010,7 +2010,7 @@ void VisCharGenSkills::FreeBitmaps() {
 
 
 // 42bb5a (client: 42da70)
-void VisCharGenSkills::VMethod7() {
+void VisCharGenSkills::Draw() {
     CRect screen_rect;
     this->ClientRectToScreen(&screen_rect, this->rect);
     this->slot_states[4] |= 1;
@@ -2033,7 +2033,7 @@ void VisCharGenSkills::VMethod7() {
         this->DrawBlinkSlot();
         UnlockSurface2();
     }
-    CVisualObject::VMethod7();
+    CVisualObject::Draw();
 }
 
 
@@ -2232,7 +2232,7 @@ VisCharGenSkills::VisCharGenSkills(int32_t _id, int32_t l, int32_t t, int32_t r,
 
 
 // 4b2b3d (client: 4b746f)
-void VisCharInfo::VMethod7() {
+void VisCharInfo::Draw() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     if ((main_wnd->dialogsMask & (DIALOG_MASK_CHAR_SELECT | DIALOG_MASK_CHARGEN | 0x20 | DIALOG_MASK_TAVERN | DIALOG_MASK_SHOP | DIALOG_MASK_INGAME)) == 0) {
         return;
@@ -2549,7 +2549,7 @@ const char* VisCharInfo::GetHint() {
 }
 
 // 4b3a0d (client: 4b8374)
-int32_t VisCharInfo::VMethod27(int32_t a) {
+int32_t VisCharInfo::EquipDraggedItem(int32_t a) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     int32_t disallow = 0;
     if (main_wnd->drag_entry == nullptr) {
@@ -2600,12 +2600,12 @@ int32_t VisCharInfo::VMethod27(int32_t a) {
 #endif
 
     if (disallow != 0) {
-        main_wnd->vis_invtype1->VMethod37(main_wnd->drag_src_slot);
+        main_wnd->vis_invtype1->PlaceDraggedItem(main_wnd->drag_src_slot);
         return 0;
     }
 
     if ((token->flg & 0x10) != 0 && (token->flg & 1) != 0) {
-        int32_t removed = main_wnd->vis_invtype1->VMethod37(main_wnd->drag_src_slot);
+        int32_t removed = main_wnd->vis_invtype1->PlaceDraggedItem(main_wnd->drag_src_slot);
         main_wnd->vis_spellbook->SelectScrollEntry(removed);
         map->SetOrderMode(VisPlayingArea::ORDER_MODE_SCROLL_CAST);
         return 0;
@@ -2620,10 +2620,10 @@ int32_t VisCharInfo::VMethod27(int32_t a) {
         }
 
         int32_t amount = token->count;
-        map->SendItemOperation(main_wnd->drag_src_tab, main_wnd->drag_src_slot, this->VMethod28(), a + 1, amount);
+        map->SendItemOperation(main_wnd->drag_src_tab, main_wnd->drag_src_slot, this->GetTransferTab(), a + 1, amount);
 
         if (split != nullptr) {
-            main_wnd->vis_invtype1->VMethod37(main_wnd->drag_src_slot);
+            main_wnd->vis_invtype1->PlaceDraggedItem(main_wnd->drag_src_slot);
             return 0;
         }
         if (main_wnd->drag_entry != nullptr) {
@@ -2635,22 +2635,22 @@ int32_t VisCharInfo::VMethod27(int32_t a) {
 
     TokenEntry* old_token = unit->equipmentTokens[a];
     if (old_token != nullptr) {
-        main_wnd->vis_invtype1->VMethod26(old_token, main_wnd->drag_src_slot);
-        main_wnd->vis_invtype1->VMethod33(unit);
+        main_wnd->vis_invtype1->InsertItem(old_token, main_wnd->drag_src_slot);
+        main_wnd->vis_invtype1->BindUnitInventory(unit);
     }
 
     if (a == 0) {
         if (token->IsTwoHandedWeapon() != 0 && unit->equipmentTokens[1] != nullptr) {
-            main_wnd->vis_invtype1->VMethod26(unit->equipmentTokens[1], main_wnd->drag_src_slot);
-            main_wnd->vis_invtype1->VMethod33(unit);
+            main_wnd->vis_invtype1->InsertItem(unit->equipmentTokens[1], main_wnd->drag_src_slot);
+            main_wnd->vis_invtype1->BindUnitInventory(unit);
             unit->equipmentTokens[1] = nullptr;
         }
     }
 
     if (a == 1) {
         if (unit->equipmentTokens[0] != nullptr && unit->equipmentTokens[0]->IsTwoHandedWeapon() != 0) {
-            main_wnd->vis_invtype1->VMethod26(unit->equipmentTokens[0], main_wnd->drag_src_slot);
-            main_wnd->vis_invtype1->VMethod33(unit);
+            main_wnd->vis_invtype1->InsertItem(unit->equipmentTokens[0], main_wnd->drag_src_slot);
+            main_wnd->vis_invtype1->BindUnitInventory(unit);
             unit->equipmentTokens[0] = nullptr;
         }
     }
@@ -2660,7 +2660,7 @@ int32_t VisCharInfo::VMethod27(int32_t a) {
     unit->equipmentTokens[a] = main_wnd->drag_entry;
 
     int32_t amount = main_wnd->drag_entry->count;
-    map->SendItemOperation(main_wnd->drag_src_tab, main_wnd->drag_src_slot, this->VMethod28(), a + 1, amount);
+    map->SendItemOperation(main_wnd->drag_src_tab, main_wnd->drag_src_slot, this->GetTransferTab(), a + 1, amount);
 
     main_wnd->ResetItemCursor();
     unit->ReloadSprite();
@@ -2692,7 +2692,7 @@ int32_t VisCharInfo::OnLButtonUp(uint32_t wparam, CPoint pos) {
         TokenEntry* token = main_wnd->drag_entry;
         if (token->slot_code == 2 || token->slot_code == 1) {
             g_Cursors[0]->Use();
-            this->VMethod27(token->GetType() - 1);
+            this->EquipDraggedItem(token->GetType() - 1);
             return 1;
         }
         if (token->slot_code >= 5 && token->slot_code <= 8) {
@@ -2793,7 +2793,7 @@ int32_t VisCharInfo::OnMouseMove(uint32_t wparam, CPoint pos) {
         return 0;
     }
 
-    if (this->VMethod26(color - 1) == 0) {
+    if (this->TakeEquippedItem(color - 1) == 0) {
         return 0;
     }
 
@@ -2809,7 +2809,7 @@ int32_t VisCharInfo::OnMouseMove(uint32_t wparam, CPoint pos) {
 }
 
 // 4b38af (client: 4b81df)
-int32_t VisCharInfo::VMethod26(int32_t a) {
+int32_t VisCharInfo::TakeEquippedItem(int32_t a) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     if (main_wnd->drag_entry != nullptr) {
         return 0;
@@ -2843,7 +2843,7 @@ int32_t VisCharInfo::VMethod26(int32_t a) {
     main_wnd->drag_entry = unit->equipmentTokens[a];
     unit->equipmentTokens[a] = nullptr;
     main_wnd->drag_src_slot = a;
-    main_wnd->drag_src_tab = this->VMethod28();
+    main_wnd->drag_src_tab = this->GetTransferTab();
     unit->ReloadSprite();
     main_wnd->vis_root->MsgProc(VIS_MSG_SET_OPTION, this->id, 0);
     return (int32_t)main_wnd->drag_entry;
@@ -2869,10 +2869,10 @@ int32_t VisCharInfo::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
         return 0;
     }
 
-    if (this->VMethod26(color - 1) != 0) {
+    if (this->TakeEquippedItem(color - 1) != 0) {
         MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
         int32_t slot = main_wnd->vis_invtype1->GetVisibleStart();
-        main_wnd->vis_invtype1->VMethod37(slot);
+        main_wnd->vis_invtype1->PlaceDraggedItem(slot);
     }
     return 1;
 }
@@ -2916,7 +2916,7 @@ int32_t VisCharInfo::OnRButtonDblClk(uint32_t wparam, CPoint pos) {
 }
 
 // 4b4830 (client: 4b9200)
-int32_t VisCharInfo::VMethod28() {
+int32_t VisCharInfo::GetTransferTab() {
     return TRANSFER_DST_EQUIP;
 }
 
@@ -2970,7 +2970,7 @@ int32_t VisCharInfo::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
         case VIS_MSG_FRAME_TICK:
             if (main_wnd->dialogsMask == DIALOG_MASK_INGAME || main_wnd->dialogsMask == (DIALOG_MASK_INGAME | DIALOG_MASK_SHOP) || main_wnd->dialogsMask == (DIALOG_MASK_INGAME | DIALOG_MASK_TAVERN)) {
                 if (this->dirty != 0) {
-                    this->VMethod9();
+                    this->Redraw();
                 }
             }
             if ((main_wnd->dialogsMask & (DIALOG_MASK_INGAME | DIALOG_MASK_SHOP)) != 0) {

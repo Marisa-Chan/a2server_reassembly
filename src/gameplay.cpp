@@ -250,8 +250,8 @@ void GM_a28::Update() {
 
 
 // 4aee31 (client: 4b3771)
-void VisRightPanel::VMethod7() {
-    CVisualObject::VMethod7();
+void VisRightPanel::Draw() {
+    CVisualObject::Draw();
 }
 
 // 4aedcf (client: 4b370f)
@@ -312,7 +312,7 @@ void VisSideStatus::UpdateCursor() {
 }
 
 // 4b4190 (client: 4b8b61)
-void VisSideStatus::VMethod7() {
+void VisSideStatus::Draw() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     if (main_wnd->dialogsMask != DIALOG_MASK_INGAME) {
         return;
@@ -410,7 +410,7 @@ int32_t VisSideStatus::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
         switch (msg) {
         case VIS_MSG_FRAME_TICK:
             if (main_wnd->dialogsMask == DIALOG_MASK_INGAME && moved_up != 0 && this->dirty != 0) {
-                this->VMethod9();
+                this->Redraw();
             }
             if (main_wnd->dialogsMask == DIALOG_MASK_INGAME) {
                 this->UpdateCursor();
@@ -586,7 +586,7 @@ int32_t VisMiniMap::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
         switch (msg) {
         case VIS_MSG_FRAME_TICK:
             if (main_wnd->dialogsMask == DIALOG_MASK_INGAME) {
-                this->VMethod9();
+                this->Redraw();
                 this->UpdateCursor();
             }
             break;
@@ -857,7 +857,7 @@ void VisMiniMap::RebuildMap() {
 
 
 // 4afb8e (client: 4b44c4)
-void VisMiniMap::VMethod7() {
+void VisMiniMap::Draw() {
     VisPlayingArea* mc = this->map_context;
     if (mc == nullptr) {
         return;
@@ -1040,7 +1040,7 @@ Vis1200obj::Vis1200obj(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, 
 Vis1200obj::~Vis1200obj() = default;
 
 // 43b32f (client: 43d73e)
-void Vis1200obj::VMethod7() {
+void Vis1200obj::Draw() {
     CString line;
     CRect screen_rect;
     this->ClientRectToScreen(&screen_rect, this->rect);
@@ -1371,7 +1371,7 @@ void Vis1200::RepositionAboveDialogs() {
 }
 
 // 43bc3c (client: 43e04b)
-void Vis1200::VMethod26() {
+void Vis1200::OnCreate() {
     this->text_block = new Vis1200obj(4, 0, 0, this->rect.Width(), g_font1->GetHeight() * 3, g_font1, clrsh_ShockingBlack, nullptr);
     this->rect.BottomRight().y = this->rect.TopLeft().y + g_font1->GetHeight() * 3 + 4;
     this->AddChild(this->text_block);
@@ -1454,12 +1454,12 @@ int32_t Vis1200::OnKeyDown(uint32_t wparam) {
 }
 
 // 43bd2e (client: 43e13d)
-void Vis1200::VMethod28() {
+void Vis1200::DoOpen() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     main_wnd->console_active = 1;
     memset(this->buffer, 0, 0x100);
     this->text_block->ResetInputState();
-    VisScreen::VMethod28();
+    VisScreen::DoOpen();
     this->active = 1;
     this->text_block->blink_last_tick = timeGetTime();
 }
@@ -1478,9 +1478,9 @@ void Vis1200::DoClose(uint32_t code) {
 }
 
 // 43be80 (client: 43e28f)
-void Vis1200::VMethod7() {
+void Vis1200::Draw() {
     if (this->active != 0) {
-        VisScreen::VMethod7();
+        VisScreen::Draw();
     }
 }
 
@@ -1495,13 +1495,13 @@ int32_t Vis1200::GetMatchNameLength() {
 }
 
 // 43be73 (client: 43e282)
-void Vis1200::VMethod8(CRect* rect) {
+void Vis1200::DrawBackground(CRect* rect) {
 }
 
 // 43bb70 (client: 43df7f)
 Vis1200::Vis1200(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
     : VisScreen(_id, l, t, r, b, nullptr) {
-    this->VMethod26();
+    this->OnCreate();
 }
 
 // 43c000 (client: 43e420)
@@ -1509,7 +1509,7 @@ Vis1200::~Vis1200() {
 }
 
 // 4b12e3 (client: 4b5c15)
-void VisOrderToolbar::VMethod7() {
+void VisOrderToolbar::Draw() {
     CRect screen_rect;
     this->ClientRectToScreen(&screen_rect, this->rect);
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
@@ -1562,14 +1562,14 @@ int32_t VisOrderToolbar::OnLButtonDown(uint32_t wparam, CPoint pos) {
                         return 1;
                     }
                     this->selected_order = i;
-                    this->VMethod9();
+                    this->Redraw();
                     map->MsgProc(VIS_MSG_ORDER_MODE_CHANGED, i, 0);
                     return 1;
                 }
             }
         }
         this->selected_order = 0xffffffff;
-        this->VMethod9();
+        this->Redraw();
         map->MsgProc(VIS_MSG_ORDER_MODE_CHANGED, 0xffffffff, 0);
     }
     return 1;
@@ -1587,7 +1587,7 @@ int32_t VisOrderToolbar::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
         case VIS_MSG_FRAME_TICK:
             if (main_wnd->dialogsMask == DIALOG_MASK_INGAME) {
                 if (this->dirty != 0) {
-                    this->VMethod9();
+                    this->Redraw();
                 }
                 this->UpdateCursor();
             }

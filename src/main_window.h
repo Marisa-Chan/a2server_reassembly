@@ -685,7 +685,7 @@ public:
     CFameHall m_FameHall; //5e8 / client 5f8
     CString current_map_name; //620 / client 630
     int32_t shutdown_pending; //624 / client 634 — the client also uses this slot as the
-    // hat player-list visibility flag (HatPlayerListWindow VMethod30/dtor write it)
+    // hat player-list visibility flag (HatPlayerListWindow CreateContent/dtor write it)
 #ifndef A2CLIENT
     // The retail client has no stored cursor handles: it loads cursors on demand
     // (client InitInstance calls LoadCursor(IDC_ARROW) instead of reading a field),

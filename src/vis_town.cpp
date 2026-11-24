@@ -52,14 +52,14 @@ TownMenuListDialogVisualObject::TownMenuListDialogVisualObject(int32_t _id, int3
 // 4cda5c (client: 4d23ac)
 VisTown::VisTown(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
 : VisScreen(_id, l, t, r, b, nullptr) {
-    this->VMethod26();
+    this->OnCreate();
 }
 
 
 // 4cdc78 (client: 4d25c8)
 VisTown::~VisTown() {
-    this->VMethod37();
-    this->VMethod31();
+    this->FreeTownGfx();
+    this->FreeTownSfx();
     if (this->tips != nullptr) {
         this->RemoveChild(this->tips);
         delete this->tips;
@@ -69,7 +69,7 @@ VisTown::~VisTown() {
 
 
 // 4cddad (client: 4d26fd)
-void VisTown::VMethod26() {
+void VisTown::OnCreate() {
     for (int32_t i = 0; i < 14; i++) {
         this->sounds[i] = nullptr;
     }
@@ -100,10 +100,10 @@ void VisTown::VMethod26() {
 
 
 // 4ce002 (client: 4d2952)
-void VisTown::VMethod28() {
+void VisTown::DoOpen() {
     g_mousept.DisableHint();
-    this->VMethod36();
-    this->VMethod30();
+    this->LoadTownGfx();
+    this->LoadTownSfx();
     this->town_anim = 0;
     this->door_open_flag = 0;
     this->guard_sound = 0;
@@ -137,23 +137,23 @@ void VisTown::VMethod28() {
     FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
     UnlockSurface2();
     FlushScreen();
-    this->VisScreen::VMethod28();
+    this->VisScreen::DoOpen();
     this->dialog_active = 1;
-    this->VMethod9();
-    this->VMethod32();
+    this->Redraw();
+    this->StartAmbientSfx();
     g_mousept.EnableHint();
 }
 
 
 // 4ce719 (client: 4d3063)
-void VisTown::VMethod8(CRect* rect) {
+void VisTown::DrawBackground(CRect* rect) {
     (void)rect;
 }
 
 
 // 4ce4e5 (client: 4d2e32)
 int32_t VisTown::OnMouseMove(uint32_t wparam, CPoint pos) {
-    this->VMethod34(pos);
+    this->UpdateHoverState(pos);
     return 0;
 }
 
@@ -172,7 +172,7 @@ int32_t VisTown::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     MainWindow* mainwnd = (MainWindow*)AfxGetMainWnd();
     if (msg == VIS_MSG_FRAME_TICK) {
         if (mainwnd->dialogsMask == 0) {
-            this->VMethod9();
+            this->Redraw();
         }
     } else if (msg == VIS_MSG_CLOSE_SCREEN) {
         return 1;
@@ -191,21 +191,21 @@ int32_t VisTown::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
 
 // 4ce50a (client: 4d2e57)
 int32_t VisTown::OnLButtonDown(uint32_t wparam, CPoint pos) {
-    switch (this->VMethod33(pos)) {
+    switch (this->HitTestHotspot(pos)) {
     case 1:
-        this->VMethod39();
+        this->HideTownScreen();
         AfxGetMainWnd()->PostMessage(MAIN_MSG_SHOW_SHOP, 0, 0);
         break;
     case 2:
         // tavern
-        this->VMethod39();
+        this->HideTownScreen();
         AfxGetMainWnd()->PostMessage(MAIN_MSG_SHOW_INN, 0, 0);
         break;
     case 8:
         if (ScenarioGetVar(0x301) == 0) {
             ShowRoleKeyDialog("plagatguard");
         } else {
-            this->VMethod39();
+            this->HideTownScreen();
             AfxGetMainWnd()->PostMessage(MAIN_MSG_AUTOSAVE, 1, 0);
             AfxGetMainWnd()->PostMessage(MAIN_MSG_SHOW_GLOBAL_MAP, 0, 0);
         }
@@ -226,15 +226,15 @@ void VisTown::DoClose(uint32_t code) {
         delete this->tips;
         this->tips = nullptr;
     }
-    this->VMethod37();
-    this->VMethod31();
+    this->FreeTownGfx();
+    this->FreeTownSfx();
     this->VisScreen::DoClose(code);
 }
 
 
 // 4d1723 (client: 4d6054)
-void VisTown::VMethod30() {
-    this->VMethod31();
+void VisTown::LoadTownSfx() {
+    this->FreeTownSfx();
     ReloadSfx(&this->sounds[0], "SFX\\Town\\Crowd.wav");
     ReloadSfx(&this->sounds[3], "SFX\\Town\\Birds1.wav");
     ReloadSfx(&this->sounds[4], "SFX\\Town\\Birds2.wav");
@@ -251,7 +251,7 @@ void VisTown::VMethod30() {
 
 
 // 4d184a (client: 4d617b)
-void VisTown::VMethod31() {
+void VisTown::FreeTownSfx() {
     for (int32_t i = 0; i < 14; i++) {
         FreeSfxSample(&this->sounds[i]);
     }
@@ -264,7 +264,7 @@ const char* VisTown::GetHint() {
         return nullptr;
     }
     CPoint pt(g_mousept.GetX(), g_mousept.GetY());
-    switch (this->VMethod33(pt)) {
+    switch (this->HitTestHotspot(pt)) {
     case 1:
         return TxtFile::AllLines[0xE9];
     case 2:
@@ -322,7 +322,7 @@ void VisTown::DrawBirdFlock() {
 
 
 // 4ce886 (client: 4d31cd)
-void VisTown::VMethod7() {
+void VisTown::Draw() {
     static uint8_t anim_init_flags; // 6669BC
     static uint32_t hover_tick; // 66699C
     static uint32_t bird_anim_delay; // 6669C4
@@ -341,17 +341,17 @@ void VisTown::VMethod7() {
     uint32_t now = timeGetTime();
     if ((now - hover_tick) > 0x43) {
         CPoint pt(g_mousept.GetX(), g_mousept.GetY());
-        this->VMethod34(pt);
+        this->UpdateHoverState(pt);
         if (GetRandS16(100) > 0x5E) {
             this->town_anim |= 0x40;
         }
         if (GetRandS16(100) > 0x61) {
             this->town_anim |= 0x20;
         }
-        this->VMethod38();
+        this->AdvanceAnims();
         hover_tick = timeGetTime();
     }
-    this->VMethod35();
+    this->UpdateAmbientEvents();
     if ((now - this->last_bird) > bird_anim_delay && (this->town_anim & 0x80) == 0) {
         bird_anim_delay = (uint32_t)this->StartBirdFlight();
     }
@@ -424,24 +424,24 @@ void VisTown::VMethod7() {
         this->spr_dervish->Draw(this->rect.left + this->dervish_position.x, this->rect.top + this->dervish_position.y, this->dervish_frame, 0, 0);
     }
     UnlockSurface2();
-    this->VisScreen::VMethod7();
+    this->VisScreen::Draw();
 }
 
 
 // 4d1709 (client: 4d603a)
-void VisTown::VMethod32() {
+void VisTown::StartAmbientSfx() {
     PlayAmbientSfx(this->sounds);
 }
 
 
 // 4d15e3 (client: 4d5f14)
-void VisTown::VMethod39() {
+void VisTown::HideTownScreen() {
     this->MsgProc(VIS_MSG_HIDE_SCREEN, 0, 0);
 }
 
 
 // 4d10f0 (client: 4d5a27)
-int32_t VisTown::VMethod33(CPoint pos) {
+int32_t VisTown::HitTestHotspot(CPoint pos) {
     if (!this->rect.PtInRect(pos) || this->bmp_hover_mask == nullptr) {
         return -1;
     }
@@ -473,8 +473,8 @@ int32_t VisTown::VMethod33(CPoint pos) {
 
 
 // 4d1429 (client: 4d5d5a)
-void VisTown::VMethod34(CPoint pos) {
-    int32_t mask = this->VMethod33(pos);
+void VisTown::UpdateHoverState(CPoint pos) {
+    int32_t mask = this->HitTestHotspot(pos);
     this->guard_frame_step = 1;
     this->hovered_action_mask = mask;
     switch (mask + 1) {
@@ -515,7 +515,7 @@ void VisTown::VMethod34(CPoint pos) {
 
 
 // 4d12cb (client: 4d5c02)
-void VisTown::VMethod35() {
+void VisTown::UpdateAmbientEvents() {
     uint32_t now = timeGetTime();
     if ((now - this->bbird_last_tick) > (uint32_t)this->bbird_delay) {
         this->bbird_delay = GetRandS16(5000) + 2000;
@@ -598,7 +598,7 @@ void VisTown::AdvanceGateAnim() {
         return;
     }
     CPoint pt(g_mousept.GetX(), g_mousept.GetY());
-    if (this->VMethod33(pt) != 8) {
+    if (this->HitTestHotspot(pt) != 8) {
         if (this->door_open_flag != 0) {
             ReloadSfx(&this->sounds[1], "SFX\\Town\\GateDn.wav");
             CSound::Play((CSound&)this->sounds[1]);
@@ -739,7 +739,7 @@ void VisTown::AdvanceDervishAnim() {
 
 
 // 4d0e31 (client: 4d5776)
-void VisTown::VMethod38() {
+void VisTown::AdvanceAnims() {
     if ((this->town_anim & 1) != 0) {
         this->AdvanceShopAnim();
     }
@@ -775,7 +775,7 @@ void VisTown::VMethod38() {
 
 
 // 4cfd0e (client: 4d4655)
-void VisTown::VMethod37() {
+void VisTown::FreeTownGfx() {
     if (this->bmp_bkg != nullptr) {
         delete this->bmp_bkg;
         this->bmp_bkg = nullptr;
@@ -883,7 +883,7 @@ void VisTown::VMethod37() {
 
 
 // 4ceeef (client: 4d3836)
-void VisTown::VMethod36() {
+void VisTown::LoadTownGfx() {
     // spawn-point tables from the original data (634808/634830/634850)
     static const int32_t horse_spawn_tbl[5][2] = {
         { 0x68, 0x194 }, { 0x68, 0x194 }, { 0x100, 0x158 }, { 0x1C0, 0x190 }, { 0x8C, 0x190 },
@@ -895,7 +895,7 @@ void VisTown::VMethod36() {
         { 0xE0, 0x16C }, { 0x144, 0x1A8 }, { 0x188, 0x1A4 }, { 0x250, 0x184 },
     };
 
-    this->VMethod37();
+    this->FreeTownGfx();
     this->bmp_hover_mask = new CBmp256("graphics\\interface\\town\\townmask.bmp");
     g_mousept.Update();
     this->bmp_bkg = new CBmp64("graphics\\interface\\town\\townmain.bmp");
@@ -1037,13 +1037,13 @@ VisTownKaarg::~VisTownKaarg() {
 
 
 // 4d54b5 (client: 4d9dd9)
-void VisTownKaarg::VMethod32() {
+void VisTownKaarg::StartAmbientSfx() {
     PlayAmbientSfx(this->sounds);
 }
 
 
 // 4d54cf (client: 4d9df3)
-void VisTownKaarg::VMethod30() {
+void VisTownKaarg::LoadTownSfx() {
     ReloadSfx(&this->snd_voice[0], "sfx\\town_kaarg\\Kvox2.wav");
     ReloadSfx(&this->snd_voice[1], "sfx\\town_kaarg\\Kvox3.wav");
     ReloadSfx(&this->snd_voice[2], "sfx\\town_kaarg\\Kvox4.wav");
@@ -1068,7 +1068,7 @@ void VisTownKaarg::VMethod30() {
 
 
 // 4d5682 (client: 4d9fa6)
-void VisTownKaarg::VMethod31() {
+void VisTownKaarg::FreeTownSfx() {
     for (int32_t i = 0; i < 3; i++) {
         FreeSfxSample(&this->snd_voice[i]);
     }
@@ -1086,8 +1086,8 @@ void VisTownKaarg::VMethod31() {
 
 
 // 4d5c9a (client: 4da5be)
-void VisTownKaarg::VMethod34(CPoint pos) {
-    int32_t mask = this->VMethod33(pos);
+void VisTownKaarg::UpdateHoverState(CPoint pos) {
+    int32_t mask = this->HitTestHotspot(pos);
     this->guard_frame_step = 1;
     this->hovered_action_mask = mask;
     if (mask < 9) {
@@ -1147,8 +1147,8 @@ void VisTownKaarg::VMethod34(CPoint pos) {
 
 
 // 4d4866 (client: 4d918a)
-void VisTownKaarg::VMethod36() {
-    this->VMethod37();
+void VisTownKaarg::LoadTownGfx() {
+    this->FreeTownGfx();
     this->bmp_hover_mask = new CBmp256("graphics\\interface\\town_kaarg\\townmask.bmp");
     g_mousept.Update();
     this->bmp_bkg = new CBmp64("graphics\\interface\\town_kaarg\\townmain.bmp");
@@ -1231,7 +1231,7 @@ void VisTownKaarg::VMethod36() {
 
 
 // 4d5112 (client: 4d9a36)
-void VisTownKaarg::VMethod37() {
+void VisTownKaarg::FreeTownGfx() {
     if (this->bmp_bkg != nullptr) {
         delete this->bmp_bkg;
         this->bmp_bkg = nullptr;
@@ -1286,7 +1286,7 @@ void VisTownKaarg::VMethod37() {
 // 4d6480 (client: 4dad9c)
 void VisTownKaarg::AdvanceGateAnim() {
     CPoint pt(g_mousept.GetX(), g_mousept.GetY());
-    if (this->VMethod33(pt) != 8) {
+    if (this->HitTestHotspot(pt) != 8) {
         if (this->door_open_flag != 0) {
             ReloadSfx(&this->sounds[1], "SFX\\Town_kaarg\\Kdoor2.wav");
             CSound::Play((CSound&)this->sounds[1]);
@@ -1355,7 +1355,7 @@ void VisTownKaarg::AdvanceDervishAnim() {
 
 
 // 4d6786 (client: 4db097)
-void VisTownKaarg::VMethod38() {
+void VisTownKaarg::AdvanceAnims() {
     if ((this->town_anim & 0x200) != 0) {
         this->AdvanceGirl1Anim();
     }
@@ -1373,7 +1373,7 @@ void VisTownKaarg::VMethod38() {
 
 
 // 4d5ef0 (client: 4da814)
-void VisTownKaarg::VMethod35() {
+void VisTownKaarg::UpdateAmbientEvents() {
     static uint8_t timer_init_flags; // 6669AC
     static uint32_t voice_delay; // 666994
     static uint32_t bird_delay; // 6669B0
@@ -1503,7 +1503,7 @@ const char* VisTownKaarg::GetHint() {
         return nullptr;
     }
     CPoint pt(g_mousept.GetX(), g_mousept.GetY());
-    switch (this->VMethod33(pt)) {
+    switch (this->HitTestHotspot(pt)) {
     case 1:
         return TxtFile::AllLines[0xE9];
     case 2:
@@ -1527,17 +1527,17 @@ const char* VisTownKaarg::GetHint() {
 
 // 4d6802 (client: 4db113)
 int32_t VisTownKaarg::OnLButtonDown(uint32_t wparam, CPoint pos) {
-    int32_t mask = this->VMethod33(pos);
+    int32_t mask = this->HitTestHotspot(pos);
     if (mask < 9) {
         if (mask == 8) {
-            this->VMethod39();
+            this->HideTownScreen();
             AfxGetMainWnd()->PostMessage(MAIN_MSG_AUTOSAVE, 1, 0);
             AfxGetMainWnd()->PostMessage(MAIN_MSG_SHOW_GLOBAL_MAP, 0, 0);
         } else if (mask == 1) {
-            this->VMethod39();
+            this->HideTownScreen();
             AfxGetMainWnd()->PostMessage(MAIN_MSG_SHOW_SHOP, 0, 0);
         } else if (mask == 2) {
-            this->VMethod39();
+            this->HideTownScreen();
             AfxGetMainWnd()->PostMessage(MAIN_MSG_SHOW_INN, 0, 0);
         } else if (mask == 4) {
             CString name;
@@ -1566,10 +1566,10 @@ int32_t VisTownKaarg::OnLButtonDown(uint32_t wparam, CPoint pos) {
 
 
 // 4d4592 (client: 4d8eb6)
-void VisTownKaarg::VMethod28() {
+void VisTownKaarg::DoOpen() {
     g_mousept.DisableHint();
-    this->VMethod36();
-    this->VMethod30();
+    this->LoadTownGfx();
+    this->LoadTownSfx();
     this->town_anim = 0;
     this->door_open_flag = 0;
     this->guard_sound = 0;
@@ -1600,16 +1600,16 @@ void VisTownKaarg::VMethod28() {
     FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
     UnlockSurface2();
     FlushScreen();
-    this->VisScreen::VMethod28();
+    this->VisScreen::DoOpen();
     this->dialog_active = 1;
-    this->VMethod9();
+    this->Redraw();
     PlayAmbientSfx(&this->snd_voice1);
     g_mousept.EnableHint();
 }
 
 
 // 4d57b9 (client: 4da0dd)
-void VisTownKaarg::VMethod7() {
+void VisTownKaarg::Draw() {
     static uint8_t anim_init_flags; // 6669C0
     static uint32_t hover_tick; // 6669B8
     static uint32_t bird_anim_delay; // 6669CC
@@ -1628,11 +1628,11 @@ void VisTownKaarg::VMethod7() {
     uint32_t now = timeGetTime();
     if ((now - hover_tick) > 100) {
         CPoint pt(g_mousept.GetX(), g_mousept.GetY());
-        this->VMethod34(pt);
-        this->VMethod38();
+        this->UpdateHoverState(pt);
+        this->AdvanceAnims();
         hover_tick = timeGetTime();
     }
-    this->VMethod35();
+    this->UpdateAmbientEvents();
     LockSurface2();
     if (this->bmp_bkg != nullptr) {
         this->bmp_bkg->Draw(this->rect.left, this->rect.top, 0, 0, 0);
@@ -1667,7 +1667,7 @@ void VisTownKaarg::VMethod7() {
     }
     this->bmp_gate.GetAt(this->door_frame)->Draw(this->rect.left + 0x98, this->rect.top + 0x100, 0, 0, 0);
     UnlockSurface2();
-    this->VisScreen::VMethod7();
+    this->VisScreen::Draw();
 }
 
 
@@ -1704,14 +1704,14 @@ VisTownDruid::~VisTownDruid() {
 
 
 // 4d2ae3 (client: 4d7414)
-void VisTownDruid::VMethod32() {
+void VisTownDruid::StartAmbientSfx() {
     PlayAmbientSfx(&this->snd_forest);
 }
 
 
 // 4d2aff (client: 4d7430)
-void VisTownDruid::VMethod30() {
-    this->VMethod31();
+void VisTownDruid::LoadTownSfx() {
+    this->FreeTownSfx();
     ReloadSfx(&this->snd_lizard[0], "sfx\\town_druid\\Dlizard1.wav");
     ReloadSfx(&this->snd_lizard[1], "sfx\\town_druid\\Dlizard2.wav");
     ReloadSfx(&this->snd_lizard[2], "sfx\\town_druid\\Dlizard3.wav");
@@ -1740,7 +1740,7 @@ void VisTownDruid::VMethod30() {
 
 
 // 4d2d1b (client: 4d764c)
-void VisTownDruid::VMethod31() {
+void VisTownDruid::FreeTownSfx() {
     for (int32_t i = 0; i < 4; i++) {
         FreeSfxSample(&this->snd_lizard[i]);
     }
@@ -1819,8 +1819,8 @@ void VisTownDruid::AdvanceLizardAnim() {
 
 
 // 4d2153 (client: 4d6a84)
-void VisTownDruid::VMethod36() {
-    this->VMethod37();
+void VisTownDruid::LoadTownGfx() {
+    this->FreeTownGfx();
     this->bmp_hover_mask = new CBmp256("graphics\\interface\\town_druid\\townmask.bmp");
     g_mousept.Update();
     this->bmp_bkg = new CBmp64("graphics\\interface\\town_druid\\townmain.bmp");
@@ -1880,7 +1880,7 @@ void VisTownDruid::VMethod36() {
 
 
 // 4d27ff (client: 4d7130)
-void VisTownDruid::VMethod37() {
+void VisTownDruid::FreeTownGfx() {
     if (this->bmp_bkg != nullptr) {
         delete this->bmp_bkg;
         this->bmp_bkg = nullptr;
@@ -1923,7 +1923,7 @@ void VisTownDruid::VMethod37() {
 
 
 // 4d3ea7 (client: 4d87cb)
-void VisTownDruid::VMethod38() {
+void VisTownDruid::AdvanceAnims() {
     if ((this->town_anim & 1) != 0) {
         this->AdvanceShopAnim();
     }
@@ -1940,8 +1940,8 @@ void VisTownDruid::VMethod38() {
 
 
 // 4d359c (client: 4d7ec8)
-void VisTownDruid::VMethod34(CPoint pos) {
-    int32_t mask = this->VMethod33(pos);
+void VisTownDruid::UpdateHoverState(CPoint pos) {
+    int32_t mask = this->HitTestHotspot(pos);
     this->guard_frame_step = 1;
     int32_t old_mask = this->hovered_action_mask;
     this->hovered_action_mask = mask;
@@ -2023,14 +2023,14 @@ void VisTownDruid::VMethod34(CPoint pos) {
 
 
 // 4d3922 (client: 4d824e)
-void VisTownDruid::VMethod35() {
+void VisTownDruid::UpdateAmbientEvents() {
     static uint8_t timer_init_flags; // 666998
     static uint32_t bird_delay; // 6669A4
     static uint32_t tree_delay; // 6669B4
 
     uint32_t now = timeGetTime();
     CPoint pt(g_mousept.GetX(), g_mousept.GetY());
-    int32_t mask = this->VMethod33(pt);
+    int32_t mask = this->HitTestHotspot(pt);
     if ((now - this->shop_tick) > (uint32_t)this->shop_delay) {
         this->shop_delay = GetRandS16(5000) + 0xDAC;
         this->shop_tick = now;
@@ -2127,7 +2127,7 @@ void VisTownDruid::VMethod35() {
 
 
 // 4d2e99 (client: 4d77ca)
-void VisTownDruid::VMethod7() {
+void VisTownDruid::Draw() {
     static uint8_t anim_init_flags; // 6669A0
     static uint32_t hover_tick; // 6669A8
     static uint32_t bird_anim_delay; // 6669C8
@@ -2146,11 +2146,11 @@ void VisTownDruid::VMethod7() {
     uint32_t now = timeGetTime();
     if ((now - hover_tick) > 100) {
         CPoint pt(g_mousept.GetX(), g_mousept.GetY());
-        this->VMethod34(pt);
-        this->VMethod38();
+        this->UpdateHoverState(pt);
+        this->AdvanceAnims();
         hover_tick = timeGetTime();
     }
-    this->VMethod35();
+    this->UpdateAmbientEvents();
     LockSurface2();
     if (this->bmp_bkg != nullptr) {
         this->bmp_bkg->Draw(this->rect.left, this->rect.top, 0, 0, 0);
@@ -2192,15 +2192,15 @@ void VisTownDruid::VMethod7() {
         this->spr_bug->Draw(this->rect.left, this->rect.top + 0xD4, this->bug_variant * 0x3D + this->bug_frame, 0, 0);
     }
     UnlockSurface2();
-    this->VisScreen::VMethod7();
+    this->VisScreen::Draw();
 }
 
 
 // 4d1e80 (client: 4d67b1)
-void VisTownDruid::VMethod28() {
+void VisTownDruid::DoOpen() {
     g_mousept.DisableHint();
-    this->VMethod36();
-    this->VMethod30();
+    this->LoadTownGfx();
+    this->LoadTownSfx();
     this->town_anim = 0;
     this->door_open_flag = 0;
     this->guard_sound = 0;
@@ -2232,27 +2232,27 @@ void VisTownDruid::VMethod28() {
     FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
     UnlockSurface2();
     FlushScreen();
-    this->VisScreen::VMethod28();
+    this->VisScreen::DoOpen();
     this->dialog_active = 1;
-    this->VMethod9();
-    this->VMethod32();
+    this->Redraw();
+    this->StartAmbientSfx();
     g_mousept.EnableHint();
 }
 
 
 // 4d3f18 (client: 4d883c)
 int32_t VisTownDruid::OnLButtonDown(uint32_t wparam, CPoint pos) {
-    int32_t mask = this->VMethod33(pos);
+    int32_t mask = this->HitTestHotspot(pos);
     if (mask < 9) {
         if (mask == 8) {
-            this->VMethod39();
+            this->HideTownScreen();
             AfxGetMainWnd()->PostMessage(MAIN_MSG_AUTOSAVE, 1, 0);
             AfxGetMainWnd()->PostMessage(MAIN_MSG_SHOW_GLOBAL_MAP, 0, 0);
         } else if (mask == 1) {
-            this->VMethod39();
+            this->HideTownScreen();
             AfxGetMainWnd()->PostMessage(MAIN_MSG_SHOW_SHOP, 0, 0);
         } else if (mask == 2) {
-            this->VMethod39();
+            this->HideTownScreen();
             AfxGetMainWnd()->PostMessage(MAIN_MSG_SHOW_INN, 0, 0);
         }
     } else if (mask == 0x10) {

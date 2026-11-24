@@ -200,7 +200,7 @@ void VisNetMapSelection::AddNetMapInfo(NetMapInfo* info) {
         map_list->SetSelectedIndex(prev_sel);
     }
     scrollbar->SetPos(prev_sel, this->avail_maps.GetSize());
-    map_list->VMethod9();
+    map_list->Redraw();
     if (prev_sel == 0) {
         PostMessageA(g_MainWndHWND, 0x46E, 1, 0);
     }
@@ -208,7 +208,7 @@ void VisNetMapSelection::AddNetMapInfo(NetMapInfo* info) {
 
 
 // 44c788 (client: 44faad)
-void VisNetMapSelection::VMethod26() {
+void VisNetMapSelection::OnCreate() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     this->mode = (main_wnd->sessionMode != SESSION_SINGLEPLAYER);
 
@@ -339,7 +339,7 @@ int32_t VisNetMapSelection::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lpar
         if (chat_list->GetItemCount() - 2 == chat_list->selected_index) {
             chat_list->SelectItem(chat_list->vis_start_index + chat_list->num_vis_entry);
         }
-        chat_list->VMethod9();
+        chat_list->Redraw();
         return 1;
     }
     case VIS_MSG_ROSTER_CHANGED: {
@@ -355,7 +355,7 @@ int32_t VisNetMapSelection::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lpar
                 player_list->colors.Add(g_colors_human_pals + pd->color);
             }
         }
-        player_list->VMethod9();
+        player_list->Redraw();
         return 1;
     }
     case VIS_MSG_NETMAP_ADD_INFO:
@@ -367,7 +367,7 @@ int32_t VisNetMapSelection::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lpar
             if (lparam >= 0 && this->mode != 0) {
                 this->selected_map_index = lparam;
                 VisListBox* map_list = (VisListBox*)this->FindChild(1);
-                map_list->VMethod9();
+                map_list->Redraw();
                 NetMapInfo* info = this->avail_maps.GetAt(this->selected_map_index);
                 this->map_context->SendMapAnnouncement((LPCTSTR)info->name);
                 CString row = map_list->GetItem(lparam);
@@ -381,7 +381,7 @@ int32_t VisNetMapSelection::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lpar
                 bool can_join = (level + 1 >= main_wnd->m_GameSession.GetSkillTier1())
                     && (main_wnd->m_GameSession.GetSkillTier2() >= level + 1);
                 this->FindChild(0x14)->ChangeFlags(FLAG_ENABLED, can_join);
-                this->FindChild(0x14)->VMethod9();
+                this->FindChild(0x14)->Redraw();
             }
             return 1;
         }
@@ -396,7 +396,7 @@ int32_t VisNetMapSelection::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lpar
                     }
                 }
             }
-            this->FindChild(1)->VMethod9();
+            this->FindChild(1)->Redraw();
         }
         return 1;
     default:
@@ -535,7 +535,7 @@ VisServerScreenRadio::VisServerScreenRadio(int32_t _id, int32_t l, int32_t t, in
 }
 
 // 4db3ad (client: 4dfd32)
-void VisServerScreenRadio::VMethod7() {
+void VisServerScreenRadio::Draw() {
     CRect r;
     this->ClientRectToScreen(&r, this->rect);
     r.bottom += 4;
@@ -553,7 +553,7 @@ void VisServerScreenRadio::VMethod7() {
 
     LockSurface2();
 
-    this->parent->VMethod8(&r);
+    this->parent->DrawBackground(&r);
 
     r.bottom -= 4;
     r.right -= 4;
@@ -608,7 +608,7 @@ int32_t VisNetChatTextBox::OnKeyDown(uint32_t wparam) {
         char buf[256];
         this->WriteData(buf);
         this->ReadData(g_EmptyStrNetChatText);
-        this->VMethod9();
+        this->Redraw();
 
         MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
         main_wnd->vis_map_context->SendChatPacket(buf, CHAT_TYPE_GLOBAL, 0);
@@ -749,8 +749,8 @@ void VisNetDlg::FillServerList() {
     } else {
         join_btn->ChangeFlags(FLAG_ENABLED, true);
     }
-    join_btn->VMethod9();
-    server_list->VMethod9();
+    join_btn->Redraw();
+    server_list->Redraw();
 }
 
 
@@ -772,7 +772,7 @@ void VisNetDlg::UpdatePlayerList() {
         }
         ((VisScrollBar*)this->FindChild(8))->SetPos(0, i);
     }
-    player_list->VMethod9();
+    player_list->Redraw();
 }
 
 // 447173 (client: 449842)
@@ -909,7 +909,7 @@ int32_t VisNetDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
 
 
 // 446e97 (client: 449566)
-void VisNetDlg::VMethod26() {
+void VisNetDlg::OnCreate() {
     int32_t provider = g_CLlDriver.GetProvider();
     if (provider == PROVIDER_SERIAL || provider == PROVIDER_MODEM) {
         this->net_rect = this->rect;
@@ -958,7 +958,7 @@ VisNetDlg::~VisNetDlg()
 
 
 // 4adab6 (client: 4b23f6)
-void VisFameDocument::VMethod26() {
+void VisFameDocument::OnCreate() {
     this->fame = nullptr;
     this->bmp_sheet = nullptr;
     this->rect_prev = CRect(CPoint(0, 200), CSize(0x38, 0x28));
@@ -972,12 +972,12 @@ void VisFameDocument::VMethod26() {
 }
 
 // 44dbe0 (client: 450f0b)
-void VisServerScreen::VMethod7() {
+void VisServerScreen::Draw() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     CString str;
     LockSurface2();
     FillRectColorSimple(0, 0, g_ScreenSize.right, g_ScreenSize.bottom, 0);
-    this->CVisualObject::VMethod7();
+    this->CVisualObject::Draw();
     g_font2->DrawTextWithShadow(0, 0, txt_patch.GetLine(0x39), CGameFont::ALIGN_LEFT_TOP, clrsh_ShockingBlack, 1);
     FillRectColorSimple(0, 0x10, this->rect.right, 0x11, 0xffff);
     FillRectColorSimple(0, 0x20, this->rect.right, 0x21, 0xffff);
@@ -1099,7 +1099,7 @@ void VisServerScreen::VMethod7() {
 
 
 // 44d909 (client: 450c31)
-void VisServerScreen::VMethod26() {
+void VisServerScreen::OnCreate() {
     this->scroll_pos = 0;
 
     this->AddChild(new VisButton(0x63, 0x140, g_ScreenSize.bottom - 0x1E, 0x1A4, g_ScreenSize.bottom - 0x0C,
@@ -1180,7 +1180,7 @@ int32_t VisServerScreen::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
 
 
 // 44dbae (client: 450ed9)
-void VisServerScreen::VMethod8(CRect* rect) {
+void VisServerScreen::DrawBackground(CRect* rect) {
     FillRectColorSimple(rect->left, rect->top, rect->right, rect->bottom, 0);
 }
 
@@ -1215,7 +1215,7 @@ int32_t VisNetPhoneBook::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
             }
             this->UpdateConnectButton(str);
             edit->ReadData(str);
-            edit->VMethod9();
+            edit->Redraw();
         }
         if (wparam == 3) {
             CVisualObject* edit = this->FindChild(3);
@@ -1277,7 +1277,7 @@ int32_t VisNetPhoneBook::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam)
 
 
 // 447ef2 (client: 44a5c1)
-void VisNetPhoneBook::VMethod26() {
+void VisNetPhoneBook::OnCreate() {
     g_CLlDriver.EnumAddresses(&this->enum_addresses, &this->enum_addresses_num);
 
     VisLabel* title = new VisLabel(-1, 0x28, 0x14, this->rect.Width() - 0x28, 0x2c,
@@ -1385,7 +1385,7 @@ int32_t VisListBoxPhoneBook::OnKeyDown(uint32_t wparam) {
             if (scrollbar != nullptr && this->selected_index != 0) {
                 scrollbar->SetPos(this->selected_index, this->entries.GetSize());
             }
-            this->VMethod9();
+            this->Redraw();
         }
         return 1;
     }
@@ -1402,7 +1402,7 @@ void VisNetPhoneBook::UpdateConnectButton(const char* str) {
         connect_btn->ChangeFlags(FLAG_ENABLED, false);
         connect_btn->SetDowned(false);
     }
-    connect_btn->VMethod9();
+    connect_btn->Redraw();
 }
 
 
@@ -1463,7 +1463,7 @@ void VisNetSerialSettings::SaveComSettings() {
 
 
 // 448d15 (client: 44b3e7)
-void VisNetSerialSettings::VMethod26() {
+void VisNetSerialSettings::OnCreate() {
     VisLabel* title = new VisLabel(-1, 0x28, 0x14, this->rect.Width() - 0x28, 0x2c,
         txt_dialogs.GetLine(0x94), g_font1, p_clrsh_Black, CGameFont::ALIGN_HCENTER);
     this->AddChild(title);
@@ -1644,10 +1644,10 @@ int32_t VisNetSerialSettings::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lp
         this->cursor_over_obj = nullptr;
         this->last_focus_obj = nullptr;
         this->focus_obj = nullptr;
-        this->VMethod26();
+        this->OnCreate();
 
         this->FocusTo(this->FindChild(0xc), false);
-        this->VMethod9();
+        this->Redraw();
         return 1;
     }
     default:
@@ -1665,7 +1665,7 @@ VisNetTcpIp::VisNetTcpIp(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b
 VisNetTcpIp::~VisNetTcpIp() = default;
 
 // 449f67 (client: 44c639)
-void VisNetTcpIp::VMethod31(int32_t code) {
+void VisNetTcpIp::OnResult(int32_t code) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     if (code == VIS_MSG_HIDE_SCREEN) {
         char buffer[256];
@@ -1680,7 +1680,7 @@ void VisNetTcpIp::VMethod31(int32_t code) {
 }
 
 // 44a014 (client: 44c6e6)
-CVisualObject* VisNetTcpIp::VMethod30(const void* data, const RECT& r) {
+CVisualObject* VisNetTcpIp::CreateContent(const void* data, const RECT& r) {
     VisTextBox* textbox = new VisTextBox(2, r.left, r.top, r.right, r.top + 0x18, g_font1, clrsh_TechBlack, txt_dialogs.GetLine(0x75));
     this->AddChild(textbox);
     textbox->ReadData(*(CString*)data);
@@ -1688,7 +1688,7 @@ CVisualObject* VisNetTcpIp::VMethod30(const void* data, const RECT& r) {
 }
 
 // 44604c (client: 44871d)
-CVisualObject* VisConnectionDlg::VMethod30(const void* data, const RECT& r) {
+CVisualObject* VisConnectionDlg::CreateContent(const void* data, const RECT& r) {
     RECT& rect = const_cast<RECT&>(r);
     rect.right -= 0x18;
 
@@ -1734,7 +1734,7 @@ CVisualObject* VisConnectionDlg::VMethod30(const void* data, const RECT& r) {
 }
 
 // 445ebd (client: 44858e)
-void VisConnectionDlg::VMethod31(int32_t code) {
+void VisConnectionDlg::OnResult(int32_t code) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     if (code == VIS_MSG_HIDE_SCREEN) {
         VisListBox* list = (VisListBox*)this->FindChild(2);

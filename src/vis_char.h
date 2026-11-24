@@ -9,12 +9,12 @@ class VisCharSelect : public VisScreen {
 public:
     virtual ~VisCharSelect(); // 431f18 (client: 434046)
 
-    virtual void VMethod8(CRect* rect) override; // 438d50 (client: 43abf0)
+    virtual void DrawBackground(CRect* rect) override; // 438d50 (client: 43abf0)
     virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 4326a4 (client: 4347d5)
     virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 4326ea (client: 43481b)
 
-    virtual void VMethod26() override; // 431fdf (client: 43410d)
-    virtual void VMethod28() override; // 43233e (client: 43446f)
+    virtual void OnCreate() override; // 431fdf (client: 43410d)
+    virtual void DoOpen() override; // 43233e (client: 43446f)
     virtual void DoClose(uint32_t code) override; // 43251c (client: 43464d)
 
 
@@ -51,7 +51,7 @@ class VisCharSellectButtons : public CVisualObject {
 public:
     virtual ~VisCharSellectButtons(); // 42fdf8 (client: 431cec)
 
-    virtual void VMethod7() override; // 43005f (client: 431f52)
+    virtual void Draw() override; // 43005f (client: 431f52)
     virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 4302f5 (client: 4321e8)
     virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 430318 (client: 43220b)
     virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 4303c8 (client: 4322bb)
@@ -84,7 +84,7 @@ class VisCharSellectList : public CVisualObject {
 public:
     virtual ~VisCharSellectList(); // 430c62 (client: 432d2e)
 
-    virtual void VMethod7() override; // 430fec (client: 433143)
+    virtual void Draw() override; // 430fec (client: 433143)
     virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 431609 (client: 433760)
     virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 431764 (client: 4338bb)
     virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 43182c (client: 433983)
@@ -133,7 +133,7 @@ public:
     virtual ~VisCharSellectStats(); // 42f188 (client: 431084)
 
     virtual const char* GetHint() override; // 42fc61 (client: 431b55)
-    virtual void VMethod7() override; // 42f7b9 (client: 4316ad)
+    virtual void Draw() override; // 42f7b9 (client: 4316ad)
 
 
     void ReadUnitStats(); // 42f6f3 (client: 4315ef)
@@ -167,7 +167,7 @@ public:
     virtual ~VisCharGenStats(); // 428f12 (client: 42ae32)
 
     virtual const char* GetHint() override; // 42a43b (client: 42c351)
-    virtual void VMethod7() override; // 429d03 (client: 42bc1b)
+    virtual void Draw() override; // 429d03 (client: 42bc1b)
     virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 42a312 (client: 42c228)
     virtual int32_t OnWmUser(uint32_t wparam, CPoint pos) override; // 42a3f2 (client: 42c308)
     virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 42a335 (client: 42c24b)
@@ -211,7 +211,7 @@ public:
     virtual ~VisCharGenFullStats(); // 42aaa0 (client: 42c9b6)
 
     virtual const char* GetHint() override; // 42ac85 (client: 42cb9b)
-    virtual void VMethod7() override; // 42abea (client: 42cb00)
+    virtual void Draw() override; // 42abea (client: 42cb00)
 
     VisCharGenFullStats(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharGen* parent); // 42aa2b (client: 42c941)
 
@@ -229,7 +229,7 @@ class VisCharGenAction : public CVisualObject {
 public:
     virtual ~VisCharGenAction(); // 42ae19 (client: 42cd2f)
 
-    virtual void VMethod7() override; // 42b028 (client: 42cf3e)
+    virtual void Draw() override; // 42b028 (client: 42cf3e)
     virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 42b2e0 (client: 42d1f6)
     virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 42b303 (client: 42d219)
     virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 42b392 (client: 42d2a8)
@@ -261,7 +261,7 @@ public:
     virtual ~VisCharGenSkills(); // 42ba30 (client: 422210)
 
     virtual const char* GetHint() override; // 42dbce (client: 42fae2)
-    virtual void VMethod7() override; // 42bb5a (client: 42da70)
+    virtual void Draw() override; // 42bb5a (client: 42da70)
     virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 42bfcc (client: 42dee1)
     virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 42c072 (client: 42df86)
     virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 42c1ab (client: 42e0bf) - (Ghidra-labeled accHitTest)
@@ -278,7 +278,7 @@ private:
     void Init(); // 42ba81 (client: 42d997)
 public:
     VisCharGen* parent_screen; // 0x5c
-    CBmp64* bmp_column; // 0x60: "chrgen\<class>\column.bmp", background drawn in VMethod7 (owned)
+    CBmp64* bmp_column; // 0x60: "chrgen\<class>\column.bmp", background drawn in Draw (owned)
     CBmp256* bmp_mask; // 0x64: "chrgen\<class>\mask.bmp", HitTest color-key source (owned)
     CBmp64* bmp_roll_stats; // 0x68: "chrgen\\RollStatsR.bmp" (owned, never drawn)
     CBmp64* bmp_full_stats; // 0x6c: "chrgen\\FullStatsR.bmp" (owned, never drawn)
@@ -301,15 +301,15 @@ class VisCharGen : public VisScreen {
 public:
     virtual ~VisCharGen(); // 42dd66 (client: 42fc7a)
 
-    virtual void VMethod7() override; // 42eb29 (client: 430a27)
-    virtual void VMethod8(CRect* rect) override; // 42eb7f (client: 430a7d)
+    virtual void Draw() override; // 42eb29 (client: 430a27)
+    virtual void DrawBackground(CRect* rect) override; // 42eb7f (client: 430a7d)
     virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 42e058 (client: 42ff6c)
     virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 42e196 (client: 4300aa)
     virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 42ea01 (client: 4308ff)
     virtual int32_t OnKeyDown(uint32_t wparam) override; // 42ea4f (client: 43094d)
 
-    virtual void VMethod26() override; // 42ddec (client: 42fd00)
-    virtual void VMethod28() override; // 42e218 (client: 43012c)
+    virtual void OnCreate() override; // 42ddec (client: 42fd00)
+    virtual void DoOpen() override; // 42e218 (client: 43012c)
     virtual void DoClose(uint32_t code) override; // 42e7bc (client: 4306d0)
 
     VisCharGen(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); // 42dcd9 (client: 42fbed)
@@ -353,7 +353,7 @@ public:
     virtual ~VisCharInfo(); // 4b1909 (client: 4b623b)
 
     virtual const char* GetHint() override; // 4b19b0 (client: 4b62e2)
-    virtual void VMethod7() override; // 4b2b3d (client: 4b746f)
+    virtual void Draw() override; // 4b2b3d (client: 4b746f)
     virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 4b201c (client: 4b694e)
     virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 4b289e (client: 4b71d0)
     virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 4b2215 (client: 4b6b47)
@@ -364,9 +364,9 @@ public:
     virtual int32_t OnRButtonDblClk(uint32_t wparam, CPoint pos) override; // 4b2334 (client: 4b6c66)
     virtual int32_t OnKeyDown(uint32_t wparam) override; // 4b2ad5 (client: 4b7407)
 
-    virtual int32_t VMethod26(int32_t a); // 4b38af (client: 4b81df)
-    virtual int32_t VMethod27(int32_t a); // 4b3a0d (client: 4b8374)
-    virtual int32_t VMethod28(); // 4b4830 (client: 4b9200)
+    virtual int32_t TakeEquippedItem(int32_t slot); // 4b38af (client: 4b81df)
+    virtual int32_t EquipDraggedItem(int32_t slot); // 4b3a0d (client: 4b8374)
+    virtual int32_t GetTransferTab(); // 4b4830 (client: 4b9200)
 
     void UpdateCursor(); // 4b36b4 (client: 4b7fe4)
 

@@ -28,7 +28,7 @@
 #include "vis_char.h"
 #include "vis_inventory.h"
 
-// Statics for VisTavSceneDruid::VMethod7 (665D44-665D6C, 631FB0 in the binary).
+// Statics for VisTavSceneDruid::Draw (665D44-665D6C, 631FB0 in the binary).
 static bool tavscene_druid_statics_inited = false;  // 665D64 init bitmask
 static uint32_t tavscene_druid_anim_delay = 0;      // 665D50 delay before druid animation; low bits select which one plays
 static uint32_t tavscene_druid_frame_ts = 0;        // 665D58
@@ -40,7 +40,7 @@ static int32_t tavscene_druid_anim_state = -1;      // 631FB0 -1=idle, 1=anims_d
 
 
 
-// Statics for VisTavSceneKaarg::VMethod7 (665D40-665D74, 631E30, 631FB4 in the binary).
+// Statics for VisTavSceneKaarg::Draw (665D40-665D74, 631E30, 631FB4 in the binary).
 static bool tavscene_kaarg_statics_inited = false;  // 665D40 init bitmask
 static uint32_t tavscene_kaarg_unused_rand = 0;     // 665D48 (written, never read)
 static uint32_t tavscene_kaarg_frame_ts = 0;        // 665D4C
@@ -60,7 +60,7 @@ static const int32_t kaarg_frame_script[96] = {
     25, 26, 27, 28, -1,
 };
 
-// Statics for VisTavScene::VMethod7 (665D60-665D84 in the binary).
+// Statics for VisTavScene::Draw (665D60-665D84 in the binary).
 static bool tavscene_statics_inited = false;
 static uint32_t tavscene_anim_delay = 0;    // 665D78 delay before tavern animation; bit 0 selects which one plays
 static uint32_t tavscene_frame_ts = 0;      // 665D3C
@@ -71,7 +71,7 @@ static int32_t tavscene_anim_state = 0;     // 665D80 0=none, 1=anims[3], 2=anim
 static int32_t tavscene_anim_substate = 0;  // 665D84 1=playing forward, -1=playing backward
 
 // 49e34f (client: 4a237d)
-void VisTav::VMethod28() {
+void VisTav::DoOpen() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     g_mousept.DisableHint();
 
@@ -134,7 +134,7 @@ void VisTav::VMethod28() {
     this->map_context->UpdateSelectionState();
     this->selected_entries[this->select_party]->unitFlags |= UNIT_FLAG_EQUIP_CHANGED;
 
-    this->scene->VMethod26();
+    this->scene->LoadUnitSprites();
 
     CStringArray names;
     CString name;
@@ -177,10 +177,10 @@ void VisTav::VMethod28() {
 
     this->right_panel->LoadRightPanelBmps();
     this->right_panel->ResetButtonStates();
-    this->scene->VMethod28();
+    this->scene->LoadSceneGfx();
     this->left_panel->LoadLeftPanelBmps();
     this->right_panel->UpdateButtonLabels();
-    this->VMethod30();
+    this->LoadTavernSfx();
 
     this->dialog_active = 1;
 
@@ -189,7 +189,7 @@ void VisTav::VMethod28() {
     UnlockSurface2();
     FlushScreen();
 
-    VisScreen::VMethod28();
+    VisScreen::DoOpen();
     CSound::Play(this->sounds[8]);
     g_Cursors[0]->Use();
     g_mousept.EnableHint();
@@ -204,7 +204,7 @@ void VisTav::VMethod28() {
 void VisTav::DoClose(uint32_t code) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
-    this->VMethod9();
+    this->Redraw();
     if (main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
         ScenarioLeaveInn();
     }
@@ -231,8 +231,8 @@ void VisTav::DoClose(uint32_t code) {
     }
 
     this->right_panel->FreeRightPanelBmps();
-    this->scene->VMethod29();
-    this->scene->VMethod27();
+    this->scene->FreeSceneGfx();
+    this->scene->FreeUnitSprites();
     this->left_panel->FreeLeftPanelBmps();
 
     this->scene->anims[0].FreeAnimFrames();
@@ -240,7 +240,7 @@ void VisTav::DoClose(uint32_t code) {
     this->scene->anims[3].FreeAnimFrames();
     this->scene->anims[2].FreeAnimFrames();
 
-    this->VMethod31();
+    this->FreeTavernSfx();
 
     this->avail_entries.RemoveAll();
     this->selected_entries.RemoveAll();
@@ -260,7 +260,7 @@ void VisTav::DoClose(uint32_t code) {
 
 
 // 49ddaf (client: 4a1ddd)
-void VisTav::VMethod26() {
+void VisTav::OnCreate() {
     this->dialog_active = 0;
     for (int32_t i = 0; i < 13; i++) {
         this->sounds[i].sample = nullptr;
@@ -298,7 +298,7 @@ int32_t VisTav::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
             }
         }
         if (main_wnd->dialogsMask == DIALOG_MASK_TAVERN || main_wnd->dialogsMask == (DIALOG_MASK_INGAME | DIALOG_MASK_TAVERN)) {
-            this->VMethod9();
+            this->Redraw();
         }
         break;
     case VIS_MSG_SELECT_PREV:
@@ -331,8 +331,8 @@ int32_t VisTav::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
 
 
 // 49f298 (client: 4a32c6)
-void VisTav::VMethod30() {
-    this->VMethod31();
+void VisTav::LoadTavernSfx() {
+    this->FreeTavernSfx();
     ReloadSfx(&this->sounds[0].sample, "SFX\\Town\\Inn\\drink.wav");
     ReloadSfx(&this->sounds[1].sample, "SFX\\Town\\Inn\\glotok.wav");
     ReloadSfx(&this->sounds[2].sample, "SFX\\Town\\Inn\\steam.wav");
@@ -350,7 +350,7 @@ void VisTav::VMethod30() {
 
 
 // 49f3d7 (client: 4a3405)
-void VisTav::VMethod31() {
+void VisTav::FreeTavernSfx() {
     for (int32_t i = 0; i < 13; i++) {
         FreeSfxSample(&this->sounds[i].sample);
     }
@@ -487,9 +487,9 @@ int32_t VisTav::OnKeyDown(uint32_t wparam) {
 
 
 // 49e044 (client: 4a2072)
-void VisTav::VMethod7() {
+void VisTav::Draw() {
     if (this->dialog_active != 0) {
-        VisScreen::VMethod7();
+        VisScreen::Draw();
     }
 
     PlayAmbientSfx(&this->sounds[3].sample);
@@ -497,13 +497,13 @@ void VisTav::VMethod7() {
 
 
 // 49e075 (client: 4a20a3)
-void VisTav::VMethod8(CRect* rect) {
+void VisTav::DrawBackground(CRect* rect) {
 }
 
 
 // 49dc33 (client: 4a1c61)
 VisTav::~VisTav() {
-    this->VMethod31();
+    this->FreeTavernSfx();
     this->avail_entries.RemoveAll();
     this->entrie_id.RemoveAll();
 
@@ -630,7 +630,7 @@ int32_t VisTavLeftPanel::OnLButtonDown(uint32_t wparam, CPoint pos) {
 
 
 // 497ed0 (client: 49bef0)
-void VisTavLeftPanel::VMethod7() {
+void VisTavLeftPanel::Draw() {
     if (this->vis_tav->selection_index < 0) {
         this->DrawUnitPanel(nullptr);
     } else if (this->vis_tav->selection_index < this->vis_tav->avail_entries.GetSize()) {
@@ -1166,7 +1166,7 @@ void VisTavRightPanel::UpdateButtonLabels() {
 
 
 // 499dfa (client: 49de1a)
-void VisTavRightPanel::VMethod7() {
+void VisTavRightPanel::Draw() {
     CPoint tav_topleft = this->vis_tav->rect.TopLeft();
     if (this->vis_tav->dialog_active == 0) {
         return;
@@ -1282,7 +1282,7 @@ void VisTavSceneAnim::Draw(int32_t x, int32_t y) {
 }
 
 // 49b22f (client: 49f25e)
-void VisTavScene::VMethod7() {
+void VisTavScene::Draw() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
     if (!tavscene_statics_inited) {
@@ -1419,12 +1419,12 @@ void VisTavScene::VMethod7() {
         g_bmp_textbackl->DrawSubRectMasked(tav_topleft.x + 0x1D0, tav_topleft.y + 0xEE, 0, 0, 0x10, 0xF2);
     }
     UnlockSurface2();
-    CVisualObject::VMethod7();
+    CVisualObject::Draw();
 }
 
 
 // 49d5f9 (client: 4a1627)
-void VisTavScene::VMethod29() {
+void VisTavScene::FreeSceneGfx() {
     delete this->bmp_man_back;
     this->bmp_man_back = nullptr;
     delete this->bmp_man_back_talk;
@@ -1457,7 +1457,7 @@ void VisTavScene::VMethod29() {
 
 
 // 49ced4 (client: 4a0f02)
-void VisTavScene::VMethod26() {
+void VisTavScene::LoadUnitSprites() {
     this->avail_sprites.SetSize(this->vis_tav->avail_entries.GetSize(), -1);
     this->avail_frames.SetSize(this->vis_tav->avail_entries.GetSize(), -1);
     this->reserved_sprites.SetSize(this->vis_tav->reserved_entries.GetSize(), -1);
@@ -1489,8 +1489,8 @@ void VisTavScene::VMethod26() {
 
 
 // 49d2bb (client: 4a12e9)
-void VisTavScene::VMethod28() {
-    this->VMethod29();
+void VisTavScene::LoadSceneGfx() {
+    this->FreeSceneGfx();
     this->bmp_man_back = new CBmp64("graphics\\Interface\\Inn\\manback.bmp");
     g_mousept.Update();
     this->bmp_man_back_talk = new CBmp64("graphics\\Interface\\Inn\\ManBackTalk.bmp");
@@ -1581,7 +1581,7 @@ int32_t VisTavScene::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
 
 
 // 49d1b0 (client: 4a11de)
-void VisTavScene::VMethod27() {
+void VisTavScene::FreeUnitSprites() {
     for (int32_t i = 0; i < this->avail_sprites.GetSize(); i++) {
         if (this->avail_sprites[i] != nullptr) {
             delete this->avail_sprites[i];
@@ -1619,7 +1619,7 @@ int32_t VisTavScene::OnMouseMove(uint32_t wparam, CPoint pos) {
 
 // 49ae99 (client: 49eec8)
 VisTavScene::~VisTavScene() {
-    this->VMethod29();
+    this->FreeSceneGfx();
 }
 
 
@@ -1819,7 +1819,7 @@ int32_t VisTavScene::HitTestRoster(CPoint* pos) {
 }
 
 // 4a0673 (client: 4a46a1)
-void VisTavSceneDruid::VMethod7() {
+void VisTavSceneDruid::Draw() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     VisTavDruid* tav_druid = (VisTavDruid*)this->vis_tav;
 
@@ -1978,7 +1978,7 @@ void VisTavSceneDruid::VMethod7() {
         g_bmp_textbackl->DrawSubRectMasked(tav_topleft.x + 0x1D0, tav_topleft.y + 0xEE, 0, 0, 0x10, 0xF2);
     }
     UnlockSurface2();
-    CVisualObject::VMethod7();
+    CVisualObject::Draw();
 
     if (main_wnd->sessionMode == SESSION_LOCAL_BATTLE && now - this->ambient_last_tick > this->ambient_interval) {
         switch (GetRandS16(3) + 1) {
@@ -2012,7 +2012,7 @@ VisTavSceneDruid::VisTavSceneDruid(int32_t _id, int32_t l, int32_t t, int32_t r,
 
 
 // 4a158f (client: 4a55bd)
-void VisTavSceneDruid::VMethod29() {
+void VisTavSceneDruid::FreeSceneGfx() {
     delete this->bmp_man_back;
     this->bmp_man_back = nullptr;
     delete this->bmp_man_back_talk;
@@ -2047,8 +2047,8 @@ void VisTavSceneDruid::VMethod29() {
 
 
 // 4a11e3 (client: 4a5211)
-void VisTavSceneDruid::VMethod28() {
-    this->VMethod29();
+void VisTavSceneDruid::LoadSceneGfx() {
+    this->FreeSceneGfx();
     this->bmp_man_back = new CBmp64("graphics\\Interface\\Inn\\manback.bmp");
     g_mousept.Update();
     this->bmp_man_back_talk = new CBmp64("graphics\\Interface\\Inn\\ManBackTalk.bmp");
@@ -2075,7 +2075,7 @@ void VisTavSceneDruid::VMethod28() {
 }
 
 // 4a2bb8 (client: 4a6be6)
-void VisTavSceneKaarg::VMethod7() {
+void VisTavSceneKaarg::Draw() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     VisTavKaarg* tav_kaarg = (VisTavKaarg*)this->vis_tav;
 
@@ -2275,7 +2275,7 @@ void VisTavSceneKaarg::VMethod7() {
         this->ambient1_last_tick = timeGetTime();
     }
 
-    CVisualObject::VMethod7();
+    CVisualObject::Draw();
 }
 
 
@@ -2294,7 +2294,7 @@ VisTavSceneKaarg::~VisTavSceneKaarg() {}
 
 
 // 4a3b25 (client: 4a7b53)
-void VisTavSceneKaarg::VMethod29() {
+void VisTavSceneKaarg::FreeSceneGfx() {
     delete this->bmp_man_back;
     this->bmp_man_back = nullptr;
     delete this->bmp_man_back_talk;
@@ -2327,8 +2327,8 @@ void VisTavSceneKaarg::VMethod29() {
 
 
 // 4a37e7 (client: 4a7815)
-void VisTavSceneKaarg::VMethod28() {
-    this->VMethod29();
+void VisTavSceneKaarg::LoadSceneGfx() {
+    this->FreeSceneGfx();
     this->bmp_man_back = new CBmp64("graphics\\Interface\\Inn\\manback.bmp");
     g_mousept.Update();
     this->bmp_man_back_talk = new CBmp64("graphics\\Interface\\Inn\\ManBackTalk.bmp");
@@ -2354,7 +2354,7 @@ void VisTavSceneKaarg::VMethod28() {
 
 
 // 49faaa (client: 4a3ad8)
-void VisTavDruid::VMethod28() {
+void VisTavDruid::DoOpen() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     g_mousept.DisableHint();
 
@@ -2417,7 +2417,7 @@ void VisTavDruid::VMethod28() {
     this->map_context->UpdateSelectionState();
     this->selected_entries[this->select_party]->unitFlags |= UNIT_FLAG_EQUIP_CHANGED;
 
-    this->scene->VMethod26();
+    this->scene->LoadUnitSprites();
 
     VisTavSceneDruid* scene_druid = (VisTavSceneDruid*)this->scene;
 
@@ -2453,10 +2453,10 @@ void VisTavDruid::VMethod28() {
 
     this->right_panel->LoadRightPanelBmps();
     this->right_panel->ResetButtonStates();
-    this->scene->VMethod28();
+    this->scene->LoadSceneGfx();
     this->left_panel->LoadLeftPanelBmps();
     this->right_panel->UpdateButtonLabels();
-    this->VMethod30();
+    this->LoadTavernSfx();
 
     this->dialog_active = 1;
 
@@ -2465,7 +2465,7 @@ void VisTavDruid::VMethod28() {
     UnlockSurface2();
     FlushScreen();
 
-    VisScreen::VMethod28();
+    VisScreen::DoOpen();
     CSound::Play(this->sounds[8]);
     PlayAmbientSfx(&this->snd_druid[7]);
     g_Cursors[0]->Use();
@@ -2481,7 +2481,7 @@ void VisTavDruid::VMethod28() {
 void VisTavDruid::DoClose(uint32_t code) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
-    this->VMethod9();
+    this->Redraw();
     if (main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
         ScenarioLeaveInn();
     }
@@ -2508,8 +2508,8 @@ void VisTavDruid::DoClose(uint32_t code) {
     }
 
     this->right_panel->FreeRightPanelBmps();
-    this->scene->VMethod29();
-    this->scene->VMethod27();
+    this->scene->FreeSceneGfx();
+    this->scene->FreeUnitSprites();
     this->left_panel->FreeLeftPanelBmps();
 
     VisTavSceneDruid* scene_druid = (VisTavSceneDruid*)this->scene;
@@ -2517,7 +2517,7 @@ void VisTavDruid::DoClose(uint32_t code) {
     scene_druid->anims_druid[1].FreeAnimFrames();
     scene_druid->anims_druid[2].FreeAnimFrames();
 
-    this->VMethod31();
+    this->FreeTavernSfx();
 
     this->avail_entries.RemoveAll();
     this->selected_entries.RemoveAll();
@@ -2537,7 +2537,7 @@ void VisTavDruid::DoClose(uint32_t code) {
 
 
 // 49f51b (client: 4a3549)
-void VisTavDruid::VMethod26() {
+void VisTavDruid::OnCreate() {
     this->dialog_active = 0;
     for (int32_t i = 0; i < 13; i++) {
         this->sounds[i].sample = nullptr;
@@ -2562,8 +2562,8 @@ void VisTavDruid::VMethod26() {
 
 
 // 49f7b0 (client: 4a37de)
-void VisTavDruid::VMethod30() {
-    this->VMethod31();
+void VisTavDruid::LoadTavernSfx() {
+    this->FreeTavernSfx();
     ReloadSfx(&this->sounds[5].sample, "SFX\\Add.wav");
     ReloadSfx(&this->sounds[6].sample, "SFX\\NoAdd.wav");
     ReloadSfx(&this->sounds[7].sample, "SFX\\Town\\Shop\\nofit.wav");
@@ -2586,7 +2586,7 @@ void VisTavDruid::VMethod30() {
 
 
 // 49f961 (client: 4a398f)
-void VisTavDruid::VMethod31() {
+void VisTavDruid::FreeTavernSfx() {
     FreeSfxSample(&this->sounds[5].sample);
     FreeSfxSample(&this->sounds[6].sample);
     FreeSfxSample(&this->sounds[7].sample);
@@ -2612,7 +2612,7 @@ VisTavDruid::VisTavDruid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b
 
 
 // 4a1ba2 (client: 4a5bd0)
-void VisTavKaarg::VMethod28() {
+void VisTavKaarg::DoOpen() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     g_mousept.DisableHint();
 
@@ -2675,7 +2675,7 @@ void VisTavKaarg::VMethod28() {
     this->map_context->UpdateSelectionState();
     this->selected_entries[this->select_party]->unitFlags |= UNIT_FLAG_EQUIP_CHANGED;
 
-    this->scene->VMethod26();
+    this->scene->LoadUnitSprites();
 
     VisTavSceneKaarg* scene_kaarg = (VisTavSceneKaarg*)this->scene;
 
@@ -2729,10 +2729,10 @@ void VisTavKaarg::VMethod28() {
 
     this->right_panel->LoadRightPanelBmps();
     this->right_panel->ResetButtonStates();
-    this->scene->VMethod28();
+    this->scene->LoadSceneGfx();
     this->left_panel->LoadLeftPanelBmps();
     this->right_panel->UpdateButtonLabels();
-    this->VMethod30();
+    this->LoadTavernSfx();
 
     this->dialog_active = 1;
 
@@ -2741,7 +2741,7 @@ void VisTavKaarg::VMethod28() {
     UnlockSurface2();
     FlushScreen();
 
-    VisScreen::VMethod28();
+    VisScreen::DoOpen();
     CSound::Play(this->sounds[8]);
     PlayAmbientSfx(&this->snd_kaarg[6]);
     g_Cursors[0]->Use();
@@ -2757,7 +2757,7 @@ void VisTavKaarg::VMethod28() {
 void VisTavKaarg::DoClose(uint32_t code) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
-    this->VMethod9();
+    this->Redraw();
     if (main_wnd->sessionMode == SESSION_LOCAL_BATTLE) {
         ScenarioLeaveInn();
     }
@@ -2784,8 +2784,8 @@ void VisTavKaarg::DoClose(uint32_t code) {
     }
 
     this->right_panel->FreeRightPanelBmps();
-    this->scene->VMethod29();
-    this->scene->VMethod27();
+    this->scene->FreeSceneGfx();
+    this->scene->FreeUnitSprites();
     this->left_panel->FreeLeftPanelBmps();
 
     VisTavSceneKaarg* scene_kaarg = (VisTavSceneKaarg*)this->scene;
@@ -2795,7 +2795,7 @@ void VisTavKaarg::DoClose(uint32_t code) {
     scene_kaarg->anims_kaarg[3].FreeAnimFrames();
     scene_kaarg->anims_kaarg[4].FreeAnimFrames();
 
-    this->VMethod31();
+    this->FreeTavernSfx();
 
     this->avail_entries.RemoveAll();
     this->selected_entries.RemoveAll();
@@ -2815,7 +2815,7 @@ void VisTavKaarg::DoClose(uint32_t code) {
 
 
 // 4a190d (client: 4a593b)
-void VisTavKaarg::VMethod26() {
+void VisTavKaarg::OnCreate() {
     this->dialog_active = 0;
     for (int32_t i = 0; i < 13; i++) {
         this->sounds[i].sample = nullptr;
@@ -2840,8 +2840,8 @@ void VisTavKaarg::VMethod26() {
 
 
 // 4a26d9 (client: 4a6707)
-void VisTavKaarg::VMethod30() {
-    this->VMethod31();
+void VisTavKaarg::LoadTavernSfx() {
+    this->FreeTavernSfx();
     ReloadSfx(&this->sounds[5].sample, "SFX\\Add.wav");
     ReloadSfx(&this->sounds[6].sample, "SFX\\NoAdd.wav");
     ReloadSfx(&this->sounds[7].sample, "SFX\\Town\\Shop\\nofit.wav");
@@ -2863,7 +2863,7 @@ void VisTavKaarg::VMethod30() {
 
 
 // 4a2873 (client: 4a68a1)
-void VisTavKaarg::VMethod31() {
+void VisTavKaarg::FreeTavernSfx() {
     FreeSfxSample(&this->sounds[5].sample);
     FreeSfxSample(&this->sounds[6].sample);
     FreeSfxSample(&this->sounds[7].sample);

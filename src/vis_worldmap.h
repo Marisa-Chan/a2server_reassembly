@@ -11,7 +11,7 @@ public:
 };
 ASSERT_SIZE(GlobalMapRouteArray, 0x18);
 
-// Pathmap/graph builder state allocated by VisGlobalMap::VMethod28.
+// Pathmap/graph builder state allocated by VisGlobalMap::DoOpen.
 class GMapThing {
 public:
     GMapThing(); // 473195 (client: 476ee5)
@@ -40,8 +40,8 @@ public:
     virtual ~VisGlobalMap(); // 47001b (client: 473d7b)
 
     virtual const char* GetHint() override; // 472729 (client: 476487)
-    virtual void VMethod7() override; // 4714e7 (client: 475245)
-    virtual void VMethod8(CRect* rect) override; // 471f08 (client: 475c66)
+    virtual void Draw() override; // 4714e7 (client: 475245)
+    virtual void DrawBackground(CRect* rect) override; // 471f08 (client: 475c66)
     virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 472cc5 (client: 476a15)
     virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 472d99 (client: 476ae9)
     virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 473038 (client: 476d88)
@@ -51,8 +51,8 @@ public:
     virtual int32_t OnKeyDown(uint32_t wparam) override; // 4726e6 (client: 47642a)
     virtual int32_t OnChar(uint32_t wparam) override; // 4726cc (client: 476444)
 
-    virtual void VMethod26() override; // 47031d (client: 47407b)
-    virtual void VMethod28() override; // 47115d (client: 474ebb)
+    virtual void OnCreate() override; // 47031d (client: 47407b)
+    virtual void DoOpen() override; // 47115d (client: 474ebb)
     virtual void DoClose(uint32_t code) override; // 471367 (client: 4750c5)
 
     void SetTravelOrigin(const CPoint& pt) { this->currentLocationPoint = pt; } // 4972a0 (client: 49a880)

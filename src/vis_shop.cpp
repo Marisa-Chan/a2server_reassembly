@@ -106,7 +106,7 @@ void __cdecl SortTokenEntries(CArray<TokenEntry*>* arr) {
 // 4ba5a0 (client: 4bef70)
 VisShop::~VisShop() {
     this->FreeShopGfx();
-    this->VMethod32();
+    this->FreeShopSfx();
     if (this->assortiment != nullptr) {
         this->RemoveChild(this->assortiment);
         delete this->assortiment;
@@ -186,7 +186,7 @@ int32_t VisShop::OnLButtonUp(uint32_t wparam, CPoint pos) {
 
 
 // 4bb79a (client: 4c0167)
-void VisShop::VMethod8(CRect* rect) {
+void VisShop::DrawBackground(CRect* rect) {
     CRect screen_rect;
     this->ClientRectToScreen(&screen_rect, this->rect);
     if (this->dialog_active != 0) {
@@ -218,8 +218,8 @@ VisShop::VisShop(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameB
 
 
 // 4bd0fb (client: 4c1ac0)
-void VisShop::VMethod31() {
-    this->VMethod32();
+void VisShop::LoadShopSfx() {
+    this->FreeShopSfx();
     ReloadSfx(&this->snd_notif, "SFX\\Town\\Shop\\nofit.wav");
     ReloadSfx(&this->snd_step1, "SFX\\Town\\Shop\\step1.wav");
     ReloadSfx(&this->snd_step2, "SFX\\Town\\Shop\\step2.wav");
@@ -238,7 +238,7 @@ void VisShop::VMethod31() {
 
 
 // 4bcf2f (client: 4c18f4)
-void VisShop::VMethod30() {
+void VisShop::UpdateShopSfx() {
     static uint8_t snd_timing_init = 0; // 665DA8
     static uint32_t last_snd_time; // 665DA0
 
@@ -274,9 +274,9 @@ void VisShop::VMethod30() {
 void VisShop::DoClose(uint32_t code) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
-    this->VMethod9();
+    this->Redraw();
     this->dialog_active = 0;
-    this->VMethod32();
+    this->FreeShopSfx();
 
     if (main_wnd->drag_entry != nullptr) {
         this->CancelItemDrag();
@@ -307,11 +307,11 @@ void VisShop::DoClose(uint32_t code) {
     }
     this->spell_panel = nullptr;
 
-    this->to_buy->VMethod42();
-    this->assortiment->VMethod42();
+    this->to_buy->FreeBitmaps();
+    this->assortiment->FreeBitmaps();
     this->buttons->ReleaseBmp();
-    this->shop_compass->VMethod27();
-    this->shop_compass->VMethod36();
+    this->shop_compass->FreeBaseGfx();
+    this->shop_compass->FreeAllAnimFrames();
     this->FreeShopGfx();
     this->assortiment->ClearCategoryGrids();
     this->assortiment->FreeGridSfx();
@@ -376,7 +376,7 @@ int32_t VisShop::OnMouseMove(uint32_t wparam, CPoint pos) {
 
 
 // 4bbd75 (client: 4c0742)
-void VisShop::VMethod26() {
+void VisShop::OnCreate() {
     this->tips = nullptr;
     this->to_buy = new VisInvExtType3(0x3EB, 0, 0x12F, 0x1E0, 0x186, this);
     this->to_sell = new VisInvExtType2(0x3E9, 0, 0x186, 0x1E0, 0x1E0, this);
@@ -428,17 +428,17 @@ int32_t VisShop::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
 #endif
         if ((main_wnd->dialogsMask & DIALOG_MASK_POPUP) == 0) {
             this->UpdateShopTips();
-            this->shop_compass->VMethod9();
-            this->to_sell->VMethod9();
-            this->assortiment->VMethod9();
+            this->shop_compass->Redraw();
+            this->to_sell->Redraw();
+            this->assortiment->Redraw();
             if (this->spell_panel != nullptr) {
-                this->spell_panel->VMethod9();
+                this->spell_panel->Redraw();
             } else {
-                this->to_buy->VMethod9();
+                this->to_buy->Redraw();
             }
-            this->select_info_panel->VMethod9();
+            this->select_info_panel->Redraw();
             this->RecalcShopGold();
-            this->buttons->VMethod9();
+            this->buttons->Redraw();
         }
         break;
     case VIS_MSG_TOGGLE_SPELL_PANEL:
@@ -491,11 +491,11 @@ int32_t VisShop::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
                 this->dirty |= 8;
                 break;
             case 2:
-                this->to_sell->VMethod40((CArray<TokenEntry*>*)lparam);
+                this->to_sell->ReplaceGridEntries((CArray<TokenEntry*>*)lparam);
                 this->to_sell->RefreshGrid();
                 break;
             case 4:
-                this->to_buy->VMethod40((CArray<TokenEntry*>*)lparam);
+                this->to_buy->ReplaceGridEntries((CArray<TokenEntry*>*)lparam);
                 this->to_buy->RefreshGrid();
                 this->RecalcShopGold();
                 this->dirty |= 0x20;
@@ -573,17 +573,17 @@ int32_t VisShop::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
 
 
 // 4bc32b (client: 4c0cf8)
-void VisShop::VMethod28() {
+void VisShop::DoOpen() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
     g_mousept.DisableHint();
     this->buttons->ResetSelected();
-    this->to_buy->VMethod41();
-    this->assortiment->VMethod41();
-    this->shop_compass->VMethod26();
+    this->to_buy->LoadBitmaps();
+    this->assortiment->LoadBitmaps();
+    this->shop_compass->LoadBaseGfx();
     this->buttons->LoadBmp();
     this->LoadShopGfx();
-    this->VMethod31();
+    this->LoadShopSfx();
 
     this->gameplay = main_wnd->vis_map_context;
     this->select_info_panel = main_wnd->vis_charinfo;
@@ -616,8 +616,8 @@ void VisShop::VMethod28() {
     this->to_sell->visible_startref = &this->selected_units[0]->shopInventoryVisibleStart;
     *this->assortiment->visible_startref = 0;
     this->select_category = 100;
-    this->shop_compass->VMethod37(0);
-    this->to_sell->VMethod32(&this->selected_units[this->select_index]->tokenEntries);
+    this->shop_compass->SelectCategory(0);
+    this->to_sell->BindGridSource(&this->selected_units[this->select_index]->tokenEntries);
     this->assortiment->SelectCategoryGrid(0);
     this->assortiment->ClearCategoryGrids();
     this->to_buy->ClearBuyEntries();
@@ -638,7 +638,7 @@ void VisShop::VMethod28() {
     UnlockSurface2();
     FlushScreen();
 
-    VisScreen::VMethod28();
+    VisScreen::DoOpen();
     this->dialog_active = 1;
     ApplyCursor(g_Cursors[0]);
     this->snd_enter->Play();
@@ -714,12 +714,12 @@ void VisShop::ReturnPendingBuyItems() {
 #endif
     while (this->to_buy->grid_source->GetSize() != 0) {
         TokenEntry* first = (*this->to_buy->grid_source)[0];
-        removed = this->to_buy->VMethod36(0, first->count);
+        removed = this->to_buy->PickupSlotItem(0, first->count);
         if (removed != nullptr) {
             if (removed->slot_code == 2) {
-                this->to_sell->VMethod37(-1);
+                this->to_sell->PlaceDraggedItem(-1);
             } else {
-                this->assortiment->VMethod37(-1);
+                this->assortiment->PlaceDraggedItem(-1);
             }
         }
     }
@@ -727,7 +727,7 @@ void VisShop::ReturnPendingBuyItems() {
 
 
 // 4bd251 (client: 4c1c16)
-void VisShop::VMethod32() {
+void VisShop::FreeShopSfx() {
     FreeSfxSample(&this->snd_notif);
     FreeSfxSample(&this->snd_step1);
     FreeSfxSample(&this->snd_step2);
@@ -746,7 +746,7 @@ void VisShop::VMethod32() {
 
 
 // 4c6b90 (client: 4cb530)
-CString VisShop::VMethod33() {
+CString VisShop::GetAssetSubdir() {
     return CString();
 }
 
@@ -783,7 +783,7 @@ void VisShop::SelectNextPartyUnit() {
     CUnit* unit = this->selected_units[this->select_index];
     unit->SetSelected(1);
     this->gameplay->UpdateSelectionState();
-    this->to_sell->VMethod32(&this->selected_units[this->select_index]->tokenEntries);
+    this->to_sell->BindGridSource(&this->selected_units[this->select_index]->tokenEntries);
     this->to_sell->visible_startref = &this->selected_units[this->select_index]->shopInventoryVisibleStart;
     this->to_sell->RefreshGrid();
     this->to_sell->ClampVisibleStart();
@@ -803,7 +803,7 @@ void VisShop::SelectPrevPartyUnit() {
     CUnit* unit = this->selected_units[this->select_index];
     unit->SetSelected(1);
     this->gameplay->UpdateSelectionState();
-    this->to_sell->VMethod32(&this->selected_units[this->select_index]->tokenEntries);
+    this->to_sell->BindGridSource(&this->selected_units[this->select_index]->tokenEntries);
     this->to_sell->visible_startref = &this->selected_units[this->select_index]->shopInventoryVisibleStart;
     this->to_sell->RefreshGrid();
     this->to_sell->ClampVisibleStart();
@@ -820,20 +820,20 @@ void VisShop::CancelItemDrag() {
     case 1:
 #ifdef A2CLIENT_PATCH
         if (this->select_info_panel != nullptr) {
-            ((VisCharInfo*)this->select_info_panel)->VMethod27(main_wnd->drag_src_slot);
+            ((VisCharInfo*)this->select_info_panel)->EquipDraggedItem(main_wnd->drag_src_slot);
         }
 #else
-        ((VisCharInfo*)this->select_info_panel)->VMethod27(main_wnd->drag_src_slot);
+        ((VisCharInfo*)this->select_info_panel)->EquipDraggedItem(main_wnd->drag_src_slot);
 #endif
         this->dirty |= 8;
         break;
     case 2:
-        this->to_sell->VMethod37(main_wnd->drag_src_slot);
+        this->to_sell->PlaceDraggedItem(main_wnd->drag_src_slot);
         this->to_sell->RefreshGrid();
         this->dirty |= 1;
         break;
     case 4:
-        this->to_buy->VMethod37(main_wnd->drag_src_slot);
+        this->to_buy->PlaceDraggedItem(main_wnd->drag_src_slot);
         this->to_buy->RefreshGrid();
         if (this->spell_panel == nullptr) {
             this->dirty |= 4;
@@ -843,7 +843,7 @@ void VisShop::CancelItemDrag() {
     case 6:
     case 7:
     case 8:
-        this->assortiment->VMethod37(main_wnd->drag_src_slot);
+        this->assortiment->PlaceDraggedItem(main_wnd->drag_src_slot);
         this->assortiment->RefreshGrid();
         this->dirty |= 2;
         break;
@@ -995,7 +995,7 @@ VisShopCompass::VisShopCompass(int32_t _id, int32_t l, int32_t t, int32_t r, int
 
 
 // 4beb77 (client: 4c353c)
-void VisShopCompass::VMethod7() {
+void VisShopCompass::Draw() {
     static uint32_t last_frame_tick = timeGetTime() - 100;
     static uint32_t idle_tick = timeGetTime();
     CPoint topleft = this->shop->rect.TopLeft();
@@ -1003,7 +1003,7 @@ void VisShopCompass::VMethod7() {
         return;
     }
     if (timeGetTime() - last_frame_tick >= 100) {
-        this->shop->VMethod30();
+        this->shop->UpdateShopSfx();
         last_frame_tick = timeGetTime();
         for (int32_t i = 0; i < 4; i++) {
             if ((this->state & (1 << i)) != 0 && this->direction_frames[i][this->dir_frm[i]] != nullptr) {
@@ -1015,7 +1015,7 @@ void VisShopCompass::VMethod7() {
             this->state |= 0x10;
         }
         if (this->state & 0x10) {
-            this->VMethod30();
+            this->AdvanceCenterFrame();
             if (this->center_frm == 0x1C) {
                 this->state &= ~0x10;
                 idle_tick = timeGetTime();
@@ -1027,7 +1027,7 @@ void VisShopCompass::VMethod7() {
                 this->state &= ~0x20;
                 idle_tick = timeGetTime();
                 this->center_frm = 0;
-                this->VMethod33();
+                this->FreeYesFrames();
             }
         } else if (this->state & 0x40) {
             this->center_frm++;
@@ -1035,7 +1035,7 @@ void VisShopCompass::VMethod7() {
                 this->state &= ~0x40;
                 idle_tick = timeGetTime();
                 this->center_frm = 0;
-                this->VMethod34();
+                this->FreeNoFrames();
             }
         }
     }
@@ -1074,7 +1074,7 @@ void VisShopCompass::VMethod7() {
         g_font2->DrawTxt(no_rect.left + no_rect.Width() / 2, no_rect.top + 1, "No", CGameFont::ALIGN_HCENTER, color);
     }
     UnlockSurface2();
-    CVisualObject::VMethod7();
+    CVisualObject::Draw();
 }
 
 
@@ -1093,11 +1093,11 @@ int32_t VisShopCompass::OnLButtonDown(uint32_t wparam, CPoint pos) {
     } else {
         for (int32_t i = 0; i < 4; i++) {
             CRect hit_rect = this->outer_rects[i] + topleft;
-            if (hit_rect.PtInRect(pos) && this->VMethod37(i) != 0) {
+            if (hit_rect.PtInRect(pos) && this->SelectCategory(i) != 0) {
                 this->state |= 0x20;
-                this->VMethod28();
+                this->LoadYesFrames();
                 this->shop->assortiment->SelectCategoryGrid((uint16_t)this->shop->select_category);
-                this->shop->assortiment->VMethod9();
+                this->shop->assortiment->Redraw();
                 break;
             }
         }
@@ -1129,8 +1129,8 @@ const char* VisShopCompass::GetHint() {
 
 
 // 4be238 (client: 4c2bfd)
-void VisShopCompass::VMethod26() {
-    this->VMethod27();
+void VisShopCompass::LoadBaseGfx() {
+    this->FreeBaseGfx();
     this->frame_sprite = new CSprite256("graphics\\interface\\ShopFrame.256");
     this->frame_sprite->ResetPalette(1, 1, 0);
     g_mousept.Update();
@@ -1141,10 +1141,10 @@ void VisShopCompass::VMethod26() {
 
 
 // 4be5de (client: 4c2fa3)
-void VisShopCompass::VMethod28() {
+void VisShopCompass::LoadYesFrames() {
     char fname[52];
 
-    this->VMethod33();
+    this->FreeYesFrames();
     this->fwd_frames[0] = new CBmp64("movies\\shopanim\\Pose2-3\\1.bmp");
     for (int32_t i = 1; i < 12; i++) {
         sprintf(fname, "movies\\shopanim\\Yes\\%d.bmp", i + 1);
@@ -1154,10 +1154,10 @@ void VisShopCompass::VMethod28() {
 
 
 // 4be6df (client: 4c30a4)
-void VisShopCompass::VMethod29() {
+void VisShopCompass::LoadNoFrames() {
     char fname[52];
 
-    this->VMethod34();
+    this->FreeNoFrames();
     this->ret_frames[0] = new CBmp64("movies\\shopanim\\Pose2-3\\1.bmp");
     for (int32_t i = 1; i < 12; i++) {
         sprintf(fname, "movies\\shopanim\\No\\%d.bmp", i + 1);
@@ -1167,7 +1167,7 @@ void VisShopCompass::VMethod29() {
 
 
 // 4bf4e8 (client: 4c3eab)
-int32_t VisShopCompass::VMethod37(int32_t arg) {
+int32_t VisShopCompass::SelectCategory(int32_t arg) {
     if ((uint16_t)this->shop->select_category == (uint16_t)arg) {
         return 0;
     }
@@ -1179,12 +1179,12 @@ int32_t VisShopCompass::VMethod37(int32_t arg) {
         this->dir_frm[2] = 0;
         this->dir_frm[1] = 0;
         this->dir_frm[0] = 0;
-        this->VMethod36();
+        this->FreeAllAnimFrames();
     } else {
         this->dir_frm[(uint16_t)this->shop->select_category] = 9;
     }
     this->state |= 1 << (arg & 0x1F);
-    this->VMethod31((uint16_t)arg);
+    this->LoadDirectionFrames((uint16_t)arg);
     this->dir_frm[(uint16_t)arg] = 0;
     this->shop->select_category = arg;
     *this->shop->assortiment->visible_startref = 0;
@@ -1193,10 +1193,10 @@ int32_t VisShopCompass::VMethod37(int32_t arg) {
 
 
 // 4be45d (client: 4c2e22)
-void VisShopCompass::VMethod31(int32_t arg) {
+void VisShopCompass::LoadDirectionFrames(int32_t arg) {
     char fname[52];
 
-    this->VMethod32(arg);
+    this->FreeDirectionFrames(arg);
     for (int32_t i = 0; i < 11; i++) {
         sprintf(fname, "graphics\\interface\\shopanim\\%.2d\\%d.bmp", 4 - arg, i + 1);
         this->direction_frames[arg][i] = new CBmp64(fname);
@@ -1206,7 +1206,7 @@ void VisShopCompass::VMethod31(int32_t arg) {
 
 
 // 4be372 (client: 4c2d37)
-void VisShopCompass::VMethod27() {
+void VisShopCompass::FreeBaseGfx() {
     if (this->frame_sprite != nullptr) {
         delete this->frame_sprite;
     }
@@ -1223,10 +1223,10 @@ void VisShopCompass::VMethod27() {
 
 
 // 4be7e0 (client: 4c31a5)
-void VisShopCompass::VMethod30() {
+void VisShopCompass::AdvanceCenterFrame() {
     char fname[52];
 
-    this->VMethod35();
+    this->FreeCenterFrame();
     this->center_frm = (this->center_frm + 1) % 30;
     sprintf(fname, "movies\\shopanim\\Pose2-3\\%d.bmp", this->center_frm + 1);
     this->trigger_bmp = new CBmp64(fname);
@@ -1234,7 +1234,7 @@ void VisShopCompass::VMethod30() {
 
 
 // 4be541 (client: 4c2f06)
-void VisShopCompass::VMethod32(int32_t arg) {
+void VisShopCompass::FreeDirectionFrames(int32_t arg) {
     for (int32_t i = 0; i < 11; i++) {
         if (this->direction_frames[arg][i] != nullptr) {
             delete this->direction_frames[arg][i];
@@ -1245,7 +1245,7 @@ void VisShopCompass::VMethod32(int32_t arg) {
 
 
 // 4be8b0 (client: 4c3275)
-void VisShopCompass::VMethod33() {
+void VisShopCompass::FreeYesFrames() {
     for (int32_t i = 0; i < 12; i++) {
         if (this->fwd_frames[i] != nullptr) {
             delete this->fwd_frames[i];
@@ -1256,7 +1256,7 @@ void VisShopCompass::VMethod33() {
 
 
 // 4be92d (client: 4c32f2)
-void VisShopCompass::VMethod34() {
+void VisShopCompass::FreeNoFrames() {
     for (int32_t i = 0; i < 12; i++) {
         if (this->ret_frames[i] != nullptr) {
             delete this->ret_frames[i];
@@ -1267,20 +1267,20 @@ void VisShopCompass::VMethod34() {
 
 
 // 4bea01 (client: 4c33c6)
-void VisShopCompass::VMethod36() {
+void VisShopCompass::FreeAllAnimFrames() {
     for (int32_t i = 0; i < 4; i++) {
-        this->VMethod32(i);
+        this->FreeDirectionFrames(i);
     }
-    this->VMethod33();
-    this->VMethod34();
-    this->VMethod35();
+    this->FreeYesFrames();
+    this->FreeNoFrames();
+    this->FreeCenterFrame();
 }
 
 
 // 4bf6ce (client: 4c4091)
 int32_t VisShopCompass::OnMouseMove(uint32_t wparam, CPoint pos) {
-    if (this->shop->hovered_region != this->VMethod38()) {
-        this->shop->hovered_region = this->VMethod38();
+    if (this->shop->hovered_region != this->GetHoverRegion()) {
+        this->shop->hovered_region = this->GetHoverRegion();
         this->shop->buttons->ResetSelected();
         this->shop->dirty |= 0x2F;
     }
@@ -1289,7 +1289,7 @@ int32_t VisShopCompass::OnMouseMove(uint32_t wparam, CPoint pos) {
 
 
 // 4be9aa (client: 4c336f)
-void VisShopCompass::VMethod35() {
+void VisShopCompass::FreeCenterFrame() {
     if (this->trigger_bmp != nullptr) {
         delete this->trigger_bmp;
     }
@@ -1299,8 +1299,8 @@ void VisShopCompass::VMethod35() {
 
 // 4be1df (client: 4c2ba4)
 VisShopCompass::~VisShopCompass() {
-    this->VMethod27();
-    this->VMethod36();
+    this->FreeBaseGfx();
+    this->FreeAllAnimFrames();
 }
 
 
@@ -1318,7 +1318,7 @@ int32_t VisShopCompass::OnLButtonUp(uint32_t wparam, CPoint pos) {
 
 
 // 4c6bc0 (client: 4cb560)
-int32_t VisShopCompass::VMethod38() {
+int32_t VisShopCompass::GetHoverRegion() {
     return 0x64;
 }
 
@@ -1330,7 +1330,7 @@ void VisShopCompass::AdvanceDirectionFrames(int32_t dir) {
         this->dir_frm[dir] = 3;
     } else if (this->dir_frm[dir] == 10) {
         this->state &= ~(1 << dir);
-        this->VMethod32(dir);
+        this->FreeDirectionFrames(dir);
     }
 }
 
@@ -1357,7 +1357,7 @@ VisShopCompassDruid::VisShopCompassDruid(int32_t _id, int32_t l, int32_t t, int3
 
 
 // 4c30b4 (client: 4c7a6d)
-void VisShopCompassDruid::VMethod7() {
+void VisShopCompassDruid::Draw() {
     static uint32_t last_frame_tick = timeGetTime() - 100;
     static uint32_t idle_tick = timeGetTime();
     CPoint topleft = this->shop->rect.TopLeft();
@@ -1365,14 +1365,14 @@ void VisShopCompassDruid::VMethod7() {
         return;
     }
     if (timeGetTime() - last_frame_tick >= 100) {
-        this->shop->VMethod30();
+        this->shop->UpdateShopSfx();
         last_frame_tick = timeGetTime();
         if (timeGetTime() - idle_tick >= (uint32_t)(rand() % 5 * 1000 + 5000) &&
             (this->state & 0x10) == 0 && (this->state & 0x20) == 0) {
             this->state |= 0x10 << (GetRandS16(2) & 0x1F);
         }
         if (this->state & 0x30) {
-            this->VMethod30();
+            this->AdvanceCenterFrame();
             if (this->center_frm == 0) {
                 idle_tick = timeGetTime();
             }
@@ -1409,13 +1409,13 @@ void VisShopCompassDruid::VMethod7() {
         this->trigger_bmp->Draw(topleft.x + this->rect.left + 0xC5, topleft.y + this->rect.top + 0x5C, 0, 0, 0);
     }
     UnlockSurface2();
-    CVisualObject::VMethod7();
+    CVisualObject::Draw();
 }
 
 
 // 4c2882 (client: 4c723b)
-void VisShopCompassDruid::VMethod26() {
-    this->VMethod27();
+void VisShopCompassDruid::LoadBaseGfx() {
+    this->FreeBaseGfx();
     this->frame_sprite = new CSprite256("graphics\\interface\\shop_druid\\ShopFrame.256");
     this->frame_sprite->ResetPalette(1, 1, 0);
     g_mousept.Update();
@@ -1431,7 +1431,7 @@ void VisShopCompassDruid::VMethod26() {
 
 
 // 4c2b29 (client: 4c74e2)
-void VisShopCompassDruid::VMethod27() {
+void VisShopCompassDruid::FreeBaseGfx() {
     if (this->frame_sprite != nullptr) {
         delete this->frame_sprite;
     }
@@ -1468,10 +1468,10 @@ void VisShopCompassDruid::VMethod27() {
 
 
 // 4c2dbc (client: 4c7775)
-void VisShopCompassDruid::VMethod30() {
+void VisShopCompassDruid::AdvanceCenterFrame() {
     char fname[52];
 
-    this->VMethod35();
+    this->FreeCenterFrame();
     this->center_frm = (this->center_frm + 1) % 30;
     if (this->center_frm == 0) {
         this->state &= 0xf;
@@ -1538,8 +1538,8 @@ VisShopCompassKaarg::VisShopCompassKaarg(int32_t _id, int32_t l, int32_t t, int3
 
 
 // 4c4a78 (client: 4c942f)
-void VisShopCompassKaarg::VMethod26() {
-    this->VMethod27();
+void VisShopCompassKaarg::LoadBaseGfx() {
+    this->FreeBaseGfx();
     this->frame_sprite = new CSprite256("graphics\\interface\\shop_kaarg\\ShopFrame.256");
     this->frame_sprite->ResetPalette(1, 1, 0);
     g_mousept.Update();
@@ -1568,7 +1568,7 @@ void VisShopCompassKaarg::VMethod26() {
 
 
 // 4c608e (client: 4caa2b)
-void VisShopCompassKaarg::VMethod7() {
+void VisShopCompassKaarg::Draw() {
     static uint32_t last_frame_tick = timeGetTime() - 100;
     static uint32_t idle_tick = timeGetTime();
     CPoint topleft = this->shop->rect.TopLeft();
@@ -1576,14 +1576,14 @@ void VisShopCompassKaarg::VMethod7() {
         return;
     }
     if (timeGetTime() - last_frame_tick >= 100) {
-        this->shop->VMethod30();
+        this->shop->UpdateShopSfx();
         last_frame_tick = timeGetTime();
         if (timeGetTime() - idle_tick >= (uint32_t)(rand() % 5 * 1000 + 5000) &&
             (this->state & 0x10) == 0 && (this->state & 0x20) == 0) {
             this->state |= 0x10 << (GetRandS16(2) & 0x1F);
         }
         if (this->state & 0x30) {
-            this->VMethod30();
+            this->AdvanceCenterFrame();
             if (this->center_frm == 0) {
                 idle_tick = timeGetTime();
             }
@@ -1638,12 +1638,12 @@ void VisShopCompassKaarg::VMethod7() {
         this->tail_frames[this->tail_frame]->Draw(topleft.x + this->rect.left + 0xC1, topleft.y + this->rect.top + 0xCC, 0, 0, 0);
     }
     UnlockSurface2();
-    CVisualObject::VMethod7();
+    CVisualObject::Draw();
 }
 
 
 // 4c5a80 (client: 4ca41d)
-void VisShopCompassKaarg::VMethod27() {
+void VisShopCompassKaarg::FreeBaseGfx() {
     if (this->frame_sprite != nullptr) {
         delete this->frame_sprite;
     }
@@ -1686,10 +1686,10 @@ void VisShopCompassKaarg::VMethod27() {
 
 
 // 4c5d96 (client: 4ca733)
-void VisShopCompassKaarg::VMethod30() {
+void VisShopCompassKaarg::AdvanceCenterFrame() {
     char fname[52];
 
-    this->VMethod35();
+    this->FreeCenterFrame();
     this->center_frm = (this->center_frm + 1) % 20;
     if (this->center_frm == 0) {
         this->state &= 0xf;
@@ -1730,7 +1730,7 @@ const char* VisShopCompassKaarg::GetHint() {
 
 
 // 4c65ba (client: 4caf57)
-int32_t VisShopCompassKaarg::VMethod37(int32_t arg) {
+int32_t VisShopCompassKaarg::SelectCategory(int32_t arg) {
     if ((uint16_t)this->shop->select_category == (uint16_t)arg) {
         return 0;
     }
@@ -1767,9 +1767,9 @@ int32_t VisShopCompassDruid::OnLButtonDown(uint32_t wparam, CPoint pos) {
     CPoint topleft = this->shop->rect.TopLeft();
     for (int32_t i = 0; i < 4; i++) {
         CRect hit_rect = this->outer_rects[i] + topleft;
-        if (hit_rect.PtInRect(pos) && (i != 3 || this->IsDruidShopAvailable() != 0) && this->VMethod37(i) != 0) {
+        if (hit_rect.PtInRect(pos) && (i != 3 || this->IsDruidShopAvailable() != 0) && this->SelectCategory(i) != 0) {
             this->shop->assortiment->SelectCategoryGrid((uint16_t)this->shop->select_category);
-            this->shop->assortiment->VMethod9();
+            this->shop->assortiment->Redraw();
             break;
         }
     }
@@ -1778,7 +1778,7 @@ int32_t VisShopCompassDruid::OnLButtonDown(uint32_t wparam, CPoint pos) {
 
 
 // 4c34e6 (client: 4c7e9f)
-int32_t VisShopCompassDruid::VMethod37(int32_t arg) {
+int32_t VisShopCompassDruid::SelectCategory(int32_t arg) {
     if ((uint16_t)arg == 3 && this->IsDruidShopAvailable() == 0) {
         return 0;
     }
@@ -1796,7 +1796,7 @@ int32_t VisShopCompassDruid::VMethod37(int32_t arg) {
 
 
 // 4c2ced (client: 4c76a6)
-void VisShopCompassDruid::VMethod32(int32_t arg) {
+void VisShopCompassDruid::FreeDirectionFrames(int32_t arg) {
     for (int32_t i = 0; i < 11; i++) {
         if (this->direction_frames[arg][i] != nullptr) {
             delete this->direction_frames[arg][i];
@@ -1807,7 +1807,7 @@ void VisShopCompassDruid::VMethod32(int32_t arg) {
 
 
 // 4c2f00 (client: 4c78b9)
-void VisShopCompassDruid::VMethod33() {
+void VisShopCompassDruid::FreeYesFrames() {
     for (int32_t i = 0; i < 12; i++) {
         if (this->fwd_frames[i] != nullptr) {
             delete this->fwd_frames[i];
@@ -1818,7 +1818,7 @@ void VisShopCompassDruid::VMethod33() {
 
 
 // 4c2f7d (client: 4c7936)
-void VisShopCompassDruid::VMethod34() {
+void VisShopCompassDruid::FreeNoFrames() {
     for (int32_t i = 0; i < 12; i++) {
         if (this->ret_frames[i] != nullptr) {
             delete this->ret_frames[i];
@@ -1829,7 +1829,7 @@ void VisShopCompassDruid::VMethod34() {
 
 
 // 4c2ffa (client: 4c79b3)
-void VisShopCompassDruid::VMethod35() {
+void VisShopCompassDruid::FreeCenterFrame() {
     if (this->trigger_bmp != nullptr) {
         delete this->trigger_bmp;
     }
@@ -1838,31 +1838,31 @@ void VisShopCompassDruid::VMethod35() {
 
 
 // 4c3051 (client: 4c7a0a)
-void VisShopCompassDruid::VMethod36() {
+void VisShopCompassDruid::FreeAllAnimFrames() {
     for (int32_t i = 0; i < 4; i++) {
-        this->VMethod32(i);
+        this->FreeDirectionFrames(i);
     }
-    this->VMethod33();
-    this->VMethod34();
-    this->VMethod35();
+    this->FreeYesFrames();
+    this->FreeNoFrames();
+    this->FreeCenterFrame();
 }
 
 
 // 4c2cce (client: 4c7687)
-void VisShopCompassDruid::VMethod31(int32_t arg) {
-    this->VMethod32(arg);
+void VisShopCompassDruid::LoadDirectionFrames(int32_t arg) {
+    this->FreeDirectionFrames(arg);
 }
 
 
 // 4c2d8a (client: 4c7743)
-void VisShopCompassDruid::VMethod28() {
-    this->VMethod33();
+void VisShopCompassDruid::LoadYesFrames() {
+    this->FreeYesFrames();
 }
 
 
 // 4c2da3 (client: 4c775c)
-void VisShopCompassDruid::VMethod29() {
-    this->VMethod34();
+void VisShopCompassDruid::LoadNoFrames() {
+    this->FreeNoFrames();
 }
 
 
@@ -1890,9 +1890,9 @@ int32_t VisShopCompassKaarg::OnLButtonDown(uint32_t wparam, CPoint pos) {
     CPoint topleft = this->shop->rect.TopLeft();
     for (int32_t i = 0; i < 4; i++) {
         CRect hit_rect = this->outer_rects[i] + topleft;
-        if (hit_rect.PtInRect(pos) && this->VMethod37(i) != 0) {
+        if (hit_rect.PtInRect(pos) && this->SelectCategory(i) != 0) {
             this->shop->assortiment->SelectCategoryGrid((uint16_t)this->shop->select_category);
-            this->shop->assortiment->VMethod9();
+            this->shop->assortiment->Redraw();
             break;
         }
     }
@@ -1901,7 +1901,7 @@ int32_t VisShopCompassKaarg::OnLButtonDown(uint32_t wparam, CPoint pos) {
 
 
 // 4c5cc7 (client: 4ca664)
-void VisShopCompassKaarg::VMethod32(int32_t arg) {
+void VisShopCompassKaarg::FreeDirectionFrames(int32_t arg) {
     for (int32_t i = 0; i < 11; i++) {
         if (this->direction_frames[arg][i] != nullptr) {
             delete this->direction_frames[arg][i];
@@ -1912,7 +1912,7 @@ void VisShopCompassKaarg::VMethod32(int32_t arg) {
 
 
 // 4c5eda (client: 4ca877)
-void VisShopCompassKaarg::VMethod33() {
+void VisShopCompassKaarg::FreeYesFrames() {
     for (int32_t i = 0; i < 12; i++) {
         if (this->fwd_frames[i] != nullptr) {
             delete this->fwd_frames[i];
@@ -1923,7 +1923,7 @@ void VisShopCompassKaarg::VMethod33() {
 
 
 // 4c5f57 (client: 4ca8f4)
-void VisShopCompassKaarg::VMethod34() {
+void VisShopCompassKaarg::FreeNoFrames() {
     for (int32_t i = 0; i < 12; i++) {
         if (this->ret_frames[i] != nullptr) {
             delete this->ret_frames[i];
@@ -1934,7 +1934,7 @@ void VisShopCompassKaarg::VMethod34() {
 
 
 // 4c5fd4 (client: 4ca971)
-void VisShopCompassKaarg::VMethod35() {
+void VisShopCompassKaarg::FreeCenterFrame() {
     if (this->trigger_bmp != nullptr) {
         delete this->trigger_bmp;
     }
@@ -1943,31 +1943,31 @@ void VisShopCompassKaarg::VMethod35() {
 
 
 // 4c602b (client: 4ca9c8)
-void VisShopCompassKaarg::VMethod36() {
+void VisShopCompassKaarg::FreeAllAnimFrames() {
     for (int32_t i = 0; i < 4; i++) {
-        this->VMethod32(i);
+        this->FreeDirectionFrames(i);
     }
-    this->VMethod33();
-    this->VMethod34();
-    this->VMethod35();
+    this->FreeYesFrames();
+    this->FreeNoFrames();
+    this->FreeCenterFrame();
 }
 
 
 // 4c5ca8 (client: 4ca645)
-void VisShopCompassKaarg::VMethod31(int32_t arg) {
-    this->VMethod32(arg);
+void VisShopCompassKaarg::LoadDirectionFrames(int32_t arg) {
+    this->FreeDirectionFrames(arg);
 }
 
 
 // 4c5d64 (client: 4ca701)
-void VisShopCompassKaarg::VMethod28() {
-    this->VMethod33();
+void VisShopCompassKaarg::LoadYesFrames() {
+    this->FreeYesFrames();
 }
 
 
 // 4c5d7d (client: 4ca71a)
-void VisShopCompassKaarg::VMethod29() {
-    this->VMethod34();
+void VisShopCompassKaarg::LoadNoFrames() {
+    this->FreeNoFrames();
 }
 
 
@@ -2007,15 +2007,15 @@ VisShopButtons::~VisShopButtons() {
 
 
 // 4c6bd0 (client: 4cb570)
-int32_t VisShopButtons::VMethod30() {
+int32_t VisShopButtons::GetHoverRegion() {
     return 0x65;
 }
 
 
 // 4c10c4 (client: 4c5a7d)
 int32_t VisShopButtons::OnMouseMove(uint32_t wparam, CPoint pos) {
-    if (this->shop->hovered_region != this->VMethod30()) {
-        this->shop->hovered_region = this->VMethod30();
+    if (this->shop->hovered_region != this->GetHoverRegion()) {
+        this->shop->hovered_region = this->GetHoverRegion();
         this->shop->dirty |= 0x2F;
     }
     this->UpdateHoveredState(wparam, pos);
@@ -2079,7 +2079,7 @@ int32_t VisShopButtons::OnLButtonUp(uint32_t wparam, CPoint pos) {
 
 
 // 4c04b1 (client: 4c4e6a)
-void VisShopButtons::VMethod7() {
+void VisShopButtons::Draw() {
     CPoint topleft = this->shop->rect.TopLeft();
     CString str;
     if (this->shop->dialog_active == 0) {
@@ -2200,7 +2200,7 @@ void VisShopButtons::LoadBmp() {
     this->ReleaseBmp();
     CString base = "graphics\\interface\\";
     if (this->shop != nullptr) {
-        base += this->shop->VMethod33();
+        base += this->shop->GetAssetSubdir();
     }
 
     for (int32_t i = 0; i < 4; i++) {
@@ -2274,7 +2274,7 @@ VisShopDruid::VisShopDruid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t
 
 
 // 4c15e6 (client: 4c5f9f)
-void VisShopDruid::VMethod26() {
+void VisShopDruid::OnCreate() {
     this->tips = nullptr;
     this->to_buy = new VisInvExtType3(0x3EB, 0, 0x12F, 0x1E0, 0x186, this);
     this->to_sell = new VisInvExtType2(0x3E9, 0, 0x186, 0x1E0, 0x1E0, this);
@@ -2320,8 +2320,8 @@ void VisShopDruid::VMethod26() {
 
 
 // 4c1b8b (client: 4c6544)
-void VisShopDruid::VMethod31() {
-    this->VMethod32();
+void VisShopDruid::LoadShopSfx() {
+    this->FreeShopSfx();
     ReloadSfx(&this->snd_notif, "SFX\\Town\\Shop\\nofit.wav");
     ReloadSfx(&this->snd_depart, "SFX\\Town_Druid\\Shop\\Dotdel.wav");
     ReloadSfx(&this->snd_buy, "SFX\\Town\\buy.wav");
@@ -2346,7 +2346,7 @@ void VisShopDruid::VMethod31() {
 
 
 // 4c1958 (client: 4c6311)
-void VisShopDruid::VMethod30() {
+void VisShopDruid::UpdateShopSfx() {
     static uint8_t snd_timing_init = 0; // 665D9C
     static uint32_t last_snd_time; // 665DD4
 
@@ -2407,17 +2407,17 @@ void VisShopDruid::VMethod30() {
 
 
 // 4c1e5c (client: 4c6815)
-void VisShopDruid::VMethod28() {
+void VisShopDruid::DoOpen() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
     g_mousept.DisableHint();
     this->buttons->ResetSelected();
-    this->to_buy->VMethod41();
-    this->assortiment->VMethod41();
-    this->shop_compass->VMethod26();
+    this->to_buy->LoadBitmaps();
+    this->assortiment->LoadBitmaps();
+    this->shop_compass->LoadBaseGfx();
     this->buttons->LoadBmp();
     this->LoadShopGfx();
-    this->VMethod31();
+    this->LoadShopSfx();
 
     this->gameplay = main_wnd->vis_map_context;
     this->select_info_panel = main_wnd->vis_charinfo;
@@ -2450,8 +2450,8 @@ void VisShopDruid::VMethod28() {
     this->to_sell->visible_startref = &this->selected_units[0]->shopInventoryVisibleStart;
     *this->assortiment->visible_startref = 0;
     this->select_category = 100;
-    this->shop_compass->VMethod37(0);
-    this->to_sell->VMethod32(&this->selected_units[this->select_index]->tokenEntries);
+    this->shop_compass->SelectCategory(0);
+    this->to_sell->BindGridSource(&this->selected_units[this->select_index]->tokenEntries);
     this->assortiment->SelectCategoryGrid(0);
     this->assortiment->ClearCategoryGrids();
     this->to_buy->ClearBuyEntries();
@@ -2472,7 +2472,7 @@ void VisShopDruid::VMethod28() {
     UnlockSurface2();
     FlushScreen();
 
-    VisScreen::VMethod28();
+    VisScreen::DoOpen();
     this->dialog_active = 1;
     ApplyCursor(g_Cursors[0]);
     this->snd_enter->Play();
@@ -2506,7 +2506,7 @@ void VisShopDruid::VMethod28() {
 
 
 // 4c1d25 (client: 4c66de)
-void VisShopDruid::VMethod32() {
+void VisShopDruid::FreeShopSfx() {
     FreeSfxSample(&this->snd_notif);
     FreeSfxSample(&this->snd_depart);
     FreeSfxSample(&this->snd_buy);
@@ -2531,13 +2531,13 @@ void VisShopDruid::VMethod32() {
 
 
 // 4c6be0 (client: 4cb580)
-CString VisShopDruid::VMethod33() {
+CString VisShopDruid::GetAssetSubdir() {
     return "shop_druid\\";
 }
 
 
 // 4c453d (client: 4c8ef4)
-void VisShopKaarg::VMethod32() {
+void VisShopKaarg::FreeShopSfx() {
     FreeSfxSample(&this->snd_notif);
     FreeSfxSample(&this->snd_depart);
     FreeSfxSample(&this->snd_buy);
@@ -2559,7 +2559,7 @@ void VisShopKaarg::VMethod32() {
 
 
 // 4c6c10 (client: 4cb5b0)
-CString VisShopKaarg::VMethod33() {
+CString VisShopKaarg::GetAssetSubdir() {
     return "shop_kaarg\\";
 }
 
@@ -2576,8 +2576,8 @@ VisShopKaarg::VisShopKaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t
 
 
 // 4c43a3 (client: 4c8d5a)
-void VisShopKaarg::VMethod31() {
-    this->VMethod32();
+void VisShopKaarg::LoadShopSfx() {
+    this->FreeShopSfx();
     ReloadSfx(&this->snd_notif, "SFX\\Town\\Shop\\nofit.wav");
     ReloadSfx(&this->snd_depart, "SFX\\Town_kaarg\\Shop\\Kotdel.wav");
     ReloadSfx(&this->snd_buy, "SFX\\Town\\buy.wav");
@@ -2599,7 +2599,7 @@ void VisShopKaarg::VMethod31() {
 
 
 // 4c4170 (client: 4c8b27)
-void VisShopKaarg::VMethod30() {
+void VisShopKaarg::UpdateShopSfx() {
     static uint8_t snd_timing_init = 0; // 665DA4
     static uint32_t last_snd_time; // 665DB8
 
@@ -2650,7 +2650,7 @@ void VisShopKaarg::VMethod30() {
 
 
 // 4c37fe (client: 4c81b5)
-void VisShopKaarg::VMethod26() {
+void VisShopKaarg::OnCreate() {
     this->tips = nullptr;
     this->to_buy = new VisInvExtType3(0x3EB, 0, 0x12F, 0x1E0, 0x186, this);
     this->to_sell = new VisInvExtType2(0x3E9, 0, 0x186, 0x1E0, 0x1E0, this);
@@ -2696,17 +2696,17 @@ void VisShopKaarg::VMethod26() {
 
 
 // 4c3b70 (client: 4c8527)
-void VisShopKaarg::VMethod28() {
+void VisShopKaarg::DoOpen() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
     g_mousept.DisableHint();
     this->buttons->ResetSelected();
-    this->to_buy->VMethod41();
-    this->assortiment->VMethod41();
-    this->shop_compass->VMethod26();
+    this->to_buy->LoadBitmaps();
+    this->assortiment->LoadBitmaps();
+    this->shop_compass->LoadBaseGfx();
     this->buttons->LoadBmp();
     this->LoadShopGfx();
-    this->VMethod31();
+    this->LoadShopSfx();
 
     this->gameplay = main_wnd->vis_map_context;
     this->select_info_panel = main_wnd->vis_charinfo;
@@ -2739,8 +2739,8 @@ void VisShopKaarg::VMethod28() {
     this->to_sell->visible_startref = &this->selected_units[0]->shopInventoryVisibleStart;
     *this->assortiment->visible_startref = 0;
     this->select_category = 100;
-    this->shop_compass->VMethod37(0);
-    this->to_sell->VMethod32(&this->selected_units[this->select_index]->tokenEntries);
+    this->shop_compass->SelectCategory(0);
+    this->to_sell->BindGridSource(&this->selected_units[this->select_index]->tokenEntries);
     this->assortiment->SelectCategoryGrid(0);
     this->assortiment->ClearCategoryGrids();
     this->to_buy->ClearBuyEntries();
@@ -2761,7 +2761,7 @@ void VisShopKaarg::VMethod28() {
     UnlockSurface2();
     FlushScreen();
 
-    VisScreen::VMethod28();
+    VisScreen::DoOpen();
     this->dialog_active = 1;
     ApplyCursor(g_Cursors[0]);
     this->snd_enter->Play();
@@ -2805,7 +2805,7 @@ void VisShop::CancelAllPendingBuys() {
 void VisShop::CommitSell() {
     this->RecalcShopGold();
     if (this->sell_gold != 0) {
-        this->shop_compass->VMethod28();
+        this->shop_compass->LoadYesFrames();
         this->shop_compass->state |= 0x20;
         this->gameplay->SendShopSell();
         this->snd_sell->Play();
@@ -2821,13 +2821,13 @@ int VisShop::CommitBuy() {
     }
   
     if (this->current_gold + this->buy_gold < 0) {
-        this->shop_compass->VMethod29();
+        this->shop_compass->LoadNoFrames();
         this->shop_compass->state |= 0x40;
         this->snd_notif->Play();
         return 0;
     }
     
-    this->shop_compass->VMethod28();
+    this->shop_compass->LoadYesFrames();
     this->shop_compass->state |= 0x20;
     this->gameplay->SendShopBuy();
     this->snd_buy->Play();

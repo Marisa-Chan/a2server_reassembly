@@ -217,7 +217,7 @@ void CVisualObject::SetFocus(bool isFocus) {
 
 
 // 4d7c40 (client: 4dc550)
-void CVisualObject::VMethod7() {
+void CVisualObject::Draw() {
 
     if (this->TestFlags(FLAG_HIDDEN)) {
         return;
@@ -226,19 +226,19 @@ void CVisualObject::VMethod7() {
     for (uint32_t i = 0; i < this->childs.GetSize(); i++) {
         CVisualObject* obj = this->childs[i];
         if (!obj->TestFlags(FLAG_HIDDEN)) {
-            obj->VMethod7();
+            obj->Draw();
         }
     }
 }
 
 
 // 41ed60 (client: 420190)
-void CVisualObject::VMethod8(CRect* rect) {
+void CVisualObject::DrawBackground(CRect* rect) {
 }
 
 
 // 4d7cc8 (client: 4dc5d8)
-void CVisualObject::VMethod9() {
+void CVisualObject::Redraw() {
     if (this->TestFlags(FLAG_HIDDEN)) {
         return;
     }
@@ -247,13 +247,13 @@ void CVisualObject::VMethod9() {
         return;
     }
 
-    this->VMethod7();
-    this->VMethod10();
+    this->Draw();
+    this->Flush();
 }
 
 
 // 4d7d03 (client: 4dc613)
-void CVisualObject::VMethod10() {
+void CVisualObject::Flush() {
     CRect r = this->ClientRectToScreen(this->rect);
     gfxFlushRect(r);
 }
@@ -655,13 +655,13 @@ void CVisualObject::FocusTo(CVisualObject* obj, bool update) {
         CVisualObject* oldo = this->focus_obj;
         oldo->SetFocus(false);
         if (update) {
-            oldo->VMethod9();
+            oldo->Redraw();
         }
     }
 
     obj->SetFocus(true);
     if (update) {
-        obj->VMethod9();
+        obj->Redraw();
     }
 }
 
@@ -719,12 +719,12 @@ void CVisualObject::TabFocus(bool forward, bool update) {
                 CVisualObject* old_focus = this->focus_obj;
                 this->focus_obj->SetFocus(false);
                 if (update) {
-                    old_focus->VMethod9();
+                    old_focus->Redraw();
                 }
             }
             obj->SetFocus(true);
             if (update) {
-                obj->VMethod9();
+                obj->Redraw();
             }
             break;
         }
@@ -784,13 +784,13 @@ VisLabel::~VisLabel() {
 
 
 // 4d84e4 (client: 4dcdf4)
-void VisLabel::VMethod7() {
+void VisLabel::Draw() {
     if (this->parent) {
         CRect res = this->ClientRectToScreen(this->rect);
 
         LockSurface2();
 
-        this->parent->VMethod8(&res);
+        this->parent->DrawBackground(&res);
 
         int32_t outx = 0;
         int32_t outy = 0;
@@ -824,7 +824,7 @@ void VisLabel::SetActiveColor(bool isActive) {
     } else {
         this->color_sh = p_clrsh_Black;
     }
-    this->VMethod9();
+    this->Redraw();
 }
 
 
@@ -833,7 +833,7 @@ VisButton::~VisButton() {
 }
 
 // 4d8f7e (client: 4dd88a)
-void VisButton::VMethod7() {
+void VisButton::Draw() {
     if (!this->parent) {
         return;
     }
@@ -841,7 +841,7 @@ void VisButton::VMethod7() {
     CRect r2 = this->ClientRectToScreen(this->rect);
     
     LockSurface2();
-    this->parent->VMethod8(&r2);
+    this->parent->DrawBackground(&r2);
 
     r2.right -= 1;
     r2.bottom -= 1;
@@ -913,7 +913,7 @@ int32_t VisButton::OnMouseMove(uint32_t wparam, CPoint pos) {
         }
         if (this->mouse_on == 0) {
             this->mouse_on = 1;
-            this->VMethod9();
+            this->Redraw();
         }
     } else {
         if (this->TestFlags(FLAG_OVERCURSOR) != 0 && this->downed == 0) {
@@ -922,7 +922,7 @@ int32_t VisButton::OnMouseMove(uint32_t wparam, CPoint pos) {
 
         if (this->mouse_on == 1) {
             this->mouse_on = 0;
-            this->VMethod9();
+            this->Redraw();
         }
     }
     return 0;
@@ -1048,7 +1048,7 @@ void VisButton::SetDowned(bool down) {
             this->SetCursorOver(false);
         }
 
-        this->VMethod9();
+        this->Redraw();
     } else {
         g_SfxArray[sfx_id::ui_button]->Play(g_SoundSettings.sfx_pos, 0, 0, 0xdc, 0);
 
@@ -1057,7 +1057,7 @@ void VisButton::SetDowned(bool down) {
             this->SetCursorOver(true);
         }
 
-        this->VMethod9();
+        this->Redraw();
     }
 }
 
@@ -1074,7 +1074,7 @@ void VisScrollBar::SetCursorOver(bool isOver) {
 }
 
 // 4de12c (client: 4e2aad)
-void VisScrollBar::VMethod7() {
+void VisScrollBar::Draw() {
     if (!this->parent) {
         return;
     }
@@ -1083,7 +1083,7 @@ void VisScrollBar::VMethod7() {
     tr.BottomRight() += CPoint(4, 4);
 
     LockSurface2();
-    this->parent->VMethod8(&tr);
+    this->parent->DrawBackground(&tr);
 
     tr = this->ClientRectToScreen(this->rect);
 
@@ -1160,9 +1160,9 @@ void VisScrollBar::VMethod7() {
 
 
 // 4de0d0 (client: 4e2a51)
-void VisScrollBar::VMethod9() {
+void VisScrollBar::Redraw() {
     if (g_IsServer == 0) {
-        this->VMethod7();
+        this->Draw();
         CRect tr = this->ClientRectToScreen(this->rect);
         tr.BottomRight() += CPoint(4, 4);
         gfxFlushRect(tr);
@@ -1206,7 +1206,7 @@ int32_t VisScrollBar::OnMouseMove(uint32_t wparam, CPoint pos) {
     if (this->btn_minus.PtInRect(pos)) {
         if (this->mouse_on_minus == 0) {
             this->mouse_on_minus = 1;
-            this->VMethod9();
+            this->Redraw();
         }
 
         if (this->TestFlags(FLAG_OVERCURSOR) == 0) {
@@ -1216,14 +1216,14 @@ int32_t VisScrollBar::OnMouseMove(uint32_t wparam, CPoint pos) {
         if (this->mouse_on_minus != 0) {
             CVisualObject::SetCursorOver(false); //do not set   is_mouse_over
             this->mouse_on_minus = 0;
-            this->VMethod9();
+            this->Redraw();
         }
     }
 
     if (this->btn_plus.PtInRect(pos)) {
         if (this->mouse_on_plus == 0) {
             this->mouse_on_plus = 1;
-            this->VMethod9();
+            this->Redraw();
         }
 
         if (this->TestFlags(FLAG_OVERCURSOR) == 0) {
@@ -1233,7 +1233,7 @@ int32_t VisScrollBar::OnMouseMove(uint32_t wparam, CPoint pos) {
         if (this->mouse_on_plus != 0) {
             CVisualObject::SetCursorOver(false); //do not set   is_mouse_over
             this->mouse_on_plus = 0;
-            this->VMethod9();
+            this->Redraw();
         }
     }
 
@@ -1274,7 +1274,7 @@ int32_t VisScrollBar::OnMouseMove(uint32_t wparam, CPoint pos) {
         }
     } else if (this->mousedown_on_hbox != 0) {
         this->val = this->GetValHPos(pos.x);
-        this->VMethod9();
+        this->Redraw();
         this->parent->MsgProc(VIS_MSG_SET_OPTION, this->id, this->val);
     }
     return 0;
@@ -1367,7 +1367,7 @@ int32_t VisScrollBar::OnLButtonDown(uint32_t wparam, CPoint pos) {
             }            
         }
 
-        this->VMethod9();
+        this->Redraw();
         this->parent->MsgProc(VIS_MSG_SET_OPTION, this->id, this->val);
     }
     return 1;
@@ -1418,7 +1418,7 @@ int32_t VisScrollBar::OnKeyDown(uint32_t wparam) {
             this->val -= d;
         }
 
-        this->VMethod9();
+        this->Redraw();
         this->parent->MsgProc(VIS_MSG_SET_OPTION, this->id, this->val);
         return 1;
     }
@@ -1430,7 +1430,7 @@ int32_t VisScrollBar::OnKeyDown(uint32_t wparam) {
             this->val += d;
         }
 
-        this->VMethod9();
+        this->Redraw();
         this->parent->MsgProc(VIS_MSG_SET_OPTION, this->id, this->val);
         return 1;
     }
@@ -1463,7 +1463,7 @@ void VisScrollBar::SetPos(int32_t pos, int32_t pos_max) {
         this->val = pos;
     }
 
-    this->VMethod9();
+    this->Redraw();
 }
 
 
@@ -1524,7 +1524,7 @@ int32_t VisScrollBar::GetValHPos(int32_t x) {
 VisListBox::~VisListBox() = default;
 
 // 4dc11d (client: 4e0aa0)
-void VisListBox::VMethod7() {
+void VisListBox::Draw() {
     if (!this->parent) {
         return;
     }
@@ -1533,7 +1533,7 @@ void VisListBox::VMethod7() {
 
     LockSurface2();
 
-    this->parent->VMethod8(&rt);
+    this->parent->DrawBackground(&rt);
 
     int32_t y = rt.top + 2;
     for (int32_t i = this->vis_start_index; i < this->vis_start_index + this->num_vis_entry; i++) {
@@ -1550,7 +1550,7 @@ void VisListBox::VMethod7() {
         }
 
         if (this->selected_index == i) {
-            this->VMethod30(CPoint(rt.left, y), rt);
+            this->DrawSelection(CPoint(rt.left, y), rt);
 
             if (this->TestFlags(FLAG_FOCUS) == 0) {
                 this->DrawItem(i, CPoint(rt.left + 4, y - 2), p_clrsh_ShockingBlack);
@@ -1655,7 +1655,7 @@ int32_t VisListBox::OnLButtonDown(uint32_t wparam, CPoint pos) {
 
     this->selected_index = idx;
 
-    this->VMethod9();
+    this->Redraw();
 
     VisScrollBar* scrollbar = (VisScrollBar*)this->parent->FindChild(this->scrollbox_id);
     if (scrollbar) {
@@ -1774,7 +1774,7 @@ void VisListBox::SelectItem(int32_t idx) {
 
     this->selected_index = idx;
 
-    this->VMethod9();
+    this->Redraw();
 
     VisScrollBar* scrollbar = (VisScrollBar*)this->parent->FindChild(this->scrollbox_id);
     if (scrollbar) {
@@ -1790,7 +1790,7 @@ int32_t VisListBox::GetItemCount() {
 }
 
 // 4dc4ee (client: 4e0e71)
-void VisListBox::VMethod30(CPoint pos, const CRect& r) {
+void VisListBox::DrawSelection(CPoint pos, const CRect& r) {
     CRect rt;
     rt.top = pos.y - 1;
     rt.left = pos.x;
@@ -1928,7 +1928,7 @@ void VisListBox::RemoveItem(int32_t idx) {
 VisTextBox::~VisTextBox() = default;
 
 // 4d9a21 (client: 4de337)
-void VisTextBox::VMethod7() {
+void VisTextBox::Draw() {
     if (!this->parent) {
         return;
     }
@@ -1937,7 +1937,7 @@ void VisTextBox::VMethod7() {
 
     LockSurface2();
 
-    this->parent->VMethod8(&rt);
+    this->parent->DrawBackground(&rt);
 
     FillRectColor(rt.left + 1, rt.top, rt.right - 1, rt.top, GetColorRGB(8, 8, 8));
     FillRectColor(rt.left, rt.top + 1, rt.left, rt.bottom - 1, GetColorRGB(8, 8, 8));
@@ -2008,7 +2008,7 @@ int32_t VisTextBox::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
         this->cursor_blink = 1 - this->cursor_blink;
 
         if (this->TestFlags(FLAG_ENABLED)) {
-            this->VMethod9();
+            this->Redraw();
         }
     }
 
@@ -2060,7 +2060,7 @@ int32_t VisTextBox::OnMouseMove(uint32_t wparam, CPoint pos) {
 
     this->ResetBlink();
 
-    this->VMethod9();
+    this->Redraw();
 
     return 0;
 }
@@ -2079,7 +2079,7 @@ int32_t VisTextBox::OnLButtonDown(uint32_t wparam, CPoint pos) {
     this->select_end = this->cursor_pos;
     this->select_start = this->select_end;
 
-    this->VMethod9();
+    this->Redraw();
 
     return 1;
 }
@@ -2107,7 +2107,7 @@ int32_t VisTextBox::OnKeyDown(uint32_t wparam) {
             
             this->ResetBlink();
 
-            this->VMethod9();
+            this->Redraw();
             res = 1;
         } else {
             res = 0;
@@ -2132,7 +2132,7 @@ int32_t VisTextBox::OnKeyDown(uint32_t wparam) {
 
             this->ResetBlink();
 
-            this->VMethod9();
+            this->Redraw();
             res = 1;
         }
         break;
@@ -2155,7 +2155,7 @@ int32_t VisTextBox::OnKeyDown(uint32_t wparam) {
 
             this->ResetBlink();
 
-            this->VMethod9();
+            this->Redraw();
             res = 1;
         }
         break;
@@ -2177,7 +2177,7 @@ int32_t VisTextBox::OnKeyDown(uint32_t wparam) {
 
             this->ResetBlink();
 
-            this->VMethod9();
+            this->Redraw();
             res = 1;
         }
         break;
@@ -2198,7 +2198,7 @@ int32_t VisTextBox::OnKeyDown(uint32_t wparam) {
 
             this->ResetBlink();
 
-            this->VMethod9();
+            this->Redraw();
             res = 1;
         }
         break;
@@ -2214,7 +2214,7 @@ int32_t VisTextBox::OnKeyDown(uint32_t wparam) {
 
         this->ResetBlink();
 
-        this->VMethod9();
+        this->Redraw();
         res = 1;
         break;
 
@@ -2249,7 +2249,7 @@ int32_t VisTextBox::OnChar(uint32_t wparam) {
         this->InsertChar(wparam);
     }
 
-    this->VMethod9();
+    this->Redraw();
 
     this->parent->MsgProc(VIS_MSG_SET_OPTION, this->id, 0);
 
@@ -2414,7 +2414,7 @@ int32_t VisRadioBase::OnMouseMove(uint32_t wparam, CPoint pos) {
             this->SetCursorOver(false);
         }
 
-        this->VMethod9();
+        this->Redraw();
     }
     return 0;
 }
@@ -2446,7 +2446,7 @@ void VisRadioBase::AddEntry(const char* etext) {
 VisRadioType1::~VisRadioType1() = default;
 
 // 4dadf8 (client: 4df77d)
-void VisRadioType1::VMethod7() {
+void VisRadioType1::Draw() {
     CRect rt = this->ClientRectToScreen(this->rect);
     rt.bottom += 4;
     rt.right += 4;
@@ -2456,7 +2456,7 @@ void VisRadioType1::VMethod7() {
 
     LockSurface2();
 
-    this->parent->VMethod8(&rt);
+    this->parent->DrawBackground(&rt);
 
     rt.bottom -= 4;
     rt.right -= 4;
@@ -2517,7 +2517,7 @@ int32_t VisRadioType1::OnMouseMove(uint32_t wparam, CPoint pos) {
         this->SetCursorOver(false);
     }
 
-    this->VMethod9();
+    this->Redraw();
     return 0;
 }
 
@@ -2537,7 +2537,7 @@ int32_t VisRadioType1::OnLButtonDown(uint32_t wparam, CPoint pos) {
         this->selection &= ~bit;
     }
 
-    this->VMethod9();
+    this->Redraw();
     this->parent->MsgProc(VIS_MSG_SET_OPTION, this->id, this->selection);
     return 1;
 }
@@ -2560,7 +2560,7 @@ int32_t VisRadioType1::OnKeyDown(uint32_t wparam) {
             this->selected++;
         }
 
-        this->VMethod9();
+        this->Redraw();
         return 1;
     }
 
@@ -2574,7 +2574,7 @@ int32_t VisRadioType1::OnKeyDown(uint32_t wparam) {
             this->selected--;
         }
 
-        this->VMethod9();
+        this->Redraw();
         return 1;
     }
 
@@ -2595,7 +2595,7 @@ int32_t VisRadioType1::OnChar(uint32_t wparam) {
         this->selection &= ~bit;
     }
     
-    this->VMethod9();
+    this->Redraw();
     this->parent->MsgProc(VIS_MSG_SET_OPTION, this->id, this->selection);
     return 1;
 }
@@ -2611,7 +2611,7 @@ VisRadioType2::~VisRadioType2() = default;
 
 
 // 4db680 (client: 4e0005)
-void VisRadioType2::VMethod7() {
+void VisRadioType2::Draw() {
     CRect rt = this->ClientRectToScreen(this->rect);
     rt.bottom += 4;
     rt.right += 4;
@@ -2621,7 +2621,7 @@ void VisRadioType2::VMethod7() {
 
     LockSurface2();
 
-    this->parent->VMethod8(&rt);
+    this->parent->DrawBackground(&rt);
 
     rt.bottom -= 4;
     rt.right -= 4;
@@ -2681,7 +2681,7 @@ int32_t VisRadioType2::OnLButtonDown(uint32_t wparam, CPoint pos) {
 
     this->selection = idx;
     this->selected = idx;
-    this->VMethod9();
+    this->Redraw();
     this->parent->MsgProc(VIS_MSG_SET_OPTION, this->id, this->selection);
     return 1;
 }
@@ -2700,7 +2700,7 @@ int32_t VisRadioType2::OnKeyDown(uint32_t wparam) {
 
         this->selected = this->selection;
         this->parent->MsgProc(VIS_MSG_SET_OPTION, this->id, this->selection);
-        this->VMethod9();
+        this->Redraw();
         return 1;
     }
 
@@ -2716,7 +2716,7 @@ int32_t VisRadioType2::OnKeyDown(uint32_t wparam) {
 
         this->selected = this->selection;
         this->parent->MsgProc(VIS_MSG_SET_OPTION, this->id, this->selection);
-        this->VMethod9();
+        this->Redraw();
         return 1;
     }
 
@@ -2731,7 +2731,7 @@ int32_t VisRadioType2::OnChar(uint32_t wparam) {
 
     this->selection = this->selected;
 
-    this->VMethod9();
+    this->Redraw();
     this->parent->MsgProc(VIS_MSG_SET_OPTION, this->id, this->selection);
     return 1;
 }
@@ -2751,7 +2751,7 @@ VisBitmap::~VisBitmap() {
 }
 
 // 4df345 (client: 4e3cc6)
-void VisBitmap::VMethod7() {
+void VisBitmap::Draw() {
     if (!this->bitmap) {
         return;
     }
@@ -2760,11 +2760,11 @@ void VisBitmap::VMethod7() {
     LockSurface2();
 
     if (this->draw_type == 1) {
-        this->parent->VMethod8(&rt);
+        this->parent->DrawBackground(&rt);
         CBmp64* bmp64 = (CBmp64*)this->bitmap;
         bmp64->DrawSubRectMasked(rt.left, rt.top, 0, 0, bmp64->GetWidth(0), bmp64->GetHeight(0));
     } else if (this->draw_type == 2) {
-        this->parent->VMethod8(&rt);
+        this->parent->DrawBackground(&rt);
 
         FillRectColorSimple(rt.left + 8, rt.top + 7, rt.left + 80, rt.top + 101, 0);
 
@@ -2808,12 +2808,12 @@ void VisBitmap::SetBitmap(CGameBitmap* bmp) {
 
 
 // 4e4170 (client: 4e9510)
-void VisComboBoxText::VMethod7() {
+void VisComboBoxText::Draw() {
     CRect rt = this->ClientRectToScreen(this->rect);
 
     LockSurface2();
 
-    this->parent->VMethod8(&rt);
+    this->parent->DrawBackground(&rt);
 
     FillRectColor(rt.left + 1, rt.top, rt.right - 1, rt.top, GetColorRGB(8, 8, 8));
     FillRectColor(rt.left, rt.top + 1, rt.left, rt.bottom - 1, GetColorRGB(8, 8, 8));
@@ -2869,9 +2869,9 @@ void VisComboBoxButton::SetCursorOver(bool isOver) {
 
 
 // 4e1d7d (client: 4e66fe)
-void VisComboBoxButton::VMethod7() {
+void VisComboBoxButton::Draw() {
     CRect rt = this->ClientRectToScreen(this->rect);
-    this->parent->VMethod8(&rt);
+    this->parent->DrawBackground(&rt);
 
     if (this->mouse_on) {
         this->bitmap->Draw(rt.left, rt.top, this->frm + 1, 0, 0);
@@ -2920,13 +2920,13 @@ VisComboBoxButton::VisComboBoxButton(int32_t _id, int32_t l, int32_t t, int32_t 
 
 
 // 4e2481 (client: 4e6e05)
-void VisComboBox::VMethod8(CRect* rect) {
-    this->parent->VMethod8(rect);
+void VisComboBox::DrawBackground(CRect* rect) {
+    this->parent->DrawBackground(rect);
 }
 
 // 4e201e (client: 4e69a2)
-void VisComboBox::VMethod9() {
-    CVisualObject::VMethod9();
+void VisComboBox::Redraw() {
+    CVisualObject::Redraw();
 }
 
 // 4e2031 (client: 4e69b5)
@@ -3032,8 +3032,8 @@ void VisComboBox::ToggleList() {
     CRect rt = this->ClientRectToScreen(this->rect);
     rt.top += 24;
 
-    this->parent->VMethod8(&rt);
-    this->VMethod9();
+    this->parent->DrawBackground(&rt);
+    this->Redraw();
 }
 
 // 4e20db (client: 4e6a5f)
@@ -3047,8 +3047,8 @@ void VisComboBox::HideList() {
 
     this->rect.bottom = this->rect.top + 24;
 
-    this->parent->VMethod9();
-    this->VMethod9();
+    this->parent->Redraw();
+    this->Redraw();
 }
 
 // 4e222a (client: 4e6bae)
@@ -3065,8 +3065,8 @@ void VisComboBox::ProcSelectList() {
 
     this->rect.bottom = this->rect.top + 24;
 
-    this->parent->VMethod9();
-    this->VMethod9();
+    this->parent->Redraw();
+    this->Redraw();
 }
 
 // 4e2097 (client: 4e6a1b)
@@ -3079,13 +3079,13 @@ void VisComboBox::SelectItem(int32_t index) {
 
 
 // 4d8994 (client: 4dd2a4)
-void VisMultiText::VMethod7() {
+void VisMultiText::Draw() {
     if (!this->parent) {
         return;
     }
 
     CRect rt = this->ClientRectToScreen(this->rect);
-    this->parent->VMethod8(&rt);
+    this->parent->DrawBackground(&rt);
 
     LockSurface2();
     this->font->DrawTextLinesShadow(rt, this->vis_start_index, this->vis_start_index + this->num_vis_entry, this->entries, this->clr1, this->entry_height_full);
@@ -3142,7 +3142,7 @@ void VisMultiText::SelectItem(int32_t idx) {
         this->vis_start_index = this->selected_index;
     }
 
-    this->VMethod9();
+    this->Redraw();
 
     VisScrollBar* scroll = (VisScrollBar*)this->parent->FindChild(this->scrollbox_id);
     if (scroll) {
@@ -3233,32 +3233,32 @@ VisScreen::VisScreen() = default;
 VisScreen::VisScreen(int32_t _id, const RECT& r, CGameBitmap* _bitmap)
 : CVisualObject(_id, r, nullptr) {
     this->bitmap = _bitmap;
-    VisScreen::VMethod26();
+    VisScreen::OnCreate();
 }
 
 // 4df56d (client: 4e3eee)
 VisScreen::VisScreen(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* _bitmap)
 : CVisualObject(_id, l, t, r, b, nullptr) {
     this->bitmap = _bitmap;
-    VisScreen::VMethod26();
+    VisScreen::OnCreate();
 }
 
 // 4df5ec (client: 4e3f6d)
 VisScreen::~VisScreen() {
-    VisScreen::VMethod27();
+    VisScreen::OnDestroy();
 }
 
 // 4df63d (client: 4e3fbe)
-void VisScreen::VMethod7() {
+void VisScreen::Draw() {
     CRect r = this->ClientRectToScreen(this->rect);
 
-    this->VMethod8(&r);
+    this->DrawBackground(&r);
 
-    CVisualObject::VMethod7();
+    CVisualObject::Draw();
 }
 
 // 4df67c (client: 4e3ffd)
-void VisScreen::VMethod8(CRect* r) {
+void VisScreen::DrawBackground(CRect* r) {
     r->IntersectRect(r, &g_ScreenSize);
 
     if (this->bitmap) {
@@ -3395,15 +3395,15 @@ int32_t VisScreen::OnKeyDown(uint32_t wparam) {
 
 
 // 450900 (client: 453380)
-void VisScreen::VMethod26() {
+void VisScreen::OnCreate() {
 }
 
 // 4388c0 (client: 43a9e0)
-void VisScreen::VMethod27() {
+void VisScreen::OnDestroy() {
 }
 
 // 4dfb4f (client: 4e44d0)
-void VisScreen::VMethod28() {
+void VisScreen::DoOpen() {
     this->is_active = 1;
     this->SetCursorOver(true);
     this->SetFocus(true);
@@ -3476,10 +3476,10 @@ int32_t VisRoleKeyScreen::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam
 
     if (this->AdvanceSpeechLine()) {
         CVisualObject* textbox = this->FindChild(10);
-        textbox->VMethod9();
+        textbox->Redraw();
         CVisualObject* portrait = this->FindChild(12);
         if (portrait != nullptr) {
-            portrait->VMethod9();
+            portrait->Redraw();
         }
         return 1;
     }
@@ -3502,9 +3502,9 @@ int32_t VisRoleKeyScreen::OnKeyDown(uint32_t wparam) {
 
 
 // 4e012d (client: 4e4aae)
-void VisRoleKeyScreen::VMethod28() {
+void VisRoleKeyScreen::DoOpen() {
     this->AdvanceSpeechLine();
-    this->VisScreen::VMethod28();
+    this->VisScreen::DoOpen();
 }
 
 
@@ -3840,7 +3840,7 @@ int32_t VisMessageBox::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     if (msg >= 0x445 && msg <= 0x44b) {
         int32_t res = VisScreen::MsgProc(VIS_MSG_CLOSE_SCREEN, wparam, lparam);
         this->exit_code = msg;
-        this->VMethod31(msg);
+        this->OnResult(msg);
         return res;
     } else {
         return VisScreen::MsgProc(msg, wparam, lparam);
@@ -3849,7 +3849,7 @@ int32_t VisMessageBox::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
 
 
 // 444086 (client: 446656)
-void VisMessageBox::VMethod26() {
+void VisMessageBox::OnCreate() {
     CRect r2;
     if (this->text && strlen(this->text) > 0) {
         if (g_font1->GetStrWidth(this->text) > this->rect.Width()) {
@@ -3882,7 +3882,7 @@ void VisMessageBox::VMethod26() {
         this->AddChild( new VisLabel(-1, r2.left, r2.top - 20, r2.right, r2.top - 4, this->title, g_font1, p_clrsh_Black, CGameFont::ALIGN_LEFT_TOP) );
     }
 
-    CVisualObject* obj = this->VMethod30(this->payload, r2);
+    CVisualObject* obj = this->CreateContent(this->payload, r2);
     this->rect.bottom = this->rect.top + 144 + obj->GetRect().bottom;
 #ifdef A2CLIENT_PATCH
     // long_dip.txt (446a03..446a15): vtable check for VisDiplomacy shrinks bottom margin by 32
@@ -4019,7 +4019,7 @@ void VisMessageBox::VMethod26() {
 
 
 // 445084 (client: 447752)
-void VisMessageBox::VMethod31(int32_t code) {
+void VisMessageBox::OnResult(int32_t code) {
 }
 
 // 44402b (client: 4465fb)
@@ -4033,7 +4033,7 @@ VisMessageBox::VisMessageBox(int32_t _id, int32_t l, int32_t t, int32_t r, int32
 
 
 // 4450d4 (client: 4477a2)
-CVisualObject* VisMessageBoxWithList::VMethod30(const void* str, const RECT& r) {
+CVisualObject* VisMessageBoxWithList::CreateContent(const void* str, const RECT& r) {
     VisMultiText* txt = new VisMultiText(2, r, (const char*)str, g_font1, p_clrsh_Black, 0);
     this->AddChild(txt);
     txt->SizesCheck();

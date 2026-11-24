@@ -2550,7 +2550,7 @@ Human* Server::CreatePlayerCharacter(Player* player, uint8_t body, uint8_t react
     }
 #endif
 
-    // Configure skills, then trigger stat-recalc `VMethod18()`.
+    // Configure skills, then trigger stat-recalc `RecalcStats()`.
     #ifdef A2SERVER_PATCH
     if (main_skill < 1 || main_skill > 4) {
         main_skill = 1;

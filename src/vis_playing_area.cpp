@@ -1308,7 +1308,7 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 #endif
                     } else {
                         if (this->selected_object_count == 1 && this->primary_selected_object == ct) {
-                            wnd->vis_invtype1->VMethod33(ct);
+                            wnd->vis_invtype1->BindUnitInventory(ct);
                         }
                     }
                     
@@ -2010,7 +2010,7 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 
             if (wnd->vis_msgbox) {
                 wnd->vis_msgbox->ReadData(&wnd->diplomacy_entries);
-                wnd->vis_msgbox->VMethod9();
+                wnd->vis_msgbox->Redraw();
             }
 
             wnd->vis_root->MsgProc(VIS_MSG_ROSTER_CHANGED, 0, 0);
@@ -2061,7 +2061,7 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 
             if (wnd->vis_msgbox) {
                 wnd->vis_msgbox->ReadData(&wnd->diplomacy_entries);
-                wnd->vis_msgbox->VMethod9();
+                wnd->vis_msgbox->Redraw();
             }
         }
         break;
@@ -2296,7 +2296,7 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 
             if (wnd->vis_msgbox) {
                 wnd->vis_msgbox->ReadData(&wnd->diplomacy_entries);
-                wnd->vis_msgbox->VMethod9();
+                wnd->vis_msgbox->Redraw();
             }
             break;
 
@@ -2475,7 +2475,7 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
                 if (this->FindChild(MAP_CHILD_HAT_SESSION) == nullptr) {
                     AddChild(new VisHatSession(MAP_CHILD_HAT_SESSION, 10, 20, 370, 188));
                     this->full_redraw_requested = 1;
-                    this->VMethod9();
+                    this->Redraw();
                 }
             }
             this->CloseHatOverlays();
@@ -3262,9 +3262,9 @@ void VisPlayingArea::UpdateSelectionState() {
     mwnd->vis_charinfo->MsgProc(VIS_MSG_STATUS_REFRESH, 0, 0);
     mwnd->vis_sidestatus->MsgProc(VIS_MSG_STATUS_REFRESH, 0, 0);
     if (this->selected_object_count == 1 && (this->selection_flags & SEL_HERO) != 0) {
-        mwnd->vis_invtype1->VMethod33(this->primary_selected_object);
+        mwnd->vis_invtype1->BindUnitInventory(this->primary_selected_object);
     } else {
-        mwnd->vis_invtype1->VMethod33(nullptr);
+        mwnd->vis_invtype1->BindUnitInventory(nullptr);
     }
 
 }
@@ -6075,7 +6075,7 @@ void VisPlayingArea::RenderWorldFrame() {
         }
     }
     SetClipRect(clip_rect);
-    CVisualObject::VMethod7();
+    CVisualObject::Draw();
     UnlockSurface2();
     this->UpdateMapCursor();
     if (childs_size == this->cached_msg_count) {
@@ -6103,7 +6103,7 @@ void VisPlayingArea::RenderWorldFrame() {
 }
 
 // 406f1a (client: 406f89)
-void VisPlayingArea::VMethod7() {
+void VisPlayingArea::Draw() {
     this->force_full_redraw = 1;
     this->RenderWorldFrame();
 }

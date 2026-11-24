@@ -186,7 +186,7 @@ public: // VTable at 60f498.
     virtual void Unequip(Unit*); // 548c04 (client: 52d476) - Unequip.
     virtual Item* TakeOne(); // 548dbf (client: 52d55b)
     virtual Item* Clone(); // 57cdc0 (client: 54e050)
-    virtual int32_t VMethod14(int, int); // 548db0 (client: 52d54c)
+    virtual int32_t OnUse(int32_t arg1, int32_t arg2); // 548db0 (client: 52d54c)
     virtual int32_t CalcValue(); // 54872b (client: 52d131)
     virtual int32_t IsSimpleItem(); // 548817 (client: 52d1e4)
     virtual void WriteState(PacketUnitStateVec* pkt, uint8_t* slot); // 549e86 (client: 52e1f8)
@@ -200,7 +200,7 @@ public:
     void AddEffect(Effect* effect); // 548faa (client: 52d6a0) - Add effect to item
     int IsArtifact(); // 548f07 (client: none) - IsArtifact: returns 1 if the item has magic and price 2.
     int IsCheatCreatable(); // 548f6a (client: 52d660) - Returns 1 if this item template can be given via #create cheat
-    void ApplyPropertyString(const CString& str); // 548f3f (client: 52d635) - Apply special property string to item effects, then call VMethod15
+    void ApplyPropertyString(const CString& str); // 548f3f (client: 52d635) - Apply special property string to item effects, then call CalcValue
     void RecalcFromTemplate(); // 54a0be (client: none) - Recalculate item properties from template data
 
     Effect* FindCastSpellEffect(); // 548e4e (client: 52d5e7) - Find the cast-spell Effect on this item (returns nullptr if none)

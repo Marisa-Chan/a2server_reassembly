@@ -13,8 +13,8 @@ public:
     VisHatServerListDlg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, HatSettings* hat); // 44a0e2 (client: 44c7b7)
 
     virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 44a8a8 (client: 44cfd5)
-    virtual CVisualObject* VMethod30(const void* data, const RECT& r) override; // 44a34d (client: 44ca33)
-    virtual void VMethod31(int32_t code) override; // 44a140 (client: 44c815)
+    virtual CVisualObject* CreateContent(const void* data, const RECT& r) override; // 44a34d (client: 44ca33)
+    virtual void OnResult(int32_t code) override; // 44a140 (client: 44c815)
 public:
     HatSettings* hat_settings;
 };
@@ -42,7 +42,7 @@ public:
     virtual ~VisHatBrowserDlg(); // 44ff00 (client: 44e6a3)
 
     virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 44c1a9 (client: 44f11d)
-    virtual void VMethod26() override; // 44bc6c (client: 44e774)
+    virtual void OnCreate() override; // 44bc6c (client: 44e774)
 
     VisHatBrowserDlg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); // 44bc35 (client: 44e568)
 
@@ -66,7 +66,7 @@ class HatPlayerListWindow : public VisMessageBox {
 public:
     ~HatPlayerListWindow(); // server: none (client: 452837) - (deleting dtor 454940)
     int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // server: none (client: 452a02)
-    CVisualObject* VMethod30(const void* payload, const RECT& r) override; // server: none (client: 452897)
+    CVisualObject* CreateContent(const void* payload, const RECT& r) override; // server: none (client: 452897)
 
     HatPlayerListWindow(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const void* _payload, int32_t _mode); // server: none (client: 4527dd)
 
@@ -75,7 +75,7 @@ public:
 };
 ASSERT_SIZE(HatPlayerListWindow, 0x7c);
 
-// client vtable 5d72c8 — the score list created by HatPlayerListWindow::VMethod30.
+// client vtable 5d72c8 — the score list created by HatPlayerListWindow::CreateContent.
 // (The client label "CSpriteFont16" on this class is a mislabel; the real font class has vtable 5d74f0.)
 class HatPlayerScoreList : public VisListBox {
 public:
@@ -94,7 +94,7 @@ class VisHatSession : public VisScreen {
 public:
     VisHatSession(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); // server: none (client: 4e850e)
 
-    virtual void VMethod7() override; // server: none (client: 4e8545)
+    virtual void Draw() override; // server: none (client: 4e8545)
     virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override { return 0; }; // server: none (client: 4e9ce0)
 };
 

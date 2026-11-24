@@ -426,13 +426,13 @@ void CGameObject::SetSelected(int32_t selected) {
 
 
 // 46f460 (client: 472c60)
-int32_t CGameObject::VMethod2() {
+int32_t CGameObject::GetPixelWidth() {
     return 0;
 }
 
 
 // 46f470 (client: 472c70)
-int32_t CGameObject::VMethod3() {
+int32_t CGameObject::GetPixelHeight() {
     return 0;
 }
 
@@ -3663,12 +3663,12 @@ int32_t CUnit::GetTileHeight() {
 }
 
 // 46f5e0 (client: 472f20)
-int32_t CUnit::VMethod2() {
+int32_t CUnit::GetPixelWidth() {
     return 0x30;
 }
 
 // 46f5f0 (client: 472f30)
-int32_t CUnit::VMethod3() {
+int32_t CUnit::GetPixelHeight() {
     return 0x50;
 }
 
@@ -4034,7 +4034,7 @@ void CUnit::SetSelected(int32_t selected) {
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
     if (selected == 0 && map->primary_selected_object == this && wnd->drag_entry != nullptr) {
         g_Cursors[CURSOR_DEFAULT]->Use();
-        wnd->vis_invtype1->VMethod37(wnd->vis_invtype1->GetVisibleStart());
+        wnd->vis_invtype1->PlaceDraggedItem(wnd->vis_invtype1->GetVisibleStart());
         wnd->ResetItemCursor();
     }
     CGameObject::SetSelected(selected);

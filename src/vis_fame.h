@@ -10,8 +10,8 @@ public:
     virtual ~VisFameHall(); // 45cde2 (client: 460a12) - body (??_G deleting dtor at 45DA90)
 
     virtual const char* GetHint() override; // 45db50 (client: 4616c0)
-    virtual void VMethod7() override; // 45d7f9 (client: 461429)
-    virtual void VMethod8(CRect* rect) override; // 45da6a (client: 461692)
+    virtual void Draw() override; // 45d7f9 (client: 461429)
+    virtual void DrawBackground(CRect* rect) override; // 45da6a (client: 461692)
     virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 45d57f (client: 4611af)
     virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 45d5f0 (client: 461220)
     virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 45d6c3 (client: 4612f3)
@@ -19,8 +19,8 @@ public:
     virtual int32_t OnKeyDown(uint32_t wparam) override; // 45d5be (client: 4611ee)
     virtual int32_t OnChar(uint32_t wparam) override; // 45d5d7 (client: 461207)
 
-    virtual void VMethod26() override; // 45ce6e (client: 460a9e)
-    virtual void VMethod28() override; // 45d222 (client: 460e52)
+    virtual void OnCreate() override; // 45ce6e (client: 460a9e)
+    virtual void DoOpen() override; // 45d222 (client: 460e52)
     virtual void DoClose(uint32_t code) override; // 45d2d9 (client: 460f09)
 
     void LoadBitmaps(); // 45d32e (client: 460f5e)
@@ -51,16 +51,16 @@ public:
     virtual ~VisFameDocument(); // 4ada2a (client: 4b236a)
 
     virtual const char* GetHint() override; // 4aeda0 (client: 4b36e0)
-    virtual void VMethod7() override; // 4ae7a3 (client: 4b30e3)
-    virtual void VMethod8(CRect* rect) override; // 4ae926 (client: 4b3266)
+    virtual void Draw() override; // 4ae7a3 (client: 4b30e3)
+    virtual void DrawBackground(CRect* rect) override; // 4ae926 (client: 4b3266)
     virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 4ae57f (client: 4b2ebf)
     virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 4ae5be (client: 4b2efe)
     virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 4ae607 (client: 4b2f47)
     virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 4ae717 (client: 4b3057)
     virtual int32_t OnKeyDown(uint32_t wparam) override; // 4ae791 (client: 4b30d1)
 
-    virtual void VMethod26() override; // 4adab6 (client: 4b23f6)
-    virtual void VMethod28() override; // 4ae473 (client: 4b2db3)
+    virtual void OnCreate() override; // 4adab6 (client: 4b23f6)
+    virtual void DoOpen() override; // 4ae473 (client: 4b2db3)
     virtual void DoClose(uint32_t code) override; // 4ae534 (client: 4b2e74)
 
     VisFameDocument(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); // 4ad961 (client: 4b22a1)

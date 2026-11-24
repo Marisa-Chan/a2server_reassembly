@@ -375,7 +375,7 @@ void UnitList::ClearSentToMask(Player* player) {
 
 // 5574b5 (client: 5358d9)
 void UnitList::RegenTick() {
-    // Tick all units in this list (call VMethod1 on each)
+    // Tick all units in this list (call RegenTick on each)
     POSITION pos = this->unit_list.GetHeadPosition();
     while (pos != NULL) {
         Unit* unit = this->unit_list.GetNext(pos);
