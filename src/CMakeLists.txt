@@ -79,6 +79,7 @@ set(A2_SOURCES
 )
 
 cmake_path(SET GEN_VERSION_SCRIPT NORMALIZE "${CMAKE_CURRENT_SOURCE_DIR}/../tool/gen_version.cmake")
+cmake_path(SET PRINT_EXE_HASH_SCRIPT NORMALIZE "${CMAKE_CURRENT_SOURCE_DIR}/../tool/print_exe_hash.cmake")
 set(BUILD_VERSION_CPP "${CMAKE_CURRENT_BINARY_DIR}/generated/build_version.cpp")
 
 execute_process(
@@ -211,6 +212,15 @@ target_compile_definitions(rea2ct PRIVATE A2CLIENT A2CLIENT_PATCH A2TANGAR_HAT)
 foreach(TARGET rea2sp rea2st rea2cp rea2ct)
   add_dependencies(${TARGET} gen_build_version)
   target_include_directories(${TARGET} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}")
+endforeach()
+
+foreach(TARGET rea2ct)
+  add_custom_command(TARGET ${TARGET} POST_BUILD
+    COMMAND "${CMAKE_COMMAND}"
+      "-DEXE_FILE=$<TARGET_FILE:${TARGET}>"
+      -P "${PRINT_EXE_HASH_SCRIPT}"
+    VERBATIM
+  )
 endforeach()
 
 set(A2_LINK_LIBS
