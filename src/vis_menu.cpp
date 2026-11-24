@@ -2947,7 +2947,7 @@ void VisMainMenu::VMethod7() {
 int32_t VisMainMenu::OnMouseMove(uint32_t wparam, CPoint pos) {
 #if defined(A2CLIENT) && defined(A2TANGAR_HAT)
     // Tangar MENU_hover2 (client 4AF8C3): replaces UpdateButtonState.
-    tangar_menu::Hover(this, pos.x, pos.y, wparam);
+    tangar_menu::Hover(this, pos.x, pos.y, wparam, false);
     return 0;
 #else
     this->UpdateButtonState(wparam, pos);
@@ -2961,7 +2961,7 @@ int32_t VisMainMenu::OnLButtonDown(uint32_t wparam, CPoint pos) {
 #if defined(A2CLIENT) && defined(A2TANGAR_HAT)
     // Tangar MENU_hover1 (client 4AF8E6): replaces UpdateButtonState and the
     // retail click sound (the patch plays it from inside the hit-test).
-    tangar_menu::Hover(this, pos.x, pos.y, wparam);
+    tangar_menu::Hover(this, pos.x, pos.y, wparam, true);
     return 1;
 #else
     this->UpdateButtonState(wparam, pos);
@@ -3074,6 +3074,9 @@ void VisMainMenu::VMethod28() {
     this->active_button = -1;
     this->pressed_button = -1;
     this->over_button = -1;
+#if defined(A2CLIENT) && defined(A2TANGAR_HAT)
+    tangar_menu::Reset();
+#endif
     LockSurface2();
     FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
     UnlockSurface2();

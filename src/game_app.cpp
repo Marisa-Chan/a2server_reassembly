@@ -1021,16 +1021,28 @@ int GameApp::Run() {
     uint32_t last_idle_ts = timeGetTime();
 
     for (;;) {
-        while (bIdle && !::PeekMessage(pMsg, NULL, NULL, NULL, PM_NOREMOVE)) {
+        if (this->m_pMainWnd == nullptr) {
+            return this->ExitInstance();
+        }
+
+        while (bIdle && this->m_pMainWnd != nullptr && !::PeekMessage(pMsg, NULL, NULL, NULL, PM_NOREMOVE)) {
             if (!this->OnIdle(lIdleCount++)) {
                 bIdle = FALSE;
             }
             last_idle_ts = timeGetTime();
         }
 
+        if (this->m_pMainWnd == nullptr) {
+            return this->ExitInstance();
+        }
+
         int32_t pumped = 0;
         do {
             if (!this->PumpMessage()) {
+                return this->ExitInstance();
+            }
+
+            if (this->m_pMainWnd == nullptr) {
                 return this->ExitInstance();
             }
 
@@ -1057,6 +1069,9 @@ int GameApp::Run() {
                     if (!this->OnIdle(lIdleCount++)) {
                         bIdle = FALSE;
                     }
+                    if (this->m_pMainWnd == nullptr) {
+                        return this->ExitInstance();
+                    }
                     last_idle_ts = timeGetTime();
                     pumped = 0;
                     if (!::PeekMessage(&next_msg, NULL, NULL, NULL, PM_NOREMOVE)) {
@@ -1074,6 +1089,11 @@ BOOL GameApp::OnIdle(LONG lCount) {
     static uint32_t idle_tick = 0;
 
     MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+    if (mwnd == nullptr) {
+        return 0;
+    }
+#endif
 
     if (mwnd->sessionMode == SESSION_SERVER && g_Server) {
         mwnd->IdleLoop();
@@ -1113,7 +1133,13 @@ BOOL GameApp::OnIdle(LONG lCount) {
     g_NetStru1_main.ProcessConnections();
     g_mousept.Update();
 
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+    if (AfxGetMainWnd() != nullptr && mwnd->vis_root != nullptr) {
+        mwnd->vis_root->MsgProc(VIS_MSG_CURSOR_BLINK, 0, 0);
+    }
+#else
     mwnd->vis_root->MsgProc(VIS_MSG_CURSOR_BLINK, 0, 0);
+#endif
 
     return 1;
 }

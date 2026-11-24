@@ -56,6 +56,9 @@ static int EnumSessionsPump() {
     MSG msg;
     if (PeekMessageA(&msg, nullptr, 0, 0, PM_REMOVE) != 0) {
         if (msg.message == WM_QUIT) {
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+            PostQuitMessage(static_cast<int>(msg.wParam));
+#endif
             return 0;
         }
         if (msg.message == VIS_MSG_CLOSE_SCREEN) {

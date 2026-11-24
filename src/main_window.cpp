@@ -587,6 +587,9 @@ int32_t MainWindow::WaitHatConnection() {
         MSG msg;
         if (PeekMessageA(&msg, nullptr, 0, 0, PM_REMOVE) != 0) {
             if (msg.message == WM_QUIT) {
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+                PostQuitMessage(static_cast<int>(msg.wParam));
+#endif
                 return 0;
             }
             TranslateMessage(&msg);
@@ -789,6 +792,9 @@ int32_t MainWindow::ConnectToServerAddress() {
         MSG msg;
         if (PeekMessageA(&msg, nullptr, 0, 0, PM_REMOVE) != 0) {
             if (msg.message == WM_QUIT) {
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+                PostQuitMessage(static_cast<int>(msg.wParam));
+#endif
                 return 0;
             }
             TranslateMessage(&msg);
@@ -2952,6 +2958,9 @@ int32_t MainWindow::ClientWaitErrCode() {
         MSG msg;
         if (PeekMessageA(&msg, NULL, 0, 0, PM_REMOVE) != 0) {
             if (msg.message == WM_QUIT) {
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+                PostQuitMessage(static_cast<int>(msg.wParam));
+#endif
                 return -1;
             }
             TranslateMessage(&msg);
@@ -4002,6 +4011,9 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) {
                     MSG msg;
                     if (PeekMessageA(&msg, NULL, 0, 0, 1) != 0) {
                         if (msg.message == WM_QUIT) {
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+                            PostQuitMessage(static_cast<int>(msg.wParam));
+#endif
                             return 0;
                         }
 
@@ -4556,6 +4568,9 @@ int MainWindow::RunSessionBootstrap(int mode) {
             MSG msg;
             if (PeekMessageA(&msg, nullptr, 0, 0, 1)) {
                 if (msg.message == WM_QUIT) {
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+                    PostQuitMessage(static_cast<int>(msg.wParam));
+#endif
                     return 0;
                 }
 
@@ -5834,6 +5849,9 @@ int32_t MainWindow::RunModalLoopServer() {
     while(this->net_session.hat_id == 0) {
         if (PeekMessageA(&msg, nullptr, 0, 0, 1) != 0) {
             if (msg.message == WM_QUIT) {
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+                PostQuitMessage(static_cast<int>(msg.wParam));
+#endif
                 return 0;
             }
 
@@ -5883,6 +5901,9 @@ int32_t MainWindow::RunModalLoopServer() {
             while (true) {
                 if (PeekMessageA(&msg, nullptr, 0, 0, 1) != 0) {
                     if (msg.message == WM_QUIT) {
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+                        PostQuitMessage(static_cast<int>(msg.wParam));
+#endif
                         return 0;
                     }
 
@@ -6209,6 +6230,9 @@ int32_t MainWindow::LeaveServerMode() {
         MSG msg;
         if (PeekMessageA(&msg, nullptr, 0, 0, 1) != 0) {
             if (msg.message == WM_QUIT) {
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+                PostQuitMessage(static_cast<int>(msg.wParam));
+#endif
                 return 0;
             }
 
@@ -6265,6 +6289,12 @@ void MainWindow::ShowNoCDIntro() {
     while(true) {
         MSG msg;
         if (PeekMessageA(&msg, NULL, 0, 0, PM_REMOVE)) {
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+            if (msg.message == WM_QUIT) {
+                PostQuitMessage(static_cast<int>(msg.wParam));
+                break;
+            }
+#endif
             if (msg.message == WM_QUIT || msg.message == WM_CLOSE || msg.message == WM_LBUTTONDOWN ||
                 msg.message == WM_RBUTTONDOWN || msg.message == WM_KEYDOWN || msg.message == WM_SYSKEYDOWN) {
                 TranslateMessage(&msg);
@@ -6361,6 +6391,9 @@ int CGameSession::SubmitCharacterSetupAndWaitForSelectedUnit() {
 
             if (PeekMessageA(&msg, NULL, 0, 0, 1) != 0) {
                 if (msg.message == WM_QUIT) {
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+                    PostQuitMessage(static_cast<int>(msg.wParam));
+#endif
                     return 0;
                 }
                 TranslateMessage(&msg);

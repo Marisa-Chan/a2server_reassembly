@@ -147,14 +147,24 @@ void VisPlayingArea::CloseHatOverlays() {
             // Drop any already-queued MAIN_MSG_CHILD_CLOSED for `child` so Proc_44c
             // cannot double-delete it or clear DIALOG_MASK_POPUP for the next overlay.
             CArray<MSG> kept_msgs;
+            bool quit_seen = false;
+            WPARAM quit_code = 0;
             MSG msg;
             while (PeekMessageA(&msg, wnd->m_hWnd, MAIN_MSG_CHILD_CLOSED, MAIN_MSG_CHILD_CLOSED, PM_REMOVE | PM_NOYIELD)) {
+                if (msg.message == WM_QUIT) {
+                    quit_seen = true;
+                    quit_code = msg.wParam;
+                    break;
+                }
                 if ((CVisualObject*)msg.wParam != child) {
                     kept_msgs.Add(msg);
                 }
             }
             for (int32_t i = 0; i < kept_msgs.GetSize(); i++) {
                 PostMessageA(wnd->m_hWnd, kept_msgs[i].message, kept_msgs[i].wParam, kept_msgs[i].lParam);
+            }
+            if (quit_seen) {
+                PostQuitMessage(static_cast<int>(quit_code));
             }
 #endif
             wnd->vis_root->RemoveChild(child);
@@ -2781,6 +2791,9 @@ int32_t VisPlayingArea::SendEnterGameAndWait() {
         MSG msg;
         if (PeekMessageA(&msg, NULL, 0, 0, 1) != 0) {
             if (msg.message == WM_QUIT) {
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+                PostQuitMessage(static_cast<int>(msg.wParam));
+#endif
                 return 0;
             }
 
@@ -2812,6 +2825,9 @@ int32_t VisPlayingArea::SendEnterGameAndWait() {
             MSG msg;
             if (PeekMessageA(&msg, NULL, 0, 0, 1) != 0) {
                 if (msg.message == WM_QUIT) {
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+                    PostQuitMessage(static_cast<int>(msg.wParam));
+#endif
                     return 0;
                 }
 

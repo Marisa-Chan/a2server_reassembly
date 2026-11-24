@@ -504,6 +504,13 @@ int32_t PlaySmackerVideo(HWND hwnd, const char* path) {
         MSG msg;
         for (;;) {
             while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+                if (msg.message == WM_QUIT) {
+                    PostQuitMessage(static_cast<int>(msg.wParam));
+                    player.Stop();
+                    return 0;
+                }
+#endif
                 if (msg.message == WM_QUIT || msg.message == WM_CLOSE ||
                     msg.message == WM_LBUTTONDOWN || msg.message == WM_RBUTTONDOWN ||
                     msg.message == WM_KEYDOWN || msg.message == WM_SYSKEYDOWN) {

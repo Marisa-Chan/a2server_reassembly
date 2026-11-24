@@ -119,7 +119,12 @@ void Draw() {
     UnlockSurface2();
 }
 
-void Hover(VisMainMenu* menu, int32_t x, int32_t y, uint32_t buttons) {
+void Reset() {
+    buttonhover = -1;
+    buttonclick = -1;
+}
+
+void Hover(VisMainMenu* menu, int32_t x, int32_t y, uint32_t buttons, bool is_button_down) {
     const CRect& pRect = g_ScreenSize;
 
     int32_t xMin = pRect.right / 2 - 320;
@@ -139,7 +144,7 @@ void Hover(VisMainMenu* menu, int32_t x, int32_t y, uint32_t buttons) {
         // buttons is 1 or 2
         if (x >= bx && x < bx + bw && y >= by && y < by + bh) {
             buttonhover = i;
-            if (buttonclick < 0 && buttons == 1) {
+            if (is_button_down && buttonclick < 0 && buttons == 1) {
                 buttonclick = i;
                 // play menu sound
                 CSound::Play((CSound&)menu->snd_btn_click);
