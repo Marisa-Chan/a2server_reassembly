@@ -5673,14 +5673,32 @@ void MainWindow::StartHatDedicatedServer() {
     this->sessionMode = SESSION_SERVER;
     g_NetStru1_main.SetLLDriver(&g_CLlDriver);
     g_CLlDriver.SetHlDriver(&g_NetStru1_main);
+#ifdef A2SERVER_PATCH
+    Printf("[tcp] StartHatDedicatedServer (pid=%lu, server_id=%u): initializing TCP/IP (ip_address=\"%s\", max_players=%u, name=\"%s\")",
+           GetCurrentProcessId(),
+           g_ServerConfig.server_id,
+           (const char*)g_ServerConfig.ip_address,
+           g_ServerConfig.max_players,
+           (const char*)this->m_GameSession.character_name);
+    int32_t reset_ok = g_CLlDriver.ResetProvider(PROVIDER_HAT_TCP);
+    if (reset_ok == 0) {
+        Printf("[tcp] StartHatDedicatedServer: ResetProvider(PROVIDER_HAT_TCP) failed");
+    }
+#else
     g_CLlDriver.ResetProvider(PROVIDER_HAT_TCP);
+#endif
 
     CLlAddress addr;
     strcpy(addr.address, g_ServerConfig.ip_address);
 
     if (g_CLlDriver.StartServer(g_ServerConfig.max_players, this->m_GameSession.character_name, &addr) == 0) {
 #ifdef A2SERVER_PATCH
-        Printf("Error: Error initializing TCP/IP connection");
+        Printf("Error: Error initializing TCP/IP connection (pid=%lu, server_id=%u, ip_address=\"%s\", max_players=%u, reset_provider=%d)",
+               GetCurrentProcessId(),
+               g_ServerConfig.server_id,
+               (const char*)g_ServerConfig.ip_address,
+               g_ServerConfig.max_players,
+               reset_ok);
         Config::ExitingCleanly = true;
 #else
         AfxMessageBox("Error initializing TCP/IP connection", 0, 0);

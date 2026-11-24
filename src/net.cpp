@@ -36,7 +36,10 @@
 #include "patch/flags.h"
 #endif
 #ifdef A2SERVER_PATCH
+#include <cerrno>
+#include <string>
 #include "patch/flags.h"
+#include "patch/tangar_log.h"
 #endif
 #ifdef A2TANGAR_HAT
 #include "patch/config_new.h"
@@ -73,6 +76,68 @@ NetStru1 g_NetStru1_local(0);  //6b16b0
 
 CLlDriver g_CLlDriver(Allods2GUID, &g_NetStru1_main); //6d07a0
 CLlDriver g_HatLLDriver(Allods2GUID, &NetStru1::HatConnector); //6cdbc0
+
+#ifdef A2SERVER_PATCH
+namespace {
+
+const char* TcpDriverLabel(const CLlDriver* drv) {
+    if (drv == &g_CLlDriver) {
+        return "server";
+    }
+    if (drv == &g_HatLLDriver) {
+        return "hat";
+    }
+    return "other";
+}
+
+std::string FormatWinSockError(int32_t err) {
+    char msg_buf[256] = {};
+    DWORD len = FormatMessageA(
+        FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+        nullptr,
+        static_cast<DWORD>(err),
+        MAKELANGID(LANG_ENGLISH, SUBLANG_ENGLISH_US),
+        msg_buf,
+        sizeof(msg_buf),
+        nullptr);
+    if (len == 0) {
+        len = FormatMessageA(
+            FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+            nullptr,
+            static_cast<DWORD>(err),
+            0,
+            msg_buf,
+            sizeof(msg_buf),
+            nullptr);
+    }
+    while (len > 0 && (msg_buf[len - 1] == '\r' || msg_buf[len - 1] == '\n' || msg_buf[len - 1] == ' ')) {
+        msg_buf[--len] = '\0';
+    }
+    char out[320];
+    if (len > 0) {
+        _snprintf(out, sizeof(out) - 1, "%d (%s)", err, msg_buf);
+    } else {
+        _snprintf(out, sizeof(out) - 1, "%d", err);
+    }
+    out[sizeof(out) - 1] = '\0';
+    return out;
+}
+
+std::string FormatSockAddrIn(const sockaddr_in* sa) {
+    if (sa == nullptr) {
+        return "<null>";
+    }
+    in_addr addr_copy = sa->sin_addr;
+    char ip_buf[INET_ADDRSTRLEN] = {};
+    const char* ip_str = InetNtopA(AF_INET, &addr_copy, ip_buf, sizeof(ip_buf));
+    char out[64];
+    _snprintf(out, sizeof(out) - 1, "%s:%u", ip_str != nullptr ? ip_str : "<invalid>", static_cast<unsigned int>(ntohs(sa->sin_port)));
+    out[sizeof(out) - 1] = '\0';
+    return out;
+}
+
+} // namespace
+#endif
 
 
 // 526621 (client: 515453)
@@ -2927,7 +2992,12 @@ int CLlDriver::ResetProvider(int prov) {
 // 52359b (client: 512c58)
 int CLlDriver::CreateTcp() {
     WSADATA wsa;
-    if (WSAStartup(0x101, &wsa) != 0) {
+    int32_t wsa_err = WSAStartup(0x101, &wsa);
+    if (wsa_err != 0) {
+#ifdef A2SERVER_PATCH
+        Printf("[tcp:%s] CreateTcp: WSAStartup(0x101) failed: %s",
+               TcpDriverLabel(this), FormatWinSockError(wsa_err).c_str());
+#endif
         return 0;
     }
 
@@ -2935,6 +3005,10 @@ int CLlDriver::CreateTcp() {
         return 1;
     }
 
+#ifdef A2SERVER_PATCH
+    Printf("[tcp:%s] CreateTcp: unexpected Winsock version wVersion=0x%04x (wHighVersion=0x%04x, expected 0x0101)",
+           TcpDriverLabel(this), wsa.wVersion, wsa.wHighVersion);
+#endif
     WSACleanup();
     return 0;
 }
@@ -3008,6 +3082,10 @@ int CLlDriver::MakeSockAddr(const char* address, sockaddr_in* out, int port, int
     strcpy(buf, address);
 
     if (buf[0] == 0) {
+#ifdef A2SERVER_PATCH
+        Printf("[tcp:%s] MakeSockAddr: empty address string (default_port=%d, resolve=%d)",
+               TcpDriverLabel(this), port, resolve);
+#endif
         out->sin_addr.S_un.S_addr = 0;
         out->sin_port = 0;
         return 0;
@@ -3026,13 +3104,26 @@ int CLlDriver::MakeSockAddr(const char* address, sockaddr_in* out, int port, int
     out->sin_family = AF_INET;
     if (InetPton(AF_INET, buf, &out->sin_addr.S_un.S_addr) != 1) {
         out->sin_addr.S_un.S_addr = INADDR_NONE;
+#ifdef A2SERVER_PATCH
+        if (resolve == 0) {
+            Printf("[tcp:%s] MakeSockAddr: InetPton failed for host=\"%s\" (raw=\"%s\", port=%u) with resolve=0; sin_addr left as INADDR_NONE",
+                   TcpDriverLabel(this), buf, address, static_cast<unsigned int>(ntohs(out->sin_port)));
+        }
+#endif
     }
 
     if (out->sin_addr.S_un.S_addr == INADDR_NONE && resolve != 0) {
         addrinfo hints = {};
         hints.ai_family = AF_INET;
         addrinfo* res = nullptr;
-        if (GetAddrInfo(buf, nullptr, &hints, &res) != 0 || res == nullptr) {
+        int32_t gai_err = GetAddrInfo(buf, nullptr, &hints, &res);
+        if (gai_err != 0 || res == nullptr) {
+#ifdef A2SERVER_PATCH
+            int32_t wsa_err = WSAGetLastError();
+            Printf("[tcp:%s] MakeSockAddr: GetAddrInfo failed for host=\"%s\" (raw=\"%s\", port=%u): gai=%s, wsa=%s",
+                   TcpDriverLabel(this), buf, address, static_cast<unsigned int>(ntohs(out->sin_port)),
+                   FormatWinSockError(gai_err).c_str(), FormatWinSockError(wsa_err).c_str());
+#endif
             if (res != nullptr) {
                 FreeAddrInfo(res);
             }
@@ -3058,24 +3149,66 @@ int CLlDriver::StartServerTcp() {
 
     this->listen_socket.socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     if (this->listen_socket.socket == INVALID_SOCKET) {
+#ifdef A2SERVER_PATCH
+        int32_t err = WSAGetLastError();
+        Printf("[tcp:%s] StartServerTcp: socket(AF_INET, SOCK_STREAM, IPPROTO_TCP) failed: %s",
+               TcpDriverLabel(this), FormatWinSockError(err).c_str());
+#endif
         this->CloseTcp();
         return 0;
     }
     u_long nonblock = 1;
-    ioctlsocket(this->listen_socket.socket, FIONBIO, &nonblock);
+    if (ioctlsocket(this->listen_socket.socket, FIONBIO, &nonblock) != 0) {
+#ifdef A2SERVER_PATCH
+        int32_t err = WSAGetLastError();
+        Printf("[tcp:%s] StartServerTcp: ioctlsocket(FIONBIO) warning on socket=0x%llx: %s",
+               TcpDriverLabel(this), static_cast<unsigned long long>(this->listen_socket.socket),
+               FormatWinSockError(err).c_str());
+#endif
+    }
+
+#ifdef A2SERVER_PATCH
+    if (this->server_start_addr == nullptr) {
+        Printf("[tcp:%s] StartServerTcp: server_start_addr is null", TcpDriverLabel(this));
+        this->CloseTcp();
+        return 0;
+    }
+#endif
 
     sockaddr addr;
     if (this->MakeSockAddr(this->server_start_addr->address, (sockaddr_in*)&addr, 8000, 0) == 0) {
+#ifdef A2SERVER_PATCH
+        Printf("[tcp:%s] StartServerTcp: MakeSockAddr failed for address=\"%s\"",
+               TcpDriverLabel(this), this->server_start_addr->address);
+#endif
         this->CloseTcp();
         return 0;
     }
 
     if (bind(this->listen_socket.socket, &addr, sizeof(addr)) != 0) {
+#ifdef A2SERVER_PATCH
+        int32_t err = WSAGetLastError();
+        Printf("[tcp:%s] StartServerTcp: bind(%s) (raw=\"%s\", socket=0x%llx) failed: %s",
+               TcpDriverLabel(this),
+               FormatSockAddrIn((const sockaddr_in*)&addr).c_str(),
+               this->server_start_addr->address,
+               static_cast<unsigned long long>(this->listen_socket.socket),
+               FormatWinSockError(err).c_str());
+#endif
         this->CloseTcp();
         return 0;
     }
 
     if (listen(this->listen_socket.socket, this->max_connections) != 0) {
+#ifdef A2SERVER_PATCH
+        int32_t err = WSAGetLastError();
+        Printf("[tcp:%s] StartServerTcp: listen(%s, backlog=%u, socket=0x%llx) failed: %s",
+               TcpDriverLabel(this),
+               FormatSockAddrIn((const sockaddr_in*)&addr).c_str(),
+               this->max_connections,
+               static_cast<unsigned long long>(this->listen_socket.socket),
+               FormatWinSockError(err).c_str());
+#endif
         this->CloseTcp();
         return 0;
     }
@@ -3083,6 +3216,11 @@ int CLlDriver::StartServerTcp() {
     this->listen_socket.wait_obj = CreateEventA(NULL, 0, 0, NULL);
 #if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
     if (this->listen_socket.wait_obj == nullptr) {
+#ifdef A2SERVER_PATCH
+        int32_t err = static_cast<int32_t>(GetLastError());
+        Printf("[tcp:%s] StartServerTcp: CreateEventA failed: %s",
+               TcpDriverLabel(this), FormatWinSockError(err).c_str());
+#endif
         this->CloseTcp();
         return 0;
     }
@@ -3091,6 +3229,12 @@ int CLlDriver::StartServerTcp() {
     this->listen_socket.is_in_use = 1;
 
     if (_beginthread(AcceptThreadTcp, 0, this) == -1L) {
+#ifdef A2SERVER_PATCH
+        int32_t crt_err = errno;
+        uint32_t dos_err = _doserrno;
+        Printf("[tcp:%s] StartServerTcp: _beginthread(AcceptThreadTcp) failed: errno=%d (%s), doserrno=%u",
+               TcpDriverLabel(this), crt_err, std::strerror(crt_err), dos_err);
+#endif
         this->listen_socket.is_in_use = 0;
         CloseHandle(this->listen_socket.wait_obj);
         this->listen_socket.wait_obj = nullptr;
@@ -3106,6 +3250,19 @@ int CLlDriver::StartServerTcp() {
     }
 
     this->guaranteed = 1;
+#endif
+
+#ifdef A2SERVER_PATCH
+    {
+        sockaddr_in bound = *(const sockaddr_in*)&addr;
+        int32_t bound_len = sizeof(bound);
+        getsockname(this->listen_socket.socket, (sockaddr*)&bound, &bound_len);
+        Printf("[tcp:%s] StartServerTcp: listening on %s (socket=0x%llx, max_connections=%u)",
+               TcpDriverLabel(this),
+               FormatSockAddrIn(&bound).c_str(),
+               static_cast<unsigned long long>(this->listen_socket.socket),
+               this->max_connections);
+    }
 #endif
 
     return 1;
@@ -3851,6 +4008,10 @@ int CLlDriver::StartServer(int maxconn, const char* name, CLlAddress* addr) {
     this->connections_info = new SocketNm[this->max_connections]();
 
     if (this->listen_socket.is_in_use == 1) {
+#ifdef A2SERVER_PATCH
+        Printf("[tcp:%s] StartServer: closing previously active listener before starting new session",
+               TcpDriverLabel(this));
+#endif
         this->Close();
     }
 
@@ -3858,11 +4019,22 @@ int CLlDriver::StartServer(int maxconn, const char* name, CLlAddress* addr) {
 
     if (this->provider == PROVIDER_HAT_TCP) {
         if (this->StartServerTcp() == 0) {
+#ifdef A2SERVER_PATCH
+            Printf("[tcp:%s] StartServer: StartServerTcp failed (addr=\"%s\", max_connections=%u, comp_name=\"%s\")",
+                   TcpDriverLabel(this),
+                   this->server_start_addr != nullptr ? this->server_start_addr->address : "<null>",
+                   this->max_connections,
+                   this->comp_name);
+#endif
             ReportWarning("CLlDriver::StartServer().\nUnable to connect over TCP/IP.\n");
             return 0;
         }
     } else {
         if (this->StartServerDp() == 0) {
+#ifdef A2SERVER_PATCH
+            Printf("[tcp:%s] StartServer: StartServerDp failed (provider=%d, max_connections=%u)",
+                   TcpDriverLabel(this), static_cast<int>(this->provider), this->max_connections);
+#endif
             ReportWarning("CLlDriver::StartServer().\nUnable to connect over DirectPlay.\n");
             return 0;
         }
@@ -4011,6 +4183,11 @@ int CLlDriver::ConnectTcp() {
     this->listen_socket.socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     
     if (this->listen_socket.socket == INVALID_SOCKET) {
+#ifdef A2SERVER_PATCH
+        int32_t err = WSAGetLastError();
+        Printf("[tcp:%s] ConnectTcp: socket(AF_INET, SOCK_STREAM, IPPROTO_TCP) failed: %s",
+               TcpDriverLabel(this), FormatWinSockError(err).c_str());
+#endif
         this->CloseTcp();
         return 0;
     }
@@ -4019,16 +4196,39 @@ int CLlDriver::ConnectTcp() {
     sockaddr bindaddr;
     if (this->MakeSockAddr(this->address_str, (sockaddr_in*)&connaddr, 8000, 1) == 0 ||
         this->MakeSockAddr(this->cur_address.address, (sockaddr_in*)&bindaddr, 0, 0) == 0) {
+#ifdef A2SERVER_PATCH
+        Printf("[tcp:%s] ConnectTcp: MakeSockAddr failed (remote=\"%s\", local=\"%s\")",
+               TcpDriverLabel(this), this->address_str, this->cur_address.address);
+#endif
         this->CloseTcp();
         return 0;
     }
 
     if (bind(this->listen_socket.socket, &bindaddr, sizeof(bindaddr)) != 0) {
+#ifdef A2SERVER_PATCH
+        int32_t err = WSAGetLastError();
+        Printf("[tcp:%s] ConnectTcp: bind(%s) (raw_local=\"%s\", socket=0x%llx) failed: %s",
+               TcpDriverLabel(this),
+               FormatSockAddrIn((const sockaddr_in*)&bindaddr).c_str(),
+               this->cur_address.address,
+               static_cast<unsigned long long>(this->listen_socket.socket),
+               FormatWinSockError(err).c_str());
+#endif
         this->CloseTcp();
         return 0;
     }
 
     if (connect(this->listen_socket.socket, &connaddr, sizeof(connaddr)) != 0) {
+#ifdef A2SERVER_PATCH
+        int32_t err = WSAGetLastError();
+        Printf("[tcp:%s] ConnectTcp: connect(%s -> %s) (raw_remote=\"%s\", socket=0x%llx) failed: %s",
+               TcpDriverLabel(this),
+               FormatSockAddrIn((const sockaddr_in*)&bindaddr).c_str(),
+               FormatSockAddrIn((const sockaddr_in*)&connaddr).c_str(),
+               this->address_str,
+               static_cast<unsigned long long>(this->listen_socket.socket),
+               FormatWinSockError(err).c_str());
+#endif
         this->CloseTcp();
         return 0;
     }
@@ -4040,6 +4240,11 @@ int CLlDriver::ConnectTcp() {
     this->listen_socket.wait_obj = CreateEventA(NULL, 0, 0, NULL);
 #if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
     if (this->listen_socket.wait_obj == nullptr) {
+#ifdef A2SERVER_PATCH
+        int32_t err = static_cast<int32_t>(GetLastError());
+        Printf("[tcp:%s] ConnectTcp: CreateEventA failed: %s",
+               TcpDriverLabel(this), FormatWinSockError(err).c_str());
+#endif
         this->CloseTcp();
         return 0;
     }
@@ -4049,6 +4254,12 @@ int CLlDriver::ConnectTcp() {
     this->listen_socket.is_in_use = 1;
 
     if (_beginthread(AcceptThreadTcp, 0x400, this) == -1L) {
+#ifdef A2SERVER_PATCH
+        int32_t crt_err = errno;
+        uint32_t dos_err = _doserrno;
+        Printf("[tcp:%s] ConnectTcp: _beginthread(AcceptThreadTcp) failed: errno=%d (%s), doserrno=%u",
+               TcpDriverLabel(this), crt_err, std::strerror(crt_err), dos_err);
+#endif
         this->listen_socket.is_in_use = 0;
         this->num_connections = 0;
         CloseHandle(this->listen_socket.wait_obj);
@@ -4066,6 +4277,19 @@ int CLlDriver::ConnectTcp() {
 
     this->num_connections = 1;
     this->guaranteed = 1;
+#endif
+
+#ifdef A2SERVER_PATCH
+    {
+        sockaddr_in local_bound = *(const sockaddr_in*)&bindaddr;
+        int32_t bound_len = sizeof(local_bound);
+        getsockname(this->listen_socket.socket, (sockaddr*)&local_bound, &bound_len);
+        Printf("[tcp:%s] ConnectTcp: connected %s -> %s (socket=0x%llx)",
+               TcpDriverLabel(this),
+               FormatSockAddrIn(&local_bound).c_str(),
+               FormatSockAddrIn((const sockaddr_in*)&connaddr).c_str(),
+               static_cast<unsigned long long>(this->listen_socket.socket));
+    }
 #endif
 
     return 1;
