@@ -180,7 +180,7 @@ Token::Token() {
     this->pOwner = nullptr;
     this->position = new TokenPos(0, MapStuff_Instance);
     this->sent_to_mask = 0;
-    this->_exp = 0;
+    this->worth = 0;
     this->building_id = 0;
 }
 
@@ -191,7 +191,7 @@ Token::Token(const Token& b) {
     this->pOwner = b.pOwner;
     this->TokenID = b.TokenID;
     this->sent_to_mask = b.sent_to_mask;
-    this->_exp = b._exp;
+    this->worth = b.worth;
     //building_id = b.building_id;  // No copy in vanilla?
     if (b.position == nullptr) {
         this->position = nullptr;
@@ -207,7 +207,7 @@ Token::Token(const TokenPos* tpos) {
     this->pOwner = nullptr;
     this->position = new TokenPos(*tpos);
     this->sent_to_mask = 0;
-    this->_exp = 0;
+    this->worth = 0;
     this->building_id = 0;
 }
 
@@ -216,7 +216,7 @@ Token::Token(const TokenPos* tpos, Player* pl) {
     this->pOwner = pl;
     this->position = new TokenPos(*tpos);
     this->sent_to_mask = 0;
-    this->_exp = 0;
+    this->worth = 0;
     this->building_id = 0;
 }
 
@@ -283,7 +283,7 @@ void Token::Serialize(CArchive& ar) {
         ar.Write(&this->typeId, 2);
         ar.Write(&this->TokenID, 4);
         ar.Write(&this->sent_to_mask, 2);
-        ar.Write(&this->_exp, 4);
+        ar.Write(&this->worth, 4);
         void* ptr = this;
         ar.Write(&ptr, 4); //32
         ar.Write(&this->pOwner, 4); //32
@@ -297,7 +297,7 @@ void Token::Serialize(CArchive& ar) {
         ar.Read(&this->TokenID, 4);
         ar.Read(&this->sent_to_mask, 2);
         this->sent_to_mask = 0; //WTF?
-        ar.Read(&this->_exp, 4);
+        ar.Read(&this->worth, 4);
         void* ptr = nullptr;
         ar.Read(&ptr, 4); //32
         g_Server->saved_ptr_map[ptr] = this;

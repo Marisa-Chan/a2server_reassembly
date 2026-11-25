@@ -135,9 +135,9 @@ void CMultiShopInstance::Sell() {
 
         Item* item = this->inventory.items.GetNext(next_pos);
 
-        if (item && item->pOwner != nullptr && item->_exp != 0) {
+        if (item && item->pOwner != nullptr && item->worth != 0) {
 #ifdef A2SERVER_PATCH
-            int64_t price64 = static_cast<int64_t>(static_cast<uint16_t>(item->count)) * static_cast<int64_t>(item->_exp);
+            int64_t price64 = static_cast<int64_t>(static_cast<uint16_t>(item->count)) * static_cast<int64_t>(item->worth);
             if (price64 > INT32_MAX || price64 < INT32_MIN) {
                 LogMoneyCheatAttempt(this->unit->pOwner);
                 break;
@@ -151,7 +151,7 @@ void CMultiShopInstance::Sell() {
             }
             item->pOwner->money = static_cast<int32_t>(new_money);
 #else
-            int32_t price = item->count * item->_exp;
+            int32_t price = item->count * item->worth;
             item->pOwner->money += (int32_t)(price * 0.5L + 0.5L);
 #endif
 
@@ -182,14 +182,14 @@ void CMultiShopInstance::Buy() {
 
         if (item && item->pOwner == nullptr) {
 #ifdef A2SERVER_PATCH
-            int64_t price64 = static_cast<int64_t>(static_cast<uint16_t>(item->count)) * static_cast<int64_t>(item->_exp);
+            int64_t price64 = static_cast<int64_t>(static_cast<uint16_t>(item->count)) * static_cast<int64_t>(item->worth);
             if (price64 > INT32_MAX || price64 < INT32_MIN) {
                 LogMoneyCheatAttempt(this->unit->pOwner);
                 break;
             }
             int32_t price = static_cast<int32_t>(price64);
 #else
-            int32_t price = item->count * item->_exp;
+            int32_t price = item->count * item->worth;
 #endif
             if (this->unit->pOwner->money < price) {
                 break;

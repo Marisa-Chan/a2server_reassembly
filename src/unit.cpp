@@ -545,7 +545,7 @@ void Unit::CopyFrom(Unit* unit) {
 
     this->pOwner = unit->pOwner;
     this->sent_to_mask = 0;
-    this->_exp = unit->_exp;
+    this->worth = unit->worth;
 
     while (!this->_effects.IsEmpty()) {
         Effect* e = this->_effects.RemoveHead();
@@ -1288,7 +1288,7 @@ void Unit::RecalcStats() {
 
 // 57b7f0 (client: 54c3b0)
 uint32_t Unit::RecalcExperience() {
-    return this->_exp;
+    return this->worth;
 }
 
 // 52fed7 (client: 51bcab)
@@ -2233,7 +2233,7 @@ void Unit::ApplyMonsterInfo(const CArray<MonsterInfoData>& values) {
         this->eye2->seeInvisible = (uint8_t)data.see_invisible;
     }
     if (data.experience != -1) {
-        this->_exp = data.experience;
+        this->worth = data.experience;
     }
 }
 
@@ -2352,7 +2352,7 @@ void Unit::InitFromMonsterName(const CString& name) {
     this->RecalcExperience();
 
     if (data.experience > 0) {
-        this->_exp = data.experience;
+        this->worth = data.experience;
     }
 
     // Initialize eye and world state
@@ -2541,7 +2541,7 @@ void Humanoid::AwardKillMoney(Unit* unit) {
     if (this->hp < 0) {
         return;
     }
-    this->pOwner->AddMoney(unit->_exp, 1);
+    this->pOwner->AddMoney(unit->worth, 1);
 }
 
 // 5315ec (client: 51d2a7)
@@ -2783,8 +2783,8 @@ uint32_t Humanoid::RecalcExperience() {
         exps += ex;
     }
 
-    this->_exp = (exps * 0.01);
-    return this->_exp;
+    this->worth = (exps * 0.01);
+    return this->worth;
 }
 
 // 530745 (client: 51c507)
@@ -2946,7 +2946,7 @@ void Humanoid::AwardKillExperience(Unit* unit, int32_t spell_id) {
     if (spell_id != 0 && (this->unit_attrs & Unit::ATTR_MAGE) != 0) {
         sphere = g_GameDataRes.spells[spell_id].Values().GetData()->sphere;
     }
-    this->AddExperience((int32_t)(unit->_exp * 0.5), unit, sphere);
+    this->AddExperience((int32_t)(unit->worth * 0.5), unit, sphere);
     if (!unit) {
         return;
     }
@@ -2979,7 +2979,7 @@ void Humanoid::AwardDamageExperience(Unit* unit, uint32_t damage, int32_t spell_
         sphere = g_GameDataRes.spells[spell_id].Values().GetData()->sphere;
     }
     if (unit != nullptr && unit->pOwner != nullptr && unit->pOwner->is_ai) {
-        int32_t xp = (int32_t)(unit->_exp * 0.5 * damage / unit->hp_max + 1.0);
+        int32_t xp = (int32_t)(unit->worth * 0.5 * damage / unit->hp_max + 1.0);
         this->AddExperience(xp, unit, sphere);
     }
 }
@@ -3412,7 +3412,7 @@ void Human::Serialize(CArchive& ar) {
 
 // 5339a6 (client: 51f1b1)
 void Human::GiveLevelReward() {
-    int32_t level = (this->_exp > 1000) ? (this->_exp / 10) : 0;
-    Item* item = RollRandomItem(level, this->_exp);
+    int32_t level = (this->worth > 1000) ? (this->worth / 10) : 0;
+    Item* item = RollRandomItem(level, this->worth);
     this->inventory->PutItemIntoBagAtDefault(item);
 }

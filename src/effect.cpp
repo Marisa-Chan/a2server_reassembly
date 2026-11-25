@@ -587,8 +587,8 @@ int32_t Effect::CalcScrollPrice() {
         // p10st2.xck (52916f..529195): reject spell_id == 0 or > 0x1D (spell::max_spell_id)
         uint8_t spell_id = this->damage_min;
         if (spell_id == 0 || spell_id > spell::max_spell_id) {
-            this->_exp = 0;
-            return this->_exp;
+            this->worth = 0;
+            return this->worth;
         }
         int32_t scroll_cost = g_GameDataRes.spells[spell_id].Values()[0].scroll_cost;
 #else
@@ -599,11 +599,11 @@ int32_t Effect::CalcScrollPrice() {
         int32_t scroll_cost = g_GameDataRes.spells[this->spell_or_damage].Values()[0].scroll_cost;
 #endif
         double level = (double)this->spell_value / 30.0 + 1.0;
-        this->_exp = (int32_t)(std::pow(2.0, std::log(level) / std::log(1.2)) * (scroll_cost * 10));
+        this->worth = (int32_t)(std::pow(2.0, std::log(level) / std::log(1.2)) * (scroll_cost * 10));
     } else {
-        this->_exp = 0;
+        this->worth = 0;
     }
-    return this->_exp;
+    return this->worth;
 }
 
 // 541d59 (client: 52921c)
@@ -834,7 +834,7 @@ Effect* Effect::CreateFromString(const CString& effect_str) {
     } else {
         int32_t val = Effect::AtoI(&value);
         effect->full_magic_value = val;
-        effect->_exp = val * 50;
+        effect->worth = val * 50;
     }
     return effect;
 }

@@ -319,19 +319,19 @@ int32_t Item::OnUse(int32_t, int32_t) {
 
 // 54872b (client: 52d131)
 int32_t Item::CalcValue() {
-    this->_exp = this->world_equip->Values()[0].shape;
+    this->worth = this->world_equip->Values()[0].shape;
     if (this->item_type == Item::BOOK) {
         Effect* first_effect = this->_effects.IsEmpty() ? nullptr : this->_effects.GetHead();
         if (first_effect == nullptr) {
-            this->_exp = 0;
+            this->worth = 0;
         } else {
-            this->_exp = g_GameDataRes.spells[first_effect->spell_or_damage].Values()[0].book_cost;
+            this->worth = g_GameDataRes.spells[first_effect->spell_or_damage].Values()[0].book_cost;
         }
     }
     if (this->item_type == Item::SCROLL) {
-        this->_exp = this->world_equip->Values()[0].shape;
+        this->worth = this->world_equip->Values()[0].shape;
     }
-    return this->_exp;
+    return this->worth;
 }
 
 // 548817 (client: 52d1e4)
@@ -344,11 +344,11 @@ int32_t Item::IsSimpleItem() {
 
 // 549e86 (client: 52e1f8)
 void Item::WriteState(PacketUnitStateVec* packet, uint8_t* slot) {
-    if (this->_exp == -1) {
+    if (this->worth == -1) {
         slot[4] = ItemWireFlags::FLAG_USABLE;
         packet->AppendByteInt(modifier::price, 0, slot);
     } else {
-        packet->AppendByteInt(modifier::price, this->_exp, slot);
+        packet->AppendByteInt(modifier::price, this->worth, slot);
         slot[4] |= ItemWireFlags::FLAG_ALL_CLASSES;
         if (this->item_type == Item::BOOK) {
             slot[4] &= ~ItemWireFlags::FLAG_WARRIOR;
@@ -481,7 +481,7 @@ void Item::StoreToPacket(PacketUnitStateVec* pkt, int with_shelf_id) {
         }
     } else {
         wire_flags.has_magic_effects = 1;
-        SetU32(pdata + 3, this->_exp);
+        SetU32(pdata + 3, this->worth);
 
         int32_t cnt_flg = 0;
 
@@ -571,7 +571,7 @@ Effect* Item::FindCastSpellEffect() {
 
 // 548f07 (client: none) - IsArtifact: returns 1 if the item has magic and price 2.
 int Item::IsArtifact() {
-    if (this->_effects.GetCount() != 0 && this->_exp == 2) {
+    if (this->_effects.GetCount() != 0 && this->worth == 2) {
         return 1;
     }
     return 0;
@@ -869,28 +869,28 @@ Item* Armor::Clone() {
 int32_t Armor::CalcValue() {
     double shape_price = g_GameDataRes.shapes[this->shape_id].data.price;
     double material_price = g_GameDataRes.materials[this->material_id].data.price;
-    this->_exp = (int32_t)((double)this->world_equip->Values()[0].price * material_price * shape_price + 0.5);
+    this->worth = (int32_t)((double)this->world_equip->Values()[0].price * material_price * shape_price + 0.5);
 
     int32_t total = 0;
     POSITION pos = this->_effects.GetHeadPosition();
     while (pos != nullptr) {
         Effect* e = this->_effects.GetNext(pos);
         if (e->effect_id == modifier::price) {
-            this->_exp = e->full_magic_value;
-            return this->_exp;
+            this->worth = e->full_magic_value;
+            return this->worth;
         }
         total += e->EffectPrice();
     }
-    this->_exp += (int32_t)Effect::MagicPriceBonus(total);
-    if (this->_exp > 19999999) {
-        this->_exp = 19999999;
+    this->worth += (int32_t)Effect::MagicPriceBonus(total);
+    if (this->worth > 19999999) {
+        this->worth = 19999999;
     }
-    return this->_exp;
+    return this->worth;
 }
 
 // 54fca8 (client: 531968)
 void Armor::WriteState(PacketUnitStateVec* pkt, uint8_t* slot) {
-    pkt->AppendByteInt(modifier::price, this->_exp, slot);
+    pkt->AppendByteInt(modifier::price, this->worth, slot);
     slot[4] = 0;
     int32_t suitable_for = this->world_equip->Values()[0].suitable_for;
     if (suitable_for & equip_suitable::warrior) {
@@ -1054,28 +1054,28 @@ Item* Shield::Clone() {
 int32_t Shield::CalcValue() {
     double shape_price = g_GameDataRes.shapes[this->shape_id].data.price;
     double material_price = g_GameDataRes.materials[this->material_id].data.price;
-    this->_exp = (int32_t)((double)this->world_equip->Values()[0].price * material_price * shape_price + 0.5);
+    this->worth = (int32_t)((double)this->world_equip->Values()[0].price * material_price * shape_price + 0.5);
 
     int32_t total = 0;
     POSITION pos = this->_effects.GetHeadPosition();
     while (pos != nullptr) {
         Effect* e = this->_effects.GetNext(pos);
         if (e->effect_id == modifier::price) {
-            this->_exp = e->full_magic_value;
-            return this->_exp;
+            this->worth = e->full_magic_value;
+            return this->worth;
         }
         total += e->EffectPrice();
     }
-    this->_exp += (int32_t)Effect::MagicPriceBonus(total);
-    if (this->_exp > 19999999) {
-        this->_exp = 19999999;
+    this->worth += (int32_t)Effect::MagicPriceBonus(total);
+    if (this->worth > 19999999) {
+        this->worth = 19999999;
     }
-    return this->_exp;
+    return this->worth;
 }
 
 // 5506fc (client: 532317)
 void Shield::WriteState(PacketUnitStateVec* pkt, uint8_t* slot) {
-    pkt->AppendByteInt(modifier::price, this->_exp, slot);
+    pkt->AppendByteInt(modifier::price, this->worth, slot);
     slot[4] = 0;
     int32_t suitable_for = this->world_equip->Values()[0].suitable_for;
     if (suitable_for & equip_suitable::warrior) {
@@ -1325,31 +1325,31 @@ Item* Weapon::Clone() {
 int32_t Weapon::CalcValue() {
     double shape_price = g_GameDataRes.shapes[this->shape_id].data.price;
     double material_price = g_GameDataRes.materials[this->material_id].data.price;
-    this->_exp = (int32_t)((double)this->world_equip->Values()[0].price * material_price * shape_price + 0.5);
+    this->worth = (int32_t)((double)this->world_equip->Values()[0].price * material_price * shape_price + 0.5);
 
     int32_t total = 0;
     POSITION pos = this->_effects.GetHeadPosition();
     while (pos != nullptr) {
         Effect* e = this->_effects.GetNext(pos);
         if (e->effect_id == modifier::price) {
-            this->_exp = e->full_magic_value;
-            return this->_exp;
+            this->worth = e->full_magic_value;
+            return this->worth;
         } else if (e->effect_id == modifier::castspell) {
-            this->_exp += e->CalcScrollPrice();
+            this->worth += e->CalcScrollPrice();
         } else {
             total += e->EffectPrice();
         }
     }
-    this->_exp += (int32_t)Effect::MagicPriceBonus(total);
-    if (this->_exp > 19999999) {
-        this->_exp = 19999999;
+    this->worth += (int32_t)Effect::MagicPriceBonus(total);
+    if (this->worth > 19999999) {
+        this->worth = 19999999;
     }
-    return this->_exp;
+    return this->worth;
 }
 
 // 551855 (client: 53334b)
 void Weapon::WriteState(PacketUnitStateVec* pkt, uint8_t* slot) {
-    pkt->AppendByteInt(modifier::price, this->_exp, slot);
+    pkt->AppendByteInt(modifier::price, this->worth, slot);
     slot[4] = 0;
     int32_t suitable_for = this->world_equip->Values()[0].suitable_for;
     if (suitable_for & equip_suitable::warrior) {

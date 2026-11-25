@@ -407,7 +407,7 @@ struct SackVisualType {
     union {
         uint8_t raw;
         struct {
-            uint8_t gold_tier  : 6; // [5:0] (uint8_t)log10(sack->_exp)
+            uint8_t gold_tier  : 6; // [5:0] (uint8_t)log10(sack->worth)
             uint8_t has_rune_f : 1; // [6]   0x40 ("Quest RuneF")
             uint8_t has_rune_a : 1; // [7]   0x80 ("Quest RuneA")
         };

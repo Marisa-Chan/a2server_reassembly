@@ -38,10 +38,10 @@ void Sack::Init() {
 
 // 55401e (client: 5345b7)
 void Sack::CalcContentsValue() {
-    this->_exp = this->money;
+    this->worth = this->money;
     for (POSITION pos = this->inventory->items.GetHeadPosition(); pos != nullptr;) {
         Item* item = this->inventory->items.GetNext(pos);
-        this->_exp += item->_exp;
+        this->worth += item->worth;
     }
 }
 

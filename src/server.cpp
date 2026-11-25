@@ -8048,10 +8048,10 @@ int32_t SackList::DumpInventoryAt(TokenPos* pos, Inventory* inventory, int money
     
     // Calculate experience level for sack icon/name update
     double old_level;
-    if (sack->_exp <= 0) {
+    if (sack->worth <= 0) {
         old_level = -1.0;
     } else {
-        old_level = log10((double)sack->_exp);
+        old_level = log10((double)sack->worth);
     }
     int32_t old_level_trunc = (int32_t)old_level;
 
@@ -8061,7 +8061,7 @@ int32_t SackList::DumpInventoryAt(TokenPos* pos, Inventory* inventory, int money
     // Check if level changed; the original compares the truncated old value
     // against the full-precision new value, so this broadcasts more often
     // than an int-to-int comparison would.
-    double new_level = log10((double)sack->_exp);
+    double new_level = log10((double)sack->worth);
     if ((double)old_level_trunc != new_level) {
         // Broadcast sack update
         if (g_Server->multiplayer == 0) {

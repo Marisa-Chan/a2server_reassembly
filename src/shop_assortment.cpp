@@ -57,10 +57,10 @@ static int32_t __cdecl CompareItemsForSort(const void* a, const void* b) {
     if ((uint16_t)item_a->itemDataID < (uint16_t)item_b->itemDataID) {
         return -1;
     }
-    if (item_a->_exp > item_b->_exp) {
+    if (item_a->worth > item_b->worth) {
         return 1;
     }
-    if (item_a->_exp < item_b->_exp) {
+    if (item_a->worth < item_b->worth) {
         return -1;
     }
     return 0;
@@ -365,8 +365,8 @@ void ShopAssortment::AddMagicItems(CArray<MagicItem>* items) {
             continue;
         }
 
-        item->_exp = g_GameDataRes.spells[spell_id].Values()[0].book_cost;
-        if (item->_exp < this->min_cost || item->_exp > this->max_cost) {
+        item->worth = g_GameDataRes.spells[spell_id].Values()[0].book_cost;
+        if (item->worth < this->min_cost || item->worth > this->max_cost) {
             delete item;
             continue;
         }
@@ -391,7 +391,7 @@ void ShopAssortment::AddMagicItems(CArray<MagicItem>* items) {
         }
         item->CalcValue();
 
-        if (item->_exp < this->min_cost || item->_exp > this->max_cost) {
+        if (item->worth < this->min_cost || item->worth > this->max_cost) {
             delete item;
             continue;
         }
@@ -533,7 +533,7 @@ Inventory* ShopAssortment::ArrangeShelfs(int32_t max_count, int32_t max_same, in
                 ok = this->AddMagicToItem(item);
             }
 
-            if (ok == 0 || item->_exp < min_cost || item->_exp > max_cost) {
+            if (ok == 0 || item->worth < min_cost || item->worth > max_cost) {
                 i--;
                 retry_count++;
                 delete item;
@@ -572,10 +572,10 @@ int32_t ShopAssortment::AddMagicToItem(Item* item) {
     int32_t item_type = item->item_type;
     int32_t local_18 = item->item_id.slot;
 
-    int32_t budget = this->max_cost * 2 - item->_exp;
+    int32_t budget = this->max_cost * 2 - item->worth;
 
     if (!is_warrior && item->item_type == Item::WEAPON) {        
-        int32_t cap = item->_exp * 100;
+        int32_t cap = item->worth * 100;
         if (budget > cap) {
             budget = cap;
         }
@@ -592,7 +592,7 @@ int32_t ShopAssortment::AddMagicToItem(Item* item) {
 
     int32_t magic_volume = item->magic_volume;
 
-    Effect* effect = RollItemEffect(is_warrior, item_type, local_18, magic_volume, budget, item->_exp, 100);
+    Effect* effect = RollItemEffect(is_warrior, item_type, local_18, magic_volume, budget, item->worth, 100);
     if (!effect) {
         return 0;
     }
@@ -605,11 +605,11 @@ int32_t ShopAssortment::AddMagicToItem(Item* item) {
     }
 
     // Second effect attempt (50% chance)
-    budget = this->max_cost * 2 - item->_exp;
+    budget = this->max_cost * 2 - item->worth;
     magic_volume = item->magic_volume - TotalEffectPrice(item);
 
     if (Random0N(100) < 50) {
-        effect = RollItemEffect(is_warrior, item_type, local_18, magic_volume, budget, item->_exp, 100);
+        effect = RollItemEffect(is_warrior, item_type, local_18, magic_volume, budget, item->worth, 100);
         if (!effect) {
             return 1;
         }
@@ -622,11 +622,11 @@ int32_t ShopAssortment::AddMagicToItem(Item* item) {
     }
 
     // Third effect attempt (25% chance)
-    budget = this->max_cost * 2 - item->_exp;
+    budget = this->max_cost * 2 - item->worth;
     magic_volume = item->magic_volume - TotalEffectPrice(item);
 
     if (Random0N(100) < 25) {
-        effect = RollItemEffect(is_warrior, item_type, local_18, magic_volume, budget, item->_exp, 100);
+        effect = RollItemEffect(is_warrior, item_type, local_18, magic_volume, budget, item->worth, 100);
         if (!effect) {
             return 1;
         }

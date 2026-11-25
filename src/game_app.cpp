@@ -1302,7 +1302,7 @@ Item* __cdecl RollItemInPriceRange(CString category, int32_t min_price, int32_t 
                 return item;
             }
 
-            if (min_price <= item->_exp && item->_exp <= max_price) {
+            if (min_price <= item->worth && item->worth <= max_price) {
                 return item;
             }
         }
@@ -1320,7 +1320,7 @@ Item* __cdecl RollItemInPriceRange(CString category, int32_t min_price, int32_t 
                 return item;
             }
 
-            if (min_price <= item->_exp && item->_exp <= max_price) {
+            if (min_price <= item->worth && item->worth <= max_price) {
                 return item;
             }
         }
@@ -1338,7 +1338,7 @@ Item* __cdecl RollItemInPriceRange(CString category, int32_t min_price, int32_t 
                 return item;
             }
 
-            if (min_price <= item->_exp && item->_exp <= max_price) {
+            if (min_price <= item->worth && item->worth <= max_price) {
                 return item;
             }
         }
@@ -1352,7 +1352,7 @@ Item* __cdecl RollItemInPriceRange(CString category, int32_t min_price, int32_t 
             if (attempts++ > 20) {
                 return item;
             }
-            if (item->_exp >= min_price && item->_exp <= max_price) {
+            if (item->worth >= min_price && item->worth <= max_price) {
                 return item;
             }
         }

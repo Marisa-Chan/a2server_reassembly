@@ -5292,7 +5292,7 @@ void CHlDriver::BroadcastTokenState(Token* token, Player* player, uint8_t flag) 
         packet.xpos = sack->position->GetXx();
         packet.ypos = sack->position->GetYy();
         packet.unit_id = (uint16_t)sack->building_id;
-        SackVisualType sack_type((uint8_t)log10(sack->_exp));
+        SackVisualType sack_type((uint8_t)log10(sack->worth));
 
 #ifndef A2CLIENT
         if (g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY) {

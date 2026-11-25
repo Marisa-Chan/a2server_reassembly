@@ -338,7 +338,7 @@ void Inn::InnCreateQuests(Player* player) {
             Quest* q = MakeActiveQuest(this, new QuestKillMob());
             int32_t kind = q->Kind();
             QuestId quest_id = QuestId::Make(this->building_id, player->player_id, kind);
-            RegisterQuest(this, q, quest_id, player->player_id, this->building_id, obj, landmark_id, 0, unit->_exp * 2);
+            RegisterQuest(this, q, quest_id, player->player_id, this->building_id, obj, landmark_id, 0, unit->worth * 2);
         }
     }
 
@@ -408,10 +408,10 @@ void Inn::InnCreateQuests(Player* player) {
                 avg_y += u->position->y;
                 count++;
 #ifdef A2TANGAR_HAT
-                max_exp += u->_exp;
+                max_exp += u->worth;
 #else
-                if (u->_exp > max_exp) {
-                    max_exp = u->_exp;
+                if (u->worth > max_exp) {
+                    max_exp = u->worth;
                 }
 #endif
             }
@@ -498,7 +498,7 @@ void Inn::InnCreateQuests(Player* player) {
             Quest* q = MakeActiveQuest(this, new QuestInterceptUnit());
             int32_t kind = q->Kind();
             QuestId quest_id = QuestId::Make(this->building_id, player->player_id, kind);
-            RegisterQuest(this, q, quest_id, player->player_id, this->building_id, obj, landmark_id, 0, unit->_exp * 3);
+            RegisterQuest(this, q, quest_id, player->player_id, this->building_id, obj, landmark_id, 0, unit->worth * 3);
         }
     }
 
@@ -556,8 +556,8 @@ void Inn::InnCreateQuests(Player* player) {
             POSITION upos = grp->unit_list.GetHeadPosition();
             while (upos) {
                 Unit* u = grp->unit_list.GetNext(upos);
-                if (u->_exp > max_exp) {
-                    max_exp = u->_exp;
+                if (u->worth > max_exp) {
+                    max_exp = u->worth;
                 }
             }
 
@@ -666,8 +666,8 @@ void Inn::InnCreateQuests(Player* player) {
             int32_t max_exp = 0;
             while (upos) {
                 Unit* u = candidate.p->unit_list->unit_list.GetNext(upos);
-                if (u->_exp > max_exp) {
-                    max_exp = u->_exp;
+                if (u->worth > max_exp) {
+                    max_exp = u->worth;
                 }
             }
 
@@ -974,8 +974,8 @@ void Inn::InnReward(Player* player) {
         CString scroll_name(ScrollsList[i]);
         Item* scroll = new Item(scroll_name);
 
-        int32_t exp_800 = scroll->_exp * 800;
-        if (scroll->_exp < reward && reward < exp_800) {
+        int32_t exp_800 = scroll->worth * 800;
+        if (scroll->worth < reward && reward < exp_800) {
 #if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
             // inn_scrolls_reward hook (565B27)
             uint32_t scroll_reward = tangar_quests::InnScrollsReward(player, static_cast<uint32_t>(reward));
@@ -983,9 +983,9 @@ void Inn::InnReward(Player* player) {
                 delete scroll;
                 continue;
             }
-            scroll->count = static_cast<int32_t>(scroll_reward) / scroll->_exp;
+            scroll->count = static_cast<int32_t>(scroll_reward) / scroll->worth;
 #else
-            scroll->count = reward / scroll->_exp;
+            scroll->count = reward / scroll->worth;
 #endif
             if (scroll->count > 10) {
                 scroll->count = (scroll->count - 10) / 2 + 10;
@@ -1020,7 +1020,7 @@ void Inn::InnReward(Player* player) {
                 book->ApplyPropertyString(TeachSpellMagics[i]);
                 book->CalcValue();
 
-                if (reward / 2 < book->_exp && book->_exp < reward * 5 / 4) {
+                if (reward / 2 < book->worth && book->worth < reward * 5 / 4) {
                     temp_candidates.Add(book);
                 } else {
                     delete book;
@@ -1163,7 +1163,7 @@ void Inn::InnReward(Player* player) {
 #ifdef A2TANGAR_HAT
                 // imp_UpgradeItem hook (5669A6): quest items (price 2) are
                 // not upgradable at the inn
-                if (!equip || equip->IsSimpleItem() != 0 || equip->magic_volume <= 0 || equip->_exp == 2) {
+                if (!equip || equip->IsSimpleItem() != 0 || equip->magic_volume <= 0 || equip->worth == 2) {
 #else
                 if (!equip || equip->IsSimpleItem() != 0 || equip->magic_volume <= 0) {
 #endif

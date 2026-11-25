@@ -46,7 +46,7 @@ bool GigaAllowedToPickup(const Item* item, ServerIDType server_id)
 
     if (server_id >= QUEST_T1) {
         // At quest maps we allow picking up quest items.
-        return item->_exp == 2 && !item->_effects.IsEmpty();
+        return item->worth == 2 && !item->_effects.IsEmpty();
     }
 
     return false;
@@ -142,7 +142,7 @@ bool GigaPickup(Unit* unit)
                        position,
                        static_cast<int>(item->item_id),
                        static_cast<int>(item->count),
-                       static_cast<int>(item->_exp),
+                       static_cast<int>(item->worth),
                        static_cast<int>(item->_effects.GetCount()));
                 Item* removed = sack->inventory->TakeItemAt(position, item->count);
                 delete removed;
@@ -152,7 +152,7 @@ bool GigaPickup(Unit* unit)
                        position,
                        static_cast<int>(item->item_id),
                        static_cast<int>(item->count),
-                       static_cast<int>(item->_exp),
+                       static_cast<int>(item->worth),
                        static_cast<int>(item->_effects.GetCount()));
                 item_pos = next_pos;
                 ++position;

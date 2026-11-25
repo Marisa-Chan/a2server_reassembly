@@ -140,7 +140,7 @@ public:
     uint16_t sent_to_mask;
     int8_t gap_x1a;
     int8_t gap_x1b;
-    int32_t _exp;
+    int32_t worth; // Item/effect price, sack total gold+item value, or unit bounty/XP worth (1% of experience on humanoids).
     CList<Effect*> _effects;
 };
 __pragma(pack(pop))
