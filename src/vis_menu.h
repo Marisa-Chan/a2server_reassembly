@@ -362,19 +362,19 @@ public:
 ASSERT_SIZE(VisLogoWnd, 0x7c);
 
 //60b098
-class Vis2Action : public VisMenuWnd {
+class VisConfirmMenu : public VisMenuWnd {
 public:
-    virtual ~Vis2Action(); // 450bd0 (client: 4548d0)
+    virtual ~VisConfirmMenu(); // 450bd0 (client: 4548d0)
 
     virtual int32_t MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) override; // 44f30d (client: 452632)
     virtual void OnCreate() override; // 44f0e8 (client: 45240d)
 
-    Vis2Action(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const char* _txt, const CRect& _r); // 44f0a2 (client: 4523c7)
+    VisConfirmMenu(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const char* _txt, const CRect& _r); // 44f0a2 (client: 4523c7)
 
 public:
     const char* txt;
 };
-ASSERT_SIZE(Vis2Action, 0x80);
+ASSERT_SIZE(VisConfirmMenu, 0x80);
 
 //60af78
 class VisMissionFailed : public VisMessageBoxWithList {
@@ -420,10 +420,10 @@ public:
 
 public:
     CArray<DiplomacyEntry*>* diplomacy; //0x94
-    CArray<VisRadioType1*>* enemy_radios; //0x98
-    CArray<VisRadioType1*>* ally_radios; //0x9c
-    CArray<VisRadioType1*>* see_radios; //0xa0
-    CArray<VisRadioType1*>* mute_radios; //0xa4
+    CArray<VisCheckBoxGroup*>* enemy_radios; //0x98
+    CArray<VisCheckBoxGroup*>* ally_radios; //0x9c
+    CArray<VisCheckBoxGroup*>* see_radios; //0xa0
+    CArray<VisCheckBoxGroup*>* mute_radios; //0xa4
 };
 ASSERT_SIZE(VisListBoxDiplomacy, 0xa8);
 

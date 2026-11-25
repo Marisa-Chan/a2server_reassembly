@@ -13,7 +13,7 @@ class Quest;
 class QuestInnGlue;
 
 
-struct QuestSubstruct {
+struct DeferredQuestEvent {
     uint32_t gap_0x0;
     uint32_t event_type;
     uint32_t param_a;
@@ -22,8 +22,8 @@ struct QuestSubstruct {
     uint32_t gap_0x14;
     uint32_t gap_0x18;
 };
-ASSERT_OFFSET(QuestSubstruct, param_b, 0xc);
-ASSERT_SIZE(QuestSubstruct, 0x1c);
+ASSERT_OFFSET(DeferredQuestEvent, param_b, 0xc);
+ASSERT_SIZE(DeferredQuestEvent, 0x1c);
 
 class QuestMap : public CObject {
 public: // VTable at 0060f730.
@@ -59,7 +59,7 @@ public:
 
 public:
     CMap<uint32_t, uint32_t, Quest*, Quest*> quests_map;
-    CList<QuestSubstruct*> substructs;
+    CList<DeferredQuestEvent*> substructs;
     CMap<uint32_t, uint32_t, QuestInnGlue*, QuestInnGlue*> glues_map;
     CMap<uint32_t, uint32_t, uint32_t, uint32_t> flags;
     POSITION assoc; // Not sure about the specific argument type, usage seems transient.

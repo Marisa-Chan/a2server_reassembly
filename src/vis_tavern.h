@@ -65,7 +65,7 @@ public:
     void LoadRightPanelBmps(); // 499a67 (client: 49da87)
     void ResetButtonStates(); // 49a84e (client: 49e87d)
     void UpdateButtonLabels(); // 49a973 (client: 49e9a2)
-    void FreeRightPanelBmps(); // 499cdf (client: 49dcff) - client FreeBitmaps restructured away (both client 283b FreeBitmaps fns belong to VisCharGenAction 42d704 / VisCharSellectButtons 432ae6)
+    void FreeRightPanelBmps(); // 499cdf (client: 49dcff) - client FreeBitmaps restructured away (both client 283b FreeBitmaps fns belong to VisCharGenAction 42d704 / VisCharSelectButtons 432ae6)
     void InitRightPanel(); // 4998c2 (client: 49d8e2)
     int32_t HitTestButton(CPoint pos); // 49a873 (client: 49e8a2)
     void UpdateHoveredButton(uint32_t wparam, CPoint pos); // 49a8fa (client: 49e929) - client FreeBitmaps restructured away (42d41b is VisCharGenAction::UpdateMouseOver)

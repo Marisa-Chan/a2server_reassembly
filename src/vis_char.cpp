@@ -41,7 +41,7 @@ static int32_t blink_slot = 0;
 static uint8_t blink_inited = 0;
 
 // 4303c8 (client: 4322bb)
-int32_t VisCharSellectButtons::OnLButtonUp(uint32_t wparam, CPoint pos) {
+int32_t VisCharSelectButtons::OnLButtonUp(uint32_t wparam, CPoint pos) {
     MainWindow* mainwnd = (MainWindow*)AfxGetMainWnd();
 
     if (this->mouse_down_box > -1 && this->mouse_down_box < 4 &&
@@ -132,7 +132,7 @@ int32_t VisCharSellectButtons::OnLButtonUp(uint32_t wparam, CPoint pos) {
 }
 
 // 430750 (client: 43281c)
-int VisCharSellectButtons::GetMouseOnBox(CPoint pos) {
+int VisCharSelectButtons::GetMouseOnBox(CPoint pos) {
     pos -= this->parent_screen->rect.TopLeft();
 
     for (int i = 0; i < 4; i++) {
@@ -144,7 +144,7 @@ int VisCharSellectButtons::GetMouseOnBox(CPoint pos) {
 }
 
 // 4307d7 (client: 4328a3)
-void VisCharSellectButtons::UpdateMouseOverBox(uint32_t wparam, CPoint pos) {
+void VisCharSelectButtons::UpdateMouseOverBox(uint32_t wparam, CPoint pos) {
     int over = this->GetMouseOnBox(pos);
     if (over >= 0 && (wparam & 1) == 0) {
         this->mouse_over_box = over;
@@ -157,7 +157,7 @@ void VisCharSellectButtons::UpdateMouseOverBox(uint32_t wparam, CPoint pos) {
 
 
 // 43005f (client: 431f52)
-void VisCharSellectButtons::Draw() {
+void VisCharSelectButtons::Draw() {
     CPoint top_left = this->parent_screen->rect.TopLeft();
     if (this->parent_screen->active_flag != 0) {
         LockBackSurface();
@@ -187,7 +187,7 @@ void VisCharSellectButtons::Draw() {
 
 
 // 430a1a (client: 432ae6)
-void VisCharSellectButtons::FreeBitmaps() {
+void VisCharSelectButtons::FreeBitmaps() {
     for (int32_t i = 0; i < 4; i++) {
         if (this->buttons_bmp[i] != nullptr) {
             delete this->buttons_bmp[i];
@@ -208,7 +208,7 @@ void VisCharSellectButtons::FreeBitmaps() {
 
 
 // 430850 (client: 43291c)
-void VisCharSellectButtons::LoadBitmaps() {
+void VisCharSelectButtons::LoadBitmaps() {
     this->FreeBitmaps();
     this->buttons_bmp[0] = new CBmp64("graphics\\interface\\shop_druid\\ShopButton1.bmp");
     g_mousept.Update();
@@ -224,7 +224,7 @@ void VisCharSellectButtons::LoadBitmaps() {
 
 
 // 430318 (client: 43220b)
-int32_t VisCharSellectButtons::OnLButtonDown(uint32_t wparam, CPoint pos) {
+int32_t VisCharSelectButtons::OnLButtonDown(uint32_t wparam, CPoint pos) {
     (void)wparam;
     this->mouse_down_box = this->GetMouseOnBox(pos);
     int32_t box = this->mouse_down_box;
@@ -243,21 +243,21 @@ int32_t VisCharSellectButtons::OnLButtonDown(uint32_t wparam, CPoint pos) {
 
 
 // 4302f5 (client: 4321e8)
-int32_t VisCharSellectButtons::OnMouseMove(uint32_t wparam, CPoint pos) {
+int32_t VisCharSelectButtons::OnMouseMove(uint32_t wparam, CPoint pos) {
     this->UpdateMouseOverBox(wparam, pos);
     return 0;
 }
 
 
 // 43072b (client: 4327f7)
-void VisCharSellectButtons::ResetMouseBoxes() {
+void VisCharSelectButtons::ResetMouseBoxes() {
     this->mouse_down_box = -1;
     this->mouse_over_box = -1;
 }
 
 
 // 42fe62 (client: 431d56)
-void VisCharSellectButtons::Init() {
+void VisCharSelectButtons::Init() {
     this->mouse_down_box = -1;
     this->mouse_over_box = -1;
     this->areas[0] = CRect(0x1EE, 0xF, 0x266, 0x43);
@@ -279,7 +279,7 @@ void VisCharSellectButtons::Init() {
 
 
 // 42fd5c (client: 431c50)
-VisCharSellectButtons::VisCharSellectButtons(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharSelect* parent_screen)
+VisCharSelectButtons::VisCharSelectButtons(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharSelect* parent_screen)
 : CVisualObject(_id, l, t, r, b, nullptr) {
     this->parent_screen = parent_screen;
     this->Init();
@@ -287,14 +287,14 @@ VisCharSellectButtons::VisCharSellectButtons(int32_t _id, int32_t l, int32_t t, 
 
 
 // 42fdf8 (client: 431cec) - (scalar deleting dtor ??_G at 4385B0)
-VisCharSellectButtons::~VisCharSellectButtons() {
+VisCharSelectButtons::~VisCharSelectButtons() {
     this->FreeBitmaps();
     this->parent_screen = nullptr;
 }
 
 
 // 430fec (client: 433143)
-void VisCharSellectList::Draw() {
+void VisCharSelectList::Draw() {
     if (this->parent_screen->active_flag != 0) {
         CPoint top_left = this->parent_screen->rect.TopLeft();
         int32_t visible_end = this->top_row + this->list_area.Height() / this->row_rect.Height();
@@ -336,7 +336,7 @@ void VisCharSellectList::Draw() {
 
 
 // 43148a (client: 4335e1)
-void VisCharSellectList::FreeBitmaps() {
+void VisCharSelectList::FreeBitmaps() {
     if (this->bmp_center_area != nullptr) {
         delete this->bmp_center_area;
     }
@@ -361,7 +361,7 @@ void VisCharSellectList::FreeBitmaps() {
 
 
 // 4312b7 (client: 43340e)
-void VisCharSellectList::LoadBitmaps() {
+void VisCharSelectList::LoadBitmaps() {
     this->FreeBitmaps();
     this->bmp_center_area = new CBmp64("graphics\\interface\\chrgen\\loader\\CenterArea.bmp");
     g_mousept.Update();
@@ -377,7 +377,7 @@ void VisCharSellectList::LoadBitmaps() {
 
 
 // 4316c4 (client: 43381b)
-void VisCharSellectList::SelectRow(int32_t row) {
+void VisCharSelectList::SelectRow(int32_t row) {
     if (row != -1) {
         if (row == this->parent_screen->session->GetCharacterRosterCount() - 1) {
             this->parent_screen->selected_unit->SetSelected(0);
@@ -393,7 +393,7 @@ void VisCharSellectList::SelectRow(int32_t row) {
 
 
 // 431872 (client: 4339c9)
-int32_t VisCharSellectList::HitTest(CPoint pos) {
+int32_t VisCharSelectList::HitTest(CPoint pos) {
     int32_t visible_end = this->top_row + this->list_area.Height() / this->row_rect.Height();
     CPoint top_left = this->parent_screen->rect.TopLeft();
     if (visible_end > this->parent_screen->session->GetCharacterRosterCount()) {
@@ -412,7 +412,7 @@ int32_t VisCharSellectList::HitTest(CPoint pos) {
 
 
 // 431a05 (client: 433b5c)
-int32_t VisCharSellectList::SelectPrevRow() {
+int32_t VisCharSelectList::SelectPrevRow() {
     if (this->selected_row - 1 < 0) {
         return 0;
     }
@@ -428,7 +428,7 @@ int32_t VisCharSellectList::SelectPrevRow() {
 
 
 // 431a93 (client: 433bea)
-int32_t VisCharSellectList::SelectNextRow() {
+int32_t VisCharSelectList::SelectNextRow() {
     int32_t visible_end = this->top_row + this->list_area.Height() / this->row_rect.Height();
     if (visible_end > this->parent_screen->session->GetCharacterRosterCount()) {
         visible_end = this->parent_screen->session->GetCharacterRosterCount();
@@ -448,7 +448,7 @@ int32_t VisCharSellectList::SelectNextRow() {
 
 
 // 431c97 (client: 433dee)
-void VisCharSellectList::UpdateArrows(CPoint pos, bool is_down) {
+void VisCharSelectList::UpdateArrows(CPoint pos, bool is_down) {
 #ifdef A2CLIENT
     pos -= this->parent_screen->rect.TopLeft();
 #endif
@@ -481,7 +481,7 @@ void VisCharSellectList::UpdateArrows(CPoint pos, bool is_down) {
 
 
 // 431609 (client: 433760)
-int32_t VisCharSellectList::OnMouseMove(uint32_t wparam, CPoint pos) {
+int32_t VisCharSelectList::OnMouseMove(uint32_t wparam, CPoint pos) {
     if (this->renaming != 0) {
         return this->CVisualObject::OnMouseMove(wparam, pos);
     }
@@ -497,7 +497,7 @@ int32_t VisCharSellectList::OnMouseMove(uint32_t wparam, CPoint pos) {
 
 
 // 431764 (client: 4338bb)
-int32_t VisCharSellectList::OnLButtonDown(uint32_t wparam, CPoint pos) {
+int32_t VisCharSelectList::OnLButtonDown(uint32_t wparam, CPoint pos) {
     if (this->renaming != 0) {
         return this->CVisualObject::OnLButtonDown(wparam, pos);
     }
@@ -514,7 +514,7 @@ int32_t VisCharSellectList::OnLButtonDown(uint32_t wparam, CPoint pos) {
 
 
 // 43182c (client: 433983)
-int32_t VisCharSellectList::OnLButtonUp(uint32_t wparam, CPoint pos) {
+int32_t VisCharSelectList::OnLButtonUp(uint32_t wparam, CPoint pos) {
     if (this->renaming != 0) {
         return this->CVisualObject::OnLButtonUp(wparam, pos);
     }
@@ -524,13 +524,13 @@ int32_t VisCharSellectList::OnLButtonUp(uint32_t wparam, CPoint pos) {
 
 
 // 4316a0 (client: 4337f7)
-int32_t VisCharSellectList::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
+int32_t VisCharSelectList::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
     return this->OnLButtonDown(wparam, pos);
 }
 
 
 // 431b95 (client: 433cec)
-int32_t VisCharSellectList::OnKeyDown(uint32_t wparam) {
+int32_t VisCharSelectList::OnKeyDown(uint32_t wparam) {
     switch (wparam) {
     case VK_UP:
         this->SelectPrevRow();
@@ -560,7 +560,7 @@ int32_t VisCharSellectList::OnKeyDown(uint32_t wparam) {
 
 
 // 430fad (client: 433104)
-void VisCharSellectList::ResetListState() {
+void VisCharSelectList::ResetListState() {
     this->top_row = 0;
     this->selected_row = 0;
     this->hovered_row = -1;
@@ -569,7 +569,7 @@ void VisCharSellectList::ResetListState() {
 
 
 // 430cb3 (client: 432d7f)
-void VisCharSellectList::Init() {
+void VisCharSelectList::Init() {
     this->row_rect = CRect(CPoint(0x38, 0x38), CSize(0xCE, g_font4->GetHeight()));
     this->list_area = CRect(CPoint(this->rect.left + 0x38, this->rect.top + 0x38), CSize(0xCE, 0xEC));
     this->bmp_center_area = nullptr;
@@ -594,7 +594,7 @@ void VisCharSellectList::Init() {
 
 
 // 430bbb (client: 432c87)
-VisCharSellectList::VisCharSellectList(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharSelect* parent_screen)
+VisCharSelectList::VisCharSelectList(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharSelect* parent_screen)
 : CVisualObject(_id, l, t, r, b, nullptr) {
     this->parent_screen = parent_screen;
     this->Init();
@@ -602,12 +602,12 @@ VisCharSellectList::VisCharSellectList(int32_t _id, int32_t l, int32_t t, int32_
 
 
 // 430c62 (client: 432d2e) - (scalar deleting dtor ??_G at 4385E0)
-VisCharSellectList::~VisCharSellectList() {
+VisCharSelectList::~VisCharSelectList() {
     this->FreeBitmaps();
 }
 
 // 42f61a (client: 431516)
-void VisCharSellectStats::FreeBitmaps() {
+void VisCharSelectStats::FreeBitmaps() {
     if (this->bmp_full_stats != nullptr) {
         delete this->bmp_full_stats;
     }
@@ -624,7 +624,7 @@ void VisCharSellectStats::FreeBitmaps() {
 
 
 // 42f4df (client: 4313db)
-void VisCharSellectStats::LoadBitmaps() {
+void VisCharSelectStats::LoadBitmaps() {
     this->FreeBitmaps();
     this->bmp_full_stats = new CBmp64("graphics\\Interface\\chrgen\\FullStatsL.bmp");
     g_mousept.Update();
@@ -637,7 +637,7 @@ void VisCharSellectStats::LoadBitmaps() {
 
 
 // 42f6f3 (client: 4315ef)
-void VisCharSellectStats::ReadUnitStats() {
+void VisCharSelectStats::ReadUnitStats() {
     if (this->parent_screen->selected_unit == nullptr) {
         this->shadow_body = 0;
         this->shadow_reaction = 0;
@@ -653,7 +653,7 @@ void VisCharSellectStats::ReadUnitStats() {
 
 
 // 42f7b9 (client: 4316ad)
-void VisCharSellectStats::Draw() {
+void VisCharSelectStats::Draw() {
     CPoint top_left = this->parent_screen->rect.TopLeft();
     if (this->parent_screen->active_flag != 0) {
         LockBackSurface();
@@ -698,7 +698,7 @@ void VisCharSellectStats::Draw() {
 
 
 // 42fc61 (client: 431b55)
-const char* VisCharSellectStats::GetHint() {
+const char* VisCharSelectStats::GetHint() {
     if (this->parent_screen->active_flag == 0) {
         return nullptr;
     }
@@ -709,7 +709,7 @@ const char* VisCharSellectStats::GetHint() {
 
 
 // 42f1e8 (client: 4310e4)
-void VisCharSellectStats::Init() {
+void VisCharSelectStats::Init() {
     this->bmp_full_stats = nullptr;
     this->bmp_left_up = nullptr;
     this->cube_sprites = nullptr;
@@ -730,7 +730,7 @@ void VisCharSellectStats::Init() {
 
 
 // 42f0ec (client: 430fe8)
-VisCharSellectStats::VisCharSellectStats(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharSelect* parent_screen)
+VisCharSelectStats::VisCharSelectStats(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharSelect* parent_screen)
 : CVisualObject(_id, l, t, r, b, nullptr) {
     this->parent_screen = parent_screen;
     this->Init();
@@ -738,7 +738,7 @@ VisCharSellectStats::VisCharSellectStats(int32_t _id, int32_t l, int32_t t, int3
 
 
 // 42f188 (client: 431084) - (scalar deleting dtor ??_G at 438580)
-VisCharSellectStats::~VisCharSellectStats() {
+VisCharSelectStats::~VisCharSelectStats() {
     this->FreeBitmaps();
 }
 
@@ -751,9 +751,9 @@ void VisCharSelect::OnCreate() {
     this->snd_rename = nullptr;
     this->snd_delete = nullptr;
     this->snd_cancel = nullptr;
-    this->vis_stats = new VisCharSellectStats(0x462, 0, 0, 0xA0, 0x1E0, this);
-    this->buttons = new VisCharSellectButtons(0x461, 0x1E0, 0, 0x280, 0xEE, this);
-    this->roster_list = new VisCharSellectList(0x463, 0xA0, 0, 0x1E0, 0x1E0, this);
+    this->vis_stats = new VisCharSelectStats(0x462, 0, 0, 0xA0, 0x1E0, this);
+    this->buttons = new VisCharSelectButtons(0x461, 0x1E0, 0, 0x280, 0xEE, this);
+    this->roster_list = new VisCharSelectList(0x463, 0xA0, 0, 0x1E0, 0x1E0, this);
 
     CPoint top_left = this->roster_list->GetRect().TopLeft();
     CRect rc = this->roster_list->row_rect;

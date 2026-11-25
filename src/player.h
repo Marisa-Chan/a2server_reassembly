@@ -131,7 +131,7 @@ public:
     void AddMoney(int32_t amount, uint32_t notify_flag); // 534ac1 (client: 51fe74)
     void KillAllUnits(); // 5346ac (client: 51fd40) - Kill all of this player's units on the map
     void StartAfkTimer(); // 534b17 (client: none) - Initialize inactivity timer (sets this+0A90h/0A94h from GetTickCount)
-    void ResetAfkTimer(); // 534b59 (client: none) - Reset inactivity timer and notify NetStru1
+    void ResetAfkTimer(); // 534b59 (client: none) - Reset inactivity timer and notify CHlDriver
 
     void Deactivate(); // 534778 (client: 51fda1)
 

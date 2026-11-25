@@ -6,7 +6,7 @@
 #include <afxtempl.h>
 
 
-class NetStru2;
+class NetClientPeer;
 
 
 __pragma(pack(push, 1))
@@ -19,8 +19,8 @@ public:
 public:
     virtual ~Packet(); // server: none (client: 54a470) - inlined in 5799d0 on server
     virtual Packet* Duplicate(); // 579940 (client: 54a490)
-    virtual void WriteTo(NetStru2*); // 526887 (client: 5156b9)
-    virtual void ReadFrom(NetStru2*); // 5268b7 (client: 5156e9)
+    virtual void WriteTo(NetClientPeer*); // 526887 (client: 5156b9)
+    virtual void ReadFrom(NetClientPeer*); // 5268b7 (client: 5156e9)
     virtual uint32_t GetDataSize(); // 5799c0 (client: 54a510) - { return 1; }
 
 public:
@@ -87,8 +87,8 @@ public:
 public:
     virtual ~PacketJoin(); // 526e4f (client: 515ce9)
     virtual Packet* Duplicate() override; // 57a390 (client: 54b240)
-    virtual void WriteTo(NetStru2*) override; // 526ede (client: 515d77)
-    virtual void ReadFrom(NetStru2*) override; // 526f1d (client: 515db6)
+    virtual void WriteTo(NetClientPeer*) override; // 526ede (client: 515d77)
+    virtual void ReadFrom(NetClientPeer*) override; // 526f1d (client: 515db6)
     virtual uint32_t GetDataSize() override; // 57a410 (client: 54b2c0)
 
 public:
@@ -126,8 +126,8 @@ public:
 public:
     virtual ~PacketTerrain(); // 579ac0 (client: 54a610)
     virtual Packet* Duplicate() override; // 57aaa0 (client: 54b930)
-    virtual void WriteTo(NetStru2*) override; // 5273a7 (client: 516378)
-    virtual void ReadFrom(NetStru2*) override; // 5273ce (client: 51639f)
+    virtual void WriteTo(NetClientPeer*) override; // 5273a7 (client: 516378)
+    virtual void ReadFrom(NetClientPeer*) override; // 5273ce (client: 51639f)
     virtual uint32_t GetDataSize() override; // 57ab20 (client: 54b9b0)
 
 public:
@@ -153,8 +153,8 @@ public:
 public:
     virtual ~PacketUnitUpdate(); // 579c00 (client: 54a750)
     virtual Packet* Duplicate() override; // 57ae70 (client: 54bd00)
-    virtual void WriteTo(NetStru2*) override; // 5279c7 (client: 516997)
-    virtual void ReadFrom(NetStru2*) override; // 527a6c (client: 516a3c)
+    virtual void WriteTo(NetClientPeer*) override; // 5279c7 (client: 516997)
+    virtual void ReadFrom(NetClientPeer*) override; // 527a6c (client: 516a3c)
     virtual uint32_t GetDataSize() override; // 57aef0 (client: 54bd80)
 public:
     uint32_t data_offset;  // +0x0A  bytes already written into data[]
@@ -230,8 +230,8 @@ public:
     void AppendWord(uint16_t val); // 52695a (client: 51578c)
 public:
     virtual ~PacketGroupOrder(); // 579a20 (client: 54a570)
-    virtual void WriteTo(NetStru2*) override; // 52699a (client: 5157cc)
-    virtual void ReadFrom(NetStru2*) override; // 5269c3 (client: 5157f5)
+    virtual void WriteTo(NetClientPeer*) override; // 52699a (client: 5157cc)
+    virtual void ReadFrom(NetClientPeer*) override; // 5269c3 (client: 5157f5)
     virtual uint32_t GetDataSize() override; // 57a0e0 (client: 54af90)
 public:
     uint16_t x;       // +0xA
@@ -569,8 +569,8 @@ public:
 public:
     virtual ~PacketFileChunk(); // 579c40 (client: 54a790)
     virtual Packet* Duplicate() override; // 57a900 (client: 54b790)
-    virtual void WriteTo(NetStru2*) override; // 527220 (client: 5161f1)
-    virtual void ReadFrom(NetStru2*) override; // 527246 (client: 516217)
+    virtual void WriteTo(NetClientPeer*) override; // 527220 (client: 5161f1)
+    virtual void ReadFrom(NetClientPeer*) override; // 527246 (client: 516217)
     virtual uint32_t GetDataSize() override; // 57a980 (client: 54b810)
 public:
     uint8_t  preamble[0x20]; // +0xA..+0x2b  (32 bytes of fixed player fields)
@@ -605,8 +605,8 @@ public:
 public:
     virtual ~PacketData(); // 579ae0 (client: 54a630)
     virtual Packet* Duplicate() override; // 57a9d0 (client: 54b860)
-    virtual void WriteTo(NetStru2*) override; // 5272e3 (client: 5162b4)
-    virtual void ReadFrom(NetStru2*) override; // 527309 (client: 5162da)
+    virtual void WriteTo(NetClientPeer*) override; // 5272e3 (client: 5162b4)
+    virtual void ReadFrom(NetClientPeer*) override; // 527309 (client: 5162da)
     virtual uint32_t GetDataSize() override; // 57aa50 (client: 54b8e0)
 public:
     uint32_t count;    // +0xA  byte length of data[]
@@ -658,8 +658,8 @@ public:
 public:
     virtual ~PacketUnitStateVec(); // 527456 (client: 516427)
     virtual Packet* Duplicate() override; // 57ab70 (client: 54ba00)
-    virtual void WriteTo(NetStru2*) override; // 5274cc (client: 51649c)
-    virtual void ReadFrom(NetStru2*) override; // 527528 (client: 5164f8)
+    virtual void WriteTo(NetClientPeer*) override; // 5274cc (client: 51649c)
+    virtual void ReadFrom(NetClientPeer*) override; // 527528 (client: 5164f8)
     virtual uint32_t GetDataSize() override; // 57abf0 (client: 54ba80)
     void AppendByteByte(uint8_t a, uint8_t b, uint8_t* slot); // 5275f8 (client: 5165c8)
     void AppendByteInt(uint8_t a, int32_t v, uint8_t* slot); // 5276e0 (client: 5166b0)
@@ -721,7 +721,7 @@ public:
 public:
     virtual ~PacketUnitEquipment(); // 579c20 (client: 54a770)
     virtual Packet* Duplicate() override; // 57ad00 (client: 54bb90)
-    virtual void ReadFrom(NetStru2* net) override;
+    virtual void ReadFrom(NetClientPeer* net) override;
     virtual uint32_t GetDataSize() override; // 5278ce (client: 51689e) - variable (5.29)
 public:
     uint16_t unit_id;       // +0xA

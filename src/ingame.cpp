@@ -26,7 +26,7 @@
 
 
 
-CArray<UnitVFXUnfo*> g_VFX_info; //6610e0
+CArray<UnitVFXInfo*> g_VFX_info; //6610e0
 CArray<GfxFile*> g_GfxFiles; //661100
 CArray<GfxObject*> g_GfxObjects; //665330
 CArray<StructureInfo*> g_StructuresInfo; //661098
@@ -167,7 +167,7 @@ CSprite256* UnitGfxFile::GetSpriteB() {
 }
 
 // 46f680 (client: 473010)
-CGamePalette* UnitVFXUnfo::GetPalette(int32_t idx) {
+CGamePalette* UnitVFXInfo::GetPalette(int32_t idx) {
     uint16_t* pal = this->palettes[idx]->GetPalette(0);
     if (pal == nullptr) {
         this->palettes[idx]->SetPalette((RGBQUAD*)this->palette_datas[idx], 0x10, 2, 1);
@@ -176,7 +176,7 @@ CGamePalette* UnitVFXUnfo::GetPalette(int32_t idx) {
 }
 
 // 46f6e0 (client: 473070)
-uint8_t* UnitVFXUnfo::GetPaletteData(int32_t idx) {
+uint8_t* UnitVFXInfo::GetPaletteData(int32_t idx) {
     return this->palette_datas[idx];
 }
 

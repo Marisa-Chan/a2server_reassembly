@@ -3,7 +3,7 @@
 #include "game_app.h"
 
 //6b16a8
-MapStuff* MapStuff_Instance = nullptr;
+TerrainMap* MapStuff_Instance = nullptr;
 
 //70a7e0
 BitSet<0x6000> g_buildingIdSet;
@@ -19,7 +19,7 @@ uint32_t BldIdSet_AllocBit() { return g_buildingIdSet.AllocBit(); }
 
 
 // 58a4b1 (client: 559961)
-void TokenPos::Set(uint8_t _x, uint8_t _y, MapStuff* _inst) {
+void TokenPos::Set(uint8_t _x, uint8_t _y, TerrainMap* _inst) {
     this->x = _x;
     this->y = _y;
     this->YX.Set(_x, _y);
@@ -29,7 +29,7 @@ void TokenPos::Set(uint8_t _x, uint8_t _y, MapStuff* _inst) {
 }
 
 // 58a4f9 (client: 5599a9)
-TokenPos::TokenPos(uint8_t _x, uint8_t _y, MapStuff* _inst) {
+TokenPos::TokenPos(uint8_t _x, uint8_t _y, TerrainMap* _inst) {
     this->Set(_x, _y, _inst);
 }
 
@@ -39,7 +39,7 @@ TokenPos::TokenPos() {
 }
 
 // 58a562 (client: 559a12)
-TokenPos::TokenPos(uint16_t _YX, MapStuff* _inst) {
+TokenPos::TokenPos(uint16_t _YX, TerrainMap* _inst) {
     this->Set(_YX & 8, _YX >> 8, _inst);
 }
 
@@ -135,7 +135,7 @@ void TokenPos::FixupInstance() {
         return;
     }
 
-    MapStuff* stuf = nullptr;
+    TerrainMap* stuf = nullptr;
     if (g_Server->saved_ptr_map.Lookup(this->pInstance, *(void**)&stuf)) {
         this->pInstance = stuf;
     }

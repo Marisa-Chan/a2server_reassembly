@@ -5,7 +5,7 @@
 #include "vis_core.h"
 
 // 60adf8, radio checkbox on the server screen ("save on server" toggle)
-class VisServerScreenRadio : public VisRadioType1 {
+class VisServerScreenRadio : public VisCheckBoxGroup {
 public:
     virtual ~VisServerScreenRadio(); // 4509a0 (client: 454760) - (complete dtor 4509a0)
 
@@ -27,10 +27,10 @@ public:
     virtual int32_t OnKeyDown(uint32_t wparam) override; // 44e6de (client: 451a03)
     virtual void OnCreate() override; // 44d909 (client: 450c31)
 
-    VisServerScreen(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, GM_a28* log); // 44e469 (client: 451794)
+    VisServerScreen(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, HudMessageLog* log); // 44e469 (client: 451794)
 
 public:
-    GM_a28* msg_log;      // 0x68
+    HudMessageLog* msg_log;      // 0x68
     uint8_t gap_0x6c[8];
     int32_t scroll_pos;   // 0x74, first shown client row
 };
@@ -228,7 +228,7 @@ public:
     CWinThread thread;
     HANDLE stop_event;
     int32_t selected_map_index;
-    GM_a28* chat_log;
+    HudMessageLog* chat_log;
     VisPlayingArea* map_context;
     int32_t mode;
 };

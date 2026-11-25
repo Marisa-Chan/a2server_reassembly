@@ -1388,7 +1388,7 @@ void Weapon::WriteState(PacketUnitStateVec* pkt, uint8_t* slot) {
 
 // 475988 (client: 4796d8)
 void LoadItemNames() {
-    File2 f;
+    ResArchiveFile f;
     f.Open("world\\data\\itemname.bin", 0);
     uint32_t len = f.GetLength();
     int32_t count = len / sizeof(uint16_t);

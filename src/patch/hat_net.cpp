@@ -1,7 +1,7 @@
 // Ported from srvmgr/protolayer_hat.cpp. Map/player field mapping:
 // map width/height = MapStuff_Instance->map_width/map_height (+0x50000/+0x50004),
 // map time = g_Server->map_elapsed_time2 (+0x254)/1000, player id1 = hat_char_id1,
-// id2 = flags, login = Player::login, IP = NetStru2::buf (the join-time address).
+// id2 = flags, login = Player::login, IP = NetClientPeer::buf (the join-time address).
 
 #include "hat_net.h"
 
@@ -108,7 +108,7 @@ bool NetCmdUpdateInfo() {
             pack.WriteString(player_login != nullptr ? player_login : "");
             pack.WriteUInt32(player_id1);
             pack.WriteUInt32(player_id2);
-            NetStru2* vd = g_NetStru1_main.GetClientByPlayerID(player->player_id);
+            NetClientPeer* vd = g_NetStru1_main.GetClientByPlayerID(player->player_id);
             bool player_connected = (vd != nullptr);
             pack.WriteUInt8(player_connected ? 1 : 0);
             if (player->is_ai != 0 || !player_connected) { // AI or disconnected

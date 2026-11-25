@@ -128,10 +128,10 @@ bool SmackerPlayer::Open(const char* path, int32_t pane_w, int32_t pane_h) {
         // no cfg (or unreadable) - keep the defaults
     }
 
-    // Retail opened the .smk through File2 (which resolves the virtual
+    // Retail opened the .smk through ResArchiveFile (which resolves the virtual
     // "video\..." path against the mounted .res archives) and passed the
     // handle to SmackOpen; we read the same bytes and decode from memory.
-    File2 file;
+    ResArchiveFile file;
     if (file.Open(path, 0, nullptr) == 0) {
         return false;
     }

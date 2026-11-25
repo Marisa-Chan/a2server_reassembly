@@ -11,9 +11,9 @@
 int __cdecl CalcFileChecksum(CString filename); // 4f1d0d (client: 4f49fe) - File checksum (simple sum of int32-s).
 
 
-class File2 : public CFile {
+class ResArchiveFile : public CFile {
 public:
-    virtual ~File2(); // 4e6882 (client: 4ebdb2)
+    virtual ~ResArchiveFile(); // 4e6882 (client: 4ebdb2)
 
     virtual ULONGLONG GetPosition() const override; // 4e6d04 (client: 4ec234)
     virtual BOOL Open(LPCTSTR lpszFileName, UINT nOpenFlags, CFileException* pError = NULL) override; // 4e68d3 (client: 4ebe03)
@@ -33,8 +33,8 @@ public:
     virtual void Close() override; // 4e6cc6 (client: 4ec1f6)
 
 
-    File2(); // 4e67ea (client: 4ebd1a)
-    File2(LPCTSTR lpszFileName, UINT nOpenFlags); // 4e6813 (client: 4ebd43)
+    ResArchiveFile(); // 4e67ea (client: 4ebd1a)
+    ResArchiveFile(LPCTSTR lpszFileName, UINT nOpenFlags); // 4e6813 (client: 4ebd43)
 
     void Rewind(); // 4e6a97 (client: 4ebfc7)
 
@@ -48,7 +48,7 @@ public:
 
 // own data members are file/offset/size/position (0x10); the CFile base is
 // larger in MFC140 (binary total was 0x20)
-ASSERT_SIZE(File2, sizeof(CFile) + 0x10);
+ASSERT_SIZE(ResArchiveFile, sizeof(CFile) + 0x10);
 
 
 #endif

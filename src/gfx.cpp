@@ -213,7 +213,7 @@ int32_t g_MessageColors; //660f80
 uint16_t* g_brightnessLookup = nullptr; //65dd20
 uint32_t g_brightnessLookupCount = 0; //659bf0
 
-ColorThing g_DeltaCLR; //660e28
+LightingParams g_DeltaCLR; //660e28
 
 uint8_t g_GfxTempBuffer[92160]; //642d10
 uint16_t g_ColorAddMask; //660f60
@@ -5146,7 +5146,7 @@ CGameBitmap::CGameBitmap() {}
 
 // 4245c1 (client: 4264f1)
 CGameBitmap::CGameBitmap(const char* fname) {
-    File2 f;
+    ResArchiveFile f;
     if (!f.Open(fname, CFile::modeRead)) {
         CString s = "FATAL ERROR: can't load ";
         s += fname;
@@ -5282,7 +5282,7 @@ int32_t CGameBitmap::GetFrameCount() {
 
 // 425f8c (client: 427eba)
 CBmp256::CBmp256(const char* fname) {
-    File2 f;
+    ResArchiveFile f;
     if (!f.Open(fname, CFile::modeRead)) {
         CString s = "FATAL ERROR: can't load ";
         s += fname;
@@ -5410,7 +5410,7 @@ void CBmp256::DrawSubRectAdd(int32_t x, int32_t y, int32_t l, int32_t t, int32_t
 
 // 42576d (client: 42769b)
 CBmp64::CBmp64(const char* fname) {
-    File2 f;
+    ResArchiveFile f;
     if (!f.Open(fname, CFile::modeRead)) {
         CString s = "FATAL ERROR: can't load ";
         s += fname;
@@ -5531,7 +5531,7 @@ void CBmp64::DrawSubRectAdd(int32_t x, int32_t y, int32_t l, int32_t t, int32_t 
 
 // 425a17 (client: 427945)
 void CBmp64::LoadFile(const char* fname, CGameBitmap* bmp2) {
-    File2 f;
+    ResArchiveFile f;
     if (!f.Open(fname, CFile::modeRead)) {
         CString s = "FATAL ERROR: can't load ";
         s += fname;
@@ -5606,7 +5606,7 @@ void CBmp64::WriteFile(const char* fname, CGameBitmap* bmp2) {
 // 424e79 (client: 426da9)
 CSprite256::CSprite256(const char* fname) {
 
-    File2 f;
+    ResArchiveFile f;
     if (!f.Open(fname, CFile::modeRead)) {
         CString s = "FATAL ERROR: can't load ";
         s += fname;
@@ -5801,7 +5801,7 @@ CSpriteFont16::CSpriteFont16(const char* fname, int32_t _space) {
     buf = fname;
     buf += ".dat";
 
-    File2 f;
+    ResArchiveFile f;
     f.Open(buf, CFile::modeRead);
 
     this->char_widths = new int32_t[f.GetLength() / 4];
@@ -5870,7 +5870,7 @@ CSpriteFont16a::CSpriteFont16a(const char* fname, int32_t _space) {
     buf = fname;
     buf += ".dat";
 
-    File2 f;
+    ResArchiveFile f;
     f.Open(buf, CFile::modeRead);
 
     this->char_widths = new int32_t[f.GetLength() / 4];
@@ -6292,7 +6292,7 @@ void UnloadUnitGfxFiles() {
         }
     }
     for (int32_t i = 0; i < g_VFX_info.GetSize(); i++) {
-        UnitVFXUnfo* vfx = g_VFX_info[i];
+        UnitVFXInfo* vfx = g_VFX_info[i];
         if (vfx != nullptr) {
             delete vfx;
         }

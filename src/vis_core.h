@@ -103,15 +103,15 @@ class CA16;
 extern char g_HintBuf[1024]; // 666590 (client: 631ff8) VisSpellBook::GetHint static buffer (defined in vis_core.cpp)
 
 class VisPlayingArea;
-class GM_a28;
-class VisInvExtType1;
-class VisInvExtType2;
-class VisInvExtType3;
+class HudMessageLog;
+class VisShopShelfGrid;
+class VisShopBagGrid;
+class VisShopBuyGrid;
 class VisSpellBook;
 class VisCharInfo;
-class VisCharSellectStats;
-class VisCharSellectButtons;
-class VisCharSellectList;
+class VisCharSelectStats;
+class VisCharSelectButtons;
+class VisCharSelectList;
 class VisShop;
 class VisTav;
 class Item;
@@ -151,7 +151,7 @@ enum MapChildId {
     MAP_CHILD_TIPS_DIALOG = 17,
     MAP_CHILD_QUEST_STATUS = 19, // shared with the hat-session panel below
     MAP_CHILD_HAT_SESSION = 19,
-    MAP_CHILD_CHAT_LINE = 1200, // Vis1200 input strip; not part of the shifted range
+    MAP_CHILD_CHAT_LINE = 1200, // VisChatBar input strip; not part of the shifted range
 #else
     MAP_CONTEXT_ID = 1,
     MAP_CHILD_BAG = 2,
@@ -498,9 +498,9 @@ public:
 ASSERT_SIZE(VisRadioBase, 0x8c);
 
 //60acf8
-class VisRadioType1 : public VisRadioBase {
+class VisCheckBoxGroup : public VisRadioBase {
 public:
-    virtual ~VisRadioType1(); // 450590 (client: 452c50)
+    virtual ~VisCheckBoxGroup(); // 450590 (client: 452c50)
     virtual void Draw() override; // 4dadf8 (client: 4df77d)
     virtual void ReadData(const void* buf) override; // 450510 (client: 452bd0)
     virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 4db134 (client: 4dfab9)
@@ -509,20 +509,20 @@ public:
     virtual int32_t OnKeyDown(uint32_t wparam) override; // 4db2d3 (client: 4dfc58)
     virtual int32_t OnChar(uint32_t wparam) override; // 4db20d (client: 4dfb92)
 
-    VisRadioType1(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint); // 450490 (client: 452b50)
+    VisCheckBoxGroup(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint); // 450490 (client: 452b50)
 };
 
 //60ad78
-class VisRadioType2 : public VisRadioBase {
+class VisRadioGroup : public VisRadioBase {
 public:
-    virtual ~VisRadioType2(); // 450720 (client: 4537a0)
+    virtual ~VisRadioGroup(); // 450720 (client: 4537a0)
     virtual void Draw() override; // 4db680 (client: 4e0005)
     virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 4dbb7b (client: 4e0500)
     virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 4db8e7 (client: 4e026c)
     virtual int32_t OnKeyDown(uint32_t wparam) override; // 4dba0e (client: 4e0393)
     virtual int32_t OnChar(uint32_t wparam) override; // 4db993 (client: 4e0318)
 
-    VisRadioType2(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint); // 450670 (client: 4536f0)
+    VisRadioGroup(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint); // 450670 (client: 4536f0)
 };
 
 

@@ -278,7 +278,7 @@ void InitCpuAndDistTables() {
     char idbuf[80];
     memset(idbuf, 0, 80);
     {
-        File2 file;
+        ResArchiveFile file;
         file.Open("main\\id", 0, NULL);
         file.Read(idbuf, file.GetLength());
         file.Close();
@@ -339,7 +339,7 @@ void LogMessage(CString message) {
 // 4758cd (client: 47961d)
 void ReadFileToString(const char* fname, CString* str) {
 
-    File2 f;
+    ResArchiveFile f;
     f.Open(fname, 0);
 
     uint32_t len = f.GetLength();

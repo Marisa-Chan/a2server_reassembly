@@ -1313,7 +1313,7 @@ int GameDataRes::ParseDataBin(const CString& path) {
         }
 #endif
 
-        File2 file2;
+        ResArchiveFile file2;
         if (!file2.Open("World\\Data\\Data.bin", CFile::shareDenyWrite, nullptr)) {
             return 1;
         }

@@ -172,9 +172,9 @@ static void SendFragLimit(Player* player) {
 uint16_t Server::somewords[32][32];
 
 // 59b6f0 (client: 56a5a0)
-Srv1::~Srv1() = default;
+MapLoader::~MapLoader() = default;
 
-SrvStru1 SrvStru1::Instance; //6cf390
+ServerObjectLists ServerObjectLists::Instance; //6cf390
 
 // 4f2c26 (client: 4f5180)
 Server::~Server() {
@@ -264,7 +264,7 @@ void Server::AnnounceHatGameStart() {
         return;
     }
     if (g_HatLLDriver.IsListen()) {
-        NetStru1::HatConnector.SendHatLobbyInfo(-1, this->current_map_title, this->MapLevel, g_ServerConfig.gameType, 0);
+        CHlDriver::HatConnector.SendHatLobbyInfo(-1, this->current_map_title, this->MapLevel, g_ServerConfig.gameType, 0);
     }
     if (g_ServerConfig.gameType == GAME_TYPE_DEATHMATCH || g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY) {
         g_NetStru1_main.SendTeamState(0);
@@ -471,7 +471,7 @@ void Server::ScanSavedCharacters() {
 
 
 // 59b7ea (client: 56a69a) - Load ALM map file
-int Srv1::LoadMap(CString map_name) {
+int MapLoader::LoadMap(CString map_name) {
     if (this->is_scenario != 0) {
         map_name = "Scenario\\" + map_name;
     }
@@ -533,7 +533,7 @@ int Srv1::LoadMap(CString map_name) {
 
     this->CreatePlayers(alm);
 
-    MapStuff* map_stuff = new MapStuff(alm, g_ServerUnits);
+    TerrainMap* map_stuff = new TerrainMap(alm, g_ServerUnits);
     MapStuff_Instance = map_stuff;
 
     World* world = new World(MapStuff_Instance, g_PlayersList);
@@ -592,7 +592,7 @@ int Srv1::LoadMap(CString map_name) {
 }
 
 // 59c56e (client: 56b41e) - CreateBuildings
-void Srv1::CreateBuildings(MapAlm* alm) {
+void MapLoader::CreateBuildings(MapAlm* alm) {
     static std::set<int16_t> shop_type_ids = {
         Building::TYPE_SHOP_PLAGAT_1, Building::TYPE_SHOP_PLAGAT_2,
         Building::TYPE_SHOP_KAARG_1, Building::TYPE_SHOP_KAARG_2, Building::TYPE_SHOP_KAARG_3,
@@ -716,7 +716,7 @@ void Srv1::CreateBuildings(MapAlm* alm) {
 }
 
 // 59fc97 (client: 56eb47) - Spawn 'count' random sacks on the map; count=0 defaults to max(10, map_width/4).
-void Srv1::SpawnRandomSacks(int count) {
+void MapLoader::SpawnRandomSacks(int count) {
 #ifdef A2TANGAR_HAT
     (void)count;
     return;
@@ -745,7 +745,7 @@ void Srv1::SpawnRandomSacks(int count) {
 }
 
 // 59bedb (client: 56ad8b)
-void Srv1::SpawnGroupOutpost(Group* group, MapAlm* alm) {
+void MapLoader::SpawnGroupOutpost(Group* group, MapAlm* alm) {
     if (group->unit_list.GetCount() == 0) {
         return;
     }
@@ -829,7 +829,7 @@ void Srv1::SpawnGroupOutpost(Group* group, MapAlm* alm) {
 }
 
 // 59c37a (client: 56b22a)
-void Srv1::SpawnAiGroupOutposts(MapAlm* alm) {
+void MapLoader::SpawnAiGroupOutposts(MapAlm* alm) {
     POSITION player_iter = g_PlayersList->list.GetHeadPosition();
     while (player_iter) {
         Player* player = g_PlayersList->list.GetNext(player_iter);
@@ -844,7 +844,7 @@ void Srv1::SpawnAiGroupOutposts(MapAlm* alm) {
 }
 
 // 59c3fb (client: 56b2ab)
-void Srv1::CreatePlayers(MapAlm* alm) {
+void MapLoader::CreatePlayers(MapAlm* alm) {
     for (int32_t i = 1; i <= alm->map_players.GetSize(); i++) {
         MapPlayerData* player_data = alm->map_players[i - 1];
         if (player_data == nullptr) {
@@ -872,7 +872,7 @@ void Srv1::CreatePlayers(MapAlm* alm) {
 }
 
 // 59cd45 (client: 56bbf5)
-void Srv1::CreateUnits(MapAlm* alm) {
+void MapLoader::CreateUnits(MapAlm* alm) {
     if (MapStuff_Instance == nullptr) {
         return;
     }
@@ -980,7 +980,7 @@ void Srv1::CreateUnits(MapAlm* alm) {
 }
 
 // 59d4b8 (client: 56c368)
-Unit* Srv1::GetScenarioScriptPCUnit(const char* name) {
+Unit* MapLoader::GetScenarioScriptPCUnit(const char* name) {
     if (g_Server->multiplayer == 0) {
         CString pcname("PC_");
         pcname += name;
@@ -1004,7 +1004,7 @@ Unit* Srv1::GetScenarioScriptPCUnit(const char* name) {
 }
 
 // 59d664 (client: 56c514)
-Unit* Srv1::GetScenarioScriptHero(uint32_t idx) {
+Unit* MapLoader::GetScenarioScriptHero(uint32_t idx) {
     if (g_Server->multiplayer == 0) {
         Player* first_player = g_PlayersList->GetHead();
         for (POSITION pos = first_player->unit_list->unit_list.GetHeadPosition(); pos != nullptr;) {
@@ -1025,7 +1025,7 @@ Unit* Srv1::GetScenarioScriptHero(uint32_t idx) {
 }
 
 // 59d3c0 (client: 56c270)
-Unit* Srv1::GetScenarioScriptUnit(CMap<int32_t, int32_t, Unit*, Unit*>& umap, uint32_t idx) {
+Unit* MapLoader::GetScenarioScriptUnit(CMap<int32_t, int32_t, Unit*, Unit*>& umap, uint32_t idx) {
     Unit* result = nullptr;
     if (idx < 10001) {
         result = umap[idx];
@@ -1049,7 +1049,7 @@ Unit* Srv1::GetScenarioScriptUnit(CMap<int32_t, int32_t, Unit*, Unit*>& umap, ui
 }
 
 // 59d808 (client: 56c6b8)
-Group* Srv1::GetScenarioScriptGroup(CMap<int32_t, int32_t, Group*, Group*>& gmap, uint32_t idx) {
+Group* MapLoader::GetScenarioScriptGroup(CMap<int32_t, int32_t, Group*, Group*>& gmap, uint32_t idx) {
     Group* g = gmap[idx];
     if (!g) {
         CString msg;
@@ -1060,7 +1060,7 @@ Group* Srv1::GetScenarioScriptGroup(CMap<int32_t, int32_t, Group*, Group*>& gmap
 }
 
 // 59d77f (client: 56c62f)
-Player* Srv1::GetScenarioScriptPlayer(CMap<int32_t, int32_t, Player*, Player*>& pmap, uint32_t idx) {
+Player* MapLoader::GetScenarioScriptPlayer(CMap<int32_t, int32_t, Player*, Player*>& pmap, uint32_t idx) {
     Player* p = pmap[idx];
     if (!p) {
         CString msg;
@@ -1071,7 +1071,7 @@ Player* Srv1::GetScenarioScriptPlayer(CMap<int32_t, int32_t, Player*, Player*>& 
 }
 
 // 59d891 (client: 56c741)
-void Srv1::LoadTriggers(MapAlm* alm, int flag) {
+void MapLoader::LoadTriggers(MapAlm* alm, int flag) {
     CMap<int32_t, int32_t, Unit*, Unit*> units_map;
     CMap<int32_t, int32_t, Group*, Group*> groups_map;
     CMap<int32_t, int32_t, Player*, Player*> players_map;
@@ -1477,7 +1477,7 @@ void Srv1::LoadTriggers(MapAlm* alm, int flag) {
 }
 
 // 59f1be (client: 56e06e)
-void Srv1::LoadSacks(MapAlm* alm) {
+void MapLoader::LoadSacks(MapAlm* alm) {
     // Build lookup maps
     CMap<int32_t, int32_t, Building*, Building*> buildings_map;
     CMap<int32_t, int32_t, Unit*, Unit*> units_map;
@@ -2030,7 +2030,7 @@ void Server::AssignPlayerSlot(Player* player, int32_t slot_data) {
 
 #ifdef A2SERVER_PATCH
     // imp_LogIP hook (4FF783): include the client address in the join log
-    NetStru2* join_client = g_NetStru1_main.GetClientByPlayerID(player->player_id);
+    NetClientPeer* join_client = g_NetStru1_main.GetClientByPlayerID(player->player_id);
     LogMessage("Player " + player->name + " has joined the game (from: "
                + CString(join_client != nullptr ? (const char*)join_client->buf : "n/a") + ")");
 #else
@@ -2386,7 +2386,7 @@ int Server::JoinPlayer(uint32_t pkt_word0, uint32_t pkt_word1,
     // Increment World::joined_count
     g_World->IncrementJoinedCount();
 
-    // Notify MapStuff section
+    // Notify TerrainMap section
     MapStuff_Instance->scan_presence_grid.RebuildPresenceGrid();
 
     // Add character unit to map.
@@ -2771,7 +2771,7 @@ Human* Server::LoadCharacter(void* data, int32_t size, Player* player) {
     if (unit->eye2 != nullptr) {
         delete unit->eye2;
     }
-    unit->eye2 = new UnitEye2();
+    unit->eye2 = new UnitAiState();
     delete unit->position;
     unit->position = new TokenPos();
     unit->cast_target = nullptr;
@@ -3310,7 +3310,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
 
                 const char* p_charname = (const char*)target->name;
                 const char* p_logname = (const char*)target->login;
-                NetStru2* netinf = g_NetStru1_main.GetClientByPlayerID(target->player_id);
+                NetClientPeer* netinf = g_NetStru1_main.GetClientByPlayerID(target->player_id);
                 CString p_state;
                 if (netinf != nullptr) {
                     p_state.Format("connected (%s)", (const char*)netinf->buf);
@@ -3863,7 +3863,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
 #else
     if (this->multiplayer != 0) {
         // Non-admin commands.
-        NetStru2* ns2 = g_NetStru1_main.GetClientByPlayerID(player->player_id);
+        NetClientPeer* ns2 = g_NetStru1_main.GetClientByPlayerID(player->player_id);
         if (ns2 == nullptr || ns2->is_local_player == 0) {
             if (cheat_string.Find("#set latency ") == 0) {
                 cheat_string = cheat_string.Mid(13);
@@ -3874,14 +3874,14 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
                         g_NetStru1_main.SendTeamNotify(TEAM_NOTIFY_CHEAT_FAILED, player->player_id, player);
                         return;
                     }
-                    NetStru2* ns2 = g_NetStru1_main.GetClientByPlayerID(player->player_id);
+                    NetClientPeer* ns2 = g_NetStru1_main.GetClientByPlayerID(player->player_id);
                     if (ns2 != nullptr) {
                         g_CLlDriver.SetLatency(ns2->uid, lat);
                         g_NetStru1_main.SendLatency(lat, player);
                     }
                 }
             } else if (cheat_string.Find("#show latency") == 0) {
-                NetStru2* ns2 = g_NetStru1_main.GetClientByPlayerID(player->player_id);
+                NetClientPeer* ns2 = g_NetStru1_main.GetClientByPlayerID(player->player_id);
                 if (ns2 != nullptr) {
                     int32_t lat  = g_CLlDriver.GetLatency(ns2->uid);
                     int32_t loss = g_CLlDriver.GetPacketLoss(ns2->uid);
@@ -3911,7 +3911,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
                 cheat_string.TrimLeft();
                 Player* target = g_PlayersList->FindByName(cheat_string);
                 if (target != nullptr) {
-                    NetStru2* tns2 = g_NetStru1_main.GetClientByPlayerID(target->player_id);
+                    NetClientPeer* tns2 = g_NetStru1_main.GetClientByPlayerID(target->player_id);
                     if (tns2 != nullptr && tns2->is_local_player == 0) {
                         g_NetStru1_main.AnnouncePlayer(target);
                     }
@@ -3921,7 +3921,7 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
                 cheat_string.TrimLeft();
                 Player* target = g_PlayersList->FindByName(cheat_string);
                 if (target != nullptr && target->is_ai == 0) {
-                    NetStru2* tns2 = g_NetStru1_main.GetClientByPlayerID(target->player_id);
+                    NetClientPeer* tns2 = g_NetStru1_main.GetClientByPlayerID(target->player_id);
                     if (tns2 != nullptr) {
                         CString msg;
                         msg.Format("%s (%d,%d)",
@@ -4272,7 +4272,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
             inv_msg.Format("Invalid packet '%.2X' from '%s'", static_cast<unsigned int>(pkt->id), (const char*)bad_player->login);
             LogMessage(inv_msg);
 #endif
-            NetStru2* ns2 = g_NetStru1_main.GetClientByPlayerID(bad_player->player_id);
+            NetClientPeer* ns2 = g_NetStru1_main.GetClientByPlayerID(bad_player->player_id);
             if (ns2 != nullptr && ns2->is_local_player == 0) {
                 g_NetStru1_main.AnnouncePlayer(bad_player);
                 ns2->ReturnBuffers();
@@ -4641,7 +4641,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
 #ifdef A2CLIENT
         //allods2 50001c
     {
-        NetStru2* cli = g_NetStru1_main.GetClientByLowUid(packet_enter_game->from_player_id);
+        NetClientPeer* cli = g_NetStru1_main.GetClientByLowUid(packet_enter_game->from_player_id);
         this->Allods2_JoinPlayer(packet_enter_game->value1, packet_enter_game->value2, packet_enter_game->text, cli, packet_enter_game->value3);
     }
 #else
@@ -4649,7 +4649,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
 
         player = this->FindPlayerById(packet_enter_game->from_player_id);
         if (player) {
-            NetStru2* ns2 = g_NetStru1_main.GetClientByPlayerID(packet_enter_game->from_player_id);
+            NetClientPeer* ns2 = g_NetStru1_main.GetClientByPlayerID(packet_enter_game->from_player_id);
             if (ns2 && ns2->is_claimed != 0) {
                 this->AssignPlayerSlot(player, packet_enter_game->value3);
             }
@@ -5287,7 +5287,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
             g_NetStru1_main.QueuePacketSend(&resp);
             g_NetStru1_main.SendTickPacket(player);
 #if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
-            if (NetStru2* cli = g_NetStru1_main.GetClientByPlayerID(player->player_id)) {
+            if (NetClientPeer* cli = g_NetStru1_main.GetClientByPlayerID(player->player_id)) {
                 cli->SendData();
             }
 #endif
@@ -5990,7 +5990,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
         {
             int32_t latency = packet_dword->value;
             if (latency == 0 || (50 <= latency && latency <= 10000)) {
-                NetStru2* ns2 = g_NetStru1_main.GetClientByLowUid(packet_dword->from_player_id);
+                NetClientPeer* ns2 = g_NetStru1_main.GetClientByLowUid(packet_dword->from_player_id);
                 if (ns2) {
                     g_CLlDriver.SetLatency(ns2->uid, latency);
                 }
@@ -6002,7 +6002,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
         CheckPacketType(pkt, "Packet2Dwords");
         {
             // Only handle if this connection has not yet claimed a player (field_0x2a8 == 0)
-            NetStru2* ns2 = g_NetStru1_main.GetClientByLowUid(packet_2dwords->from_player_id);
+            NetClientPeer* ns2 = g_NetStru1_main.GetClientByLowUid(packet_2dwords->from_player_id);
             if (!ns2 || ns2->is_claimed != 0) {
                 break;
             }
@@ -6014,7 +6014,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
             }
 #endif
             Player* target = g_PlayersList->FindByHatCharId(packet_2dwords->param1, packet_2dwords->param2);
-            // Only proceed if the target player has no active NetStru2 yet
+            // Only proceed if the target player has no active NetClientPeer yet
             if (target && g_NetStru1_main.GetClientByPlayerID(target->player_id) == nullptr) {
                 ns2->player_id = target->player_id;
                 ns2->is_claimed = 1;
@@ -6031,7 +6031,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
 
 
 // server: none (client: 4f9a78) - Allods2.exe Join Player
-void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2* client, uint32_t params) {
+void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetClientPeer* client, uint32_t params) {
     //Allods2.exe 4f9a78    Join Player
     if (name.GetLength() < 1) {
         CString str;
@@ -6252,7 +6252,7 @@ void Server::Allods2_JoinPlayer(int32_t id, int32_t arg, CString name, NetStru2*
 }
 
 // 4fc4f3 (client: 4f992b)
-void Server::JoinErrorSend(NetStru2* client, int32_t error_code, const CString& str) {
+void Server::JoinErrorSend(NetClientPeer* client, int32_t error_code, const CString& str) {
     g_NetStru1_main.SendAllData();
     Player pl;
     pl.player_id = 9999;
@@ -6328,8 +6328,8 @@ int32_t Server::ConnectToHat() {
     }
 
     LogMessage("Connected. Logging in...");
-    NetStru1::HatConnector.ProcessConnections();
-    NetStru1::HatConnector.SendHatLogin(g_ServerConfig.ip_address);
+    CHlDriver::HatConnector.ProcessConnections();
+    CHlDriver::HatConnector.SendHatLogin(g_ServerConfig.ip_address);
     return 1;
 }
 
@@ -6345,7 +6345,7 @@ void Server::HatKeepaliveTick() {
         this->hat_announce_tick = tick_count;
 
         if (g_PlayersList->CountHumanPlayers() == 0 || g_ServerConfig.gameType != GAME_TYPE_COOPERATIVE) {
-            NetStru1::HatConnector.SendHatKeepalive(0);
+            CHlDriver::HatConnector.SendHatKeepalive(0);
         } else {
             Player* player = nullptr;
             do {
@@ -6382,7 +6382,7 @@ void Server::HatKeepaliveTick() {
                 void* file_data = malloc(file_size);
                 file.Read(file_data, file_size);
 
-                NetStru1::HatConnector.SendHatMessage(basic_info->id1, basic_info->id2, login, file_data, file_size, 0);
+                CHlDriver::HatConnector.SendHatMessage(basic_info->id1, basic_info->id2, login, file_data, file_size, 0);
 #ifndef A2TANGAR_HAT
                 // skip_updating_character_log hook (4F117E): dropped from the
                 // production log
@@ -6427,7 +6427,7 @@ void Server::HatKeepaliveTick() {
         void* file_data = malloc(file_size);
         file.Read(file_data, file_size);
 
-        NetStru1::HatConnector.SendHatCharData(basic_info->id1, basic_info->id2, login, file_data, file_size, 0);
+        CHlDriver::HatConnector.SendHatCharData(basic_info->id1, basic_info->id2, login, file_data, file_size, 0);
 #ifndef A2TANGAR_HAT
         // skip_returning_character_log hook (4F13F4): dropped from the
         // production log
@@ -6465,8 +6465,8 @@ int Server::Start(int mode) {
 
 #ifndef A2CLIENT
     if (mode == 0) {
-        NetStru1::HatConnector.SetLLDriver(&g_HatLLDriver);
-        g_HatLLDriver.hl_driver = &NetStru1::HatConnector;
+        CHlDriver::HatConnector.SetLLDriver(&g_HatLLDriver);
+        g_HatLLDriver.hl_driver = &CHlDriver::HatConnector;
         g_HatLLDriver.ResetProvider(PROVIDER_HAT_TCP);
     }
 #endif
@@ -7003,7 +7003,7 @@ void Server::PumpNetwork() {
 
 // 4ece8b (client: 4f233b)
 Server::Server()
-: base_dir(""), srv_stru1(&SrvStru1::Instance) {
+: base_dir(""), srv_stru1(&ServerObjectLists::Instance) {
     g_World = nullptr;
     g_ServerUnits = nullptr;
     g_UnitPool = nullptr;
@@ -7176,25 +7176,25 @@ void Server::DespawnScenarioUnits(int32_t var300, CDWordArray& arr) {
 
 // 4f0d58 (client: none)
 void Server::ProcessHatConnections() {
-    NetStru1::HatConnector.ProcessConnections();
+    CHlDriver::HatConnector.ProcessConnections();
     if (g_HatLLDriver.IsListen()) {
         if (this->hat_logged_in != 0) {
-            NetStru2* first_client;
-            if (NetStru1::HatConnector.active_connects.IsEmpty()) {
+            NetClientPeer* first_client;
+            if (CHlDriver::HatConnector.active_connects.IsEmpty()) {
                 first_client = nullptr;
             } else {
-                first_client = NetStru1::HatConnector.active_connects.GetHead();
+                first_client = CHlDriver::HatConnector.active_connects.GetHead();
             }
             if ((first_client == nullptr || first_client->is_claimed == 0) && GetTickCount() - this->hat_logged_in > 30000) {
                 g_HatLLDriver.Close();
-                NetStru1::HatConnector.ProcessConnections();
+                CHlDriver::HatConnector.ProcessConnections();
                 this->hat_disconnect_tick = GetTickCount();
                 this->hat_logged_in = 0;
                 LogMessage(CString("Login to hat failed. Hat does not respond."));
             }
         }
         if (GetTickCount() - this->hat_ping_tick > 15000) {
-            NetStru1::HatConnector.SendServerTickFlush(1, 0);
+            CHlDriver::HatConnector.SendServerTickFlush(1, 0);
             this->hat_ping_tick = GetTickCount();
         }
     } else {
@@ -7297,7 +7297,7 @@ void Server::EnsurePlayerGroup(Player* player) {
 
             uint8_t spell_id = unit->eye2->spell_id;
             delete unit->eye2;
-            unit->eye2 = new UnitEye2();
+            unit->eye2 = new UnitAiState();
             unit->eye2->spell_id = spell_id;
 
             g_World->ProcessAnimateDeadGroup(unit->group);
@@ -7318,7 +7318,7 @@ void Server::UpdateHatAnnounce() {
         map_range = MapStuff_Instance->GetWidth() - 16;
     }
     if (g_HatLLDriver.IsListen()) {
-        NetStru1::HatConnector.SendHatLobbyInfo(g_PlayersList->CountHumanPlayers(), this->current_map_title, this->MapLevel, g_ServerConfig.gameType, map_range);
+        CHlDriver::HatConnector.SendHatLobbyInfo(g_PlayersList->CountHumanPlayers(), this->current_map_title, this->MapLevel, g_ServerConfig.gameType, map_range);
     }
     if (g_ServerConfig.gameType == GAME_TYPE_DEATHMATCH || g_ServerConfig.gameType == GAME_TYPE_TEAMPLAY) {
         g_NetStru1_main.SendTeamState(0);
@@ -7361,7 +7361,7 @@ void Server::KickAllPlayers() {
     for (POSITION it = g_PlayersList->list.GetHeadPosition(); it != nullptr;) {
         Player* player = g_PlayersList->list.GetNext(it);
         if (!player->is_ai) {
-            NetStru2* client = g_NetStru1_main.GetClientByPlayerID(player->player_id);
+            NetClientPeer* client = g_NetStru1_main.GetClientByPlayerID(player->player_id);
             if (client != nullptr) {
                 g_NetStru1_main.DisconnectClient(client);
             }
@@ -7539,11 +7539,11 @@ void Server::GetArenaFrags(CString* name, uint32_t* frags) {
 
 // 5088df (client: none)
 void Server::ProcessHatPacket(Packet* pkt) {
-    if (NetStru1::HatConnector.active_connects.IsEmpty()) {
+    if (CHlDriver::HatConnector.active_connects.IsEmpty()) {
         return;
     }
 
-    NetStru2* hat_connection = NetStru1::HatConnector.active_connects.GetHead();
+    NetClientPeer* hat_connection = CHlDriver::HatConnector.active_connects.GetHead();
     if (hat_connection == nullptr) {
         return;
     }
@@ -7580,7 +7580,7 @@ void Server::ProcessHatPacket(Packet* pkt) {
 #endif
             LogMessage(login + "'s character returned to hat");
             if (this->FileList.GetSize() == 0 && this->hat_uploads_pending != 0) {
-                NetStru1::HatConnector.SendBarePacket(MISSION_ENTERED, nullptr);
+                CHlDriver::HatConnector.SendBarePacket(MISSION_ENTERED, nullptr);
                 this->hat_uploads_pending = 0;
             }
             break;
@@ -7597,7 +7597,7 @@ void Server::ProcessHatPacket(Packet* pkt) {
         this->hat_id = packet_2dwords->param1;
         if (this->FileList.GetSize() == 0) {
             this->hat_uploads_pending = 0;
-            NetStru1::HatConnector.SendBarePacket(MISSION_ENTERED, nullptr);
+            CHlDriver::HatConnector.SendBarePacket(MISSION_ENTERED, nullptr);
         } else {
             this->hat_uploads_pending = 1;
         }
@@ -7624,9 +7624,9 @@ void Server::ProcessHatPacket(Packet* pkt) {
             int32_t result = this->JoinPlayer(id1, id2, name, login, block, block_size, team_id);
             if (result == 0) {
                 LogMessage("New player " + name + " has logged in as " + login);
-                NetStru1::HatConnector.SendHatJoinOk(id1, id2);
+                CHlDriver::HatConnector.SendHatJoinOk(id1, id2);
             } else {
-                NetStru1::HatConnector.SendHatJoinFail(id1, id2, result);
+                CHlDriver::HatConnector.SendHatJoinFail(id1, id2, result);
             }
             break;
         }
@@ -7636,15 +7636,15 @@ void Server::ProcessHatPacket(Packet* pkt) {
             int32_t id2 = packet_2dwords->param2;
             Player* player = g_PlayersList->FindByHatCharId(id1, id2);
             if (player == nullptr) {
-                NetStru1::HatConnector.SendHatPlayerCheck(id1, id2, 1, 0);
+                CHlDriver::HatConnector.SendHatPlayerCheck(id1, id2, 1, 0);
                 return;
             }
 
-            NetStru2* client = g_NetStru1_main.GetClientByPlayerID(player->player_id);
+            NetClientPeer* client = g_NetStru1_main.GetClientByPlayerID(player->player_id);
             if (client != nullptr) {
-                NetStru1::HatConnector.SendHatPlayerCheck(id1, id2, 2, 0);
+                CHlDriver::HatConnector.SendHatPlayerCheck(id1, id2, 2, 0);
             } else {
-                NetStru1::HatConnector.SendHatPlayerCheck(id1, id2, 0, 0);
+                CHlDriver::HatConnector.SendHatPlayerCheck(id1, id2, 0, 0);
                 player->drop_deadline_tick16 = this->tick16 + 300;
             }
             break;
@@ -7735,7 +7735,7 @@ int32_t CowardActivation::CheckActivationKey(const char* str) {
 }
 
 // 4faeb4 (client: 4f905a)
-void SrvStru1::FreeLists() {
+void ServerObjectLists::FreeLists() {
     if (this->sack_list) {
         delete this->sack_list;
         this->sack_list = nullptr;
@@ -7783,7 +7783,7 @@ void SrvStru1::FreeLists() {
 }
 
 // 4fab1d (client: none)
-void SrvStru1::Deinit() {
+void ServerObjectLists::Deinit() {
     if (this->sack_list) {
         delete this->sack_list;
         this->sack_list = nullptr;
@@ -7842,7 +7842,7 @@ void SrvStru1::Deinit() {
 }
 
 // 4fb8cd (client: 4f9466)
-Unit* SrvStru1::AddDummyUnitWithSpell(int32_t xpos, int32_t ypos, int32_t spellID, int16_t SpellDmg) {
+Unit* ServerObjectLists::AddDummyUnitWithSpell(int32_t xpos, int32_t ypos, int32_t spellID, int16_t SpellDmg) {
     Unit* unit = new Unit();
     unit->building_id = 0;
 
@@ -7866,7 +7866,7 @@ Unit* SrvStru1::AddDummyUnitWithSpell(int32_t xpos, int32_t ypos, int32_t spellI
 }
 
 // 4fbb24 (client: 4f9629)
-void SrvStru1::MakeAreaSpellEffect(uint8_t from_x, uint8_t from_y, uint8_t to_x, uint8_t to_y, uint32_t spell_id, uint32_t power) {
+void ServerObjectLists::MakeAreaSpellEffect(uint8_t from_x, uint8_t from_y, uint8_t to_x, uint8_t to_y, uint32_t spell_id, uint32_t power) {
     Unit* unit = this->AddDummyUnitWithSpell(from_x, from_y, spell_id, power);
     unit->some_state = Unit::EXEC_CAST_POS;
     unit->area_cast_x = to_x;
@@ -7874,20 +7874,20 @@ void SrvStru1::MakeAreaSpellEffect(uint8_t from_x, uint8_t from_y, uint8_t to_x,
 }
 
 // 4fbae3 (client: 4f95ec)
-void SrvStru1::MakeTargetSpellEffect(uint8_t a0, uint8_t a1, Unit* unit, uint32_t a3, uint32_t a4) {
+void ServerObjectLists::MakeTargetSpellEffect(uint8_t a0, uint8_t a1, Unit* unit, uint32_t a3, uint32_t a4) {
     Unit* u = this->AddDummyUnitWithSpell(a0, a1, a3, a4);
     u->some_state = Unit::EXEC_CAST_UNIT;
     u->cast_target = unit;
 }
 
 // 4fb4aa (client: 4f9302)
-void SrvStru1::UpdateMapObjects() {
+void ServerObjectLists::UpdateMapObjects() {
     this->building_list->RegenTick();
     this->sack_list->UpdateSackVisibility();
 }
 
 // 4fb4ca (client: 4f9322)
-void SrvStru1::TransferUnitOwnership(Unit* unit, Player* new_owner) {
+void ServerObjectLists::TransferUnitOwnership(Unit* unit, Player* new_owner) {
 #ifdef A2SERVER_PATCH
     if (unit == nullptr) {
         LogMessage("TransferUnitOwnership: unit is nullptr.");
@@ -7928,7 +7928,7 @@ void SrvStru1::TransferUnitOwnership(Unit* unit, Player* new_owner) {
 }
 
 // 4fb273 (client: 4f9289)
-void SrvStru1::ProcessTick() {
+void ServerObjectLists::ProcessTick() {
     POSITION unit_it = this->some_unit_list.GetHeadPosition();
     while (unit_it != nullptr) {
         POSITION cur = unit_it;
@@ -7944,7 +7944,7 @@ void SrvStru1::ProcessTick() {
 }
 
 // 4fa89c (client: 4f91a3)
-SrvStru1::SrvStru1() {
+ServerObjectLists::ServerObjectLists() {
     this->sack_list = nullptr;
     this->units_list = nullptr;
     this->effects_list = nullptr;
@@ -7952,7 +7952,7 @@ SrvStru1::SrvStru1() {
 }
 
 // 4fa981 (client: 4f9000)
-SrvStru1::~SrvStru1() {
+ServerObjectLists::~ServerObjectLists() {
     this->Deinit();
 }
 
@@ -8304,7 +8304,7 @@ void Server::SendMapInfo(Player* player) {
 #if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
     delete pkt;
     g_NetStru1_main.SendTickPacket(player);
-    if (NetStru2* cli = g_NetStru1_main.GetClientByPlayerID(player->player_id)) {
+    if (NetClientPeer* cli = g_NetStru1_main.GetClientByPlayerID(player->player_id)) {
         cli->SendData();
     }
 #endif
@@ -8327,9 +8327,9 @@ void Server::MissionResultsTick() {
 
 // 509042 (client: none)
 void Server::ProcessHatPackets() {
-    NetStru1::HatConnector.ProcessConnections();
+    CHlDriver::HatConnector.ProcessConnections();
     Packet* pkt;
-    while ((pkt = NetStru1::HatConnector.ReceiveAnyPacket()) != nullptr) {
+    while ((pkt = CHlDriver::HatConnector.ReceiveAnyPacket()) != nullptr) {
         this->ProcessHatPacket(pkt);
     }
 }
@@ -8434,7 +8434,7 @@ void Server::SendArenaResults() {
         result += line;
     }
     result += "\n";
-    NetStru1::HatConnector.SendHatRawString(result, result.GetLength());
+    CHlDriver::HatConnector.SendHatRawString(result, result.GetLength());
 }
 
 // 4fa01f (client: none) - Arena mode file list setup
@@ -8662,7 +8662,7 @@ void Server::SerializeGame(CArchive& ar) {
             }
 
             MapAlm* alm = new MapAlm((const char*)map_name);
-            MapStuff_Instance = new MapStuff(alm, g_ServerUnits);
+            MapStuff_Instance = new TerrainMap(alm, g_ServerUnits);
             MapStuff_Instance->Serialize(ar);
 
             if (g_World == nullptr) {

@@ -7,7 +7,7 @@
 #include <afxtempl.h>
 
 
-struct GroupSub {
+struct GroupOrderState {
 public:
     enum Order : uint8_t {
         ORDER_DEFAULT     = 0,
@@ -22,8 +22,8 @@ public:
         ORDER_IDLE_ALL    = 0xFF,
     };
 
-    GroupSub(); // 5a4f6e (client: 5730de)
-    ~GroupSub(); // 5a500c (client: 57317c)
+    GroupOrderState(); // 5a4f6e (client: 5730de)
+    ~GroupOrderState(); // 5a500c (client: 57317c)
 
     void Serialize(CArchive& ar); // 5b0429 (client: 57e599)
 
@@ -56,8 +56,8 @@ public:
     uint32_t active; // Modified by the "Suspend group" trigger action.
     CList<uint16_t>* list;
 };
-ASSERT_OFFSET(GroupSub, active, 0x48);
-ASSERT_SIZE(GroupSub, 0x50);
+ASSERT_OFFSET(GroupOrderState, active, 0x48);
+ASSERT_SIZE(GroupOrderState, 0x50);
 
 class Player;
 class Unit;
@@ -67,7 +67,7 @@ public:
     CList<Unit*> unit_list;
     uint32_t group_id;
     CList<uint16_t> some_list;
-    GroupSub* group_sub;
+    GroupOrderState* group_sub;
     uint32_t saved_ptr;
     Player* owner;
     uint32_t has_quest_kill;

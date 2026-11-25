@@ -30,7 +30,7 @@ struct ItemNamePktEntry {
     // Total record size: 7 + data_len
 };
 #pragma pack(pop)
-class NetStru1;
+class CHlDriver;
 
 
 

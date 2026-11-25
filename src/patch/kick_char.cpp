@@ -20,7 +20,7 @@ void KickPlayer(Player* player, bool silent) {
 
     g_Server->SaveCharacter(player->main_unit);
 
-    NetStru2* node = g_NetStru1_main.GetClientByPlayerID(player->player_id);
+    NetClientPeer* node = g_NetStru1_main.GetClientByPlayerID(player->player_id);
     if (node == nullptr) {
         return;
     }
@@ -55,7 +55,7 @@ void DisconnectPlayer(Player* player) {
 
     g_Server->SaveCharacter(player->main_unit);
 
-    NetStru2* node = g_NetStru1_main.GetClientByPlayerID(player->player_id);
+    NetClientPeer* node = g_NetStru1_main.GetClientByPlayerID(player->player_id);
     if (node == nullptr) {
         return;
     }

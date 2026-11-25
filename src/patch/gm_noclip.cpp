@@ -1,6 +1,6 @@
 // Ported from srvmgr zxmgr::MakeUnitNoClip + CheckPlayerNoClip
 // (common_new.cpp). The DLL zeroed dwords in the two obstacle grids through
-// the raw MapStuff pointer; here the same cells are cleared through the
+// the raw TerrainMap pointer; here the same cells are cleared through the
 // named obstacle_map / obstacle_map2 fields. eye->byte5 is path_mask.
 
 #include "gm_noclip.h"
@@ -19,7 +19,7 @@ static void MakeUnitNoClip(Unit* unit) {
     int x = unit->position->x;
     int y = unit->position->y;
     // clear unit radius
-    MapStuff* map = MapStuff_Instance;
+    TerrainMap* map = MapStuff_Instance;
     unit->position->pInstance = map;
     int unit_size = unit->GetTokenSize();
     if (map != nullptr) {

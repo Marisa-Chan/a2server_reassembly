@@ -28,7 +28,7 @@ QuestMap::~QuestMap() {
 
     POSITION sub_pos = this->substructs.GetHeadPosition();
     while (sub_pos != nullptr) {
-        QuestSubstruct* sub = this->substructs.GetNext(sub_pos);
+        DeferredQuestEvent* sub = this->substructs.GetNext(sub_pos);
         delete sub;
     }
 
@@ -41,7 +41,7 @@ QuestMap::~QuestMap() {
 // 55de84 (client: 537e01)
 void QuestMap::ProcessQueuedEvents() {
     while (this->substructs.GetCount() != 0) {
-        QuestSubstruct* sub = this->substructs.RemoveHead();
+        DeferredQuestEvent* sub = this->substructs.RemoveHead();
         if (this->substructs.GetCount() == 0) {
             this->substructs.RemoveAll();
         }
@@ -83,7 +83,7 @@ void QuestMap::DeleteGlues() {
 
 // 55dd10 (client: 537dbb) - Fire a quest event
 void QuestMap::QueueEvent(int32_t event_type, int32_t a, int32_t b) {
-    QuestSubstruct* sub = new QuestSubstruct;
+    DeferredQuestEvent* sub = new DeferredQuestEvent;
     sub->event_type = event_type;
     sub->param_a = a;
     sub->param_b = b;

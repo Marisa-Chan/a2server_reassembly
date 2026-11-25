@@ -50,9 +50,9 @@ public:
 ASSERT_SIZE(VisInvBase, 0x20ac);
 
 //60ca60
-class VisInvType1 : public VisInvBase {
+class VisBagInventory : public VisInvBase {
 public:
-    virtual ~VisInvType1(); // 4a7830 (client: 4aba40)
+    virtual ~VisBagInventory(); // 4a7830 (client: 4aba40)
 #ifdef A2CLIENT_PATCH
     // Tangar pack_scrolling (PSCRL_gameInventory, client vtable slot 0x5D8BAC):
     // the retail class inherits CVisualObject::OnKeyDown; the patched client
@@ -77,11 +77,11 @@ public:
     virtual int32_t GetSlotAt(int32_t x, int32_t y) override; // 4a6d11 (client: 4aad40)
     virtual int32_t GetTransferTab() override; // 4a7a20 (client: 4aba00)
 
-    VisInvType1(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); // 4a630b (client: 4aa33a)
+    VisBagInventory(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); // 4a630b (client: 4aa33a)
 
 public:
 };
-ASSERT_SIZE(VisInvType1, 0x20ac);
+ASSERT_SIZE(VisBagInventory, 0x20ac);
 
 //60d0e8
 class VisInvExtBase : public VisInvBase {
@@ -129,9 +129,9 @@ public:
 ASSERT_SIZE(VisInvExtBase, 0x20c8);
 
 //60d1a8
-class VisInvExtType1 : public VisInvExtBase {
+class VisShopShelfGrid : public VisInvExtBase {
 public:
-    virtual ~VisInvExtType1(); // 4b6522 (client: 4baeec)
+    virtual ~VisShopShelfGrid(); // 4b6522 (client: 4baeec)
 
     virtual const char* GetHint() override; // 4b6f8d (client: 4bb957)
     virtual void Draw() override; // 4b70c0 (client: 4bba8a)
@@ -159,7 +159,7 @@ public:
     void DrawDownArrowHover(); // 4b731e (client: 4bbce8)
     void DrawDownArrowIdle(); // 4b7381 (client: 4bbd4b)
 
-    VisInvExtType1(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); // 4b63f7 (client: 4badc1)
+    VisShopShelfGrid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); // 4b63f7 (client: 4badc1)
 
 public:
     int32_t gap_0x20c8; //unk type
@@ -172,30 +172,30 @@ public:
     CBmp64* shop_inv;
     CArray<TokenEntry*> category_grids[4];
 };
-ASSERT_SIZE(VisInvExtType1, 0x2150);
+ASSERT_SIZE(VisShopShelfGrid, 0x2150);
 
 //60d910
-class VisInvExtType1Kaarg : public VisInvExtType1 {
+class VisShopShelfGridKaarg : public VisShopShelfGrid {
 public:
     virtual void LoadBitmaps() override; // 4b69ee (client: 4bb3b8)
 
-    VisInvExtType1Kaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); // 4c6cd0 (client: 4cb670)
+    VisShopShelfGridKaarg(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); // 4c6cd0 (client: 4cb670)
 };
-ASSERT_SIZE(VisInvExtType1Kaarg, 0x2150);
+ASSERT_SIZE(VisShopShelfGridKaarg, 0x2150);
 
 //60d850
-class VisInvExtType1Druid : public VisInvExtType1 {
+class VisShopShelfGridDruid : public VisShopShelfGrid {
 public:
     virtual void LoadBitmaps() override; // 4b6815 (client: 4bb1df)
 
-    VisInvExtType1Druid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); // 4c6c40 (client: 4cb5e0)
+    VisShopShelfGridDruid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); // 4c6c40 (client: 4cb5e0)
 };
-ASSERT_SIZE(VisInvExtType1Druid, 0x2150);
+ASSERT_SIZE(VisShopShelfGridDruid, 0x2150);
 
 //60d268
-class VisInvExtType2 : public VisInvExtBase {
+class VisShopBagGrid : public VisInvExtBase {
 public:
-    virtual ~VisInvExtType2(); // 4b80d9 (client: 4bcaa3)
+    virtual ~VisShopBagGrid(); // 4b80d9 (client: 4bcaa3)
 
     virtual const char* GetHint() override; // 4b8339 (client: 4bcd03)
     virtual void Draw() override; // 4b846c (client: 4bce36)
@@ -216,18 +216,18 @@ public:
     void DrawDownArrowHover(); // 4b86be (client: 4bd088)
     void DrawDownArrowIdle(); // 4b871c (client: 4bd0e6)
 
-    VisInvExtType2(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); // 4b7fe5 (client: 4bc9af)
+    VisShopBagGrid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); // 4b7fe5 (client: 4bc9af)
 public:
     int32_t gap_0x20c8; //unk type
     CRect up_arrow_rect;
     CRect down_arrow_rect;
 };
-ASSERT_SIZE(VisInvExtType2, 0x20ec);
+ASSERT_SIZE(VisShopBagGrid, 0x20ec);
 
 //60d328
-class VisInvExtType3 : public VisInvExtBase {
+class VisShopBuyGrid : public VisInvExtBase {
 public:
-    virtual ~VisInvExtType3(); // 4b8cc5 (client: 4bd68f)
+    virtual ~VisShopBuyGrid(); // 4b8cc5 (client: 4bd68f)
 
     virtual const char* GetHint() override; // 4b90cf (client: 4bda99)
     virtual void Draw() override; // 4b9155 (client: 4bdb1f)
@@ -252,7 +252,7 @@ public:
     virtual TokenEntry* TakeItemByIdAndSlot(int32_t match_id, int32_t slot_code); // 4b95c5 (client: 4bdf8f)
 
     int32_t IsBuyGridFull(TokenEntry* entry); // 4b91f9 (client: 4bdbc3)
-    VisInvExtType3(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); // 4b8bba (client: 4bd584)
+    VisShopBuyGrid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisShop* shop); // 4b8bba (client: 4bd584)
 
     void ClearBuyEntries(); // 4b970e (client: 4be0d8)
     int32_t DropDraggedItem(int32_t idx); // 4b9b2f (client: 4be4f9)
@@ -264,7 +264,7 @@ public:
     int32_t gap_0x20f0; //unk type
     CArray<TokenEntry*> entries;
 };
-ASSERT_SIZE(VisInvExtType3, 0x2108);
+ASSERT_SIZE(VisShopBuyGrid, 0x2108);
 
 // VTable at 60da00
 class VisSpellBook : public CVisualObject {

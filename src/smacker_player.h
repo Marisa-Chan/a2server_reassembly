@@ -56,8 +56,8 @@ private:
     smk video = nullptr; // [0x0] Smack handle
     HWND hwnd = nullptr; // [0x36c]
 
-    // The .smk bytes, read out of the .res archive via File2. Retail handed
-    // the File2 handle to SmackOpen (SMACKFILEHANDLE flag); libsmacker has no
+    // The .smk bytes, read out of the .res archive via ResArchiveFile. Retail handed
+    // the ResArchiveFile handle to SmackOpen (SMACKFILEHANDLE flag); libsmacker has no
     // CFile I/O, so we read the member into memory and keep it alive for the
     // decoder's lifetime (memory mode points into this buffer every frame).
     uint8_t* video_data = nullptr;

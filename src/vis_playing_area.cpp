@@ -803,7 +803,7 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 
                         case 1:
                             if (sval == 0) {
-                                UnitVFXUnfo* dying = g_VFX_info[ g_VFX_info[ct->typeId]->dying ];
+                                UnitVFXInfo* dying = g_VFX_info[ g_VFX_info[ct->typeId]->dying ];
                                 ct->action_segments = dying->dying_phases * 2;
                                 ct->action = ACTION_DIE;
                                 ct->action_dir = ct->dir;
@@ -815,7 +815,7 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
                                 ct->PlayHitSound(3);
                                 ct->ReloadSprite();
                             } else if (sval == 1) {
-                                UnitVFXUnfo* dying = g_VFX_info[g_VFX_info[ct->typeId]->dying];
+                                UnitVFXInfo* dying = g_VFX_info[g_VFX_info[ct->typeId]->dying];
                                 ct->action_segments = 4;
                                 ct->action = ACTION_DIE;
                                 ct->action_dir = ct->dir;
@@ -949,7 +949,7 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
                 }
             } else {
                 if (ct->action_segments == 0) {
-                    UnitVFXUnfo* vfx = g_VFX_info[ct->typeId];
+                    UnitVFXInfo* vfx = g_VFX_info[ct->typeId];
                     if (vfx->attack_phases != 0 && ct->hp > 0) {
                         ct->action_segments = vfx->attack_anim_frame_cnt;
                         ct->action = ACTION_ATTACK;
@@ -2447,7 +2447,7 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
             break;
 
         case LATENCY: {
-            NetStru2* conn = g_NetStru1_local.GetFirstClient();
+            NetClientPeer* conn = g_NetStru1_local.GetFirstClient();
             if (conn) {
                 g_CLlDriver.SetLatency(conn->GetUid(), packet_dword->value);
             }
@@ -2748,7 +2748,7 @@ int32_t VisPlayingArea::SendEnterGameAndWait() {
     if (wnd->sessionMode == SESSION_SINGLEPLAYER && (wnd->net_session.internet_game == 0 || wnd->hat_settings.ishat == 0)) {
         g_NetStru1_local.SendLatency(g_CmdLatency, 0);
 
-        NetStru2* conn = g_NetStru1_local.GetFirstClient();
+        NetClientPeer* conn = g_NetStru1_local.GetFirstClient();
         if (conn) {
             g_CLlDriver.SetLatency(conn->GetUid(), g_CmdLatency);
         }
@@ -5652,7 +5652,7 @@ void VisPlayingArea::RenderWorldFrame() {
                 }
                 if (unit != nullptr && unit->IsBlocked() == 0 &&
                     (unit->FindEffectTimer(0x20) < 0 || this->my_main_unit->SharesVisionWithUs(unit->map_player->index) != 0)) {
-                    UnitVFXUnfo* vfx = g_VFX_info[unit->typeId];
+                    UnitVFXInfo* vfx = g_VFX_info[unit->typeId];
                     CRect sel = vfx->selection;
                     sel.OffsetRect(unit->centerScreenX - vfx->center_x,
                         (unit->centerScreenY - vfx->center_y) - unit->terrainHeightOffset - unit->z_pos);
@@ -5820,7 +5820,7 @@ void VisPlayingArea::RenderWorldFrame() {
                 CGameObject* obj = this->tile_air_units[idx];
                 uint32_t hgt = this->height_cells[x + 4 + (y + 4) * (this->view_tiles_x + 8)];
                 if (obj != nullptr && obj->IsBlocked() == 0) {
-                    UnitVFXUnfo* vfx = g_VFX_info[obj->typeId];
+                    UnitVFXInfo* vfx = g_VFX_info[obj->typeId];
                     CRect sel = vfx->selection;
                     sel.OffsetRect(obj->centerScreenX - vfx->center_x,
                         (obj->centerScreenY - vfx->center_y) - obj->terrainHeightOffset - obj->z_pos);
@@ -6052,7 +6052,7 @@ void VisPlayingArea::RenderWorldFrame() {
     }
 #endif
     if (wnd->sessionMode == SESSION_SINGLEPLAYER && g_ShowNetStats != 0) {
-        NetStru2* client = g_NetStru1_local.GetClientByPlayerID(0);
+        NetClientPeer* client = g_NetStru1_local.GetClientByPlayerID(0);
         if (client != nullptr) {
             uint32_t uid = client->GetUid();
             ConnStatInfo* stat;
@@ -6544,7 +6544,7 @@ CGameBitmap* VisPlayingArea::BuildUnitPortrait(int32_t serv_id) {
         CBmp64* pic = new CBmp64(0xa0, 0xf0);
         if ((unit->unitFlags & (UNIT_FLAG_PLAYER_CLASS | UNIT_FLAG_CREATURE)) == 0) {
             char buf[257];
-            UnitVFXUnfo* info = g_VFX_info.GetAt(unit->typeId);
+            UnitVFXInfo* info = g_VFX_info.GetAt(unit->typeId);
             sprintf(buf, "graphics\\infowindow\\%s%d", info->info_picture, unit->face);
             if (unit->face == 1) {
                 buf[strlen(buf) - 1] = '\0';
@@ -7544,7 +7544,7 @@ uint8_t* __cdecl UpdateDayNightLighting(int32_t val) {
 void ReloadPalettes() {
     g_mousept.Update();
     for (int32_t i = 0; i < g_VFX_info.GetSize(); i++) {
-        UnitVFXUnfo* vfx = g_VFX_info[i];
+        UnitVFXInfo* vfx = g_VFX_info[i];
         if (vfx != nullptr) {
             for (int32_t j = 0; j < vfx->palette; j++) {
                 if (vfx->palettes[j] != nullptr) {
@@ -7696,13 +7696,13 @@ void LoadVfxData() {
 
         tmp.Format("Unit%d", i);
 
-        UnitVFXUnfo* inf = new UnitVFXUnfo();
+        UnitVFXInfo* inf = new UnitVFXInfo();
         inf->ID = reg.GetInt(tmp, "ID", -1);
         inf->N = i;
 
         int32_t parentid = reg.GetInt(tmp, "Parent", -1);
 
-        UnitVFXUnfo* pinfo = nullptr;
+        UnitVFXInfo* pinfo = nullptr;
         CString ptmp;
         if (parentid != -1) {
             pinfo = g_VFX_info[parentid];
@@ -7748,7 +7748,7 @@ void LoadVfxData() {
                 pfile += pf;
             }
 
-            File2 f;
+            ResArchiveFile f;
             f.Open(pfile, CFile::modeRead);
             f.Seek(0x36, CFile::begin);
 
@@ -7847,7 +7847,7 @@ void LoadVfxData() {
         g_VFX_info.SetAtGrow(inf->ID, inf);
     }
 
-    File2 f;
+    ResArchiveFile f;
     f.Open("graphics\\units\\humans\\human.pal", CFile::modeRead);
     f.Read(g_human_pals_data, 16 * 4 * 256);
     f.Close();

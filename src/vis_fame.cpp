@@ -45,7 +45,7 @@ void VisFameDocument::Draw() {
         if (this->bmp_cur_ok != nullptr) {
             this->bmp_cur_ok->Draw(top_left.x + this->rect_ok.left, top_left.y + this->rect_ok.top, 0, 0, 0);
         }
-        Fame2& doc = this->fame->m_Documents[this->selected_doc];
+        FameDocumentView& doc = this->fame->m_Documents[this->selected_doc];
         doc.Draw(top_left.x, top_left.y);
         UnlockBackSurface();
         this->VisScreen::Draw();
@@ -166,7 +166,7 @@ void VisFameDocument::UpdateArrowStates() {
     }
     int32_t last = this->fame->m_Documents.GetUpperBound();
     if (this->selected_doc == last) {
-        Fame2& doc = this->fame->m_Documents[this->selected_doc];
+        FameDocumentView& doc = this->fame->m_Documents[this->selected_doc];
         if (doc.str_arr.GetSize() <= (int32_t)doc.top_line + 0x15) {
             this->bmp_cur_right = this->bmp_rightarrow[0];
         }
@@ -176,7 +176,7 @@ void VisFameDocument::UpdateArrowStates() {
 
 // 4ae638 (client: 4b2f78)
 void VisFameDocument::NextDoc() {
-    Fame2& doc = this->fame->m_Documents[this->selected_doc];
+    FameDocumentView& doc = this->fame->m_Documents[this->selected_doc];
     if (!doc.ScrollDown()) {
         this->selected_doc = this->selected_doc + 1;
         int32_t last = this->fame->m_Documents.GetUpperBound();
@@ -190,7 +190,7 @@ void VisFameDocument::NextDoc() {
 
 // 4ae6b3 (client: 4b2ff3)
 void VisFameDocument::PrevDoc() {
-    Fame2& doc = this->fame->m_Documents[this->selected_doc];
+    FameDocumentView& doc = this->fame->m_Documents[this->selected_doc];
     if (doc.ScrollUp() == 0) {
         this->selected_doc = this->selected_doc - 1;
         if (this->selected_doc < 1) {
@@ -323,7 +323,7 @@ void VisFameHall::Draw() {
         for (int32_t i = 0; i < this->name_rects.GetSize(); i++) {
             str.Format("%d.", i + 1);
             g_font4->DrawTextWithShadow(top_left.x + this->rank_rects[i].left, top_left.y + this->rank_rects[i].top, str, CGameFont::ALIGN_LEFT_TOP, palette_brown_derby->GetPalette(0), 1);
-            Fame1& entry = this->fame->m_Entries[i];
+            FameHallEntry& entry = this->fame->m_Entries[i];
             g_font4->DrawTextWithShadow(top_left.x + this->name_rects[i].left, top_left.y + this->name_rects[i].top, entry.str, CGameFont::ALIGN_LEFT_TOP, palette_brown_derby->GetPalette(0), 1);
             str.Format("%d", entry.score);
             InsertThousandsSeparators(&str);
@@ -524,7 +524,7 @@ VisFameHall::~VisFameHall() {
 
 
 // 4abdab (client: 4afdbb)
-Fame2::Fame2() {
+FameDocumentView::FameDocumentView() {
     this->doc_id = -1;
     this->is_text = 1;
     this->picture = nullptr;
@@ -534,7 +534,7 @@ Fame2::Fame2() {
 }
 
 // 4ac27f (client: 4b028f)
-void Fame2::Clear() {
+void FameDocumentView::Clear() {
     if (this->picture) {
         delete this->picture;
     }
@@ -545,7 +545,7 @@ void Fame2::Clear() {
 }
 
 // 4abf0f (client: 4aff1f)
-void Fame2::SetDocument(int32_t doc_id, uint32_t is_text) {
+void FameDocumentView::SetDocument(int32_t doc_id, uint32_t is_text) {
     this->Clear();
     this->doc_id = doc_id;
     this->is_text = is_text;
@@ -553,17 +553,17 @@ void Fame2::SetDocument(int32_t doc_id, uint32_t is_text) {
 
 
 // 4ad880 (client: 4b0ca0)
-int32_t Fame2::GetDocId() {
+int32_t FameDocumentView::GetDocId() {
     return this->doc_id;
 }
 
 // 4ad890 (client: 4b0cb0)
-uint32_t Fame2::GetIsText() {
+uint32_t FameDocumentView::GetIsText() {
     return this->is_text;
 }
 
 // 4abd30 (client: 4afd40)
-void Fame2::operator=(const Fame2& b) {
+void FameDocumentView::operator=(const FameDocumentView& b) {
     this->doc_id = b.doc_id;
     this->is_text = b.is_text;
     this->picture = b.picture;
@@ -574,7 +574,7 @@ void Fame2::operator=(const Fame2& b) {
 }
 
 // 4abf35 (client: 4aff45)
-bool Fame2::ScrollDown() {
+bool FameDocumentView::ScrollDown() {
     int32_t next = this->top_line + 0x15;
     if (next < this->str_arr.GetSize()) {
         this->top_line = next;
@@ -584,7 +584,7 @@ bool Fame2::ScrollDown() {
 }
 
 // 4abf72 (client: 4aff82)
-int32_t Fame2::ScrollUp() {
+int32_t FameDocumentView::ScrollUp() {
     if (this->top_line == 0) {
         return 0;
     }
@@ -596,7 +596,7 @@ int32_t Fame2::ScrollUp() {
 }
 
 // 4abfb1 (client: 4affc1)
-void Fame2::Draw(int32_t x, int32_t y) {
+void FameDocumentView::Draw(int32_t x, int32_t y) {
     if (this->is_text == 0) {
         if (this->picture) {
             this->picture->Draw(x + this->rect.left, y + this->rect.top, 0, 0, 0);
@@ -610,7 +610,7 @@ void Fame2::Draw(int32_t x, int32_t y) {
 }
 
 // 4ac0af (client: 4b00bf)
-void Fame2::LoadDocument() {
+void FameDocumentView::LoadDocument() {
     this->Clear();
     this->rect = CRect(CPoint(0x5c, 0x48), CSize(0x1c8, 0x158));
 
@@ -655,13 +655,13 @@ void CFameHall::SetDifficulty(uint32_t difficulty) {
 // 4ac566 (client: 4b0576)
 uint32_t CFameHall::AddTextDocument(int32_t doc_id) {
     for (uint32_t i = 0; i < this->m_Documents.GetSize(); i++) {
-        Fame2& fame = this->m_Documents[i];
+        FameDocumentView& fame = this->m_Documents[i];
         if (fame.GetDocId() == doc_id && fame.GetIsText() != 0) {
             return 0;
         }
     }
 
-    Fame2 f;
+    FameDocumentView f;
     f.SetDocument(doc_id, 1);
     this->m_Documents.Add(f);
 
@@ -671,7 +671,7 @@ uint32_t CFameHall::AddTextDocument(int32_t doc_id) {
 
 // 4acafa (client: 4b0b0a)
 void CFameHall::SeedDefaultEntries() {
-    Fame1 fame;
+    FameHallEntry fame;
     int32_t tval = 70000;
     for (int i = 0; i < 9; i++) {
         fame.score = tval + GetRandS16(5000);
@@ -693,7 +693,7 @@ void CFameHall::SaveEntries(CFile* file) {
     file->Write(&count, 4);
 
     for (int32_t i = 0; i < this->m_Entries.GetSize(); i++) {
-        Fame1& fame = this->m_Entries[i];
+        FameHallEntry& fame = this->m_Entries[i];
 
         int32_t len = fame.str.GetLength() + 1;
         file->Write(&len, 4);
@@ -720,7 +720,7 @@ void CFameHall::LoadEntries(CFile* file) {
             char buf[1024];
             file->Read(buf, t);
 
-            Fame1& fame = this->m_Entries[i];
+            FameHallEntry& fame = this->m_Entries[i];
 
             fame.str = buf;
 
@@ -737,7 +737,7 @@ void CFameHall::SaveDocuments(CFile* file) {
     file->Write(&num, 4);
 
     for (uint32_t i = 0; i < num; i++) {
-        Fame2& fm = this->m_Documents[i];
+        FameDocumentView& fm = this->m_Documents[i];
         
         //inline 4ac04b
         file->Write(&fm.doc_id, 4);
@@ -754,7 +754,7 @@ void CFameHall::LoadDocuments(CFile* file) {
     this->m_Documents.SetSize(cnt);
 
     for (int i = 0; i < cnt; i++) {
-        Fame2& fame = this->m_Documents[i];
+        FameDocumentView& fame = this->m_Documents[i];
         file->Read(&fame.doc_id, 4);
         file->Read(&fame.is_text, 4);
     }
@@ -765,13 +765,13 @@ void CFameHall::LoadDocuments(CFile* file) {
 
 
 // 4ac3ce (client: 4b03de)
-void CFameHall::AddEntry(const Fame1& fame) {
+void CFameHall::AddEntry(const FameHallEntry& fame) {
     if (this->m_Entries.GetSize() == 0) {
         this->m_Entries.Add(fame);
     } else {
         int32_t i = 0;
         for (i = 0; i < this->m_Entries.GetSize(); i++) {
-            Fame1& f = this->m_Entries[i];
+            FameHallEntry& f = this->m_Entries[i];
             if (f.score <= fame.score) {
                 this->m_Entries.InsertAt(i, fame);
                 break;
@@ -794,7 +794,7 @@ void CFameHall::AddDifficultyPoint() {
 
 // 4ac498 (client: 4b04a8)
 void CFameHall::SubmitScore() {
-    Fame1 fm;
+    FameHallEntry fm;
     MainWindow *mwnd = (MainWindow*)AfxGetMainWnd();
     CUnit* unit = mwnd->vis_map_context->GetMyUnit();
     if (unit) {

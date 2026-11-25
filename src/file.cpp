@@ -68,31 +68,31 @@ int __cdecl CalcFileChecksum(CString filename) {
 }
 
 // 4e67ea (client: 4ebd1a)
-File2::File2() {
+ResArchiveFile::ResArchiveFile() {
     this->file = nullptr;
 }
 
 
 // 4e6813 (client: 4ebd43)
-File2::File2(LPCTSTR lpszFileName, UINT nOpenFlags) {
+ResArchiveFile::ResArchiveFile(LPCTSTR lpszFileName, UINT nOpenFlags) {
     if (!this->Open(lpszFileName, nOpenFlags)) {
         AfxThrowFileException(CFileException::accessDenied, -1, nullptr);
     }
 }
 
 // 4e6882 (client: 4ebdb2)
-File2::~File2() {
+ResArchiveFile::~ResArchiveFile() {
     this->Close();
 }
 
 
 // 4e6d04 (client: 4ec234)
-ULONGLONG File2::GetPosition() const {
+ULONGLONG ResArchiveFile::GetPosition() const {
     return this->position;
 };
 
 // 4e68d3 (client: 4ebe03)
-BOOL File2::Open(LPCTSTR lpszFileName, UINT nOpenFlags, CFileException* pError) {
+BOOL ResArchiveFile::Open(LPCTSTR lpszFileName, UINT nOpenFlags, CFileException* pError) {
     char fname[1024];
     pathStrCpy(lpszFileName, fname);
 
@@ -130,13 +130,13 @@ BOOL File2::Open(LPCTSTR lpszFileName, UINT nOpenFlags, CFileException* pError) 
 };
 
 // 4e6cec (client: 4ec21c)
-CFile* File2::Duplicate() const {
+CFile* ResArchiveFile::Duplicate() const {
     AfxThrowFileException(CFileException::accessDenied);
     return nullptr;
 };
 
 // 4e6acb (client: 4ebffb)
-ULONGLONG File2::Seek(LONGLONG lOff, UINT nFrom) {
+ULONGLONG ResArchiveFile::Seek(LONGLONG lOff, UINT nFrom) {
     if (m_hFile == (HANDLE)-1) {
         AfxThrowFileException(CFileException::invalidFile);
     }
@@ -161,17 +161,17 @@ ULONGLONG File2::Seek(LONGLONG lOff, UINT nFrom) {
 };
 
 // 4e6b83 (client: 4ec0b3)
-void File2::SetLength(ULONGLONG dwNewLen) {
+void ResArchiveFile::SetLength(ULONGLONG dwNewLen) {
     AfxThrowFileException(CFileException::accessDenied);
 };
 
 // 4e6b9b (client: 4ec0cb)
-ULONGLONG File2::GetLength() const {
+ULONGLONG ResArchiveFile::GetLength() const {
     return this->size;
 };
 
 // 4e6bac (client: 4ec0dc)
-UINT File2::Read(void* lpBuf, UINT nCount) {
+UINT ResArchiveFile::Read(void* lpBuf, UINT nCount) {
     if (m_hFile == (HANDLE)-1) {
         AfxThrowFileException(CFileException::invalidFile);
     }
@@ -199,36 +199,36 @@ UINT File2::Read(void* lpBuf, UINT nCount) {
 };
 
 // 4e6c68 (client: 4ec198)
-void File2::Write(const void* lpBuf, UINT nCount) {
+void ResArchiveFile::Write(const void* lpBuf, UINT nCount) {
     AfxThrowFileException(CFileException::accessDenied);
 };
 
 // 4e6c80 (client: 4ec1b0)
-void File2::LockRange(ULONGLONG dwPos, ULONGLONG dwCount) {
+void ResArchiveFile::LockRange(ULONGLONG dwPos, ULONGLONG dwCount) {
     AfxThrowFileException(CFileException::accessDenied);
 };
 
 // 4e6c98 (client: 4ec1c8)
-void File2::UnlockRange(ULONGLONG dwPos, ULONGLONG dwCount) {
+void ResArchiveFile::UnlockRange(ULONGLONG dwPos, ULONGLONG dwCount) {
     AfxThrowFileException(CFileException::accessDenied);
 };
 
 // 4e6cb0 (client: 4ec1e0)
-void File2::Abort() {
+void ResArchiveFile::Abort() {
 };
 
 // 4e6cbb (client: 4ec1eb)
-void File2::Flush() {
+void ResArchiveFile::Flush() {
 };
 
 // 4e6cc6 (client: 4ec1f6)
-void File2::Close() {
+void ResArchiveFile::Close() {
     Resources::ResFiles.CloseFile(this->file);
     this->file = nullptr;
 };
 
 
 // 4e6a97 (client: 4ebfc7)
-void File2::Rewind() {
+void ResArchiveFile::Rewind() {
     this->Seek(0, 0);
 }

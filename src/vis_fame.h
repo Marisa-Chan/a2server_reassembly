@@ -93,16 +93,16 @@ public:
 ASSERT_SIZE(VisFameDocument, 0xf8);
 
 
-struct Fame1 {
+struct FameHallEntry {
     CString str;
     uint32_t score = 0;
     uint32_t value2 = 0;
     uint32_t value3 = 0;
 };
 
-ASSERT_SIZE(Fame1, 0x10);
+ASSERT_SIZE(FameHallEntry, 0x10);
 
-struct Fame2 {
+struct FameDocumentView {
     int32_t doc_id;
     uint32_t is_text;
     CBmp64* picture;
@@ -112,8 +112,8 @@ struct Fame2 {
     uint32_t gap_x34;
     uint32_t top_line;
 
-    Fame2(); // 4abdab (client: 4afdbb)
-    void operator=(const Fame2& b); // 4abd30 (client: 4afd40)
+    FameDocumentView(); // 4abdab (client: 4afdbb)
+    void operator=(const FameDocumentView& b); // 4abd30 (client: 4afd40)
 
     void Clear(); // 4ac27f (client: 4b028f)
     void SetDocument(int32_t doc_id, uint32_t is_text); // 4abf0f (client: 4aff1f)
@@ -126,15 +126,15 @@ struct Fame2 {
 
 };
 
-ASSERT_SIZE(Fame2, 0x3C);
+ASSERT_SIZE(FameDocumentView, 0x3C);
 
 struct CFameHall {
     uint32_t difficulty;
     uint32_t m_nTotalTime;
     uint32_t m_nDifficultyWeight;
     uint32_t m_nMaxEntries;
-    CArray<Fame1> m_Entries;
-    CArray<Fame2> m_Documents;
+    CArray<FameHallEntry> m_Entries;
+    CArray<FameDocumentView> m_Documents;
 
     CFameHall(); // 4ac2e3 (client: 4b02f3)
     ~CFameHall(); // 4ac352 (client: 4b0362)
@@ -147,7 +147,7 @@ struct CFameHall {
     void SaveEntries(CFile* file); // 4ac839 (client: 4b0849) - save m_Entries to file
     void SaveDocuments(CFile* file); // 4ac706 (client: 4b0716)
     void LoadDocuments(CFile* file); // 4ac7a2 (client: 4b07b2)
-    void AddEntry(const Fame1& fame); // 4ac3ce (client: 4b03de)
+    void AddEntry(const FameHallEntry& fame); // 4ac3ce (client: 4b03de)
 
     void AddDifficultyPoint(); // 420050 (client: 420c80)
 

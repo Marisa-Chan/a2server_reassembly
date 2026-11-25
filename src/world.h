@@ -13,7 +13,7 @@
 #include "token.h"
 
 
-struct MapStuff;
+struct TerrainMap;
 struct Group;
 class Player;
 class PlayersList;
@@ -147,7 +147,7 @@ struct World {
     Perf perf_presence;
     Perf perf_triggers;
     Perf perf_ai;
-    FieldBlock5859c gap_0xc8;
+    MapScratchBlock2K gap_0xc8;
     uint8_t gap_0x8ac[4];
     int32_t duration4;
     int32_t duration4_low;
@@ -166,7 +166,7 @@ struct World {
     uint8_t saved_0xa49;
     uint8_t gap_0xa4a[2];
     uint32_t counter;
-    MapStuff *map_stuff;
+    TerrainMap *map_stuff;
     uint8_t attack_decision_table[16];
     UnitList nearby_list;
     UnitList unconscious_list;
@@ -191,7 +191,7 @@ struct World {
     int32_t mission_complete;
     int32_t saved_0xbe10;
     int32_t mission_fail;
-    FieldBlock54190 gap_0xbe18;
+    MapScratchBlock1K gap_0xbe18;
     uint8_t gap_0xc20c[0x320];
     uint8_t gap_0xc52c[40];
     char gap_0xc554[10][44];
@@ -213,7 +213,7 @@ struct World {
     ResFile* gap_0xeb1c;
 
 public:
-    World(MapStuff* map_stuff, PlayersList* players_list); // 5a4b1a (client: 572c8a)
+    World(TerrainMap* map_stuff, PlayersList* players_list); // 5a4b1a (client: 572c8a)
     ~World(); // 5a4d38 (client: 572ea8)
 
     void Init(); // 5a457a (client: 5726ea)

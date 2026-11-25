@@ -20,8 +20,8 @@ struct TokenPos;
 
 __pragma(pack(push, 1))
 
-struct MapStuff;
-extern MapStuff *MapStuff_Instance;
+struct TerrainMap;
+extern TerrainMap *MapStuff_Instance;
 
 struct PosYX {
     union {
@@ -64,19 +64,19 @@ public:
     uint8_t y_subcell;
     uint8_t gap_x6;
     uint8_t gap_x7;
-    MapStuff* pInstance;
+    TerrainMap* pInstance;
 
 public:
-    TokenPos(uint8_t _x, uint8_t _y, MapStuff* _inst); // 58a4f9 (client: 5599a9)
+    TokenPos(uint8_t _x, uint8_t _y, TerrainMap* _inst); // 58a4f9 (client: 5599a9)
 
     TokenPos(); // 58a495 (client: 559945)
-    TokenPos(uint16_t _YX, MapStuff* _inst); // 58a562 (client: 559a12)
+    TokenPos(uint16_t _YX, TerrainMap* _inst); // 58a562 (client: 559a12)
     TokenPos(const TokenPos&); // 58a9ee (client: 559e9e)
     TokenPos(TokenPos&&);  // client: 559e9e
 
     TokenPos& operator=(const TokenPos&); // 58aa46 (client: 559ef6)
 
-    void Set(uint8_t _x, uint8_t _y, MapStuff* _inst); // 58a4b1 (client: 559961)
+    void Set(uint8_t _x, uint8_t _y, TerrainMap* _inst); // 58a4b1 (client: 559961)
 
     void FixupInstance(); // 594200 (client: 563671)
     int ClampToMap(uint8_t x, uint8_t y); // 58a7e8 (client: 559c98)

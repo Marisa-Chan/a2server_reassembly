@@ -12,10 +12,10 @@ public:
 ASSERT_SIZE(GlobalMapRouteArray, 0x18);
 
 // Pathmap/graph builder state allocated by VisGlobalMap::DoOpen.
-class GMapThing {
+class GlobalMapGraph {
 public:
-    GMapThing(); // 473195 (client: 476ee5)
-    ~GMapThing(); // 4733cf (client: 47711f)
+    GlobalMapGraph(); // 473195 (client: 476ee5)
+    ~GlobalMapGraph(); // 4733cf (client: 47711f)
     void* TakeAdjacency(void* nodePoints); // 473b4a (client: 47789a)
 
     void LoadPathmap(); // 473508 (client: 477258)
@@ -32,7 +32,7 @@ public:
     uint8_t* bmp_data; // 0x96020
     CPoint floodPos; // 0x96024
 };
-ASSERT_SIZE(GMapThing, 0x9602c);
+ASSERT_SIZE(GlobalMapGraph, 0x9602c);
 
 //60b760
 class VisGlobalMap : public VisScreen {

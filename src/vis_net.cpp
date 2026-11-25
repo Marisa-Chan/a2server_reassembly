@@ -531,7 +531,7 @@ const char* VisNetMapList::GetHint() {
 
 // 450920 (client: 4546e0)
 VisServerScreenRadio::VisServerScreenRadio(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint)
-    : VisRadioType1(_id, l, t, r, b, _font, _clr, hint) {
+    : VisCheckBoxGroup(_id, l, t, r, b, _font, _clr, hint) {
 }
 
 // 4db3ad (client: 4dfd32)
@@ -997,7 +997,7 @@ void VisServerScreen::Draw() {
             i++;
             continue;
         }
-        NetStru2* client = g_NetStru1_main.GetClientByLowUid((uint32_t)key >> 16);
+        NetClientPeer* client = g_NetStru1_main.GetClientByLowUid((uint32_t)key >> 16);
         Player* player = g_PlayersList->FindById(client->player_id);
         if (player == nullptr) {
             i++;
@@ -1186,7 +1186,7 @@ void VisServerScreen::DrawBackground(CRect* rect) {
 
 
 // 44e469 (client: 451794)
-VisServerScreen::VisServerScreen(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, GM_a28* log)
+VisServerScreen::VisServerScreen(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, HudMessageLog* log)
 : VisScreen(_id, l, t, r, b, nullptr) {
     this->msg_log = log;
 }

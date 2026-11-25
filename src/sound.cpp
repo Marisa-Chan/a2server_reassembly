@@ -316,7 +316,7 @@ void SfxSample::LoadSample() {
         return;
     }
 
-    File2 f;
+    ResArchiveFile f;
 
     if (f.Open(this->filename, CFile::modeRead) == 0) {
         return;
@@ -607,7 +607,7 @@ void MusicPlayer::OpenTrack(int32_t track) {
         this->file_opened = 0;
     }
 
-    this->file = new File2(this->playlist[track], CFile::modeRead);
+    this->file = new ResArchiveFile(this->playlist[track], CFile::modeRead);
     this->file->Seek(0x14, 0);
 
     WAVEFORMATEX wav;
@@ -971,7 +971,7 @@ void SfxBank::Load(CString name) {
     this->move_count = 0;
     this->swarm_count = 0;
 
-    File2 f;
+    ResArchiveFile f;
     for (int i = 0; i < 4; i++) {
         CString fname;
         fname.Format("sfx\\characters\\%s\\select\\%d.wav", (const char*)name, i + 1);

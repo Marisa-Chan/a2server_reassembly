@@ -33,9 +33,9 @@ public:
     CGameSession* session;
     CVisualObject* info_panel;
     VisPlayingArea* map_context;
-    VisCharSellectStats* vis_stats;
-    VisCharSellectButtons* buttons;
-    VisCharSellectList* roster_list;
+    VisCharSelectStats* vis_stats;
+    VisCharSelectButtons* buttons;
+    VisCharSelectList* roster_list;
     CVisualObject* rename_txt;
     CUnit* selected_unit;
     SfxSample* snd_ok;
@@ -47,16 +47,16 @@ public:
 ASSERT_SIZE(VisCharSelect, 0x9c);
 
 //6097a8
-class VisCharSellectButtons : public CVisualObject {
+class VisCharSelectButtons : public CVisualObject {
 public:
-    virtual ~VisCharSellectButtons(); // 42fdf8 (client: 431cec)
+    virtual ~VisCharSelectButtons(); // 42fdf8 (client: 431cec)
 
     virtual void Draw() override; // 43005f (client: 431f52)
     virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 4302f5 (client: 4321e8)
     virtual int32_t OnLButtonDown(uint32_t wparam, CPoint pos) override; // 430318 (client: 43220b)
     virtual int32_t OnLButtonUp(uint32_t wparam, CPoint pos) override; // 4303c8 (client: 4322bb)
 
-    VisCharSellectButtons(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharSelect* parent_screen); // 42fd5c (client: 431c50)
+    VisCharSelectButtons(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharSelect* parent_screen); // 42fd5c (client: 431c50)
 
     void LoadBitmaps(); // 430850 (client: 43291c)
     void FreeBitmaps(); // 430a1a (client: 432ae6)
@@ -77,12 +77,12 @@ public:
     int GetMouseOnBox(CPoint pos); // 430750 (client: 43281c)
     void UpdateMouseOverBox(uint32_t wparam, CPoint pos); // 4307d7 (client: 4328a3)
 };
-ASSERT_SIZE(VisCharSellectButtons, 0xe0);
+ASSERT_SIZE(VisCharSelectButtons, 0xe0);
 
 //609820
-class VisCharSellectList : public CVisualObject {
+class VisCharSelectList : public CVisualObject {
 public:
-    virtual ~VisCharSellectList(); // 430c62 (client: 432d2e)
+    virtual ~VisCharSelectList(); // 430c62 (client: 432d2e)
 
     virtual void Draw() override; // 430fec (client: 433143)
     virtual int32_t OnMouseMove(uint32_t wparam, CPoint pos) override; // 431609 (client: 433760)
@@ -91,7 +91,7 @@ public:
     virtual int32_t OnLButtonDblClk(uint32_t wparam, CPoint pos) override; // 4316a0 (client: 4337f7)
     virtual int32_t OnKeyDown(uint32_t wparam) override; // 431b95 (client: 433cec)
 
-    VisCharSellectList(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharSelect* parent_screen); // 430bbb (client: 432c87)
+    VisCharSelectList(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharSelect* parent_screen); // 430bbb (client: 432c87)
 
     void ResetListState(); // 430fad (client: 433104)
     void Init(); // 430cb3 (client: 432d7f)
@@ -125,12 +125,12 @@ public:
     int32_t hovered_row;
     int32_t renaming;
 };
-ASSERT_SIZE(VisCharSellectList, 0xdc);
+ASSERT_SIZE(VisCharSelectList, 0xdc);
 
 //609730
-class VisCharSellectStats : public CVisualObject {
+class VisCharSelectStats : public CVisualObject {
 public:
-    virtual ~VisCharSellectStats(); // 42f188 (client: 431084)
+    virtual ~VisCharSelectStats(); // 42f188 (client: 431084)
 
     virtual const char* GetHint() override; // 42fc61 (client: 431b55)
     virtual void Draw() override; // 42f7b9 (client: 4316ad)
@@ -138,7 +138,7 @@ public:
 
     void ReadUnitStats(); // 42f6f3 (client: 4315ef)
 
-    VisCharSellectStats(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharSelect* parent_screen); // 42f0ec (client: 430fe8)
+    VisCharSelectStats(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, VisCharSelect* parent_screen); // 42f0ec (client: 430fe8)
 
     void Init(); // 42f1e8 (client: 4310e4)
     void LoadBitmaps(); // 42f4df (client: 4313db)
@@ -156,7 +156,7 @@ public:
     CA16* cube_sprites;
     CRect stat_icon_rects[4];
 };
-ASSERT_SIZE(VisCharSellectStats, 0xd0);
+ASSERT_SIZE(VisCharSelectStats, 0xd0);
 
 class VisCharGen;
 class VisTipsDialog;

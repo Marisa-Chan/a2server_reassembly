@@ -12,8 +12,8 @@
 class VisPlayingArea;
 class LoadGameWindow;
 class SaveGameWindow;
-class Vis1200;
-class Vis2Action;
+class VisChatBar;
+class VisConfirmMenu;
 class VisCharGen;
 class VisCharInfo;
 class VisCharSelect;
@@ -24,7 +24,7 @@ class VisFameDocument;
 class VisFameHall;
 class VisGlobalMap;
 class VisHatBrowserDlg;
-class VisInvType1;
+class VisBagInventory;
 class VisLogoWnd;
 class VisMainMenu;
 class VisMiniMap;
@@ -131,7 +131,7 @@ enum MainMsg : uint32_t {
     MAIN_MSG_SHOW_GLOBAL_MAP         = 0x42d, // ShowGlobalMapDialog (leaves current location)
     MAIN_MSG_SHOW_CURRENT_TOWN       = 0x42e, // ShowCurrentTownDialog
     MAIN_MSG_RUN_BOOTSTRAP           = 0x42f, // RunSessionBootstrap(0)
-    MAIN_MSG_FAMEHALL_MISSION_INTRO  = 0x430, // Vis2Action intro for a fame hall mission
+    MAIN_MSG_FAMEHALL_MISSION_INTRO  = 0x430, // VisConfirmMenu intro for a fame hall mission
     MAIN_MSG_SHOW_MISSION_FAILED     = 0x431, // VisMissionFailed popup (wParam = failure id)
     MAIN_MSG_TO_END_VIDEO            = 0x432, // forwards to MAIN_MSG_PLAY_END_VIDEO
     MAIN_MSG_SHOW_EVENT_DIALOG       = 0x433, // role-key dialog for event id wParam
@@ -176,10 +176,10 @@ enum MainMsg : uint32_t {
 };
 
 
-class CListBox2 : public CListBox {
+class ServerListBox : public CListBox {
 public:
-    CListBox2(); // 495033 (client: 499b5c)
-    ~CListBox2(); // 495052 (client: 499b7b)
+    ServerListBox(); // 495033 (client: 499b5c)
+    ~ServerListBox(); // 495052 (client: 499b7b)
 
     virtual const AFX_MSGMAP* GetMessageMap() const override; // 49506e (client: 499b97)
 
@@ -191,10 +191,10 @@ public:
 };
 
 
-class CEdit2 : public CEdit {
+class ServerCommandEdit : public CEdit {
 public:
-    CEdit2(); // 494ec0 (client: 499a1b)
-    ~CEdit2(); // 494edf (client: 499a3a)
+    ServerCommandEdit(); // 494ec0 (client: 499a1b)
+    ~ServerCommandEdit(); // 494edf (client: 499a3a)
 
     virtual const AFX_MSGMAP* GetMessageMap() const override; // 494efb (client: 499a56)
 
@@ -357,7 +357,7 @@ ASSERT_SIZE(HatSettings, 0x20); // retail Load 43f65a/Save 43f95c: team@0x18, st
 ASSERT_SIZE(HatSettings, 0x1c);
 #endif
 
-struct Main3e0 {
+struct NetSessionInfo {
     CString gap_00;
     CString gap_04;
     CString key_capture_str;
@@ -365,7 +365,7 @@ struct Main3e0 {
     int32_t internet_game;
     CString connect_address;
 };
-ASSERT_SIZE(Main3e0, 0x18);
+ASSERT_SIZE(NetSessionInfo, 0x18);
 
 struct DiplomacyEntry {
     char* name = nullptr;
@@ -602,7 +602,7 @@ public:
     VisOrderToolbar* vis_ordertoolbar;
     VisCharInfo* vis_charinfo;
     VisSideStatus* vis_sidestatus;
-    VisInvType1* vis_invtype1;
+    VisBagInventory* vis_invtype1;
     VisSpellBook* vis_spellbook;
     VisGlobalMap* vis_globalmap;
     VisMainMenu* vis_mainmenu;
@@ -618,11 +618,11 @@ public:
     VisFameHall* vis_famehall;
     VisDropGold* vis_dropgold;
     VisScreen* vis_missionfailed;
-    Vis2Action* vis_2action;
+    VisConfirmMenu* vis_2action;
     VisScreen* gap_0x12c;
     VisCredits* vis_credits;
     VisLogoWnd* vis_logownd;
-    Vis1200* vis_1200;
+    VisChatBar* vis_1200;
     LoadGameWindow* vis_loadgame;
     SaveGameWindow* vis_savegame;
     VisMessageBox* vis_msgbox;
@@ -645,7 +645,7 @@ public:
     VisScreen* vis_cutscenes; // server 0x3d4 / client 0x3d8
     VisFameDocument* vis_famedocument; // server 0x3d8 / client 0x3dc
     VisScreen* vis_msgbox_list; // server 0x3dc / client 0x3e0
-    Main3e0 net_session; // server 0x3e0 / client 0x3e4
+    NetSessionInfo net_session; // server 0x3e0 / client 0x3e4
     int32_t in_famehall_mission;
     int32_t mission_failed_reported;
     int32_t local_game;
@@ -701,10 +701,10 @@ public:
     RECT clip_cursor_rect; //0x644 / client 0x640
     CStatusBar status_bar; //0x654 / client 0x650
     CListBox list_box1; //0x6d0 / client 0x6cc
-    CListBox2 list_box2; //0x70c / client 0x708
+    ServerListBox list_box2; //0x70c / client 0x708
     CStatic static1; //0x748 / client 0x744
     CStatic static2; //0x784 / client 0x780
-    CEdit2 edit; //0x7c0 / client 0x7bc
+    ServerCommandEdit edit; //0x7c0 / client 0x7bc
     ServerControlDialog* server_ctrl_dlg; //0x7fc / client 0x7f8
     int32_t server_ctrl_shown; //0x800 / client 0x7fc
 #ifndef A2CLIENT

@@ -101,10 +101,10 @@ public:
 };
 ASSERT_SIZE(TokenEntry, 0x24);
 
-struct GO_11c {
-    GO_11c() = default;
+struct TransientVisualElement {
+    TransientVisualElement() = default;
 
-    GO_11c(int16_t x, int16_t y, int16_t z, uint8_t vfx_type, uint8_t phase) { // 4cd3c0 (client: 4d1d10)
+    TransientVisualElement(int16_t x, int16_t y, int16_t z, uint8_t vfx_type, uint8_t phase) { // 4cd3c0 (client: 4d1d10)
         this->x = x;
         this->y = y;
         this->z = z;
@@ -118,7 +118,7 @@ struct GO_11c {
     uint8_t vfx_type;
     uint8_t phase;
 };
-ASSERT_SIZE(GO_11c, 8);
+ASSERT_SIZE(TransientVisualElement, 8);
 
 
 // CUnit::action (and last_action): the animation/behavior the unit is
@@ -241,7 +241,7 @@ public:
     int32_t m_bSelectionDirty; // 114
     uint8_t active_spell; //autoCastSpellId
     uint8_t __pad2[3];
-    CArray<GO_11c> transientVisualElements; // 11c
+    CArray<TransientVisualElement> transientVisualElements; // 11c
     CDWordArray effect_timers;
 };
 ASSERT_SIZE(CGameObject, 0x144);
@@ -363,8 +363,8 @@ public:
     TransientVisualEffectBuilder(); // 4cb0a0 (client: 4cfa20)
     ~TransientVisualEffectBuilder(); // 4cb190 (client: 4cfb10)
 
-    int32_t BuildRisingParticles(CArray<GO_11c>* existing, int16_t x_radius, int16_t y_radius, int16_t z_radius, uint16_t visual_id); // 4cc22d (client: 4d0ba1)
-    int32_t BuildFallingParticles(CArray<GO_11c>* existing, int16_t x_radius, int16_t y_radius, int16_t z_radius, uint16_t visual_id); // 4cc3fd (client: 4d0d71)
+    int32_t BuildRisingParticles(CArray<TransientVisualElement>* existing, int16_t x_radius, int16_t y_radius, int16_t z_radius, uint16_t visual_id); // 4cc22d (client: 4d0ba1)
+    int32_t BuildFallingParticles(CArray<TransientVisualElement>* existing, int16_t x_radius, int16_t y_radius, int16_t z_radius, uint16_t visual_id); // 4cc3fd (client: 4d0d71)
     void BuildEnergyColumn(int16_t height, float speed, float radius, uint32_t phase); // 4cc944 (client: 4d12b4)
     void BuildGroundRing(int16_t height, float radius, uint32_t phase); // 4ccaf2 (client: 4d1452)
     void BuildGroundRingReversed(int16_t height, float radius, uint32_t phase); // 4ccc7b (client: 4d15d3)
@@ -379,7 +379,7 @@ public:
 
     void Clear(); // 46f390 (client: 473270)
 
-    CArray<GO_11c>* GetVisualElements() { return &this->visual_elements; } // 46f3f0 (client: 4204f0)
+    CArray<TransientVisualElement>* GetVisualElements() { return &this->visual_elements; } // 46f3f0 (client: 4204f0)
 
 public:
     CPoint gap_0x0;
@@ -392,7 +392,7 @@ public:
     double wobble_scale;
     double line_length;
     CArray<CPoint> circle_points;
-    CArray<GO_11c> visual_elements; // 0x7c
+    CArray<TransientVisualElement> visual_elements; // 0x7c
     CArray<double> arc_x;
     CArray<double> arc_y;
     CArray<double> jitter_progress;
@@ -402,23 +402,23 @@ ASSERT_SIZE(TransientVisualEffectBuilder, 0xe0);
 
 
 // Enterable structures collection (global at 65fa38)
-struct StructEnter {
+struct EnterableStructures {
     CArray<CUnit*> structure_list;
     CArray<CUnit*> party_list;
     int32_t female_party_count;
     int32_t male_party_count;
 
-    StructEnter(); // 474f20 (client: 477ac0)
-    ~StructEnter(); // 474f90 (client: 477b30)
+    EnterableStructures(); // 474f20 (client: 477ac0)
+    ~EnterableStructures(); // 474f90 (client: 477b30)
     void RebuildFromMap(); // 473b80 (client: 4778d0)
     int32_t FindFlaggedStructureUnit(); // 473d10 (client: 477a60)
     void AddStructureUnit(CUnit* unit); // 474ff0 (client: none)
     void ClearGroups(); // 475010 (client: 477b90)
     void AddPartyMember(CUnit* unit); // 475080 (client: 477f70)
 };
-ASSERT_SIZE(StructEnter, 0x30);
+ASSERT_SIZE(EnterableStructures, 0x30);
 
-extern StructEnter g_StructEnter; //65fa38
+extern EnterableStructures g_StructEnter; //65fa38
 
 
 class CAirUnit : public CUnit {

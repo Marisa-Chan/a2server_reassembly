@@ -1802,7 +1802,7 @@ void CUnit::DrawHealthBar(int32_t tile_x, int32_t tile_y, int32_t hgt) {
         return;
     }
 
-    UnitVFXUnfo* vfx = g_VFX_info[this->typeId];
+    UnitVFXInfo* vfx = g_VFX_info[this->typeId];
     int32_t left = this->centerScreenX - vfx->center_x + vfx->selection.left;
     int32_t top = this->centerScreenY - vfx->center_y - this->terrainHeightOffset + vfx->selection.top - this->z_pos;
     int32_t bottom = this->centerScreenY - vfx->center_y - this->terrainHeightOffset + vfx->selection.bottom - this->z_pos;
@@ -1970,7 +1970,7 @@ void CUnit::Draw(int32_t tile_x, int32_t tile_y, int32_t light) {
     int32_t sun_angle = (int32_t)(std::tan(this->pMapObject->scenario->GetRenderSunAngle()) * 65536.0);
     (void)sun_angle; // computed but never used in the original binary
 
-    UnitVFXUnfo* vfx = g_VFX_info[this->typeId];
+    UnitVFXInfo* vfx = g_VFX_info[this->typeId];
     int32_t file_idx = vfx->file;
     int32_t palette_id = vfx->palette;
     int32_t flip = 0;
@@ -1984,7 +1984,7 @@ void CUnit::Draw(int32_t tile_x, int32_t tile_y, int32_t light) {
     int32_t vfx_idx = this->typeId;
 
     for (int32_t i = 0; i < this->transientVisualElements.GetSize(); i++) {
-        GO_11c* elem = &this->transientVisualElements[i];
+        TransientVisualElement* elem = &this->transientVisualElements[i];
         if (elem->z > 0) {
             ProjectileInfo* proj = g_ProjectileInfos[elem->vfx_type];
             int32_t x = this->centerScreenX + elem->x - proj->width / 2;
@@ -2023,7 +2023,7 @@ void CUnit::Draw(int32_t tile_x, int32_t tile_y, int32_t light) {
 #endif
         } else if (this->death_state == 1) {
             vfx_idx = vfx->dying;
-            UnitVFXUnfo* dying_vfx = g_VFX_info[vfx_idx];
+            UnitVFXInfo* dying_vfx = g_VFX_info[vfx_idx];
             file_idx = dying_vfx->file;
             base_phases = dying_vfx->move_phases + dying_vfx->move_begin_phases;
             dir8 = ((this->dir - 8) & 0xE) >> 1;
@@ -2044,7 +2044,7 @@ void CUnit::Draw(int32_t tile_x, int32_t tile_y, int32_t light) {
             }
         } else {
             vfx_idx = vfx->dying;
-            UnitVFXUnfo* dying_vfx = g_VFX_info[vfx_idx];
+            UnitVFXInfo* dying_vfx = g_VFX_info[vfx_idx];
             file_idx = dying_vfx->file;
             base_phases = dying_vfx->move_phases + dying_vfx->move_begin_phases;
             dir8 = ((this->dir - 8) & 0xE) >> 1;
@@ -2120,7 +2120,7 @@ void CUnit::Draw(int32_t tile_x, int32_t tile_y, int32_t light) {
         break;
     case 6: {
         vfx_idx = vfx->dying;
-        UnitVFXUnfo* dying_vfx = g_VFX_info[vfx_idx];
+        UnitVFXInfo* dying_vfx = g_VFX_info[vfx_idx];
         file_idx = dying_vfx->file;
         base_phases = dying_vfx->move_phases + dying_vfx->move_begin_phases;
         dir8 = ((this->dir - 8) & 0xE) >> 1;
@@ -2168,7 +2168,7 @@ void CUnit::Draw(int32_t tile_x, int32_t tile_y, int32_t light) {
         light = 0;
     }
 
-    UnitVFXUnfo* draw_vfx = g_VFX_info[vfx_idx];
+    UnitVFXInfo* draw_vfx = g_VFX_info[vfx_idx];
     if ((this->unitFlags & UNIT_FLAG_PLAYER_CLASS) != 0) {
         if (this->sprite->GetFrameCount() <= frame) {
             return;
@@ -2217,7 +2217,7 @@ void CUnit::Draw(int32_t tile_x, int32_t tile_y, int32_t light) {
     }
 
     for (int32_t i = 0; i < this->transientVisualElements.GetSize(); i++) {
-        GO_11c* elem = &this->transientVisualElements[i];
+        TransientVisualElement* elem = &this->transientVisualElements[i];
         if (elem->z <= 0) {
             ProjectileInfo* proj = g_ProjectileInfos[elem->vfx_type];
             int32_t x = this->centerScreenX + elem->x - proj->width / 2;
@@ -2237,7 +2237,7 @@ void CUnit::DrawShadow(int32_t tile_x, int32_t tile_y, int32_t light) {
 
     int32_t sun_angle = (int32_t)(std::tan(map->scenario->GetRenderSunAngle()) * 65536.0);
 
-    UnitVFXUnfo* vfx = g_VFX_info[this->typeId];
+    UnitVFXInfo* vfx = g_VFX_info[this->typeId];
     int32_t file_idx = vfx->file;
     int32_t flip = 0;
     int32_t base_phases = vfx->move_phases + vfx->move_begin_phases;
@@ -2282,7 +2282,7 @@ void CUnit::DrawShadow(int32_t tile_x, int32_t tile_y, int32_t light) {
 #endif
         } else if (this->death_state == 1) {
             vfx_idx = vfx->dying;
-            UnitVFXUnfo* dying_vfx = g_VFX_info[vfx_idx];
+            UnitVFXInfo* dying_vfx = g_VFX_info[vfx_idx];
             file_idx = dying_vfx->file;
             base_phases = dying_vfx->move_phases + dying_vfx->move_begin_phases;
             dir8 = ((this->dir - 8) & 0xE) >> 1;
@@ -2303,7 +2303,7 @@ void CUnit::DrawShadow(int32_t tile_x, int32_t tile_y, int32_t light) {
             }
         } else {
             vfx_idx = vfx->dying;
-            UnitVFXUnfo* dying_vfx = g_VFX_info[vfx_idx];
+            UnitVFXInfo* dying_vfx = g_VFX_info[vfx_idx];
             file_idx = dying_vfx->file;
             base_phases = dying_vfx->move_phases + dying_vfx->move_begin_phases;
             dir8 = ((this->dir - 8) & 0xE) >> 1;
@@ -2379,7 +2379,7 @@ void CUnit::DrawShadow(int32_t tile_x, int32_t tile_y, int32_t light) {
         break;
     case 6: {
         vfx_idx = vfx->dying;
-        UnitVFXUnfo* dying_vfx = g_VFX_info[vfx_idx];
+        UnitVFXInfo* dying_vfx = g_VFX_info[vfx_idx];
         file_idx = dying_vfx->file;
         base_phases = dying_vfx->move_phases + dying_vfx->move_begin_phases;
         dir8 = ((this->dir - 8) & 0xE) >> 1;
@@ -2404,7 +2404,7 @@ void CUnit::DrawShadow(int32_t tile_x, int32_t tile_y, int32_t light) {
         }
     }
 
-    UnitVFXUnfo* draw_vfx = g_VFX_info[vfx_idx];
+    UnitVFXInfo* draw_vfx = g_VFX_info[vfx_idx];
     if ((this->unitFlags & UNIT_FLAG_PLAYER_CLASS) != 0) {
         if (this->sprite->GetFrameCount() <= frame) {
             return;
@@ -2486,7 +2486,7 @@ void TransientVisualEffectBuilder::Clear() {
 
 // 4cced2 (client: 4d181e)
 void TransientVisualEffectBuilder::AddElement(int16_t height, uint8_t phase) {
-    this->visual_elements.Add(GO_11c(0, -height, 0, 0x14, phase));
+    this->visual_elements.Add(TransientVisualElement(0, -height, 0, 0x14, phase));
 }
 
 // 4cce04 (client: 4d1754)
@@ -2507,7 +2507,7 @@ void TransientVisualEffectBuilder::AddOffsetElement(int16_t height, uint8_t effe
         y_offset = -6;
         break;
     }
-    this->visual_elements.Add(GO_11c(-x_offset, -height - y_offset, 0, effect_type, phase));
+    this->visual_elements.Add(TransientVisualElement(-x_offset, -height - y_offset, 0, effect_type, phase));
 }
 
 // 4cd4b0 (client: 4d1e00)
@@ -2522,10 +2522,10 @@ void TransientVisualEffectBuilder::BuildGroundRing(int16_t height, float radius,
         int16_t x = (int16_t)(std::cos(rad) * radius);
         int16_t z = (int16_t)(std::sin(rad) * radius);
         uint8_t anim_phase = 4 - angle / 0x12;
-        this->visual_elements.Add(GO_11c(x, -height, z, 0x30, anim_phase));
-        this->visual_elements.Add(GO_11c(z, -height, -x, 0x30, anim_phase));
-        this->visual_elements.Add(GO_11c(-x, -height, -z, 0x30, anim_phase));
-        this->visual_elements.Add(GO_11c(-z, -height, x, 0x30, anim_phase));
+        this->visual_elements.Add(TransientVisualElement(x, -height, z, 0x30, anim_phase));
+        this->visual_elements.Add(TransientVisualElement(z, -height, -x, 0x30, anim_phase));
+        this->visual_elements.Add(TransientVisualElement(-x, -height, -z, 0x30, anim_phase));
+        this->visual_elements.Add(TransientVisualElement(-z, -height, x, 0x30, anim_phase));
     }
 }
 
@@ -2545,8 +2545,8 @@ void TransientVisualEffectBuilder::BuildTiltedRing(int32_t x, int32_t y, int32_t
         int16_t sin_x = (int16_t)(pt->x * sin_a);
         int16_t y_pos = -(int16_t)(pt->y * y_scale);
         uint8_t anim_phase = std::abs(4 - (int32_t)(std::abs(pt->y) * anim_scale));
-        this->visual_elements.Add(GO_11c(x + cos_x, y + y_pos, height + sin_x, 0x3E, anim_phase));
-        this->visual_elements.Add(GO_11c(x - sin_x, y + y_pos, height + cos_x, 0x3E, anim_phase));
+        this->visual_elements.Add(TransientVisualElement(x + cos_x, y + y_pos, height + sin_x, 0x3E, anim_phase));
+        this->visual_elements.Add(TransientVisualElement(x - sin_x, y + y_pos, height + cos_x, 0x3E, anim_phase));
     }
 }
 
@@ -2720,15 +2720,15 @@ void TransientVisualEffectBuilder::BuildLightningLine(double x0, double y0, doub
         int32_t px = (int32_t)(px_f - (this->arc_y[i] - this->arc_y[0]) * step_y);
         double py_f = (this->arc_x[i] - this->arc_x[0]) * step_y + this->arc_y[0];
         int32_t py = (int32_t)((this->arc_y[i] - this->arc_y[0]) * step_x + py_f);
-        this->visual_elements.Add(GO_11c((int16_t)px, (int16_t)py, 0, vfx_type, 0));
+        this->visual_elements.Add(TransientVisualElement((int16_t)px, (int16_t)py, 0, vfx_type, 0));
     }
 }
 
 // 4cc22d (client: 4d0ba1)
-int32_t TransientVisualEffectBuilder::BuildRisingParticles(CArray<GO_11c>* existing, int16_t x_radius, int16_t y_radius, int16_t z_radius, uint16_t visual_id) {
+int32_t TransientVisualEffectBuilder::BuildRisingParticles(CArray<TransientVisualElement>* existing, int16_t x_radius, int16_t y_radius, int16_t z_radius, uint16_t visual_id) {
     int16_t age_step = (int16_t)(z_radius / 7.0 + 1.0);
     for (int32_t i = 0; i < existing->GetSize(); i++) {
-        GO_11c* elem = &(*existing)[i];
+        TransientVisualElement* elem = &(*existing)[i];
         if (elem->vfx_type == 0x38 && elem->phase < 7) {
             elem->phase += 1;
             elem->y -= age_step;
@@ -2743,7 +2743,7 @@ int32_t TransientVisualEffectBuilder::BuildRisingParticles(CArray<GO_11c>* exist
     int32_t count = std::rand() % 3 + 3;
     for (int32_t i = 0; i < count; i++) {
         double rad = DegToRad(std::rand() % 360);
-        GO_11c elem;
+        TransientVisualElement elem;
         elem.x = (int16_t)(std::cos(rad) * x_radius);
         elem.y = 0;
         elem.z = (int16_t)(std::sin(rad) * y_radius);
@@ -2755,10 +2755,10 @@ int32_t TransientVisualEffectBuilder::BuildRisingParticles(CArray<GO_11c>* exist
 }
 
 // 4cc3fd (client: 4d0d71)
-int32_t TransientVisualEffectBuilder::BuildFallingParticles(CArray<GO_11c>* existing, int16_t x_radius, int16_t y_radius, int16_t z_radius, uint16_t visual_id) {
+int32_t TransientVisualEffectBuilder::BuildFallingParticles(CArray<TransientVisualElement>* existing, int16_t x_radius, int16_t y_radius, int16_t z_radius, uint16_t visual_id) {
     int16_t age_step = (int16_t)(z_radius / 7.0 + 1.0);
     for (int32_t i = 0; i < existing->GetSize(); i++) {
-        GO_11c* elem = &(*existing)[i];
+        TransientVisualElement* elem = &(*existing)[i];
         if (elem->vfx_type == 0x3C && elem->phase < 7) {
             elem->phase += 1;
             elem->y += age_step;
@@ -2773,7 +2773,7 @@ int32_t TransientVisualEffectBuilder::BuildFallingParticles(CArray<GO_11c>* exis
     int32_t count = std::rand() % 3 + 3;
     for (int32_t i = 0; i < count; i++) {
         double rad = DegToRad(std::rand() % 0x168);
-        GO_11c elem;
+        TransientVisualElement elem;
         elem.x = (int16_t)(std::cos(rad) * x_radius);
         elem.y = -z_radius;
         elem.z = (int16_t)(std::sin(rad) * y_radius);
@@ -2799,9 +2799,9 @@ void TransientVisualEffectBuilder::BuildEnergyColumn(int16_t height, float speed
         int16_t x = pt->x;
         int16_t z = pt->y;
         int16_t y_top = -(int16_t)(height + y_offset);
-        this->visual_elements.Add(GO_11c(x, y_top, z, 0x3E, anim_phase));
+        this->visual_elements.Add(TransientVisualElement(x, y_top, z, 0x3E, anim_phase));
         int16_t y_bottom = -(int16_t)(height - y_offset);
-        this->visual_elements.Add(GO_11c(x, y_bottom, z, 0x3E, anim_phase));
+        this->visual_elements.Add(TransientVisualElement(x, y_bottom, z, 0x3E, anim_phase));
     }
 }
 
@@ -2812,17 +2812,17 @@ void TransientVisualEffectBuilder::BuildGroundRingReversed(int16_t height, float
         int16_t x = (int16_t)(std::cos(rad) * radius);
         int16_t z = (int16_t)(std::sin(rad) * radius);
         uint8_t anim_phase = 4 - angle / 0x12;
-        this->visual_elements.Add(GO_11c(x, -height, z, 0x40, anim_phase));
-        this->visual_elements.Add(GO_11c(z, -height, -x, 0x40, anim_phase));
-        this->visual_elements.Add(GO_11c(-x, -height, -z, 0x40, anim_phase));
-        this->visual_elements.Add(GO_11c(-z, -height, x, 0x40, anim_phase));
+        this->visual_elements.Add(TransientVisualElement(x, -height, z, 0x40, anim_phase));
+        this->visual_elements.Add(TransientVisualElement(z, -height, -x, 0x40, anim_phase));
+        this->visual_elements.Add(TransientVisualElement(-x, -height, -z, 0x40, anim_phase));
+        this->visual_elements.Add(TransientVisualElement(-z, -height, x, 0x40, anim_phase));
     }
 }
 
 // 4cb269 (client: 4cfbe9)
 int __cdecl CompareVisualElements(const void* left, const void* right) {
-    const GO_11c* lhs = (const GO_11c*)left;
-    const GO_11c* rhs = (const GO_11c*)right;
+    const TransientVisualElement* lhs = (const TransientVisualElement*)left;
+    const TransientVisualElement* rhs = (const TransientVisualElement*)right;
 
     if (lhs->y < rhs->y) {
         return 1;
@@ -2835,7 +2835,7 @@ int __cdecl CompareVisualElements(const void* left, const void* right) {
 
 // 468dcb (client: 46cb51)
 void CUnit::UpdateTransientVisualElements() {
-    CArray<GO_11c> visual_elements;
+    CArray<TransientVisualElement> visual_elements;
 
     for (int32_t i = 0; i < this->effect_timers.GetSize();) {
         uint32_t effect = this->effect_timers[i];
@@ -2910,7 +2910,7 @@ void CUnit::UpdateTransientVisualElements() {
     }
 
     if (visual_elements.GetSize() != 0) {
-        std::qsort(visual_elements.GetData(), visual_elements.GetSize(), sizeof(GO_11c), CompareVisualElements);
+        std::qsort(visual_elements.GetData(), visual_elements.GetSize(), sizeof(TransientVisualElement), CompareVisualElements);
     }
     this->transientVisualElements.Copy(visual_elements);
 }
@@ -2925,7 +2925,7 @@ int32_t CUnit::Update() {
     }
 #endif
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
-    UnitVFXUnfo* vfx = g_VFX_info[this->typeId];
+    UnitVFXInfo* vfx = g_VFX_info[this->typeId];
 
     if (this->death_state >= 5) {
         return 1;
@@ -3262,7 +3262,7 @@ void CUnit::SpawnSpellProjectile() {
     proj->action_dir = this->dir;
     proj->dir = this->dir;
 
-    UnitVFXUnfo* vfx = g_VFX_info[this->typeId];
+    UnitVFXInfo* vfx = g_VFX_info[this->typeId];
     if (vfx->shoot_offset.GetSize() == 0 || this->action_spell == 0x36) {
         proj->x_pos = this->centerWorldX8 - vfx->center_x + (vfx->selection.right - vfx->selection.left) / 2;
         proj->y_pos = this->centerWorldY8 - vfx->center_y + (vfx->selection.bottom - vfx->selection.top) / 2;
@@ -3392,7 +3392,7 @@ void CUnit::SpawnAttackProjectile() {
 
     CProjectile* proj = new CProjectile();
 
-    UnitVFXUnfo* vfx = g_VFX_info[this->typeId];
+    UnitVFXInfo* vfx = g_VFX_info[this->typeId];
     proj->typeId = vfx->projectile;
     int32_t dir_idx = (this->dir - 8) & 0xE;
     proj->x_pos = this->x_pos + (vfx->center_x - vfx->shoot_offset[dir_idx]) * -8;
@@ -3497,7 +3497,7 @@ void CUnit::UpdateTileLayer() {
 
     if (g_Animation == 0 && this->IsBlocked() == 0 && this->m_bSelectionDirty != 0) {
         VisPlayingArea* map = this->pMapObject;
-        UnitVFXUnfo* vfx = g_VFX_info[this->typeId];
+        UnitVFXInfo* vfx = g_VFX_info[this->typeId];
         int32_t x = this->centerScreenX - vfx->center_x;
         int32_t y = this->centerScreenY - vfx->center_y - this->terrainHeightOffset - this->z_pos;
         CRect rect(x & 0xffffffe0, y, ((x + vfx->width) & 0xffffffe0) + 0x20, y + vfx->height);
@@ -4111,7 +4111,7 @@ void CUnit::PlayCastSound() {
 }
 
 // 473b80 (client: 4778d0)
-void StructEnter::RebuildFromMap() {
+void EnterableStructures::RebuildFromMap() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     VisPlayingArea* map = main_wnd->vis_map_context;
     POSITION it = map->objects.GetStartPosition();
@@ -4136,7 +4136,7 @@ void StructEnter::RebuildFromMap() {
 }
 
 // 473d10 (client: 477a60)
-int32_t StructEnter::FindFlaggedStructureUnit() {
+int32_t EnterableStructures::FindFlaggedStructureUnit() {
     for (int32_t i = 0; i < this->structure_list.GetSize(); i++) {
         CUnit* unit = this->structure_list[i];
         if ((unit->unitFlags & UNIT_FLAG_TOKEN_GOLD_ENTRY) != 0) {
@@ -4147,7 +4147,7 @@ int32_t StructEnter::FindFlaggedStructureUnit() {
 }
 
 // 475080 (client: 477f70)
-void StructEnter::AddPartyMember(CUnit* unit) {
+void EnterableStructures::AddPartyMember(CUnit* unit) {
     this->party_list.Add(unit);
     if ((unit->unitFlags & UNIT_FLAG_MAGE) != 0) {
         this->male_party_count++;
@@ -4157,7 +4157,7 @@ void StructEnter::AddPartyMember(CUnit* unit) {
 }
 
 // 475010 (client: 477b90)
-void StructEnter::ClearGroups() {
+void EnterableStructures::ClearGroups() {
     this->structure_list.SetSize(0);
     this->party_list.SetSize(0);
     this->male_party_count = 0;
@@ -4165,22 +4165,22 @@ void StructEnter::ClearGroups() {
 }
 
 // 474ff0 (client: none)
-void StructEnter::AddStructureUnit(CUnit* unit) {
+void EnterableStructures::AddStructureUnit(CUnit* unit) {
     this->structure_list.Add(unit);
 }
 
 // 474f20 (client: 477ac0)
-StructEnter::StructEnter() {
+EnterableStructures::EnterableStructures() {
     this->female_party_count = 0;
     this->male_party_count = 0;
 }
 
 // 474f90 (client: 477b30)
-StructEnter::~StructEnter() {
+EnterableStructures::~EnterableStructures() {
     this->ClearGroups();
 }
 
-StructEnter g_StructEnter;
+EnterableStructures g_StructEnter;
 
 // 4631f3 (client: 466eca)
 void CStructure::DrawHealthBar(int32_t tile_x, int32_t tile_y, int32_t hgt) {
@@ -4961,13 +4961,13 @@ void CProjectile::Draw(int32_t tile_x, int32_t tile_y, int32_t light) {
     }
     case 28:
         for (int32_t i = 0; i < this->transientVisualElements.GetSize(); i++) {
-            GO_11c& el = this->transientVisualElements.ElementAt(i);
+            TransientVisualElement& el = this->transientVisualElements.ElementAt(i);
             g_ProjectileInfos[28]->GetSprite()->Draw(el.x - 8, el.y - 8, this->phase, 0, 0);
         }
         break;
     case 30:
         for (int32_t i = 0; i < this->transientVisualElements.GetSize(); i++) {
-            GO_11c& el = this->transientVisualElements.ElementAt(i);
+            TransientVisualElement& el = this->transientVisualElements.ElementAt(i);
             g_ProjectileInfos[30]->GetSprite()->Draw(el.x - 8, el.y - 8, this->phase + el.vfx_type * 5, 0, 0);
         }
         break;
@@ -5056,7 +5056,7 @@ void CProjectile::UpdateLight() {
     case 30: {
         uint8_t* lightmap = map->corner_light;
         for (int32_t i = 0; i < this->transientVisualElements.GetSize(); i++) {
-            GO_11c& el = this->transientVisualElements.ElementAt(i);
+            TransientVisualElement& el = this->transientVisualElements.ElementAt(i);
             int32_t lx = el.x >> 5;
             int32_t ly = map->ScreenToTileRow(el.x, el.y);
             if (lx < 0 || ly < 0 || lx > map->view_tiles_x || ly > map->view_tiles_y + 4) {
@@ -5128,7 +5128,7 @@ void CAirUnit::UpdateTileLayer() {
         return;
     }
 
-    UnitVFXUnfo* vfx = g_VFX_info[this->typeId];
+    UnitVFXInfo* vfx = g_VFX_info[this->typeId];
 
     int32_t x = this->centerScreenX - vfx->center_x;
     int32_t y = this->centerScreenY - vfx->center_y - this->terrainHeightOffset - this->z_pos;

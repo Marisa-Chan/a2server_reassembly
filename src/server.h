@@ -18,7 +18,7 @@ class Humanoid;
 class Inn;
 struct Inventory;
 struct MapAlm;
-struct NetStru2;
+struct NetClientPeer;
 class Packet;
 class Player;
 class Sack;
@@ -64,7 +64,7 @@ struct CowardActivation {
 ASSERT_OFFSET(CowardActivation, enabled, 0x64);
 ASSERT_SIZE(CowardActivation, 0x68);
 
-struct SrvStru1 {
+struct ServerObjectLists {
     BuildingsList* building_list;
     SpellEffectList* effects_list;
     SackList* sack_list;
@@ -72,7 +72,7 @@ struct SrvStru1 {
     CList<VirtualCaster*> virtual_casters_list;
     CList<Unit*> some_unit_list;
 
-    static SrvStru1 Instance; //6cf390
+    static ServerObjectLists Instance; //6cf390
 
 public:
     void Deinit(); // 4fab1d (client: none)
@@ -88,10 +88,10 @@ public:
 
     Unit* AddDummyUnitWithSpell(int32_t xpos, int32_t ypos, int32_t spellID, int16_t SpellDmg); // 4fb8cd (client: 4f9466)
 
-    SrvStru1(); // 4fa89c (client: 4f91a3)
-    ~SrvStru1(); // 4fa981 (client: 4f9000)
+    ServerObjectLists(); // 4fa89c (client: 4f91a3)
+    ~ServerObjectLists(); // 4fa981 (client: 4f9000)
 };
-ASSERT_SIZE(SrvStru1, 0x48);
+ASSERT_SIZE(ServerObjectLists, 0x48);
 
 struct SackList {
     CList<Sack*> list;
@@ -122,9 +122,9 @@ public:
 };
 ASSERT_SIZE(SpellEffectList, 0x20);
 
-class Srv1 : public CObject { // Aka `A2Srv_1`.
+class MapLoader : public CObject { // Aka `A2Srv_1`.
 public: // Virtual table at 0060ec18.
-    virtual ~Srv1(); // 59b6f0 (client: 56a5a0)
+    virtual ~MapLoader(); // 59b6f0 (client: 56a5a0)
 
 public:
     void CreateBuildings(MapAlm* alm); // 59c56e (client: 56b41e) - CreateBuildings
@@ -148,11 +148,11 @@ public:
 public:
     CMapStringToOb gap_0x4;
     uint32_t is_scenario = 0;
-    SrvStru1 *srv_stru = nullptr;
+    ServerObjectLists *srv_stru = nullptr;
     CArray<uint16_t> drop_locations; // Drop locations.
 };
-ASSERT_OFFSET(Srv1, srv_stru, 0x24);
-ASSERT_SIZE(Srv1, 0x3c);
+ASSERT_OFFSET(MapLoader, srv_stru, 0x24);
+ASSERT_SIZE(MapLoader, 0x3c);
 
 
 class Player;
@@ -222,13 +222,13 @@ public:
     int32_t send_full_state;
     int32_t multiplayer; // Is server flag?
     CString base_dir;
-    SrvStru1* srv_stru1;
+    ServerObjectLists* srv_stru1;
     uint8_t gap_0x80[8];
     HANDLE thread_handle;
     int32_t gap_0x8c;
     CString current_map_name;
     uint32_t has_world_state;
-    Srv1 srv1;
+    MapLoader srv1;
     uint32_t map_code;
     Difficulty difficulty; // 1..3 (saved as raw int in games)
     CMapPtrToPtr saved_ptr_map;
@@ -302,8 +302,8 @@ public:
 
     void SerializeGame(CArchive& ar); // 4f3188 (client: 4f54f6) - deserialise saved game state from archive
 
-    void Allods2_JoinPlayer(int32_t id, int32_t, CString name, NetStru2* client, uint32_t); // server: none (client: 4f9a78) - Allods2.exe Join Player
-    void JoinErrorSend(NetStru2* client, int32_t error_code, const CString& str); // 4fc4f3 (client: 4f992b)
+    void Allods2_JoinPlayer(int32_t id, int32_t, CString name, NetClientPeer* client, uint32_t); // server: none (client: 4f9a78) - Allods2.exe Join Player
+    void JoinErrorSend(NetClientPeer* client, int32_t error_code, const CString& str); // 4fc4f3 (client: 4f992b)
     Player* Allods2_CreatePlayer(CString name); // 500792 (client: 4fb0f3) - not used in server, but used in Allods2
 };
 ASSERT_OFFSET(Server, srv_stru1, 0x7c);

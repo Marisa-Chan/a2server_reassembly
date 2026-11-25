@@ -222,7 +222,7 @@ void FlushRect(int32_t l, int32_t t, int32_t r, int32_t b); // 454a1e (client: 4
 extern IDirectDraw* g_ddraw; //659bec
 
 
-struct ColorThing {
+struct LightingParams {
     uint8_t r;
     uint8_t g;
     uint8_t b;
@@ -234,9 +234,9 @@ struct ColorThing {
     int32_t __pd2;
     double sun_angle;
 };
-ASSERT_SIZE(ColorThing, 0x20);
+ASSERT_SIZE(LightingParams, 0x20);
 
-extern ColorThing g_DeltaCLR; //660e28
+extern LightingParams g_DeltaCLR; //660e28
 
 
 

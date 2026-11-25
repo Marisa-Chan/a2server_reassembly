@@ -6,7 +6,7 @@
 #include "gfx.h"
 #include "main_window.h"
 
-class UnitVFXUnfo;
+class UnitVFXInfo;
 class CGamePalette;
 class GfxFile;
 class GfxObject;
@@ -20,7 +20,7 @@ extern int32_t g_TerrainHidden; //660f68
 extern int32_t g_ShowFps; //660f6c
 extern int32_t g_ShowNetStats; //660f70
 extern int32_t g_SpellOffensive[24]; //62f908
-extern CArray<UnitVFXUnfo*> g_VFX_info; //6610e0
+extern CArray<UnitVFXInfo*> g_VFX_info; //6610e0
 extern CArray<GfxFile*> g_GfxFiles; //661100
 extern CArray<GfxObject*> g_GfxObjects; //665330
 extern CArray<StructureInfo*> g_StructuresInfo; //661098
@@ -47,9 +47,9 @@ void __cdecl ReloadPalettes(); // 47fa75 (client: 48392f)
 void __cdecl LoadTerrainTiles(uint32_t val); // 477b59 (client: 47b899)
 
 
-class UnitVFXUnfo : public CObject {
+class UnitVFXInfo : public CObject {
 public:
-    virtual ~UnitVFXUnfo() { // 47ccb4 (client: 480b6e)
+    virtual ~UnitVFXInfo() { // 47ccb4 (client: 480b6e)
         if (this->palette) {
             for (int i = 0; i < 8; i++) {
                 if (this->palettes[i]) {
@@ -65,7 +65,7 @@ public:
         }
     }
 
-    UnitVFXUnfo() { // 47cb20 (client: 4809da)
+    UnitVFXInfo() { // 47cb20 (client: 4809da)
         this->palettes.fill(nullptr);
         this->palette_datas.fill(nullptr);
     }
@@ -110,7 +110,7 @@ public:
     int32_t flip;
     char desc_text[32];
 };
-ASSERT_SIZE(UnitVFXUnfo, 0x14c);
+ASSERT_SIZE(UnitVFXInfo, 0x14c);
 
 //60b880
 class GfxFile : public CObject {

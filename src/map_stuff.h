@@ -37,7 +37,7 @@ enum : uint8_t {
     map_border    = 0x08, // outer map border flag
     dynamic_block = 0x10, // runtime terrain block (encoded in terrain sync)
     border_all    = 0x1F, // all static/border obstacle bits (8-tile map border)
-    cell_state    = 0x20, // cell has an entry in MapStuff::cell_states
+    cell_state    = 0x20, // cell has an entry in TerrainMap::cell_states
     ground_unit   = 0x40, // occupied by ground/amphibious unit in obstacle_map2
     air_unit      = 0x80, // occupied by flying unit in obstacle_map2
 };
@@ -103,7 +103,7 @@ struct LandscapeTile {
 };
 ASSERT_SIZE(LandscapeTile, 2);
 
-// Player presence scan grid, embedded in MapStuff at offset 0x92ecc.
+// Player presence scan grid, embedded in TerrainMap at offset 0x92ecc.
 // Tracks which player side bitmasks have units in each 8x8-tile sector.
 // On unit add, the unit's owner bitmask (unit->player->field_0x32) is OR'd
 // into a 5x5 block of sectors centered on the unit (unit_x>>3, unit_y>>3).
@@ -128,19 +128,19 @@ public:
 ASSERT_OFFSET(ScanPresenceGrid, unit_list, 0x1610);
 ASSERT_SIZE(ScanPresenceGrid, 0x1628);
 
-// Sub-field of MapStuff. Purpose not fully reversed; kept opaque.
-struct FieldBlock54190 {
+// Sub-field of TerrainMap. Purpose not fully reversed; kept opaque.
+struct MapScratchBlock1K {
     uint32_t gap_0x0;
     uint32_t gap_0x4;
     uint8_t data[0x3ec];
 
 public:
-    FieldBlock54190(); // 599ff0 (client: 5692e0)
+    MapScratchBlock1K(); // 599ff0 (client: 5692e0)
 };
-ASSERT_SIZE(FieldBlock54190, 0x3f4);
+ASSERT_SIZE(MapScratchBlock1K, 0x3f4);
 
-// Sub-field of MapStuff. Purpose not fully reversed; kept opaque.
-struct FieldBlock5859c {
+// Sub-field of TerrainMap. Purpose not fully reversed; kept opaque.
+struct MapScratchBlock2K {
     uint8_t* gap_0x0;
     uint8_t* gap_0x4;
     uint8_t* gap_0x8;
@@ -148,9 +148,9 @@ struct FieldBlock5859c {
     uint8_t data[2004];
 
 public:
-    FieldBlock5859c(); // 5a3180 (client: 4cc890)
+    MapScratchBlock2K(); // 5a3180 (client: 4cc890)
 };
-ASSERT_SIZE(FieldBlock5859c, 2020);
+ASSERT_SIZE(MapScratchBlock2K, 2020);
 
 struct CellState {
     uint8_t  walk_cost;          // +0x00: saved original walk_cost_map byte
@@ -179,7 +179,7 @@ struct CellState {
 ASSERT_OFFSET(CellState, area_effects, 0x14);
 ASSERT_SIZE(CellState, 0x3c);
 
-struct MapStuff { // aka astruct_5
+struct TerrainMap { // aka astruct_5
     uint8_t walk_cost_map[65536];
     Obstacle obstacle_map[65536];
     Obstacle obstacle_map2[65536];
@@ -203,7 +203,7 @@ struct MapStuff { // aka astruct_5
     int8_t line_walk_delta[12][2]; // (dx,dy) steps cycling right,down,left,up x3; used by PickAttackPosition's box perimeter walk.
     uint8_t gap_0x5416E[2];
     int32_t gap_0x54170[8];
-    FieldBlock54190 gap_0x54190;
+    MapScratchBlock1K gap_0x54190;
     uint16_t path_queue_static[0x1000]; // Path lookup table for static obstacles, used by FindPathInternal.
     uint16_t path_queue_dynamic[0x1000]; // Path lookup table for dynamic obstacles, used by FindPathInternal.
     int32_t static_scan_ahead;
@@ -212,7 +212,7 @@ struct MapStuff { // aka astruct_5
     int32_t dynamic_refresh_rate;
     int32_t dynamic_by_static_lookup;
     int32_t static_isnt_needed;
-    FieldBlock5859c gap_0x5859c;
+    MapScratchBlock2K gap_0x5859c;
     World* world;
     int32_t speed_multiplier;
     CellState gap_0x58d88; // Seems unused?
@@ -239,8 +239,8 @@ struct MapStuff { // aka astruct_5
     UnitList* all_units;
 
 public:
-    MapStuff(MapAlm* alm, UnitList* unit_list); // 587e19 (client: 5572c9)
-    ~MapStuff(); // 587f70 (client: 557420)
+    TerrainMap(MapAlm* alm, UnitList* unit_list); // 587e19 (client: 5572c9)
+    ~TerrainMap(); // 587f70 (client: 557420)
 
     void InitFromUnitList(UnitList* unit_list); // 58e891 (client: 55dd41)
     void InitFromAlm(MapAlm* alm); // 58f166 (client: 55e616)
@@ -336,7 +336,7 @@ public:
     uint8_t* GetWalkCostMapAt(uint8_t x, uint8_t y); // 59a6f0 (client: 5699e0) - Get pointer into walk_cost_map for (x,y)
 
     // Member function pointer to a passability check with the same shape as IsCellPassableStatic/IsCellPassableDynamic.
-    using PassableCheckFn = int32_t (MapStuff::*)(Unit*, uint16_t);
+    using PassableCheckFn = int32_t (TerrainMap::*)(Unit*, uint16_t);
 
     // Shared by ExpandStaticCostsToDynamicQueue/ExpandStaticCostsToStaticQueue/ExpandDynamicCostsToStaticQueue/ExpandDynamicCostsToDynamicQueue: recomputes movement cost to each
     // of the 9 neighbor cells (including self) around (x,y) in the path_cost cost grid,
@@ -385,22 +385,22 @@ public:
     int32_t GetWidth() const { return this->map_width; } // 58b8df (client: 55ad8f)
     int32_t GetHeight() const { return this->map_height; } // 58b8f3 (client: 55ada3)
 };
-ASSERT_OFFSET(MapStuff, map_width, 0x50000);
-ASSERT_OFFSET(MapStuff, scratch_cell_state, 0x5402c);
-ASSERT_OFFSET(MapStuff, walk_cost, 0x54146);
-ASSERT_OFFSET(MapStuff, gap_0x54190, 0x54190);
-ASSERT_OFFSET(MapStuff, path_queue_static, 0x54584);
-ASSERT_OFFSET(MapStuff, static_scan_ahead, 0x58584);
-ASSERT_OFFSET(MapStuff, visibility, 0x58ec0);
-ASSERT_OFFSET(MapStuff, scan_presence_grid, 0x92ecc);
-ASSERT_OFFSET(MapStuff, height_map, 0x944f4);
-ASSERT_SIZE(MapStuff, 0xa4570);
+ASSERT_OFFSET(TerrainMap, map_width, 0x50000);
+ASSERT_OFFSET(TerrainMap, scratch_cell_state, 0x5402c);
+ASSERT_OFFSET(TerrainMap, walk_cost, 0x54146);
+ASSERT_OFFSET(TerrainMap, gap_0x54190, 0x54190);
+ASSERT_OFFSET(TerrainMap, path_queue_static, 0x54584);
+ASSERT_OFFSET(TerrainMap, static_scan_ahead, 0x58584);
+ASSERT_OFFSET(TerrainMap, visibility, 0x58ec0);
+ASSERT_OFFSET(TerrainMap, scan_presence_grid, 0x92ecc);
+ASSERT_OFFSET(TerrainMap, height_map, 0x944f4);
+ASSERT_SIZE(TerrainMap, 0xa4570);
 
 
-class File2;
+class ResArchiveFile;
 
 // Reads one length-prefixed record from the scenario file into buf.
-void __cdecl ReadRecord(char* buf, File2* file); // 4a7b3c (client: 4abb6c)
+void __cdecl ReadRecord(char* buf, ResArchiveFile* file); // 4a7b3c (client: 4abb6c)
 
 class Scenario : public CObject {
 public:

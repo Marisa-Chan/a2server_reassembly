@@ -24,7 +24,7 @@ class Spell;
 class SpellBook;
 class Unit;
 struct UnitEye;
-struct UnitEye2;
+struct UnitAiState;
 class Weapon;
 
 
@@ -335,7 +335,7 @@ public:
     CArray<SessionMobKill> mob_kills_in_session;
     int32_t has_flagged_item;
     UnitEye* eye;
-    UnitEye2* eye2;
+    UnitAiState* eye2;
     CList<PosYX> list1;
     CList<PosYX> list2;
     TokenPos* token_pos;

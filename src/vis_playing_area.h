@@ -307,7 +307,7 @@ public:
     CMap<uint16_t, uint16_t, CGameObject*, CGameObject*> projectiles;
     CMap<uint16_t, uint16_t, uint32_t, uint32_t> terrain_light_override_cells; //terrainLightOverrideCells
     int32_t next_projectile_id; //unk type
-    GM_a28 msglog;
+    HudMessageLog msglog;
     int32_t anim_tick;
     int32_t anim_redraw_tick;
     int32_t gap_0xa90;

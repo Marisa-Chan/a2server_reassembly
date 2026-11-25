@@ -79,7 +79,7 @@ void Visibility::BuildRayTables() {
 
 // 58e1e4 (client: 55d694)
 Visibility::Visibility() {
-    File2 f;
+    ResArchiveFile f;
     f.Open("World\\Data\\map.reg", 0, nullptr);
 
     RegFile reg;

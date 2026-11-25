@@ -75,7 +75,7 @@ void TxtFile::Free() {
 // 475ca9 (client: 4799f5)
 void TxtFile::LoadChunkFile(const char* fname) {
 
-    File2 fil;
+    ResArchiveFile fil;
     fil.Open(fname, 0);
 
     uint32_t fsize = fil.GetLength();

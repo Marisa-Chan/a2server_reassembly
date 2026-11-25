@@ -70,12 +70,12 @@ uint32_t g_SpectatorState;
 GUID Allods2GUID = {0x65450caa, 0x57ca, 0x11d2, {0xbb, 0xcc,0x00, 0x60, 0x97, 0xd2, 0xee, 0x9f}};
 
 
-NetStru1 NetStru1::HatConnector(0); // 6a6a98
-NetStru1 g_NetStru1_main(1);  //6c3a08
-NetStru1 g_NetStru1_local(0);  //6b16b0
+CHlDriver CHlDriver::HatConnector(0); // 6a6a98
+CHlDriver g_NetStru1_main(1);  //6c3a08
+CHlDriver g_NetStru1_local(0);  //6b16b0
 
 CLlDriver g_CLlDriver(Allods2GUID, &g_NetStru1_main); //6d07a0
-CLlDriver g_HatLLDriver(Allods2GUID, &NetStru1::HatConnector); //6cdbc0
+CLlDriver g_HatLLDriver(Allods2GUID, &CHlDriver::HatConnector); //6cdbc0
 
 #ifdef A2SERVER_PATCH
 namespace {
@@ -171,7 +171,7 @@ PackerDat::~PackerDat() {
 }
 
 // 51cd89 (client: 50de98)
-void NetStru1::AnnouncePlayerName(const CString& name, Player* player) {
+void CHlDriver::AnnouncePlayerName(const CString& name, Player* player) {
     PacketJoin& pkt = PacketJoin::Inst;
     pkt.id = CHAT;
 #ifdef A2SERVER_PATCH
@@ -196,8 +196,8 @@ void NetStru1::AnnouncePlayerName(const CString& name, Player* player) {
 }
 
 // 51c8b1 (client: 50d96e) - Send all existing players (PacketJoin) to new player
-void NetStru1::SendExistingPlayers(Player* player) {
-    LogMessage("NetStru1::SendExistingPlayers");
+void CHlDriver::SendExistingPlayers(Player* player) {
+    LogMessage("CHlDriver::SendExistingPlayers");
     POSITION pos = g_PlayersList->list.GetHeadPosition();
     while (pos != nullptr) {
         Player* p = g_PlayersList->list.GetNext(pos);
@@ -239,7 +239,7 @@ void NetStru1::SendExistingPlayers(Player* player) {
 }
 
 // 51c61e (client: 50d7b2) - Remove unit/sack from network tracking
-void NetStru1::UntrackToken(Token* token) {
+void CHlDriver::UntrackToken(Token* token) {
     PacketWord& packet = PacketWord::Inst;
 
     packet.id = TOKEN_REMOVE;
@@ -255,13 +255,13 @@ void NetStru1::UntrackToken(Token* token) {
 }
 
 // 51c748 (client: 50d82f)
-void NetStru1::SendTickPacket(Player* player) {
+void CHlDriver::SendTickPacket(Player* player) {
     PacketDword& packet = PacketDword::Inst;
     packet.to_player_id = 0;
     packet.id = SERVER_TICK;
     packet.value = g_Server->tick;
     if (player == nullptr) {
-        NetStru2* client = this->GetClientByPlayerID(0);
+        NetClientPeer* client = this->GetClientByPlayerID(0);
         if (client != nullptr) {
             client = this->GetClientByPlayerID(0);
             packet.to_player_id = client->player_id;
@@ -273,12 +273,12 @@ void NetStru1::SendTickPacket(Player* player) {
 }
 
 // 51ce86 (client: 50df07)
-void NetStru1::SendTeamNotify(uint32_t msg_type, uint32_t player_id, Player* recpt) {
+void CHlDriver::SendTeamNotify(uint32_t msg_type, uint32_t player_id, Player* recpt) {
     this->SendInfoPacket(TEAM_NOTIFY, msg_type, player_id, recpt);
 }
 
 // 51ceac (client: 50df2d)
-void NetStru1::SendBarePacket(uint8_t id, Player* player) {
+void CHlDriver::SendBarePacket(uint8_t id, Player* player) {
     Packet& packet = Packet::Inst;
     packet.id = id; 
     packet.to_player_id = player ? player->player_id : 0;
@@ -286,7 +286,7 @@ void NetStru1::SendBarePacket(uint8_t id, Player* player) {
 }
 
 // 51d49b (client: 50e2cc)
-void NetStru1::AnnouncePlayer(Player* player) {
+void CHlDriver::AnnouncePlayer(Player* player) {
     PacketJoin& packet = PacketJoin::Inst;
     packet.id = PLAYER_ANNOUNCED;
 #ifdef A2SERVER_PATCH
@@ -301,7 +301,7 @@ void NetStru1::AnnouncePlayer(Player* player) {
 }
 
 // 51cefb (client: 50df7c)
-void NetStru1::SendInfoPacket(uint8_t id, int32_t value1, int32_t value2, Player* target) {
+void CHlDriver::SendInfoPacket(uint8_t id, int32_t value1, int32_t value2, Player* target) {
     Packet2Dwords& packet = Packet2Dwords::Inst;
     packet.id = id;
     packet.to_player_id = target ? target->player_id : 0;
@@ -311,7 +311,7 @@ void NetStru1::SendInfoPacket(uint8_t id, int32_t value1, int32_t value2, Player
 }
 
 // 51c7cc (client: 50d8ab) - Send latency update to player
-void NetStru1::SendLatency(int32_t latency, Player* player) {
+void CHlDriver::SendLatency(int32_t latency, Player* player) {
     PacketDword& packet = PacketDword::Inst;
     packet.id = LATENCY;
     packet.value = latency;
@@ -320,7 +320,7 @@ void NetStru1::SendLatency(int32_t latency, Player* player) {
 }
 
 // 51cd2a (client: 50de39) - Send in-game event trigger
-void NetStru1::SendGameEvent(Player* player, int32_t event_id, int32_t value2) {
+void CHlDriver::SendGameEvent(Player* player, int32_t event_id, int32_t value2) {
     Packet2Dwords& packet = Packet2Dwords::Inst;
     packet.id = GAME_EVENT;
     packet.to_player_id = player ? player->player_id : 0;
@@ -330,7 +330,7 @@ void NetStru1::SendGameEvent(Player* player, int32_t event_id, int32_t value2) {
 }
 
 // 51cdfb (client: none) - send arena score
-void NetStru1::SendArenaScore(CString& name, uint32_t score, char type, Player* player) {
+void CHlDriver::SendArenaScore(CString& name, uint32_t score, char type, Player* player) {
     PacketJoin& packet = PacketJoin::Inst;
     if (type != 0) {
         packet.id = type;
@@ -349,7 +349,7 @@ void NetStru1::SendArenaScore(CString& name, uint32_t score, char type, Player* 
 }
 
 // 51ca5d (client: 50da69) - Send server state to player
-void NetStru1::SendServerState(Player* player) {
+void CHlDriver::SendServerState(Player* player) {
     POSITION pos = g_Server->srv_stru1->sack_list->list.GetHeadPosition();
     while (pos != nullptr) {
         Sack* sack = g_Server->srv_stru1->sack_list->list.GetNext(pos);
@@ -358,12 +358,12 @@ void NetStru1::SendServerState(Player* player) {
 }
 
 // 51c601 (client: 50d795) - Send unit-level-up packet
-void NetStru1::SendLevelUp(Unit* unit, int unused) {
+void CHlDriver::SendLevelUp(Unit* unit, int unused) {
     this->BroadcastTokenState(unit, nullptr, UNIT_DAMAGED);
 }
 
 // 51b870 (client: 50cc7f) - Broadcast unit to all players.
-void NetStru1::BroadcastUnitState(Unit* unit) {
+void CHlDriver::BroadcastUnitState(Unit* unit) {
     POSITION pos = g_PlayersList->list.GetHeadPosition();
     while (pos != nullptr) {
         Player* player = g_PlayersList->list.GetNext(pos);
@@ -379,7 +379,7 @@ void NetStru1::BroadcastUnitState(Unit* unit) {
 }
 
 // 51b99e (client: 50cd3c)
-void NetStru1::SendUnitActionPacket(Unit* unit, uint8_t angle, uint8_t speed_dir, uint8_t mode) {
+void CHlDriver::SendUnitActionPacket(Unit* unit, uint8_t angle, uint8_t speed_dir, uint8_t mode) {
     PacketUnitAction& packet = PacketUnitAction::Inst;
     if (mode == 0) {
         packet.id = UNIT_MOVE;
@@ -396,7 +396,7 @@ void NetStru1::SendUnitActionPacket(Unit* unit, uint8_t angle, uint8_t speed_dir
 }
 
 // 51ba2f (client: 50cdcd)
-void NetStru1::SendRangedAttackPacket(Unit* unit) {
+void CHlDriver::SendRangedAttackPacket(Unit* unit) {
     PacketRangedAttack& packet = PacketRangedAttack::Inst;
     packet.id = RANGED_ATTACK;
     packet.unit_id = (uint16_t)unit->building_id;
@@ -407,7 +407,7 @@ void NetStru1::SendRangedAttackPacket(Unit* unit) {
 }
 
 // 51c59c (client: 50d730) - Notify clients about unit turning to face its target
-void NetStru1::SendUnitTurn(Unit* unit, Unit* target) {
+void CHlDriver::SendUnitTurn(Unit* unit, Unit* target) {
     if (unit->max_range < 2) {
         const uint8_t speed_dir = unit->charge + unit->relax;
         const uint8_t angle = unit->eye->GetFacingHalf();
@@ -418,7 +418,7 @@ void NetStru1::SendUnitTurn(Unit* unit, Unit* target) {
 }
 
 // 51be0e (client: 50d19c) - Broadcast move packet for an effect token
-void NetStru1::BroadcastEffectMove(Effect* effect, uint8_t type) {
+void CHlDriver::BroadcastEffectMove(Effect* effect, uint8_t type) {
     PacketMoveBroadcast& packet = PacketMoveBroadcast::Inst;
     packet.id = EFFECT_MOVE;
     packet.x = effect->position->GetX();
@@ -431,7 +431,7 @@ void NetStru1::BroadcastEffectMove(Effect* effect, uint8_t type) {
 }
 
 // 51be8f (client: 50d21d) - Send area-effect packet
-void NetStru1::SendAreaEffect(AreaEffect* obj, int32_t flag) {
+void CHlDriver::SendAreaEffect(AreaEffect* obj, int32_t flag) {
     if (obj->itemDataID == 2) {
         PacketMoveBroadcast& packet = PacketMoveBroadcast::Inst;
         packet.id = EFFECT_MOVE;
@@ -481,7 +481,7 @@ void NetStru1::SendAreaEffect(AreaEffect* obj, int32_t flag) {
 }
 
 // 51c0f7 (client: 50d485) - Send units from pending unit list to player
-void NetStru1::SendPendingUnits(Player* player) {
+void CHlDriver::SendPendingUnits(Player* player) {
     if (g_ServerUnits != nullptr) {
         POSITION pos = g_ServerUnits->unit_list.GetHeadPosition();
         while (pos != nullptr) {
@@ -523,7 +523,7 @@ void NetStru1::SendPendingUnits(Player* player) {
 }
 
 // 51c46e (client: 50d66d)
-void NetStru1::ResendPlayerUnits(Player* player) {
+void CHlDriver::ResendPlayerUnits(Player* player) {
     if (player->main_unit != nullptr) {
         this->SendUnitUpdate(player->main_unit, player, UNIT_UPD_ALL, EQUIP_SLOTS_ALL, 0, 0);
     }
@@ -539,7 +539,7 @@ void NetStru1::ResendPlayerUnits(Player* player) {
 }
 
 // 51cb21 (client: 50dabc) - Send terrain/diplomacy visibility state to player
-void NetStru1::SendVisibilityState(Player* player) {
+void CHlDriver::SendVisibilityState(Player* player) {
     if (g_World == nullptr) {
         return;
     }
@@ -598,7 +598,7 @@ void NetStru1::SendVisibilityState(Player* player) {
 }
 
 // 51cf5c (client: 50dfdd) - Send unit visibility packet (retn 0Ch)
-void NetStru1::SendUnitVisibility(Unit* unit, int32_t flag, Player* player) {
+void CHlDriver::SendUnitVisibility(Unit* unit, int32_t flag, Player* player) {
     PacketWord& packet = PacketWord::Inst;
     packet.id = flag ? UNIT_HIDDEN : UNIT_SHOWN;
     packet.value = unit->building_id;
@@ -644,7 +644,7 @@ void NetStru1::SendUnitVisibility(Unit* unit, int32_t flag, Player* player) {
 }
 
 // 51d1a8 (client: 50e1b7) - Send kill stats (pass 0,nullptr for all)
-void NetStru1::SendKillStats(uint16_t player_id, Player* player) {
+void CHlDriver::SendKillStats(uint16_t player_id, Player* player) {
     if (player_id != 0) {
         PacketDword& packet = PacketDword::Inst;
         packet.id = KILL_STAT;
@@ -704,7 +704,7 @@ void NetStru1::SendKillStats(uint16_t player_id, Player* player) {
 }
 
 // 51d4f6 (client: 50e326) - Send player or inn quest list packet
-void NetStru1::SendPlayerQuests(QuestMap* quest_map, Player* player, int32_t flag) {
+void CHlDriver::SendPlayerQuests(QuestMap* quest_map, Player* player, int32_t flag) {
     PacketTerrain& packet = PacketTerrain::Inst;
     packet.id = flag ? INN_QUESTS : PLAYER_QUESTS;
     packet.to_player_id = player->player_id;
@@ -732,7 +732,7 @@ void NetStru1::SendPlayerQuests(QuestMap* quest_map, Player* player, int32_t fla
 }
 
 // 51d6b4 (client: none)
-void NetStru1::SendTeamState(uint16_t to_player_id) {
+void CHlDriver::SendTeamState(uint16_t to_player_id) {
     PacketData& packet = PacketData::Inst;
     packet.to_player_id = to_player_id;
     packet.id = TEAM_STATE;
@@ -757,7 +757,7 @@ void NetStru1::SendTeamState(uint16_t to_player_id) {
 }
 
 // 51eeb7 (client: 50f6ef)
-void NetStru1::UpdateConnStats() {
+void CHlDriver::UpdateConnStats() {
     int32_t key;
     ConnStatInfo* info;
     POSITION pos = this->client_stat.GetStartPosition();
@@ -774,7 +774,7 @@ void NetStru1::UpdateConnStats() {
 }
 
 // 51e289 (client: 50ec97) - Send hat lobby info packet
-void NetStru1::SendHatLobbyInfo(int32_t player_count, CString source, int32_t map_level, int32_t game_type, int32_t map_range) {
+void CHlDriver::SendHatLobbyInfo(int32_t player_count, CString source, int32_t map_level, int32_t game_type, int32_t map_range) {
 #ifdef A2TANGAR_HAT
     // imp_UpdateInfo hook (51E289): push server status over the HAT control
     // layer instead of legacy 0xD2 HAT_LOBBY_INFO so HAT preserves SERVER_CAP_DETAILED_INFO.
@@ -800,7 +800,7 @@ void NetStru1::SendHatLobbyInfo(int32_t player_count, CString source, int32_t ma
 
 // SendUnitUpdate: send unit state to a player (or all players if player==nullptr)
 // 519221 (client: 50ac91)
-void NetStru1::SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t props_flags, int32_t inv_start_index, int32_t inv_end_index) {
+void CHlDriver::SendUnitUpdate(Unit* unit, Player* player, uint32_t mask, int32_t props_flags, int32_t inv_start_index, int32_t inv_end_index) {
 #ifdef A2SERVER_PATCH
     if (unit == nullptr) {
         return;
@@ -1156,7 +1156,7 @@ bool IsAllowedClientPacketId(uint8_t c) {
 
 // DecodePacket
 // 51e7fc (client: 50f04e)
-Packet* NetStru1::DecodePacket(uint8_t cmd, NetStru2* ns2) {
+Packet* CHlDriver::DecodePacket(uint8_t cmd, NetClientPeer* ns2) {
 #if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
     if (this != &HatConnector && ns2 != nullptr && ns2->is_local_player == 0 && !IsAllowedClientPacketId(cmd)) {
         Player* bad_player = (g_PlayersList != nullptr && ns2->player_id != 0)
@@ -1371,7 +1371,7 @@ Packet* NetStru1::DecodePacket(uint8_t cmd, NetStru2* ns2) {
 }
 
 // 518a23 (client: 50a498) - receive packet from client
-Packet* NetStru1::ReceivePacket(NetStru2* cli) {
+Packet* CHlDriver::ReceivePacket(NetClientPeer* cli) {
     if (cli->GetBuffersPktNum() == 0) {
         return nullptr;
     }
@@ -1388,9 +1388,9 @@ Packet* NetStru1::ReceivePacket(NetStru2* cli) {
 }
 
 // 518980 (client: 50a3fc) - iterate over active connections and try receive packet
-Packet* NetStru1::ReceiveAnyPacket() {
+Packet* CHlDriver::ReceiveAnyPacket() {
     for (POSITION it = this->active_connects.GetHeadPosition(); it != nullptr;) {
-        NetStru2* cli = this->active_connects.GetNext(it);
+        NetClientPeer* cli = this->active_connects.GetNext(it);
         if (cli) {
             Packet* pkt = this->ReceivePacket(cli);
             if (pkt) {
@@ -1409,16 +1409,16 @@ Packet* NetStru1::ReceiveAnyPacket() {
 
 
 // 517e91 (client: 509b9b)
-void NetStru1::EnqueueDisconnectClient(NetStru2*& net2) {
+void CHlDriver::EnqueueDisconnectClient(NetClientPeer*& net2) {
     EnterCriticalSection(&this->critical_section);
     this->disconnect_list.AddTail(net2);
     LeaveCriticalSection(&this->critical_section);
 }
 
 // 517b00 (client: 509a73)
-void NetStru1::ReleasePacketBuffer(NetStru3* net3) {
+void CHlDriver::ReleasePacketBuffer(NetPacketBuffer* net3) {
     EnterCriticalSection(&this->critical_section2);
-    NetStru1* pool = this;
+    CHlDriver* pool = this;
     if (this->linked_hl && make_statistics == 0) {
         pool = this->linked_hl;
     }
@@ -1427,10 +1427,10 @@ void NetStru1::ReleasePacketBuffer(NetStru3* net3) {
 }
 
 // 51755c (client: 509889)
-void NetStru1::ProcessNewConnects() {
+void CHlDriver::ProcessNewConnects() {
     EnterCriticalSection(&this->critical_section);
     while (!this->new_connects.IsEmpty()) {
-        NetStru2* cli = this->new_connects.RemoveHead();
+        NetClientPeer* cli = this->new_connects.RemoveHead();
         if (cli) {
             if (this->compression_mode != 0) {
                 cli->compression_type = this->compression_type;
@@ -1447,10 +1447,10 @@ void NetStru1::ProcessNewConnects() {
 }
 
 // 51725b (client: 509799)
-void NetStru1::ProcessDisconnectList() {
+void CHlDriver::ProcessDisconnectList() {
     EnterCriticalSection(&this->critical_section);
     while (!this->disconnect_list.IsEmpty()) {
-        NetStru2* cli = this->disconnect_list.RemoveHead();
+        NetClientPeer* cli = this->disconnect_list.RemoveHead();
         if (cli) {
             POSITION pos = this->active_connects.Find(cli);
             if (pos) {
@@ -1465,7 +1465,7 @@ void NetStru1::ProcessDisconnectList() {
 }
 
 // 51800f (client: 509be7)
-void NetStru1::ProcessConnections() {
+void CHlDriver::ProcessConnections() {
     this->ProcessNewConnects();
     this->ProcessDisconnectList();
     if (this->lldriver) {
@@ -1474,7 +1474,7 @@ void NetStru1::ProcessConnections() {
 }
 
 // 5170b6 (client: 5096a2)
-void NetStru1::DisconnectClient(NetStru2* cli) {
+void CHlDriver::DisconnectClient(NetClientPeer* cli) {
     if (cli == this->local_client) {
         this->EnqueueDisconnectClient(this->local_client);
         this->local_client = nullptr;
@@ -1490,7 +1490,7 @@ void NetStru1::DisconnectClient(NetStru2* cli) {
 }
 
 // 51684b (client: 509343)
-NetStru1::NetStru1(int param) {
+CHlDriver::CHlDriver(int param) {
     this->lldriver = nullptr;
     this->linked_hl = nullptr;
     this->local_client = nullptr;
@@ -1508,7 +1508,7 @@ NetStru1::NetStru1(int param) {
 }
 
 // 516b44 (client: 5094ca)
-NetStru1::~NetStru1() {
+CHlDriver::~CHlDriver() {
     if (this->local_client != nullptr) {
         this->DisconnectClient(this->local_client);
     }
@@ -1519,7 +1519,7 @@ NetStru1::~NetStru1() {
     //inline 51710f
     EnterCriticalSection(&this->critical_section2);
     while (!this->free_net3.IsEmpty()) {
-        NetStru3* buf = this->free_net3.RemoveHead();
+        NetPacketBuffer* buf = this->free_net3.RemoveHead();
         delete buf;
     }
     LeaveCriticalSection(&this->critical_section2);
@@ -1540,7 +1540,7 @@ NetStru1::~NetStru1() {
 
 
 // 51fc72 (client: 50fe58)
-void NetStru1::OnClientConnect(NetStru2* cli) {
+void CHlDriver::OnClientConnect(NetClientPeer* cli) {
     if (this != &HatConnector) {
         this->client_stat[cli->uid] = new ConnStatInfo;
 
@@ -1553,7 +1553,7 @@ void NetStru1::OnClientConnect(NetStru2* cli) {
 }
 
 // 51f561 (client: 50fc92)
-void NetStru1::OnClientDisconnect(NetStru2* cli) {
+void CHlDriver::OnClientDisconnect(NetClientPeer* cli) {
     if (this == &HatConnector) {
         LogMessage("Connection with hat has been lost.");
         if (g_Server) {
@@ -1644,10 +1644,10 @@ void NetStru1::OnClientDisconnect(NetStru2* cli) {
 
 
 // 517c99 (client: 509ad7)
-NetStru2* NetStru1::AllocClientBufManager(uint32_t uid) {
+NetClientPeer* CHlDriver::AllocClientBufManager(uint32_t uid) {
     EnterCriticalSection(&this->critical_section);
 
-    NetStru2* mgr = new NetStru2();
+    NetClientPeer* mgr = new NetClientPeer();
     mgr->uid = uid;
     mgr->SetDrivers(this, this->lldriver);
 
@@ -1659,20 +1659,20 @@ NetStru2* NetStru1::AllocClientBufManager(uint32_t uid) {
 
 
 // 5177f5 (client: 50994f)
-NetStru3* NetStru1::AcquirePacketBuffer() {
+NetPacketBuffer* CHlDriver::AcquirePacketBuffer() {
     EnterCriticalSection(&this->critical_section2);
-    NetStru1* pool = this;
+    CHlDriver* pool = this;
     if (this->linked_hl && make_statistics == 0) {
         pool = this->linked_hl;
     }
 
     if (!pool->free_net3.IsEmpty() && pool->free_net3.GetHeadPosition() == NULL) { //Seems HACK
-        new(&pool->free_net3) CList<NetStru3*>(); //Here was memcpy with stack allocated Clist in Nival code >_<
+        new(&pool->free_net3) CList<NetPacketBuffer*>(); //Here was memcpy with stack allocated Clist in Nival code >_<
     }
 
-    NetStru3* buf = nullptr;
+    NetPacketBuffer* buf = nullptr;
     if (pool->free_net3.IsEmpty()) {
-        buf = new NetStru3();
+        buf = new NetPacketBuffer();
     } else {
         buf = pool->free_net3.RemoveHead();
     }
@@ -1681,9 +1681,9 @@ NetStru3* NetStru1::AcquirePacketBuffer() {
 }
 
 // 518544 (client: 50a128)
-NetStru2* NetStru1::GetClientByPlayerID(uint16_t player_id) {
+NetClientPeer* CHlDriver::GetClientByPlayerID(uint16_t player_id) {
     for (POSITION it = this->active_connects.GetHeadPosition(); it != nullptr;) {
-        NetStru2* cli = this->active_connects.GetNext(it);
+        NetClientPeer* cli = this->active_connects.GetNext(it);
         if (cli->player_id == player_id) {
             return cli;
         }
@@ -1697,10 +1697,10 @@ NetStru2* NetStru1::GetClientByPlayerID(uint16_t player_id) {
 }
 
 // 5185d5 (client: 50a1ab)
-NetStru2* NetStru1::GetClientByLowUid(uint32_t low_uid) {
+NetClientPeer* CHlDriver::GetClientByLowUid(uint32_t low_uid) {
     uint32_t luid = low_uid & UNCLAIMED_CLIENT_UID_MASK;
     for (POSITION it = this->active_connects.GetHeadPosition(); it != nullptr;) {
-        NetStru2* cli = this->active_connects.GetNext(it);
+        NetClientPeer* cli = this->active_connects.GetNext(it);
         if ((cli->uid & UNCLAIMED_CLIENT_UID_MASK) == luid) {
             return cli;
         }
@@ -1709,7 +1709,7 @@ NetStru2* NetStru1::GetClientByLowUid(uint32_t low_uid) {
 }
 
 // 51eff8 (client: 50f79c)
-void NetStru1::AddClientWindowBytes(NetStru2* client, int32_t value) {
+void CHlDriver::AddClientWindowBytes(NetClientPeer* client, int32_t value) {
     ConnStatInfo* stat = nullptr;
     this->client_stat.Lookup(client->uid, stat);
 
@@ -1719,15 +1719,15 @@ void NetStru1::AddClientWindowBytes(NetStru2* client, int32_t value) {
 }
 
 // 51f0bb (client: 50f7dd)
-void NetStru1::AddPacketStatistic(Packet* pkt) {
+void CHlDriver::AddPacketStatistic(Packet* pkt) {
     this->stat_pkt_num[pkt->id]++;
     this->stat_pkt_size[pkt->id] += pkt->GetDataSize();
 }
 
 // 5188db (client: 50a3b1) - 518927 variant without flag check because in original it's used once and not optimal, because iterate all and do not do anything
-void NetStru1::SendAllData() {
+void CHlDriver::SendAllData() {
     for (POSITION it = this->active_connects.GetHeadPosition(); it != nullptr;) {
-        NetStru2* cli = this->active_connects.GetNext(it);
+        NetClientPeer* cli = this->active_connects.GetNext(it);
         if (cli) {
             cli->SendData();
         }
@@ -1735,7 +1735,7 @@ void NetStru1::SendAllData() {
 }
 
 // 51d88d (client: 50e446)
-void NetStru1::SendServerTickFlush(uint32_t val, uint16_t player_id) {
+void CHlDriver::SendServerTickFlush(uint32_t val, uint16_t player_id) {
     PacketDword& pkt = PacketDword::Inst;
     pkt.id = SERVER_TICK;
     pkt.value = val;
@@ -1751,12 +1751,12 @@ void NetStru1::SendServerTickFlush(uint32_t val, uint16_t player_id) {
 }
 
 // 517ff9 (client: 509bd1)
-void NetStru1::SetLLDriver(CLlDriver* drv) {
+void CHlDriver::SetLLDriver(CLlDriver* drv) {
     this->lldriver = drv;
 }
 
 // 51703e (client: 50963b)
-void NetStru1::SetLinkedHLDriver(NetStru1* hl) {
+void CHlDriver::SetLinkedHLDriver(CHlDriver* hl) {
     this->linked_hl = hl;
     if (this->local_client) {
         this->DisconnectClient(this->local_client);
@@ -1767,13 +1767,13 @@ void NetStru1::SetLinkedHLDriver(NetStru1* hl) {
 }
 
 // 5186cd (client: 50a218)
-void NetStru1::QueuePacketSend(Packet* pkt) {
+void CHlDriver::QueuePacketSend(Packet* pkt) {
 
     //uint32_t stime = GetTickCount();
     //printf("Send packet 0x%x\n", pkt->id);
     if (pkt->to_player_id == 0) {
         for (POSITION it = this->active_connects.GetHeadPosition(); it != nullptr;) {
-            NetStru2* cli = this->active_connects.GetNext(it);
+            NetClientPeer* cli = this->active_connects.GetNext(it);
             if (cli && (this->make_statistics == 0 || cli->player_id != 0)) {
                 pkt->WriteTo(cli);
                 if (this->make_statistics != 0) {
@@ -1786,7 +1786,7 @@ void NetStru1::QueuePacketSend(Packet* pkt) {
             }
         }
     } else {
-        NetStru2* cli = this->GetClientByPlayerID(pkt->to_player_id);
+        NetClientPeer* cli = this->GetClientByPlayerID(pkt->to_player_id);
         if (cli) {
             pkt->WriteTo(cli);
             if (this->make_statistics != 0) {
@@ -1810,10 +1810,10 @@ void NetStru1::QueuePacketSend(Packet* pkt) {
 
 
 // 518a6b (client: 50a4de)
-uint32_t NetStru1::GetClientsPktNum() {
+uint32_t CHlDriver::GetClientsPktNum() {
     uint32_t sum = 0;
     for (POSITION it = this->active_connects.GetHeadPosition(); it != nullptr;) {
-        NetStru2* cli = this->active_connects.GetNext(it);
+        NetClientPeer* cli = this->active_connects.GetNext(it);
         if (cli) {
             sum += cli->GetBuffersPktNum();
         }
@@ -1822,7 +1822,7 @@ uint32_t NetStru1::GetClientsPktNum() {
 }
 
 // 518ac9 (client: 50a53b)
-int NetStru1::IsActive() {
+int CHlDriver::IsActive() {
     if (!this->lldriver) {
         return this->linked_hl != nullptr;
     } else if (this->lldriver->listen_socket.is_in_use == 1 || this->linked_hl != nullptr) {
@@ -1833,7 +1833,7 @@ int NetStru1::IsActive() {
 
 
 // 41f520 (client: 420af0)
-NetStru2* NetStru1::GetFirstClient() {
+NetClientPeer* CHlDriver::GetFirstClient() {
     if (this->active_connects.IsEmpty()) {
         return nullptr;
     }
@@ -1845,7 +1845,7 @@ NetStru2* NetStru1::GetFirstClient() {
 
 
 // 515ef3 (client: 508c6a)
-int NetStru2::WriteData(void* buf, uint32_t size) {
+int NetClientPeer::WriteData(void* buf, uint32_t size) {
     while(true) {
         int32_t avail = MAX_SEGMENT_PAYLOAD - this->out_buffers[this->out_buff_id].datasz;
         if (size <= avail) {
@@ -1864,10 +1864,10 @@ int NetStru2::WriteData(void* buf, uint32_t size) {
 }
 
 // 515f9c (client: 508d13)
-int NetStru2::ReadData(void* buf, uint32_t size) {
+int NetClientPeer::ReadData(void* buf, uint32_t size) {
     EnterCriticalSection(&this->critical_section);
     while (!this->received_buffers.IsEmpty()) {
-        NetStru3* buffer = this->received_buffers.GetHead();
+        NetPacketBuffer* buffer = this->received_buffers.GetHead();
         int32_t remain = buffer->datasz - buffer->readpos;
         
         if (size <= remain) {
@@ -1896,17 +1896,17 @@ int NetStru2::ReadData(void* buf, uint32_t size) {
 
 
 // 51682d (client: 509325)
-void NetStru2::SetDrivers(NetStru1* HlDriver, CLlDriver* LlDriver) {
+void NetClientPeer::SetDrivers(CHlDriver* HlDriver, CLlDriver* LlDriver) {
     this->hldriver = HlDriver;
     this->lldriver = LlDriver;
 }
 
 // 5161bf (client: 508e04)
-int NetStru2::ReceiveData(NetStru3* buffer) {
+int NetClientPeer::ReceiveData(NetPacketBuffer* buffer) {
     EnterCriticalSection(&this->critical_section);
 #if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
     constexpr INT_PTR kMaxQueuedRecvBuffers = 4096;
-    if (this->is_local_player == 0 && this->hldriver != &NetStru1::HatConnector &&
+    if (this->is_local_player == 0 && this->hldriver != &CHlDriver::HatConnector &&
         this->received_buffers.GetCount() >= kMaxQueuedRecvBuffers) {
         LeaveCriticalSection(&this->critical_section);
         if (this->hldriver != nullptr) {
@@ -1919,7 +1919,7 @@ int NetStru2::ReceiveData(NetStru3* buffer) {
 
     /*if (buffer->cmode != 0)
     {
-        NetStru3* tbuf = hldriver->AcquirePacketBuffer();
+        NetPacketBuffer* tbuf = hldriver->AcquirePacketBuffer();
         tbuf->Clear();
         int num = hldriver->Unpack(buffer->cmode, buffer->buf, buffer->csize, tbuf->buf, 0x8e);
         if (num > 0x8e)
@@ -1943,7 +1943,7 @@ int NetStru2::ReceiveData(NetStru3* buffer) {
 }
 
 // 516408 (client: 508f33)
-int NetStru2::SendData() {
+int NetClientPeer::SendData() {
     if (this->out_buffers[this->out_buff_id].datasz < 1) {
         if (this->lldriver) {
             this->lldriver->CleanupInvalidTcpClient(this->uid);
@@ -1951,7 +1951,7 @@ int NetStru2::SendData() {
         return 1;
     }
 
-    NetStru3* buffer = this->hldriver->AcquirePacketBuffer();
+    NetPacketBuffer* buffer = this->hldriver->AcquirePacketBuffer();
     buffer->Clear();
     buffer->cmode = this->compression_type;
 
@@ -1977,7 +1977,7 @@ int NetStru2::SendData() {
             return 0;
         }
 
-        NetStru2* recv_cli = nullptr;
+        NetClientPeer* recv_cli = nullptr;
         if (this->hldriver->linked_hl) {
             recv_cli = this->hldriver->linked_hl->local_client;
         }
@@ -1993,7 +1993,7 @@ int NetStru2::SendData() {
 }
 
 // 515831 (client: 508871)
-NetStru2::NetStru2() {
+NetClientPeer::NetClientPeer() {
     this->gap_0x2a0 = 0;
     this->gap_0x2a4 = 0;
     this->is_claimed = 0;
@@ -2015,7 +2015,7 @@ NetStru2::NetStru2() {
 }
 
 // 515c27 (client: 508acc)
-NetStru2::~NetStru2() {
+NetClientPeer::~NetClientPeer() {
     this->ReturnBuffers();
     DeleteCriticalSection(&this->critical_section);
     this->is_local_player = 0;
@@ -2027,7 +2027,7 @@ NetStru2::~NetStru2() {
 }
 
 // 515d9d (client: 508b9a) - return buffers to High-level driver
-void NetStru2::ReturnBuffers() {
+void NetClientPeer::ReturnBuffers() {
     if (!this->hldriver) {
         return;
     }
@@ -2043,10 +2043,10 @@ void NetStru2::ReturnBuffers() {
 
 
 // 5167a5 (client: 5092a4)
-void NetStru2::ReleaseNetBuf() {
+void NetClientPeer::ReleaseNetBuf() {
     EnterCriticalSection(&this->critical_section);
     for (POSITION pos = this->received_buffers.GetHeadPosition(); pos != nullptr;) {
-        NetStru3* buffer = this->received_buffers.GetNext(pos);
+        NetPacketBuffer* buffer = this->received_buffers.GetNext(pos);
         if (buffer->pkt_num != 0) {
             buffer->pkt_num--;
             break;
@@ -2056,7 +2056,7 @@ void NetStru2::ReleaseNetBuf() {
 }
 
 // 51670a (client: 509208) - Get received_buffers summary of pkt_num
-uint32_t NetStru2::GetBuffersPktNum() {
+uint32_t NetClientPeer::GetBuffersPktNum() {
     //51670a  Get received_buffers summary of pkt_num
     uint32_t sum = 0;
     EnterCriticalSection(&this->critical_section);
@@ -2071,7 +2071,7 @@ uint32_t NetStru2::GetBuffersPktNum() {
 
 
 // 5156f6 (client: 508736)
-void NetStru3::Clear() {
+void NetPacketBuffer::Clear() {
     this->datasz = 0;
     this->readpos = 0;
     this->pkt_num = 0;
@@ -2081,7 +2081,7 @@ void NetStru3::Clear() {
 }
 
 // 5155c0 (client: 50863e)
-NetStru3::NetStru3() {
+NetPacketBuffer::NetPacketBuffer() {
     memset(this->full_data, 0, sizeof(this->full_data));
     this->pktid = 0;
     this->cmode = 0;
@@ -2093,7 +2093,7 @@ NetStru3::NetStru3() {
 }
 
 // 515694 (client: 5086f3)
-NetStru3::~NetStru3() {
+NetPacketBuffer::~NetPacketBuffer() {
     this->datasz = -1;
     this->readpos = -1;
     this->timestamp = 0;
@@ -2105,7 +2105,7 @@ NetStru3::~NetStru3() {
 }
 
 // 515625 (client: 508684)
-void NetStru3::CopyData(const NetStru3* src) {
+void NetPacketBuffer::CopyData(const NetPacketBuffer* src) {
     memcpy(this->full_data, &src->full_data, src->datasz + 8);
     this->datasz = src->datasz;
     this->readpos = src->readpos;
@@ -2114,7 +2114,7 @@ void NetStru3::CopyData(const NetStru3* src) {
 }
 
 // 51573e (client: 50877e)
-int NetStru3::WriteToBuffer(void* data, uint32_t sz) {
+int NetPacketBuffer::WriteToBuffer(void* data, uint32_t sz) {
     uint32_t newsz = this->datasz + sz;
     if (newsz >= 143) {
         return false;
@@ -2126,7 +2126,7 @@ int NetStru3::WriteToBuffer(void* data, uint32_t sz) {
 }
 
 // 51579e (client: 5087de)
-int NetStru3::ReadFromBuffer(void* out, uint32_t sz) {
+int NetPacketBuffer::ReadFromBuffer(void* out, uint32_t sz) {
     uint32_t newpos = this->readpos + sz;
     if (newpos > this->datasz) {
         return false;
@@ -2276,7 +2276,7 @@ void NetSockLatency::AddLatency(uint32_t lat_time) {
 
 
 // 5208ec (client: 510241)
-CLlDriver::CLlDriver(GUID _appid, NetStru1* net1) {
+CLlDriver::CLlDriver(GUID _appid, CHlDriver* net1) {
     this->application_guid = _appid;
     this->hl_driver = net1;
     this->is_server = 0;
@@ -2336,7 +2336,7 @@ CLlDriver::~CLlDriver() {
 }
 
 // 496e50 (client: 49a920)
-void CLlDriver::SetHlDriver(NetStru1* drv) {
+void CLlDriver::SetHlDriver(CHlDriver* drv) {
     this->hl_driver = drv;
 }
 
@@ -3851,7 +3851,7 @@ void CLlDriver::HandleMessageDp(uint32_t from, uint32_t to, void* data, uint32_t
         
         for (POSITION pos = sock->list_0x14.GetHeadPosition(); pos != nullptr;) {
             POSITION curpos = pos;
-            NetStru3* buf = sock->list_0x14.GetNext(pos);
+            NetPacketBuffer* buf = sock->list_0x14.GetNext(pos);
             if (buf->pktid == *(uint32_t*)data) {
                 uint32_t latency = 0;
                 const uint32_t ticks = GetTickCount();
@@ -3872,7 +3872,7 @@ void CLlDriver::HandleMessageDp(uint32_t from, uint32_t to, void* data, uint32_t
         return;
     }
 
-    NetStru3* buf = this->hl_driver->AcquirePacketBuffer();
+    NetPacketBuffer* buf = this->hl_driver->AcquirePacketBuffer();
     buf->Clear();
 
     memcpy(&buf->full_data, data, datasz);
@@ -3915,7 +3915,7 @@ void CLlDriver::HandleMessageDp(uint32_t from, uint32_t to, void* data, uint32_t
         } else {
             for (POSITION pos = sock->list_0x30.GetHeadPosition(); pos != nullptr;) {
                 POSITION curpos = pos;
-                NetStru3 *cbuf = sock->list_0x30.GetNext(pos);
+                NetPacketBuffer *cbuf = sock->list_0x30.GetNext(pos);
                 if (cbuf->pktid == pktid) {
                     buf->Clear();
                     this->hl_driver->ReleasePacketBuffer(buf);
@@ -4327,7 +4327,7 @@ int CLlDriver::Connect(const char* name, CLlNetSession* session) {
 }
 
 // 52394a (client: 513005)
-int CLlDriver::SendDataTcp(A2NetSock* sock, NetStru3* buffer) {
+int CLlDriver::SendDataTcp(A2NetSock* sock, NetPacketBuffer* buffer) {
     int len = buffer->datasz + 8;
     int sendlen = -1;
     if (sock->socket != INVALID_SOCKET) {
@@ -4360,7 +4360,7 @@ int CLlDriver::SendDataTcp(A2NetSock* sock, NetStru3* buffer) {
 
 
 // 5255c6 (client: 514795)
-int CLlDriver::SendDataDp(A2NetSock* sock, NetStru3* buffer) {
+int CLlDriver::SendDataDp(A2NetSock* sock, NetPacketBuffer* buffer) {
     if (this->session_lost != 0) {
         if (buffer) {
             this->hl_driver->ReleasePacketBuffer(buffer);
@@ -4400,7 +4400,7 @@ int CLlDriver::SendDataDp(A2NetSock* sock, NetStru3* buffer) {
         uint32_t unsent_size = 0;
 
         for (POSITION it = sock->list_0x14.GetHeadPosition(); it != nullptr;) {
-            NetStru3* dat = sock->list_0x14.GetNext(it);
+            NetPacketBuffer* dat = sock->list_0x14.GetNext(it);
             unsent_size += 8 + dat->datasz;
         }
 
@@ -4492,7 +4492,7 @@ int CLlDriver::SendDataDp(A2NetSock* sock, NetStru3* buffer) {
 
 
 // 5226c4 (client: 511dfc)
-int CLlDriver::SendData(uint32_t uid, NetStru3* buffer) {
+int CLlDriver::SendData(uint32_t uid, NetPacketBuffer* buffer) {
     EnterCriticalSection(&this->critical_section);
 
     A2NetSock* sock = this->GetClientBySocketId(uid);
@@ -4703,7 +4703,7 @@ void MarkUnitHiddenForPlayer(PacketMoveBroadcast* packet, Player* player) {
 }
 
 // 51b0f0 (client: 50c65a) - send unit action packet to relevant players
-void NetStru1::SendUnitAction(Packet* packet, Unit* unit) {
+void CHlDriver::SendUnitAction(Packet* packet, Unit* unit) {
     if (packet->to_player_id != 0) {
         Player* player = g_PlayersList->FindById(packet->to_player_id);
         if ((unit->seen_by_mask & player->vision_sharing_id) == 0 && g_Server->multiplayer != 0) {
@@ -4740,7 +4740,7 @@ void NetStru1::SendUnitAction(Packet* packet, Unit* unit) {
 }
 
 // 51b370 (client: 50c867) - Broadcast move packet to all players in visibility
-void NetStru1::BroadcastMovePacket(PacketMoveBroadcast* packet, TokenPos* pos) {
+void CHlDriver::BroadcastMovePacket(PacketMoveBroadcast* packet, TokenPos* pos) {
     if (packet->to_player_id != 0) {
         Player* player = g_PlayersList->FindById(packet->to_player_id);
         if (IsVisibleTo(pos, player)) {
@@ -4767,7 +4767,7 @@ void NetStru1::BroadcastMovePacket(PacketMoveBroadcast* packet, TokenPos* pos) {
 }
 
 // 51b638 (client: 50cab9) - Broadcast AoE-zone packet to all players in visibility.
-void NetStru1::BroadcastAoeZone(PacketAoeZone* packet, AreaEffect* area_effect) {
+void CHlDriver::BroadcastAoeZone(PacketAoeZone* packet, AreaEffect* area_effect) {
     if (packet->to_player_id != 0) {
         Player* player = g_PlayersList->FindById(packet->to_player_id);
         if ((area_effect->seen_by_mask & player->vision_sharing_id) != 0 || g_Server->multiplayer == 0) {
@@ -4809,7 +4809,7 @@ void NetStru1::BroadcastAoeZone(PacketAoeZone* packet, AreaEffect* area_effect) 
 }
 
 // 51bab0 (client: 50ce4e) - Send targeted-unit spell packet
-void NetStru1::SendSpellCastAtUnit(Unit* caster, Spell* spell, Unit* target, int16_t delay) {
+void CHlDriver::SendSpellCastAtUnit(Unit* caster, Spell* spell, Unit* target, int16_t delay) {
     PacketMoveBroadcast& packet = PacketMoveBroadcast::Inst;
     packet.id = EFFECT_MOVE;
     packet.unit_id = caster->building_id;
@@ -4834,7 +4834,7 @@ void NetStru1::SendSpellCastAtUnit(Unit* caster, Spell* spell, Unit* target, int
 }
 
 // 51bb94 (client: 50cf32) - Send point/area spell packet
-void NetStru1::SendSpellCastAtPos(Unit* caster, Spell* spell, TokenPos* pos, int16_t delay) {
+void CHlDriver::SendSpellCastAtPos(Unit* caster, Spell* spell, TokenPos* pos, int16_t delay) {
     PacketMoveBroadcast& packet = PacketMoveBroadcast::Inst;
     packet.id = EFFECT_MOVE;
     packet.unit_id = caster->building_id;
@@ -4855,7 +4855,7 @@ void NetStru1::SendSpellCastAtPos(Unit* caster, Spell* spell, TokenPos* pos, int
 }
 
 // 51bc6b (client: 50d009) - Send multi-target spell packet
-void NetStru1::SendSpellCastMulti(Unit* caster, Spell* spell, CList<Unit*>* units, int32_t flag) {
+void CHlDriver::SendSpellCastMulti(Unit* caster, Spell* spell, CList<Unit*>* units, int32_t flag) {
     PacketTerrain& packet = PacketTerrain::Inst;
     packet.id = EFFECT_MULTI_TARGET;
     packet.count = units->GetCount() + 1;
@@ -4880,7 +4880,7 @@ void NetStru1::SendSpellCastMulti(Unit* caster, Spell* spell, CList<Unit*>* unit
 }
 
 // 51bda4 (client: 50d132)
-void NetStru1::BroadcastEffect(Effect* effect, Unit* unit, uint8_t packet_id) {
+void CHlDriver::BroadcastEffect(Effect* effect, Unit* unit, uint8_t packet_id) {
     PacketEffect& packet = PacketEffect::Inst;
     packet.id = packet_id ? packet_id : EFFECT_HANG;
     packet.unit_id = unit->building_id;
@@ -4891,7 +4891,7 @@ void NetStru1::BroadcastEffect(Effect* effect, Unit* unit, uint8_t packet_id) {
 }
 
 // 51c822 (client: 50d901) - Send spectator/alliance state
-void NetStru1::SendSpectatorState(NetStru2* ns2) {
+void CHlDriver::SendSpectatorState(NetClientPeer* ns2) {
     PacketDword& packet = PacketDword::Inst;
     packet.id = JOIN_DONE;
     packet.value = g_SpectatorState;
@@ -4904,7 +4904,7 @@ void NetStru1::SendSpectatorState(NetStru2* ns2) {
 }
 
 // 51d837 (client: none) - Send server state / player list to player
-void NetStru1::SendGameInfo(int32_t game_speed, Player* player) {
+void CHlDriver::SendGameInfo(int32_t game_speed, Player* player) {
     PacketDword& packet = PacketDword::Inst;
     packet.id = GAME_SPEED;
     if (player != nullptr) {
@@ -4917,7 +4917,7 @@ void NetStru1::SendGameInfo(int32_t game_speed, Player* player) {
 }
 
 // 51dfa7 (client: 50eb05)
-void NetStru1::SendHatCharData(int32_t hat_char_id1, int32_t hat_char_id2, CString name, void* data, uint32_t size, uint16_t player_id) {
+void CHlDriver::SendHatCharData(int32_t hat_char_id1, int32_t hat_char_id2, CString name, void* data, uint32_t size, uint16_t player_id) {
     PacketData& packet = PacketData::Inst;
     packet.to_player_id = player_id;
     packet.id = HAT_CHAR_DATA;
@@ -4934,7 +4934,7 @@ void NetStru1::SendHatCharData(int32_t hat_char_id1, int32_t hat_char_id2, CStri
 }
 
 // 51e0b7 (client: none)
-void NetStru1::SendHatMessage(int32_t hat_char_id1, int32_t hat_char_id2, CString name, void* data, uint32_t size, uint16_t player_id) {
+void CHlDriver::SendHatMessage(int32_t hat_char_id1, int32_t hat_char_id2, CString name, void* data, uint32_t size, uint16_t player_id) {
     PacketData& packet = PacketData::Inst;
     packet.to_player_id = player_id;
     packet.id = HAT_MESSAGE;
@@ -4951,7 +4951,7 @@ void NetStru1::SendHatMessage(int32_t hat_char_id1, int32_t hat_char_id2, CStrin
 }
 
 // 51e1c7 (client: none)
-void NetStru1::SendHatKeepalive(uint16_t player_id) {
+void CHlDriver::SendHatKeepalive(uint16_t player_id) {
     PacketData& packet = PacketData::Inst;
     packet.to_player_id = player_id;
     packet.id = HAT_MESSAGE;
@@ -4960,7 +4960,7 @@ void NetStru1::SendHatKeepalive(uint16_t player_id) {
 }
 
 // 51e205 (client: 50ec0e) - Send hat login packet
-void NetStru1::SendHatLogin(CString name) {
+void CHlDriver::SendHatLogin(CString name) {
     PacketJoin& packet = PacketJoin::Inst;
     packet.id = HAT_LOGIN;
     packet.__as_dword = 0;
@@ -4970,7 +4970,7 @@ void NetStru1::SendHatLogin(CString name) {
 }
 
 // 51e40c (client: 50ede9) - Send raw string data to HAT
-void NetStru1::SendHatRawString(const char* str, int32_t len) {
+void CHlDriver::SendHatRawString(const char* str, int32_t len) {
     PacketData& packet = PacketData::Inst;
     packet.to_player_id = 0;
     packet.id = HAT_RAW_DATA;
@@ -4988,7 +4988,7 @@ void NetStru1::SendHatRawString(const char* str, int32_t len) {
 }
 
 // 51e5fb (client: 50efc6) - Send HAT join-success reply (pkt 0xD8)
-void NetStru1::SendHatJoinOk(int32_t a, int32_t b) {
+void CHlDriver::SendHatJoinOk(int32_t a, int32_t b) {
     Packet2Dwords& packet = Packet2Dwords::Inst;
     packet.id = HAT_JOIN_OK;
     packet.param1 = a;
@@ -5001,7 +5001,7 @@ void NetStru1::SendHatJoinOk(int32_t a, int32_t b) {
 }
 
 // 51e63f (client: none) - Send HAT join-failure reply (pkt 0xD9)
-void NetStru1::SendHatJoinFail(int32_t a, int32_t b, int32_t error_code) {
+void CHlDriver::SendHatJoinFail(int32_t a, int32_t b, int32_t error_code) {
     PacketData& packet = PacketData::Inst;
     packet.to_player_id = 0;
     packet.id = HAT_JOIN_FAIL;
@@ -5018,7 +5018,7 @@ void NetStru1::SendHatJoinFail(int32_t a, int32_t b, int32_t error_code) {
 }
 
 // 51e794 (client: none) - Send HAT player-check reply (pkt 0xE1)
-void NetStru1::SendHatPlayerCheck(int32_t a, int32_t b, uint8_t status, int16_t player_id) {
+void CHlDriver::SendHatPlayerCheck(int32_t a, int32_t b, uint8_t status, int16_t player_id) {
     PacketData& packet = PacketData::Inst;
     packet.to_player_id = player_id;
     packet.id = HAT_PLAYER_CHECK;
@@ -5031,7 +5031,7 @@ void NetStru1::SendHatPlayerCheck(int32_t a, int32_t b, uint8_t status, int16_t 
 }
 
 // 51a6d5 (client: 50beae)
-void NetStru1::SendMonsterInventory(Unit* unit, Player* player, int32_t start_index, int32_t end_index) {
+void CHlDriver::SendMonsterInventory(Unit* unit, Player* player, int32_t start_index, int32_t end_index) {
     if (unit->typeId < unit_type::hero_fighter_male || unit->typeId >= unit_type::monster_first) {
         return;
     }
@@ -5073,7 +5073,7 @@ void NetStru1::SendMonsterInventory(Unit* unit, Player* player, int32_t start_in
 }
 
 // 51a0ef (client: 50b9df)
-void NetStru1::SendHumanoidProps(Unit* unit, Player* player, int32_t flags) {
+void CHlDriver::SendHumanoidProps(Unit* unit, Player* player, int32_t flags) {
     if (!unit->IsHumanoid()) {
         return;
     }
@@ -5167,7 +5167,7 @@ void NetStru1::SendHumanoidProps(Unit* unit, Player* player, int32_t flags) {
 }
 
 // 51a8b2 (client: 50c006)
-void NetStru1::SendShopTable(Token* token, Inventory* inventory, Player* player, int32_t mode) {
+void CHlDriver::SendShopTable(Token* token, Inventory* inventory, Player* player, int32_t mode) {
     PacketUnitStateVec& packet = PacketUnitStateVec::Inst;
     packet.id = ITEM_LIST;
     packet.entry_count = 0;
@@ -5192,7 +5192,7 @@ void NetStru1::SendShopTable(Token* token, Inventory* inventory, Player* player,
 }
 
 // 51aa26 (client: 50c10b) - send single shop shelf contents
-void NetStru1::SendShopShelf(Shop* shop, CMultiShopShelf* shelf, Player* player, uint8_t slot) {
+void CHlDriver::SendShopShelf(Shop* shop, CMultiShopShelf* shelf, Player* player, uint8_t slot) {
     PacketUnitStateVec& packet = PacketUnitStateVec::Inst;
     packet.id = ITEM_LIST;
     packet.entry_count = 0;
@@ -5221,7 +5221,7 @@ void NetStru1::SendShopShelf(Shop* shop, CMultiShopShelf* shelf, Player* player,
 }
 
 // 51ab99 (client: 50c25c) - send shop shelf contents
-void NetStru1::SendShopShelves(CMultiShopInstance* inst, Player* player, int32_t shelf_id) {
+void CHlDriver::SendShopShelves(CMultiShopInstance* inst, Player* player, int32_t shelf_id) {
     if (shelf_id == -1) {
         for (int32_t i = 0; i < 4; i++) {
             Shop* shop = nullptr;
@@ -5240,7 +5240,7 @@ void NetStru1::SendShopShelves(CMultiShopInstance* inst, Player* player, int32_t
 }
 
 // 51ac77 (client: 50c2ea) - Broadcast token state to players
-void NetStru1::BroadcastTokenState(Token* token, Player* player, uint8_t flag) {
+void CHlDriver::BroadcastTokenState(Token* token, Player* player, uint8_t flag) {
     if (player == nullptr) {
         POSITION pos = g_PlayersList->list.GetHeadPosition();
         while (pos != nullptr) {
@@ -5328,7 +5328,7 @@ void NetStru1::BroadcastTokenState(Token* token, Player* player, uint8_t flag) {
 
 
 // 51f124 (client: 50f846)
-void NetStru1::WriteStatsLog(CString fname) {
+void CHlDriver::WriteStatsLog(CString fname) {
     CStdioFile f(fname, CFile::modeCreate | CFile::modeWrite);
 
     f.WriteString("Cmd|Packets|Avg Size| Total Size |Comment\n");
@@ -5440,7 +5440,7 @@ void NetStru1::WriteStatsLog(CString fname) {
 }
 
 // 51d8d6 (client: 50e48b)
-void NetStru1::SendHatCredentials(const CString& login, const CString& password, uint32_t flags) {
+void CHlDriver::SendHatCredentials(const CString& login, const CString& password, uint32_t flags) {
     PacketJoin* pkt = &PacketJoin::Inst;
 #ifdef A2CLIENT_PATCH
     // v20 HAT_AUTH (0x00) is client-only; dedicated servers authenticate via SendHatLogin (0xD1).
@@ -5463,7 +5463,7 @@ void NetStru1::SendHatCredentials(const CString& login, const CString& password,
 }
 
 // 51d9d0 (client: 50e58b)
-void NetStru1::SendHatCharId(HatCharId chid) {
+void CHlDriver::SendHatCharId(HatCharId chid) {
     Packet2Dwords* pkt = &Packet2Dwords::Inst;
     pkt->id = HAT_PICK_CHAR;
     pkt->param1 = chid.id1;
@@ -5473,7 +5473,7 @@ void NetStru1::SendHatCharId(HatCharId chid) {
 }
 
 // 51d9a0 (client: 50e55b)
-void NetStru1::SendHatLogout() {
+void CHlDriver::SendHatLogout() {
     Packet* pkt = &Packet::Inst;
     pkt->id = HAT_LOGOUT;
     pkt->to_player_id = 0;
@@ -5482,7 +5482,7 @@ void NetStru1::SendHatLogout() {
 
 
 // 51da14 (client: 50e5cf)
-void NetStru1::SendHatConnectServer(HatCharId key, uint8_t body, uint8_t reaction, uint8_t mind, uint8_t spirit, uint8_t sphere, uint8_t type_face, uint8_t color, const CString& name, const CString& srv) {
+void CHlDriver::SendHatConnectServer(HatCharId key, uint8_t body, uint8_t reaction, uint8_t mind, uint8_t spirit, uint8_t sphere, uint8_t type_face, uint8_t color, const CString& name, const CString& srv) {
     PacketData* pkt = &PacketData::Inst;
     pkt->to_player_id = 0;
     pkt->Inst.id = HAT_CONNECT_SERVER;
@@ -5502,7 +5502,7 @@ void NetStru1::SendHatConnectServer(HatCharId key, uint8_t body, uint8_t reactio
 }
 
 // 51dce5 (client: 50e8c0)
-void NetStru1::SendServerConnectHatTicket(HatCharId ticket, uint16_t player_id) {
+void CHlDriver::SendServerConnectHatTicket(HatCharId ticket, uint16_t player_id) {
     Packet2Dwords* pkt = &Packet2Dwords::Inst;
     pkt->id = HAT_TICKET;
     pkt->param1 = ticket.id1;
@@ -5512,7 +5512,7 @@ void NetStru1::SendServerConnectHatTicket(HatCharId ticket, uint16_t player_id) 
 }
 
 // 51e513 (client: 50eede) - client-only helper
-void NetStru1::SendHatSessionConfirm() {
+void CHlDriver::SendHatSessionConfirm() {
     Packet* pkt = &Packet::Inst;
     pkt->id = UNKNOWN_DC;
     pkt->to_player_id = 0;
@@ -5520,7 +5520,7 @@ void NetStru1::SendHatSessionConfirm() {
 }
 
 // 51db5c (client: 50e70d) - client-only helper
-void NetStru1::SendHatCharRequest(HatCharId id) {
+void CHlDriver::SendHatCharRequest(HatCharId id) {
     Packet2Dwords* pkt = &Packet2Dwords::Inst;
     pkt->id = HAT_CHAR_REQUEST;
     pkt->to_player_id = 0;

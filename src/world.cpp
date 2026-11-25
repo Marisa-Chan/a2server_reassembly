@@ -78,7 +78,7 @@ void Diplomacy::RegisterPlayer(Player* player) {
 }
 
 // 5a4b1a (client: 572c8a)
-World::World(MapStuff* map_stuff, PlayersList* players_list) {
+World::World(TerrainMap* map_stuff, PlayersList* players_list) {
     this->Init();
     this->ResetMatchState();
     std::memset(this->gap_0xc554, 0, sizeof(this->gap_0xc554));
@@ -178,7 +178,7 @@ void World::ConstructMembers() {
     new (&this->perf_presence) Perf();
     new (&this->perf_triggers) Perf();
     new (&this->perf_ai) Perf();
-    new (&this->gap_0xc8) FieldBlock5859c();
+    new (&this->gap_0xc8) MapScratchBlock2K();
     new (&this->nearby_list) UnitList();
     new (&this->unconscious_list) UnitList();
     new (&this->non_targets) UnitList();
@@ -201,7 +201,7 @@ void World::ConstructMembers() {
     static constexpr uint8_t a54_init[16] = {2, 1, 2, 4, 4, 2, 1, 0, 2, 1, 4, 0, 2, 1, 2, 4};
     std::memcpy(this->attack_decision_table, a54_init, sizeof(a54_init));
 
-    File2 file2;
+    ResArchiveFile file2;
     file2.Open("World\\Data\\ai.reg", 0, nullptr);
 
     RegFile* reg = new RegFile();
@@ -1346,7 +1346,7 @@ void World::OrderGatherLoot(Unit* unit) {
     unit->eye2->cast_action = 0;
 }
 
-// Record a PvP hit: mark the attacker in UnitEye2, update diplomacy, push a combat
+// Record a PvP hit: mark the attacker in UnitAiState, update diplomacy, push a combat
 // action onto the world's action list, and store the retaliation cell.
 // 5aa581 (client: 5786f1) - Record PvP hit and update combat log
 void World::RecordUnitHit(Unit* target, Unit* attacker, int32_t hit_flag) {
@@ -2881,7 +2881,7 @@ void World::ClearGroupOrders(Group* grp) {
         this->BeginUnitOrder(unit);
         unit->eye2->gap_0x38 = 0;
     }
-    grp->group_sub->order = GroupSub::ORDER_DEFAULT;
+    grp->group_sub->order = GroupOrderState::ORDER_DEFAULT;
 }
 
 // 5aca54 (client: 57abc4)
@@ -2891,7 +2891,7 @@ void World::GroupAggressiveStance(Group* grp) {
         Unit* unit = grp->unit_list.GetNext(it);
         this->OrderHoldPosition(unit);
     }
-    grp->group_sub->order = GroupSub::ORDER_AGGRESSIVE;
+    grp->group_sub->order = GroupOrderState::ORDER_AGGRESSIVE;
 }
 
 // 5acdf4 (client: 57af64) - World callback for animate-dead group
@@ -2949,7 +2949,7 @@ void World::GroupMoveCommand(Group* group, uint8_t x, uint8_t y) {
     if (use_relative) {
         group->group_sub->speed_override = min_speed;
     }
-    group->group_sub->order = GroupSub::ORDER_MOVE;
+    group->group_sub->order = GroupOrderState::ORDER_MOVE;
     group->group_sub->order_pos = PosYX(x, y).val;
 }
 
@@ -2957,7 +2957,7 @@ void World::GroupMoveCommand(Group* group, uint8_t x, uint8_t y) {
 // 5ac507 (client: 57a677) - Group swarm command.
 void World::GroupSwarmCommand(Group* group, uint8_t x, uint8_t y) {
     this->GroupMoveCommand(group, x, y);
-    group->group_sub->order = GroupSub::ORDER_SWARM;
+    group->group_sub->order = GroupOrderState::ORDER_SWARM;
 }
 
 // 5a457a (client: 5726ea)
@@ -2991,7 +2991,7 @@ void World::RefreshGroupGuardAnchor(Group* group) {
 // 5ac785 (client: 57a8f5)
 void World::GroupAttackMoveCommand(Group* group, uint8_t x, uint8_t y) {
     this->ClearGroupOrders(group);
-    group->group_sub->order = GroupSub::ORDER_ATTACK_MOVE;
+    group->group_sub->order = GroupOrderState::ORDER_ATTACK_MOVE;
     group->group_sub->order_pos = PosYX{x, y}.val;
 }
 
@@ -2999,7 +2999,7 @@ void World::GroupAttackMoveCommand(Group* group, uint8_t x, uint8_t y) {
 // 5ac7c8 (client: 57a938)
 void World::GroupRoamCommand(Group* group) {
     this->ClearGroupOrders(group);
-    group->group_sub->order = GroupSub::ORDER_ROAM;
+    group->group_sub->order = GroupOrderState::ORDER_ROAM;
     Unit* head = group->unit_list.GetHead();
     group->group_sub->order_pos = head->position->CompatGetYX();
     group->group_sub->order_age = 0;
@@ -3016,7 +3016,7 @@ void World::GroupGuardCommand(Group* group, uint8_t range) {
         this->OrderGuardPosition(unit);
     }
 
-    group->group_sub->order = GroupSub::ORDER_GUARD;
+    group->group_sub->order = GroupOrderState::ORDER_GUARD;
     this->RefreshGroupGuardAnchor(group);
 
     if (range == 0) {
@@ -3379,7 +3379,7 @@ void World::GroupCastAtPositionCommand(Group* group, uint8_t x, uint8_t y, Spell
         unit->spell = nullptr;
     }
 
-    group->group_sub->order = GroupSub::ORDER_DEFAULT;
+    group->group_sub->order = GroupOrderState::ORDER_DEFAULT;
 }
 
 // 5ac983 (client: 57aaf3) - Place a newly respawned group into the world.
@@ -3391,7 +3391,7 @@ void World::PlaceRespawnedGroup(Group* group, int guard_range) {
         this->OrderGuardPosition(unit);
     }
 
-    group->group_sub->order = GroupSub::ORDER_DEFEND;
+    group->group_sub->order = GroupOrderState::ORDER_DEFEND;
     this->RefreshGroupGuardAnchor(group);
 
     if (guard_range == 0) {
@@ -3498,38 +3498,38 @@ void World::ProcessPlayerGroupAi(Player* player) {
 void World::ProcessGroupAi(Group* group) {
     this->FlagEmptyGroup(group);
     uint8_t cmd = group->group_sub->order;
-    if (cmd == GroupSub::ORDER_IDLE_ALL) {
+    if (cmd == GroupOrderState::ORDER_IDLE_ALL) {
         this->IdleGroupUnits(group);
     } else {
         switch (cmd) {
-        case GroupSub::ORDER_DEFAULT:
+        case GroupOrderState::ORDER_DEFAULT:
             for (POSITION it = group->unit_list.GetHeadPosition(); it != nullptr;) {
                 Unit* unit = group->unit_list.GetNext(it);
                 this->RunUnitAi(unit);
             }
             break;
-        case GroupSub::ORDER_GUARD:
+        case GroupOrderState::ORDER_GUARD:
             this->AiGuardBrain(group);
             break;
-        case GroupSub::ORDER_ATTACK_MOVE:
+        case GroupOrderState::ORDER_ATTACK_MOVE:
             this->AiAttackBrain(group, group->group_sub->order_pos);
             break;
-        case GroupSub::ORDER_AGGRESSIVE:
+        case GroupOrderState::ORDER_AGGRESSIVE:
             this->AiAggroBrain(group);
             break;
-        case GroupSub::ORDER_MOVE:
+        case GroupOrderState::ORDER_MOVE:
             this->AiMoveBrain(group, group->group_sub->order_pos);
             break;
-        case GroupSub::ORDER_SWARM:
+        case GroupOrderState::ORDER_SWARM:
             this->AiSwarmBrain(group, group->group_sub->order_pos);
             break;
-        case GroupSub::ORDER_ROAM:
+        case GroupOrderState::ORDER_ROAM:
             this->AiRoamBrain(group);
             break;
-        case GroupSub::ORDER_DEFEND:
+        case GroupOrderState::ORDER_DEFEND:
             this->AiDefendBrain(group);
             break;
-        case GroupSub::ORDER_STAND:
+        case GroupOrderState::ORDER_STAND:
             this->AiStandBrain(group);
             break;
         }
@@ -4200,7 +4200,7 @@ void World::JitterGuardRange(Group* group) {
 // 5af623 (client: 57d793)
 void World::FlagEmptyGroup(Group* group) {
     if (group->unit_list.GetCount() == 0) {
-        group->group_sub->order = GroupSub::ORDER_IDLE_ALL;
+        group->group_sub->order = GroupOrderState::ORDER_IDLE_ALL;
     }
 }
 
@@ -4594,7 +4594,7 @@ void World::GroupCastAtUnitCommand(Group* group, Unit* target, Spell*) {
         unit->spell = nullptr;
     }
 
-    group->group_sub->order = GroupSub::ORDER_DEFAULT;
+    group->group_sub->order = GroupOrderState::ORDER_DEFAULT;
 }
 
 // 5acaa7 (client: 57ac17) - order group to retreat/evade (state 0x13).
@@ -4606,7 +4606,7 @@ void World::GroupStopCommand(Group* group) {
         this->OrderStandGround(unit);
     }
 
-    group->group_sub->order = GroupSub::ORDER_STAND;
+    group->group_sub->order = GroupOrderState::ORDER_STAND;
 }
 
 // 5acafa (client: 57ac6a) - order group to idle/wander (state 0).
@@ -4618,7 +4618,7 @@ void World::GroupGoHomeCommand(Group* group) {
         this->OrderTeleportHome(unit);
     }
 
-    group->group_sub->order = GroupSub::ORDER_DEFAULT;
+    group->group_sub->order = GroupOrderState::ORDER_DEFAULT;
 }
 
 // 5b0762 (client: 57e8d2) - evaluate pending trigger checks.

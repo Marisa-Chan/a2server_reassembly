@@ -115,7 +115,7 @@ MapAlm::MapAlm(const char* filename) {
     this->default_music.melody_type_id[3] = 0xFFFFFFFF;
     this->loading_player = nullptr;
 
-    File2* file = new File2();
+    ResArchiveFile* file = new ResArchiveFile();
     if (!file->Open(filename, CFile::shareDenyWrite, nullptr)) {
         delete file;
         return;

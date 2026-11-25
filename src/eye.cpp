@@ -42,21 +42,21 @@ int UnitEye::CheckRotation(Unit* unit, uint8_t* out_dir, uint8_t eye0, uint8_t a
 }
 
 // 5a4e83 (client: 572ff3)
-UnitEye2::UnitEye2() {
-    memset(this, 0, sizeof(UnitEye2));
+UnitAiState::UnitAiState() {
+    memset(this, 0, sizeof(UnitAiState));
     this->seeInvisible = 1;
     this->tick16 = 65500;
     this->positions_list = new CList<uint16_t>();
 }
 
 // 5a4f30 (client: 5730a0)
-UnitEye2::~UnitEye2() {
+UnitAiState::~UnitAiState() {
     delete this->positions_list;
     this->positions_list = nullptr;
 }
 
 // 5b031b (client: 57e48b)
-void UnitEye2::Serialize(CArchive& ar) {
+void UnitAiState::Serialize(CArchive& ar) {
     if (ar.IsStoring()) {
         ar.Write(this, 0xB8);
         this->positions_list->Serialize(ar);

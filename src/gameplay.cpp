@@ -59,10 +59,10 @@ void __cdecl SetMessageColors(uint32_t flag) {
 
 
 // 4020ad (client: 4020ad)
-GM_a28::~GM_a28() = default;
+HudMessageLog::~HudMessageLog() = default;
 
 // 401f50 (client: 401f50)
-GM_a28::GM_a28() {
+HudMessageLog::HudMessageLog() {
     this->elapsed_time = 0;
     this->dirty = 1;
 }
@@ -87,7 +87,7 @@ static CString TangarDoubleTilde(const char* str)
 #endif
 
 // 4021fe (client: 4021fe)
-void GM_a28::Add(const char* msg, uint16_t* clr, uint32_t t) {
+void HudMessageLog::Add(const char* msg, uint16_t* clr, uint32_t t) {
     this->dirty = 1;
 
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
@@ -131,7 +131,7 @@ void GM_a28::Add(const char* msg, uint16_t* clr, uint32_t t) {
 }
 
 // 4023aa (client: 4023aa)
-void GM_a28::AddWithCheck(const char* msg, uint16_t* clr, uint32_t t) {
+void HudMessageLog::AddWithCheck(const char* msg, uint16_t* clr, uint32_t t) {
     this->dirty = 1;
 
     CStringArray& lines = g_font1->StringArrayForRect(this->out_area, msg);
@@ -167,14 +167,14 @@ void GM_a28::AddWithCheck(const char* msg, uint16_t* clr, uint32_t t) {
 }
 
 // 4021d2 (client: 4021d2)
-void GM_a28::Clear() {
+void HudMessageLog::Clear() {
     this->text.RemoveAll();
     this->color.RemoveAll();
     this->times.RemoveAll();
 }
 
 // 40261a (client: 40261a)
-void GM_a28::Draw() {
+void HudMessageLog::Draw() {
 
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
 
@@ -213,7 +213,7 @@ void GM_a28::Draw() {
 }
 
 // 40212b (client: 40212b)
-void GM_a28::SetRect(const CRect& r) {
+void HudMessageLog::SetRect(const CRect& r) {
     this->out_area = r;
 
     MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
@@ -226,7 +226,7 @@ void GM_a28::SetRect(const CRect& r) {
 }
 
 // 402585 (client: 402585)
-void GM_a28::Update() {
+void HudMessageLog::Update() {
     if (this->text.GetSize() == 0) {
         return;
     }
@@ -1026,7 +1026,7 @@ VisMiniMap::~VisMiniMap() {
 }
 
 // 43ab28 (client: 43cf38)
-Vis1200obj::Vis1200obj(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint)
+VisChatInputBox::VisChatInputBox(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint)
     : CVisualObject(_id, l, t, r, b, hint) {
     this->font = _font;
     this->clr = _clr;
@@ -1037,10 +1037,10 @@ Vis1200obj::Vis1200obj(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, 
 }
 
 // 43ac08 (client: 43d017) - (deleting dtor; the complete dtor 43AC08 only sets the vtable and calls the member dtors)
-Vis1200obj::~Vis1200obj() = default;
+VisChatInputBox::~VisChatInputBox() = default;
 
 // 43b32f (client: 43d73e)
-void Vis1200obj::Draw() {
+void VisChatInputBox::Draw() {
     CString line;
     CRect screen_rect;
     this->ClientRectToScreen(&screen_rect, this->rect);
@@ -1067,7 +1067,7 @@ void Vis1200obj::Draw() {
 }
 
 // 43b159 (client: 43d564)
-int32_t Vis1200obj::OnKeyDown(uint32_t wparam) {
+int32_t VisChatInputBox::OnKeyDown(uint32_t wparam) {
     int32_t result = 0;
     switch (wparam) {
     case VK_BACK:
@@ -1095,7 +1095,7 @@ int32_t Vis1200obj::OnKeyDown(uint32_t wparam) {
 }
 
 // 43b283 (client: 43d692)
-int32_t Vis1200obj::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
+int32_t VisChatInputBox::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     if (msg == VIS_MSG_FRAME_TICK) {
         this->blink_now_tick = timeGetTime();
         if (this->blink_now_tick - this->blink_last_tick > 500) {
@@ -1113,7 +1113,7 @@ int32_t Vis1200obj::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
 }
 
 // 43b240 (client: 43d64b)
-int32_t Vis1200obj::OnChar(uint32_t wparam) {
+int32_t VisChatInputBox::OnChar(uint32_t wparam) {
 #if defined(A2CLIENT) && !defined(A2CLIENT_PATCH)
     if (wparam < ' ' || wparam == 0x7F || wparam == '~') {
 #else
@@ -1127,7 +1127,7 @@ int32_t Vis1200obj::OnChar(uint32_t wparam) {
 }
 
 // 43ad35 (client: 43d144)
-void Vis1200obj::WriteData(void* buf) {
+void VisChatInputBox::WriteData(void* buf) {
     CString* out = (CString*)buf;
     for (int32_t i = 0; i < this->history.GetSize(); i++) {
         *out += this->history[i];
@@ -1135,32 +1135,32 @@ void Vis1200obj::WriteData(void* buf) {
 }
 
 // 43acca (client: 43d0d9)
-void Vis1200obj::ReadData(const void* buf) {
+void VisChatInputBox::ReadData(const void* buf) {
     this->input_line = (const char*)buf;
 }
 
 // 43c020 (client: 43e3b0)
-uint32_t Vis1200obj::DataSize() {
+uint32_t VisChatInputBox::DataSize() {
     return 4;
 }
 
 // 497330 (client: 49a9b0)
-int32_t Vis1200obj::GetMatchNameLength() {
+int32_t VisChatInputBox::GetMatchNameLength() {
     return this->match_name_length;
 }
 
 // 4972f0 (client: 49a970)
-int32_t Vis1200obj::GetMatchPlayerIndex() {
+int32_t VisChatInputBox::GetMatchPlayerIndex() {
     return this->match_player_index;
 }
 
 // 43ad86 (client: 43d195) - commit current line to history
-void Vis1200obj::SaveHistoryBackup() {
+void VisChatInputBox::SaveHistoryBackup() {
     this->history_backup.Copy(this->history);
 }
 
 // 43ac8c (client: 43d09b) - reset input/history state
-void Vis1200obj::ResetInputState() {
+void VisChatInputBox::ResetInputState() {
     this->match_player_index = -1;
     this->match_name_length = 0;
     this->history.RemoveAll();
@@ -1168,7 +1168,7 @@ void Vis1200obj::ResetInputState() {
 }
 
 // 43ada3 (client: 43d1b2) - recall previous line from history
-void Vis1200obj::RecallHistoryPrev() {
+void VisChatInputBox::RecallHistoryPrev() {
     this->history.Copy(this->history_backup);
     this->input_line.Empty();
     if (this->history.GetSize() != 0) {
@@ -1178,7 +1178,7 @@ void Vis1200obj::RecallHistoryPrev() {
 }
 
 // 43ae1c (client: 43d22b)
-void Vis1200obj::AppendInputChar(uint8_t ch) {
+void VisChatInputBox::AppendInputChar(uint8_t ch) {
     if (this->font->GetStrWidth(this->input_line) + this->font->GetStrWidth("_") < this->rect.Width()) {
         this->input_line += (char)ch;
         MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
@@ -1199,7 +1199,7 @@ void Vis1200obj::AppendInputChar(uint8_t ch) {
 }
 
 // 43b03a (client: 43d445)
-void Vis1200obj::BackspaceInputChar() {
+void VisChatInputBox::BackspaceInputChar() {
     this->input_line = this->input_line.Left(this->input_line.GetLength() - 1);
     this->input_line.TrimLeft();
     if (this->input_line.GetLength() == 0 && this->history.GetSize() > 0) {
@@ -1260,7 +1260,7 @@ void InsertThousandsSeparators(CString* str) {
 }
 
 // 43b724 (client: 43db33)
-void Vis1200obj::CompletePlayerName() {
+void VisChatInputBox::CompletePlayerName() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     VisPlayingArea* map = main_wnd->vis_map_context;
     int32_t pos = this->input_line.GetLength() - 1;
@@ -1310,7 +1310,7 @@ void Vis1200obj::CompletePlayerName() {
 }
 
 // 43ba75 (client: 43de84)
-void Vis1200obj::DeletePreviousWord() {
+void VisChatInputBox::DeletePreviousWord() {
     int32_t pos = this->input_line.GetLength() - 1;
     if (pos == -1) {
         return;
@@ -1323,7 +1323,7 @@ void Vis1200obj::DeletePreviousWord() {
 }
 
 // 43b504 (client: 43d913)
-void Vis1200obj::DrawInputLine(CString* str) {
+void VisChatInputBox::DrawInputLine(CString* str) {
     CRect screen_rect;
     this->ClientRectToScreen(&screen_rect, this->rect);
     this->match_player_index = -1;
@@ -1355,7 +1355,7 @@ void Vis1200obj::DrawInputLine(CString* str) {
 }
 
 // 43be9f (client: 43e2ae)
-void Vis1200::RepositionAboveDialogs() {
+void VisChatBar::RepositionAboveDialogs() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     VisPlayingArea* map = (VisPlayingArea*)this->parent;
     CSize size = this->rect.Size();
@@ -1371,8 +1371,8 @@ void Vis1200::RepositionAboveDialogs() {
 }
 
 // 43bc3c (client: 43e04b)
-void Vis1200::OnCreate() {
-    this->text_block = new Vis1200obj(4, 0, 0, this->rect.Width(), g_font1->GetHeight() * 3, g_font1, clrsh_ShockingBlack, nullptr);
+void VisChatBar::OnCreate() {
+    this->text_block = new VisChatInputBox(4, 0, 0, this->rect.Width(), g_font1->GetHeight() * 3, g_font1, clrsh_ShockingBlack, nullptr);
     this->rect.BottomRight().y = this->rect.TopLeft().y + g_font1->GetHeight() * 3 + 4;
     this->AddChild(this->text_block);
     this->active = 0;
@@ -1388,7 +1388,7 @@ static int32_t s_history_index = 0;
 #endif
 
 // 43bdec (client: 43e1fb)
-int32_t Vis1200::OnKeyDown(uint32_t wparam) {
+int32_t VisChatBar::OnKeyDown(uint32_t wparam) {
 #ifdef A2CLIENT_PATCH
     // CHAT_keyDown hook (43E1FB): Up/Down navigate the sent-message
     // history; Enter commits the current message into it
@@ -1417,7 +1417,7 @@ int32_t Vis1200::OnKeyDown(uint32_t wparam) {
         return 1;
     }
     if (wparam == VK_RETURN) {
-        // consoleEnter + addString: Vis1200obj::OnKeyDown already moved any
+        // consoleEnter + addString: VisChatInputBox::OnKeyDown already moved any
         // non-empty input_line into history; empty Enter closes without sending.
         if (this->text_block != nullptr && this->text_block->history.GetSize() != 0) {
             CStringArray* entry = new CStringArray();
@@ -1454,7 +1454,7 @@ int32_t Vis1200::OnKeyDown(uint32_t wparam) {
 }
 
 // 43bd2e (client: 43e13d)
-void Vis1200::DoOpen() {
+void VisChatBar::DoOpen() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     main_wnd->console_active = 1;
     memset(this->buffer, 0, 0x100);
@@ -1465,12 +1465,12 @@ void Vis1200::DoOpen() {
 }
 
 // 43bdcb (client: 43e1da)
-int32_t Vis1200::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
+int32_t VisChatBar::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     return VisScreen::MsgProc(msg, wparam, lparam);
 }
 
 // 43bd96 (client: 43e1a5)
-void Vis1200::DoClose(uint32_t code) {
+void VisChatBar::DoClose(uint32_t code) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     main_wnd->console_active = 0;
     this->active = 0;
@@ -1478,34 +1478,34 @@ void Vis1200::DoClose(uint32_t code) {
 }
 
 // 43be80 (client: 43e28f)
-void Vis1200::Draw() {
+void VisChatBar::Draw() {
     if (this->active != 0) {
         VisScreen::Draw();
     }
 }
 
 // 4972d0 (client: 49a950)
-int32_t Vis1200::GetMatchPlayerIndex() {
+int32_t VisChatBar::GetMatchPlayerIndex() {
     return this->text_block->GetMatchPlayerIndex();
 }
 
 // 497310 (client: 49a990)
-int32_t Vis1200::GetMatchNameLength() {
+int32_t VisChatBar::GetMatchNameLength() {
     return this->text_block->GetMatchNameLength();
 }
 
 // 43be73 (client: 43e282)
-void Vis1200::DrawBackground(CRect* rect) {
+void VisChatBar::DrawBackground(CRect* rect) {
 }
 
 // 43bb70 (client: 43df7f)
-Vis1200::Vis1200(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
+VisChatBar::VisChatBar(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b)
     : VisScreen(_id, l, t, r, b, nullptr) {
     this->OnCreate();
 }
 
 // 43c000 (client: 43e420)
-Vis1200::~Vis1200() {
+VisChatBar::~VisChatBar() {
 }
 
 // 4b12e3 (client: 4b5c15)

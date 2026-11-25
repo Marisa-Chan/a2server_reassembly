@@ -30,13 +30,13 @@ Packet* Packet::Duplicate() {
 }
 
 // 526887 (client: 5156b9)
-void Packet::WriteTo(NetStru2* net) {
+void Packet::WriteTo(NetClientPeer* net) {
     uint32_t sz = this->GetDataSize();
     net->WriteData(&this->id, sz);
 }
 
 // 5268b7 (client: 5156e9)
-void Packet::ReadFrom(NetStru2* net) {
+void Packet::ReadFrom(NetClientPeer* net) {
     uint32_t sz = this->GetDataSize();
     if (sz != 1) {
         net->ReadData(this + 1, sz - 1);
@@ -117,7 +117,7 @@ Packet* PacketJoin::Duplicate() {
 }
 
 // 526ede (client: 515d77)
-void PacketJoin::WriteTo(NetStru2* net) {
+void PacketJoin::WriteTo(NetClientPeer* net) {
 #if defined(A2CLIENT_PATCH) || defined(A2SERVER_PATCH)
     if (this->id == HAT_AUTH) {
         uint16_t auth_len = static_cast<uint16_t>(strlen(this->name + 0x40));
@@ -131,7 +131,7 @@ void PacketJoin::WriteTo(NetStru2* net) {
 }
 
 // 526f1d (client: 515db6)
-void PacketJoin::ReadFrom(NetStru2* net) {
+void PacketJoin::ReadFrom(NetClientPeer* net) {
 #if defined(A2CLIENT_PATCH) || defined(A2SERVER_PATCH)
     if (this->id == HAT_AUTH) {
         net->ReadData(&this->player_id, 0x46);
@@ -218,12 +218,12 @@ Packet* PacketTerrain::Duplicate() {
 }
     
 // 5273a7 (client: 516378)
-void PacketTerrain::WriteTo(NetStru2* net) {
+void PacketTerrain::WriteTo(NetClientPeer* net) {
     net->WriteData(&this->id, this->count * 2 + 5);
 }
 
 // 5273ce (client: 51639f)
-void PacketTerrain::ReadFrom(NetStru2* net) {
+void PacketTerrain::ReadFrom(NetClientPeer* net) {
     net->ReadData(&this->count, 4);
 #ifdef A2SERVER_PATCH
     if (this->count > (sizeof(this->buf) / sizeof(this->buf[0]))) {
@@ -265,7 +265,7 @@ Packet* PacketUnitUpdate::Duplicate() {
 }
 
 // 5279c7 (client: 516997)
-void PacketUnitUpdate::WriteTo(NetStru2* net) {
+void PacketUnitUpdate::WriteTo(NetClientPeer* net) {
 
     switch (this->CalcFlagsSize()) {
     case 1:
@@ -288,7 +288,7 @@ void PacketUnitUpdate::WriteTo(NetStru2* net) {
 }
 
 // 527a6c (client: 516a3c)
-void PacketUnitUpdate::ReadFrom(NetStru2* net) {
+void PacketUnitUpdate::ReadFrom(NetClientPeer* net) {
     switch (this->id) {
     case UNIT_CHANGE_4:
         this->flags_size = 4;
@@ -430,13 +430,13 @@ PacketGroupOrder::~PacketGroupOrder() {
 }
 
 // 52699a (client: 5157cc)
-void PacketGroupOrder::WriteTo(NetStru2* net) {
+void PacketGroupOrder::WriteTo(NetClientPeer* net) {
     // 59A
     net->WriteData(&this->id, this->count * 2 + 0xA);
 }
 
 // 5269c3 (client: 5157f5)
-void PacketGroupOrder::ReadFrom(NetStru2* net) {
+void PacketGroupOrder::ReadFrom(NetClientPeer* net) {
     // 5C3
     net->ReadData(&this->x, 9);
 #ifdef A2SERVER_PATCH
@@ -752,12 +752,12 @@ Packet* PacketFileChunk::Duplicate() {
 }
 
 // 527220 (client: 5161f1)
-void PacketFileChunk::WriteTo(NetStru2* net) {
+void PacketFileChunk::WriteTo(NetClientPeer* net) {
     net->WriteData(&this->id, this->count + 0x2D);
 }
 
 // 527246 (client: 516217)
-void PacketFileChunk::ReadFrom(NetStru2* net) {
+void PacketFileChunk::ReadFrom(NetClientPeer* net) {
     // 527246  reads 0x2C bytes at +0xA, then optional count bytes at +0x36
     net->ReadData(&this->preamble[0], 0x2C);
 #if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
@@ -802,12 +802,12 @@ Packet* PacketData::Duplicate() {
 }
 
 // 5272e3 (client: 5162b4)
-void PacketData::WriteTo(NetStru2* net) {
+void PacketData::WriteTo(NetClientPeer* net) {
     net->WriteData(&this->id, this->count + 5);
 }
 
 // 527309 (client: 5162da)
-void PacketData::ReadFrom(NetStru2* net) {
+void PacketData::ReadFrom(NetClientPeer* net) {
     net->ReadData(&this->count, 4);
 #ifdef A2SERVER_PATCH
     if (this->count > sizeof(this->data)) {
@@ -854,7 +854,7 @@ Packet* PacketUnitStateVec::Duplicate() {
 }
 
 // 5274cc (client: 51649c)
-void PacketUnitStateVec::WriteTo(NetStru2* net) {
+void PacketUnitStateVec::WriteTo(NetClientPeer* net) {
     net->WriteData(&this->id, 0xA);
     if (this->entry_count > 0) {
         net->WriteData(this->data, this->data_size);
@@ -863,7 +863,7 @@ void PacketUnitStateVec::WriteTo(NetStru2* net) {
 }
 
 // 527528 (client: 5164f8)
-void PacketUnitStateVec::ReadFrom(NetStru2* net) {
+void PacketUnitStateVec::ReadFrom(NetClientPeer* net) {
     net->ReadData(&this->building_id, 9);
 #ifdef A2SERVER_PATCH
     if (this->data_size > sizeof(this->data)) {
@@ -936,7 +936,7 @@ Packet* PacketUnitEquipment::Duplicate() {
     return new PacketUnitEquipment(this);
 }
 
-void PacketUnitEquipment::ReadFrom(NetStru2* net) {
+void PacketUnitEquipment::ReadFrom(NetClientPeer* net) {
     net->ReadData(&this->unit_id, 4);
     uint32_t sz = this->GetDataSize();
     if (sz > 5) {

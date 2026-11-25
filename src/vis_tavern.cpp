@@ -1107,7 +1107,7 @@ int32_t VisTavRightPanel::OnLButtonDown(uint32_t wparam, CPoint pos) {
 }
 
 
-// 499cdf (client: 49dcff) - client FreeBitmaps restructured away (both client 283b FreeBitmaps fns belong to VisCharGenAction 42d704 / VisCharSellectButtons 432ae6)
+// 499cdf (client: 49dcff) - client FreeBitmaps restructured away (both client 283b FreeBitmaps fns belong to VisCharGenAction 42d704 / VisCharSelectButtons 432ae6)
 void VisTavRightPanel::FreeRightPanelBmps() {
     for (int32_t i = 0; i < 3; i++) {
         if (this->bmp_btn_on[i] != nullptr) {

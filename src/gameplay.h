@@ -2,16 +2,16 @@
 #define A2_GAMEPLAY_H
 
 // HUD children of the in-game screen, the chat/console family and the
-// shared message-log helper (GM_a28). The playing-area screen itself
+// shared message-log helper (HudMessageLog). The playing-area screen itself
 // (VisPlayingArea, ex VisPlayingArea) lives in vis_playing_area.{h,cpp}.
 #pragma once
 #include "vis_core.h"
 #include "take_damage.h"
 
-class GM_a28 : public CObject {
+class HudMessageLog : public CObject {
 public:
-    virtual ~GM_a28(); // 4020ad (client: 4020ad)
-    GM_a28(); // 401f50 (client: 401f50)
+    virtual ~HudMessageLog(); // 4020ad (client: 4020ad)
+    HudMessageLog(); // 401f50 (client: 401f50)
 
     void Add(const char* msg, uint16_t* clr, uint32_t t); // 4021fe (client: 4021fe)
     void AddWithCheck(const char* msg, uint16_t* clr, uint32_t t); // 4023aa (client: 4023aa)
@@ -99,10 +99,10 @@ public:
 };
 ASSERT_SIZE(VisOrderToolbar, 0x70);
 
-//609a58 - console-style input line used by Vis1200
-class Vis1200obj : public CVisualObject {
+//609a58 - console-style input line used by VisChatBar
+class VisChatInputBox : public CVisualObject {
 public:
-    virtual ~Vis1200obj(); // 43ac08 (client: 43d017)
+    virtual ~VisChatInputBox(); // 43ac08 (client: 43d017)
 
     virtual void Draw() override; // 43b32f (client: 43d73e)
     virtual void WriteData(void* buf) override; // 43ad35 (client: 43d144)
@@ -118,7 +118,7 @@ public:
     void DeletePreviousWord(); // 43ba75 (client: 43de84)
     void DrawInputLine(CString* str); // 43b504 (client: 43d913)
 
-    Vis1200obj(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint); // 43ab28 (client: 43cf38)
+    VisChatInputBox(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint); // 43ab28 (client: 43cf38)
 
     void ResetInputState(); // 43ac8c (client: 43d09b) - reset input/history state
     void SaveHistoryBackup(); // 43ad86 (client: 43d195) - commit current line to history
@@ -138,15 +138,15 @@ public:
     int32_t blink_now_tick; // 0x9c
     int32_t cursor_visible; // 0xa0
 };
-ASSERT_SIZE(Vis1200obj, 0xa4);
+ASSERT_SIZE(VisChatInputBox, 0xa4);
 
     int32_t IsWordSeparator(char ch); // 43aae0 (client: 43cef0) - chat separator test (' ', ',', '.', ':', ';')
     void MakeLowerDosCp(CString* str); // 476236 (client: 479f82) - lowercase respecting DOS CP
 
 //609ad0
-class Vis1200 : public VisScreen {
+class VisChatBar : public VisScreen {
 public:
-    virtual ~Vis1200(); // 43c000 (client: 43e420)
+    virtual ~VisChatBar(); // 43c000 (client: 43e420)
 
     virtual void Draw() override; // 43be80 (client: 43e28f)
     virtual void DrawBackground(CRect* rect) override; // 43be73 (client: 43e282)
@@ -161,14 +161,14 @@ public:
     int32_t GetMatchNameLength(); // 497310 (client: 49a990)
     void RepositionAboveDialogs(); // 43be9f (client: 43e2ae)
 
-    Vis1200(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); // 43bb70 (client: 43df7f)
+    VisChatBar(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b); // 43bb70 (client: 43df7f)
 
 public:
     char buffer[256];
-    Vis1200obj* text_block;
+    VisChatInputBox* text_block;
     uint32_t active;
 };
-ASSERT_SIZE(Vis1200, 0x170);
+ASSERT_SIZE(VisChatBar, 0x170);
 
 //60d070
 class VisSideStatus : public CVisualObject {

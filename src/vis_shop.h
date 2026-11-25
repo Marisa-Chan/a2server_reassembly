@@ -197,9 +197,9 @@ public:
     VisShop(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameBitmap* btm = nullptr); // 4ba342 (client: 4bed12)
 
 public:
-    VisInvExtType1* assortiment;
-    VisInvExtType2* to_sell;
-    VisInvExtType3* to_buy;
+    VisShopShelfGrid* assortiment;
+    VisShopBagGrid* to_sell;
+    VisShopBuyGrid* to_buy;
     VisShopCompass* shop_compass;
     VisShopButtons* buttons;
     CVisualObject* select_info_panel;

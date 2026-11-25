@@ -94,10 +94,10 @@ VisListBoxDiplomacy::VisListBoxDiplomacy(int32_t _id, const RECT& r, CArray<Dipl
 #endif
     this->num_vis_entry = this->rect.Height() / this->entry_height_full;
 
-    this->enemy_radios = new CArray<VisRadioType1*>();
-    this->ally_radios = new CArray<VisRadioType1*>();
-    this->see_radios = new CArray<VisRadioType1*>();
-    this->mute_radios = new CArray<VisRadioType1*>();
+    this->enemy_radios = new CArray<VisCheckBoxGroup*>();
+    this->ally_radios = new CArray<VisCheckBoxGroup*>();
+    this->see_radios = new CArray<VisCheckBoxGroup*>();
+    this->mute_radios = new CArray<VisCheckBoxGroup*>();
 
     int32_t count = this->diplomacy->GetSize();
     this->enemy_radios->SetSize(count);
@@ -108,25 +108,25 @@ VisListBoxDiplomacy::VisListBoxDiplomacy(int32_t _id, const RECT& r, CArray<Dipl
     for (int32_t i = 0; i < count; i++) {
         DiplomacyEntry* entry = this->diplomacy->ElementAt(i);
 
-        VisRadioType1* radio = new VisRadioType1(i, 0, 0, 0, 0, _font, _clr1, nullptr);
+        VisCheckBoxGroup* radio = new VisCheckBoxGroup(i, 0, 0, 0, 0, _font, _clr1, nullptr);
         this->enemy_radios->ElementAt(i) = radio;
         radio->AddEntry(" ");
         radio->ReadData(&entry->enemy);
         this->AddChild(radio);
 
-        radio = new VisRadioType1(i + count, 0, 0, 0, 0, _font, _clr1, nullptr);
+        radio = new VisCheckBoxGroup(i + count, 0, 0, 0, 0, _font, _clr1, nullptr);
         this->ally_radios->ElementAt(i) = radio;
         radio->AddEntry(" ");
         radio->ReadData(&entry->ally);
         this->AddChild(radio);
 
-        radio = new VisRadioType1(i + count * 2, 0, 0, 0, 0, _font, _clr1, nullptr);
+        radio = new VisCheckBoxGroup(i + count * 2, 0, 0, 0, 0, _font, _clr1, nullptr);
         this->see_radios->ElementAt(i) = radio;
         radio->AddEntry(" ");
         radio->ReadData(&entry->see);
         this->AddChild(radio);
 
-        radio = new VisRadioType1(i + count * 3, 0, 0, 0, 0, _font, _clr1, nullptr);
+        radio = new VisCheckBoxGroup(i + count * 3, 0, 0, 0, 0, _font, _clr1, nullptr);
         this->mute_radios->ElementAt(i) = radio;
         radio->AddEntry(" ");
         radio->ReadData(&entry->mute);
@@ -1243,35 +1243,35 @@ void GameOptionsWindow::OnCreate() {
 
     CRect& scr = scrl->GetRect();
 
-    VisRadioType1* daych = new VisRadioType1(12, scr.left, scr.bottom + 12, scr.right, scr.bottom + 36, g_font1, p_clrsh_Black, nullptr);
+    VisCheckBoxGroup* daych = new VisCheckBoxGroup(12, scr.left, scr.bottom + 12, scr.right, scr.bottom + 36, g_font1, p_clrsh_Black, nullptr);
     daych->AddEntry(txt_dialogs.GetLine(55));
     this->AddChild(daych);
 
     daych->ReadData(&g_settings.ShowTimeFlow);
     daych->SetUpObj(scrl);
 
-    VisRadioType1* smooth = new VisRadioType1(3, scr.left, scr.bottom + 40, scr.right, scr.bottom + 64, g_font1, p_clrsh_Black, nullptr);
+    VisCheckBoxGroup* smooth = new VisCheckBoxGroup(3, scr.left, scr.bottom + 40, scr.right, scr.bottom + 64, g_font1, p_clrsh_Black, nullptr);
     smooth->AddEntry(txt_dialogs.GetLine(53));
     this->AddChild(smooth);
 
     smooth->ReadData(&g_settings.Smoothing);
     smooth->SetUpObj(daych);
 
-    VisRadioType1* shd = new VisRadioType1(31, scr.left, scr.bottom + 68, scr.right, scr.bottom + 92, g_font1, p_clrsh_Black, nullptr);
+    VisCheckBoxGroup* shd = new VisCheckBoxGroup(31, scr.left, scr.bottom + 68, scr.right, scr.bottom + 92, g_font1, p_clrsh_Black, nullptr);
     shd->AddEntry(txt_patch.GetLine(52));
     this->AddChild(shd);
 
     shd->ReadData(&g_Shadows);
     shd->SetUpObj(smooth);
 
-    VisRadioType1* light = new VisRadioType1(32, scr.left, scr.bottom + 96, scr.right, scr.bottom + 120, g_font1, p_clrsh_Black, nullptr);
+    VisCheckBoxGroup* light = new VisCheckBoxGroup(32, scr.left, scr.bottom + 96, scr.right, scr.bottom + 120, g_font1, p_clrsh_Black, nullptr);
     light->AddEntry(txt_patch.GetLine(53));
     this->AddChild(light);
 
     light->ReadData(&g_Lightning);
     light->SetUpObj(shd);
 
-    VisRadioType1* anims = new VisRadioType1(33, scr.left, scr.bottom + 124, scr.right, scr.bottom + 148, g_font1, p_clrsh_Black, nullptr);
+    VisCheckBoxGroup* anims = new VisCheckBoxGroup(33, scr.left, scr.bottom + 124, scr.right, scr.bottom + 148, g_font1, p_clrsh_Black, nullptr);
     anims->AddEntry(txt_patch.GetLine(54));
     this->AddChild(anims);
 
@@ -1280,21 +1280,21 @@ void GameOptionsWindow::OnCreate() {
 
     int ypoint = caption->GetRect().top - 15;
 
-    VisRadioType1* showhit = new VisRadioType1(4, scr.right + 48, ypoint, scr.right + 264, ypoint + 24, g_font1, p_clrsh_Black, nullptr);
+    VisCheckBoxGroup* showhit = new VisCheckBoxGroup(4, scr.right + 48, ypoint, scr.right + 264, ypoint + 24, g_font1, p_clrsh_Black, nullptr);
     showhit->AddEntry(txt_dialogs.GetLine(57));
     this->AddChild(showhit);
 
     showhit->ReadData(g_settings.pShowAllHitPoints);
     showhit->SetLeftObj(scrl);
 
-    VisRadioType1* showhp = new VisRadioType1(5, scr.right + 48, ypoint + 28, scr.right + 264, ypoint + 52, g_font1, p_clrsh_Black, nullptr);
+    VisCheckBoxGroup* showhp = new VisCheckBoxGroup(5, scr.right + 48, ypoint + 28, scr.right + 264, ypoint + 52, g_font1, p_clrsh_Black, nullptr);
     showhp->AddEntry(txt_dialogs.GetLine(78));
     this->AddChild(showhp);
 
     showhp->ReadData(g_settings.pShowFlyingHP);
     showhp->SetUpObj(showhit);
 
-    VisRadioType1* clantips = new VisRadioType1(13, scr.right + 48, ypoint + 56, scr.right + 264, ypoint + 80, g_font1, p_clrsh_Black, nullptr);
+    VisCheckBoxGroup* clantips = new VisCheckBoxGroup(13, scr.right + 48, ypoint + 56, scr.right + 264, ypoint + 80, g_font1, p_clrsh_Black, nullptr);
 
     if (mwnd->sessionMode == SESSION_LOCAL_BATTLE) {
         clantips->AddEntry(txt_dialogs.GetLine(156)); //tips
@@ -1312,7 +1312,7 @@ void GameOptionsWindow::OnCreate() {
     clantips->SetUpObj(showhp);
 
 
-    VisRadioType1* altclr = new VisRadioType1(41, scr.right + 48, ypoint + 84, scr.right + 264, ypoint + 108, g_font1, p_clrsh_Black, nullptr);
+    VisCheckBoxGroup* altclr = new VisCheckBoxGroup(41, scr.right + 48, ypoint + 84, scr.right + 264, ypoint + 108, g_font1, p_clrsh_Black, nullptr);
 
     altclr->AddEntry(txt_patch.GetLine(87)); //alt color
     this->AddChild(altclr);
@@ -1324,7 +1324,7 @@ void GameOptionsWindow::OnCreate() {
     this->AddChild(new VisLabel(15, 280, caption->GetRect().bottom + 74, 472, caption->GetRect().bottom + 98, txt_dialogs.GetLine(166), g_font1, p_clrsh_Black, CGameFont::ALIGN_LEFT_TOP));
 
 
-    VisRadioType1* ochar = new VisRadioType1(131, scr.right + 48, scr.bottom + 68, scr.right + 264, scr.bottom + 92, g_font1, p_clrsh_Black, nullptr);
+    VisCheckBoxGroup* ochar = new VisCheckBoxGroup(131, scr.right + 48, scr.bottom + 68, scr.right + 264, scr.bottom + 92, g_font1, p_clrsh_Black, nullptr);
 
     ochar->AddEntry(txt_dialogs.GetLine(167)); //own chars
     this->AddChild(ochar);
@@ -1335,7 +1335,7 @@ void GameOptionsWindow::OnCreate() {
     ochar->SetUpObj(altclr);
 
 
-    VisRadioType1* alli = new VisRadioType1(132, scr.right + 48, scr.bottom + 96, scr.right + 264, scr.bottom + 120, g_font1, p_clrsh_Black, nullptr);
+    VisCheckBoxGroup* alli = new VisCheckBoxGroup(132, scr.right + 48, scr.bottom + 96, scr.right + 264, scr.bottom + 120, g_font1, p_clrsh_Black, nullptr);
 
     alli->AddEntry(txt_dialogs.GetLine(168)); //allies
     this->AddChild(alli);
@@ -1345,7 +1345,7 @@ void GameOptionsWindow::OnCreate() {
     alli->SetUpObj(ochar);
 
 
-    VisRadioType1* neutral = new VisRadioType1(133, scr.right + 48, scr.bottom + 124, scr.right + 264, scr.bottom + 148, g_font1, p_clrsh_Black, nullptr);
+    VisCheckBoxGroup* neutral = new VisCheckBoxGroup(133, scr.right + 48, scr.bottom + 124, scr.right + 264, scr.bottom + 148, g_font1, p_clrsh_Black, nullptr);
 
     neutral->AddEntry(txt_dialogs.GetLine(169)); //neutral
     this->AddChild(neutral);
@@ -1361,7 +1361,7 @@ void GameOptionsWindow::OnCreate() {
     CRect* lr = &lbl->GetRect();
     
     //formation
-    VisRadioType2* formation = new VisRadioType2(7, 40, lr->bottom, 208, lr->bottom + 72, g_font1, p_clrsh_Black, txt_dialogs.GetLine(59));
+    VisRadioGroup* formation = new VisRadioGroup(7, 40, lr->bottom, 208, lr->bottom + 72, g_font1, p_clrsh_Black, txt_dialogs.GetLine(59));
     formation->AddEntry(txt_dialogs.GetLine(60)); //off
     formation->AddEntry(txt_dialogs.GetLine(61)); //auto
     formation->AddEntry(txt_dialogs.GetLine(62)); //on
@@ -1380,7 +1380,7 @@ void GameOptionsWindow::OnCreate() {
     lr = &formation->GetRect();
 
     //autoretreat
-    VisRadioType2* retreat = new VisRadioType2(9, lr->right, lr->top, lr->right + 168, lr->bottom, g_font1, p_clrsh_Black, txt_dialogs.GetLine(64));
+    VisRadioGroup* retreat = new VisRadioGroup(9, lr->right, lr->top, lr->right + 168, lr->bottom, g_font1, p_clrsh_Black, txt_dialogs.GetLine(64));
     retreat->AddEntry(txt_dialogs.GetLine(65)); //off
     retreat->AddEntry(txt_dialogs.GetLine(66)); //norm
     retreat->AddEntry(txt_dialogs.GetLine(67)); //panic
@@ -1397,7 +1397,7 @@ void GameOptionsWindow::OnCreate() {
     this->AddChild(lbl);
 
     lr = &retreat->GetRect();
-    VisRadioType2* acast = new VisRadioType2(141, lr->right, lr->top, lr->right + 168, lr->bottom, g_font1, p_clrsh_Black, txt_dialogs.GetLine(174));
+    VisRadioGroup* acast = new VisRadioGroup(141, lr->right, lr->top, lr->right + 168, lr->bottom, g_font1, p_clrsh_Black, txt_dialogs.GetLine(174));
     acast->AddEntry(txt_dialogs.GetLine(171)); //min
     acast->AddEntry(txt_dialogs.GetLine(172)); //mid
     acast->AddEntry(txt_dialogs.GetLine(173)); //max
@@ -1600,7 +1600,7 @@ void SoundPreferencesDialogVisualObject::OnCreate() {
     btn_acpt->ChangeFlags(FLAG_DEFAULT_BUTTON, true);
     this->AddChild(btn_acpt);
 
-    VisRadioType1* btn_raport = new VisRadioType1(40, 40, 190, 252, 214, g_font1, p_clrsh_Black, txt_dialogs.GetLine(165)); //Raports
+    VisCheckBoxGroup* btn_raport = new VisCheckBoxGroup(40, 40, 190, 252, 214, g_font1, p_clrsh_Black, txt_dialogs.GetLine(165)); //Raports
     btn_raport->AddEntry(txt_dialogs.GetLine(165));
     btn_raport->ReadData(&g_settings.Acknowledgement);
     this->AddChild(btn_raport);
@@ -3273,7 +3273,7 @@ VisMainMenu::~VisMainMenu() {
 }
 
 // 44f0e8 (client: 45240d)
-void Vis2Action::OnCreate() {
+void VisConfirmMenu::OnCreate() {
     VisLabel* label = new VisLabel(1, 0x28, 0x20, 0xE8, 0x50, this->txt, g_font1, p_clrsh_Black, CGameFont::ALIGN_HCENTER);
     this->AddChild(label);
 
@@ -3297,18 +3297,18 @@ void Vis2Action::OnCreate() {
 }
 
 // 44f30d (client: 452632)
-int32_t Vis2Action::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
+int32_t VisConfirmMenu::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
     return VisMenuWnd::MsgProc(msg, wparam, lparam);
 }
 
 // 44f0a2 (client: 4523c7)
-Vis2Action::Vis2Action(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const char* _txt, const CRect& _r)
+VisConfirmMenu::VisConfirmMenu(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, const char* _txt, const CRect& _r)
 : VisMenuWnd(_id, l, t, r, b, nullptr, 0, _r) {
     this->txt = _txt;
 }
 
 // 450bd0 (client: 4548d0)
-Vis2Action::~Vis2Action() {
+VisConfirmMenu::~VisConfirmMenu() {
 }
 
 // 43c60c (client: 43ea1c)

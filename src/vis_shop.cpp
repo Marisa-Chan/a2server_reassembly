@@ -378,9 +378,9 @@ int32_t VisShop::OnMouseMove(uint32_t wparam, CPoint pos) {
 // 4bbd75 (client: 4c0742)
 void VisShop::OnCreate() {
     this->tips = nullptr;
-    this->to_buy = new VisInvExtType3(0x3EB, 0, 0x12F, 0x1E0, 0x186, this);
-    this->to_sell = new VisInvExtType2(0x3E9, 0, 0x186, 0x1E0, 0x1E0, this);
-    this->assortiment = new VisInvExtType1(0x3EA, 0, 0, 0xA4, 0x12F, this);
+    this->to_buy = new VisShopBuyGrid(0x3EB, 0, 0x12F, 0x1E0, 0x186, this);
+    this->to_sell = new VisShopBagGrid(0x3E9, 0, 0x186, 0x1E0, 0x1E0, this);
+    this->assortiment = new VisShopShelfGrid(0x3EA, 0, 0, 0xA4, 0x12F, this);
     this->shop_compass = new VisShopCompass(0x3ED, 0xA4, 0, 0x1E0, 0x12F, this);
     this->buttons = new VisShopButtons(0x3EE, 0x1D0, 0, 0x280, 0xEE, this);
 
@@ -2276,9 +2276,9 @@ VisShopDruid::VisShopDruid(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t
 // 4c15e6 (client: 4c5f9f)
 void VisShopDruid::OnCreate() {
     this->tips = nullptr;
-    this->to_buy = new VisInvExtType3(0x3EB, 0, 0x12F, 0x1E0, 0x186, this);
-    this->to_sell = new VisInvExtType2(0x3E9, 0, 0x186, 0x1E0, 0x1E0, this);
-    this->assortiment = new VisInvExtType1Druid(0x3EA, 0, 0, 0xA4, 0x12F, this);
+    this->to_buy = new VisShopBuyGrid(0x3EB, 0, 0x12F, 0x1E0, 0x186, this);
+    this->to_sell = new VisShopBagGrid(0x3E9, 0, 0x186, 0x1E0, 0x1E0, this);
+    this->assortiment = new VisShopShelfGridDruid(0x3EA, 0, 0, 0xA4, 0x12F, this);
     this->shop_compass = new VisShopCompassDruid(0x3ED, 0xA4, 0, 0x1E0, 0x12F, this);
     this->buttons = new VisShopButtons(0x3EE, 0x1D0, 0, 0x280, 0xEE, this);
 
@@ -2652,9 +2652,9 @@ void VisShopKaarg::UpdateShopSfx() {
 // 4c37fe (client: 4c81b5)
 void VisShopKaarg::OnCreate() {
     this->tips = nullptr;
-    this->to_buy = new VisInvExtType3(0x3EB, 0, 0x12F, 0x1E0, 0x186, this);
-    this->to_sell = new VisInvExtType2(0x3E9, 0, 0x186, 0x1E0, 0x1E0, this);
-    this->assortiment = new VisInvExtType1Kaarg(0x3EA, 0, 0, 0xA4, 0x12F, this);
+    this->to_buy = new VisShopBuyGrid(0x3EB, 0, 0x12F, 0x1E0, 0x186, this);
+    this->to_sell = new VisShopBagGrid(0x3E9, 0, 0x186, 0x1E0, 0x1E0, this);
+    this->assortiment = new VisShopShelfGridKaarg(0x3EA, 0, 0, 0xA4, 0x12F, this);
     this->shop_compass = new VisShopCompassKaarg(0x3ED, 0xA4, 0, 0x1E0, 0x12F, this);
     this->buttons = new VisShopButtons(0x3EE, 0x1D0, 0, 0x280, 0xEE, this);
 

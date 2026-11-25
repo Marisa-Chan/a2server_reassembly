@@ -439,7 +439,7 @@ RegFile::RegFile(const char* fpath) {
 
     this->modify_fat = nullptr;
 
-    File2 *cfile = new File2();
+    ResArchiveFile *cfile = new ResArchiveFile();
 
     CFileException exc;
     if (cfile->Open(fpath, 0, &exc) == FALSE) {

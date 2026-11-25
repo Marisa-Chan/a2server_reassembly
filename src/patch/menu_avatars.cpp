@@ -221,7 +221,7 @@ static bool SpriteLoadable(const CString& path) {
     if (TangarLoadItemSprite(path) != nullptr) {
         return true;
     }
-    File2 file;
+    ResArchiveFile file;
     return file.Open(path, CFile::modeRead) != FALSE;
 }
 

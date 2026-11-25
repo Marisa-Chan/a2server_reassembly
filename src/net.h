@@ -22,9 +22,9 @@ class PacketAoeZone;
 class PacketMoveBroadcast;
 struct CLlDriver;
 class Effect;
-class NetStru1;
-struct NetStru2;
-struct NetStru3;
+class CHlDriver;
+struct NetClientPeer;
+struct NetPacketBuffer;
 class Packet;
 class Player;
 class Shop;
@@ -52,8 +52,8 @@ union HatCharId {
 // Packet IDs - the first byte of every network packet. One shared ID space
 // for game traffic (both directions) and the HAT-server protocol.
 // Names annotated with (GM_Report*) come from the retail statistics logger
-// (NetStru1::WriteStatsLog); the rest are derived from the packet handlers.
-// Entries named UNKNOWN_xx appear in NetStru1::DecodePacket but have no known
+// (CHlDriver::WriteStatsLog); the rest are derived from the packet handlers.
+// Entries named UNKNOWN_xx appear in CHlDriver::DecodePacket but have no known
 // sender or handler in either binary.
 // ---------------------------------------------------------------------------
 enum PacketId : uint8_t {
@@ -388,17 +388,17 @@ struct ConnStatInfo {
 };
 ASSERT_SIZE(ConnStatInfo, 0x14);
 
-class NetStru1 {
+class CHlDriver {
 public: // VTable at 0060ecc0.
-    virtual void OnClientConnect(NetStru2* client); // 51fc72 (client: 50fe58)
-    virtual void OnClientDisconnect(NetStru2* client); // 51f561 (client: 50fc92)
+    virtual void OnClientConnect(NetClientPeer* client); // 51fc72 (client: 50fe58)
+    virtual void OnClientDisconnect(NetClientPeer* client); // 51f561 (client: 50fc92)
 
 public:
     CLlDriver* lldriver; //low-level net driver
-    NetStru1* linked_hl;
-    CList<NetStru2*> disconnect_list;
-    CList<NetStru2*> new_connects;
-    CList<NetStru3*> free_net3;
+    CHlDriver* linked_hl;
+    CList<NetClientPeer*> disconnect_list;
+    CList<NetClientPeer*> new_connects;
+    CList<NetPacketBuffer*> free_net3;
     CRITICAL_SECTION critical_section;
     CRITICAL_SECTION critical_section2;
     PackerDat packer_dat1; //huffman tables for Pack/Unpack channel 1
@@ -410,17 +410,17 @@ public:
     uint32_t compression_type;
     uint32_t compression_mode; // 0 - disable, 1 - make statistic, 2 - compression
     uint32_t make_statistics; // calculate statistic
-    NetStru2* local_client;
-    CList<NetStru2*> active_connects;
+    NetClientPeer* local_client;
+    CList<NetClientPeer*> active_connects;
     CMap<int32_t, int32_t, ConnStatInfo*, ConnStatInfo*> client_stat;
     uint32_t stat_pkt_num[256];
     uint32_t stat_pkt_size[256];
 
-    static NetStru1 HatConnector;
+    static CHlDriver HatConnector;
 
 public:
-    NetStru1(int stats); // 51684b (client: 509343)
-    ~NetStru1(); // 516b44 (client: 5094ca)
+    CHlDriver(int stats); // 51684b (client: 509343)
+    ~CHlDriver(); // 516b44 (client: 5094ca)
 
 public:
     void SendTeamNotify(uint32_t msg_type, uint32_t player_id, Player* recpt); // 51ce86 (client: 50df07)
@@ -431,17 +431,17 @@ public:
 
     void AnnouncePlayerName(const CString& name, Player* player); // 51cd89 (client: 50de98)
 
-    NetStru2* GetClientByPlayerID(uint16_t player_id); // 518544 (client: 50a128)
-    NetStru2* GetClientByLowUid(uint32_t low_uid); // 5185d5 (client: 50a1ab)
+    NetClientPeer* GetClientByPlayerID(uint16_t player_id); // 518544 (client: 50a128)
+    NetClientPeer* GetClientByLowUid(uint32_t low_uid); // 5185d5 (client: 50a1ab)
 
-    void AddClientWindowBytes(NetStru2* client, int32_t value); // 51eff8 (client: 50f79c)
+    void AddClientWindowBytes(NetClientPeer* client, int32_t value); // 51eff8 (client: 50f79c)
     void AddPacketStatistic(Packet* pkt); // 51f0bb (client: 50f7dd)
     void SendAllData(); // 5188db (client: 50a3b1) - 518927 variant without flag check because in original it's used once and not optimal, because iterate all and do not do anything
 
     void QueuePacketSend(Packet* pkt); // 5186cd (client: 50a218)
     void SendServerTickFlush(uint32_t val, uint16_t player_id); // 51d88d (client: 50e446)
     void SetLLDriver(CLlDriver* drv); // 517ff9 (client: 509bd1)
-    void SetLinkedHLDriver(NetStru1* hl); // 51703e (client: 50963b)
+    void SetLinkedHLDriver(CHlDriver* hl); // 51703e (client: 50963b)
 
     uint32_t GetClientsPktNum(); // 518a6b (client: 50a4de)
     int IsActive(); // 518ac9 (client: 50a53b)
@@ -480,12 +480,12 @@ public:
 
     void ResendPlayerUnits(Player* player); // 51c46e (client: 50d66d)
     void SendLevelUp(Unit* unit, int unused); // 51c601 (client: 50d795) - Send unit-level-up packet
-    void SendSpectatorState(NetStru2* ns2); // 51c822 (client: 50d901) - Send spectator/alliance state
+    void SendSpectatorState(NetClientPeer* ns2); // 51c822 (client: 50d901) - Send spectator/alliance state
 
     // DecodePacket – decode an incoming network message into the appropriate Packet singleton,
     // populate it via ReadFrom, and stamp it with the sender id.
-    Packet* DecodePacket(uint8_t cmd, NetStru2* ns2); // 51e7fc (client: 50f04e)
-    Packet* ReceivePacket(NetStru2* cli); // 518a23 (client: 50a498) - receive packet from client
+    Packet* DecodePacket(uint8_t cmd, NetClientPeer* ns2); // 51e7fc (client: 50f04e)
+    Packet* ReceivePacket(NetClientPeer* cli); // 518a23 (client: 50a498) - receive packet from client
     Packet* ReceiveAnyPacket(); // 518980 (client: 50a3fc) - iterate over active connections and try receive packet
 
     void BroadcastTokenState(Token* token, Player* player, uint8_t flag); // 51ac77 (client: 50c2ea) - Broadcast token state to players
@@ -497,17 +497,17 @@ public:
     void SendUnitAction(Packet* pkt, Unit* unit); // 51b0f0 (client: 50c65a) - send unit action packet to relevant players
 
 
-    void EnqueueDisconnectClient(NetStru2*& net2); // 517e91 (client: 509b9b)
-    void ReleasePacketBuffer(NetStru3* net3); // 517b00 (client: 509a73)
+    void EnqueueDisconnectClient(NetClientPeer*& net2); // 517e91 (client: 509b9b)
+    void ReleasePacketBuffer(NetPacketBuffer* net3); // 517b00 (client: 509a73)
 
-    NetStru2* AllocClientBufManager(uint32_t uid); // 517c99 (client: 509ad7)
+    NetClientPeer* AllocClientBufManager(uint32_t uid); // 517c99 (client: 509ad7)
 
-    NetStru3* AcquirePacketBuffer(); // 5177f5 (client: 50994f)
+    NetPacketBuffer* AcquirePacketBuffer(); // 5177f5 (client: 50994f)
 
     void ProcessNewConnects(); // 51755c (client: 509889)
     void ProcessDisconnectList(); // 51725b (client: 509799)
     void ProcessConnections(); // 51800f (client: 509be7)
-    void DisconnectClient(NetStru2* cli); // 5170b6 (client: 5096a2)
+    void DisconnectClient(NetClientPeer* cli); // 5170b6 (client: 5096a2)
 
     void SendHatJoinOk(int32_t a, int32_t b); // 51e5fb (client: 50efc6) - Send HAT join-success reply (pkt 0xD8)
     void SendHatJoinFail(int32_t a, int32_t b, int32_t error_code); // 51e63f (client: none) - Send HAT join-failure reply (pkt 0xD9)
@@ -532,17 +532,17 @@ public:
     void SendHatSessionConfirm(); // 51e513 (client: 50eede) - client-only helper
     void SendHatCharRequest(HatCharId id); // 51db5c (client: 50e70d) - client-only helper
 
-    NetStru2* GetFirstClient(); // 41f520 (client: 420af0)
+    NetClientPeer* GetFirstClient(); // 41f520 (client: 420af0)
 };
 #if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
 bool IsAllowedClientPacketId(uint8_t c);
 #endif
-ASSERT_OFFSET(NetStru1, packer_dat1, 0x90);
-ASSERT_OFFSET(NetStru1, packer1_trained_bytes, 0x1898);
-ASSERT_SIZE(NetStru1, 0x20f0);
+ASSERT_OFFSET(CHlDriver, packer_dat1, 0x90);
+ASSERT_OFFSET(CHlDriver, packer1_trained_bytes, 0x1898);
+ASSERT_SIZE(CHlDriver, 0x20f0);
 
 __pragma(pack(push, 1))
-struct NetStru3 {
+struct NetPacketBuffer {
     uint32_t timestamp;
     uint32_t timestamp2;
     union {
@@ -566,29 +566,29 @@ struct NetStru3 {
     int32_t readpos;
 
     void Clear(); // 5156f6 (client: 508736)
-    NetStru3(); // 5155c0 (client: 50863e)
-    ~NetStru3(); // 515694 (client: 5086f3)
+    NetPacketBuffer(); // 5155c0 (client: 50863e)
+    ~NetPacketBuffer(); // 515694 (client: 5086f3)
 
-    void CopyData(const NetStru3* src); // 515625 (client: 508684)
+    void CopyData(const NetPacketBuffer* src); // 515625 (client: 508684)
 
     int WriteToBuffer(void* data, uint32_t sz); // 51573e (client: 50877e)
     int ReadFromBuffer(void* out, uint32_t sz); // 51579e (client: 5087de)
 };
 __pragma(pack(pop))
-ASSERT_OFFSET(NetStru3, datasz, 0xa0);
-ASSERT_SIZE(NetStru3, 0xa8);
+ASSERT_OFFSET(NetPacketBuffer, datasz, 0xa0);
+ASSERT_SIZE(NetPacketBuffer, 0xa8);
 
 __pragma(pack(push, 1))
-struct NetStru2 {
-    NetStru1* hldriver;
+struct NetClientPeer {
+    CHlDriver* hldriver;
     CLlDriver* lldriver;
     uint8_t buf[256];
     uint16_t player_id;
     uint8_t gap_0x10a[2];
     uint32_t uid;
-    NetStru3 out_buffers[2]; // buffers with send data
+    NetPacketBuffer out_buffers[2]; // buffers with send data
     int32_t out_buff_id; // currenct send buffer
-    CList<NetStru3*> received_buffers; //buffers with received data
+    CList<NetPacketBuffer*> received_buffers; //buffers with received data
     CRITICAL_SECTION critical_section;
     uint32_t compression_type; // 0 - disabled, 1,2 - compression types
     uint32_t is_local_player;
@@ -610,13 +610,13 @@ public:
     // ref-count byte (field_0xF) of the first live entry it finds.
     void ReleaseNetBuf(); // 5167a5 (client: 5092a4)
 
-    void SetDrivers(NetStru1* HlDriver, CLlDriver* LlDriver); // 51682d (client: 509325)
-    int ReceiveData(NetStru3* buffer); // 5161bf (client: 508e04)
+    void SetDrivers(CHlDriver* HlDriver, CLlDriver* LlDriver); // 51682d (client: 509325)
+    int ReceiveData(NetPacketBuffer* buffer); // 5161bf (client: 508e04)
 
     int SendData(); // 516408 (client: 508f33)
 
-    NetStru2(); // 515831 (client: 508871)
-    ~NetStru2(); // 515c27 (client: 508acc)
+    NetClientPeer(); // 515831 (client: 508871)
+    ~NetClientPeer(); // 515c27 (client: 508acc)
     void ReturnBuffers(); // 515d9d (client: 508b9a) - return buffers to High-level driver
 
     uint32_t GetBuffersPktNum(); // 51670a (client: 509208) - Get received_buffers summary of pkt_num
@@ -625,9 +625,9 @@ public:
 };
 __pragma(pack(pop))
 
-ASSERT_OFFSET(NetStru2, player_id, 0x108);
-ASSERT_OFFSET(NetStru2, critical_section, 0x280);
-ASSERT_SIZE(NetStru2, 0x2c0);
+ASSERT_OFFSET(NetClientPeer, player_id, 0x108);
+ASSERT_OFFSET(NetClientPeer, critical_section, 0x280);
+ASSERT_SIZE(NetClientPeer, 0x2c0);
 
 struct NetSockLatency {
     uint32_t lat_times[128];
@@ -644,9 +644,9 @@ struct A2NetSock {
     uint32_t uid;
     SOCKET socket;
     uint32_t player_dpid;
-    NetStru2* manager;
-    CList<NetStru3*> list_0x14;
-    CList<NetStru3*> list_0x30;
+    NetClientPeer* manager;
+    CList<NetPacketBuffer*> list_0x14;
+    CList<NetPacketBuffer*> list_0x30;
     uint32_t next_out_pktid;
     uint32_t next_in_pktid;
     NetSockLatency latency_check;
@@ -654,7 +654,7 @@ struct A2NetSock {
     int32_t stat_pkts_queued;
     int32_t stat_pkts_sent;
     HANDLE wait_obj;
-    NetStru3* current_buffer;
+    NetPacketBuffer* current_buffer;
     int32_t copy_num;
 
     A2NetSock(); // 520510 (client: 51002a)
@@ -742,7 +742,7 @@ enum NetProvider : int32_t {
 };
 
 struct CLlDriver {
-    NetStru1* hl_driver;
+    CHlDriver* hl_driver;
     A2NetSock listen_socket;
     A2NetSock ping_socket;
     int32_t is_server;
@@ -784,10 +784,10 @@ struct CLlDriver {
 public:
     A2NetSock* GetClientBySocketId(uint32_t uid); // 5224c4 (client: 511c00)
 
-    CLlDriver(GUID _appid, NetStru1 *net1); // 5208ec (client: 510241)
+    CLlDriver(GUID _appid, CHlDriver *net1); // 5208ec (client: 510241)
     ~CLlDriver(); // 520ad3 (client: 510429)
 
-    void SetHlDriver(NetStru1* drv); // 496e50 (client: 49a920)
+    void SetHlDriver(CHlDriver* drv); // 496e50 (client: 49a920)
 
     void Close(); // 5225d0 (client: 511d0c)
     void CloseTcp(); // 523b01 (client: 5131ad)
@@ -863,9 +863,9 @@ public:
 
     int Connect(const char* name, CLlNetSession* session); // 5223fb (client: 511b3b)
 
-    int SendDataTcp(A2NetSock* sock, NetStru3* buf); // 52394a (client: 513005)
-    int SendDataDp(A2NetSock* sock, NetStru3* buffer); // 5255c6 (client: 514795)
-    int SendData(uint32_t uid, NetStru3* buffer); // 5226c4 (client: 511dfc)
+    int SendDataTcp(A2NetSock* sock, NetPacketBuffer* buf); // 52394a (client: 513005)
+    int SendDataDp(A2NetSock* sock, NetPacketBuffer* buffer); // 5255c6 (client: 514795)
+    int SendData(uint32_t uid, NetPacketBuffer* buffer); // 5226c4 (client: 511dfc)
 
     void SendAllPendingDp(A2NetSock* sock); // 525b86 (client: 514ce1)
     void DisconnectClient(uint32_t uid); // 522526 (client: 511c62)
@@ -891,8 +891,8 @@ ASSERT_SIZE(CLlDriver, 0x914);
 
 
 
-extern NetStru1 g_NetStru1_main;  //6c3a08
-extern NetStru1 g_NetStru1_local; //6b16b0
+extern CHlDriver g_NetStru1_main;  //6c3a08
+extern CHlDriver g_NetStru1_local; //6b16b0
 
 extern CLlDriver g_CLlDriver; //6d07a0
 extern CLlDriver g_HatLLDriver; //6cdbc0

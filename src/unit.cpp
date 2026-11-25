@@ -493,7 +493,7 @@ void Unit::FixupPointers() {
         }
     }
 
-    // UnitEye2 pointer fixups (5B2BC9)
+    // UnitAiState pointer fixups (5B2BC9)
     if (this->eye2->unit != nullptr && g_Server->saved_ptr_map.Lookup(this->eye2->unit, result)) {
         this->eye2->unit = (Unit*)result;
     }
@@ -631,7 +631,7 @@ void Unit::CopyFrom(Unit* unit) {
 
     // Create fresh eye/eye2. WAT: old ones are leaked?
     this->eye = new UnitEye();
-    this->eye2 = new UnitEye2();
+    this->eye2 = new UnitAiState();
     this->eye->SetPathMaskByMovement(this);
 
     // Clear list1 and list2
@@ -941,7 +941,7 @@ void Unit::ProcessEffects() {
                     break;
                 }
                 if (building->typeId == Building::TYPE_HAT_PORTAL && g_CLlDriver.provider == PROVIDER_HAT_TCP) {
-                    NetStru2* ns2 = g_NetStru1_main.GetClientByPlayerID(this->pOwner->player_id);
+                    NetClientPeer* ns2 = g_NetStru1_main.GetClientByPlayerID(this->pOwner->player_id);
                     if (ns2) {
                         g_NetStru1_main.DisconnectClient(ns2);
                     }
@@ -1930,7 +1930,7 @@ void Unit::InitDefaults(const CString& str) {
     this->face = 1;
     this->enchantments = 0;
     this->eye = new UnitEye();
-    this->eye2 = new UnitEye2();
+    this->eye2 = new UnitAiState();
     this->token_pos = nullptr;
     this->eye->facing = Random0N(0x80) + 0x40;
     this->eye->target_facing = this->eye->facing;
@@ -3065,7 +3065,7 @@ void Humanoid::ReviveWithPenalty() {
     if (this->eye2 != nullptr) {
         delete this->eye2;
     }
-    this->eye2 = new UnitEye2();
+    this->eye2 = new UnitAiState();
     this->Revive();
 }
 

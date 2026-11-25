@@ -228,7 +228,7 @@ void VisGlobalMap::DoClose(uint32_t code) {
 
 
 // 473195 (client: 476ee5)
-GMapThing::GMapThing() {
+GlobalMapGraph::GlobalMapGraph() {
     for (int32_t x = 0; x < 640; x++) {
         for (int32_t y = 0; y < 480; y++) {
             this->visitedGrid[x][y] = 0;
@@ -261,7 +261,7 @@ GMapThing::GMapThing() {
 
 
 // 47362d (client: 47737d)
-void GMapThing::BuildAdjacency() {
+void GlobalMapGraph::BuildAdjacency() {
     CArray<CPoint> foundPoints;
     CArray<CPoint> reverseBuf;
     for (int32_t i = 0; i < this->nodeCount; i++) {
@@ -300,7 +300,7 @@ void GMapThing::BuildAdjacency() {
 
 
 // 4733cf (client: 47711f)
-GMapThing::~GMapThing() {
+GlobalMapGraph::~GlobalMapGraph() {
     this->FreePathmap();
     if (this->adjacencyMatrix != nullptr) {
         for (int32_t i = 0; i < this->nodeCount; i++) {
@@ -320,7 +320,7 @@ GMapThing::~GMapThing() {
 
 
 // 47391f (client: 47766f)
-int32_t GMapThing::FloodFill(int32_t x, int32_t y, uint16_t mark, CArray<CPoint>* foundPoints) {
+int32_t GlobalMapGraph::FloodFill(int32_t x, int32_t y, uint16_t mark, CArray<CPoint>* foundPoints) {
     int32_t centerOffset = y * 640 + x;
     for (int32_t nx = x - 1; nx <= x + 1; nx++) {
         if (nx < 0 || nx >= 640) {
@@ -358,7 +358,7 @@ int32_t GMapThing::FloodFill(int32_t x, int32_t y, uint16_t mark, CArray<CPoint>
 
 
 // 473508 (client: 477258)
-void GMapThing::LoadPathmap() {
+void GlobalMapGraph::LoadPathmap() {
     MainWindow* mainWnd = (MainWindow*)AfxGetMainWnd();
     this->FreePathmap();
     if (mainWnd->vis_globalmap->umoirMapMode != 0) {
@@ -370,7 +370,7 @@ void GMapThing::LoadPathmap() {
 
 
 // 4735e2 (client: 477332)
-void GMapThing::FreePathmap() {
+void GlobalMapGraph::FreePathmap() {
     if (this->pathmap != nullptr) {
         delete this->pathmap;
     }
@@ -379,7 +379,7 @@ void GMapThing::FreePathmap() {
 
 
 // 473b4a (client: 47789a)
-void* GMapThing::TakeAdjacency(void* nodePoints) {
+void* GlobalMapGraph::TakeAdjacency(void* nodePoints) {
     CArray<CPoint>*** matrix = this->adjacencyMatrix;
     this->adjacencyMatrix = nullptr;
     static_cast<CArray<CPoint>*>(nodePoints)->InsertAt(0, &this->nodePoints);
@@ -398,7 +398,7 @@ void VisGlobalMap::DoOpen() {
     ReadFileToString("main\\text\\globalmap.txt", &g_MissionText);
 #endif
     this->routePointSoundIndex = 0;
-    GMapThing* thing = new GMapThing();
+    GlobalMapGraph* thing = new GlobalMapGraph();
     this->graphNodePoints.RemoveAll();
     this->routeAdjacencyMatrix = thing->TakeAdjacency(&this->graphNodePoints);
     delete thing;

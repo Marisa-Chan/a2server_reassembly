@@ -435,7 +435,7 @@ void VisHatBrowserDlg::OnCreate() {
 #ifdef A2CLIENT
     if (main_wnd->hat_settings.ishat != 0) {
         if (main_wnd->hat_settings.deathmatch == 2) {
-            VisRadioType2* store_radio = new VisRadioType2(0x31, 0x28, this->rect.Height() - 0xb6, this->rect.Width() - 0x40, this->rect.Height() - 0x80, g_font1, p_clrsh_Black, nullptr);
+            VisRadioGroup* store_radio = new VisRadioGroup(0x31, 0x28, this->rect.Height() - 0xb6, this->rect.Width() - 0x40, this->rect.Height() - 0x80, g_font1, p_clrsh_Black, nullptr);
             store_radio->AddEntry(txt_patch.GetLine(0x8b));
             store_radio->AddEntry(txt_patch.GetLine(0x8c));
             this->AddChild(store_radio);
@@ -500,7 +500,7 @@ int32_t VisHatBrowserDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam
             main_wnd->net_session.connect_address = main_wnd->net_session.connect_address.Left(main_wnd->net_session.connect_address.Find('|'));
 #ifdef A2CLIENT
             if (main_wnd->hat_settings.deathmatch == 2) {
-                ((VisRadioType2*)this->FindChild(0x31))->WriteData(&main_wnd->hat_settings.store);
+                ((VisRadioGroup*)this->FindChild(0x31))->WriteData(&main_wnd->hat_settings.store);
                 main_wnd->m_GameSession.color = (main_wnd->hat_settings.store != 0) ? 1 : 3;
             }
 #endif
@@ -957,7 +957,7 @@ CVisualObject* VisHatServerListDlg::CreateContent(const void* data, const RECT& 
     // game-mode radio collapses to a single "hardcore" entry in a taller box; the
     // shown index comes from the z_softcore override (1->2, 2->4) or the stored
     // deathmatch value, remapped for display (2->1, 4->2).
-    VisRadioType2* deathmatch_radio = new VisRadioType2(3, r.left, 0x7C, r.right, 0xDC, g_font1, p_clrsh_Black, nullptr);
+    VisRadioGroup* deathmatch_radio = new VisRadioGroup(3, r.left, 0x7C, r.right, 0xDC, g_font1, p_clrsh_Black, nullptr);
     deathmatch_radio->AddEntry(txt_patch.GetLine(0x68));
     this->AddChild(deathmatch_radio);
     int32_t dm_value;
@@ -983,7 +983,7 @@ CVisualObject* VisHatServerListDlg::CreateContent(const void* data, const RECT& 
         deathmatch_radio->ChangeFlags(FLAG_ENABLED, false);
     }
 #else
-    VisRadioType2* deathmatch_radio = new VisRadioType2(3, r.left, 0x6c, r.right, 0x9c + dy, g_font1, p_clrsh_Black, nullptr);
+    VisRadioGroup* deathmatch_radio = new VisRadioGroup(3, r.left, 0x6c, r.right, 0x9c + dy, g_font1, p_clrsh_Black, nullptr);
     deathmatch_radio->AddEntry(txt_patch.GetLine(0x68));
 #ifdef A2CLIENT
     deathmatch_radio->AddEntry(txt_patch.GetLine(0xd5));
@@ -1010,9 +1010,9 @@ CVisualObject* VisHatServerListDlg::CreateContent(const void* data, const RECT& 
     // Tangar GUI_removeServerList (44CC1E): the ishat selector is removed -
     // an off-screen disabled radio keeps the id-4 child (entries and ReadData
     // still run so the stored value survives OnResult writeback).
-    VisRadioType2* ishat_radio = new VisRadioType2(4, r.left, (int32_t)0x80FFFFF0, r.right, (int32_t)0x80FFFFC0, g_font1, p_clrsh_Black, nullptr);
+    VisRadioGroup* ishat_radio = new VisRadioGroup(4, r.left, (int32_t)0x80FFFFF0, r.right, (int32_t)0x80FFFFC0, g_font1, p_clrsh_Black, nullptr);
 #else
-    VisRadioType2* ishat_radio = new VisRadioType2(4, r.left, 0xa8 + dy, r.right, 0xd8 + dy, g_font1, p_clrsh_Black, nullptr);
+    VisRadioGroup* ishat_radio = new VisRadioGroup(4, r.left, 0xa8 + dy, r.right, 0xd8 + dy, g_font1, p_clrsh_Black, nullptr);
 #endif
     ishat_radio->AddEntry(txt_patch.GetLine(0x78));
     ishat_radio->AddEntry(txt_patch.GetLine(0x79));
@@ -1043,7 +1043,7 @@ CVisualObject* VisHatServerListDlg::CreateContent(const void* data, const RECT& 
         password_box->ChangeFlags(FLAG_ENABLED, false);
     }
 
-    VisRadioType1* store_radio = new VisRadioType1(9, r.left, 0x168 + dy, r.right, 0x180 + dy, g_font1, p_clrsh_Black, txt_patch.GetLine(0x7b));
+    VisCheckBoxGroup* store_radio = new VisCheckBoxGroup(9, r.left, 0x168 + dy, r.right, 0x180 + dy, g_font1, p_clrsh_Black, txt_patch.GetLine(0x7b));
     store_radio->AddEntry(txt_patch.GetLine(0x7a));
     this->AddChild(store_radio);
     store_radio->ReadData(&hat->store);

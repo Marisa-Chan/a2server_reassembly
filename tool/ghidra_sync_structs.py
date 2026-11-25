@@ -75,8 +75,10 @@ BIN_LAYOUT = {
     # both programs share these; MainWindow differs per build (client class is
     # 0x800: extra dword at 0x3d0, +4 shift through field_0x460, no cursor handles,
     # no field_0x464/0x5e4/0x804, CGameSession 0x190)
-    "File2": {"__size__": 0x20, "file": 0x10, "offset": 0x14, "size": 0x18, "position": 0x1c},
+    "ResArchiveFile": {"__size__": 0x20, "file": 0x10, "offset": 0x14, "size": 0x18, "position": 0x1c},
     "PasswordManager": {"__size__": 0x1c, "content": 0x0, "fname": 0x14, "date": 0x18},
+    "ServerListBox": {"__size__": 0x3c},
+    "ServerCommandEdit": {"__size__": 0x3c},
     "ServerControlDialog": {"__size__": 0x280, "edit_5c": 0x5c, "static_98": 0x98,
                             "button_d4": 0xd4, "button_110": 0x110, "button_14c": 0x14c,
                             "button_188": 0x188, "button_1c4": 0x1c4, "button_200": 0x200,

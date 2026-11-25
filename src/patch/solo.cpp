@@ -293,7 +293,7 @@ Sack* FindSack(uint16_t pos_yx)
         return nullptr; // Likely there are no sacks yet.
     }
 
-    SrvStru1* server_struct = server->srv_stru1;
+    ServerObjectLists* server_struct = server->srv_stru1;
     if (server_struct == nullptr) {
         Printf("[staple]: nullptr server_struct");
         return nullptr; // Likely there are no sacks yet.

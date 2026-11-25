@@ -2443,10 +2443,10 @@ void VisRadioBase::AddEntry(const char* etext) {
 
 
 // 450590 (client: 452c50)
-VisRadioType1::~VisRadioType1() = default;
+VisCheckBoxGroup::~VisCheckBoxGroup() = default;
 
 // 4dadf8 (client: 4df77d)
-void VisRadioType1::Draw() {
+void VisCheckBoxGroup::Draw() {
     CRect rt = this->ClientRectToScreen(this->rect);
     rt.bottom += 4;
     rt.right += 4;
@@ -2491,12 +2491,12 @@ void VisRadioType1::Draw() {
 }
 
 // 450510 (client: 452bd0)
-void VisRadioType1::ReadData(const void* buf) {
+void VisCheckBoxGroup::ReadData(const void* buf) {
     this->selection = *(const int32_t*)buf;
 }
 
 // 4db134 (client: 4dfab9)
-int32_t VisRadioType1::OnMouseMove(uint32_t wparam, CPoint pos) {
+int32_t VisCheckBoxGroup::OnMouseMove(uint32_t wparam, CPoint pos) {
     if (!this->parent || this->TestFlags(FLAG_ENABLED) == 0) {
         return 0;
     }
@@ -2522,7 +2522,7 @@ int32_t VisRadioType1::OnMouseMove(uint32_t wparam, CPoint pos) {
 }
 
 // 4db062 (client: 4df9e7)
-int32_t VisRadioType1::OnLButtonDown(uint32_t wparam, CPoint pos) {
+int32_t VisCheckBoxGroup::OnLButtonDown(uint32_t wparam, CPoint pos) {
     if (!this->parent || this->TestFlags(FLAG_ENABLED) == 0) {
         return 0;
     }
@@ -2544,12 +2544,12 @@ int32_t VisRadioType1::OnLButtonDown(uint32_t wparam, CPoint pos) {
 
 
 // 450530 (client: 452bf0)
-int32_t VisRadioType1::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
+int32_t VisCheckBoxGroup::OnLButtonDblClk(uint32_t wparam, CPoint pos) {
     return this->OnLButtonDown(wparam, pos);
 }
 
 // 4db2d3 (client: 4dfc58)
-int32_t VisRadioType1::OnKeyDown(uint32_t wparam) {
+int32_t VisCheckBoxGroup::OnKeyDown(uint32_t wparam) {
     if (wparam == VK_DOWN && TestFlags(FLAG_FOCUS) != 0) {
         int32_t num = this->entries.GetSize();
         if (num <= 1) {
@@ -2583,7 +2583,7 @@ int32_t VisRadioType1::OnKeyDown(uint32_t wparam) {
 
 
 // 4db20d (client: 4dfb92)
-int32_t VisRadioType1::OnChar(uint32_t wparam) {
+int32_t VisCheckBoxGroup::OnChar(uint32_t wparam) {
     if (wparam != ' ' || this->TestFlags(FLAG_FOCUS) == 0) {
         return CVisualObject::OnChar(wparam);
     }
@@ -2601,17 +2601,17 @@ int32_t VisRadioType1::OnChar(uint32_t wparam) {
 }
 
 // 450490 (client: 452b50)
-VisRadioType1::VisRadioType1(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint)
+VisCheckBoxGroup::VisCheckBoxGroup(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint)
  : VisRadioBase(_id, l, t, r, b, _font, _clr, hint) {
 }
 
 
 // 450720 (client: 4537a0)
-VisRadioType2::~VisRadioType2() = default;
+VisRadioGroup::~VisRadioGroup() = default;
 
 
 // 4db680 (client: 4e0005)
-void VisRadioType2::Draw() {
+void VisRadioGroup::Draw() {
     CRect rt = this->ClientRectToScreen(this->rect);
     rt.bottom += 4;
     rt.right += 4;
@@ -2658,7 +2658,7 @@ void VisRadioType2::Draw() {
 }
 
 // 4dbb7b (client: 4e0500)
-int32_t VisRadioType2::OnMouseMove(uint32_t wparam, CPoint pos) {
+int32_t VisRadioGroup::OnMouseMove(uint32_t wparam, CPoint pos) {
     if (!this->parent || this->TestFlags(FLAG_ENABLED) == 0) {
         return 0;
     }
@@ -2666,7 +2666,7 @@ int32_t VisRadioType2::OnMouseMove(uint32_t wparam, CPoint pos) {
 }
 
 // 4db8e7 (client: 4e026c)
-int32_t VisRadioType2::OnLButtonDown(uint32_t wparam, CPoint pos) {
+int32_t VisRadioGroup::OnLButtonDown(uint32_t wparam, CPoint pos) {
     if (!this->parent || this->TestFlags(FLAG_ENABLED) == 0) {
         return 0;
     }
@@ -2687,7 +2687,7 @@ int32_t VisRadioType2::OnLButtonDown(uint32_t wparam, CPoint pos) {
 }
 
 // 4dba0e (client: 4e0393)
-int32_t VisRadioType2::OnKeyDown(uint32_t wparam) {
+int32_t VisRadioGroup::OnKeyDown(uint32_t wparam) {
     if (wparam == VK_DOWN && TestFlags(FLAG_FOCUS) != 0) {
         int32_t num = this->entries.GetSize();
         if (num <= 0) {
@@ -2724,7 +2724,7 @@ int32_t VisRadioType2::OnKeyDown(uint32_t wparam) {
 }
 
 // 4db993 (client: 4e0318)
-int32_t VisRadioType2::OnChar(uint32_t wparam) {
+int32_t VisRadioGroup::OnChar(uint32_t wparam) {
     if (wparam != ' ' || this->TestFlags(FLAG_FOCUS) == 0) {
         return CVisualObject::OnChar(wparam);
     }
@@ -2737,7 +2737,7 @@ int32_t VisRadioType2::OnChar(uint32_t wparam) {
 }
 
 // 450670 (client: 4536f0)
-VisRadioType2::VisRadioType2(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint)
+VisRadioGroup::VisRadioGroup(int32_t _id, int32_t l, int32_t t, int32_t r, int32_t b, CGameFont* _font, uint16_t* _clr, const char* hint)
 : VisRadioBase(_id, l, t, r, b, _font, _clr, hint) {
 }
 
@@ -4300,7 +4300,7 @@ void ExecuteAdminChatCommand(const char* cmd) {
     if (s.Find("disconnect") == 0) {
         CString arg = s.Mid(0xB);
         int32_t id = atoi(arg);
-        NetStru2* cli = g_NetStru1_main.GetClientByPlayerID((uint16_t)id);
+        NetClientPeer* cli = g_NetStru1_main.GetClientByPlayerID((uint16_t)id);
         Player* player = g_PlayersList->FindById((uint16_t)id);
         if (cli != nullptr && player != nullptr) {
             g_NetStru1_main.DisconnectClient(cli);

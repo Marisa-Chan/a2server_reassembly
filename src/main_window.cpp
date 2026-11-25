@@ -99,21 +99,21 @@ static bool GetWindowScreenRect(MainWindow* wnd, RECT* out_rect) {
 
 
 // 495033 (client: 499b5c)
-CListBox2::CListBox2() = default;
+ServerListBox::ServerListBox() = default;
 
 // 495052 (client: 499b7b)
-CListBox2::~CListBox2() = default;
+ServerListBox::~ServerListBox() = default;
 
 // 49506e (client: 499b97)
-const AFX_MSGMAP* CListBox2::GetMessageMap() const {
-    return &CListBox2::messageMap;
+const AFX_MSGMAP* ServerListBox::GetMessageMap() const {
+    return &ServerListBox::messageMap;
 }
 
 //60bfa8
-AFX_DATADEF const AFX_MSGMAP CListBox2::messageMap =
-{ &CListBox::GetThisMessageMap, &CListBox2::_messageEntries[0] };
+AFX_DATADEF const AFX_MSGMAP ServerListBox::messageMap =
+{ &CListBox::GetThisMessageMap, &ServerListBox::_messageEntries[0] };
 
-const AFX_MSGMAP_ENTRY CListBox2::_messageEntries[] =
+const AFX_MSGMAP_ENTRY ServerListBox::_messageEntries[] =
 {
     {WM_KEYDOWN, 0, 0, 0, AfxSig_vwww, (AFX_PMSG)&OnKeyDown},
     {WM_LBUTTONDBLCLK, 0, 0, 0, AfxSig_vwp, (AFX_PMSG)&OnLButtonDblClk},
@@ -121,12 +121,12 @@ const AFX_MSGMAP_ENTRY CListBox2::_messageEntries[] =
 };
 
 // 49507e (client: 499ba7)
-void CListBox2::OnKeyDown(UINT, UINT, UINT) {
+void ServerListBox::OnKeyDown(UINT, UINT, UINT) {
     this->Default();
 }
 
 // 49509f (client: 499bc8)
-void CListBox2::OnLButtonDblClk(UINT, CPoint) {
+void ServerListBox::OnLButtonDblClk(UINT, CPoint) {
     this->Default();
 }
 
@@ -142,27 +142,27 @@ void CListBox2::OnLButtonDblClk(UINT, CPoint) {
 
 
 // 494ec0 (client: 499a1b)
-CEdit2::CEdit2() = default;
+ServerCommandEdit::ServerCommandEdit() = default;
 // 494edf (client: 499a3a)
-CEdit2::~CEdit2() = default;
+ServerCommandEdit::~ServerCommandEdit() = default;
 
 // 494efb (client: 499a56)
-const AFX_MSGMAP* CEdit2::GetMessageMap() const {
-    return &CEdit2::messageMap;
+const AFX_MSGMAP* ServerCommandEdit::GetMessageMap() const {
+    return &ServerCommandEdit::messageMap;
 }
 
 //60bf70
-AFX_DATADEF const AFX_MSGMAP CEdit2::messageMap =
-{ &CEdit::GetThisMessageMap, &CEdit2::_messageEntries[0] };
+AFX_DATADEF const AFX_MSGMAP ServerCommandEdit::messageMap =
+{ &CEdit::GetThisMessageMap, &ServerCommandEdit::_messageEntries[0] };
 
-const AFX_MSGMAP_ENTRY CEdit2::_messageEntries[] =
+const AFX_MSGMAP_ENTRY ServerCommandEdit::_messageEntries[] =
 {
     {WM_KEYDOWN, 0, 0, 0, AfxSig_vwww, (AFX_PMSG)&OnKeyDown},
     {0, 0, 0, 0, AfxSig_end, (AFX_PMSG)0}
 };
 
 // 494f0b (client: 499a66)
-void CEdit2::OnKeyDown(UINT nChar, UINT nRepcnt, UINT nFlags) {
+void ServerCommandEdit::OnKeyDown(UINT nChar, UINT nRepcnt, UINT nFlags) {
     this->Default();
 
     if (nChar == VK_RETURN) {
@@ -407,7 +407,7 @@ void ServerControlDialog::OnKickPlayer() {
     LogMessage("Player " + player->name + " kicked from server");
 
 #ifndef A2SERVER_PATCH
-    NetStru2* node = g_NetStru1_main.GetClientByPlayerID(player->player_id);
+    NetClientPeer* node = g_NetStru1_main.GetClientByPlayerID(player->player_id);
     if (node == nullptr) {
         return;
     }
@@ -1186,7 +1186,7 @@ void MainWindow::OnKeyUp(UINT key, UINT repeat, UINT flags) {
     g_mousept.ForceDisableHint();
 }
 
-// client: 490ce4 — no NetStru1/hat-connector teardown after Close()
+// client: 490ce4 — no CHlDriver/hat-connector teardown after Close()
 // 48cb3c (client: 490ce4)
 void MainWindow::DestroyServer() {
     if (g_Server != nullptr) {
@@ -1198,7 +1198,7 @@ void MainWindow::DestroyServer() {
 #ifndef A2CLIENT
     g_NetStru1_main.ProcessConnections();
     g_HatLLDriver.Close();
-    NetStru1::HatConnector.ProcessConnections();
+    CHlDriver::HatConnector.ProcessConnections();
 #endif
 
     this->tick_anchor_time = 0x7fffffff;
@@ -1640,7 +1640,7 @@ void MainWindow::CreateUI() {
     this->vis_ordertoolbar = new VisOrderToolbar(6, 0, 158, 160, 238);
     this->vis_charinfo = new VisCharInfo(7, 0, 238, 160, 480);
     this->vis_sidestatus = new VisSideStatus(8, 0, 480, 160, g_ScreenSize.bottom);
-    this->vis_invtype1 = new VisInvType1(MAP_CHILD_BAG, 0, this->vis_map_context->GetRect().bottom - 90, g_ScreenSize.right - 160, this->vis_map_context->GetRect().bottom);
+    this->vis_invtype1 = new VisBagInventory(MAP_CHILD_BAG, 0, this->vis_map_context->GetRect().bottom - 90, g_ScreenSize.right - 160, this->vis_map_context->GetRect().bottom);
 
     this->vis_spellbook = new VisSpellBook(MAP_CHILD_SPELL_BOOK, 0, this->vis_map_context->GetRect().bottom - 90, g_ScreenSize.right - 160, this->vis_map_context->GetRect().bottom);
     this->vis_spellbook->MsgProc(VIS_MSG_SHORTCUT_RELEASE, 0, 0);
@@ -1663,7 +1663,7 @@ void MainWindow::CreateUI() {
     this->vis_startgame = new VisStartGame(1126, vis_scr_rect.left, vis_scr_rect.top, vis_scr_rect.right, vis_scr_rect.bottom);
     this->vis_famehall = new VisFameHall(1200, vis_scr_rect.left, vis_scr_rect.top, vis_scr_rect.right, vis_scr_rect.bottom);
     this->vis_famedocument = new VisFameDocument(1210, vis_scr_rect.left, vis_scr_rect.top, vis_scr_rect.right, vis_scr_rect.bottom);
-    this->vis_1200 = new Vis1200(1200, 0, 0, g_ScreenSize.right - 160, 30);
+    this->vis_1200 = new VisChatBar(1200, 0, 0, g_ScreenSize.right - 160, 30);
 
     this->console_active = 0;
 
@@ -2256,7 +2256,7 @@ void MainWindow::ServerTickPump() {
         CString stat1;
         CString stat2;
 
-        NetStru2* con = g_NetStru1_main.GetClientByPlayerID(selpl->player_id);
+        NetClientPeer* con = g_NetStru1_main.GetClientByPlayerID(selpl->player_id);
         if (con) {
             uint32_t conid = con->GetUid();
             if (g_CLlDriver.GetProvider() == PROVIDER_HAT_TCP) {
@@ -3302,7 +3302,7 @@ void MainWindow::PlayVideo(int32_t vid_id) {
         char path[128];
         sprintf(path, "video\\%s\\%02d.smk", txt_cutpaths.GetLine(vid_id), i);
 
-        File2 file;
+        ResArchiveFile file;
         if (file.Open(path, 0, nullptr) != 0) {
             if (first != 0) {
                 g_mousept.Update();
@@ -3707,7 +3707,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) {
 
             CRect local_8d0(128, 200, 512, 380);
             CRect local_8c0(local_8d0.Width() / 8, local_8d0.Height() - 120, local_8d0.Width() * 7 / 8, local_8d0.Height() - 96);
-            this->vis_2action = new Vis2Action(1, local_8d0.left, local_8d0.top, local_8d0.right, local_8d0.bottom, TxtFile::AllLines[140], local_8c0);
+            this->vis_2action = new VisConfirmMenu(1, local_8d0.left, local_8d0.top, local_8d0.right, local_8d0.bottom, TxtFile::AllLines[140], local_8c0);
             this->PopUpScreen(this->vis_2action);
             if (!g_SfxArray[sfx_id::victory]->FindPlayingChannel()) {
                 g_SfxArray[sfx_id::victory]->Play(g_SoundSettings.sfx_pos, 0, 0, 220);
@@ -4488,7 +4488,7 @@ void MainWindow::BeginLocalCharacterSetup() {
 
 // 48de6f (client: 4922d2)
 int MainWindow::GetSaveFileInBattle() {
-    File2 f;
+    ResArchiveFile f;
     f.Open(this->last_save_info.filename, CFile::modeRead);
     f.Seek(4, 0);
 
@@ -4594,7 +4594,7 @@ int MainWindow::RunSessionBootstrap(int mode) {
     }
 
     if (this->sessionMode == SESSION_LOCAL_BATTLE && mode != 0) {
-        File2 fil;
+        ResArchiveFile fil;
         fil.Open(this->last_save_info.filename, CFile::modeRead);
         fil.Seek(4, 0);
         int32_t offset;
@@ -5023,7 +5023,7 @@ void MainWindow::LoadProjectileGfx() {
         g_ProjectileInfos.SetAtGrow(proj->id, proj);
     }
 
-    File2 fl;
+    ResArchiveFile fl;
     
     fl.Open("graphics\\projectiles\\projectiles.pal", CFile::modeRead);
     fl.Seek(0x36, 0);
@@ -5055,7 +5055,7 @@ void MainWindow::LoadProjectileGfx() {
 
 // 48df44 (client: 4923a7)
 void MainWindow::LoadSavegame() {
-    File2 fil;
+    ResArchiveFile fil;
 
     fil.Open(this->last_save_info.filename, CFile::modeRead);
     fil.Seek(4, 0);

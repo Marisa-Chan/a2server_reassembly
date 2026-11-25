@@ -5,11 +5,11 @@
 #include "util.h"
 #include <cstring>
 
-// 5A4F6E - GroupSub constructor
+// 5A4F6E - GroupOrderState constructor
 // 5a4f6e (client: 5730de)
-GroupSub::GroupSub() {
+GroupOrderState::GroupOrderState() {
     // Clear the entire structure to zeroes.
-    memset(this, 0, sizeof(GroupSub));
+    memset(this, 0, sizeof(GroupOrderState));
     
     // Set specific fields (most are already 0 from memset).
     this->presence_detected = 1;
@@ -18,14 +18,14 @@ GroupSub::GroupSub() {
 }
 
 // 5a500c (client: 57317c)
-GroupSub::~GroupSub() {
+GroupOrderState::~GroupOrderState() {
     if (this->list) {
         delete this->list;
     }
 }
 
 // 5b0429 (client: 57e599)
-void GroupSub::Serialize(CArchive& ar) {
+void GroupOrderState::Serialize(CArchive& ar) {
     if (ar.IsLoading()) {
         ar.Read(this, 0x50);
         this->list = new CList<uint16_t>();
@@ -47,7 +47,7 @@ Group::Group() {
     this->has_quest_kill = 0;
     this->has_quest_intercept = 0;
     
-    this->group_sub = new GroupSub();
+    this->group_sub = new GroupOrderState();
 }
 
 // 554eea (client: 534c21)

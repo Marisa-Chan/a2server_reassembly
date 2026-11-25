@@ -256,7 +256,7 @@ void Player::StartAfkTimer() {
     }
 }
 
-// 534b59 (client: none) - Reset inactivity timer and notify NetStru1
+// 534b59 (client: none) - Reset inactivity timer and notify CHlDriver
 void Player::ResetAfkTimer() {
     if (this->afk_expire_tick != 0) {
         this->afk_expire_tick = 0;

@@ -480,7 +480,7 @@ bool MouseOverItem() {
         return false;
     }
 
-    VisInvType1* inv = window_object->vis_invtype1;
+    VisBagInventory* inv = window_object->vis_invtype1;
     if (PtInRect(&inv->rect, POINT{g_mousept.x, g_mousept.y}) == 0) {
         return false;
     }

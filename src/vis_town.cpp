@@ -1159,7 +1159,7 @@ void VisTownKaarg::LoadTownGfx() {
     for (int32_t i = 0; i < 0x1E; i++) {
         CString name;
         name.Format("graphics\\interface\\town_kaarg\\dervish\\d%04d.bmp", i);
-        File2 f;
+        ResArchiveFile f;
         if (!f.Open(name, 0, nullptr)) {
             break;
         }
@@ -1170,7 +1170,7 @@ void VisTownKaarg::LoadTownGfx() {
     for (int32_t i = 0; i < 0x37; i++) {
         CString name;
         name.Format("graphics\\interface\\town_kaarg\\guard\\g%04d.bmp", i);
-        File2 f;
+        ResArchiveFile f;
         if (!f.Open(name, 0, nullptr)) {
             break;
         }
@@ -1182,7 +1182,7 @@ void VisTownKaarg::LoadTownGfx() {
         for (int32_t i = g; i < 0x1F; i++) {
             CString name;
             name.Format("graphics\\interface\\town_kaarg\\girl1\\g%d%03d.bmp", g + 1, i);
-            File2 f;
+            ResArchiveFile f;
             if (!f.Open(name, 0, nullptr)) {
                 break;
             }
@@ -1195,7 +1195,7 @@ void VisTownKaarg::LoadTownGfx() {
         for (int32_t i = g; i < 0x1F; i++) {
             CString name;
             name.Format("graphics\\interface\\town_kaarg\\girl2\\g%d%03d.bmp", g + 1, i);
-            File2 f;
+            ResArchiveFile f;
             if (!f.Open(name, 0, nullptr)) {
                 break;
             }
@@ -1207,7 +1207,7 @@ void VisTownKaarg::LoadTownGfx() {
     for (int32_t i = 0; i <= 10; i++) {
         CString name;
         name.Format("graphics\\interface\\town_kaarg\\maingates\\m%04d.bmp", i);
-        File2 f;
+        ResArchiveFile f;
         if (!f.Open(name, 0, nullptr)) {
             break;
         }
@@ -1832,7 +1832,7 @@ void VisTownDruid::LoadTownGfx() {
         for (int32_t i = 1; i < 0x15; i++) {
             CString name;
             name.Format("graphics\\interface\\town_druid\\man\\a%d%04d.bmp", g + 1, i);
-            File2 f;
+            ResArchiveFile f;
             if (!f.Open(name, 0, nullptr)) {
                 break;
             }
@@ -1845,7 +1845,7 @@ void VisTownDruid::LoadTownGfx() {
         for (int32_t i = 1; i < 0x15; i++) {
             CString name;
             name.Format("graphics\\interface\\town_druid\\woman\\a%d%04d.bmp", g + 1, i);
-            File2 f;
+            ResArchiveFile f;
             if (!f.Open(name, 0, nullptr)) {
                 break;
             }
