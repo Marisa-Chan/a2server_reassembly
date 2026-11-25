@@ -322,7 +322,7 @@ void VisSideStatus::Draw() {
     this->ClientRectToScreen(&screen_rect, this->rect);
 
     VisPlayingArea* map = main_wnd->vis_map_context;
-    LockSurface2();
+    LockBackSurface();
     if (screen_rect.Height() >= main_wnd->vis_charinfo->GetRect().Height()) {
         screen_rect.OffsetRect(0, screen_rect.Height() - main_wnd->vis_charinfo->GetRect().Height());
         g_bmp_textbackr->Draw(screen_rect.left, screen_rect.top, 0, 0, 0);
@@ -393,7 +393,7 @@ void VisSideStatus::Draw() {
         g_bmp_extra800r->Draw(screen_rect.left, screen_rect.top, 0, 0, 0);
     }
 #endif
-    UnlockSurface2();
+    UnlockBackSurface();
     this->dirty = 0;
 }
 
@@ -876,7 +876,7 @@ void VisMiniMap::Draw() {
     if (scen == nullptr) {
         return;
     }
-    LockSurface2();
+    LockBackSurface();
     int32_t z = this->zoom;
     int32_t mode = 1;
     if (z < 0) {
@@ -1000,7 +1000,7 @@ void VisMiniMap::Draw() {
                 | ((0xFF >> (8 - g_GBits & 0x1F)) << (g_GBitShift & 0x1F))
                 | ((0xFF >> (8 - g_BBits & 0x1F)) << (g_BBitShift & 0x1F))));
     }
-    UnlockSurface2();
+    UnlockBackSurface();
 }
 
 
@@ -1515,7 +1515,7 @@ void VisOrderToolbar::Draw() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
 
     if (main_wnd->dialogsMask == DIALOG_MASK_INGAME) {
-        LockSurface2();
+        LockBackSurface();
         if (this->enabled == 0) {
             g_bmp_headsr->Draw(screen_rect.left, screen_rect.top, 0, 0, 0);
         } else {
@@ -1534,7 +1534,7 @@ void VisOrderToolbar::Draw() {
                 g_bmp_cmddnr->DrawSubRect(screen_rect.left + x, screen_rect.top + y, x, y, x + 0x22, y + 0x22);
             }
         }
-        UnlockSurface2();
+        UnlockBackSurface();
         this->dirty = 0;
     }
 }

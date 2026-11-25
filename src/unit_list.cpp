@@ -55,7 +55,7 @@ void UnitList::Serialize(CArchive& ar) {
 }
 
 // 5591da (client: 53623e)
-void UnitList::CallMethod5() {
+void UnitList::FixupPointers() {
     POSITION pos = this->unit_list.GetHeadPosition();
     while (pos != NULL) {
         Unit* unit = this->unit_list.GetNext(pos);
@@ -75,7 +75,7 @@ void UnitList::AddTailAllocId(Unit* unit) {
 }
 
 // 555f1c (client: 534fa3)
-void UnitList::AddTailId6xxx(Unit* unit) {
+void UnitList::AddTailTokenId(Unit* unit) {
     this->unit_list.AddTail(unit);
     unit->building_id = 0x6000 + unit->TokenID;
 }

@@ -982,7 +982,7 @@ void VisInvExtBase::Draw() {
         draw_count = total_cells;
     }
 
-    LockSurface2();
+    LockBackSurface();
     this->TickCellAnims();
 
     for (int32_t i = 0; i < total_cells; i++) {
@@ -1069,7 +1069,7 @@ void VisInvExtBase::Draw() {
     }
 
     shop->DrawInfoPanelEdge();
-    UnlockSurface2();
+    UnlockBackSurface();
     shop->dirty |= 0x40;
 }
 
@@ -1468,9 +1468,9 @@ void VisInvExtType1::Draw() {
         return;
     }
 
-    LockSurface2();
+    LockBackSurface();
     this->shop_inv->Draw(topleft.x + this->rect.left, topleft.y + this->rect.top, 0, 0, 0);
-    UnlockSurface2();
+    UnlockBackSurface();
     VisInvExtBase::Draw();
 
     if (*this->visible_startref > 0) {
@@ -1896,9 +1896,9 @@ void VisInvExtType2::Draw() {
         return;
     }
 
-    LockSurface2();
+    LockBackSurface();
     g_bmp_invframe->DrawSubRectMasked(topleft.x + this->rect.left, topleft.y + this->rect.top, 0, 0, this->rect.Width(), this->rect.Height());
-    UnlockSurface2();
+    UnlockBackSurface();
     VisInvExtBase::Draw();
 
     if (*this->visible_startref > 0) {
@@ -2293,9 +2293,9 @@ void VisInvExtType3::Draw() {
         return;
     }
 
-    LockSurface2();
+    LockBackSurface();
     this->shoptable->DrawSubRectMasked(topleft.x + this->rect.left, topleft.y + this->rect.top, 0, 0, this->rect.Width(), this->rect.Height());
-    UnlockSurface2();
+    UnlockBackSurface();
     VisInvExtBase::Draw();
 }
 
@@ -2713,7 +2713,7 @@ int32_t VisSpellBook::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam) {
 void VisSpellBook::Draw() {
     CRect rc;
     this->ClientRectToScreen(&rc, this->rect);
-    LockSurface2();
+    LockBackSurface();
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     VisPlayingArea* mc = main_wnd->vis_map_context;
     int32_t left = vis_scr_rect.left;
@@ -2809,7 +2809,7 @@ void VisSpellBook::Draw() {
                 rc.top + 0x22 + off + (i / 0xC) * 0x26, buf, CGameFont::ALIGN_LEFT_TOP, clrsh_TechBlack, 1);
         }
     }
-    UnlockSurface2();
+    UnlockBackSurface();
 }
 
 

@@ -223,14 +223,14 @@ AFX_DATADEF const AFX_MSGMAP ServerControlDialog::messageMap =
 const AFX_MSGMAP_ENTRY ServerControlDialog::_messageEntries[] =
 {
     { WM_DESTROY, 0, 0, 0, AfxSig_vv, (AFX_PMSG)&OnDestroy },
-    { WM_COMMAND, CN_COMMAND, 0x3f5, 0x3f5, AfxSigCmd_v, (AFX_PMSG)&OnCommand3f5},
-    { WM_COMMAND, CN_COMMAND, 0x3f6, 0x3f6, AfxSigCmd_v, (AFX_PMSG)&OnCommand3f6},
-    { WM_COMMAND, CN_COMMAND, 0x3f4, 0x3f4, AfxSigCmd_v, (AFX_PMSG)&OnCommandUnknown},
+    { WM_COMMAND, CN_COMMAND, 0x3f5, 0x3f5, AfxSigCmd_v, (AFX_PMSG)&OnSpeedDown},
+    { WM_COMMAND, CN_COMMAND, 0x3f6, 0x3f6, AfxSigCmd_v, (AFX_PMSG)&OnSpeedUp},
+    { WM_COMMAND, CN_COMMAND, 0x3f4, 0x3f4, AfxSigCmd_v, (AFX_PMSG)&OnKickPlayer},
     { WM_CLOSE, 0, 0, 0, AfxSig_vv, (AFX_PMSG)&OnClose },
-    { WM_COMMAND, CN_COMMAND, 0x3ff, 0x3ff, AfxSigCmd_v, (AFX_PMSG)&OnCommand3ff},
-    { WM_COMMAND, CN_COMMAND, 0x3f7, 0x3f7, AfxSigCmd_v, (AFX_PMSG)&OnCommand3f7},
-    { WM_COMMAND, CN_COMMAND, 0x3fb, 0x3fb, AfxSigCmd_v, (AFX_PMSG)&OnCommand3fb},
-    { WM_COMMAND, CN_COMMAND, 0x3fe, 0x3fe, AfxSigCmd_v, (AFX_PMSG)&OnCommand3fe},
+    { WM_COMMAND, CN_COMMAND, 0x3ff, 0x3ff, AfxSigCmd_v, (AFX_PMSG)&OnDisconnectHat},
+    { WM_COMMAND, CN_COMMAND, 0x3f7, 0x3f7, AfxSigCmd_v, (AFX_PMSG)&OnShutdownNow},
+    { WM_COMMAND, CN_COMMAND, 0x3fb, 0x3fb, AfxSigCmd_v, (AFX_PMSG)&OnStartShutdownTimer},
+    { WM_COMMAND, CN_COMMAND, 0x3fe, 0x3fe, AfxSigCmd_v, (AFX_PMSG)&OnCancelShutdownTimer},
     {0, 0, 0, 0, AfxSig_end, (AFX_PMSG)0 }
 };
 
@@ -262,7 +262,7 @@ void ServerControlDialog::OnDestroy() {
 }
 
 // 49544c (client: 499d05) - ON_COMMAND 0x3f5
-void ServerControlDialog::OnCommand3f5() {
+void ServerControlDialog::OnSpeedDown() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     if (main_wnd->SetSpeed(main_wnd->game_speed - 1)) {
         g_ServerConfig.game_speed = main_wnd->game_speed;
@@ -271,7 +271,7 @@ void ServerControlDialog::OnCommand3f5() {
 }
 
 // 49549b (client: 499d2f) - ON_COMMAND 0x3f6
-void ServerControlDialog::OnCommand3f6() {
+void ServerControlDialog::OnSpeedUp() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     if (main_wnd->SetSpeed(main_wnd->game_speed + 1)) {
         g_ServerConfig.game_speed = main_wnd->game_speed;
@@ -295,7 +295,7 @@ void ServerControlDialog::OnClose() {
 }
 
 // 495774 (client: none) - ON_COMMAND 0x3ff
-void ServerControlDialog::OnCommand3ff() {
+void ServerControlDialog::OnDisconnectHat() {
     if (g_Server != nullptr && !g_HatLLDriver.IsListen()) {
         g_Server->hat_disconnect_tick = 1;
     }
@@ -303,7 +303,7 @@ void ServerControlDialog::OnCommand3ff() {
 }
 
 // 4957ad (client: none) - ON_COMMAND 0x3f7
-void ServerControlDialog::OnCommand3f7() {
+void ServerControlDialog::OnShutdownNow() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     g_Server->KickAllPlayers();
     main_wnd->shutdown_pending = 1;
@@ -311,7 +311,7 @@ void ServerControlDialog::OnCommand3f7() {
 }
 
 // 4957e2 (client: none) - ON_COMMAND 0x3fb
-void ServerControlDialog::OnCommand3fb() {
+void ServerControlDialog::OnStartShutdownTimer() {
     this->UpdateData(1);
 
     int32_t minutes = atoi(this->str_27c);
@@ -323,7 +323,7 @@ void ServerControlDialog::OnCommand3fb() {
 }
 
 // 49583e (client: none) - ON_COMMAND 0x3fe
-void ServerControlDialog::OnCommand3fe() {
+void ServerControlDialog::OnCancelShutdownTimer() {
     g_ShutdownIn = 0x7fffffff;
     this->UpdateControlStates();
 }
@@ -372,7 +372,7 @@ void ServerControlDialog::UpdateControlStates() {
 }
 
 // 4954ea (client: 499d59)
-void ServerControlDialog::OnCommandUnknown() {
+void ServerControlDialog::OnKickPlayer() {
     if (g_Server == nullptr) {
         return;
     }
@@ -751,10 +751,10 @@ int32_t MainWindow::ConnectToServerAddress() {
 #ifdef A2CLIENT
     this->serverBootstrapEnabled = 0;
 #endif
-    LockSurface2();
+    LockBackSurface();
     FillRectColorSimple(0, 0, g_ScreenSize.right, g_ScreenSize.bottom, 0);
     g_font1->DrawTextWithShadow(g_ScreenSize.right / 2, g_ScreenSize.bottom / 2, txt_patch.GetLine(0x7e), CGameFont::ALIGN_CENTER, clrsh_ShockingBlack, 1);
-    UnlockSurface2();
+    UnlockBackSurface();
     FlushScreen();
 
     g_CLlDriver.Close();
@@ -2379,7 +2379,7 @@ BOOL MainWindow::UpdateClipCursor() {
 
 #ifdef A2CLIENT
 // 48d49b (client: 491619)
-void MainWindow::Proc_421() {
+void MainWindow::ReturnToMainMenu() {
     this->net_session.internet_game = 0;
     this->net_session.connect_address.Empty();
     this->net_session.hat_id = 0;
@@ -2432,7 +2432,7 @@ void MainWindow::Proc_421() {
 }
 #else
 // 48d49b (client: 491619)
-void MainWindow::Proc_421()
+void MainWindow::ReturnToMainMenu()
 {
 
     net_session.internet_game = 0;
@@ -2459,7 +2459,7 @@ void MainWindow::ShowRightPanelInfo() {
 
 
 // 438d10 (client: 43aaf0)
-int32_t CGameSession::GetStringArray1Size() {
+int32_t CGameSession::GetCharacterRosterCount() {
     return this->characterRosterNames.GetSize();
 }
 
@@ -2499,7 +2499,7 @@ DiplomacyEntry::~DiplomacyEntry() {
 }
 
 // 48b061 (client: 48f03f)
-void MainWindow::Proc_44c(CVisualObject* obj) {
+void MainWindow::OnChildScreenClosed(CVisualObject* obj) {
     this->app_initialized = 1;
 
     this->vis_root->RemoveChild(obj);
@@ -2596,12 +2596,12 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
             if (!this->vis_map_context->objects.IsEmpty()) {
                 this->vis_map_context->objects.RemoveAll();
 
-                CUnit *uni = this->vis_map_context->GetUnit_3f6c();
+                CUnit *uni = this->vis_map_context->GetMyUnit();
                 if (uni) {
                     delete uni;
                 }
 
-                this->vis_map_context->SetUnit_3f6c(nullptr);
+                this->vis_map_context->SetMyUnit(nullptr);
             }
 
             if (this->sessionMode == SESSION_LOCAL_BATTLE) {
@@ -2663,10 +2663,10 @@ void MainWindow::Proc_44c(CVisualObject* obj) {
                 this->m_GameSession.type = cls.raw;
 
                 name = this->vis_startgame->GetName();
-                strncpy(this->vis_map_context->GetUnit_3f6c()->str1, name, 12);
+                strncpy(this->vis_map_context->GetMyUnit()->str1, name, 12);
 
                 name = this->vis_startgame->GetClan();
-                strncpy(this->vis_map_context->GetUnit_3f6c()->str2, name, 12);
+                strncpy(this->vis_map_context->GetMyUnit()->str2, name, 12);
 
                 this->m_GameSession.ResetUnitClass();
                 this->ShowCharInfoPane();
@@ -3009,7 +3009,7 @@ void MainWindow::ShowCharInfoPane() {
 
     this->vis_right_panel->MsgProc(VIS_MSG_SET_MAP_CONTEXT, (uint32_t)this->vis_map_context, 0);
     
-    this->vis_map_context->GetUnit_3f6c()->SetSelected(1); // select
+    this->vis_map_context->GetMyUnit()->SetSelected(1); // select
 
     this->vis_map_context->UpdateSelectionState();
 
@@ -3307,9 +3307,9 @@ void MainWindow::PlayVideo(int32_t vid_id) {
             if (first != 0) {
                 g_mousept.Update();
                 g_mousept.Unpaint();
-                LockSurface2();
+                LockBackSurface();
                 FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
-                UnlockSurface2();
+                UnlockBackSurface();
                 FlushScreen();
                 first = 0;
             }
@@ -3327,9 +3327,9 @@ void MainWindow::PlayVideo(int32_t vid_id) {
         g_mousept.Paint();
     }
 
-    LockSurface2();
+    LockBackSurface();
     FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
-    UnlockSurface2();
+    UnlockBackSurface();
     FlushScreen();
 }
 
@@ -3364,7 +3364,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) {
         }
 #endif
 
-        g_mousept.ResetNext400msg();
+        g_mousept.ResetUserMsgTimer();
         break;
 
     case WM_LBUTTONDOWN:
@@ -3376,7 +3376,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) {
 #else
         vis_root->MsgProc(message, wParam, lParam);
 #endif
-        g_mousept.ResetNext400msg();
+        g_mousept.ResetUserMsgTimer();
         g_mousept.ForceDisableHint();
         g_LButtonDown = 1;
         break;
@@ -3387,7 +3387,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) {
 #else
         vis_root->MsgProc(message, wParam, lParam);
 #endif
-        g_mousept.ResetNext400msg();
+        g_mousept.ResetUserMsgTimer();
         g_mousept.ForceDisableHint();
         g_LButtonDown = 0;
         break;
@@ -3404,7 +3404,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) {
 #else
         vis_root->MsgProc(message, wParam, lParam);
 #endif
-        g_mousept.ResetNext400msg();
+        g_mousept.ResetUserMsgTimer();
         g_mousept.ForceDisableHint();
         break;
 
@@ -3594,7 +3594,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) {
 
     case MAIN_MSG_MAIN_MENU:
         if (this->dialogsMask == 0) {
-            this->Proc_421();
+            this->ReturnToMainMenu();
         }
         break;
 
@@ -3900,7 +3900,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) {
         break;
 
     case MAIN_MSG_CHILD_CLOSED:
-        this->Proc_44c((CVisualObject*)wParam);  // FIXME
+        this->OnChildScreenClosed((CVisualObject*)wParam);  // FIXME
         break;
 
     case MAIN_MSG_SHOW_CONNECT_DLG:
@@ -4001,7 +4001,7 @@ LRESULT MainWindow::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) {
                     if (g_NetStru1_local.GetClientsPktNum() == 0) {
                         uint32_t ticks = GetTickCount();
                         if (abs((int32_t)(ticks - g_RemoteTimestamp)) > 1000) {
-                            g_NetStru1_local.SendPacket_64(1, 0);
+                            g_NetStru1_local.SendServerTickFlush(1, 0);
                             g_RemoteTimestamp = ticks;
                         }
                     } else {
@@ -4402,11 +4402,11 @@ void MainWindow::PopUpScreen(VisScreen* screen) {
     screen->OnCreate();
     screen->DoOpen();
 
-    LockSurface2();
+    LockBackSurface();
 
     ShadowRect(g_ScreenSize, shadow_level::disabled);
 
-    UnlockSurface2();
+    UnlockBackSurface();
 
     FlushScreen();
 
@@ -4519,9 +4519,9 @@ int MainWindow::RunSessionBootstrap(int mode) {
 
         this->vis_map_context->msglog.SetRect(r);
 
-        LockSurface2();
+        LockBackSurface();
         FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
-        UnlockSurface2();
+        UnlockBackSurface();
 
         g_Server->server_screen_shown = 1;
 
@@ -5493,7 +5493,7 @@ void MainWindow::RemoteGameIdle() {
         if (g_NetStru1_local.GetClientsPktNum() == 0) {
             uint32_t tick = GetTickCount();
             if (std::abs((int)(tick - g_RemoteTimestamp)) > 1000) {
-                g_NetStru1_local.SendPacket_64(1, 0);
+                g_NetStru1_local.SendServerTickFlush(1, 0);
                 g_RemoteTimestamp = tick;
             }
         } else {
@@ -5805,11 +5805,11 @@ break;
 int32_t MainWindow::RunModalLoopServer() {
     MSG msg;
 
-    LockSurface2();
+    LockBackSurface();
     FillRectColorSimple(0, 0, g_ScreenSize.right, g_ScreenSize.bottom, 0);
     //Connection to hat in process...
     g_font1->DrawTextWithShadow(g_ScreenSize.right / 2, g_ScreenSize.bottom / 2, txt_patch.GetLine(124), CGameFont::ALIGN_HCENTER, clrsh_ShockingBlack, 1);
-    UnlockSurface2();
+    UnlockBackSurface();
     FlushScreen();
 
     this->sessionMode = SESSION_SINGLEPLAYER;
@@ -5874,10 +5874,10 @@ int32_t MainWindow::RunModalLoopServer() {
         }
     }
 
-    LockSurface2();
+    LockBackSurface();
     FillRectColorSimple(0, 0, g_ScreenSize.right, g_ScreenSize.bottom, 0);
     g_font1->DrawTextWithShadow(g_ScreenSize.right / 2, g_ScreenSize.bottom / 2, txt_patch.GetLine(125), CGameFont::ALIGN_HCENTER, clrsh_ShockingBlack, 1);
-    UnlockSurface2();
+    UnlockBackSurface();
     FlushScreen();
 
     this->m_GameSession.RefreshCharacterRosterFiles(0);
@@ -5929,13 +5929,13 @@ int32_t MainWindow::RunModalLoopServer() {
             }
         }
 
-        LockSurface2();
+        LockBackSurface();
         FillRectColorSimple(0, g_ScreenSize.bottom / 2 + 20, g_ScreenSize.right, g_ScreenSize.bottom / 2 + 40, 0);
 
         CString local_260;
         local_260.Format("%d / %d", j, this->m_GameSession.hat_char_ids.GetSize());
         g_font1->DrawTextWithShadow(g_ScreenSize.right / 2, g_ScreenSize.bottom / 2 + 20, local_260, CGameFont::ALIGN_HCENTER, clrsh_ShockingBlack, 1);
-        UnlockSurface2();
+        UnlockBackSurface();
         FlushScreen();
     }
     return 1;
@@ -5951,11 +5951,11 @@ int32_t MainWindow::RunModalLoopClient() {
     tangar_client::EnsureFileHashes();
 #endif
 
-    LockSurface2();
+    LockBackSurface();
     FillRectColorSimple(0, 0, g_ScreenSize.right, g_ScreenSize.bottom, 0);
     //Connection to hat in process...
     g_font1->DrawTextWithShadow(g_ScreenSize.right / 2, g_ScreenSize.bottom / 2, txt_patch.GetLine(124), CGameFont::ALIGN_HCENTER, clrsh_ShockingBlack, 1);
-    UnlockSurface2();
+    UnlockBackSurface();
     FlushScreen();
 
     this->sessionMode = SESSION_SINGLEPLAYER;
@@ -6030,7 +6030,7 @@ int32_t MainWindow::RunModalLoopClient() {
             VisScreen* scr = new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(16), nullptr, 4);
             this->ModalScreen(scr);
             if (scr->GetCloseCode() == VIS_MSG_BOX_OK) {
-                g_NetStru1_local.SendUnknownDC();
+                g_NetStru1_local.SendHatSessionConfirm();
                 this->net_session.hat_id = 0;
                 this->net_session.connect_address.Empty();
                 start_time = timeGetTime();
@@ -6049,11 +6049,11 @@ int32_t MainWindow::RunModalLoopClient() {
 int32_t MainWindow::ClientRefreshUpdateCharacters() {
     MSG msg;
 
-    LockSurface2();
+    LockBackSurface();
     FillRectColorSimple(0, 0, g_ScreenSize.right, g_ScreenSize.bottom, 0);
     //Update chars in process...
     g_font1->DrawTextWithShadow(g_ScreenSize.right / 2, g_ScreenSize.bottom / 2, txt_patch.GetLine(125), CGameFont::ALIGN_HCENTER, clrsh_ShockingBlack, 1);
-    UnlockSurface2();
+    UnlockBackSurface();
     FlushScreen();
 
     m_GameSession.RefreshCharacterRosterFiles(0);
@@ -6096,14 +6096,14 @@ int32_t MainWindow::ClientRefreshUpdateCharacters() {
             g_mousept.Update();
         }
 
-        LockSurface2();
+        LockBackSurface();
         FillRectColorSimple(0, g_ScreenSize.bottom / 2 + 20, g_ScreenSize.right, g_ScreenSize.bottom / 2 + 40, 0);
         
         CString str;
         str.Format("%d / %d", i, m_GameSession.hat_char_ids.GetSize());
 
         g_font1->DrawTextWithShadow(g_ScreenSize.right / 2, g_ScreenSize.bottom / 2 + 20, str, CGameFont::ALIGN_HCENTER, clrsh_ShockingBlack, 1);
-        UnlockSurface2();
+        UnlockBackSurface();
         FlushScreen();
     }
 
@@ -6275,12 +6275,12 @@ void MainWindow::ShowNoCDIntro() {
     CBmp64* logo = new CBmp64("main\\graphics\\logo\\allods.bmp");
 #endif
 
-    LockSurface2();
+    LockBackSurface();
     FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
 
     logo->Draw(vis_scr_rect.left, vis_scr_rect.top, 0, 0, 0);
 
-    UnlockSurface2();
+    UnlockBackSurface();
     FlushScreen();
 
     delete logo;
@@ -6311,9 +6311,9 @@ void MainWindow::ShowNoCDIntro() {
 
     dialogsMask &= ~DIALOG_MASK_VIDEO;
 
-    LockSurface2();
+    LockBackSurface();
     FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
-    UnlockSurface2();
+    UnlockBackSurface();
     FlushScreen();
 
     g_mousept.Paint();
@@ -6332,9 +6332,9 @@ int MainWindow::PlayIntroVideos() {
     g_mousept.Update();
     g_mousept.Unpaint();
 
-    LockSurface2();
+    LockBackSurface();
     FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
-    UnlockSurface2();
+    UnlockBackSurface();
     FlushScreen();
 
     int res = PlaySmackerVideo(m_hWnd, "video\\logos\\publisher.smk");
@@ -6345,9 +6345,9 @@ int MainWindow::PlayIntroVideos() {
 
     g_mousept.Paint();
 
-    LockSurface2();
+    LockBackSurface();
     FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
-    UnlockSurface2();
+    UnlockBackSurface();
     FlushScreen();
 
     return res;
@@ -6427,7 +6427,7 @@ void CGameSession::ResetCharacter() {
         return;
     }
 
-    CUnit* cu = wnd->vis_map_context->GetUnit_3f6c();
+    CUnit* cu = wnd->vis_map_context->GetMyUnit();
     this->money = 1000;
     this->monster_killed = 0;
     this->player_killed = 0;
@@ -6490,7 +6490,7 @@ void CGameSession::ResetUnitClass() {
 // 4941c0 (client: 498ca1)
 void CGameSession::RecreateCUnit() {
     MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
-    CUnit* cu = mwnd->vis_map_context->GetUnit_3f6c();
+    CUnit* cu = mwnd->vis_map_context->GetMyUnit();
     if (cu) {
         Human* hm = nullptr;
         switch (CharacterClassCode(static_cast<uint8_t>(this->type)).class_index) {
@@ -6545,7 +6545,7 @@ void CGameSession::LoadCharacterRosterEntry(int32_t idx) {
     this->selectedCharacterRosterFileIndex = idx;
 
     MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
-    CUnit* unit = mwnd->vis_map_context->GetUnit_3f6c();
+    CUnit* unit = mwnd->vis_map_context->GetMyUnit();
 
     if (unit == nullptr) {
         unit = new CUnit();
@@ -6752,7 +6752,7 @@ void CGameSession::InitializeNewCharacterSession(int tp, const char* name) {
 
     mwnd->vis_map_context->kill_stats.fill(0);
 
-    if (mwnd->vis_map_context->GetUnit_3f6c() == nullptr) {
+    if (mwnd->vis_map_context->GetMyUnit() == nullptr) {
         CUnit* cunit = new CUnit();
         cunit->InitState(1, 1, 0, 0, 0, mwnd->vis_map_context->map_players[0], 0, 0, 0, 1);
 
@@ -6770,7 +6770,7 @@ void CGameSession::InitializeNewCharacterSession(int tp, const char* name) {
 // 49381c (client: 498167)
 void CGameSession::SetNameAndColor(char* name) {
     MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
-    CUnit* unit = mwnd->vis_map_context->GetUnit_3f6c();
+    CUnit* unit = mwnd->vis_map_context->GetMyUnit();
 
     CString str(name);
     int colon = str.Find(':');
@@ -6818,7 +6818,7 @@ void CGameSession::AutosaveCharacter() {
         return;
 
     VisPlayingArea* map = mwnd->vis_map_context;
-    CUnit* unit = map->GetUnit_3f6c();
+    CUnit* unit = map->GetMyUnit();
 
     if (this->flags & 1) {
         this->flags &= ~1;
@@ -6866,7 +6866,7 @@ void CGameSession::SaveShortcuts() {
     }
 
     VisPlayingArea* map = mwnd->vis_map_context;
-    map->GetUnit_3f6c();
+    map->GetMyUnit();
 
     uint8_t buffer[2560];
     uint8_t* buf = buffer;
@@ -6915,7 +6915,7 @@ void CGameSession::SaveKillStats() {
         return;
 
     VisPlayingArea* map = mwnd->vis_map_context;
-    map->GetUnit_3f6c();
+    map->GetMyUnit();
 
     WritePlayerFile(this->characterRosterFilePaths[this->selectedCharacterRosterFileIndex], nullptr, nullptr, map->kill_stats.data(), nullptr, nullptr, nullptr, 0);
 }
@@ -6923,7 +6923,7 @@ void CGameSession::SaveKillStats() {
 // 494148 (client: 498c2a)
 void CGameSession::SetCharacterStats(int32_t body, int32_t reaction, int32_t mind, int32_t spirit, int32_t main_sphere) {
     MainWindow* mwnd = (MainWindow*)AfxGetMainWnd();
-    CUnit* unit = mwnd->vis_map_context->GetUnit_3f6c();
+    CUnit* unit = mwnd->vis_map_context->GetMyUnit();
 
     this->body = body;
     this->reaction = reaction;

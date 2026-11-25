@@ -119,7 +119,7 @@ enum MainMsg : uint32_t {
     MAIN_MSG_TICK_TO_MAIN_MENU       = 0x41e, // ProcessPlayersTick then 0x421 (after load/mission-failed close)
     MAIN_MSG_SHOW_TOWN_MENU          = 0x41f, // TownMenuListDialog popup
     MAIN_MSG_SHOW_QUEST_OBJECTIVES   = 0x420, // quest objectives / hat player list popup
-    MAIN_MSG_MAIN_MENU               = 0x421, // back to the main menu (Proc_421)
+    MAIN_MSG_MAIN_MENU               = 0x421, // back to the main menu (ReturnToMainMenu)
     MAIN_MSG_SHOW_SOUND_PREFS        = 0x422, // SoundPreferencesDialog popup
     MAIN_MSG_NEW_CAMPAIGN            = 0x425, // ScenarioNewGame + InitNewCampaignSession
     MAIN_MSG_SHOW_CHAR_LOADER        = 0x426, // ShowCharacterLoaderDialog (return to char load)
@@ -249,7 +249,7 @@ public:
     CGameSession(); // 49248a (client: 496cd5)
     ~CGameSession(); // 4960f0 (client: 49a430)
 
-    int32_t GetStringArray1Size(); // 438d10 (client: 43aaf0)
+    int32_t GetCharacterRosterCount(); // 438d10 (client: 43aaf0)
     void DeleteSelectedCharacter(); // 493cd8 (client: 4973a4)
     void LoadCharacterRosterEntry(int32_t idx); // 492c66 (client: 497585)
     void AutosaveCharacter(); // 4946e0 (client: 4991ec)
@@ -427,14 +427,14 @@ public:
 
     // Message handlers
     void OnDestroy(); // 495439 (client: 499cf2) - ON_WM_DESTROY
-    void OnCommand3f5(); // 49544c (client: 499d05) - ON_COMMAND 0x3f5
-    void OnCommand3f6(); // 49549b (client: 499d2f) - ON_COMMAND 0x3f6
-    void OnCommandUnknown(); // 4954ea (client: 499d59)
+    void OnSpeedDown(); // 49544c (client: 499d05) - ON_COMMAND 0x3f5
+    void OnSpeedUp(); // 49549b (client: 499d2f) - ON_COMMAND 0x3f6
+    void OnKickPlayer(); // 4954ea (client: 499d59)
     void OnClose(); // 4956d5 (client: 499ec7) - ON_WM_CLOSE
-    void OnCommand3ff(); // 495774 (client: none) - ON_COMMAND 0x3ff
-    void OnCommand3f7(); // 4957ad (client: none) - ON_COMMAND 0x3f7
-    void OnCommand3fb(); // 4957e2 (client: none) - ON_COMMAND 0x3fb
-    void OnCommand3fe(); // 49583e (client: none) - ON_COMMAND 0x3fe
+    void OnDisconnectHat(); // 495774 (client: none) - ON_COMMAND 0x3ff
+    void OnShutdownNow(); // 4957ad (client: none) - ON_COMMAND 0x3f7
+    void OnStartShutdownTimer(); // 4957e2 (client: none) - ON_COMMAND 0x3fb
+    void OnCancelShutdownTimer(); // 49583e (client: none) - ON_COMMAND 0x3fe
 };
 
 // binary 0x280 = VC6 CDialog base 0x5c + 9 controls (0x3c each) + 2 CStrings;
@@ -498,7 +498,7 @@ public:
 
     BOOL UpdateClipCursor(); // 48cbc8 (client: 490d52)
 
-    void Proc_421(); // 48d49b (client: 491619)
+    void ReturnToMainMenu(); // 48d49b (client: 491619)
 
     void DestroyServer(); // 48cb3c (client: 490ce4)
 
@@ -524,7 +524,7 @@ public:
 
     void ShowStartGameSetupForNewSession(); // 491b3e (client: 49639b)
 
-    void Proc_44c(CVisualObject* obj); // 48b061 (client: 48f03f)
+    void OnChildScreenClosed(CVisualObject* obj); // 48b061 (client: 48f03f)
     int32_t ClientWaitErrCode(); // server: none (client: 4953b4)
 
     void ShowCharacterLoaderDialog(); // 48cff7 (client: 491181)

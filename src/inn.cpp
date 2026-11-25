@@ -1329,7 +1329,7 @@ void Inn::UpdateQuests(Unit* unit) {
     Quest* quest = this->FindActiveQuest(player);
     if (quest == nullptr) {
         this->InnCreateQuests(player);
-        g_NetStru1_main.SendSrvStru1State(this->quest_map, player, 1);
+        g_NetStru1_main.SendPlayerQuests(this->quest_map, player, 1);
     } else {
         this->InnReward(player);
         Inventory* inventory = nullptr;
@@ -1410,7 +1410,7 @@ void Inn::RemoveUnit(Humanoid* humanoid, int32_t id) {
                 qm->UnregisterQuest(this->active_quest);
                 this->active_quest->quest_data.state = Quest::STATE_IN_WORK;
                 g_QuestMap.RegisterQuest(this->active_quest);
-                g_NetStru1_main.SendSrvStru1State(&g_QuestMap, humanoid->pOwner, 0);
+                g_NetStru1_main.SendPlayerQuests(&g_QuestMap, humanoid->pOwner, 0);
                 g_NetStru1_main.SendTeamNotify(QuestMap::FLAG_ACCEPTED, 0, humanoid->pOwner);
 
                 int32_t kind = this->active_quest->Kind();

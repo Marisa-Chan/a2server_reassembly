@@ -82,7 +82,7 @@ void Load() {
 }
 
 void Draw() {
-    LockSurface2();
+    LockBackSurface();
 
     const CRect& pRect = g_ScreenSize;
 
@@ -119,7 +119,7 @@ void Draw() {
         g_font4->DrawTextWithShadow(tx, ty, ButtonLabel(i), CGameFont::ALIGN_HCENTER, col, 1);
     }
 
-    UnlockSurface2();
+    UnlockBackSurface();
 }
 
 void Reset() {

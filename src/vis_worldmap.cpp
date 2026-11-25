@@ -60,7 +60,7 @@ void VisGlobalMap::Draw() {
         return;
     }
 
-    LockSurface2();
+    LockBackSurface();
     this->gmap->Draw(screen_x, screen_y, 0, 0, 0);
 
     if (this->umoirMapMode == 0) {
@@ -177,7 +177,7 @@ void VisGlobalMap::Draw() {
         g_font2->DrawTxt(screen_x + 0xE6, screen_y + 0x30 + upper * 10, trimmed, CGameFont::ALIGN_HCENTER, clrsh_InvBarleyCorn);
     }
 
-    UnlockSurface2();
+    UnlockBackSurface();
     CVisualObject::Draw();
     if (travel_arrived != 0) {
         this->MsgProc(VIS_MSG_HIDE_SCREEN, 0, 0);
@@ -405,9 +405,9 @@ void VisGlobalMap::DoOpen() {
     this->partyFlagAnimationFrame = 0;
     this->targetCrossAnimationFrame = 0;
     this->locationMetadata.RemoveAll();
-    LockSurface2();
+    LockBackSurface();
     FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
-    UnlockSurface2();
+    UnlockBackSurface();
     FlushScreen();
     VisScreen::DoOpen();
     g_Cursors[CURSOR_SELECT]->Use();

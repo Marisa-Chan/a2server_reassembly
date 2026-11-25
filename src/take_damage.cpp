@@ -109,14 +109,14 @@ void __cdecl TakeDamage::DrawDamages(CArray<TakeDamage>* arr) {
         return;
     }
 
-    LockSurface2();
+    LockBackSurface();
     for (int i = 0; i < arr->GetSize(); i++) {
         if (arr->ElementAt(i).Draw() == 0) {
             arr->RemoveAt(i);
             i--;
         }
     }
-    UnlockSurface2();
+    UnlockBackSurface();
 }
 
 // 45de65 (client: 461a85)

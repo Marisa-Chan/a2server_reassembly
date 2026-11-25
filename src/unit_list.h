@@ -11,7 +11,7 @@ class Player;
 class UnitList {
 public:
     virtual void Serialize(CArchive& ar); // 558ef8 (client: 536222)
-    virtual void CallMethod5(); // 5591da (client: 53623e)
+    virtual void FixupPointers(); // 5591da (client: 53623e)
 
     UnitList(); // 555a1d (client: 534ebc)
     ~UnitList(); // 555a8d (client: 534ede)
@@ -19,7 +19,7 @@ public:
 
     void AddTail(Unit* unit); // 555c1b (client: 534f4c)
     void AddTailAllocId(Unit* unit); // 555d67 (client: 534f68)
-    void AddTailId6xxx(Unit* unit); // 555f1c (client: 534fa3)
+    void AddTailTokenId(Unit* unit); // 555f1c (client: 534fa3)
 
     void Remove(Unit* unit); // 575aa0 (client: 546940) - Remove unit from list and in any do delete for this unit
 

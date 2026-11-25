@@ -197,7 +197,7 @@ Server::~Server() {
     }
 #endif
     g_NetStru1_main.SendBarePacket(SERVER_SHUTDOWN, nullptr);
-    g_NetStru1_main.SendPacket_64(this->tick | 1, 0);
+    g_NetStru1_main.SendServerTickFlush(this->tick | 1, 0);
     g_NetStru1_main.SendAllData();
 
     if (this->thread_handle) {
@@ -423,7 +423,7 @@ void Server::ProcessPlayers() {
     this->tick = 0;
 
     g_NetStru1_main.SendBarePacket(LEAVE_BUILDING, nullptr);
-    g_NetStru1_main.SendPacket_64(this->tick | 1, 0);
+    g_NetStru1_main.SendServerTickFlush(this->tick | 1, 0);
     this->ScanSavedCharacters();
 }
 
@@ -956,7 +956,7 @@ void Srv1::CreateUnits(MapAlm* alm) {
         }
 
         unit->TokenID = unit_data->unit_id;
-        g_ServerUnits->AddTailId6xxx(unit);
+        g_ServerUnits->AddTailTokenId(unit);
         unit->pOwner = player;
         player->unit_list->AddTail(unit);
 
@@ -1917,7 +1917,7 @@ void Server::SendWorldState(Player* player, int32_t enter_world) {
     }
 
     if (g_Server->multiplayer != 0) {
-        g_NetStru1_main.SendSrvStru1State(&g_QuestMap, player, 0);
+        g_NetStru1_main.SendPlayerQuests(&g_QuestMap, player, 0);
     }
 
     // Encode and send the full map-terrain packet to the player.
@@ -6943,7 +6943,7 @@ void Server::ServerTic() {
             g_QuestMap.flags.GetNextAssoc(pos, k, v);
             Player* p = g_PlayersList->FindById(k);
             if (v != 0 && p != nullptr) {
-                g_NetStru1_main.SendSrvStru1State(&g_QuestMap, p, 0);
+                g_NetStru1_main.SendPlayerQuests(&g_QuestMap, p, 0);
                 if ((v & QuestMap::FLAG_ACCEPTED) != 0) {
                     g_NetStru1_main.SendTeamNotify(QuestMap::FLAG_ACCEPTED, 0, p);
                 }
@@ -7194,7 +7194,7 @@ void Server::ProcessHatConnections() {
             }
         }
         if (GetTickCount() - this->hat_ping_tick > 15000) {
-            NetStru1::HatConnector.SendPacket_64(1, 0);
+            NetStru1::HatConnector.SendServerTickFlush(1, 0);
             this->hat_ping_tick = GetTickCount();
         }
     } else {
@@ -8317,7 +8317,7 @@ void Server::Tick() {
     this->ProcessHatPackets();
     this->srv_stru1->ProcessTick();
     g_ServerUnits->ProcessTick();
-    g_NetStru1_main.SendPacket_64(this->tick, 0);
+    g_NetStru1_main.SendServerTickFlush(this->tick, 0);
 }
 
 // 50979a (client: 501511)
@@ -8690,8 +8690,8 @@ void Server::SerializeGame(CArchive& ar) {
         }
 
         if (has_world_state != 0) {
-            g_ServerUnits->CallMethod5();
-            this->srv_stru1->units_list->CallMethod5();
+            g_ServerUnits->FixupPointers();
+            this->srv_stru1->units_list->FixupPointers();
             MapStuff_Instance->RelinkAfterLoad();
             g_World->RelinkPointers();
             this->srv_stru1->effects_list->FixupPointers();

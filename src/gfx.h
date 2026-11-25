@@ -188,15 +188,15 @@ void __cdecl FlushScreen(); // 454e18 (client: 458a58)
 
 void __cdecl CopyScreenRectToBmp64(int32_t x, int32_t y, int32_t w, int32_t h, int32_t dw, int32_t dh, uint8_t* dst); // 45455e (client: 45819e)
 
-uint32_t LockSurface2(); // 45426e (client: 457eae)
-uint32_t UnlockSurface2(); // 4542ca (client: 457f0a)
-uint32_t LockSurface3(); // 4543ca (client: 45800a)
-uint32_t UnlockSurface3(); // 45444f (client: 45808f)
-uint32_t LockSurface1(); // 45431c (client: 457f5c)
-uint32_t UnlockSurface1(); // 454378 (client: 457fb8)
+uint32_t LockBackSurface(); // 45426e (client: 457eae)
+uint32_t UnlockBackSurface(); // 4542ca (client: 457f0a)
+uint32_t LockTerrainSurface(); // 4543ca (client: 45800a)
+uint32_t UnlockTerrainSurface(); // 45444f (client: 45808f)
+uint32_t LockPrimarySurface(); // 45431c (client: 457f5c)
+uint32_t UnlockPrimarySurface(); // 454378 (client: 457fb8)
 #ifdef A2CLIENT_PATCH
 extern CRect g_DisplaySize;
-void PresentSurface1Rect(const CRect& rect);
+void PresentPrimarySurfaceRect(const CRect& rect);
 CPoint PhysicalToLogicalPoint(POINT pt);
 CPoint LogicalToPhysicalPoint(int32_t x, int32_t y);
 CRect LogicalToPhysicalRect(const CRect& rect);
@@ -205,7 +205,7 @@ BOOL GetLogicalCursorPos(LPPOINT lpPoint);
 BOOL SetLogicalCursorPos(int32_t x, int32_t y);
 #endif
 
-uint32_t GetLockCountSurf2(); // 4538e1 (client: 457521)
+uint32_t GetBackSurfaceLockCount(); // 4538e1 (client: 457521)
 
 int32_t InitVideo(); // 453fcc (client: 457c0c)
 int32_t SetVideoMode(); // 4546c6 (client: 458306)

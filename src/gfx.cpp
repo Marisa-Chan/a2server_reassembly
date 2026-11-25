@@ -3330,10 +3330,10 @@ void __cdecl CopySurface16Rect(uint8_t* src, int32_t sx, int32_t sy, uint8_t* ds
 
 // 454e40 (client: 458a80)
 void __cdecl CopyScreenBlock(int32_t sx, int32_t sy, int32_t w, int32_t h) {
-    LockSurface3();
+    LockTerrainSurface();
     uint8_t* src = (uint8_t*)g_selDrawBitmap.lpSurface;
     int32_t spitch = g_selDrawBitmap.lPitch;
-    LockSurface2();
+    LockBackSurface();
     uint8_t* dst = (uint8_t*)g_selDrawBitmap.lpSurface;
 
     int32_t sx32 = sx << 5;
@@ -3344,9 +3344,9 @@ void __cdecl CopyScreenBlock(int32_t sx, int32_t sy, int32_t w, int32_t h) {
     CopySurface16Rect(src, sx32, 0, dst, 0, h - sy32, w - sx32, sy32, spitch, g_selDrawBitmap.lPitch);
     CopySurface16Rect(src, 0, sy32, dst, w - sx32, 0, sx32, h - sy32, spitch, g_selDrawBitmap.lPitch);
 
-    UnlockSurface2();
+    UnlockBackSurface();
     g_selDrawBitmap.lpSurface = src;
-    UnlockSurface3();
+    UnlockTerrainSurface();
 }
 
 #ifdef A2CLIENT_PATCH
@@ -3485,7 +3485,7 @@ static void SampleRowBilinear32(const uint16_t* srow, int32_t dst_left, int32_t 
     }
 }
 
-void PresentSurface1Rect(const CRect& rect) {
+void PresentPrimarySurfaceRect(const CRect& rect) {
     if (g_IsServer != 0 || g_ddsurface == nullptr || g_surf1_buf == nullptr) {
         return;
     }
@@ -3690,7 +3690,7 @@ void __cdecl gfxFlushRect(const CRect& rect) {
                     memcpy(&ver_backup[y * vw], g_surf2_buf + (ver_rect.top + y) * stride + ver_rect.left, vw * sizeof(uint16_t));
                 }
 
-                LockSurface2();
+                LockBackSurface();
                 DDSURFACEDESC prev_desc = g_selDrawBitmap;
                 g_selDrawBitmap.dwSize = sizeof(DDSURFACEDESC);
                 g_selDrawBitmap.lpSurface = g_surf2_buf;
@@ -3705,26 +3705,26 @@ void __cdecl gfxFlushRect(const CRect& rect) {
                 SetClipRect(prev_clip);
 
                 g_selDrawBitmap = prev_desc;
-                UnlockSurface2();
+                UnlockBackSurface();
                 stamped_ver = true;
             }
         }
 
-        g_mousept.SaveScreenParts2(r);
+        g_mousept.PrepareFlushOverlays(r);
         int32_t w = r.Width();
         int32_t h = r.Height();
 
         if (w < 1 || h < 1) {
-            g_mousept.SaveScreenParts(r);
+            g_mousept.RestoreAfterFlush(r);
         } else {
-            LockSurface2();
+            LockBackSurface();
 
             void* sv = g_selDrawBitmap.lpSurface;
 
             uint8_t* src = (uint8_t*)g_selDrawBitmap.lpSurface + r.top * g_selDrawBitmap.lPitch + r.left * 2;
             int32_t spitch = g_selDrawBitmap.lPitch;
 
-            LockSurface1();
+            LockPrimarySurface();
 
             CopySurface16Rect(src, 0, 0, 
                              (uint8_t*)g_selDrawBitmap.lpSurface + r.top * g_selDrawBitmap.lPitch + r.left * 2, 0, 0, 
@@ -3732,13 +3732,13 @@ void __cdecl gfxFlushRect(const CRect& rect) {
                              spitch, 
                              g_selDrawBitmap.lPitch);
 
-            UnlockSurface1();
-            PresentSurface1Rect(r);
+            UnlockPrimarySurface();
+            PresentPrimarySurfaceRect(r);
 
             g_selDrawBitmap.lpSurface = sv;
 
-            UnlockSurface2();
-            g_mousept.SaveScreenParts(r);
+            UnlockBackSurface();
+            g_mousept.RestoreAfterFlush(r);
         }
 
         if (stamped_ver) {
@@ -3763,21 +3763,21 @@ void __cdecl gfxFlushRect(const CRect& rect) {
             g_ddsurface->Restore();
         }
 
-        g_mousept.SaveScreenParts2(r);
+        g_mousept.PrepareFlushOverlays(r);
         int32_t w = r.Width();
         int32_t h = r.Height();
 
         if (w < 1 || h < 1) {
-            g_mousept.SaveScreenParts(r);
+            g_mousept.RestoreAfterFlush(r);
         } else {
-            LockSurface2();
+            LockBackSurface();
 
             void* sv = g_selDrawBitmap.lpSurface;
 
             uint8_t* src = (uint8_t*)g_selDrawBitmap.lpSurface + r.top * g_selDrawBitmap.lPitch + r.left * 2;
             int32_t spitch = g_selDrawBitmap.lPitch;
 
-            LockSurface1();
+            LockPrimarySurface();
 
             CopySurface16Rect(src, 0, 0, 
                              (uint8_t*)g_selDrawBitmap.lpSurface + r.top * g_selDrawBitmap.lPitch + r.left * 2, 0, 0, 
@@ -3785,12 +3785,12 @@ void __cdecl gfxFlushRect(const CRect& rect) {
                              spitch, 
                              g_selDrawBitmap.lPitch);
 
-            UnlockSurface1();
+            UnlockPrimarySurface();
 
             g_selDrawBitmap.lpSurface = sv;
 
-            UnlockSurface2();
-            g_mousept.SaveScreenParts(r);
+            UnlockBackSurface();
+            g_mousept.RestoreAfterFlush(r);
         }
     }
 #endif
@@ -3804,7 +3804,7 @@ void __cdecl FlushScreen() {
 
 
 // 45431c (client: 457f5c)
-uint32_t LockSurface1() {
+uint32_t LockPrimarySurface() {
 #ifdef A2CLIENT_PATCH
     if (g_IsServer || g_surf1_buf == nullptr) {
         return 0;
@@ -3836,7 +3836,7 @@ uint32_t LockSurface1() {
 
 
 // 454378 (client: 457fb8)
-uint32_t UnlockSurface1() {
+uint32_t UnlockPrimarySurface() {
     if (g_IsServer) {
         return 0;
     }
@@ -3863,7 +3863,7 @@ uint32_t UnlockSurface1() {
 
 
 // 45426e (client: 457eae)
-uint32_t LockSurface2() {
+uint32_t LockBackSurface() {
 #ifdef A2CLIENT_PATCH
     if (g_IsServer || g_surf2_buf == nullptr) {
         return 0;
@@ -3894,7 +3894,7 @@ uint32_t LockSurface2() {
 }
 
 // 4542ca (client: 457f0a)
-uint32_t UnlockSurface2() {
+uint32_t UnlockBackSurface() {
 #ifdef A2CLIENT_PATCH
     if (g_IsServer) {
         return 0;
@@ -3921,7 +3921,7 @@ uint32_t UnlockSurface2() {
 }
 
 // 4543ca (client: 45800a)
-uint32_t LockSurface3() {
+uint32_t LockTerrainSurface() {
 #ifdef A2CLIENT_PATCH
     if (g_IsServer || g_surf3_buf == nullptr) {
         return 0;
@@ -3957,7 +3957,7 @@ uint32_t LockSurface3() {
 
 
 // 45444f (client: 45808f)
-uint32_t UnlockSurface3() {
+uint32_t UnlockTerrainSurface() {
 #ifdef A2CLIENT_PATCH
     if (g_IsServer) {
         return 0;
@@ -3988,7 +3988,7 @@ uint32_t UnlockSurface3() {
 }
 
 // 4538e1 (client: 457521)
-uint32_t GetLockCountSurf2() { return g_ddsurf_lock2; }
+uint32_t GetBackSurfaceLockCount() { return g_ddsurf_lock2; }
 
 // 45455e (client: 45819e)
 void __cdecl CopyScreenRectToBmp64(int32_t x, int32_t y, int32_t w, int32_t h, int32_t dw, int32_t dh, uint8_t* dst) {
@@ -6459,7 +6459,7 @@ void SaveScreenshot() {
     int32_t pixnum = g_ScreenSize.right * g_ScreenSize.bottom;
     uint8_t* data = new uint8_t[pixnum * 3];
 
-    LockSurface1();
+    LockPrimarySurface();
     uint8_t* dst = data;
     for (int32_t y = g_ScreenSize.bottom - 1; y >= 0; y--) {
         uint16_t* src = (uint16_t*)((uint8_t*)g_selDrawBitmap.lpSurface + y * g_ScreenSize.bottom * 2);
@@ -6473,7 +6473,7 @@ void SaveScreenshot() {
             dst += 3;
         }
     }
-    UnlockSurface1();
+    UnlockPrimarySurface();
 
     CFile f(fname, CFile::modeWrite | CFile::modeCreate);
 

@@ -58,13 +58,13 @@ int32_t VisCharSellectButtons::OnLButtonUp(uint32_t wparam, CPoint pos) {
 #ifdef A2CLIENT
             {
                 int32_t idx = this->parent_screen->roster_list->selected_row;
-                if (idx == this->parent_screen->session->GetStringArray1Size() - 1 &&
+                if (idx == this->parent_screen->session->GetCharacterRosterCount() - 1 &&
                     mwnd->net_session.internet_game != 0 && mwnd->hat_settings.ishat != 0 &&
                     this->parent_screen->session->hat_char_ids.GetSize() > 15) {
                     VisScreen* mbox = new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(141), nullptr, 0x2000);
                     mwnd->vis_msgbox_list = mbox;
                     mwnd->ModalScreen(mbox);
-                } else if (idx == this->parent_screen->session->GetStringArray1Size() - 1 &&
+                } else if (idx == this->parent_screen->session->GetCharacterRosterCount() - 1 &&
                     mwnd->net_session.internet_game != 0 && mwnd->hat_settings.ishat != 0 && mwnd->hat_settings.deathmatch != 0) {
                     VisScreen* mbox = new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(142), nullptr, 0x2000);
                     mwnd->vis_msgbox_list = mbox;
@@ -86,7 +86,7 @@ int32_t VisCharSellectButtons::OnLButtonUp(uint32_t wparam, CPoint pos) {
 #endif
             if (this->parent_screen->roster_list->renaming == 0) {
                 int32_t idx = this->parent_screen->roster_list->selected_row;
-                if (idx != this->parent_screen->session->GetStringArray1Size() - 1) {
+                if (idx != this->parent_screen->session->GetCharacterRosterCount() - 1) {
                     CString str = CString(txt_patch.GetLine(93)) + CString(this->parent_screen->session->character_name) + CString(txt_patch.GetLine(94));
                     VisScreen* box = new VisMessageBoxWithList(1, 64, 100, 380, 594, str, nullptr, 4);
                     mwnd->vis_msgbox_list = box;
@@ -95,12 +95,12 @@ int32_t VisCharSellectButtons::OnLButtonUp(uint32_t wparam, CPoint pos) {
                     if (box->GetCloseCode() == VIS_MSG_BOX_OK) {
                         this->parent_screen->session->DeleteSelectedCharacter();
 
-                        if (idx < this->parent_screen->session->GetStringArray1Size() - 1) {
+                        if (idx < this->parent_screen->session->GetCharacterRosterCount() - 1) {
                             this->parent_screen->session->LoadCharacterRosterEntry(idx);
                             this->parent_screen->vis_stats->ReadUnitStats();
                             this->parent_screen->SelectCharacter(this->parent_screen->selected_unit);
                         } else {
-                            this->parent_screen->roster_list->selected_row = this->parent_screen->session->GetStringArray1Size() - 1;
+                            this->parent_screen->roster_list->selected_row = this->parent_screen->session->GetCharacterRosterCount() - 1;
                             this->parent_screen->selected_unit->SetSelected(0);
                             this->parent_screen->map_context->UpdateSelectionState();
                         }
@@ -160,7 +160,7 @@ void VisCharSellectButtons::UpdateMouseOverBox(uint32_t wparam, CPoint pos) {
 void VisCharSellectButtons::Draw() {
     CPoint top_left = this->parent_screen->rect.TopLeft();
     if (this->parent_screen->active_flag != 0) {
-        LockSurface2();
+        LockBackSurface();
         this->bmp_area->Draw(top_left.x + this->rect.left, top_left.y + this->rect.top, 0, 0, 0);
         for (int32_t i = 0; i < 4; i++) {
             uint16_t* pal;
@@ -181,7 +181,7 @@ void VisCharSellectButtons::Draw() {
                                  this->captions[i], CGameFont::ALIGN_CENTER, pal);
             }
         }
-        UnlockSurface2();
+        UnlockBackSurface();
     }
 }
 
@@ -298,10 +298,10 @@ void VisCharSellectList::Draw() {
     if (this->parent_screen->active_flag != 0) {
         CPoint top_left = this->parent_screen->rect.TopLeft();
         int32_t visible_end = this->top_row + this->list_area.Height() / this->row_rect.Height();
-        if (visible_end > this->parent_screen->session->GetStringArray1Size()) {
-            visible_end = this->parent_screen->session->GetStringArray1Size();
+        if (visible_end > this->parent_screen->session->GetCharacterRosterCount()) {
+            visible_end = this->parent_screen->session->GetCharacterRosterCount();
         }
-        LockSurface2();
+        LockBackSurface();
         this->bmp_center_area->Draw(top_left.x + this->rect.left, top_left.y + this->rect.top, 0, 0, 0);
         if (this->bmp_arrow_up != nullptr) {
             this->bmp_arrow_up->Draw(top_left.x + 0x78 + this->rect.left, top_left.y + this->rect.top, 0, 0, 0);
@@ -329,7 +329,7 @@ void VisCharSellectList::Draw() {
                                             this->parent_screen->session->characterRosterNames[i], CGameFont::ALIGN_HCENTER, pal, 1);
             }
         }
-        UnlockSurface2();
+        UnlockBackSurface();
         this->CVisualObject::Draw();
     }
 }
@@ -379,7 +379,7 @@ void VisCharSellectList::LoadBitmaps() {
 // 4316c4 (client: 43381b)
 void VisCharSellectList::SelectRow(int32_t row) {
     if (row != -1) {
-        if (row == this->parent_screen->session->GetStringArray1Size() - 1) {
+        if (row == this->parent_screen->session->GetCharacterRosterCount() - 1) {
             this->parent_screen->selected_unit->SetSelected(0);
             this->parent_screen->map_context->UpdateSelectionState();
         } else {
@@ -396,8 +396,8 @@ void VisCharSellectList::SelectRow(int32_t row) {
 int32_t VisCharSellectList::HitTest(CPoint pos) {
     int32_t visible_end = this->top_row + this->list_area.Height() / this->row_rect.Height();
     CPoint top_left = this->parent_screen->rect.TopLeft();
-    if (visible_end > this->parent_screen->session->GetStringArray1Size()) {
-        visible_end = this->parent_screen->session->GetStringArray1Size();
+    if (visible_end > this->parent_screen->session->GetCharacterRosterCount()) {
+        visible_end = this->parent_screen->session->GetCharacterRosterCount();
     }
     for (int32_t i = this->top_row; i < visible_end; i++) {
         CPoint origin(top_left.x + this->list_area.left,
@@ -430,10 +430,10 @@ int32_t VisCharSellectList::SelectPrevRow() {
 // 431a93 (client: 433bea)
 int32_t VisCharSellectList::SelectNextRow() {
     int32_t visible_end = this->top_row + this->list_area.Height() / this->row_rect.Height();
-    if (visible_end > this->parent_screen->session->GetStringArray1Size()) {
-        visible_end = this->parent_screen->session->GetStringArray1Size();
+    if (visible_end > this->parent_screen->session->GetCharacterRosterCount()) {
+        visible_end = this->parent_screen->session->GetCharacterRosterCount();
     }
-    if (this->selected_row + 1 >= this->parent_screen->session->GetStringArray1Size()) {
+    if (this->selected_row + 1 >= this->parent_screen->session->GetCharacterRosterCount()) {
         return 0;
     }
     if (this->selected_row + 1 > visible_end - 1) {
@@ -458,7 +458,7 @@ void VisCharSellectList::UpdateArrows(CPoint pos, bool is_down) {
         } else {
             this->bmp_arrow_up = this->bmp_up_shine_on;
         }
-        if (this->selected_row + 1 < this->parent_screen->session->GetStringArray1Size()
+        if (this->selected_row + 1 < this->parent_screen->session->GetCharacterRosterCount()
             && this->down_arrow_rect.PtInRect(pos)) {
             this->bmp_arrow_down = this->bmp_down_shine_on;
         } else {
@@ -470,7 +470,7 @@ void VisCharSellectList::UpdateArrows(CPoint pos, bool is_down) {
         } else {
             this->bmp_arrow_up = this->bmp_up_shine;
         }
-        if (this->selected_row + 1 < this->parent_screen->session->GetStringArray1Size()
+        if (this->selected_row + 1 < this->parent_screen->session->GetCharacterRosterCount()
             && this->down_arrow_rect.PtInRect(pos)) {
             this->bmp_arrow_down = this->bmp_down_shine;
         } else {
@@ -656,11 +656,11 @@ void VisCharSellectStats::ReadUnitStats() {
 void VisCharSellectStats::Draw() {
     CPoint top_left = this->parent_screen->rect.TopLeft();
     if (this->parent_screen->active_flag != 0) {
-        LockSurface2();
+        LockBackSurface();
         this->bmp_left_up->Draw(top_left.x, top_left.y, 0, 0, 0);
         this->bmp_full_stats->Draw(top_left.x, top_left.y + 0xEE, 0, 0, 0);
-        if (this->parent_screen->roster_list->selected_row == this->parent_screen->session->GetStringArray1Size() - 1) {
-            UnlockSurface2();
+        if (this->parent_screen->roster_list->selected_row == this->parent_screen->session->GetCharacterRosterCount() - 1) {
+            UnlockBackSurface();
             return;
         }
         CString str;
@@ -692,7 +692,7 @@ void VisCharSellectStats::Draw() {
         rc.top = top_left.y + 0xEE;
         rc.bottom = top_left.y + 0x1E0;
         this->parent_screen->selected_unit->DrawStatsPanel(&rc);
-        UnlockSurface2();
+        UnlockBackSurface();
     }
 }
 
@@ -772,7 +772,7 @@ void VisCharSelect::OnCreate() {
 
 // 438d30 (client: 430ac8)
 CUnit* VisCharSelect::GetSelectedMapUnit() {
-    return this->map_context->GetUnit_3f6c();
+    return this->map_context->GetMyUnit();
 }
 
 
@@ -820,7 +820,7 @@ void VisCharSelect::DoOpen() {
     this->map_context->quest_some_id = 0;
     this->selected_unit = this->GetSelectedMapUnit();
     this->vis_stats->ReadUnitStats();
-    if (this->session->GetStringArray1Size() > 1) {
+    if (this->session->GetCharacterRosterCount() > 1) {
         this->SelectCharacter(this->selected_unit);
     }
     main_wnd->vis_right_panel->RemoveChild(this->info_panel);
@@ -833,9 +833,9 @@ void VisCharSelect::DoOpen() {
     this->buttons->LoadBitmaps();
     this->roster_list->LoadBitmaps();
     this->roster_list->ResetListState();
-    LockSurface2();
+    LockBackSurface();
     FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
-    UnlockSurface2();
+    UnlockBackSurface();
     FlushScreen();
     this->VisScreen::DoOpen();
     g_Cursors[0]->Use();
@@ -848,7 +848,7 @@ void VisCharSelect::DoOpen() {
 void VisCharSelect::DoClose(uint32_t code) {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     this->Redraw();
-    if (this->roster_list->selected_row == this->session->GetStringArray1Size() - 1 && code == VIS_MSG_HIDE_SCREEN) {
+    if (this->roster_list->selected_row == this->session->GetCharacterRosterCount() - 1 && code == VIS_MSG_HIDE_SCREEN) {
         this->session->InitializeNewCharacterSession(0, nullptr);
     }
     this->active_flag = 0;
@@ -1220,7 +1220,7 @@ void VisCharGen::DoOpen() {
     g_mousept.DisableHint();
     this->info_panel = main_wnd->vis_charinfo;
     this->map_visual = main_wnd->vis_map_context;
-    this->current_char = this->map_visual->GetUnit_3f6c();
+    this->current_char = this->map_visual->GetMyUnit();
     this->stats_panel->ReadUnitStats();
     this->selected_face = this->current_char->face - 1;
     this->mage_flag = (this->current_char->unitFlags & UNIT_FLAG_MAGE) << 5;
@@ -1277,9 +1277,9 @@ void VisCharGen::DoOpen() {
     this->skills_panel->slot_states[this->skills_panel->selected_slot] = 1;
     this->selected_face_set = 0;
     this->active_flag = 1;
-    LockSurface2();
+    LockBackSurface();
     FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
-    UnlockSurface2();
+    UnlockBackSurface();
     FlushScreen();
     this->VisScreen::DoOpen();
     g_Cursors[CURSOR_DEFAULT]->Use();
@@ -1401,7 +1401,7 @@ void VisCharGenStats::Draw() {
     if (this->parent_screen->active_flag == 0) {
         return;
     }
-    LockSurface2();
+    LockBackSurface();
     this->bmp->Draw(screen_rect.left, screen_rect.top, 0, 0, 0);
     for (int32_t i = 0; i < 4; i++) {
         str.Format("%d", (&this->stat_body)[i]);
@@ -1425,7 +1425,7 @@ void VisCharGenStats::Draw() {
             screen_rect.top + this->points_rect.top + this->points_rect.Height() / 2 + 2,
             str, CGameFont::ALIGN_CENTER, pal, 1);
     }
-    UnlockSurface2();
+    UnlockBackSurface();
 }
 
 
@@ -1623,13 +1623,13 @@ VisCharGenStats::VisCharGenStats(int32_t _id, int32_t l, int32_t t, int32_t r, i
 void VisCharGenFullStats::Draw() {
     CRect screen_rect;
     this->ClientRectToScreen(&screen_rect, this->rect);
-    LockSurface2();
+    LockBackSurface();
     this->bmp->Draw(screen_rect.left, screen_rect.top, 0, 0, 0);
     CRect unit_rect = screen_rect;
     unit_rect.left += 0xC;
     unit_rect.right += 0xC;
     this->parent_screen->current_char->DrawStatsPanel(&unit_rect);
-    UnlockSurface2();
+    UnlockBackSurface();
 }
 
 
@@ -1682,7 +1682,7 @@ void VisCharGenAction::Draw() {
     if (this->parent_screen->active_flag == 0) {
         return;
     }
-    LockSurface2();
+    LockBackSurface();
     this->area_bmp->Draw(topleft.x + this->rect.left, topleft.y + this->rect.top, 0, 0, 0);
     for (int32_t i = 0; i < 3; i++) {
         uint16_t* pal;
@@ -1703,7 +1703,7 @@ void VisCharGenAction::Draw() {
                              this->texts.ElementAt(i), CGameFont::ALIGN_CENTER, pal);
         }
     }
-    UnlockSurface2();
+    UnlockBackSurface();
 }
 
 
@@ -2015,7 +2015,7 @@ void VisCharGenSkills::Draw() {
     this->ClientRectToScreen(&screen_rect, this->rect);
     this->slot_states[4] |= 1;
     if (this->parent_screen->active_flag != 0) {
-        LockSurface2();
+        LockBackSurface();
         this->bmp_column->Draw(screen_rect.left, screen_rect.top, 0, 0, 0);
         for (int32_t i = 0; i < 4; i++) {
             int32_t state = this->slot_states[i];
@@ -2031,7 +2031,7 @@ void VisCharGenSkills::Draw() {
             }
         }
         this->DrawBlinkSlot();
-        UnlockSurface2();
+        UnlockBackSurface();
     }
     CVisualObject::Draw();
 }
@@ -2249,7 +2249,7 @@ void VisCharInfo::Draw() {
     }
 
     VisPlayingArea* map = this->map_context;
-    LockSurface2();
+    LockBackSurface();
     if (moved_up != 0) {
         this->info_mode = 1;
     }
@@ -2381,16 +2381,16 @@ void VisCharInfo::Draw() {
                 if (strcmp(this->picturename, fname) != 0) {
                     strcpy(this->picturename, fname);
                     if ((unit->unitFlags & UNIT_FLAG_EQUIP_CHANGED) != 0) {
-                        UnlockSurface2();
+                        UnlockBackSurface();
                         unit->RenderHeroPortrait(full_path, this->bitmap, this->hitmap);
-                        LockSurface2();
+                        LockBackSurface();
                     } else {
                         this->bitmap->LoadFile(fname, this->hitmap);
                     }
                 } else if ((unit->unitFlags & UNIT_FLAG_EQUIP_CHANGED) != 0) {
-                    UnlockSurface2();
+                    UnlockBackSurface();
                     unit->RenderHeroPortrait(full_path, this->bitmap, this->hitmap);
-                    LockSurface2();
+                    LockBackSurface();
                 }
             } else {
                 char picture[0x100];
@@ -2427,7 +2427,7 @@ void VisCharInfo::Draw() {
         }
     }
 
-    UnlockSurface2();
+    UnlockBackSurface();
     this->dirty = 0;
 }
 

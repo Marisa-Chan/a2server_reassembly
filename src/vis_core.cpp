@@ -788,7 +788,7 @@ void VisLabel::Draw() {
     if (this->parent) {
         CRect res = this->ClientRectToScreen(this->rect);
 
-        LockSurface2();
+        LockBackSurface();
 
         this->parent->DrawBackground(&res);
 
@@ -813,7 +813,7 @@ void VisLabel::Draw() {
 
         this->font->DrawTextWithShadow(outx, outy, this->text, this->align_flags, this->color_sh, 1);
 
-        UnlockSurface2();
+        UnlockBackSurface();
     }
 }
 
@@ -840,7 +840,7 @@ void VisButton::Draw() {
 
     CRect r2 = this->ClientRectToScreen(this->rect);
     
-    LockSurface2();
+    LockBackSurface();
     this->parent->DrawBackground(&r2);
 
     r2.right -= 1;
@@ -892,7 +892,7 @@ void VisButton::Draw() {
         CRect t = this->ClientRectToScreen(this->rect);
         ShadowRect(t, shadow_level::disabled);
     }
-    UnlockSurface2();
+    UnlockBackSurface();
 }
 
 // 4d958f (client: 4dde8b)
@@ -1082,7 +1082,7 @@ void VisScrollBar::Draw() {
     CRect tr = this->ClientRectToScreen(this->rect);
     tr.BottomRight() += CPoint(4, 4);
 
-    LockSurface2();
+    LockBackSurface();
     this->parent->DrawBackground(&tr);
 
     tr = this->ClientRectToScreen(this->rect);
@@ -1155,7 +1155,7 @@ void VisScrollBar::Draw() {
 
         ShadowRect(tr, shadow_level::disabled);
     }
-    UnlockSurface2();
+    UnlockBackSurface();
 }
 
 
@@ -1531,7 +1531,7 @@ void VisListBox::Draw() {
 
     CRect rt = this->ClientRectToScreen(this->rect);
 
-    LockSurface2();
+    LockBackSurface();
 
     this->parent->DrawBackground(&rt);
 
@@ -1563,7 +1563,7 @@ void VisListBox::Draw() {
 
         y += this->entry_height_full;
     }
-    UnlockSurface2();
+    UnlockBackSurface();
 }
 
 // 4dc0bc (client: 4e0a3f)
@@ -1935,7 +1935,7 @@ void VisTextBox::Draw() {
 
     CRect rt = this->ClientRectToScreen(this->rect);
 
-    LockSurface2();
+    LockBackSurface();
 
     this->parent->DrawBackground(&rt);
 
@@ -1980,7 +1980,7 @@ void VisTextBox::Draw() {
         ShadowRect(rt, shadow_level::disabled);
     }
 #endif
-    UnlockSurface2();
+    UnlockBackSurface();
 }
 
 // 450440 (client: 454510)
@@ -2454,7 +2454,7 @@ void VisRadioType1::Draw() {
     int32_t x = rt.left + 6 + gfx_radiob->GetWidth(0);
     int32_t y = rt.top;
 
-    LockSurface2();
+    LockBackSurface();
 
     this->parent->DrawBackground(&rt);
 
@@ -2487,7 +2487,7 @@ void VisRadioType1::Draw() {
         ShadowRect(rt, shadow_level::disabled);
     }
 
-    UnlockSurface2();
+    UnlockBackSurface();
 }
 
 // 450510 (client: 452bd0)
@@ -2619,7 +2619,7 @@ void VisRadioType2::Draw() {
     int32_t x = rt.left + 6 + gfx_radiob->GetWidth(0);
     int32_t y = rt.top;
 
-    LockSurface2();
+    LockBackSurface();
 
     this->parent->DrawBackground(&rt);
 
@@ -2654,7 +2654,7 @@ void VisRadioType2::Draw() {
         ShadowRect(rt, shadow_level::disabled);
     }
 
-    UnlockSurface2();
+    UnlockBackSurface();
 }
 
 // 4dbb7b (client: 4e0500)
@@ -2757,7 +2757,7 @@ void VisBitmap::Draw() {
     }
 
     CRect rt = this->ClientRectToScreen(this->rect);
-    LockSurface2();
+    LockBackSurface();
 
     if (this->draw_type == 1) {
         this->parent->DrawBackground(&rt);
@@ -2776,7 +2776,7 @@ void VisBitmap::Draw() {
         this->bitmap->Draw(rt.left, rt.top, this->draw_type - 10, 0, 0);
     }
 
-    UnlockSurface2();
+    UnlockBackSurface();
 }
 
 // 4df23d (client: 4e3bbe)
@@ -2811,7 +2811,7 @@ void VisBitmap::SetBitmap(CGameBitmap* bmp) {
 void VisComboBoxText::Draw() {
     CRect rt = this->ClientRectToScreen(this->rect);
 
-    LockSurface2();
+    LockBackSurface();
 
     this->parent->DrawBackground(&rt);
 
@@ -2827,7 +2827,7 @@ void VisComboBoxText::Draw() {
 
     this->font->DrawTextWithShadow(rt.left + 4, rt.top + rt.Height() / 2, this->text, CGameFont::ALIGN_VCENTER, clr, 1);
 
-    UnlockSurface2();
+    UnlockBackSurface();
 }
 
 // 4e4120 (client: 4e94c0)
@@ -3087,9 +3087,9 @@ void VisMultiText::Draw() {
     CRect rt = this->ClientRectToScreen(this->rect);
     this->parent->DrawBackground(&rt);
 
-    LockSurface2();
+    LockBackSurface();
     this->font->DrawTextLinesShadow(rt, this->vis_start_index, this->vis_start_index + this->num_vis_entry, this->entries, this->clr1, this->entry_height_full);
-    UnlockSurface2();
+    UnlockBackSurface();
 }
 
 // 4d8b99 (client: 4dd4a9)
@@ -3268,11 +3268,11 @@ void VisScreen::DrawBackground(CRect* r) {
         CRect tmp;
         GetClipRect(&tmp);
         SetClipRect(*r);
-        LockSurface2();
+        LockBackSurface();
 
         this->bitmap->Draw(this->rect.left, this->rect.top, 0, 0, 0);
 
-        UnlockSurface2();
+        UnlockBackSurface();
         SetClipRect(tmp);
     } else {
         CRect r2 = this->ClientRectToScreen(this->rect);
@@ -3283,7 +3283,7 @@ void VisScreen::DrawBackground(CRect* r) {
         CRect tmp;
         GetClipRect(&tmp);
         SetClipRect(*r);
-        LockSurface2();
+        LockBackSurface();
 
         gfx_interface_lm->DrawBrightened(r2.right - 40, r2.top + 8, 3, 6, 0);
         gfx_interface_lm->DrawBrightened(r2.left + 8, r2.bottom - 40, 6, 6, 0);
@@ -3319,7 +3319,7 @@ void VisScreen::DrawBackground(CRect* r) {
             }
         }
 
-        UnlockSurface2();
+        UnlockBackSurface();
         SetClipRect(tmp);
     }
 }

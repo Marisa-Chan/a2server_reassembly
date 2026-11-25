@@ -276,7 +276,7 @@ public:
     void MoveStepTowardUnit(Unit* unit, Unit* target, uint8_t max_range); // 59028d (client: 55f73d) - AI movement tick for unit pursuing target.
     void FindPath(Unit* unit, uint8_t x, uint8_t y, int32_t flag, Unit* target); // 58826d (client: 55771d)
     void UpdateEyeMoveTime(Unit* unit); // 590678 (client: 55fb28)
-    void AdvancePathList2(Unit* unit); // 5907be (client: 55fc6e)
+    void AdvanceLocalPath(Unit* unit); // 5907be (client: 55fc6e)
     void StepRotateToTarget(Unit* unit); // 58fd2f (client: 55f1df) - Rotates eye->facing toward eye->target_facing by up to rotation_speed.
     void SetFacing(Unit* unit, uint8_t facing); // 590f94 (client: 560444)
     void PickNextPathTarget(Unit* unit, Unit* target); // 590902 (client: 55fdb2)
@@ -308,10 +308,10 @@ public:
     Sack* GetSackInCell(uint16_t yx); // 58e611 (client: 55dac1) - Get sack at cell yx if the cell has a stored state
     int ClearCellBuilding(class Building* building, PosYX yx); // 59449a (client: 56394a) - Clear building from the cell state at yx
     int CanTraverseCell(Unit* unit, PosYX yx); // 595468 (client: 564918) - Check if unit can move onto and off of yx (both directions clear)
-    void RelaxCostsMap1Queue2(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag); // 597bb0 (client: 567000) - Relax 8-neighbor path costs of yx against obstacle_map, queue into dynamic ring buffer
-    void RelaxCostsMap1Queue1(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag); // 5983d0 (client: 567820) - Relax 8-neighbor path costs of yx against obstacle_map, queue into static ring buffer
-    void RelaxCostsMap2Queue2(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag); // 598bf0 (client: 568040) - Relax 8-neighbor path costs of yx against obstacle_map2, queue into dynamic ring buffer
-    void RelaxCostsMap2Queue1(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag); // 599410 (client: 568860) - Relax 8-neighbor path costs of yx against obstacle_map2, queue into static ring buffer
+    void RelaxStaticMapToDynamicQueue(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag); // 597bb0 (client: 567000) - Relax 8-neighbor path costs of yx against obstacle_map, queue into dynamic ring buffer
+    void RelaxStaticMapToStaticQueue(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag); // 5983d0 (client: 567820) - Relax 8-neighbor path costs of yx against obstacle_map, queue into static ring buffer
+    void RelaxDynamicMapToDynamicQueue(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag); // 598bf0 (client: 568040) - Relax 8-neighbor path costs of yx against obstacle_map2, queue into dynamic ring buffer
+    void RelaxDynamicMapToStaticQueue(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag); // 599410 (client: 568860) - Relax 8-neighbor path costs of yx against obstacle_map2, queue into static ring buffer
     int32_t ClassifyDirection8(Unit* unit, uint16_t yx); // 58a158 (client: 559608) - Classifies direction/octant from unit's position toward yx.
     int32_t ChebyshevDistanceXY(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2); // 58bfa3 (client: 55b453) - Chebyshev distance between two (x,y) points.
     uint8_t ClassifyDirection16(Unit* target, Unit* unit); // split from 592831 (client: 561ce1) - Classifies 16-way direction/octant from target toward unit. `this` is unused.
@@ -320,30 +320,30 @@ public:
     int32_t GetEffectiveSpeed(Unit* unit); // 593c9a (client: 56314a) - Returns unit's speed, overridden by group_sub->speed_override if nonzero. `this` is unused.
     uint8_t GetWalkCost(uint16_t yx); // 594c87 (client: 564137) - Walk cost at yx, adjusted for area effects when the cell is occupied.
 
-    void BuildPathList1(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y); // 5890cc (client: 55857c) - Builds unit->list1 with a cost-grid-guided path from (x,y) back to (cur_x,cur_y)
-    void BuildPathList2(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y); // 5893c6 (client: 558876) - Builds unit->list2 with a cost-grid-guided path from (x,y) back to (cur_x,cur_y)
+    void BuildCoarsePath(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y); // 5890cc (client: 55857c) - Builds unit->list1 with a cost-grid-guided path from (x,y) back to (cur_x,cur_y)
+    void BuildLocalPath(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y); // 5893c6 (client: 558876) - Builds unit->list2 with a cost-grid-guided path from (x,y) back to (cur_x,cur_y)
     uint16_t PickAttackPosition(Unit* unit, Unit* target); // 592a48 (client: 561ef8)
     int16_t FindCheapestCellNear(Unit* unit, int32_t zero, uint16_t yx, uint32_t radius); // 593134 (client: 5625e4)
     Building* GetBuildingAt(uint16_t yx); // 594709 (client: 563bb9)
     uint8_t BoxDistance(uint16_t yx1, uint16_t yx2, int32_t size); // 591a96 (client: 560f46)
-    void ExpandCostsStaticQueue2(Unit* unit, uint8_t x, uint8_t y); // 597290 (client: 5666e0) - Expand path_cost cost grid from (x,y), gated by IsCellPassableStatic, queueing improved cells into queue2
-    void ExpandCostsStaticQueue1(Unit* unit, uint8_t x, uint8_t y); // 5974b0 (client: 566900) - Expand path_cost cost grid from (x,y), gated by IsCellPassableStatic, queueing improved cells into queue1
-    void ExpandCostsDynamicQueue1(Unit* unit, uint8_t x, uint8_t y); // 597990 (client: 566de0) - Expand path_cost cost grid from (x,y), gated by IsCellPassableDynamic, queueing improved cells into queue1
-    void ExpandCostsDynamicQueue2(Unit* unit, uint8_t x, uint8_t y); // 5976d0 (client: 566b20) - Expand path_cost cost grid from (x,y), gated by IsCellPassableDynamic, queueing improved cells into queue2
+    void ExpandStaticCostsToDynamicQueue(Unit* unit, uint8_t x, uint8_t y); // 597290 (client: 5666e0) - Expand path_cost cost grid from (x,y), gated by IsCellPassableStatic, queueing improved cells into queue2
+    void ExpandStaticCostsToStaticQueue(Unit* unit, uint8_t x, uint8_t y); // 5974b0 (client: 566900) - Expand path_cost cost grid from (x,y), gated by IsCellPassableStatic, queueing improved cells into queue1
+    void ExpandDynamicCostsToStaticQueue(Unit* unit, uint8_t x, uint8_t y); // 597990 (client: 566de0) - Expand path_cost cost grid from (x,y), gated by IsCellPassableDynamic, queueing improved cells into queue1
+    void ExpandDynamicCostsToDynamicQueue(Unit* unit, uint8_t x, uint8_t y); // 5976d0 (client: 566b20) - Expand path_cost cost grid from (x,y), gated by IsCellPassableDynamic, queueing improved cells into queue2
     int32_t IsCellPassableStatic(Unit* unit, uint16_t yx); // 596f80 (client: 566430)
-    int32_t IsCellPassableDynamic(Unit* unit, uint16_t yx); // 5978f0 (client: 566d40) - Passability check used by ExpandCostsDynamicQueue2/ExpandCostsDynamicQueue1
+    int32_t IsCellPassableDynamic(Unit* unit, uint16_t yx); // 5978f0 (client: 566d40) - Passability check used by ExpandDynamicCostsToDynamicQueue/ExpandDynamicCostsToStaticQueue
     uint16_t* GetCostGridAt(uint8_t x, uint8_t y); // 59a670 (client: 569960) - Get pointer into path_cost cost grid for (x,y)
     uint8_t* GetWalkCostMapAt(uint8_t x, uint8_t y); // 59a6f0 (client: 5699e0) - Get pointer into walk_cost_map for (x,y)
 
     // Member function pointer to a passability check with the same shape as IsCellPassableStatic/IsCellPassableDynamic.
     using PassableCheckFn = int32_t (MapStuff::*)(Unit*, uint16_t);
 
-    // Shared by ExpandCostsStaticQueue2/ExpandCostsStaticQueue1/ExpandCostsDynamicQueue1/ExpandCostsDynamicQueue2: recomputes movement cost to each
+    // Shared by ExpandStaticCostsToDynamicQueue/ExpandStaticCostsToStaticQueue/ExpandDynamicCostsToStaticQueue/ExpandDynamicCostsToDynamicQueue: recomputes movement cost to each
     // of the 9 neighbor cells (including self) around (x,y) in the path_cost cost grid,
     // gated by the given passability check, and enqueues improved cells into the given queue.
     void ExpandCostGridNeighbors(Unit* unit, uint8_t x, uint8_t y, PassableCheckFn passable, uint8_t* out_x, uint8_t* out_y, uint16_t& out_count); // split from 597290 (client: 5666e0)
 
-    // Shared by BuildPathList1/BuildPathList2: walks backward from (x,y) toward (cur_x,cur_y) through the
+    // Shared by BuildCoarsePath/BuildLocalPath: walks backward from (x,y) toward (cur_x,cur_y) through the
     // path_cost cost grid, picking the cheapest neighbor at each step (its cost weighted by
     // walk_cost_map at the current work position), appending each visited cell to `path`. On
     // success (reached (cur_x,cur_y) within 1000 steps) drops the initial (x,y) entry from the
@@ -353,13 +353,13 @@ public:
     void FindPathInternal(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y, int32_t flag, Unit* target); // 5882ae (client: 55775e)
 
     inline Obstacle& ObstacleAt(PosYX yx) { return this->obstacle_map[yx.val]; } // 59a7a0 (client: 569a60)
-    inline Obstacle& Obstacle2At(PosYX yx) { return this->obstacle_map2[yx.val]; } // 59a7c0 (client: 569a80)
+    inline Obstacle& DynamicObstacleAt(PosYX yx) { return this->obstacle_map2[yx.val]; } // 59a7c0 (client: 569a80)
     inline uint8_t& WalkCostAt(PosYX yx) { return this->walk_cost_map[yx.val]; } // 59a780 (client: 569a40)
 
-    int IsObstacle2_40(PosYX yx) { return this->Obstacle2At(yx).TestBits(obstacle_flag::ground_unit); } // 58b9ee (client: 55ae9e)
-    void SetObstacle2_40(PosYX yx) { this->Obstacle2At(yx).SetBits(obstacle_flag::ground_unit); } // 58b920 (client: 55add0)
-    int IsObstacle2_80(PosYX yx) { return this->Obstacle2At(yx).TestBits(obstacle_flag::air_unit); } // 58ba15 (client: 55aec5)
-    void SetObstacle2_80(PosYX yx) { this->Obstacle2At(yx).SetBits(obstacle_flag::air_unit); } // 58b952 (client: 55ae02)
+    int HasGroundUnitObstacle(PosYX yx) { return this->DynamicObstacleAt(yx).TestBits(obstacle_flag::ground_unit); } // 58b9ee (client: 55ae9e)
+    void SetGroundUnitObstacle(PosYX yx) { this->DynamicObstacleAt(yx).SetBits(obstacle_flag::ground_unit); } // 58b920 (client: 55add0)
+    int HasAirUnitObstacle(PosYX yx) { return this->DynamicObstacleAt(yx).TestBits(obstacle_flag::air_unit); } // 58ba15 (client: 55aec5)
+    void SetAirUnitObstacle(PosYX yx) { this->DynamicObstacleAt(yx).SetBits(obstacle_flag::air_unit); } // 58b952 (client: 55ae02)
 
     void ApplyCellState(CellState& cell); // 58b5d6 (client: 55aa86)
     int RestoreCellState(PosYX yx); // 58b4a6 (client: 55a956)
@@ -369,7 +369,7 @@ public:
     void MoveUnitBlockers(Unit* unit, PosYX yx, uint8_t t); // 5969c6 (client: 565e76)
     int ClearUnitCell(Unit* unit, uint8_t x, uint8_t y); // 58b27f (client: 55a72f) - Clear unit occupancy from cell (x,y), refresh state, cache eye position
 
-    // Shared by RelaxCostsMap1Queue2/RelaxCostsMap1Queue1/RelaxCostsMap2Queue2/RelaxCostsMap2Queue1: relaxes path cost of the 8
+    // Shared by RelaxStaticMapToDynamicQueue/RelaxStaticMapToStaticQueue/RelaxDynamicMapToDynamicQueue/RelaxDynamicMapToStaticQueue: relaxes path cost of the 8
     // neighbors of yx, skipping any neighbor blocked in obstacle_map (masked by flag_byte),
     // and pushes improved neighbors into the ring-buffer queue (queue_tail/queue).
     void PropagateNeighborCost(uint16_t yx, uint8_t flag_byte, int32_t cond_flag, Obstacle* obstacle_map, uint16_t& queue_tail, uint16_t* queue); // split from 597bb0 (client: 567000)

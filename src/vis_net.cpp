@@ -551,7 +551,7 @@ void VisServerScreenRadio::Draw() {
     GetCursorPos(&cursor);
 #endif
 
-    LockSurface2();
+    LockBackSurface();
 
     this->parent->DrawBackground(&r);
 
@@ -586,7 +586,7 @@ void VisServerScreenRadio::Draw() {
         ShadowRect(CRect(r2.left - 1, r2.top - 1, r2.right + 1, r2.bottom + 1), shadow_level::disabled);
     }
 
-    UnlockSurface2();
+    UnlockBackSurface();
 }
 
 // 4db615 (client: 4dff9a)
@@ -975,7 +975,7 @@ void VisFameDocument::OnCreate() {
 void VisServerScreen::Draw() {
     MainWindow* main_wnd = (MainWindow*)AfxGetMainWnd();
     CString str;
-    LockSurface2();
+    LockBackSurface();
     FillRectColorSimple(0, 0, g_ScreenSize.right, g_ScreenSize.bottom, 0);
     this->CVisualObject::Draw();
     g_font2->DrawTextWithShadow(0, 0, txt_patch.GetLine(0x39), CGameFont::ALIGN_LEFT_TOP, clrsh_ShockingBlack, 1);
@@ -1094,7 +1094,7 @@ void VisServerScreen::Draw() {
         g_font2->DrawTxt(0, row_bottom + 4, str, CGameFont::ALIGN_LEFT_TOP, clrsh_ShockingBlack);
     }
     this->msg_log->Draw();
-    UnlockSurface2();
+    UnlockBackSurface();
 }
 
 

@@ -121,7 +121,7 @@ void TokenPos::SetCoords(uint8_t _x, uint8_t _y) {
 }
 
 // 58a781 (client: 559c31)
-void TokenPos::SetCoords2(uint16_t Xx, uint16_t Yy) {
+void TokenPos::SetSubcellCoords(uint16_t Xx, uint16_t Yy) {
     this->x = Xx >> 8;
     this->y = Yy >> 8;
     this->YX.Set(this->x, this->y);

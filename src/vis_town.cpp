@@ -133,9 +133,9 @@ void VisTown::DoOpen() {
     this->spr_cur_horse = this->spr_horse.ElementAt(0);
     this->horse_frame = -1;
     this->hovered_action_mask = -1;
-    LockSurface2();
+    LockBackSurface();
     FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
-    UnlockSurface2();
+    UnlockBackSurface();
     FlushScreen();
     this->VisScreen::DoOpen();
     this->dialog_active = 1;
@@ -355,7 +355,7 @@ void VisTown::Draw() {
     if ((now - this->last_bird) > bird_anim_delay && (this->town_anim & 0x80) == 0) {
         bird_anim_delay = (uint32_t)this->StartBirdFlight();
     }
-    LockSurface2();
+    LockBackSurface();
     if (this->bmp_bkg != nullptr) {
         this->bmp_bkg->Draw(this->rect.left, this->rect.top, 0, 0, 0);
     }
@@ -423,7 +423,7 @@ void VisTown::Draw() {
     if (this->spr_dervish != nullptr) {
         this->spr_dervish->Draw(this->rect.left + this->dervish_position.x, this->rect.top + this->dervish_position.y, this->dervish_frame, 0, 0);
     }
-    UnlockSurface2();
+    UnlockBackSurface();
     this->VisScreen::Draw();
 }
 
@@ -1596,9 +1596,9 @@ void VisTownKaarg::DoOpen() {
     this->dervish_tick = timeGetTime();
     this->dervish_delay = GetRandS16(500) + 4000;
     this->hovered_action_mask = -1;
-    LockSurface2();
+    LockBackSurface();
     FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
-    UnlockSurface2();
+    UnlockBackSurface();
     FlushScreen();
     this->VisScreen::DoOpen();
     this->dialog_active = 1;
@@ -1633,7 +1633,7 @@ void VisTownKaarg::Draw() {
         hover_tick = timeGetTime();
     }
     this->UpdateAmbientEvents();
-    LockSurface2();
+    LockBackSurface();
     if (this->bmp_bkg != nullptr) {
         this->bmp_bkg->Draw(this->rect.left, this->rect.top, 0, 0, 0);
     }
@@ -1666,7 +1666,7 @@ void VisTownKaarg::Draw() {
         this->bmp_dervish.GetAt(this->dervish_frame)->Draw(this->rect.left + 0x1A0, this->rect.top + 0x148, 0, 0, 0);
     }
     this->bmp_gate.GetAt(this->door_frame)->Draw(this->rect.left + 0x98, this->rect.top + 0x100, 0, 0, 0);
-    UnlockSurface2();
+    UnlockBackSurface();
     this->VisScreen::Draw();
 }
 
@@ -2151,7 +2151,7 @@ void VisTownDruid::Draw() {
         hover_tick = timeGetTime();
     }
     this->UpdateAmbientEvents();
-    LockSurface2();
+    LockBackSurface();
     if (this->bmp_bkg != nullptr) {
         this->bmp_bkg->Draw(this->rect.left, this->rect.top, 0, 0, 0);
     }
@@ -2191,7 +2191,7 @@ void VisTownDruid::Draw() {
     if (this->bug_variant >= 0 && this->bug_frame >= 0) {
         this->spr_bug->Draw(this->rect.left, this->rect.top + 0xD4, this->bug_variant * 0x3D + this->bug_frame, 0, 0);
     }
-    UnlockSurface2();
+    UnlockBackSurface();
     this->VisScreen::Draw();
 }
 
@@ -2228,9 +2228,9 @@ void VisTownDruid::DoOpen() {
     this->bug_frame = -1;
     this->lizard_frame = -1;
     this->hovered_action_mask = -1;
-    LockSurface2();
+    LockBackSurface();
     FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
-    UnlockSurface2();
+    UnlockBackSurface();
     FlushScreen();
     this->VisScreen::DoOpen();
     this->dialog_active = 1;

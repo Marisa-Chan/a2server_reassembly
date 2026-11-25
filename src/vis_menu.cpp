@@ -365,7 +365,7 @@ void VisQuestStatus::Draw() {
     screen_rect.right -= 8;
     screen_rect.bottom -= 8;
 
-    LockSurface2();
+    LockBackSurface();
 
     gfx_interface_lm->DrawBrightened(screen_rect.right - 0x18, screen_rect.top + 8, 0xC, 6, 0);
     gfx_interface_lm->DrawBrightened(screen_rect.left + 8, screen_rect.bottom - 0x18, 0xF, 6, 0);
@@ -518,7 +518,7 @@ void VisQuestStatus::Draw() {
         row_y += 0x20;
     }
 
-    UnlockSurface2();
+    UnlockBackSurface();
 }
 
 
@@ -553,7 +553,7 @@ void VisTipsDialog::DrawBackground(CRect* rect) {
     CRect tmp;
     GetClipRect(&tmp);
     SetClipRect(*rect);
-    LockSurface2();
+    LockBackSurface();
 
     gfx_interface_lm->DrawBrightened(r.right - 24, r.top + 8, 0xC, 6, 0);
     gfx_interface_lm->DrawBrightened(r.left + 8, r.bottom - 24, 0xF, 6, 0);
@@ -588,7 +588,7 @@ void VisTipsDialog::DrawBackground(CRect* rect) {
         }
     }
 
-    UnlockSurface2();
+    UnlockBackSurface();
     SetClipRect(tmp);
 }
 
@@ -1737,13 +1737,13 @@ VisLogoWnd::~VisLogoWnd() {
 void VisLogoWnd::Draw() {
     this->drawPendingFlag = 0;
 
-    LockSurface2();
+    LockBackSurface();
 
     if (this->logoBitmap) {
         this->logoBitmap->Draw(this->rect.left, this->rect.top, 0, 0, 0);
     }
 
-    UnlockSurface2();
+    UnlockBackSurface();
 }
 
 // 4cd72e (client: 4d207e)
@@ -1857,7 +1857,7 @@ void VisStartGame::Draw() {
     CRect old_clip;
     GetClipRect(&old_clip);
     SetClipRect(this->rect);
-    LockSurface2();
+    LockBackSurface();
 
     this->mainAreaBitmap->Draw(this->rect.left, this->rect.top, 0, 0, 0);
 
@@ -2021,7 +2021,7 @@ void VisStartGame::Draw() {
     this->leftTorchFrames.GetAt(this->torchFrameTick % 0xF)->Draw(screen_x + 4, screen_y + 200, 0, 0, 0);
     this->rightTorchFrames.GetAt((this->torchFrameTick + 8) % 0xF)->Draw(screen_x + 0x24C, screen_y + 200, 0, 0, 0);
 
-    UnlockSurface2();
+    UnlockBackSurface();
     SetClipRect(old_clip);
     VisScreen::Draw();
 }
@@ -2448,9 +2448,9 @@ void VisStartGame::DoOpen() {
     }
 
     this->tipsProgress = 0;
-    LockSurface2();
+    LockBackSurface();
     FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
-    UnlockSurface2();
+    UnlockBackSurface();
     FlushScreen();
     VisScreen::DoOpen();
     g_Cursors[CURSOR_SELECT]->Use();
@@ -2925,7 +2925,7 @@ void VisMainMenu::Draw() {
     if (main_wnd->dialogsMask != DIALOG_MASK_MAIN_MENU) {
         return;
     }
-    LockSurface2();
+    LockBackSurface();
     this->bmp_menu->Draw(screen_rect.left, screen_rect.top, 0, 0, 0);
     if (this->bmp_active_button != nullptr) {
         this->bmp_active_button->Draw(this->rect_active_button.left, this->rect_active_button.top, 0, 0, 0);
@@ -2938,7 +2938,7 @@ void VisMainMenu::Draw() {
         }
     }
     this->sprite->Draw(screen_rect.left + 0x1E0, screen_rect.top + 0x168, 0, 0, 0);
-    UnlockSurface2();
+    UnlockBackSurface();
 #endif
 }
 
@@ -3077,9 +3077,9 @@ void VisMainMenu::DoOpen() {
 #if defined(A2CLIENT) && defined(A2TANGAR_HAT)
     tangar_menu::Reset();
 #endif
-    LockSurface2();
+    LockBackSurface();
     FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
-    UnlockSurface2();
+    UnlockBackSurface();
     FlushScreen();
     this->VisScreen::DoOpen();
 }
@@ -3345,7 +3345,7 @@ void VisCredits::Draw() {
 
     GetClipRect(&saved_clip);
     SetClipRect(screen_rect);
-    LockSurface2();
+    LockBackSurface();
     FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
 
     int32_t last = this->first_visible + 1 + 0x1e0 / line_height;
@@ -3374,7 +3374,7 @@ void VisCredits::Draw() {
         }
     }
 
-    UnlockSurface2();
+    UnlockBackSurface();
     SetClipRect(saved_clip);
 
     if (this->first_visible >= last) {
@@ -3405,9 +3405,9 @@ void VisCredits::DoOpen() {
     this->LoadContent();
     this->flag = 1;
     g_mousept.Unpaint();
-    LockSurface2();
+    LockBackSurface();
     FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
-    UnlockSurface2();
+    UnlockBackSurface();
     FlushScreen();
     VisScreen::DoOpen();
 }
@@ -3567,9 +3567,9 @@ void VisDropGold::DoOpen() {
 
 // 441f1f (client: 4444f1)
 void VisDropGold::Redraw() {
-    LockSurface2();
+    LockBackSurface();
     CVisualObject::Redraw();
-    UnlockSurface2();
+    UnlockBackSurface();
 }
 
 // 4a7a30 (client: 4aba60)
@@ -3594,7 +3594,7 @@ void VisStartGameTextBox::Draw() {
 
     CString str;
 
-    LockSurface2();
+    LockBackSurface();
     if (this->is_active != 0 && this->TestFlags(FLAG_FOCUS)) {
         str = this->text + '|';
     } else {
@@ -3607,7 +3607,7 @@ void VisStartGameTextBox::Draw() {
         this->ts = now;
         this->is_active = this->is_active ^ 1;
     }
-    UnlockSurface2();
+    UnlockBackSurface();
 }
 
 // 432c1f (client: 434d56)

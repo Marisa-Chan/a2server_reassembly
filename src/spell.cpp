@@ -281,7 +281,7 @@ int32_t Spell::StartCast(Unit* caster, Unit* target, int8_t x, int8_t y) {
     } else {
         local_pos = *target->position;
         if (target->GetTokenSize() > 1) {
-            local_pos.SetCoords2(target->GetRightXx() - 1, target->GetBottomYy() - 1);
+            local_pos.SetSubcellCoords(target->GetRightXx() - 1, target->GetBottomYy() - 1);
         }
     }
 
@@ -468,7 +468,7 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
     } else {
         local_pos = *target->position;
         if (target->GetTokenSize() > 1) {
-            local_pos.SetCoords2(target->GetRightXx() - 1, target->GetBottomYy() - 1);
+            local_pos.SetSubcellCoords(target->GetRightXx() - 1, target->GetBottomYy() - 1);
         }
         if (target->IsUnit() != 0 && (target->unit_attrs & Unit::ATTR_PHASED_OUT)) {
             return;

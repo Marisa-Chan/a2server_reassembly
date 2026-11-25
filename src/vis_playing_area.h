@@ -142,8 +142,8 @@ public:
 
     void LoadScenario(const char* name); // 41c4a1 (client: 41dd29)
 
-    CUnit* GetUnit_3f6c(); // 41f830 (client: 420c60)
-    void SetUnit_3f6c(CUnit* uni) { this->my_unit = uni; };
+    CUnit* GetMyUnit(); // 41f830 (client: 420c60)
+    void SetMyUnit(CUnit* uni) { this->my_unit = uni; };
 
     int32_t ProcessPackets(uint8_t breakid); // 40da14 (client: 40dac9)
 

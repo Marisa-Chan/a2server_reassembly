@@ -468,7 +468,7 @@ void MapStuff::MoveStepTowardPos(Unit* unit, PosYX yx, uint8_t max_range) {
         }
     }
     if (!ok) {
-        this->AdvancePathList2(unit);
+        this->AdvanceLocalPath(unit);
     }
 }
 
@@ -551,7 +551,7 @@ void MapStuff::MoveStepTowardUnit(Unit* unit, Unit* target, uint8_t max_range) {
         }
     }
 
-    this->AdvancePathList2(unit);
+    this->AdvanceLocalPath(unit);
 }
 
 // 5913bd (client: 56086d) - Movement time for unit entering tile (x,y).
@@ -589,12 +589,12 @@ void MapStuff::SyncEyeState(Unit* unit) {
     }
 
     if ((old_x >> 8) == (new_x >> 8) && (old_y >> 8) == (new_y >> 8)) {
-        unit->position->SetCoords2(new_x, new_y);
+        unit->position->SetSubcellCoords(new_x, new_y);
     } else {
         PosYX old_yx = unit->position->CompatGetYX();
         this->MoveUnitBlockers(unit, 0, 2);
         this->UnitFitsAt(unit);
-        unit->position->SetCoords2(new_x, new_y);
+        unit->position->SetSubcellCoords(new_x, new_y);
         this->PlaceUnit(unit);
         this->MoveUnitBlockers(unit, old_yx, 0);
     }
@@ -637,7 +637,7 @@ void MapStuff::UpdateEyeMoveTime(Unit* unit) {
 }
 
 // 5907be (client: 55fc6e)
-void MapStuff::AdvancePathList2(Unit* unit) {
+void MapStuff::AdvanceLocalPath(Unit* unit) {
     if (unit->list2.IsEmpty()) {
         this->StepRotateToTarget(unit);
         return;
@@ -769,7 +769,7 @@ void MapStuff::PickNextPathTarget(Unit* unit, Unit* target) {
 
 // 58e407 (client: 55d8b7) - Check if sack can be placed on map
 int MapStuff::CanPlaceSack(Sack* sack) {
-    if (this->Obstacle2At(sack->position->CompatGetYX()).TestBits(obstacle_flag::land)) {
+    if (this->DynamicObstacleAt(sack->position->CompatGetYX()).TestBits(obstacle_flag::land)) {
         return 0;
     }
 
@@ -796,7 +796,7 @@ int MapStuff::CanPlaceSack(Sack* sack) {
 
 // 596576 (client: 565a26) - Apply terrain modification from 6-byte src buffer at yx
 int MapStuff::ApplyTerrainMod(uint16_t yx, void* src) {
-    if (this->Obstacle2At(yx).TestBits(obstacle_flag::land)) {
+    if (this->DynamicObstacleAt(yx).TestBits(obstacle_flag::land)) {
         return 0;
     }
 
@@ -918,7 +918,7 @@ int MapStuff::IsAreaClear(Unit* unit, PosYX yx, int32_t flag) {
             PosYX cell(yx.x + dx, yx.y + dy);
             bool blocked = (flag != 0)
                 ? this->ObstacleAt(cell).TestBits(unit->eye->path_mask)
-                : this->Obstacle2At(cell).TestBits(unit->eye->path_mask);
+                : this->DynamicObstacleAt(cell).TestBits(unit->eye->path_mask);
             if (blocked) {
                 return 0;
             }
@@ -1027,7 +1027,7 @@ void MapStuff::ApplyCellState(CellState& cell) {
     Obstacle old = this->ObstacleAt(pos);
 
     Obstacle* ob1 = &this->ObstacleAt(pos);
-    Obstacle* ob2 = &this->Obstacle2At(pos);
+    Obstacle* ob2 = &this->DynamicObstacleAt(pos);
 
     *ob1 = cell.obstacle;
     this->WalkCostAt(pos) = cell.walk_cost;
@@ -1086,7 +1086,7 @@ int MapStuff::RestoreCellState(PosYX yx) {
 
     if (old.TestBits(obstacle_flag::dynamic_block)) {
         this->ObstacleAt(yx).SetBits(obstacle_flag::dynamic_block);
-        this->Obstacle2At(yx).SetBits(obstacle_flag::dynamic_block);
+        this->DynamicObstacleAt(yx).SetBits(obstacle_flag::dynamic_block);
     }
     return 1;
 }
@@ -1857,7 +1857,7 @@ void MapStuff::Serialize(CArchive& ar) {
 
     if (ar.IsStoring()) {
         for (uint32_t yx = 0x807; yx < 0xEDEE; yx++) {
-            uint8_t obstacle2 = this->Obstacle2At(yx);
+            uint8_t obstacle2 = this->DynamicObstacleAt(yx);
             if (obstacle2 > 0xF) {
                 uint8_t obstacle = this->ObstacleAt(yx);
                 uint32_t packed = (((yx << 8) + obstacle2) << 8) + obstacle;
@@ -1881,7 +1881,7 @@ void MapStuff::Serialize(CArchive& ar) {
         while (pos != nullptr) {
             uint32_t packed = obstacle_diffs.GetNext(pos);
             uint16_t yx = (uint16_t)(packed >> 16);
-            this->Obstacle2At(yx) = (uint8_t)(packed >> 8);
+            this->DynamicObstacleAt(yx) = (uint8_t)(packed >> 8);
             this->ObstacleAt(yx) = (uint8_t)packed;
         }
     }
@@ -2058,7 +2058,7 @@ void MapStuff::TeleportUnit(Unit* unit, uint8_t x, uint8_t y) {
     g_NetStru1_main.SendUnitUpdate(unit, nullptr, UNIT_UPD_ALL, EQUIP_SLOTS_ALL, 0, 0);
 }
 
-// Shared by RelaxCostsMap1Queue2/RelaxCostsMap1Queue1/RelaxCostsMap2Queue2/RelaxCostsMap2Queue1.
+// Shared by RelaxStaticMapToDynamicQueue/RelaxStaticMapToStaticQueue/RelaxDynamicMapToDynamicQueue/RelaxDynamicMapToStaticQueue.
 // split from 597bb0 (client: 567000)
 void MapStuff::PropagateNeighborCost(uint16_t yx, uint8_t flag_byte, int32_t cond_flag, Obstacle* obstacle_map, uint16_t& queue_tail, uint16_t* queue) {
     static const int32_t offsets[8] = { -0x101, -0xFF, 0xFF, 0x101, -0x100, -1, 1, 0x100 };
@@ -2090,22 +2090,22 @@ void MapStuff::PropagateNeighborCost(uint16_t yx, uint8_t flag_byte, int32_t con
 }
 
 // 597bb0 (client: 567000) - Relax 8-neighbor path costs of yx against obstacle_map, queue into dynamic ring buffer
-void MapStuff::RelaxCostsMap1Queue2(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag) {
+void MapStuff::RelaxStaticMapToDynamicQueue(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag) {
     this->PropagateNeighborCost(yx, flag_byte, cond_flag, this->obstacle_map, this->dynamic_queue_count, this->path_queue_dynamic);
 }
 
 // 5983d0 (client: 567820) - Relax 8-neighbor path costs of yx against obstacle_map, queue into static ring buffer
-void MapStuff::RelaxCostsMap1Queue1(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag) {
+void MapStuff::RelaxStaticMapToStaticQueue(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag) {
     this->PropagateNeighborCost(yx, flag_byte, cond_flag, this->obstacle_map, this->static_queue_count, this->path_queue_static);
 }
 
 // 598bf0 (client: 568040) - Relax 8-neighbor path costs of yx against obstacle_map2, queue into dynamic ring buffer
-void MapStuff::RelaxCostsMap2Queue2(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag) {
+void MapStuff::RelaxDynamicMapToDynamicQueue(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag) {
     this->PropagateNeighborCost(yx, flag_byte, cond_flag, this->obstacle_map2, this->dynamic_queue_count, this->path_queue_dynamic);
 }
 
 // 599410 (client: 568860) - Relax 8-neighbor path costs of yx against obstacle_map2, queue into static ring buffer
-void MapStuff::RelaxCostsMap2Queue1(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag) {
+void MapStuff::RelaxDynamicMapToStaticQueue(Unit* unit, uint16_t yx, uint8_t flag_byte, int32_t cond_flag) {
     this->PropagateNeighborCost(yx, flag_byte, cond_flag, this->obstacle_map2, this->static_queue_count, this->path_queue_static);
 }
 
@@ -2163,11 +2163,11 @@ void MapStuff::FindPathInternal(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_
             while (this->path_cost[dest.val] == 0xFFFF && this->static_queue_count != 0 && ring < ring_limit) {
                 this->dynamic_queue_count = 0;
                 for (int i = 0; i < this->static_queue_count; i++) {
-                    this->RelaxCostsMap2Queue2(unit, this->path_queue_static[i], flag_byte, cond_flag);
+                    this->RelaxDynamicMapToDynamicQueue(unit, this->path_queue_static[i], flag_byte, cond_flag);
                 }
                 this->static_queue_count = 0;
                 for (int i = 0; i < this->dynamic_queue_count; i++) {
-                    this->RelaxCostsMap2Queue1(unit, this->path_queue_dynamic[i], flag_byte, cond_flag);
+                    this->RelaxDynamicMapToStaticQueue(unit, this->path_queue_dynamic[i], flag_byte, cond_flag);
                 }
                 ring += 2;
             }
@@ -2178,11 +2178,11 @@ void MapStuff::FindPathInternal(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_
             while (*this->GetCostGridAt(x, y) == 0xFFFF && this->static_queue_count != 0 && ring < distance + this->dynamic_scan_ahead) {
                 this->dynamic_queue_count = 0;
                 for (int i = 0; i < this->static_queue_count; i++) {
-                    this->ExpandCostsDynamicQueue2(unit, this->path_queue_scratch[i], this->path_queue_scratch[0x1000 + i]);
+                    this->ExpandDynamicCostsToDynamicQueue(unit, this->path_queue_scratch[i], this->path_queue_scratch[0x1000 + i]);
                 }
                 this->static_queue_count = 0;
                 for (int i = 0; i < this->dynamic_queue_count; i++) {
-                    this->ExpandCostsDynamicQueue1(unit, this->path_queue_scratch[0x2000 + i], this->path_queue_scratch[0x3000 + i]);
+                    this->ExpandDynamicCostsToStaticQueue(unit, this->path_queue_scratch[0x2000 + i], this->path_queue_scratch[0x3000 + i]);
                 }
                 ring += 2;
             }
@@ -2222,11 +2222,11 @@ void MapStuff::FindPathInternal(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_
         while (this->path_cost[dest.val] == 0xFFFF && this->static_queue_count != 0 && (int32_t)ring < ring_limit) {
             this->dynamic_queue_count = 0;
             for (int i = 0; i < this->static_queue_count; i++) {
-                this->RelaxCostsMap1Queue2(unit, this->path_queue_static[i], flag_byte, cond_flag);
+                this->RelaxStaticMapToDynamicQueue(unit, this->path_queue_static[i], flag_byte, cond_flag);
             }
             this->static_queue_count = 0;
             for (int i = 0; i < this->dynamic_queue_count; i++) {
-                this->RelaxCostsMap1Queue1(unit, this->path_queue_dynamic[i], flag_byte, cond_flag);
+                this->RelaxStaticMapToStaticQueue(unit, this->path_queue_dynamic[i], flag_byte, cond_flag);
             }
             ring += 2;
         }
@@ -2237,11 +2237,11 @@ void MapStuff::FindPathInternal(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_
         while (*this->GetCostGridAt(x, y) == 0xFFFF && this->static_queue_count != 0 && ring < distance + this->static_scan_ahead) {
             this->dynamic_queue_count = 0;
             for (int i = 0; i < this->static_queue_count; i++) {
-                this->ExpandCostsStaticQueue2(unit, this->path_queue_scratch[i], this->path_queue_scratch[0x1000 + i]);
+                this->ExpandStaticCostsToDynamicQueue(unit, this->path_queue_scratch[i], this->path_queue_scratch[0x1000 + i]);
             }
             this->static_queue_count = 0;
             for (int i = 0; i < this->dynamic_queue_count; i++) {
-                this->ExpandCostsStaticQueue1(unit, this->path_queue_scratch[0x2000 + i], this->path_queue_scratch[0x3000 + i]);
+                this->ExpandStaticCostsToStaticQueue(unit, this->path_queue_scratch[0x2000 + i], this->path_queue_scratch[0x3000 + i]);
             }
             ring += 2;
         }
@@ -2257,7 +2257,7 @@ void MapStuff::FindPathInternal(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_
             }
             if (result_yx != 0) {
                 PosYX result(result_yx);
-                this->BuildPathList2(unit, cur_x, cur_y, result.x, result.y);
+                this->BuildLocalPath(unit, cur_x, cur_y, result.x, result.y);
             }
         } else {
             uint16_t step = this->FindCheapestCellNear(unit, 0, dest.val, (distance >> 2) + 4);
@@ -2283,17 +2283,17 @@ void MapStuff::FindPathInternal(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_
             if (step == 0) {
                 unit->list1.RemoveAll();
             } else {
-                this->BuildPathList1(unit, cur_x, cur_y, (uint8_t)step, (uint8_t)(step >> 8));
+                this->BuildCoarsePath(unit, cur_x, cur_y, (uint8_t)step, (uint8_t)(step >> 8));
             }
         }
     } else if (flag == 0) {
-        this->BuildPathList2(unit, cur_x, cur_y, x, y);
+        this->BuildLocalPath(unit, cur_x, cur_y, x, y);
     } else {
-        this->BuildPathList1(unit, cur_x, cur_y, x, y);
+        this->BuildCoarsePath(unit, cur_x, cur_y, x, y);
     }
 }
 
-// Shared by ExpandCostsStaticQueue2/ExpandCostsStaticQueue1/ExpandCostsDynamicQueue1/ExpandCostsDynamicQueue2: recomputes movement cost to each
+// Shared by ExpandStaticCostsToDynamicQueue/ExpandStaticCostsToStaticQueue/ExpandDynamicCostsToStaticQueue/ExpandDynamicCostsToDynamicQueue: recomputes movement cost to each
 // of the 9 neighbor cells (including self) around (x,y) in the path_cost cost grid,
 // gated by the given passability check, and enqueues improved cells into the given queue.
 // split from 597290 (client: 5666e0)
@@ -2335,32 +2335,32 @@ void MapStuff::ExpandCostGridNeighbors(Unit* unit, uint8_t x, uint8_t y, Passabl
 // expands the static-path cost grid from (x,y) using IsCellPassableStatic as the passability
 // check, queueing improved neighbors into queue2 (field_0x50008[0x2000/0x3000], dynamic_queue_count).
 // 597290 (client: 5666e0) - Expand path_cost cost grid from (x,y), gated by IsCellPassableStatic, queueing improved cells into queue2
-void MapStuff::ExpandCostsStaticQueue2(Unit* unit, uint8_t x, uint8_t y) {
+void MapStuff::ExpandStaticCostsToDynamicQueue(Unit* unit, uint8_t x, uint8_t y) {
     this->ExpandCostGridNeighbors(unit, x, y, &MapStuff::IsCellPassableStatic, this->path_queue_scratch + 0x2000, this->path_queue_scratch + 0x3000, this->dynamic_queue_count);
 }
 
 // expands the static-path cost grid from (x,y) using IsCellPassableStatic as the passability
 // check, queueing improved neighbors into queue1 (field_0x50008[0/0x1000], static_queue_count).
 // 5974b0 (client: 566900) - Expand path_cost cost grid from (x,y), gated by IsCellPassableStatic, queueing improved cells into queue1
-void MapStuff::ExpandCostsStaticQueue1(Unit* unit, uint8_t x, uint8_t y) {
+void MapStuff::ExpandStaticCostsToStaticQueue(Unit* unit, uint8_t x, uint8_t y) {
     this->ExpandCostGridNeighbors(unit, x, y, &MapStuff::IsCellPassableStatic, this->path_queue_scratch, this->path_queue_scratch + 0x1000, this->static_queue_count);
 }
 
 // expands the dynamic-path cost grid from (x,y) using IsCellPassableDynamic as the passability
 // check, queueing improved neighbors into queue2 (field_0x50008[0x2000/0x3000], dynamic_queue_count).
 // 5976d0 (client: 566b20) - Expand path_cost cost grid from (x,y), gated by IsCellPassableDynamic, queueing improved cells into queue2
-void MapStuff::ExpandCostsDynamicQueue2(Unit* unit, uint8_t x, uint8_t y) {
+void MapStuff::ExpandDynamicCostsToDynamicQueue(Unit* unit, uint8_t x, uint8_t y) {
     this->ExpandCostGridNeighbors(unit, x, y, &MapStuff::IsCellPassableDynamic, this->path_queue_scratch + 0x2000, this->path_queue_scratch + 0x3000, this->dynamic_queue_count);
 }
 
 // expands the dynamic-path cost grid from (x,y) using IsCellPassableDynamic as the passability
 // check, queueing improved neighbors into queue1 (field_0x50008[0/0x1000], static_queue_count).
 // 597990 (client: 566de0) - Expand path_cost cost grid from (x,y), gated by IsCellPassableDynamic, queueing improved cells into queue1
-void MapStuff::ExpandCostsDynamicQueue1(Unit* unit, uint8_t x, uint8_t y) {
+void MapStuff::ExpandDynamicCostsToStaticQueue(Unit* unit, uint8_t x, uint8_t y) {
     this->ExpandCostGridNeighbors(unit, x, y, &MapStuff::IsCellPassableDynamic, this->path_queue_scratch, this->path_queue_scratch + 0x1000, this->static_queue_count);
 }
 
-// Shared by BuildPathList1/BuildPathList2: walks backward from (x,y) toward (cur_x,cur_y) through the
+// Shared by BuildCoarsePath/BuildLocalPath: walks backward from (x,y) toward (cur_x,cur_y) through the
 // path_cost cost grid, picking the cheapest neighbor at each step (its cost weighted by
 // walk_cost_map at the current work position), appending each visited cell to `path`. On
 // success (reached (cur_x,cur_y) within 1000 steps) drops the initial (x,y) entry from the
@@ -2432,14 +2432,14 @@ void MapStuff::WalkCostPath(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x,
 }
 
 // 5890cc (client: 55857c) - Builds unit->list1 with a cost-grid-guided path from (x,y) back to (cur_x,cur_y)
-void MapStuff::BuildPathList1(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y) {
+void MapStuff::BuildCoarsePath(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y) {
     this->WalkCostPath(unit, cur_x, cur_y, x, y, unit->list1);
 }
 
 // builds unit->list2 with a cost-grid-guided path from (x,y) back to (cur_x,cur_y).
-// Similar to BuildPathList1, but uses list2 instead of list1.
+// Similar to BuildCoarsePath, but uses list2 instead of list1.
 // 5893c6 (client: 558876) - Builds unit->list2 with a cost-grid-guided path from (x,y) back to (cur_x,cur_y)
-void MapStuff::BuildPathList2(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y) {
+void MapStuff::BuildLocalPath(Unit* unit, uint8_t cur_x, uint8_t cur_y, uint8_t x, uint8_t y) {
     this->WalkCostPath(unit, cur_x, cur_y, x, y, unit->list2);
 }
 
@@ -2693,7 +2693,7 @@ Unit* MapStuff::GetBuildingUnitAt(uint8_t x, uint8_t y) {
 void MapStuff::BlockCell(uint8_t x, uint8_t y) {
     PosYX yx(x, y);
     this->ObstacleAt(yx).SetBits(obstacle_flag::dynamic_block);
-    this->Obstacle2At(yx).SetBits(obstacle_flag::dynamic_block);
+    this->DynamicObstacleAt(yx).SetBits(obstacle_flag::dynamic_block);
 }
 
 // 594e65 (client: 564315) - register area effect at (x, y)
@@ -2836,12 +2836,12 @@ int32_t MapStuff::IsCellPassableStatic(Unit* unit, uint16_t yx) {
     return 1;
 }
 
-// 5978f0 (client: 566d40) - Passability check used by ExpandCostsDynamicQueue2/ExpandCostsDynamicQueue1 - Passability check used by ExpandCostsDynamicQueue2/ExpandCostsDynamicQueue1; same as IsCellPassableStatic but against obstacle_map2
+// 5978f0 (client: 566d40) - Passability check used by ExpandDynamicCostsToDynamicQueue/ExpandDynamicCostsToStaticQueue - Passability check used by ExpandDynamicCostsToDynamicQueue/ExpandDynamicCostsToStaticQueue; same as IsCellPassableStatic but against obstacle_map2
 int32_t MapStuff::IsCellPassableDynamic(Unit* unit, uint16_t yx) {
     int8_t size = unit->GetTokenSize();
     for (int32_t i = 0; i < size; i++) {
         for (int32_t j = 0; j < size; j++) {
-            if (this->Obstacle2At(PosYX(yx + PosYX(i, j).val)).TestBits(unit->eye->path_mask)) {
+            if (this->DynamicObstacleAt(PosYX(yx + PosYX(i, j).val)).TestBits(unit->eye->path_mask)) {
                 return 0;
             }
         }

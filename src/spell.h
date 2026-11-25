@@ -135,7 +135,7 @@ public:
         return 0;
     }
 
-    uint8_t GetBonusType5(uint8_t v) const { // 5398b1 (client: 5235b8)
+    uint8_t GetShieldAbsorb(uint8_t v) const { // 5398b1 (client: 5235b8)
         if (this->spell_id == spell::shield) {
             return v / 10 + 3;
         }

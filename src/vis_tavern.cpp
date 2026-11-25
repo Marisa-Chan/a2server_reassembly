@@ -184,9 +184,9 @@ void VisTav::DoOpen() {
 
     this->dialog_active = 1;
 
-    LockSurface2();
+    LockBackSurface();
     FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
-    UnlockSurface2();
+    UnlockBackSurface();
     FlushScreen();
 
     VisScreen::DoOpen();
@@ -646,7 +646,7 @@ void VisTavLeftPanel::DrawUnitPanel(CUnit* unit) {
     CRect screen_rect;
     CRect rect_1C(CPoint(0xC, 0), CSize(0xA0, 0xEE));
     this->ClientRectToScreen(&screen_rect, this->rect);
-    LockSurface2();
+    LockBackSurface();
     this->bmp_left_stats->Draw(screen_rect.left, screen_rect.top, 0, 0, 0);
     this->bmp_left_picture->Draw(screen_rect.left, screen_rect.top + 0xEE, 0, 0, 0);
 
@@ -689,16 +689,16 @@ void VisTavLeftPanel::DrawUnitPanel(CUnit* unit) {
                 if (strcmp(this->picture_name, fname) != 0) {
                     strcpy(this->picture_name, fname);
                     if ((unit->unitFlags & UNIT_FLAG_EQUIP_CHANGED) != 0) {
-                        UnlockSurface2();
+                        UnlockBackSurface();
                         unit->RenderHeroPortrait(full_path, this->portrait_bmp, this->hitmap);
-                        LockSurface2();
+                        LockBackSurface();
                     } else {
                         this->portrait_bmp->LoadFile(fname, this->hitmap);
                     }
                 } else if ((unit->unitFlags & UNIT_FLAG_EQUIP_CHANGED) != 0) {
-                    UnlockSurface2();
+                    UnlockBackSurface();
                     unit->RenderHeroPortrait(full_path, this->portrait_bmp, this->hitmap);
-                    LockSurface2();
+                    LockBackSurface();
                 }
             }
             this->portrait_bmp->DrawSubRectMasked(screen_rect.left + 0xB, screen_rect.top + 0xF0, 0, 0, 0xA0, 0xF0);
@@ -747,16 +747,16 @@ void VisTavLeftPanel::DrawUnitPanel(CUnit* unit) {
                     if (strcmp(this->picture_name, fname) != 0) {
                         strcpy(this->picture_name, fname);
                         if ((target->unitFlags & UNIT_FLAG_EQUIP_CHANGED) != 0) {
-                            UnlockSurface2();
+                            UnlockBackSurface();
                             target->RenderHeroPortrait(full_path, this->portrait_bmp, this->hitmap);
-                            LockSurface2();
+                            LockBackSurface();
                         } else {
                             this->portrait_bmp->LoadFile(fname, this->hitmap);
                         }
                     } else if ((target->unitFlags & UNIT_FLAG_EQUIP_CHANGED) != 0) {
-                        UnlockSurface2();
+                        UnlockBackSurface();
                         target->RenderHeroPortrait(full_path, this->portrait_bmp, this->hitmap);
-                        LockSurface2();
+                        LockBackSurface();
                     }
                     unit_name = txt_npcnames.GetLine(target->serverId - 1);
                 } else {
@@ -882,7 +882,7 @@ void VisTavLeftPanel::DrawUnitPanel(CUnit* unit) {
         }
     }
 
-    UnlockSurface2();
+    UnlockBackSurface();
 }
 
 
@@ -1172,7 +1172,7 @@ void VisTavRightPanel::Draw() {
         return;
     }
 
-    LockSurface2();
+    LockBackSurface();
     this->bmp_area->Draw(tav_topleft.x + this->rect.left, tav_topleft.y + this->rect.top, 0, 0, 0);
 
     uint16_t* pal;
@@ -1208,7 +1208,7 @@ void VisTavRightPanel::Draw() {
         }
     }
 
-    UnlockSurface2();
+    UnlockBackSurface();
 }
 
 
@@ -1301,7 +1301,7 @@ void VisTavScene::Draw() {
         tavscene_ambient_ts = now;
     }
 
-    LockSurface2();
+    LockBackSurface();
     CPoint tav_topleft = this->vis_tav->rect.TopLeft();
     int32_t x = tav_topleft.x + this->rect.left;
     int32_t y = tav_topleft.y + this->rect.top;
@@ -1418,7 +1418,7 @@ void VisTavScene::Draw() {
     } else {
         g_bmp_textbackl->DrawSubRectMasked(tav_topleft.x + 0x1D0, tav_topleft.y + 0xEE, 0, 0, 0x10, 0xF2);
     }
-    UnlockSurface2();
+    UnlockBackSurface();
     CVisualObject::Draw();
 }
 
@@ -1834,7 +1834,7 @@ void VisTavSceneDruid::Draw() {
     }
 
     uint32_t now = timeGetTime();
-    LockSurface2();
+    LockBackSurface();
     CPoint tav_topleft = this->vis_tav->rect.TopLeft();
     int32_t x = tav_topleft.x + this->rect.left;
     int32_t y = tav_topleft.y + this->rect.top;
@@ -1977,7 +1977,7 @@ void VisTavSceneDruid::Draw() {
     } else {
         g_bmp_textbackl->DrawSubRectMasked(tav_topleft.x + 0x1D0, tav_topleft.y + 0xEE, 0, 0, 0x10, 0xF2);
     }
-    UnlockSurface2();
+    UnlockBackSurface();
     CVisualObject::Draw();
 
     if (main_wnd->sessionMode == SESSION_LOCAL_BATTLE && now - this->ambient_last_tick > this->ambient_interval) {
@@ -2090,7 +2090,7 @@ void VisTavSceneKaarg::Draw() {
     }
 
     uint32_t now = timeGetTime();
-    LockSurface2();
+    LockBackSurface();
     CPoint tav_topleft = this->vis_tav->rect.TopLeft();
     int32_t x = tav_topleft.x + this->rect.left;
     int32_t y = tav_topleft.y + this->rect.top;
@@ -2238,7 +2238,7 @@ void VisTavSceneKaarg::Draw() {
     } else {
         g_bmp_textbackl->DrawSubRectMasked(tav_topleft.x + 0x1D0, tav_topleft.y + 0xEE, 0, 0, 0x10, 0xF2);
     }
-    UnlockSurface2();
+    UnlockBackSurface();
 
     if (main_wnd->sessionMode == SESSION_LOCAL_BATTLE && now - this->ambient2_last_tick > this->ambient2_interval) {
         switch (GetRandS16(3) + 1) {
@@ -2460,9 +2460,9 @@ void VisTavDruid::DoOpen() {
 
     this->dialog_active = 1;
 
-    LockSurface2();
+    LockBackSurface();
     FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
-    UnlockSurface2();
+    UnlockBackSurface();
     FlushScreen();
 
     VisScreen::DoOpen();
@@ -2736,9 +2736,9 @@ void VisTavKaarg::DoOpen() {
 
     this->dialog_active = 1;
 
-    LockSurface2();
+    LockBackSurface();
     FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
-    UnlockSurface2();
+    UnlockBackSurface();
     FlushScreen();
 
     VisScreen::DoOpen();

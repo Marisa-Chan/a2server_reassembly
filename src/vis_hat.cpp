@@ -1154,7 +1154,7 @@ void VisHatSession::Draw() {
 
     int32_t xoff = rect.left + 32;
     int32_t yoff = rect.top + 32;
-    LockSurface2();
+    LockBackSurface();
     if (mwnd->vis_map_context->hat_item_slot12 == 0) {
         g_font2->DrawTextWithShadow(rect.left + rect.Width() / 2, yoff, txt_patch.GetLine(181), CGameFont::ALIGN_HCENTER, clrsh_TechBlack, 1);
     }
@@ -1205,6 +1205,6 @@ void VisHatSession::Draw() {
 
         yoff += 11;
     }
-    UnlockSurface2();
+    UnlockBackSurface();
 }
 #endif

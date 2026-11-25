@@ -94,7 +94,7 @@ public:
     int IsSameYX(const TokenPos* b) const; // 58a5b3 (client: 559a63)
 
     void SetCoords(uint8_t _x, uint8_t _y); // 58a737 (client: 559be7)
-    void SetCoords2(uint16_t Xx, uint16_t Yy); // 58a781 (client: 559c31)
+    void SetSubcellCoords(uint16_t Xx, uint16_t Yy); // 58a781 (client: 559c31)
 
     int32_t IsAtCellCenter(); // 58bec3 (client: 55b373) - Check if we'in the middle of a cell (both subcell values are 0x80).
 };

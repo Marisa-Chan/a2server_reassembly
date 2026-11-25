@@ -38,7 +38,7 @@ void BuildAuthorizationPacket(PacketJoin* pkt, const CString& login, const CStri
 bool ProcessServerPacket(tangar_hat::Packet& pack);
 
 // Deferred screen-surface capture + background PNG upload hook for
-// UnlockSurface1 (imp_MakeScreenshotNet, client: 457ff4).
+// UnlockPrimarySurface (imp_MakeScreenshotNet, client: 457ff4).
 void ProcLastScreenshot();
 
 // Framed TCP receive hook for CLlDriver::RecvThreadTcp (client: 5122d1,

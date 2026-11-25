@@ -399,7 +399,7 @@ void SmackerPlayer::RenderFrame() {
     const int32_t dw = x1 - x0;
     const int32_t dh = y1 - y0;
 
-    LockSurface2();
+    LockBackSurface();
     if (g_selDrawBitmap.lpSurface != nullptr) {
         // Retail delegated to the RAD SDK's SmackBlit (its own scaler into the
         // locked surface); we scale nearest-neighbor into the shared
@@ -415,7 +415,7 @@ void SmackerPlayer::RenderFrame() {
             }
         }
     }
-    UnlockSurface2();
+    UnlockBackSurface();
     FlushScreen();
 }
 

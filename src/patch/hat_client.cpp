@@ -1185,7 +1185,7 @@ bool RunAutoUpdater(MainWindow* wnd) {
     g_updater_abort.store(false);
 
     if (g_font1 != nullptr) {
-        LockSurface2();
+        LockBackSurface();
         FillRectColorSimple(0, 0, g_ScreenSize.right, g_ScreenSize.bottom, 0);
         g_font1->DrawTextWithShadow(
             g_ScreenSize.right / 2,
@@ -1194,7 +1194,7 @@ bool RunAutoUpdater(MainWindow* wnd) {
             CGameFont::ALIGN_HCENTER,
             clrsh_ShockingBlack,
             0);
-        UnlockSurface2();
+        UnlockBackSurface();
         FlushScreen();
     }
 
@@ -1234,7 +1234,7 @@ bool RunAutoUpdater(MainWindow* wnd) {
             const char* file_label = GetUpdaterPatchLine(235, "file");
             std::string file_prefix = std::string(file_label) + ":";
 
-            LockSurface2();
+            LockBackSurface();
             FillRectColorSimple(0, 0, wd, ht, 0);
             g_font1->DrawTextWithShadow(wd / 2, y, header_str, CGameFont::ALIGN_HCENTER, clrsh_ShockingBlack, 0);
             y += 16;
@@ -1278,7 +1278,7 @@ bool RunAutoUpdater(MainWindow* wnd) {
                 snapshot.ftotal);
             g_font1->DrawTextWithShadow(wd - startx, y, status_line, CGameFont::ALIGN_RIGHT, clrsh_ShockingBlack, 0);
 
-            UnlockSurface2();
+            UnlockBackSurface();
             FlushScreen();
         }
 

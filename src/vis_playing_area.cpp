@@ -144,7 +144,7 @@ void VisPlayingArea::CloseHatOverlays() {
             }
             wnd->dialogsMask &= ~DIALOG_MASK_POPUP;
 
-            // Drop any already-queued MAIN_MSG_CHILD_CLOSED for `child` so Proc_44c
+            // Drop any already-queued MAIN_MSG_CHILD_CLOSED for `child` so OnChildScreenClosed
             // cannot double-delete it or clear DIALOG_MASK_POPUP for the next overlay.
             CArray<MSG> kept_msgs;
             bool quit_seen = false;
@@ -337,7 +337,7 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
             }
             this->my_main_unit->gold = packet_2dwords->param1;
 
-            CUnit* u = this->GetUnit_3f6c();
+            CUnit* u = this->GetMyUnit();
             if (u) {
                 wnd->m_GameSession.AutosaveCharacter();
                 if (u->tokenEntries.GetSize()) {
@@ -2379,13 +2379,13 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 
             try {
                 if (packet_file->offset == 0) {
-                    LockSurface2();
+                    LockBackSurface();
                     FillRectColorSimple(0, 0, g_ScreenSize.right, g_ScreenSize.bottom, 0);
 
                     CString cstr = CString(TxtFile::AllLines[0x16b]) + " " + (const char*)packet_file->preamble;
                     g_font1->DrawTxt(g_ScreenSize.right / 2, g_ScreenSize.bottom / 2, cstr, CGameFont::ALIGN_CENTER, clrsh_ShockingBlack);
 
-                    UnlockSurface2();
+                    UnlockBackSurface();
 
                     if (wnd->has_focus != 0) {
                         FlushScreen();
@@ -2400,14 +2400,14 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
                 fl.Write(packet_file->var_data, packet_file->count);
                 fl.Close();
 
-                LockSurface2();
+                LockBackSurface();
                 FillRectColorSimple(0, g_ScreenSize.bottom / 2 + 20, g_ScreenSize.right, g_ScreenSize.bottom / 2 + 40, 0);
 
                 CString progress_str;
                 progress_str.Format(TxtFile::AllLines[0x16c], (int32_t)(packet_file->offset + packet_file->count) * 100 / (int32_t)packet_file->total_length);
                 g_font1->DrawTxt(g_ScreenSize.right / 2, g_ScreenSize.bottom / 2 + 20, progress_str, CGameFont::ALIGN_HCENTER, clrsh_ShockingBlack);
 
-                UnlockSurface2();
+                UnlockBackSurface();
 
                 if (wnd->has_focus != 0) {
                     gfxFlushRect(CRect(0, g_ScreenSize.bottom / 2 + 20, g_ScreenSize.right, g_ScreenSize.bottom / 2 + 40));
@@ -2733,7 +2733,7 @@ void VisPlayingArea::SendShopClose() {
     pkt->id = SHOP_CLOSE;
     pkt->from_player_id = this->my_main_unit->index;
     pkt->to_player_id = 0;
-    pkt->value = this->GetUnit_3f6c()->unit_id;
+    pkt->value = this->GetMyUnit()->unit_id;
 
     g_NetStru1_local.QueuePacketSend(pkt);
 
@@ -3384,7 +3384,7 @@ void VisPlayingArea::UpdateSpellModifiers(CUnit* unit) {
             this->spell_val6_max[i] = rs;
         }
 
-        const uint8_t bn5 = s.GetBonusType5(v);
+        const uint8_t bn5 = s.GetShieldAbsorb(v);
         if (this->spell_val7_min[i] > bn5) {
             this->spell_val7_min[i] = bn5;
         }
@@ -3644,7 +3644,7 @@ void VisPlayingArea::OnOpenShopDialog() {
     pkt->from_player_id = this->my_main_unit->index;
     pkt->to_player_id = 0;
     pkt->id = ENTER_SHOP;
-    pkt->value = this->GetUnit_3f6c()->unit_id;
+    pkt->value = this->GetMyUnit()->unit_id;
     g_NetStru1_local.QueuePacketSend(pkt);
 
     ((MainWindow*)AfxGetMainWnd())->dialogsMask |= DIALOG_MASK_SHOP;
@@ -3656,12 +3656,12 @@ void VisPlayingArea::NetOnOpenInnDialog() {
     pkt->from_player_id = this->my_main_unit->index;
     pkt->to_player_id = 0;
     pkt->id = ENTER_INN;
-    pkt->value = this->GetUnit_3f6c()->unit_id;
+    pkt->value = this->GetMyUnit()->unit_id;
     g_NetStru1_local.QueuePacketSend(pkt);
 }
 
 // 41f830 (client: 420c60)
-CUnit* VisPlayingArea::GetUnit_3f6c() {
+CUnit* VisPlayingArea::GetMyUnit() {
     return this->my_unit;
 }
 
@@ -5440,7 +5440,7 @@ void VisPlayingArea::RenderWorldFrame() {
         this->dirty_rect = local_rect;
     }
     g_mousept.Update();
-    LockSurface3();
+    LockTerrainSurface();
     GetClipRect(&clip_rect);
     if (this->force_full_redraw != 0) {
 #ifdef A2CLIENT_PATCH
@@ -5539,13 +5539,13 @@ void VisPlayingArea::RenderWorldFrame() {
         }
     }
     SetClipRect(clip_rect);
-    UnlockSurface3();
+    UnlockTerrainSurface();
     g_mousept.Update();
     SetClipRect(this->dirty_rect);
     CopyScreenBlock(this->tile_scroll_x, this->tile_scroll_y, this->view_tiles_x << 5, this->view_tiles_y << 5);
     SetClipRect(clip_rect);
     g_mousept.Update();
-    LockSurface2();
+    LockBackSurface();
     GetClipRect(&clip_rect);
     SetClipRect(this->dirty_rect);
     if (this->lightning_active != 0 && (g_VideoOptionFlags & 2) == 0 && g_Lightning != 0) {
@@ -5761,9 +5761,9 @@ void VisPlayingArea::RenderWorldFrame() {
         }
     }
     SetClipRect(clip_rect);
-    UnlockSurface2();
+    UnlockBackSurface();
     g_mousept.Update();
-    LockSurface2();
+    LockBackSurface();
     SetClipRect(this->dirty_rect);
 
     if (g_Shadows != 0) {
@@ -5852,9 +5852,9 @@ void VisPlayingArea::RenderWorldFrame() {
         }
     }
     SetClipRect(clip_rect);
-    UnlockSurface2();
+    UnlockBackSurface();
     g_mousept.Update();
-    LockSurface2();
+    LockBackSurface();
     SetClipRect(this->dirty_rect);
 
     for (int32_t x = 0; x < this->view_tiles_x; x++) {
@@ -5917,9 +5917,9 @@ void VisPlayingArea::RenderWorldFrame() {
         }
     }
     SetClipRect(clip_rect);
-    UnlockSurface2();
+    UnlockBackSurface();
     g_mousept.Update();
-    LockSurface2();
+    LockBackSurface();
     SetClipRect(this->dirty_rect);
 
 #ifdef A2CLIENT_PATCH
@@ -6076,7 +6076,7 @@ void VisPlayingArea::RenderWorldFrame() {
     }
     SetClipRect(clip_rect);
     CVisualObject::Draw();
-    UnlockSurface2();
+    UnlockBackSurface();
     this->UpdateMapCursor();
     if (childs_size == this->cached_msg_count) {
         this->dirty_rect.SubtractRect(&this->dirty_rect, &childs_rect);
@@ -8293,7 +8293,7 @@ void VisPlayingArea::LeaveInn(int32_t serv_id) {
         pkt->from_player_id = this->my_main_unit->index;
         pkt->to_player_id = 0;
         pkt->id = EXIT_INN;
-        pkt->param1 = this->GetUnit_3f6c()->unit_id;
+        pkt->param1 = this->GetMyUnit()->unit_id;
         pkt->param2 = serv_id;
         g_NetStru1_local.QueuePacketSend(pkt);
     }

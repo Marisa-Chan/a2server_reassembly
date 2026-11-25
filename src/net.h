@@ -434,12 +434,12 @@ public:
     NetStru2* GetClientByPlayerID(uint16_t player_id); // 518544 (client: 50a128)
     NetStru2* GetClientByLowUid(uint32_t low_uid); // 5185d5 (client: 50a1ab)
 
-    void AddStat1(NetStru2* client, int32_t value); // 51eff8 (client: 50f79c)
+    void AddClientWindowBytes(NetStru2* client, int32_t value); // 51eff8 (client: 50f79c)
     void AddPacketStatistic(Packet* pkt); // 51f0bb (client: 50f7dd)
     void SendAllData(); // 5188db (client: 50a3b1) - 518927 variant without flag check because in original it's used once and not optimal, because iterate all and do not do anything
 
     void QueuePacketSend(Packet* pkt); // 5186cd (client: 50a218)
-    void SendPacket_64(uint32_t val, uint16_t player_id); // 51d88d (client: 50e446)
+    void SendServerTickFlush(uint32_t val, uint16_t player_id); // 51d88d (client: 50e446)
     void SetLLDriver(CLlDriver* drv); // 517ff9 (client: 509bd1)
     void SetLinkedHLDriver(NetStru1* hl); // 51703e (client: 50963b)
 
@@ -468,7 +468,7 @@ public:
     void SendUnitVisibility(Unit* unit, int flag, Player* player); // 51cf5c (client: 50dfdd) - Send unit visibility packet (retn 0Ch)
     void SendAreaEffect(AreaEffect* obj, int flag); // 51be8f (client: 50d21d) - Send area-effect packet
     void BroadcastEffectMove(Effect* effect, uint8_t type); // 51be0e (client: 50d19c) - Broadcast move packet for an effect token
-    void SendSrvStru1State(QuestMap* quest_map, Player* player, int flag); // 51d4f6 (client: 50e326) - Send SrvStru1 state list from packet
+    void SendPlayerQuests(QuestMap* quest_map, Player* player, int flag); // 51d4f6 (client: 50e326) - Send player or inn quest list packet
     void SendShopTable(Token* token, Inventory* inventory, Player* player, int32_t mode); // 51a8b2 (client: 50c006)
     void SendShopShelf(Shop* shop, CMultiShopShelf* shelf, Player* player, uint8_t slot); // 51aa26 (client: 50c10b) - send single shop shelf contents
     void SendShopShelves(CMultiShopInstance* inst, Player* player, int32_t shelf_id); // 51ab99 (client: 50c25c) - send shop shelf contents
@@ -497,12 +497,12 @@ public:
     void SendUnitAction(Packet* pkt, Unit* unit); // 51b0f0 (client: 50c65a) - send unit action packet to relevant players
 
 
-    void AddTailNet2(NetStru2*& net2); // 517e91 (client: 509b9b)
-    void AddTailFreeNet3(NetStru3* net3); // 517b00 (client: 509a73)
+    void EnqueueDisconnectClient(NetStru2*& net2); // 517e91 (client: 509b9b)
+    void ReleasePacketBuffer(NetStru3* net3); // 517b00 (client: 509a73)
 
     NetStru2* AllocClientBufManager(uint32_t uid); // 517c99 (client: 509ad7)
 
-    NetStru3* GetFreeNet3(); // 5177f5 (client: 50994f)
+    NetStru3* AcquirePacketBuffer(); // 5177f5 (client: 50994f)
 
     void ProcessNewConnects(); // 51755c (client: 509889)
     void ProcessDisconnectList(); // 51725b (client: 509799)
@@ -529,7 +529,7 @@ public:
     void SendHatConnectServer(HatCharId key, uint8_t body, uint8_t reaction, uint8_t mind, uint8_t spirit, uint8_t sphere, uint8_t type_face, uint8_t color, const CString& name, const CString& srv); // 51da14 (client: 50e5cf)
 
     void SendServerConnectHatTicket(HatCharId ticket, uint16_t player_id); // 51dce5 (client: 50e8c0)
-    void SendUnknownDC(); // 51e513 (client: 50eede) - client-only helper
+    void SendHatSessionConfirm(); // 51e513 (client: 50eede) - client-only helper
     void SendHatCharRequest(HatCharId id); // 51db5c (client: 50e70d) - client-only helper
 
     NetStru2* GetFirstClient(); // 41f520 (client: 420af0)

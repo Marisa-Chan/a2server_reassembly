@@ -190,9 +190,9 @@ void VisShop::DrawBackground(CRect* rect) {
     CRect screen_rect;
     this->ClientRectToScreen(&screen_rect, this->rect);
     if (this->dialog_active != 0) {
-        LockSurface2();
+        LockBackSurface();
         FillRectColorSimple(screen_rect.left, screen_rect.top + 0x184, screen_rect.right + 0x1d0, screen_rect.bottom + 0x188, GetColorRGB(0, 0, 0));
-        UnlockSurface2();
+        UnlockBackSurface();
     }
 }
 
@@ -633,9 +633,9 @@ void VisShop::DoOpen() {
     this->to_sell->LoadGridSfx();
     this->to_buy->LoadGridSfx();
 
-    LockSurface2();
+    LockBackSurface();
     FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
-    UnlockSurface2();
+    UnlockBackSurface();
     FlushScreen();
 
     VisScreen::DoOpen();
@@ -1039,7 +1039,7 @@ void VisShopCompass::Draw() {
             }
         }
     }
-    LockSurface2();
+    LockBackSurface();
     if (this->frame_sprite != nullptr) {
         this->frame_sprite->Draw(topleft.x + this->rect.left, topleft.y + this->rect.top, 0, 0, 0);
     }
@@ -1073,7 +1073,7 @@ void VisShopCompass::Draw() {
         color = no_rect.PtInRect(pt) ? clrsh_DullGold : clrsh_ShockingBlack;
         g_font2->DrawTxt(no_rect.left + no_rect.Width() / 2, no_rect.top + 1, "No", CGameFont::ALIGN_HCENTER, color);
     }
-    UnlockSurface2();
+    UnlockBackSurface();
     CVisualObject::Draw();
 }
 
@@ -1378,7 +1378,7 @@ void VisShopCompassDruid::Draw() {
             }
         }
     }
-    LockSurface2();
+    LockBackSurface();
     if (this->frame_sprite != nullptr) {
         this->frame_sprite->Draw(topleft.x + this->rect.left, topleft.y + this->rect.top, 0, 0, 0);
     }
@@ -1408,7 +1408,7 @@ void VisShopCompassDruid::Draw() {
     } else if (this->trigger_bmp != nullptr) {
         this->trigger_bmp->Draw(topleft.x + this->rect.left + 0xC5, topleft.y + this->rect.top + 0x5C, 0, 0, 0);
     }
-    UnlockSurface2();
+    UnlockBackSurface();
     CVisualObject::Draw();
 }
 
@@ -1606,7 +1606,7 @@ void VisShopCompassKaarg::Draw() {
             }
         }
     }
-    LockSurface2();
+    LockBackSurface();
     if (this->frame_sprite != nullptr) {
         this->frame_sprite->Draw(topleft.x + this->rect.left, topleft.y + this->rect.top, 0, 0, 0);
     }
@@ -1637,7 +1637,7 @@ void VisShopCompassKaarg::Draw() {
     } else {
         this->tail_frames[this->tail_frame]->Draw(topleft.x + this->rect.left + 0xC1, topleft.y + this->rect.top + 0xCC, 0, 0, 0);
     }
-    UnlockSurface2();
+    UnlockBackSurface();
     CVisualObject::Draw();
 }
 
@@ -2088,7 +2088,7 @@ void VisShopButtons::Draw() {
     if (this->button_bmps[0] == nullptr || this->button_bmps[1] == nullptr || this->button_bmps[2] == nullptr || this->button_bmps[3] == nullptr || this->menu_bmp == nullptr) {
         return;
     }
-    LockSurface2();
+    LockBackSurface();
     this->menu_bmp->DrawSubRectMasked(topleft.x + this->rect.left, topleft.y + this->rect.top, 0, 0, this->rect.Width(), this->rect.Height());
     uint16_t* pal;
     if (this->hovered_btn == 0) {
@@ -2166,7 +2166,7 @@ void VisShopButtons::Draw() {
             break;
         }
     }
-    UnlockSurface2();
+    UnlockBackSurface();
 }
 
 
@@ -2467,9 +2467,9 @@ void VisShopDruid::DoOpen() {
     this->to_sell->LoadGridSfx();
     this->to_buy->LoadGridSfx();
 
-    LockSurface2();
+    LockBackSurface();
     FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
-    UnlockSurface2();
+    UnlockBackSurface();
     FlushScreen();
 
     VisScreen::DoOpen();
@@ -2756,9 +2756,9 @@ void VisShopKaarg::DoOpen() {
     this->to_sell->LoadGridSfx();
     this->to_buy->LoadGridSfx();
 
-    LockSurface2();
+    LockBackSurface();
     FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
-    UnlockSurface2();
+    UnlockBackSurface();
     FlushScreen();
 
     VisScreen::DoOpen();

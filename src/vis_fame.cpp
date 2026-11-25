@@ -31,7 +31,7 @@
 void VisFameDocument::Draw() {
     CPoint top_left = this->rect.TopLeft();
     if (this->visible_flag != 0) {
-        LockSurface2();
+        LockBackSurface();
         FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
         if (this->bmp_sheet != nullptr) {
             this->bmp_sheet->Draw(top_left.x, top_left.y, 0, 0, 0);
@@ -47,7 +47,7 @@ void VisFameDocument::Draw() {
         }
         Fame2& doc = this->fame->m_Documents[this->selected_doc];
         doc.Draw(top_left.x, top_left.y);
-        UnlockSurface2();
+        UnlockBackSurface();
         this->VisScreen::Draw();
     }
 }
@@ -256,9 +256,9 @@ void VisFameDocument::DoOpen() {
     this->selected_doc = 0;
     this->UpdateButtons(CPoint(0, 0), false);
     this->UpdateArrowStates();
-    LockSurface2();
+    LockBackSurface();
     FillRectColorSimple(g_ScreenSize.left, g_ScreenSize.top, g_ScreenSize.right, g_ScreenSize.bottom, 0);
-    UnlockSurface2();
+    UnlockBackSurface();
     FlushScreen();
     this->visible_flag = 1;
     this->VisScreen::DoOpen();
@@ -315,7 +315,7 @@ void VisFameHall::Draw() {
     CPoint top_left = this->rect.TopLeft();
     CString str;
     if (this->visible_flag != 0) {
-        LockSurface2();
+        LockBackSurface();
         this->bmp_bkg->Draw(top_left.x, top_left.y, 0, 0, 0);
         if (this->bmp_cur_close != nullptr) {
             this->bmp_cur_close->Draw(top_left.x + this->close_rect.left, top_left.y + this->close_rect.top, 0, 0, 0);
@@ -329,7 +329,7 @@ void VisFameHall::Draw() {
             InsertThousandsSeparators(&str);
             g_font4->DrawTextWithShadow(top_left.x + this->score_rects[i].right, top_left.y + this->score_rects[i].top, str, CGameFont::ALIGN_RIGHT, palette_tawny_port->GetPalette(0), 1);
         }
-        UnlockSurface2();
+        UnlockBackSurface();
     }
 #ifndef A2CLIENT
     this->VisScreen::Draw();
@@ -796,7 +796,7 @@ void CFameHall::AddDifficultyPoint() {
 void CFameHall::SubmitScore() {
     Fame1 fm;
     MainWindow *mwnd = (MainWindow*)AfxGetMainWnd();
-    CUnit* unit = mwnd->vis_map_context->GetUnit_3f6c();
+    CUnit* unit = mwnd->vis_map_context->GetMyUnit();
     if (unit) {
         fm.str = unit->str1;
         if (this->m_nTotalTime == 0) {
