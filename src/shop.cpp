@@ -60,7 +60,7 @@ void Shop::RegenTick() {
 
 // 5446c7 (client: 52addc)
 Item* Shop::BuyItem(Humanoid* humanoid, int16_t src_slot, int32_t count) {
-#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+#if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
     // sub_5446C7 hook (5446C7): only allow taking back consigned player-owned
     // items (item->pOwner != nullptr) from the shop counter, blocking unpaid
     // shop items from being dragged directly into the player's inventory.

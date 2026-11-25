@@ -172,14 +172,34 @@ void ServerCommandEdit::OnKeyDown(UINT nChar, UINT nRepcnt, UINT nFlags) {
         char buf[1024];
         CharToOemA(txt, buf);
 
-#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+#if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
         Printf("<server>: %s", buf);
         if (buf[0] != '#') {
             CString msg;
             msg.Format("<server>: %s", buf);
             g_NetStru1_main.AnnouncePlayerName(msg, nullptr);
         } else if (g_Server != nullptr) {
+#ifdef A2TANGAR_HAT
             g_Server->CheatCommand(nullptr, CString(buf));
+#else
+            // The retail cheat interpreter dereferences the player, so a console
+            // command runs as the local host player - the one the retail rules
+            // give the admin commands. Without one (dedicated server) it is logged
+            // and dropped.
+            Player* console_player = nullptr;
+            for (POSITION it = g_NetStru1_main.active_connects.GetHeadPosition(); it != nullptr;) {
+                NetClientPeer* cli = g_NetStru1_main.active_connects.GetNext(it);
+                if (cli->is_local_player != 0 && g_PlayersList != nullptr) {
+                    console_player = g_PlayersList->FindById(cli->player_id);
+                    break;
+                }
+            }
+            if (console_player != nullptr) {
+                g_Server->CheatCommand(console_player, CString(buf));
+            } else {
+                Printf("Console command ignored, there is no local player to run it as: %s", buf);
+            }
+#endif
         }
 #else
         g_NetStru1_main.AnnouncePlayerName(buf, nullptr);
@@ -1571,7 +1591,7 @@ MainWindow::MainWindow() {
 #endif
     } else {
         CFrameWnd::LoadFrame(0x65, WS_TILEDWINDOW, NULL, NULL);
-#if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
+#if defined(A2SERVER_PATCH) && defined(A2TANGAR_HAT) && !defined(A2CLIENT)
         if (CMenu* menu = this->GetMenu()) {
             menu->AppendMenuA(MF_STRING | MF_GRAYED | MF_DISABLED, 0, g_BuildVersion);
             this->DrawMenuBar();

@@ -2,6 +2,11 @@
 #ifdef A2CLIENT_PATCH
 #include "patch/stats_level.h"
 #endif
+#if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
+#include "patch/config_new.h"
+#include "patch/flags.h"
+#include "patch/tangar_log.h"
+#endif
 #ifdef A2TANGAR_HAT
 #include "patch/config_new.h"
 #ifndef A2CLIENT
@@ -412,7 +417,7 @@ int32_t __cdecl WritePlayerFile(const char* filename, FileSectionBasicInfo* basi
         WriteEncryptedSection(file, player_file::SEC_INVENTORY, GetPacketPayload(merged_inventory), GetPacketPayloadSize(merged_inventory));
     }
 
-#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+#if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
     // part_of_save hook (4F62B1): log character save completion under SVL_SAVES.
     if (Config::LogMode & SVL_SAVES) {
         Printf("Saved successfully!");
@@ -424,7 +429,7 @@ int32_t __cdecl WritePlayerFile(const char* filename, FileSectionBasicInfo* basi
 
 // 4f62e6 (client: 4f7585)
 int32_t __cdecl ParsePlayerFile(CFile* file, FileSectionBasicInfo** basic_info, FileSectionStats** stats, uint8_t** kill_stats, PacketUnitStateVec** equipment, PacketUnitStateVec** inventory, uint8_t** section_40a, uint32_t* size_40a) {
-#ifdef A2CLIENT_PATCH
+#if defined(A2CLIENT) && defined(A2TANGAR_HAT)
     // Tangar: parsing a player file means an existing character is being loaded
     // (gui_bugfix.cpp load_character hook, 4F75F5).
     tangar_stats::creating_new_character = false;

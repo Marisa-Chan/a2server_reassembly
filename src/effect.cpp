@@ -10,7 +10,7 @@
 #include "spell.h"
 #include "table.h"
 #include "unit.h"
-#if defined(A2SERVER_PATCH) || defined(A2TANGAR_HAT)
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
 #include "patch/config_new.h"
 #include "patch/damage_filter.h"
 #include "patch/flags.h"
@@ -18,7 +18,7 @@
 
 IMPLEMENT_SERIAL(Effect, Token, 1); // 637098.
 
-// 53f761 (client: 526e61)
+// 53f761 (client: 526d61)
 void Effect::ApplyToUnit(Unit* unit) {
     if (this->itemDataID == spell::poison_cloud) {
         int32_t damage = -this->spell_or_damage;
@@ -26,7 +26,7 @@ void Effect::ApplyToUnit(Unit* unit) {
             damage = (int32_t)((damage * (100 - unit->protections.magic_protections[magic_sphere::water])) / 100.0 + 0.5);
         }
         if (damage != 0) {
-#ifdef A2TANGAR_HAT
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
             // srv_pvm.xck + verify_damage hook (53F7CD -> 5048D3)
             int32_t applied_damage = TangarOnDamage(this->caster, unit, static_cast<int16_t>(damage));
             unit->hp -= static_cast<int16_t>(applied_damage);
@@ -253,7 +253,7 @@ void Effect::RemoveFromUnit(Unit* unit) {
 
 // 53fa2b (client: 527122)
 void Effect::ApplyStatDelta(Unit* unit, int32_t stack_delta) {
-#ifdef A2SERVER_PATCH
+#if defined(A2SERVER_PATCH) && defined(A2TANGAR_HAT)
     // test_health hook (53FA2B): block single-use health potions when SVF_NOHEALING is active.
     if (this->effect_id == modifier::health && this->usage_type == USAGE_SINGLE_USE && (Config::ServerFlags & SVF_NOHEALING) != 0) {
         return;

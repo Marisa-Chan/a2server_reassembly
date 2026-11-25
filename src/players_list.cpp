@@ -15,7 +15,7 @@
 #include "unit.h"
 #include "unit_list.h"
 #include "world.h"
-#ifdef A2TANGAR_HAT
+#if defined(A2SERVER_PATCH) || defined(A2TANGAR_HAT)
 #include "patch/player_info.h"
 #endif
 
@@ -407,8 +407,9 @@ void PlayersList::ProcessPlayerTimeouts() {
 
             g_Server->HatKeepaliveTick();
             g_NetStru1_main.SendInfoPacket(PLAYER_LEFT, player->player_id, 0, nullptr);
-#ifdef A2TANGAR_HAT
-            // imp_PIdel hook (535439): drop the Tangar per-player info
+#if defined(A2SERVER_PATCH) || defined(A2TANGAR_HAT)
+            // imp_PIdel hook (535439): drop the per-player info, so no record keeps
+            // a dangling Player* (ServerTic walks the records every tick).
             PI_Delete(player);
 #endif
             LogMessage("Player " + player->name + " has left the game");

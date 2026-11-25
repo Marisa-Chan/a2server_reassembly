@@ -40,7 +40,7 @@
 #include "patch/flags.h"
 #include "patch/scanrange.h"
 
-#if defined(A2SERVER_PATCH) || defined(A2TANGAR_HAT)
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
 #include "patch/kick_char.h"
 #include "patch/netlog.h"
 #include "patch/tangar_log.h"
@@ -71,6 +71,19 @@
 #include "quest_map.h"
 #include "main_window.h"
 #include "vis_core.h"
+#endif
+
+// Part of every patched build: these modules serve features that are no longer
+// limited to the Tangar balance changes.
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+#include "patch/multiplayer_shop.h"
+#include "patch/antiinvis.h"
+#include "patch/forbidden_items.h"
+#include "patch/player_settings.h"
+#include "patch/crash_filter.h"
+#include "patch/hat_net.h"
+#include "patch/ctl_handle.h"
+#include "main_window.h"
 #endif
 
 // ---- Global variables used by JoinPlayer ----
@@ -178,7 +191,7 @@ ServerObjectLists ServerObjectLists::Instance; //6cf390
 
 // 4f2c26 (client: 4f5180)
 Server::~Server() {
-#ifdef A2TANGAR_HAT
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
     // imp_ServerClosed callback (4F2FC3); the HAT NetCmd_Shutdown /
     // NetHat::Connected reset lands with the HAT net layer
     Config::ExitingCleanly = true;
@@ -246,7 +259,7 @@ Server::~Server() {
         this->script_settings = nullptr;
     }
 
-#ifdef A2TANGAR_HAT
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
     // server_closed hook (4F2FD3): flag MainWindow::shutdown_pending when SVF_ONEMAP is set.
     if ((Config::ServerFlags & SVF_ONEMAP) != 0) {
         if (MainWindow* main_wnd = static_cast<MainWindow*>(AfxGetMainWnd())) {
@@ -503,11 +516,11 @@ int MapLoader::LoadMap(CString map_name) {
             error = "Unknown error";
             break;
         }
-#ifdef A2TANGAR_HAT
-        // imp_MapLoadError callback (59B969)
-        {
-            CString what;
-            what.Format("Error: map \"%s\" not loaded (%s)", (const char*)map_name, (const char*)error);
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+    // imp_MapLoadError callback (59B969)
+    {
+        CString what;
+        what.Format("Error: map \"%s\" not loaded (%s)", (const char*)map_name, (const char*)error);
             Printf("%s", (const char*)what);
             Config::MapLoaded = false;
             CString title;
@@ -620,7 +633,7 @@ void MapLoader::CreateBuildings(MapAlm* alm) {
         int16_t type_id = bd->type_id;
 
         if (shop_type_ids.count(type_id) > 0) {
-#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+#if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
             // imp_LoadShopData hook (59C66E): create main shop plus 16 per-player custom shop clones.
             building = CreateMultiShops(bd, alm);
 #else
@@ -1759,7 +1772,7 @@ void Server::SendWorldState(Player* player, int32_t enter_world) {
                         g_World->diplomacy.diplomacy[player_id][p_id] = 0;
                     }
 
-#ifdef A2TANGAR_HAT
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
                     // new_player_diplomacy hook (4FFEA6): apply the per-player
                     // default diplomacy (both directions) and the GM players-ally
                     // override, then sync vision_sharing_mask with DIPLO_VISION_SHARE.
@@ -4195,14 +4208,13 @@ Shop* Server::FindShopFor(Unit* unit) {
         shop = this->srv_stru1->building_list->FindNearestShop(unit->position);
     }
 
-#if defined(A2TANGAR_HAT)
+    // A player who owns a custom shop clone (per-player shops) gets that one instead.
     if (this->use_default_shop == 0 && shop != nullptr) {
         Shop* replacement = CheckReplacementBuilding(shop, unit);
         if (replacement != nullptr) {
             return replacement;
         }
     }
-#endif
     return shop;
 }
 #endif
@@ -4411,8 +4423,8 @@ void Server::ProcessClientPacket(Packet* pkt) {
             player->ResetAfkTimer();
             break;
         case GROUP_ATTACK: // move to building?
-#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
-            // stop_unit_attack hook (505563)
+#if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
+            // stop_unit_attack hook (505563): anti-invisibility target check
             if (StopUnitAttack(player, target)) {
                 break;
             }
@@ -4453,8 +4465,8 @@ void Server::ProcessClientPacket(Packet* pkt) {
             }
             break;
         case GROUP_CAST_UNIT: // cast at unit/building?
-#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
-            // stop_mage_cast hook (5055FD)
+#if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
+            // stop_mage_cast hook (5055FD): anti-invisibility target check
             if (StopMageCast(player, target)) {
                 break;
             }
@@ -4511,9 +4523,9 @@ void Server::ProcessClientPacket(Packet* pkt) {
         case SCROLL_CAST_UNIT: // Cast point spell with a scroll.
         case SCROLL_CAST_POS: // Cast area spell with a scroll.
             CheckPacketType(pkt, "PacketGroupOrder");
-#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
-            // stop_unit_cast hook (50564D): runs before TakeItemAt so blocked
-            // scroll casts never consume the scroll from the bag.
+#if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
+            // stop_unit_cast hook (50564D): anti-invisibility target check; runs
+            // before TakeItemAt so a blocked scroll cast never consumes the scroll.
             if (StopUnitCast(player, target)) {
                 break;
             }
@@ -4526,18 +4538,22 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 }
 #endif
                 uint16_t bag_slot = static_cast<uint16_t>(packet_order->slot) | (static_cast<uint16_t>(packet_order->slot_high) << 8);
-#ifdef A2TANGAR_HAT
-                // fix_scroll_burn hook (5056E1): peek the scroll first; only
-                // warriors may cast from scrolls, and invalid/blocked casts
-                // discard the request without removing the item from the bag.
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+                // fix_scroll_burn hook (5056E1): peek the scroll first; an invalid
+                // or blocked cast discards the request without removing the item
+                // from the bag.
                 POSITION item_it = nullptr;
                 Item* peeked = unit->inventory->PeekItemAt(bag_slot, &item_it);
                 if (peeked == nullptr) {
                     break;
                 }
                 Effect* eff = peeked->_effects.IsEmpty() ? nullptr : peeked->_effects.GetHead();
-                if (!tangar_items::IsScroll(peeked) || eff == nullptr || eff->effect_id != 0x29 ||
-                    (unit->unit_attrs & Unit::ATTR_MAGE) != 0) {
+                if (!tangar_items::IsScroll(peeked) || eff == nullptr || eff->effect_id != 0x29
+#ifdef A2TANGAR_HAT
+                    // Tangar balance: only warriors cast from scrolls.
+                    || (unit->unit_attrs & Unit::ATTR_MAGE) != 0
+#endif
+                ) {
                     g_NetStru1_main.SendUnitUpdate(unit, player, 0xFFFFFFFF, EQUIP_SLOTS_ALL, 0, 0);
                     break;
                 }
@@ -4773,7 +4789,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
             if (from_type == TRANSFER_SRC_BAG) {
                 // Pick item from bag.
                 count_before = human->inventory->items.GetSize();
-#ifdef A2TANGAR_HAT
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
                 // dont_eat_bad_food hook (505BDF): peek first when equipping from
                 // the bag so forbidden items are never removed from the inventory.
                 POSITION item_it = nullptr;
@@ -4989,7 +5005,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
             if (!shop) {
                 break;
             }
-#ifdef A2TANGAR_HAT
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
             // enter_shop hook (50623D): require alive unit, log entry under SVL_BUILDINGS, and cancel camp.
             if (unit->hp <= 0) {
                 break;
@@ -4997,7 +5013,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
 #endif
             unit->CancelQueuedSpell();
             unit->pOwner->building_entered_from_yx = unit->position->GetY() * 0x100 + unit->position->GetX();
-#ifdef A2TANGAR_HAT
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
             if (Config::LogMode & SVL_BUILDINGS) {
                 Printf("Player %s entered shop ID=%u from (%u, %u).",
                        (const char*)unit->pOwner->name,
@@ -5007,7 +5023,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
             }
 #endif
             shop->AttachUnit(unit);
-#ifdef A2TANGAR_HAT
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
             if (unit->pOwner != nullptr) {
                 unit->pOwner->ResetAfkTimer();
             }
@@ -5149,7 +5165,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
             if (!inn) {
                 break;
             }
-#ifdef A2TANGAR_HAT
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
             // enter_inn hook (5062FB): require alive unit, log entry under SVL_BUILDINGS, and cancel camp.
             if (unit->hp <= 0) {
                 break;
@@ -5157,7 +5173,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
 #endif
             unit->CancelQueuedSpell();
             unit->pOwner->building_entered_from_yx = unit->position->GetY() * 0x100 + unit->position->GetX();
-#ifdef A2TANGAR_HAT
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
             if (Config::LogMode & SVL_BUILDINGS) {
                 Printf("Player %s entered inn! ID=%u from (%u, %u).",
                        (const char*)unit->pOwner->name,
@@ -5167,7 +5183,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
             }
 #endif
             inn->UpdateQuests(unit);
-#ifdef A2TANGAR_HAT
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
             if (unit->pOwner != nullptr) {
                 unit->pOwner->ResetAfkTimer();
             }
@@ -5369,7 +5385,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
                     continue;
                 }
 
-#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+#if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
                 // log_dip_change hook (5081DC): enforce GMF_PLAYERS_VISION / GMF_PLAYERS_ALLY
                 // toward target GMs and log individual diplomacy bit transitions.
                 uint8_t requested_val = new_val;
@@ -5690,7 +5706,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
                 player->ResetAfkTimer();
 
                 if (player->main_unit && player->main_unit->hp > -1) {
-#ifdef A2SERVER_PATCH
+#if defined(A2SERVER_PATCH) && defined(A2TANGAR_HAT)
                     // self_damage hook (5084F5): don't attribute self-damage
                     // (zero damage_by / last_hit_by before the hit processes)
                     player->main_unit->last_hit_by = nullptr;
@@ -5732,7 +5748,7 @@ void Server::ProcessClientPacket(Packet* pkt) {
             uint8_t chat_type = packet_join->token_id;   // chat type (byte 0xb)
             uint8_t recipient_id = packet_join->player_id;  // private message target (byte 0xa)
 
-#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+#if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
             // chat_log hook (50721C): format ally ("--> ") and private (">>>") chat lines.
             {
                 char chat_line[5000];
@@ -6295,7 +6311,7 @@ Player* Server::Allods2_CreatePlayer(CString name) {
 
 // 4f0bef (client: none) - Connect to hat server
 int32_t Server::ConnectToHat() {
-#ifdef A2TANGAR_HAT
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
     // imp_NetLayer_FirstConnect (4F0BEF): prepare the HAT control connection
     // endpoints whenever the server prepares its HAT connection.
     tangar_hat::NetHatPrepare();
@@ -6519,7 +6535,7 @@ int Server::Start(int mode) {
     }
 #endif
 
-#ifdef A2TANGAR_HAT
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
     // imp_ServerStarted callback (4F09DB, srvmgr_new.cpp OnInitializeServer)
     tangar_crash::SetExceptionFilter();
     Config::ExitingCleanly = false;
@@ -6666,7 +6682,7 @@ void Server::SaveCharacter(Humanoid* humanoid) {
     }
 #endif
 
-#ifdef A2TANGAR_HAT
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
     // part_of_save_char hook (4EE563): log character save start under SVL_SAVES.
     if (Config::LogMode & SVL_SAVES) {
         Printf("Saving character to file \"%s\"...", (const char*)filename);
@@ -6679,9 +6695,12 @@ void Server::SaveCharacter(Humanoid* humanoid) {
 // Load map (or a saved game?)
 // 4f1471 (client: 4f44d5) - Load map / saved game
 int Server::LoadGame(CString map_name) {
-#ifdef A2TANGAR_HAT
-    // imp_LoadingMap callback (4F1471): reset custom shops before building reload.
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+    // Forget the per-player shop clones before the building list is reloaded.
     ClearShops();
+#endif
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+    // imp_LoadingMap callback (4F1471): track the map being loaded.
     Config::MapLoaded = false;
     {
         CString title;
@@ -6830,11 +6849,13 @@ int Server::LoadGame(CString map_name) {
 
 // 4fbb79 (client: 4f967a)
 void Server::ServerTic() {
-#ifdef A2TANGAR_HAT
-    // imp_ServerTic callback (4FBB79): pump the HAT control connection,
-    // drain control-directory commands, retry failed main-unit map returns
-    // every 5s, step scanrange, and yield.
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+    // imp_ServerTic callback (4FBB79): pump the HAT control connection.
     tangar_hat::NetRegularProc();
+#endif
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+    // imp_ServerTic callback, part shared with the patched server: drain the
+    // control-directory commands and retry failed main-unit map returns every 5s.
     tangar_ctl::PollControlActions();
     for (int i = 0; i < 32; i++) {
         if (!g_PlayerInfo[i].Exists || g_PlayerInfo[i].Class == nullptr) {
@@ -6850,6 +6871,9 @@ void Server::ServerTic() {
             }
         }
     }
+#endif
+#ifdef A2TANGAR_HAT
+    // imp_ServerTic callback (4FBB79), Tangar only: step scanrange and yield.
     tangar_scanrange::SR_Step();
     Sleep(1);
 #endif

@@ -248,14 +248,64 @@ float ReadFloatParameter(std::string value, float MinValue, float MaxValue)
     return val;
 }
 
+#ifndef A2TANGAR_HAT
+// Retail server.cfg compatibility: [settings] ipaddress / ipaddress2 /
+// hataddress. The stock parser took any string; the split fields are only
+// filled when the value has the "ip[:port]" shape.
+static void ReadSettingsAddress(const std::string& parameter, const std::string& value)
+{
+    if (parameter == "ipaddress") {
+        g_ServerConfig.ip_address = value.c_str();
+    } else if (parameter == "ipaddress2") {
+        g_ServerConfig.ip_address2 = value.c_str();
+    } else {
+        g_ServerConfig.hat_address = value.c_str();
+    }
+
+    std::vector<std::string> ipd = Explode(value, ":");
+    if (ipd.size() != 1 && ipd.size() != 2) {
+        return;
+    }
+    uint32_t port = 8001;
+    if (ipd.size() == 2) {
+        if (!CheckInt(ipd[1]) || StrToUInt(ipd[1]) > 65535) {
+            return;
+        }
+        port = StrToUInt(ipd[1]);
+    }
+    if (parameter == "ipaddress") {
+        Config::IPAddress = ipd[0];
+        Config::IPAddressP = port;
+    } else if (parameter == "ipaddress2") {
+        Config::IPAddress2 = ipd[0];
+        Config::IPAddress2P = port;
+    } else {
+        Config::HatAddress = ipd[0];
+        Config::HatAddressP = port;
+    }
+}
+
+// Retail "teamplay". GAMEMODE_SOFTCORE shares its numeric value with
+// GAME_TYPE_TEAMPLAY, so the mode gets a value of its own.
+static const uint32_t GAMEMODE_TEAMPLAY = 0xFFFFFFFFu;
+#endif
+
 int ReadConfig(const char* filename)
 {
     if (!Config::Includes.size()) { // root config
+#ifdef A2TANGAR_HAT
         // set defaults
         g_ServerConfig.ip_address = "127.0.0.1:8001";   // 0x6D15B0
         g_ServerConfig.ip_address2 = "127.0.0.1:8002";  // 0x6D15B4
         g_ServerConfig.hat_address = "127.0.0.1:7999";  // 0x6D15B8
         g_ServerConfig.chr_base = "chr";                // 0x6D15BC
+#else
+        // Patched server without the Tangar balance changes: a retail
+        // server.cfg relies on the ServerConfig defaults (no loopback
+        // address, no ChrBase fallback), and the map list is only shuffled
+        // when the config asks for it.
+        Config::shuffle_maps = false;
+#endif
     }
 
     std::ifstream f_cfg;
@@ -403,7 +453,20 @@ int ReadConfig(const char* filename)
                     }
                     Config::server_restart_on_map_change = StrToBool(value);
                 } else if (parameter == "description") {
+#ifdef A2TANGAR_HAT
                     g_ServerConfig.server_name = value.c_str(); // 0x6D15C0
+#else
+                    // Retail server.cfg compatibility: the stock parser replaced
+                    // markup and non-ASCII characters with '*'.
+                    std::string description;
+                    for (char c : value) {
+                        description += (c == '&' || c == '%' || c == '|' || c == '?' ||
+                                        static_cast<unsigned char>(c) >= 0x80)
+                                           ? '*'
+                                           : c;
+                    }
+                    g_ServerConfig.server_name = description.c_str(); // 0x6D15C0
+#endif
                 } else if (parameter == "repopdelay") {
                     if (!CheckInt(value)) {
                         return lnid;
@@ -459,6 +522,11 @@ int ReadConfig(const char* filename)
                         return lnid;
                     }
                     uint32_t val = StrToUInt(value);
+#ifndef A2TANGAR_HAT
+                    if (val < 1) {
+                        val = 16; // Retail server.cfg compatibility: the stock parser fell back to 16
+                    }
+#endif
                     if (val > 32) {
                         val = 32;
                     }
@@ -485,12 +553,22 @@ int ReadConfig(const char* filename)
                             gmode = GAMEMODE_ARENA;
                         } else if (value == "sandbox") {
                             gmode = GAMEMODE_SANDBOX;
+#ifndef A2TANGAR_HAT
+                        } else if (value == "teamplay") {
+                            // Retail server.cfg compatibility
+                            gmode = GAMEMODE_TEAMPLAY;
+#endif
                         } else {
                             return lnid;
                         }
                     }
 
                     Config::GameMode = gmode;
+#ifndef A2TANGAR_HAT
+                    if (gmode == GAMEMODE_TEAMPLAY) {
+                        g_ServerConfig.gameType = GAME_TYPE_TEAMPLAY; // 0x6D1648
+                    } else
+#endif
                     if (gmode == GAMEMODE_SANDBOX || gmode == GAMEMODE_SOFTCORE) {
                         g_ServerConfig.gameType = GAME_TYPE_COOPERATIVE; // 0x6D1648; для сервера это кооп
                     } else {
@@ -514,9 +592,15 @@ int ReadConfig(const char* filename)
                         return lnid;
                     }
                     int32_t val = StrToUInt(value);
+#ifdef A2TANGAR_HAT
                     if (val < 1) {
                         val = 0;
                     }
+#else
+                    if (val < 1) {
+                        val = 1; // Retail server.cfg compatibility: the stock parser clamped to 1
+                    }
+#endif
                     g_ServerConfig.reconnect_delay = val; // 0x6D1644
                 } else if (parameter == "shutdowndelay") {
                     if (!CheckInt(value)) {
@@ -547,6 +631,7 @@ int ReadConfig(const char* filename)
                     }
                     g_ServerConfig.arena_time_limit = val; // 0x6D1660
                 } else if (parameter == "scaledmaps") {
+#ifdef A2TANGAR_HAT
                     if (!CheckBool(value)) {
                         return lnid;
                     }
@@ -554,6 +639,18 @@ int ReadConfig(const char* filename)
                     if (bv) {
                         g_ServerConfig.map_range_check = 1; // 0x6D1654
                     }
+#else
+                    // Retail server.cfg compatibility: the stock parser spelled it
+                    // "on" / "off" and cleared the flag as well.
+                    std::string scaled = ToLower(value);
+                    if (scaled == "on" || scaled == "yes" || scaled == "true" || scaled == "1") {
+                        g_ServerConfig.map_range_check = 1; // 0x6D1654
+                    } else if (scaled == "off" || scaled == "no" || scaled == "false" || scaled == "0") {
+                        g_ServerConfig.map_range_check = 0; // 0x6D1654
+                    } else {
+                        return lnid;
+                    }
+#endif
                 } else if (parameter == "treasureprobability") {
                     if (!CheckInt(value)) {
                         return lnid;
@@ -746,6 +843,41 @@ int ReadConfig(const char* filename)
                     Config::ServerCaps |= caps & ~SVC_SOFTCORE;
                 } else if (parameter == "controldirectory") {
                     Config::ControlDirectory = value;
+#ifndef A2TANGAR_HAT
+                // Retail server.cfg compatibility: keys the stock ParseConfig read
+                // from [settings]. Tangar treats them as obsolete.
+                } else if (parameter == "ipaddress" ||
+                           parameter == "ipaddress2" ||
+                           parameter == "hataddress") {
+                    ReadSettingsAddress(parameter, value);
+                } else if (parameter == "save") {
+                    std::string mode = ToLower(value);
+                    if (mode == "client") {
+                        g_ServerConfig.save_is_server = 0;
+                    } else if (mode == "server") {
+                        g_ServerConfig.save_is_server = 1;
+                    } else {
+                        return lnid;
+                    }
+                } else if (parameter == "flagscore") {
+                    if (!CheckInt(value)) {
+                        return lnid;
+                    }
+                    int32_t val = StrToUInt(value);
+                    if (val < 1) {
+                        val = 1;
+                    }
+                    g_ServerConfig.flag_score = val;
+                } else if (parameter == "alwaysloadsacks") {
+                    std::string sacks = ToLower(value);
+                    if (sacks == "on" || sacks == "yes" || sacks == "true" || sacks == "1") {
+                        g_ServerConfig.always_load_sacks = 1;
+                    } else if (sacks == "off" || sacks == "no" || sacks == "false" || sacks == "0") {
+                        g_ServerConfig.always_load_sacks = 0;
+                    } else {
+                        return lnid;
+                    }
+#endif
                 } else if (parameter == "flagscore" ||
                            parameter == "protocol" ||
                            parameter == "ipaddress" ||
@@ -830,6 +962,28 @@ int ReadConfig(const char* filename)
                     m_time = static_cast<uint32_t>(StrToFloat(value) * 60.0);
                 }
                 maps.emplace_back(std::move(m_filename), m_time);
+#ifndef A2TANGAR_HAT
+            } else if (section == "bannedips" ||
+                       section == "bannedplayers" ||
+                       section == "reporttowww") {
+                // Retail server.cfg compatibility: the stock parser filled the
+                // ban lists from these sections (names keep their case).
+                std::string entry = line;
+                size_t eq_pos = entry.find_first_of('=');
+                if (eq_pos != std::string::npos) {
+                    entry.erase(eq_pos);
+                }
+                entry = Trim(entry);
+                if (!entry.empty()) {
+                    CStringArray& banned = section == "bannedips"
+                                               ? g_ServerConfig.banned_ips
+                                               : (section == "bannedplayers"
+                                                      ? g_ServerConfig.banned_names
+                                                      : g_ServerConfig.report_to_www);
+                    banned.SetAtGrow(banned.GetSize(),
+                                     (section == "bannedplayers" ? entry : ToLower(entry)).c_str());
+                }
+#endif
             } else {
                 Printf("ReadConfig: unknown parameter (%s/%s)", section.c_str(), parameter.c_str());
             }
@@ -844,6 +998,9 @@ int ReadConfig(const char* filename)
 
     f_cfg.close();
 
+#ifdef A2TANGAR_HAT
+    // The map order and index come back from server_state.dat, which only the
+    // Tangar map rotation writes.
     server_state.Load();
 
     if (Config::server_restart_on_map_change) {
@@ -854,13 +1011,16 @@ int ReadConfig(const char* filename)
             Log() << "Saved map index " << server_state.map_index << " is out of range, ignoring";
         }
     }
+#endif
 
     if (Config::shuffle_maps && g_ServerConfig.current_map_index == 0) { // 0x6D1634
         Log() << "Randomizing map order";
         auto device = std::random_device{};
         std::mt19937 generator(device());
         std::shuffle(maps.begin(), maps.end(), generator);
-    } else if (!server_state.map_order.empty()) {
+    }
+#ifdef A2TANGAR_HAT
+    else if (!server_state.map_order.empty()) {
         Log() << "Restoring map order from server state with " << server_state.map_order.size() << " maps";
 
         std::unordered_map<std::string, std::size_t> order;
@@ -883,6 +1043,7 @@ int ReadConfig(const char* filename)
             }
         );
     }
+#endif
 
     for (auto& map_and_time : maps) {
         // 0x6D15F0 map_names / 0x6D1618 map_durations appends (AppendMaplist)

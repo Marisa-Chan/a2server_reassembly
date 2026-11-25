@@ -24,8 +24,10 @@
 #include "patch/crash_filter.h"
 #include "patch/tangar_log.h"
 #endif
-#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+#if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
 #include "patch/ctl_handle.h"
+#endif
+#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
 #include "patch/thresholds.h"
 #endif
 #if defined(A2SERVER_PATCH) && defined(A2TANGAR_HAT) && !defined(A2CLIENT)
@@ -300,7 +302,7 @@ void InitCpuAndDistTables() {
 
 // 43a857 (client: 43cc47)
 void __cdecl PostConsoleLine(const char* source) {
-#if (defined(A2TANGAR_HAT) && !defined(A2CLIENT)) || defined(A2CLIENT_PATCH)
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
     // redir_log (server 43A872) / CHAT_logStrings (client 4021FE): write to Tangar's timestamped log file.
     log_format("%s\n", source != nullptr ? source : "");
 #endif
@@ -375,11 +377,13 @@ int32_t GetRandS16(int32_t range) {
 
 // 4f7188 (client: 4f8233)
 int32_t ParseConfig(const char* fname) {
-#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+#if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
     // Tangar config v2.0: the patched server replaces the stock parser
     // wholesale with the manager's ReadConfig (imp_ParseConfig takeover at
     // this address; the load_config hook at 482CCC only re-pushed the same
-    // "server.cfg" argument, so nothing else is needed there)
+    // "server.cfg" argument, so nothing else is needed there). ReadConfig
+    // also accepts the keys of a retail server.cfg (stock compatibility
+    // block inside it), so an existing config keeps working.
     return ReadConfig(fname);
 #else
     CStdioFile file;
@@ -589,7 +593,7 @@ int32_t ParseConfig(const char* fname) {
     }
 
     return 0;
-#endif // A2TANGAR_HAT
+#endif // A2SERVER_PATCH
 }
 
 
@@ -863,12 +867,16 @@ BOOL GameApp::InitInstance() {
     server_icon::Apply(mwnd->m_hWnd, g_ServerConfig.server_id);
 #endif
 #if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
-    // DllMain LoadThresholds + StartControlThread (srvmgr.cpp:2719-2756, 2769)
+    // DllMain LoadThresholds (srvmgr.cpp:2719-2756). thresholds.cfg is the
+    // Tangar balance configuration: Tangar builds only.
     try {
         thresholds::thresholds.LoadFromFile(thresholds::THRESHOLDS_FILE);
     } catch (const thresholds::ParseException& error) {
         log_format("Loading thresholds failed: %s\n", error.what());
     }
+#endif
+#if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
+    // DllMain StartControlThread (srvmgr.cpp:2769)
     tangar_ctl::StartControlThread();
 #endif
 #ifndef A2CLIENT
@@ -1149,7 +1157,7 @@ int GameApp::ExitInstance() {
 #if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
     Config::ExitingCleanly = true;
 #endif
-#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+#if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
     tangar_ctl::StopControlThread();
 #endif
     if (g_EnableTrace != 0) {

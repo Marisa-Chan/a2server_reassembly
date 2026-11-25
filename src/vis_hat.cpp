@@ -274,7 +274,7 @@ int32_t VisHatBrowserList::IsItemEnabled(int32_t idx) {
     }
 #endif
     if (main_wnd->net_session.internet_game == 0 || main_wnd->hat_settings.ishat == 0 || main_wnd->hat_settings.deathmatch == 0) {
-#ifdef A2CLIENT_PATCH
+#if defined(A2CLIENT) && defined(A2TANGAR_HAT)
         // Tangar GUI_softcoreEnter (44DD0F): stats-based server-level selection
         // replaces the retail skill-tier brackets (and the players == 16 check).
         return tangar_stats::StatsBasedLevelSelection((const char*)item) ? 1 : 0;
@@ -532,7 +532,7 @@ int32_t VisHatBrowserDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam
             if ((int32_t)lparam >= 0) {
                 VisHatBrowserList* list = (VisHatBrowserList*)this->FindChild(1);
                 list->Redraw();
-#ifdef A2CLIENT_PATCH
+#if defined(A2CLIENT) && defined(A2TANGAR_HAT)
                 // Allow entering greyed-out servers (server/HAT enforces brackets; lets desynced local chars join).
                 this->FindChild(0x14)->ChangeFlags(FLAG_ENABLED, list->state > 0 && list->IsValidIndex(list->GetSelectedIndex()));
 #else
@@ -550,7 +550,7 @@ int32_t VisHatBrowserDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam
                 }
 #endif
             } else {
-#ifdef A2CLIENT_PATCH
+#if defined(A2CLIENT) && defined(A2TANGAR_HAT)
                 this->FindChild(0x14)->ChangeFlags(FLAG_ENABLED, false);
                 this->FindChild(0x14)->Redraw();
 #endif
@@ -578,7 +578,7 @@ int32_t VisHatBrowserDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam
 #ifdef A2CLIENT
             if (g_WwwServerList.GetSize() > 0 && sel_index < 0) {
                 sel_index = 0;
-#ifdef A2CLIENT_PATCH
+#if defined(A2CLIENT) && defined(A2TANGAR_HAT)
                 for (int32_t i = 0; i < list->entries.GetSize(); i++) {
                     if (list->IsItemEnabled(i) != 0) {
                         sel_index = i;
@@ -591,7 +591,7 @@ int32_t VisHatBrowserDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam
             if (g_WwwServerList.GetSize() <= vis_start) {
                 vis_start = g_WwwServerList.GetSize() - 1;
             }
-#ifdef A2CLIENT_PATCH
+#if defined(A2CLIENT) && defined(A2TANGAR_HAT)
             if (vis_start < 0) {
                 vis_start = 0;
             }
@@ -605,7 +605,7 @@ int32_t VisHatBrowserDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam
 #endif
             list->vis_start_index = vis_start;
             list->SetSelectedIndex(sel_index);
-#ifdef A2CLIENT_PATCH
+#if defined(A2CLIENT) && defined(A2TANGAR_HAT)
             VisScrollBar* scrollbar = (VisScrollBar*)this->FindChild(list->scrollbox_id);
             if (scrollbar != nullptr) {
                 scrollbar->SetPos(list->GetSelectedIndex(), list->entries.GetSize());
@@ -618,7 +618,7 @@ int32_t VisHatBrowserDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam
     }
     case VIS_MSG_HATBROWSER_ABORT: {
         VisHatBrowserList* list = (VisHatBrowserList*)this->FindChild(1);
-#ifdef A2CLIENT_PATCH
+#if defined(A2CLIENT) && defined(A2TANGAR_HAT)
         int32_t prev_sel = list->GetSelectedIndex();
         int32_t prev_vis_start = list->vis_start_index;
 #endif
@@ -628,7 +628,7 @@ int32_t VisHatBrowserDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam
         list->vis_start_index = 0;
         list->SetSelectedIndex(0);
         list->Redraw();
-#ifdef A2CLIENT_PATCH
+#if defined(A2CLIENT) && defined(A2TANGAR_HAT)
         this->FindChild(0x14)->ChangeFlags(FLAG_ENABLED, false);
         this->FindChild(0x14)->Redraw();
 #endif
@@ -652,7 +652,7 @@ int32_t VisHatBrowserDlg::MsgProc(uint32_t msg, uint32_t wparam, uint32_t lparam
             res = main_wnd->CheckWebVersion(main_wnd->hat_settings.hatip);
         }
 #endif
-#ifdef A2CLIENT_PATCH
+#if defined(A2CLIENT) && defined(A2TANGAR_HAT)
         list->selected_index = prev_sel;
         list->vis_start_index = prev_vis_start;
 #endif

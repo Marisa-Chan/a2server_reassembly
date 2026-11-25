@@ -9,7 +9,7 @@
 #include "item.h"
 #include "server.h"
 #include "table.h"
-#ifdef A2TANGAR_HAT
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
 #include "patch/tangar_log.h"
 #include "patch/config_new.h"
 #include "patch/forbidden_items.h"
@@ -416,7 +416,7 @@ Inventory* ShopAssortment::ArrangeShelfs(int32_t max_count, int32_t max_same, in
                 this->items[i]->count = 2;
 
                 Item* item = this->items[i]->TakeOne();
-#ifdef A2TANGAR_HAT
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
                 // imp_CheckItemExclusion hook (54DDBA): disabled item ids
                 // never spawn in shops
                 if (tangar_items::IsDisabled(item->item_id)) {
@@ -435,7 +435,7 @@ Inventory* ShopAssortment::ArrangeShelfs(int32_t max_count, int32_t max_same, in
 
             item = new Item("Potion Health Regeneration");
             item->count = Random1N(50) + 50;
-#ifdef A2TANGAR_HAT
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
             // imp_increase_potions_in_shops hook: scale the potion stack
             item->count = (int16_t)(item->count * Config::shop_potions_factor);
 #endif
@@ -443,7 +443,7 @@ Inventory* ShopAssortment::ArrangeShelfs(int32_t max_count, int32_t max_same, in
 
             item = new Item("Potion Medium Healing");
             item->count = Random1N(50) + 50;
-#ifdef A2TANGAR_HAT
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
             // imp_increase_potions_in_shops hook: scale the potion stack
             item->count = (int16_t)(item->count * Config::shop_potions_factor);
 #endif
@@ -451,7 +451,7 @@ Inventory* ShopAssortment::ArrangeShelfs(int32_t max_count, int32_t max_same, in
 
             item = new Item("Potion Big Healing");
             item->count = Random1N(50) + 50;
-#ifdef A2TANGAR_HAT
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
             // imp_increase_potions_in_shops hook: scale the potion stack
             item->count = (int16_t)(item->count * Config::shop_potions_factor);
 #endif
@@ -462,7 +462,7 @@ Inventory* ShopAssortment::ArrangeShelfs(int32_t max_count, int32_t max_same, in
 
         item = new Item("Potion Mana Regeneration");
         item->count = Random1N(50) + 50;
-#ifdef A2TANGAR_HAT
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
             // imp_increase_potions_in_shops hook: scale the potion stack
             item->count = (int16_t)(item->count * Config::shop_potions_factor);
 #endif
@@ -470,7 +470,7 @@ Inventory* ShopAssortment::ArrangeShelfs(int32_t max_count, int32_t max_same, in
 
         item = new Item("Potion Medium Mana");
         item->count = Random1N(50) + 50;
-#ifdef A2TANGAR_HAT
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
             // imp_increase_potions_in_shops hook: scale the potion stack
             item->count = (int16_t)(item->count * Config::shop_potions_factor);
 #endif
@@ -478,7 +478,7 @@ Inventory* ShopAssortment::ArrangeShelfs(int32_t max_count, int32_t max_same, in
 
         item = new Item("Potion Big Mana");
         item->count = Random1N(50) + 50;
-#ifdef A2TANGAR_HAT
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
             // imp_increase_potions_in_shops hook: scale the potion stack
             item->count = (int16_t)(item->count * Config::shop_potions_factor);
 #endif
@@ -486,7 +486,7 @@ Inventory* ShopAssortment::ArrangeShelfs(int32_t max_count, int32_t max_same, in
     }
 
     if (max_count > 1000) {
-#ifdef A2TANGAR_HAT
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
         // imp_ShopError hook (54DBA1): log instead of a blocking message box
         Printf("Shop error: amount > 1000!");
 #else

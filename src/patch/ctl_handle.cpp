@@ -195,8 +195,14 @@ void PollControlActions() {
                     g_full_rights_override = false;
                 }
             } else {
+#ifndef A2TANGAR_HAT
+                // The retail cheat interpreter dereferences the player, so a
+                // command without a caster line needs the Tangar one.
+                Printf("[ctl] ignored a command without a player: %s", act.text.c_str());
+#else
                 Printf("[ctl] <server>: %s", act.text.c_str());
                 g_Server->CheatCommand(nullptr, CString(act.text.c_str()));
+#endif
             }
         }
     }

@@ -34,6 +34,12 @@
 #include "patch/solo.h"
 #include "patch/tangar_log.h"
 #endif
+#if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
+#include "patch/config_new.h"
+#include "patch/flags.h"
+#include "patch/player_settings.h"
+#include "patch/tangar_log.h"
+#endif
 
 World* g_World; // 6a8b8c
 
@@ -625,7 +631,7 @@ void Diplomacy::RecordHostility(Unit* attacker, Unit* target, int32_t hit_flag) 
     if ((this->diplomacy[attacker_pid][target_pid] & (DIPLO_WAR | DIPLO_ALLIANCE)) == 0) {
         this->diplomacy[attacker_pid][target_pid] |= DIPLO_WAR;
         if (!attacker->pOwner->is_ai) {
-#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+#if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
             // auto_war_1 hook (5B56EF)
             if (Config::LogMode & SVL_DIPLOMACY) {
                 Printf("Player %s (%s) set auto-war to player %s", (const char*)attacker->pOwner->name, "attacker", (const char*)target->pOwner->name);
@@ -644,7 +650,7 @@ void Diplomacy::RecordHostility(Unit* attacker, Unit* target, int32_t hit_flag) 
     if (hit_flag == 0 || target->eye2->hits_taken > 10 || target->hp < target->hp_max / 2 || target->some_state == Unit::EXEC_DEAD) {
         this->diplomacy[target_pid][attacker_pid] |= DIPLO_WAR;
         if (!target->pOwner->is_ai) {
-#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+#if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
             // auto_war_2 hook (5B57C6)
             if (Config::LogMode & SVL_DIPLOMACY) {
                 Printf("Player %s (%s) set auto-war to player %s", (const char*)target->pOwner->name, "victim", (const char*)attacker->pOwner->name);
@@ -2765,7 +2771,7 @@ Spell* World::GetCastableSpell(Unit* unit, int32_t spell_number, int32_t /*flag*
 // wraps GetCastableSpell for the autobuff paths only - a bit set in the
 // player's persisted autobuff_mask suppresses that spell (AI is exempt).
 Spell* World::GetAutobuffSpell(Unit* unit, int32_t spell_number) {
-#if defined(A2TANGAR_HAT) && !defined(A2CLIENT)
+#if defined(A2SERVER_PATCH) && !defined(A2CLIENT)
     if (!unit->pOwner->is_ai) {
         settings::PlayerSettings* ps = settings::Find((const char*)unit->pOwner->name);
         if (ps != nullptr && (ps->autobuff_mask & (1u << spell_number)) != 0) {

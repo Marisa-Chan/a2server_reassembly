@@ -1289,7 +1289,7 @@ void VisCharGen::DoOpen() {
 
 // 429475 (client: 42b395)
 void VisCharGenStats::LoadBitmaps() {
-#ifdef A2CLIENT_PATCH
+#if defined(A2CLIENT) && defined(A2TANGAR_HAT)
     // Tangar: the char-gen stats panel is up, so a new character is being
     // created (it does not re-read the a2c file) - gui_bugfix.cpp
     // new_character_screen hook, 42B599.

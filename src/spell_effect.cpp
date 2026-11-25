@@ -171,7 +171,7 @@ void PointEffect::FinishHit() {
         if (this->caster != nullptr && this->offensive != 0) {
             if (this->caster->monster_info == nullptr) {
                 attacker->last_hit_by = nullptr;
-            #ifdef A2SERVER_PATCH
+            #if defined(A2SERVER_PATCH) && defined(A2TANGAR_HAT)
             // prevent_suicide_point_effect hook (53766C): self-damage must
             // not overwrite the kill attribution
             } else if (this->caster->pOwner != nullptr && attacker != this->caster) {
@@ -279,7 +279,7 @@ void AreaEffect::DamageUnit(Unit* unit) {
         unit->last_hit_by = nullptr;
     } else if (this->caster->pOwner == nullptr) {
         unit->last_hit_by = nullptr;
-    #ifdef A2SERVER_PATCH
+    #if defined(A2SERVER_PATCH) && defined(A2TANGAR_HAT)
     // prevent_suicide_area_effect hook (538473): self-damage must not
     // overwrite the kill attribution
     } else if (this->itemDataID != spell::darkness && unit != this->caster) {

@@ -46,6 +46,11 @@
 #include "patch/flags.h"
 #include "patch/hat_net.h"
 #endif
+// The HAT control link and its socket wrappers are part of every patched build.
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+#include "patch/config_new.h"
+#include "patch/hat_net.h"
+#endif
 
 #if defined(A2CLIENT_PATCH) || defined(A2SERVER_PATCH)
 #include "patch/netlog.h"
@@ -775,7 +780,7 @@ void CHlDriver::UpdateConnStats() {
 
 // 51e289 (client: 50ec97) - Send hat lobby info packet
 void CHlDriver::SendHatLobbyInfo(int32_t player_count, CString source, int32_t map_level, int32_t game_type, int32_t map_range) {
-#ifdef A2TANGAR_HAT
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
     // imp_UpdateInfo hook (51E289): push server status over the HAT control
     // layer instead of legacy 0xD2 HAT_LOBBY_INFO so HAT preserves SERVER_CAP_DETAILED_INFO.
     if ((Config::ServerCaps & SVC_DETAILED_INFO) != 0) {
@@ -2375,7 +2380,7 @@ void CLlDriver::CloseTcpSocket(A2NetSock* sock) {
 
     sock->is_in_use = 0;
     if (sock->socket != INVALID_SOCKET) {
-#ifdef A2TANGAR_HAT
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
         tangar_hat::CloseServerSocket(sock->socket);
 #else
         closesocket(sock->socket);
@@ -3343,7 +3348,7 @@ void __cdecl CLlDriver::AcceptThreadTcp(void* context) {
             if (drv->listen_socket.is_in_use == 1 &&
                 FD_ISSET(drv->listen_socket.socket, &fd) &&
                 drv->RecvThreadTcp(&drv->listen_socket) == 0) {
-#ifdef A2TANGAR_HAT
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
                 tangar_hat::CloseServerSocket(drv->listen_socket.socket);
 #else
                 closesocket(drv->listen_socket.socket);
@@ -3356,7 +3361,7 @@ void __cdecl CLlDriver::AcceptThreadTcp(void* context) {
         if (FD_ISSET(drv->listen_socket.socket, &fd)) {
             sockaddr_in newcon;
             int newconln = sizeof(newcon);
-#ifdef A2TANGAR_HAT
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
             SOCKET nsock = tangar_hat::AcceptServerSocket(drv->listen_socket.socket, (sockaddr*)&newcon, &newconln);
 #else
             SOCKET nsock = accept(drv->listen_socket.socket, (sockaddr*)&newcon, &newconln);
@@ -3369,7 +3374,7 @@ void __cdecl CLlDriver::AcceptThreadTcp(void* context) {
             }
             
             if (drv->num_connections >= drv->max_connections) {
-#ifdef A2TANGAR_HAT
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
                 tangar_hat::CloseServerSocket(nsock);
 #else
                 closesocket(nsock);
@@ -3391,7 +3396,7 @@ void __cdecl CLlDriver::AcceptThreadTcp(void* context) {
             }
 
             if (idx == -1) {
-#ifdef A2TANGAR_HAT
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
                 tangar_hat::CloseServerSocket(nsock);
 #else
                 closesocket(nsock);
@@ -3422,7 +3427,7 @@ void __cdecl CLlDriver::AcceptThreadTcp(void* context) {
 #endif
                 FD_ISSET(conn->socket, &fd) &&
                 drv->RecvThreadTcp(conn) == 0) {
-#ifdef A2TANGAR_HAT
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
                 tangar_hat::CloseServerSocket(conn->socket);
 #else
                 closesocket(conn->socket);
@@ -3463,7 +3468,9 @@ int CLlDriver::RecvThreadTcp(A2NetSock* sock) {
 #ifdef A2CLIENT_PATCH
     static uint8_t databuf[51200];
     int rsz = tangar_client::RecvClientFramed(sock->socket, reinterpret_cast<char*>(databuf), sizeof(databuf), 0);
-#elif defined(A2TANGAR_HAT)
+#elif defined(A2SERVER_PATCH)
+    // Server side of the v20 framing (every patched server): whole packets and
+    // demultiplexed 0x80100000 extended frames instead of the retail recv().
     uint8_t databuf[0x2000];
     int rsz = tangar_hat::RecvServerFramed(sock->socket, reinterpret_cast<char*>(databuf), sizeof(databuf), 0);
     if (rsz == -2) {
@@ -3521,7 +3528,7 @@ int CLlDriver::RecvThreadTcp(A2NetSock* sock) {
             if (cpysz == cpynum) {
                 sock->current_buffer->datasz = sock->current_buffer->pos;
                 XorData(sock->current_buffer->buf, sock->current_buffer->datasz);
-#if defined(A2TANGAR_HAT) || defined(A2CLIENT_PATCH)
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
                 {
                     long peer_port = netlog_peer_port(sock->socket);
 #ifdef A2CLIENT
@@ -4341,7 +4348,7 @@ int CLlDriver::SendDataTcp(A2NetSock* sock, NetPacketBuffer* buffer) {
                       &buffer->full_data, len, "snd");
 #endif
 #endif
-#ifdef A2TANGAR_HAT
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
         tangar_hat::FlushEnqueuedPackets(sock->socket);
 #endif
         sendlen = send(sock->socket, (char*)&buffer->full_data, len, 0);

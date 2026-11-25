@@ -3,6 +3,9 @@
 #include "patch/summon.h"
 #include "patch/damage_filter.h"
 #endif
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+#include "patch/damage_filter.h"
+#endif
 
 #include <algorithm>
 #include <cmath>
@@ -591,7 +594,7 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
             if (target->IsUnit() != 0) {
                 int32_t earth_protection = target->protections.magic_protections[magic_sphere::earth];
                 int32_t max_duration = effect->spell_value * (100 - earth_protection) / 100;
-#ifdef A2TANGAR_HAT
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
                 // srv_pvm.xck + verify_damage hook (53C390 -> 5040D2)
                 max_duration = TangarOnDamage(caster, target, static_cast<int16_t>(max_duration));
 #endif
@@ -868,7 +871,7 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
                 if (drain >= till_corpse) {
                     drain = till_corpse;
                 }
-#ifdef A2TANGAR_HAT
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
                 // srv_pvm.xck + verify_damage hook (53A740 -> 5040D2)
                 drain = TangarOnDamage(caster, target, static_cast<int16_t>(drain));
 #endif
@@ -881,14 +884,14 @@ void Spell::ExecuteAtArea(Unit* caster, Unit* target, int8_t x, int8_t y) {
                 }
                 target->hp -= drain;
                 g_NetStru1_main.SendUnitUpdate(target, nullptr, UNIT_UPD_HP, EQUIP_SLOTS_ALL, 0, 0);
-                #ifdef A2SERVER_PATCH
+                #if defined(A2SERVER_PATCH) && defined(A2TANGAR_HAT)
                 // prevent_suicide_drain_life hook (53A7CC): self-damage must
                 // not overwrite the kill attribution
                 if (target != caster) {
                 #endif
                 target->last_hit_by = caster;
                 target->last_hit_spell_id = this->spell_id;
-                #ifdef A2SERVER_PATCH
+                #if defined(A2SERVER_PATCH) && defined(A2TANGAR_HAT)
                 }
                 #endif
                 caster->AddHp(drain);

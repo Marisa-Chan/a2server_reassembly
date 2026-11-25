@@ -39,6 +39,12 @@
 #include "patch/player_info.h"
 #endif
 
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+#include "patch/damage_filter.h"
+#include "patch/player_info.h"
+#include "patch/tangar_log.h"
+#endif
+
 // 6cdb98
 std::array<CString, 10> MALE_HUMAN_NAMES = {"", "Biker", "Vasya", "Duke Killer", "Samuil", "Danath", "Legolas", "Fat Sam", "Ragnar", "Sir Gerald"};
 
@@ -1221,7 +1227,7 @@ uint32_t Unit::RollDamage(UnitToHit* unit_to_hit, Unit* attacker) {
             int16_t protection = this->protections.magic_protections[sphere];
             if (protection != 0) {
                 spell_dmg = (int32_t)((100.0 - protection) * (double)spell_dmg / 100.0 + 0.75);
-#ifdef A2TANGAR_HAT
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
                 // srv_pvm.xck + verify_damage hook (536F42..537087 -> 504033)
                 spell_dmg = TangarOnDamage(attacker, this, static_cast<int16_t>(spell_dmg));
 #else
@@ -1242,7 +1248,7 @@ uint32_t Unit::RollDamage(UnitToHit* unit_to_hit, Unit* attacker) {
     if (attacker != nullptr && attacker->monster_info != nullptr) {
         if (attacker->pOwner == nullptr) {
             this->last_hit_by = nullptr;
-#ifdef A2SERVER_PATCH
+#if defined(A2SERVER_PATCH) && defined(A2TANGAR_HAT)
         // prevent_suicide_regular hook (5370ED): self-damage must not
         // overwrite the kill attribution
         } else if (this != attacker) {
@@ -1263,7 +1269,7 @@ uint32_t Unit::RollDamage(UnitToHit* unit_to_hit, Unit* attacker) {
         }
     }
 
-#ifdef A2TANGAR_HAT
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
     // srv_pvm.xck + verify_damage hook (537171 -> 504033)
     return TangarOnDamage(attacker, this, static_cast<int16_t>(cumulative));
 #else
@@ -1365,7 +1371,7 @@ void Unit::InitDefaultStats() {
 
 // 52c409 (client: 519fb1) - Return unit to map.
 int32_t Unit::ReturnToMap() {
-#ifdef A2TANGAR_HAT
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
     // add_player_to_map hook (52C409): skip if already on the map ((unit_attrs & 8) == 0)
     // to prevent duplicate g_ServerUnits insertions (speed-hack exploit).
     if ((this->unit_attrs & ATTR_PHASED_OUT) == 0) {
@@ -1380,7 +1386,7 @@ int32_t Unit::ReturnToMap() {
         y = this->position->GetY();
         x = this->position->GetX();
         if (!this->PlaceOnMap(x, y, 3)) {
-#ifdef A2TANGAR_HAT
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
             // imp_ReturnFail hook (52C45E): schedule forced-return retry for main unit.
             if (this->pOwner != nullptr && this == this->pOwner->main_unit) {
                 if (PlayerInfo* pi = PI_Get(this->pOwner)) {
@@ -1396,7 +1402,7 @@ int32_t Unit::ReturnToMap() {
 #endif
         }
     }
-#ifdef A2TANGAR_HAT
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
     if (this->pOwner != nullptr && this == this->pOwner->main_unit) {
         if (PlayerInfo* pi = PI_Get(this->pOwner)) {
             pi->ShouldReturn = false;
@@ -2555,9 +2561,9 @@ void Humanoid::RecalcStats() {
     max_reaction = caps.Reaction;
     max_mind = caps.Mind;
     max_spirit = caps.Spirit;
-#elif defined(A2CLIENT_PATCH)
+#elif defined(A2CLIENT) && defined(A2TANGAR_HAT)
     // character_stats hook (client 51D2D8): stat ceiling 100 for all
-    // stats on the patched client
+    // stats on the Tangar client (Tangar balance change)
     max_body = 100;
     max_reaction = 100;
     max_mind = 100;
