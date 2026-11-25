@@ -48,16 +48,31 @@ void MapPlayerData::Dump(CDumpContext& dc) const {
 
 // 41edf0 (client: 420c00)
 int32_t MapPlayerData::IsMuted(int32_t idx) {
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+    if (idx < 0 || idx >= this->diplomacy.GetSize()) {
+        return 0;
+    }
+#endif
     return this->diplomacy[idx] & DIPLO_MUTE;
 }
 
 // 41ee20 (client: 420c30)
 uint32_t MapPlayerData::IsHostile(int32_t idx) {
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+    if (idx < 0 || idx >= this->diplomacy.GetSize()) {
+        return 0;
+    }
+#endif
     return this->diplomacy[idx] & DIPLO_WAR;
 }
 
 // 41ee50 (client: 420610)
 int32_t MapPlayerData::SharesVisionWithUs(int32_t idx) {
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+    if (idx < 0 || idx >= this->diplomacy.GetSize()) {
+        return 0;
+    }
+#endif
     return this->diplomacy[idx] & DIPLO_SHARED_VISION;
 }
 

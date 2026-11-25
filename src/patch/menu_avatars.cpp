@@ -287,7 +287,7 @@ static bool BuildPaperDoll(const char* path, CBmp64* picture) {
     // lie bytes left over from parsing another file. An item the game does
     // not know stops that constructor after its id, so from there the stream
     // cannot be followed.
-    if (shown && equipped != nullptr) {
+    if (shown && equipped != nullptr && (equipped->mode & 0x7f) != ITEM_LIST_INVENTORY) {
         uint8_t* data = equipped->data;
         // The stream is as long as the packet header says, and never longer than the section.
         uint32_t data_size = equipment_size >= 9 ? equipment_size - 9 : 0;

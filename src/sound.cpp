@@ -822,7 +822,11 @@ void MusicPlayer::ReadPortion(uint8_t* buf) {
         this->end_pos = (this->buffer_size / 2) - buffer_space;
         this->track_wrap_pending = 1;
 
+#ifdef A2CLIENT_PATCH
+        if (g_CurrentMusicTrack < 0 || g_CurrentMusicTrack >= this->playlist.GetSize()) {
+#else
         if (g_CurrentMusicTrack < 0) {
+#endif
             if (this->play_mode == 0) {
                 this->OpenTrack((this->current_track_id + 1) % this->playlist.GetSize());
             } else {
@@ -931,38 +935,6 @@ void MusicPlayer::QueueTrack(int32_t track) {
     this->BeginFadeOut(2000, 8000);
     this->track_to_play = track;
 }
-
-#ifdef A2CLIENT
-int32_t g_SndPlaybackMarker = 0; // client 5fbb90 — playback marker read by ReadPortion; -1 = none
-
-// split from 45b0ff (client: 45ed2f) - client-only helper
-void MusicPlayer::SwitchPlaylistAndPlayRandom(const CStringArray& plist) {
-    if (this->ds_buffer != nullptr) {
-        this->OnEndTrack();
-        this->playlist.Copy(plist);
-        int32_t n = this->playlist.GetSize();
-        this->track_ids.SetSize(n, -1);
-        this->StartPlayTrack(rand() % n);
-    }
-    g_SndPlaybackMarker = -1;
-}
-
-// client: 45f195 — the client gate here is the sound-dialog runtime toggle
-// (client 62c874, written by SoundPreferencesDialogVisualObject::MsgProc),
-// which mirrors g_SoundSettings.music_enabled
-// split from 45b565 (client: 45f195) - recompute buffer time, resume updates, restart the loop
-void MusicPlayer::RestartLooping() {
-    if (g_SoundSettings.music_enabled == 0 || this->ds_buffer == nullptr || this->file_opened == 0) {
-        return;
-    }
-    this->UpdateBufferTime();
-    if (this->update_disabled != 0) {
-        this->SetUpdateProc();
-    }
-    this->update_disabled = 0;
-    this->ds_buffer->Play(0, 0, DSBPLAY_LOOPING);
-}
-#endif
 
 // 4c880e (client: 4cd1a8)
 void SfxBank::Load(CString name) {

@@ -432,6 +432,11 @@ const char* VisSideStatus::GetHint() {
     if (main_wnd->drag_entry != nullptr) {
         return nullptr;
     }
+#ifdef A2CLIENT_PATCH
+    if (main_wnd->dialogsMask != DIALOG_MASK_INGAME) {
+        return nullptr;
+    }
+#endif
 
     VisPlayingArea* map = main_wnd->vis_map_context;
     CPoint mouse_pt(g_mousept.GetX(), g_mousept.GetY());
@@ -441,7 +446,13 @@ const char* VisSideStatus::GetHint() {
     CUnit* unit = nullptr;
     int32_t moved_up = (screen_rect.Height() >= main_wnd->vis_charinfo->GetRect().Height()) ? 1 : 0;
     if (map->selected_object_count == 1) {
+#ifdef A2CLIENT_PATCH
+        if (map->primary_selected_object != nullptr && map->primary_selected_object->IsKindOf(RUNTIME_CLASS(CUnit))) {
+            unit = (CUnit*)map->primary_selected_object;
+        }
+#else
         unit = (CUnit*)map->primary_selected_object;
+#endif
     }
     if (unit == nullptr || moved_up == 0) {
         return nullptr;

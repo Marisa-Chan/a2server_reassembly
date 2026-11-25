@@ -2437,9 +2437,9 @@ void MainWindow::ReturnToMainMenu() {
         menu_list.Add("music\\menu.wav");
         if (this->music_player->GetPlaylistSize() == 0 ||
             strcmp(this->music_player->GetPlaylistEntry(0), menu_list[0]) != 0) {
-            this->music_player->SwitchPlaylistAndPlayRandom(menu_list);
+            this->music_player->SetPlayList(menu_list);
         }
-        this->music_player->RestartLooping();
+        this->music_player->Play();
     }
 
     elm = this->vis_map_context->FindChild(MAP_CHILD_QUEST_STATUS);
@@ -6084,9 +6084,8 @@ int32_t MainWindow::ClientRefreshUpdateCharacters() {
         g_NetStru1_local.SendHatCharId(hid);
         g_GameStatusCode = SESSION_ERROR_NONE;
 
+        uint32_t start_time = timeGetTime();
         while (true) {
-
-            uint32_t start_time = timeGetTime();
             if (PeekMessageA(&msg, nullptr, 0, 0, 1) != 0) {
                 if (msg.message == WM_QUIT) {
 #ifdef A2CLIENT_PATCH
@@ -6694,8 +6693,15 @@ void CGameSession::LoadCharacterRosterEntry(int32_t idx) {
 
             hum->RecalcStats();
 
+#ifdef A2CLIENT_PATCH
+            if (equip != nullptr && (equip->mode & 0x7f) != ITEM_LIST_INVENTORY) {
+#else
             if (equip != nullptr) {
+#endif
                 uint8_t* eq_data = equip->data;
+#ifdef A2CLIENT_PATCH
+                const uint8_t* eq_end = eq_data + equip->data_size;
+#endif
 
                 hum->UnequipAll();
 
@@ -6712,7 +6718,26 @@ void CGameSession::LoadCharacterRosterEntry(int32_t idx) {
                 }
 
                 hum->inventory = new Inventory();
+#ifdef A2CLIENT_PATCH
+                for (int i = 1; i < 13 && eq_data + 3 <= eq_end; i++) {
+                    ItemId peek_id = *reinterpret_cast<const uint16_t*>(eq_data);
+                    if (peek_id != ItemId::NONE) {
+                        void* known = nullptr;
+                        if (peek_id >= ItemId::GOLD_PSEUDO_MIN || g_ItemNamePktMap.Lookup(peek_id, known) == 0) {
+                            break;
+                        }
+                        ItemWireFlags peek_flags = eq_data[2];
+                        size_t need = 3;
+                        if (!peek_flags.is_compact_count) {
+                            need += peek_flags.has_magic_effects ? (4 + 2 * static_cast<size_t>(peek_flags.effect_pair_count)) : 2;
+                        }
+                        if (static_cast<size_t>(eq_end - eq_data) < need) {
+                            break;
+                        }
+                    }
+#else
                 for (int i = 1; i < 13; i++) {
+#endif
                     Item* itm = ReadItem(&eq_data);
 
                     if (itm->item_id != 0) {

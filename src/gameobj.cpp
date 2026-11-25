@@ -3751,7 +3751,11 @@ void CUnit::DrawStatsPanel(CRect* rect) {
     }
     if (this->map_player->index == 0) {
         view_level = 7;
+#ifdef A2CLIENT_PATCH
+    } else if (map->my_main_unit != nullptr && map->my_main_unit->SharesVisionWithUs(this->map_player->index) != 0) {
+#else
     } else if (map->my_main_unit->SharesVisionWithUs(this->map_player->index) != 0) {
+#endif
         view_level = 7;
     }
 #ifndef A2CLIENT_PATCH
@@ -3767,7 +3771,11 @@ void CUnit::DrawStatsPanel(CRect* rect) {
 
     if (strlen(this->str1) == 0) {
         if ((this->unitFlags & (UNIT_FLAG_PLAYER_CLASS | UNIT_FLAG_CREATURE)) != 0) {
+#ifdef A2CLIENT_PATCH
+            if (map->my_main_unit != nullptr && map->my_main_unit->IsHostile(this->map_player->index) == 0) {
+#else
             if (map->my_main_unit->IsHostile(this->map_player->index) == 0) {
+#endif
                 g_font2->DrawTextWithShadow(rect->right - 0x58, rect->top + 0x12, TxtFile::AllLines[0x54], CGameFont::ALIGN_HCENTER, label_color, 1);
             } else if (this->typeId < unit_type::monster_first) {
                 g_font2->DrawTextWithShadow(rect->right - 0x58, rect->top + 0x12, TxtFile::AllLines[0x53], CGameFont::ALIGN_HCENTER, label_color, 1);
@@ -3919,7 +3927,11 @@ const char* CUnit::GetStatsHint(int32_t x, int32_t y) {
     }
     if (this->map_player->index == 0) {
         view_level = 7;
+#ifdef A2CLIENT_PATCH
+    } else if (map->my_main_unit != nullptr && map->my_main_unit->SharesVisionWithUs(this->map_player->index) != 0) {
+#else
     } else if (map->my_main_unit->SharesVisionWithUs(this->map_player->index) != 0) {
+#endif
         view_level = 7;
     }
 #ifndef A2CLIENT_PATCH

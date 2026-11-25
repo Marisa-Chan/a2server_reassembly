@@ -2344,6 +2344,13 @@ void VisCharInfo::Draw() {
             sprintf(hp_text, "%d/%d", structure->hp, structure->hp_max);
             g_font2->DrawTextWithShadow(screen_rect.right - 0x58, screen_rect.top + 0x36, hp_text, CGameFont::ALIGN_HCENTER, clrsh_Oxley, 1);
         } else {
+#ifdef A2CLIENT_PATCH
+            if (structure->typeId < 0 || structure->typeId >= g_StructuresInfo.GetSize() || g_StructuresInfo[structure->typeId] == nullptr) {
+                UnlockBackSurface();
+                this->dirty = 0;
+                return;
+            }
+#endif
             if (strcmp(this->picturename, g_StructuresInfo[structure->typeId]->picture) != 0) {
                 strcpy(this->picturename, g_StructuresInfo[structure->typeId]->picture);
                 char path[0x100];
@@ -2440,6 +2447,11 @@ const char* VisCharInfo::GetHint() {
     if ((main_wnd->dialogsMask & DIALOG_MASK_POPUP) != 0) {
         return nullptr;
     }
+#ifdef A2CLIENT_PATCH
+    if ((main_wnd->dialogsMask & (DIALOG_MASK_CHAR_SELECT | DIALOG_MASK_CHARGEN | 0x20 | DIALOG_MASK_TAVERN | DIALOG_MASK_SHOP | DIALOG_MASK_INGAME)) == 0) {
+        return nullptr;
+    }
+#endif
 
     VisPlayingArea* map = this->map_context;
     CPoint mouse_pt(g_mousept.GetX(), g_mousept.GetY());
@@ -2522,9 +2534,18 @@ const char* VisCharInfo::GetHint() {
         return nullptr;
     }
 
+#ifdef A2CLIENT_PATCH
+    if (!sel->IsKindOf(RUNTIME_CLASS(CUnit))) {
+        return nullptr;
+    }
+#endif
     CUnit* unit = (CUnit*)sel;
     if (unit->map_player != nullptr && unit->map_player->index != 0) {
+#ifdef A2CLIENT_PATCH
+        if (map->my_main_unit == nullptr || map->my_main_unit->SharesVisionWithUs(unit->map_player->index) == 0) {
+#else
         if (map->my_main_unit->SharesVisionWithUs(unit->map_player->index) == 0) {
+#endif
             if (this->info_mode != 0) {
                 return nullptr;
             }

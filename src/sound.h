@@ -178,11 +178,6 @@ public:
     void QueueTrack(int32_t track); // 45b681 (client: 45f2b1)
 
     static void MusicUpdaterProc(); // 45a99c (client: 45e5cc)
-
-#ifdef A2CLIENT
-    void SwitchPlaylistAndPlayRandom(const CStringArray& plist); // split from 45b0ff (client: 45ed2f) - client-only helper
-    void RestartLooping(); // split from 45b565 (client: 45f195) - recompute buffer time, resume updates, restart the loop
-#endif
 public:
     int32_t gap_0x4;
     uint32_t next_update_time;

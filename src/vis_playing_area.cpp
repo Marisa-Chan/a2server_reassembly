@@ -1136,7 +1136,7 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 
                     ct->m_bSelectionDirty = 1;
 
-                    if ((ct->unitFlags & UNIT_FLAG_MAGE) != 0 && wnd->sessionMode != SESSION_LOCAL_BATTLE) {
+                    if ((ct->unitFlags & UNIT_FLAG_TOKEN_GOLD_ENTRY) != 0 && wnd->sessionMode != SESSION_LOCAL_BATTLE) {
                         uint8_t* pdata = packet_state->data;
                         for (int i = 0; i < 12; i++) {
                             if ((packet_state->start_index & (1 << i)) != 0) {
@@ -1159,8 +1159,13 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
                             }
                         }
 
-                        CString fname = wnd->m_GameSession.GetSelectedRosterPath();
-                        WritePlayerFile(fname, nullptr, nullptr, nullptr, packet_state, nullptr, nullptr, 0);
+#ifdef A2CLIENT
+                        if (wnd->net_session.internet_game == 0 || wnd->hat_settings.ishat == 0 || wnd->hat_settings.deathmatch == 0)
+#endif
+                        {
+                            CString fname = wnd->m_GameSession.GetSelectedRosterPath();
+                            WritePlayerFile(fname, nullptr, nullptr, nullptr, packet_state, nullptr, nullptr, 0);
+                        }
                     }
                 }
                 break;
@@ -1282,8 +1287,13 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
                             }
 
 
-                            CString fname = wnd->m_GameSession.GetSelectedRosterPath();
-                            WritePlayerFile(fname, nullptr, nullptr, nullptr, packet_state, nullptr, nullptr, 0);
+#ifdef A2CLIENT
+                            if (wnd->net_session.internet_game == 0 || wnd->hat_settings.ishat == 0 || wnd->hat_settings.deathmatch == 0)
+#endif
+                            {
+                                CString fname = wnd->m_GameSession.GetSelectedRosterPath();
+                                WritePlayerFile(fname, nullptr, nullptr, nullptr, nullptr, packet_state, nullptr, 0);
+                            }
                         }
 
                         TokenEntry* gt = new TokenEntry(0);
@@ -2580,7 +2590,9 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
                     int32_t res = ParsePlayerFile(&fl, &basic, &stats, &kstat, &equip, &state, &a40, &a40_sz);
                     fl.Close();
                     if (res == 0)
-                        wnd->m_GameSession.hat_char_ids.Add(*chr);
+                        wnd->m_GameSession.pending_hat_downloads.Add(*chr);
+                } else {
+                    wnd->m_GameSession.pending_hat_downloads.Add(*chr);
                 }
             }
             else if (fl.Open(fname, CFile::modeRead)) {
@@ -2597,7 +2609,11 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 
                 memfile.Detach();
 
+#ifdef A2CLIENT_PATCH
+                if (res && basic && stats && equip && kstat && state) {
+#else
                 if (res && basic && stats && equip) {
+#endif
                     FileSectionBasicInfo srv_basic = *basic;
                     FileSectionStats srv_stats = *stats;
 
@@ -2938,6 +2954,19 @@ void VisPlayingArea::SendRequestUnitUpdateFile(const CString& fname) {
 // 41d2da (client: 41eb5c)
 void VisPlayingArea::ResetWorldState(int32_t arg) {
     this->my_unit = nullptr;
+#ifdef A2CLIENT_PATCH
+    this->primary_selected_object = nullptr;
+    this->primary_selected_assoc = nullptr;
+    this->selected_object_count = 0;
+    this->selection_flags = SEL_NONE;
+    this->hovered_unit = nullptr;
+    this->hovered_unit_id = 0;
+    this->order_mode = ORDER_MODE_NONE;
+    MainWindow* wnd = (MainWindow*)AfxGetMainWnd();
+    if (wnd != nullptr && wnd->vis_invtype1 != nullptr) {
+        wnd->vis_invtype1->BindUnitInventory(nullptr);
+    }
+#endif
 
     if (!this->objects.IsEmpty()) {
         POSITION it = this->objects.GetStartPosition();
@@ -2987,6 +3016,9 @@ void VisPlayingArea::ResetWorldState(int32_t arg) {
         if (this->map_players.GetSize()) {
             this->map_players.SetSize(1);
         }
+#ifdef A2CLIENT_PATCH
+        this->my_main_unit = nullptr;
+#endif
     }
 
     this->terrain_light_override_cells.RemoveAll();
