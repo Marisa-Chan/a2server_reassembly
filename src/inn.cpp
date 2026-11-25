@@ -118,7 +118,7 @@ void Inn::InnCreateQuests(Player* player) {
         return;
     }
 #endif
-    int32_t exp = player->main_unit->_exp;
+    int32_t exp = player->main_unit->experience;
     int max_skill = 0;
     for (int i = 1; i < 6; i++) {
         max_skill = (std::max)(max_skill, (int)player->main_unit->hit_values.skill_levels[i]);
@@ -595,7 +595,7 @@ void Inn::InnCreateQuests(Player* player) {
             int pick = Random0N(candidates.size() - 1);
             Unit* unit = candidates[pick];
 
-            int32_t reward = player->main_unit->_exp / 33;
+            int32_t reward = static_cast<int32_t>(player->main_unit->experience) / 33;
             int32_t obj = 0;
 
             Quest* q = MakeActiveQuest(this, new QuestEscort());
@@ -705,7 +705,7 @@ void Inn::InnCreateQuests(Player* player) {
                 int32_t kind = q->Kind();
                 QuestId quest_id = QuestId::Make(this->building_id, player->player_id, kind);
                 int32_t obj = player->main_unit->building_id;
-                int32_t reward = player->main_unit->_exp / 50;
+                int32_t reward = static_cast<int32_t>(player->main_unit->experience) / 50;
                 RegisterQuest(this, q, quest_id, player->player_id, this->building_id, obj, dest_id, limit, reward);
             }
         }
@@ -718,7 +718,7 @@ void Inn::InnCreateQuests(Player* player) {
         int32_t dest_id = g_QuestMap.PickRandomOtherInn(this->building_id);
         if (dest_id != 0 && this->delivery_item_id != 0) {
             Quest* q = MakeActiveQuest(this, new QuestDeliverItem());
-            int32_t reward = player->main_unit->_exp / 100;
+            int32_t reward = static_cast<int32_t>(player->main_unit->experience) / 100;
             int32_t kind = q->Kind();
             QuestId quest_id = QuestId::Make(this->building_id, player->player_id, kind);
             int32_t obj = this->delivery_item_id;

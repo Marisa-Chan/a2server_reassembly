@@ -215,7 +215,7 @@ void TangarFixSummonedUnit(Unit* unit, int level) {
     unit->summoned = 1; // Original instruction.
 
     // Summoned units should not give exp.
-    unit->experience = 0;
+    unit->_exp = 0;
 
     // This removes the units from counting towards "kill N" quests progress,
     // because the server checks unit type by `face << 8 | type_id`.
