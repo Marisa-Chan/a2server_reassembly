@@ -688,6 +688,19 @@ void MapLoader::CreateBuildings(MapAlm* alm) {
                 if (pd->flags != 0) {
                     POSITION pos2 = alm->logic_instances.GetHeadPosition();
                     int32_t script_count = 0;
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+                    for (uint32_t k = 0; k < pd->instance_id && pos2 != nullptr; k++) {
+                        MapLogicData* logic_data = alm->logic_instances.GetNext(pos2);
+                        if (logic_data->type_id < script_action_op::drop_location) {
+                            script_count++;
+                        }
+                    }
+                    if (pos2 != nullptr && alm->logic_instances.GetAt(pos2)->type_id < script_action_op::drop_location) {
+                        pointer->script_instance_id = script_count;
+                    } else {
+                        pointer->script_instance_id = -1;
+                    }
+#else
                     for (int32_t k = 0; k < pd->instance_id; k++) {
                         MapLogicData* logic_data = alm->logic_instances.GetNext(pos2);
                         if (logic_data->type_id < script_action_op::drop_location) {
@@ -695,6 +708,7 @@ void MapLoader::CreateBuildings(MapAlm* alm) {
                         }
                     }
                     pointer->script_instance_id = script_count;
+#endif
                 }
             }
         } else {
@@ -812,6 +826,19 @@ void MapLoader::SpawnGroupOutpost(Group* group, MapAlm* alm) {
         if ((group_data->flags & MapGroupData::HAS_SCRIPT_INSTANCE) != 0) {
             int32_t script_count = 0;
             POSITION logic_pos = alm->logic_instances.GetHeadPosition();
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+            for (uint32_t j = 0; j < group_data->instance_id && logic_pos != nullptr; j++) {
+                MapLogicData* logic_data = alm->logic_instances.GetNext(logic_pos);
+                if (logic_data->type_id < 0x10002) {
+                    script_count++;
+                }
+            }
+            if (logic_pos != nullptr && alm->logic_instances.GetAt(logic_pos)->type_id < 0x10002) {
+                outpost->script_id = script_count;
+            } else {
+                outpost->script_id = -1;
+            }
+#else
             for (uint32_t j = 0; j < group_data->instance_id; j++) {
                 MapLogicData* logic_data = alm->logic_instances.GetNext(logic_pos);
                 if (logic_data->type_id < 0x10002) {
@@ -819,6 +846,7 @@ void MapLoader::SpawnGroupOutpost(Group* group, MapAlm* alm) {
                 }
             }
             outpost->script_id = script_count;
+#endif
         } else {
             outpost->script_id = -1;
         }
@@ -1286,6 +1314,9 @@ void MapLoader::LoadTriggers(MapAlm* alm, int flag) {
                 action.id = action_idx;
                 action_idx++;
             } else {
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+                action = TriggerAction();
+#endif
                 CString message;
                 message.Format("Failed to create instant %d %s",action_data->index, action_data->name);
                 LogMessage(message);

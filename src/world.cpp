@@ -2015,6 +2015,11 @@ void World::DoAutobuff(Unit* unit) {
 // Run trigger action.
 // 5b0e08 (client: 57ef78) - Run script by instance ID
 void World::DoScriptInstID(int32_t script_id) {
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+    if (this->trigger_actions == nullptr || script_id < 0 || script_id >= this->trigger_actions->GetSize()) {
+        return;
+    }
+#endif
     TriggerAction action = (*this->trigger_actions)[script_id];
 
     if (g_Server->script_settings->script_tracing != 0) {
