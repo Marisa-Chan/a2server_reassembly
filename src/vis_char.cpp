@@ -357,6 +357,10 @@ void VisCharSelectList::FreeBitmaps() {
         delete this->bmp_down_shine_on;
     }
     this->bmp_down_shine_on = nullptr;
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+    this->bmp_arrow_up = nullptr;
+    this->bmp_arrow_down = nullptr;
+#endif
 }
 
 
@@ -449,7 +453,7 @@ int32_t VisCharSelectList::SelectNextRow() {
 
 // 431c97 (client: 433dee)
 void VisCharSelectList::UpdateArrows(CPoint pos, bool is_down) {
-#ifdef A2CLIENT
+#ifndef A2CLIENT
     pos -= this->parent_screen->rect.TopLeft();
 #endif
     if (is_down) {
@@ -565,6 +569,10 @@ void VisCharSelectList::ResetListState() {
     this->selected_row = 0;
     this->hovered_row = -1;
     this->renaming = 0;
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+    this->bmp_arrow_up = nullptr;
+    this->bmp_arrow_down = nullptr;
+#endif
 }
 
 
@@ -896,6 +904,14 @@ int32_t VisCharSelect::OnMouseMove(uint32_t wparam, CPoint pos) {
     if (!btn_area.PtInRect(pos)) {
         this->buttons->ResetMouseBoxes();
     }
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+    CRect list_area = this->roster_list->GetRect() + top_left;
+    if (!list_area.PtInRect(pos)) {
+        this->roster_list->bmp_arrow_up = nullptr;
+        this->roster_list->bmp_arrow_down = nullptr;
+        this->roster_list->hovered_row = -1;
+    }
+#endif
     CRect stats_area = this->vis_stats->GetRect() + top_left;
     if (stats_area.PtInRect(pos)) {
         g_Cursors[0]->Use();
