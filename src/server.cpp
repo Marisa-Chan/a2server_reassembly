@@ -2540,18 +2540,23 @@ Human* Server::CreatePlayerCharacter(Player* player, uint8_t body, uint8_t react
 
     Human* unit = new Human(CString(prefix) + filename, 1, nullptr);
 
+#ifdef A2TANGAR_HAT
+    // skip_new_character_stats hook (501049 -> 50100B): accept stats from the hat.
+    unit->body     = body;
+    unit->reaction = reaction;
+    unit->mind     = mind;
+    unit->spirit   = spirit;
+#else
     // Validate stat budget: sum of point costs must not exceed 140
     int32_t budget = 140 - StatLevelPoints(body) - StatLevelPoints(reaction) - StatLevelPoints(mind) - StatLevelPoints(spirit);
-#ifdef A2TANGAR_HAT
-    // skip_new_character_stats hook (501049 -> 50100B): set stats to 1.
-    unit->body = unit->reaction = unit->mind = unit->spirit = 1;
-#else
     bool stats_valid = (budget >= 0);
+
 #ifdef A2SERVER_PATCH
     if (body < 15 || body > 43 || reaction < 15 || reaction > 43 || mind < 15 || mind > 43 || spirit < 15 || spirit > 43) {
         stats_valid = false;
     }
 #endif
+
     if (stats_valid) {
         unit->body     = body;
         unit->reaction = reaction;
