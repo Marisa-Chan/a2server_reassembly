@@ -232,6 +232,9 @@
     <ClCompile Include="smacker_player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="patch\netlog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="group.h">

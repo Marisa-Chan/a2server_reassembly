@@ -259,7 +259,7 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -340,6 +340,7 @@
     <ClCompile Include="packet.cpp" />
     <ClCompile Include="patch\allowed_picture.cpp" />
     <ClCompile Include="patch\kick_char.cpp" />
+    <ClCompile Include="patch\netlog.cpp" />
     <ClCompile Include="perf.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="player_file.cpp" />

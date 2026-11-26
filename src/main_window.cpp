@@ -115,8 +115,8 @@ AFX_DATADEF const AFX_MSGMAP ServerListBox::messageMap =
 
 const AFX_MSGMAP_ENTRY ServerListBox::_messageEntries[] =
 {
-    {WM_KEYDOWN, 0, 0, 0, AfxSig_vwww, (AFX_PMSG)&OnKeyDown},
-    {WM_LBUTTONDBLCLK, 0, 0, 0, AfxSig_vwp, (AFX_PMSG)&OnLButtonDblClk},
+    {WM_KEYDOWN, 0, 0, 0, AfxSig_vwww, (AFX_PMSG)&ServerListBox::OnKeyDown},
+    {WM_LBUTTONDBLCLK, 0, 0, 0, AfxSig_vwp, (AFX_PMSG)&ServerListBox::OnLButtonDblClk},
     {0, 0, 0, 0, AfxSig_end, (AFX_PMSG)0 }
 };
 
@@ -157,7 +157,7 @@ AFX_DATADEF const AFX_MSGMAP ServerCommandEdit::messageMap =
 
 const AFX_MSGMAP_ENTRY ServerCommandEdit::_messageEntries[] =
 {
-    {WM_KEYDOWN, 0, 0, 0, AfxSig_vwww, (AFX_PMSG)&OnKeyDown},
+    {WM_KEYDOWN, 0, 0, 0, AfxSig_vwww, (AFX_PMSG)&ServerCommandEdit::OnKeyDown},
     {0, 0, 0, 0, AfxSig_end, (AFX_PMSG)0}
 };
 
@@ -242,15 +242,15 @@ AFX_DATADEF const AFX_MSGMAP ServerControlDialog::messageMap =
 
 const AFX_MSGMAP_ENTRY ServerControlDialog::_messageEntries[] =
 {
-    { WM_DESTROY, 0, 0, 0, AfxSig_vv, (AFX_PMSG)&OnDestroy },
-    { WM_COMMAND, CN_COMMAND, 0x3f5, 0x3f5, AfxSigCmd_v, (AFX_PMSG)&OnSpeedDown},
-    { WM_COMMAND, CN_COMMAND, 0x3f6, 0x3f6, AfxSigCmd_v, (AFX_PMSG)&OnSpeedUp},
-    { WM_COMMAND, CN_COMMAND, 0x3f4, 0x3f4, AfxSigCmd_v, (AFX_PMSG)&OnKickPlayer},
-    { WM_CLOSE, 0, 0, 0, AfxSig_vv, (AFX_PMSG)&OnClose },
-    { WM_COMMAND, CN_COMMAND, 0x3ff, 0x3ff, AfxSigCmd_v, (AFX_PMSG)&OnDisconnectHat},
-    { WM_COMMAND, CN_COMMAND, 0x3f7, 0x3f7, AfxSigCmd_v, (AFX_PMSG)&OnShutdownNow},
-    { WM_COMMAND, CN_COMMAND, 0x3fb, 0x3fb, AfxSigCmd_v, (AFX_PMSG)&OnStartShutdownTimer},
-    { WM_COMMAND, CN_COMMAND, 0x3fe, 0x3fe, AfxSigCmd_v, (AFX_PMSG)&OnCancelShutdownTimer},
+    { WM_DESTROY, 0, 0, 0, AfxSig_vv, (AFX_PMSG)&ServerControlDialog::OnDestroy },
+    { WM_COMMAND, CN_COMMAND, 0x3f5, 0x3f5, AfxSigCmd_v, (AFX_PMSG)&ServerControlDialog::OnSpeedDown},
+    { WM_COMMAND, CN_COMMAND, 0x3f6, 0x3f6, AfxSigCmd_v, (AFX_PMSG)&ServerControlDialog::OnSpeedUp},
+    { WM_COMMAND, CN_COMMAND, 0x3f4, 0x3f4, AfxSigCmd_v, (AFX_PMSG)&ServerControlDialog::OnKickPlayer},
+    { WM_CLOSE, 0, 0, 0, AfxSig_vv, (AFX_PMSG)&ServerControlDialog::OnClose },
+    { WM_COMMAND, CN_COMMAND, 0x3ff, 0x3ff, AfxSigCmd_v, (AFX_PMSG)&ServerControlDialog::OnDisconnectHat},
+    { WM_COMMAND, CN_COMMAND, 0x3f7, 0x3f7, AfxSigCmd_v, (AFX_PMSG)&ServerControlDialog::OnShutdownNow},
+    { WM_COMMAND, CN_COMMAND, 0x3fb, 0x3fb, AfxSigCmd_v, (AFX_PMSG)&ServerControlDialog::OnStartShutdownTimer},
+    { WM_COMMAND, CN_COMMAND, 0x3fe, 0x3fe, AfxSigCmd_v, (AFX_PMSG)&ServerControlDialog::OnCancelShutdownTimer},
     {0, 0, 0, 0, AfxSig_end, (AFX_PMSG)0 }
 };
 
@@ -456,27 +456,27 @@ AFX_DATADEF const AFX_MSGMAP MainWindow::messageMap =
 
 const AFX_MSGMAP_ENTRY MainWindow::_messageEntries[] =
 {
-    {WM_DESTROY, 0, 0, 0, AfxSig_vv, (AFX_PMSG)&OnDestroy},
-    {WM_CREATE, 0, 0, 0, AfxSig_is, (AFX_PMSG)&OnCreate},
-    {WM_PAINT, 0, 0, 0, AfxSig_vv, (AFX_PMSG)&OnPaint},
-    {WM_SETCURSOR, 0, 0, 0, AfxSig_bWww, (AFX_PMSG)&OnSetCursor},
-    {WM_SETFOCUS, 0, 0, 0, AfxSig_vW, (AFX_PMSG)&OnSetFocus},
-    {WM_KEYDOWN, 0, 0, 0, AfxSig_vwww, (AFX_PMSG)&OnKeyDown},
-    {WM_KEYDOWN, 0, 0, 0, AfxSig_vwww, (AFX_PMSG)&OnKeyDown},
-    {WM_SYSKEYDOWN, 0, 0, 0, AfxSig_vwww, (AFX_PMSG)&OnSysKeyDown},
-    {WM_KEYUP, 0, 0, 0, AfxSig_vwww, (AFX_PMSG)&OnKeyUp},
-    {WM_SYSKEYUP, 0, 0, 0, AfxSig_vwww, (AFX_PMSG)&OnSysKeyUp},
-    {WM_CHAR, 0, 0, 0, AfxSig_vwww, (AFX_PMSG)&OnChar},
-    {WM_KILLFOCUS, 0, 0, 0, AfxSig_vW, (AFX_PMSG)&OnKillFocus},
-    {WM_CLOSE, 0, 0, 0, AfxSig_vv, (AFX_PMSG)&OnClose},
-    {WM_SIZE, 0, 0, 0, AfxSig_vwii, (AFX_PMSG)&OnSize},
-    {WM_COMMAND, CN_COMMAND, 0x9c4e, 0x9c4e, AfxSigCmd_v, (AFX_PMSG)&BeginShutdown},
-    {WM_COMMAND, CN_COMMAND, 0x9c4f, 0x9c4f, AfxSigCmd_v, (AFX_PMSG)&ShowServerControlDialog},
+    {WM_DESTROY, 0, 0, 0, AfxSig_vv, (AFX_PMSG)&MainWindow::OnDestroy},
+    {WM_CREATE, 0, 0, 0, AfxSig_is, (AFX_PMSG)&MainWindow::OnCreate},
+    {WM_PAINT, 0, 0, 0, AfxSig_vv, (AFX_PMSG)&MainWindow::OnPaint},
+    {WM_SETCURSOR, 0, 0, 0, AfxSig_bWww, (AFX_PMSG)&MainWindow::OnSetCursor},
+    {WM_SETFOCUS, 0, 0, 0, AfxSig_vW, (AFX_PMSG)&MainWindow::OnSetFocus},
+    {WM_KEYDOWN, 0, 0, 0, AfxSig_vwww, (AFX_PMSG)&MainWindow::OnKeyDown},
+    {WM_KEYDOWN, 0, 0, 0, AfxSig_vwww, (AFX_PMSG)&MainWindow::OnKeyDown},
+    {WM_SYSKEYDOWN, 0, 0, 0, AfxSig_vwww, (AFX_PMSG)&MainWindow::OnSysKeyDown},
+    {WM_KEYUP, 0, 0, 0, AfxSig_vwww, (AFX_PMSG)&MainWindow::OnKeyUp},
+    {WM_SYSKEYUP, 0, 0, 0, AfxSig_vwww, (AFX_PMSG)&MainWindow::OnSysKeyUp},
+    {WM_CHAR, 0, 0, 0, AfxSig_vwww, (AFX_PMSG)&MainWindow::OnChar},
+    {WM_KILLFOCUS, 0, 0, 0, AfxSig_vW, (AFX_PMSG)&MainWindow::OnKillFocus},
+    {WM_CLOSE, 0, 0, 0, AfxSig_vv, (AFX_PMSG)&MainWindow::OnClose},
+    {WM_SIZE, 0, 0, 0, AfxSig_vwii, (AFX_PMSG)&MainWindow::OnSize},
+    {WM_COMMAND, CN_COMMAND, 0x9c4e, 0x9c4e, AfxSigCmd_v, (AFX_PMSG)&MainWindow::BeginShutdown},
+    {WM_COMMAND, CN_COMMAND, 0x9c4f, 0x9c4f, AfxSigCmd_v, (AFX_PMSG)&MainWindow::ShowServerControlDialog},
 #ifndef A2CLIENT
-    {WM_COMMAND, CN_COMMAND, 0x9c50, 0x9c50, AfxSigCmd_v, (AFX_PMSG)&MarkHatSessionEnded},
-    {WM_SIZING, 0, 0, 0, AfxSig_vwSIZING, (AFX_PMSG)&OnSizing},
-    {WM_NCMOUSEMOVE, 0, 0, 0, AfxSig_vwp, (AFX_PMSG)&OnNcMouseMove},
-    {WM_NCLBUTTONDOWN, 0, 0, 0, AfxSig_vwp, (AFX_PMSG)&OnNcLButtonDown},
+    {WM_COMMAND, CN_COMMAND, 0x9c50, 0x9c50, AfxSigCmd_v, (AFX_PMSG)&MainWindow::MarkHatSessionEnded},
+    {WM_SIZING, 0, 0, 0, AfxSig_vwSIZING, (AFX_PMSG)&MainWindow::OnSizing},
+    {WM_NCMOUSEMOVE, 0, 0, 0, AfxSig_vwp, (AFX_PMSG)&MainWindow::OnNcMouseMove},
+    {WM_NCLBUTTONDOWN, 0, 0, 0, AfxSig_vwp, (AFX_PMSG)&MainWindow::OnNcLButtonDown},
 #endif
 
     {0, 0, 0, 0, AfxSig_end, (AFX_PMSG)0}
