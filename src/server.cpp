@@ -2543,8 +2543,8 @@ Human* Server::CreatePlayerCharacter(Player* player, uint8_t body, uint8_t react
     // Validate stat budget: sum of point costs must not exceed 140
     int32_t budget = 140 - StatLevelPoints(body) - StatLevelPoints(reaction) - StatLevelPoints(mind) - StatLevelPoints(spirit);
 #ifdef A2TANGAR_HAT
-    // skip_new_character_stats hook (501049 -> 50100B): accept stats from the request.
-    bool stats_valid = true;
+    // skip_new_character_stats hook (501049 -> 50100B): set stats to 1.
+    unit->body = unit->reaction = unit->mind = unit->spirit = 1;
 #else
     bool stats_valid = (budget >= 0);
 #ifdef A2SERVER_PATCH
