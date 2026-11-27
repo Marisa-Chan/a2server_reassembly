@@ -2654,10 +2654,19 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
                 g_GameStatusCode = SESSION_ERROR_HAT_CONNECTION_LOST;
 #endif
 
+#ifdef A2CLIENT_PATCH
+            if (g_GameStatusCode != SESSION_ERROR_NONE) {
+                while (g_NetStru1_local.ReceiveAnyPacket() != nullptr) {
+                }
+                return 0;
+            }
+            break;
+#else
             while (g_NetStru1_local.ReceiveAnyPacket() != nullptr)
             {
             }
             return 1;
+#endif
         }
             break;
 

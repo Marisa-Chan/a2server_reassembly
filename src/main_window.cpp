@@ -6076,6 +6076,88 @@ int32_t MainWindow::ClientRefreshUpdateCharacters() {
     UnlockBackSurface();
     FlushScreen();
 
+#ifdef A2CLIENT_PATCH
+    // Keep up to 24 character requests (24 * 22 = 528 bytes, < 1 TCP MSS) in flight
+    // concurrently so network RTT is paid once instead of per character.
+    constexpr int32_t kMaxInFlight = 24;
+
+    this->m_GameSession.RefreshCharacterRosterFiles(0);
+    this->m_GameSession.pending_hat_downloads.RemoveAll();
+
+    int32_t total = this->m_GameSession.hat_char_ids.GetSize();
+    int32_t sent = 0;
+    int32_t received = 0;
+
+    while (sent < total && sent < kMaxInFlight) {
+        g_NetStru1_local.SendHatCharId(this->m_GameSession.hat_char_ids[sent]);
+        sent++;
+    }
+
+    uint32_t start_time = timeGetTime();
+    uint32_t last_draw_time = 0;
+    CRect progress_rect(0, g_ScreenSize.bottom / 2 + 16, g_ScreenSize.right, g_ScreenSize.bottom / 2 + 48);
+
+    while (received < total) {
+        while (PeekMessageA(&msg, nullptr, 0, 0, PM_REMOVE) != 0) {
+            if (msg.message == WM_QUIT) {
+                PostQuitMessage(msg.wParam);
+                return 0;
+            }
+
+            TranslateMessage(&msg);
+            DispatchMessageA(&msg);
+        }
+
+        bool made_progress = false;
+        while (received < total && g_NetStru1_local.GetClientsPktNum() != 0) {
+            g_GameStatusCode = SESSION_ERROR_NONE;
+            if (this->vis_map_context->ProcessPackets(SERVER_TICK) == 0 || g_GameStatusCode != SESSION_ERROR_NONE) {
+                this->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(17), nullptr, 0));
+                this->PostMessage(WM_CLOSE, 0, 0);
+                return 0;
+            }
+
+            received++;
+            made_progress = true;
+            start_time = timeGetTime();
+
+            if (sent < total) {
+                g_NetStru1_local.SendHatCharId(this->m_GameSession.hat_char_ids[sent]);
+                sent++;
+            }
+        }
+
+        if (made_progress) {
+            if (received == total || start_time - last_draw_time >= 33) {
+                last_draw_time = start_time;
+
+                LockBackSurface();
+                FillRectColorSimple(0, g_ScreenSize.bottom / 2 + 16, g_ScreenSize.right, g_ScreenSize.bottom / 2 + 48, 0);
+
+                CString str;
+                str.Format("%d / %d", received, total);
+
+                g_font1->DrawTextWithShadow(g_ScreenSize.right / 2, g_ScreenSize.bottom / 2 + 20, str, CGameFont::ALIGN_HCENTER, clrsh_ShockingBlack, 1);
+                UnlockBackSurface();
+                gfxFlushRect(progress_rect);
+            }
+            continue;
+        }
+
+        if (g_CmdTimeout < timeGetTime() - start_time) {
+            this->ModalScreen(new VisMessageBoxWithList(1, 64, 100, 380, 594, txt_patch.GetLine(18), nullptr, 0));
+            this->PostMessage(WM_CLOSE, 0, 0);
+            return 0;
+        }
+        g_mousept.Update();
+    }
+
+    for (int32_t i = 0; i < this->m_GameSession.pending_hat_downloads.GetSize(); i++) {
+        g_NetStru1_local.SendHatCharRequest(this->m_GameSession.pending_hat_downloads[i]);
+    }
+    this->m_GameSession.pending_hat_downloads.RemoveAll();
+    return 1;
+#else
     m_GameSession.RefreshCharacterRosterFiles(0);
     m_GameSession.pending_hat_downloads.RemoveAll();
 
@@ -6088,9 +6170,6 @@ int32_t MainWindow::ClientRefreshUpdateCharacters() {
         while (true) {
             if (PeekMessageA(&msg, nullptr, 0, 0, 1) != 0) {
                 if (msg.message == WM_QUIT) {
-#ifdef A2CLIENT_PATCH
-                    PostQuitMessage(msg.wParam);
-#endif
                     return 0;
                 }
 
@@ -6131,6 +6210,7 @@ int32_t MainWindow::ClientRefreshUpdateCharacters() {
     }
     m_GameSession.pending_hat_downloads.RemoveAll();
     return 1;
+#endif
 }
 #endif
 
