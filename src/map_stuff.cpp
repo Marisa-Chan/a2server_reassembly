@@ -1789,7 +1789,7 @@ void TerrainMap::RemoveSack(Sack* sack) {
         this->scratch_cell_state.sack = nullptr;
         this->cell_states[yx.val] = this->scratch_cell_state;
         this->RefreshCellObstacles(yx);
-        if (!this->scratch_cell_state.IsEmpty()) {
+        if (this->scratch_cell_state.IsEmpty()) {
             this->RestoreCellState(yx);
         }
     }
