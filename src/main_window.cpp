@@ -6081,7 +6081,6 @@ int32_t MainWindow::ClientRefreshUpdateCharacters() {
     // concurrently so network RTT is paid once instead of per character.
     constexpr int32_t kMaxInFlight = 24;
 
-    this->m_GameSession.RefreshCharacterRosterFiles(0);
     this->m_GameSession.pending_hat_downloads.RemoveAll();
 
     int32_t total = this->m_GameSession.hat_char_ids.GetSize();

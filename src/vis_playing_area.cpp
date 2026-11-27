@@ -2595,6 +2595,7 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
                     wnd->m_GameSession.pending_hat_downloads.Add(*chr);
                 }
             }
+#ifndef A2CLIENT_PATCH
             else if (fl.Open(fname, CFile::modeRead)) {
                 CMemFile memfile((BYTE*)packet_data->data + 8, packet_data->count - 8, 0);
 
@@ -2609,11 +2610,7 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
 
                 memfile.Detach();
 
-#ifdef A2CLIENT_PATCH
-                if (res && basic && stats && equip && kstat && state) {
-#else
                 if (res && basic && stats && equip) {
-#endif
                     FileSectionBasicInfo srv_basic = *basic;
                     FileSectionStats srv_stats = *stats;
 
@@ -2646,6 +2643,7 @@ int32_t VisPlayingArea::ProcessPackets(uint8_t breakid) {
                     g_GameStatusCode = SESSION_ERROR_HAT_CONNECTION_LOST;
                 }
             } 
+#endif
             else if (fl.Open(fname, CFile::modeCreate | CFile::modeWrite)) {
                 fl.Write(packet_data->data + 8, packet_data->count - 8);
                 fl.Close();
