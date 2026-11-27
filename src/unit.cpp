@@ -3133,8 +3133,8 @@ void Humanoid::InitCreationSkills(int8_t main_skill, int8_t skill_level) {
                 this->spell_book->SetSpell(spell_id, new Spell((uint8_t)spell_id));
             }
         }
-        return; // skip the weapon creation entirely
     }
+    return; // skip the weapon creation entirely
 #endif
     if (this->unit_attrs & Unit::ATTR_MAGE) {
         // Mage: create a staff with cast spell.
