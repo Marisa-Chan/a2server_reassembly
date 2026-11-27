@@ -16,8 +16,10 @@
 #include <windows.h>
 #include <dbghelp.h>
 
+#include <cstddef>
 #include <cstdint>
 #include <cstdio>
+#include <cstring>
 
 namespace tangar_crash {
 
@@ -25,13 +27,52 @@ namespace {
 
 volatile LONG g_in_crash_handler = 0;
 
+// Dump directory prefix (<exe dir>\..\logs\) and server number for the file name.
+// Computed once in SetExceptionFilter(). If the exe path can't be parsed,
+// the prefix stays empty and dumps go to the current directory.
+char g_dump_prefix[MAX_PATH] = {};
+char g_server_tag[16] = "0";
+
+void InitDumpLocation() {
+    char exe_path[MAX_PATH] = {};
+    GetModuleFileNameA(nullptr, exe_path, MAX_PATH - 1);
+
+    char* slash = strrchr(exe_path, '\\');
+    if (slash == nullptr) {
+        return;
+    }
+    *slash = '\0';                          // exe_path = ...\Server2
+
+    slash = strrchr(exe_path, '\\');        // slash before "Server2"
+    if (slash == nullptr) {
+        return;
+    }
+
+    // Server number = trailing digits of the folder name ("Server2" -> "2")
+    const char* folder = slash + 1;
+    const char* end = folder + strlen(folder);
+    const char* p = end;
+    while (p > folder && p[-1] >= '0' && p[-1] <= '9') {
+        --p;
+    }
+    if (p != end && (end - p) < static_cast<ptrdiff_t>(sizeof(g_server_tag))) {
+        strcpy(g_server_tag, p);
+    }
+
+    *slash = '\0';                          // exe_path = <parent of exe dir>
+    _snprintf(g_dump_prefix, sizeof(g_dump_prefix) - 2, "%s\\logs", exe_path);
+    CreateDirectoryA(g_dump_prefix, nullptr);   // fine if it already exists
+    strcat(g_dump_prefix, "\\");
+}
+
 void WriteMinidump(EXCEPTION_POINTERS* info) {
     SYSTEMTIME tm = {};
     GetLocalTime(&tm);
 
     char dmp_path[MAX_PATH] = {};
     _snprintf(dmp_path, sizeof(dmp_path) - 1,
-              "crash_%04u%02u%02u_%02u%02u%02u.dmp",
+              "%ssrvmgr%s_crash_%04u%02u%02u_%02u%02u%02u.dmp",
+              g_dump_prefix, g_server_tag,
               static_cast<unsigned>(tm.wYear),
               static_cast<unsigned>(tm.wMonth),
               static_cast<unsigned>(tm.wDay),
@@ -44,7 +85,8 @@ void WriteMinidump(EXCEPTION_POINTERS* info) {
     if (hFile == INVALID_HANDLE_VALUE && GetLastError() == ERROR_FILE_EXISTS) {
         for (unsigned seq = 1; seq < 100 && hFile == INVALID_HANDLE_VALUE; ++seq) {
             _snprintf(dmp_path, sizeof(dmp_path) - 1,
-                      "crash_%04u%02u%02u_%02u%02u%02u_%02u.dmp",
+                      "%ssrvmgr%s_crash_%04u%02u%02u_%02u%02u%02u_%02u.dmp",
+                      g_dump_prefix, g_server_tag,
                       static_cast<unsigned>(tm.wYear),
                       static_cast<unsigned>(tm.wMonth),
                       static_cast<unsigned>(tm.wDay),
@@ -298,6 +340,7 @@ void WriteDiagnostic(const char* reason) {
 }
 
 void SetExceptionFilter() {
+    InitDumpLocation();
     SetUnhandledExceptionFilter(&UnhandledCrashFilter);
     AddVectoredExceptionHandler(1, &FirstChanceHandler);
 }
