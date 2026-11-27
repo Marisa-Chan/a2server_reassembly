@@ -2839,6 +2839,246 @@ Human* Server::LoadCharacter(void* data, int32_t size, Player* player) {
     return unit;
 }
 
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+static CString FormatObstacleBits(uint8_t bits) {
+    if (bits == 0) {
+        return "none";
+    }
+    CString out;
+    auto add = [&](uint8_t mask, const char* name) {
+        if ((bits & mask) != 0) {
+            if (!out.IsEmpty()) {
+                out += '|';
+            }
+            out += name;
+        }
+    };
+    add(obstacle_flag::land, "land");
+    add(obstacle_flag::air_border, "air_bdr");
+    add(obstacle_flag::structure, "struct");
+    add(obstacle_flag::map_border, "map_bdr");
+    add(obstacle_flag::dynamic_block, "dyn_blk");
+    add(obstacle_flag::cell_state, "cell_st");
+    add(obstacle_flag::ground_unit, "gnd_unit");
+    add(obstacle_flag::air_unit, "air_unit");
+    return out;
+}
+
+static CString FormatCellUnit(Unit* u) {
+    if (u == nullptr) {
+        return "null";
+    }
+    const char* owner_name = (u->pOwner != nullptr) ? (const char*)u->pOwner->name : "<no-owner>";
+    int ux = (u->position != nullptr) ? u->position->GetX() : -1;
+    int uy = (u->position != nullptr) ? u->position->GetY() : -1;
+    int gx = (u->eye != nullptr) ? u->eye->guard_cell.x : -1;
+    int gy = (u->eye != nullptr) ? u->eye->guard_cell.y : -1;
+    bool in_srv = (g_ServerUnits != nullptr && g_ServerUnits->unit_list.Find(u) != nullptr);
+    CString s;
+    s.Format("%p id=%u owner='%s' pos=(%d,%d) guard=(%d,%d) hp=%d attrs=0x%x active=%d",
+             (void*)u, (unsigned)u->building_id, owner_name, ux, uy, gx, gy, (int)u->hp, (unsigned)u->unit_attrs, in_srv ? 1 : 0);
+    return s;
+}
+
+static void ExecuteCheckCellCommand(Server* srv, Player* player, CString args) {
+    auto emit = [player](const CString& line) {
+        LogMessage(line);
+        if (player) {
+            g_NetStru1_main.AnnouncePlayerName(line, player);
+        }
+    };
+
+    if (MapStuff_Instance == nullptr) {
+        emit("check_cell: MapStuff_Instance is null.");
+        return;
+    }
+
+    args.TrimLeft();
+    args.TrimRight();
+    args.Replace(',', ' ');
+    args.Replace(':', ' ');
+
+    int x = -1;
+    int y = -1;
+
+    if (sscanf((const char*)args, "%d %d", &x, &y) == 2 && x >= 0 && x <= 255 && y >= 0 && y <= 255) {
+        // OK, valid direct coordinates.
+    } else if (player != nullptr && player->main_unit != nullptr && player->main_unit->position != nullptr && !args.IsEmpty()) {
+        x = player->main_unit->position->GetX();
+        y = player->main_unit->position->GetY();
+
+        for (int i = 0; i < args.GetLength(); ++i) {
+            switch (args[i]) {
+                case 'n': case 'N': case 'u': case 'U': y -= 1; break;
+                case 's': case 'S': case 'd': case 'D': y += 1; break;
+                case 'w': case 'W': case 'l': case 'L': x -= 1; break;
+                case 'e': case 'E': case 'r': case 'R': x += 1; break;
+                case ' ': break;
+                default:
+                    x = -1;
+                    y = -1;
+                    break;
+            }
+        }
+    }
+
+    if (x == -1 && y == -1) {
+        emit("Usage: #check_cell <x> <y> or #check_cell <direction> ('#check_cell nw')");
+        return;
+    }
+
+    if (player != nullptr && player->main_unit != nullptr && player->main_unit->position != nullptr) {
+        // Allow admins to check any cell.
+        if (!(player->flags & GMF_ANY)) {
+            int my_x = player->main_unit->position->GetX();
+            int my_y = player->main_unit->position->GetY();
+
+            if (abs(my_x - x) > 2 || abs(my_y - y) > 2) {
+                emit("Can't check cell far away from yourself.");
+                return;
+            }
+        }
+    }
+
+    TerrainMap* map = MapStuff_Instance;
+    PosYX yx((uint8_t)x, (uint8_t)y);
+    uint8_t obs1 = map->ObstacleAt(yx).bits;
+    uint8_t obs2 = map->DynamicObstacleAt(yx).bits;
+    uint8_t wcost = map->WalkCostAt(yx);
+    uint8_t hgt = map->height_map[yx.val];
+    bool in_bounds = map->IsInMapBounds((uint8_t)x, (uint8_t)y);
+
+    CellState cs;
+    cs.Null();
+    bool has_cs = map->cell_states.Lookup(yx.val, cs) != 0;
+
+    int pass_land = ((obs1 & path_mask::land) == 0 && (obs2 & path_mask::land) == 0) ? 1 : 0;
+    int pass_amph = ((obs1 & path_mask::amphibious) == 0 && (obs2 & path_mask::amphibious) == 0) ? 1 : 0;
+    int pass_air  = ((obs1 & path_mask::flying) == 0 && (obs2 & path_mask::flying) == 0) ? 1 : 0;
+
+    CString line;
+    line.Format("[cell (%d,%d) yx=0x%04x] in_bounds=%d (min=%u,%u max=%u,%u) hgt=%u walk_cost=%u",
+                x, y, (unsigned)yx.val, in_bounds ? 1 : 0,
+                (unsigned)map->map_min_x, (unsigned)map->map_min_y,
+                (unsigned)map->map_max_x, (unsigned)map->map_max_y,
+                (unsigned)hgt, (unsigned)wcost);
+    emit(line);
+
+    line.Format("  obs_static=0x%02x (%s) | obs_dyn=0x%02x (%s) | pass(land/amph/air)=%d/%d/%d",
+                (unsigned)obs1, (const char*)FormatObstacleBits(obs1),
+                (unsigned)obs2, (const char*)FormatObstacleBits(obs2),
+                pass_land, pass_amph, pass_air);
+    emit(line);
+
+    if (((obs1 & obstacle_flag::cell_state) != 0) != has_cs) {
+        line.Format("  WARN: cell_state bit in obs_static (%d) != cell_states.Lookup (%d)!",
+                    (obs1 & obstacle_flag::cell_state) ? 1 : 0, has_cs ? 1 : 0);
+        emit(line);
+    }
+    if ((obs2 & obstacle_flag::ground_unit) != 0 && (!has_cs || cs.static_blocker == nullptr)) {
+        emit("  WARN: STUCK gnd_unit (0x40) in obs_dyn with no static_blocker in cell_states!");
+    }
+    if ((obs2 & obstacle_flag::air_unit) != 0 && (!has_cs || cs.dynamic_blocker == nullptr)) {
+        emit("  WARN: STUCK air_unit (0x80) in obs_dyn with no dynamic_blocker in cell_states!");
+    }
+
+    if (!has_cs) {
+        emit("  cell_states: <no entry>");
+    } else {
+        line.Format("  cell_states: saved_obs=0x%02x (%s) saved_cost=%u is_empty=%d effect_cnt=%u",
+                    (unsigned)cs.obstacle, (const char*)FormatObstacleBits(cs.obstacle),
+                    (unsigned)cs.walk_cost, cs.IsEmpty(), (unsigned)cs.effect_count);
+        emit(line);
+        if (cs.small_unit != nullptr) {
+            emit("    small_unit: " + FormatCellUnit(cs.small_unit));
+        }
+        if (cs.large_unit != nullptr) {
+            emit("    large_unit: " + FormatCellUnit(cs.large_unit));
+        }
+        if (cs.static_blocker != nullptr) {
+            emit("    static_blocker: " + FormatCellUnit(cs.static_blocker));
+        }
+        if (cs.dynamic_blocker != nullptr) {
+            emit("    dynamic_blocker: " + FormatCellUnit(cs.dynamic_blocker));
+        }
+        if (cs.building != nullptr) {
+            Building* b = cs.building;
+            const char* bname = (b->building_info != nullptr) ? (const char*)b->building_info->name : "<unknown>";
+            int bx = (b->position != nullptr) ? b->position->GetX() : 0;
+            int by = (b->position != nullptr) ? b->position->GetY() : 0;
+            int bit_idx = (y - by) * b->width + (x - bx);
+            int unp_bit = (bit_idx >= 0 && bit_idx < 32) ? ((b->unpassable_mask >> bit_idx) & 1) : -1;
+            line.Format("    building: id=%u type=0x%02x ('%s') pos=(%d,%d) %ux%u unpass=0x%x bit[%d]=%d",
+                        (unsigned)b->building_id, (unsigned)b->typeId, bname, bx, by,
+                        (unsigned)b->width, (unsigned)b->height, (unsigned)b->unpassable_mask, bit_idx, unp_bit);
+            emit(line);
+        }
+        if (cs.sack != nullptr) {
+            int item_cnt = (cs.sack->inventory != nullptr) ? (int)cs.sack->inventory->items.GetCount() : -1;
+            line.Format("    sack: %p id=%u gold=%d items=%d",
+                        (void*)cs.sack, (unsigned)cs.sack->building_id, (int)cs.sack->money, item_cnt);
+            emit(line);
+        }
+        for (int i = 0; i < AreaEffect::LAYER_COUNT; i++) {
+            if (cs.area_effects[i] != nullptr) {
+                AreaEffect* ae = cs.area_effects[i];
+                line.Format("    area_effect[%d]: %p type=%u dur=%u expired=%u",
+                            i, (void*)ae, (unsigned)ae->typeId, (unsigned)ae->duration, (unsigned)ae->expired);
+                emit(line);
+            }
+        }
+        if (cs.spell_id != 0) {
+            line.Format("    tile_spell: spell_id=%u dmg=%u src=(%u,%u) tp=(%u,%u)",
+                        (unsigned)cs.spell_id, (unsigned)cs.spell_damage,
+                        (unsigned)cs.spell_x, (unsigned)cs.spell_y,
+                        (unsigned)cs.teleport_x, (unsigned)cs.teleport_y);
+            emit(line);
+        }
+    }
+
+    if (g_ServerUnits != nullptr) {
+        for (POSITION it = g_ServerUnits->unit_list.GetHeadPosition(); it != nullptr;) {
+            Unit* u = g_ServerUnits->unit_list.GetNext(it);
+            if (u == nullptr || u->position == nullptr) {
+                continue;
+            }
+            int sz = u->GetTokenSize();
+            int ux = u->position->GetX();
+            int uy = u->position->GetY();
+            bool on_pos = (x >= ux && x < ux + sz && y >= uy && y < uy + sz);
+            bool on_guard = (u->eye != nullptr && u->eye->guard_cell.val == yx.val);
+            bool on_pos1 = (u->eye != nullptr && u->eye->position1 == yx.val);
+            if (on_pos || on_guard || on_pos1) {
+                line.Format("  live_unit(pos=%d,guard=%d,next=%d): %s",
+                            on_pos ? 1 : 0, on_guard ? 1 : 0, on_pos1 ? 1 : 0,
+                            (const char*)FormatCellUnit(u));
+                emit(line);
+            }
+        }
+    }
+
+    if (srv != nullptr && srv->srv_stru1 != nullptr && srv->srv_stru1->building_list != nullptr) {
+        for (POSITION it = srv->srv_stru1->building_list->GetHeadPosition(); it != nullptr;) {
+            Building* b = srv->srv_stru1->building_list->GetNext(it);
+            if (b == nullptr || b->position == nullptr) {
+                continue;
+            }
+            int bx = b->position->GetX();
+            int by = b->position->GetY();
+            if (x >= bx && x < bx + b->width && y >= by && y < by + b->height) {
+                if (!has_cs || cs.building != b) {
+                    const char* bname = (b->building_info != nullptr) ? (const char*)b->building_info->name : "<unknown>";
+                    line.Format("  live_bld(not in cs): id=%u type=0x%02x ('%s') pos=(%d,%d) %ux%u",
+                                (unsigned)b->building_id, (unsigned)b->typeId, bname, bx, by,
+                                (unsigned)b->width, (unsigned)b->height);
+                    emit(line);
+                }
+            }
+        }
+    }
+}
+#endif
+
 // Processes a cheat/admin command string sent by a player.
 //
 // Admin commands (require ns2->field_0x29c != 0):
@@ -2910,6 +3150,11 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
                 Printf("Map: \"%s\" in \"%s\", time elapsed: %u:%02u:%02u, time total: %s",
                        Config::CurrentMapTitle.c_str(), Config::CurrentMapName.c_str(), tm_h, tm_m, tm_s, (const char*)time_left);
             }
+            return;
+        }
+
+        if (lowered == "#check_cell" || lowered.Find("#check_cell ") == 0) {
+            ExecuteCheckCellCommand(this, player, cheat_string.Mid(11));
             return;
         }
 
@@ -4003,7 +4248,6 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
     }
 
     // player->field_0xa98 > 50: elevated cheat commands available.
-
     if (cheat_string.Find("#create ") == 0) {
         cheat_string = cheat_string.Mid(8);
         cheat_string.TrimLeft();
