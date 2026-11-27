@@ -41,6 +41,7 @@
 #include "patch/scanrange.h"
 
 #if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+#include "patch/build_version.h"
 #include "patch/kick_char.h"
 #include "patch/netlog.h"
 #include "patch/tangar_log.h"
@@ -3110,7 +3111,26 @@ void Server::CheatCommand(Player* player, CString cheat_string) {
     } else {
         LogMessage("Server::CheatCommand: <server> sent cheat command: " + cheat_string);
     }
+#endif
 
+#if defined(A2SERVER_PATCH) || defined(A2CLIENT_PATCH)
+    {
+        CString trimmed_ver(cheat_string);
+        trimmed_ver.TrimLeft();
+        trimmed_ver.TrimRight();
+        if (trimmed_ver.CompareNoCase("#version") == 0) {
+            CString msg;
+            msg.Format("Server version: %s", (g_BuildVersion != nullptr && g_BuildVersion[0] != '\0') ? g_BuildVersion : "unknown");
+            LogMessage(msg);
+            if (player != nullptr) {
+                g_NetStru1_main.AnnouncePlayerName(msg, player);
+            }
+            return;
+        }
+    }
+#endif
+
+#ifdef A2TANGAR_HAT
     // Selectively reconciled commands from the manager's cheat engine.
     // Player-facing settings commands come first (available to everyone).
     {
@@ -6827,7 +6847,7 @@ int Server::Start(int mode) {
             main_wnd->SetWindowTextA(title);
         }
     }
-    Printf("Server started.");
+    Printf("Server started (version: %s).", (g_BuildVersion != nullptr && g_BuildVersion[0] != '\0') ? g_BuildVersion : "unknown");
 #endif
 
     return 0;
