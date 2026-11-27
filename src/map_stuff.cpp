@@ -74,7 +74,7 @@ void TerrainMap::InitFromUnitList(UnitList* unit_list) {
     this->neighbor_dx[6] = -1;  this->neighbor_dy[6] = 0;
     this->neighbor_dx[7] = -1;  this->neighbor_dy[7] = -1;
     for (int32_t i = 0; i < 8; i++) {
-        this->neighbor_yx[i] = PosYX(this->neighbor_dx[i], this->neighbor_dy[i]);
+        this->neighbor_yx[i] = this->neighbor_dy[i] * 0x100 + this->neighbor_dx[i];
     }
 
     // Direction/terrain cost lookup table; purpose not fully reversed.

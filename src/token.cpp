@@ -40,7 +40,7 @@ TokenPos::TokenPos() {
 
 // 58a562 (client: 559a12)
 TokenPos::TokenPos(uint16_t _YX, TerrainMap* _inst) {
-    this->Set(_YX & 8, _YX >> 8, _inst);
+    this->Set(_YX & 0xFF, _YX >> 8, _inst);
 }
 
 // 58a9ee (client: 559e9e)
